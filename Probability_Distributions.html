@@ -306,47 +306,57 @@
     </ul>
 
     <div class="curve-wrapper">
-  <svg width="360" height="210" viewBox="0 0 360 210"
+  <svg width="420" height="230" viewBox="0 0 420 230"
        aria-label="Bell-shaped density curve for resting heart rate.">
-    <!-- axes -->
-    <line x1="40" y1="170" x2="330" y2="170" stroke="#555" stroke-width="1.2"/>
-    <line x1="40" y1="30"  x2="40"  y2="170" stroke="#555" stroke-width="1.2"/>
+    <!-- Axes -->
+    <line x1="60" y1="190" x2="380" y2="190" stroke="#555" stroke-width="1.2"/>
+    <line x1="60" y1="40"  x2="60"  y2="190" stroke="#555" stroke-width="1.2"/>
 
-    <!-- x-axis ticks -->
-    <line x1="80"  y1="170" x2="80"  y2="175" stroke="#555" stroke-width="1"/>
-    <line x1="130" y1="170" x2="130" y2="175" stroke="#555" stroke-width="1"/>
-    <line x1="180" y1="170" x2="180" y2="175" stroke="#555" stroke-width="1"/>
-    <line x1="230" y1="170" x2="230" y2="175" stroke="#555" stroke-width="1"/>
-    <line x1="280" y1="170" x2="280" y2="175" stroke="#555" stroke-width="1"/>
+    <!-- Horizontal grid lines -->
+    <line x1="60" y1="160" x2="380" y2="160" stroke="#e1e4f0" stroke-width="0.8"/>
+    <line x1="60" y1="130" x2="380" y2="130" stroke="#e1e4f0" stroke-width="0.8"/>
+    <line x1="60" y1="100" x2="380" y2="100" stroke="#e1e4f0" stroke-width="0.8"/>
+    <line x1="60" y1="70"  x2="380" y2="70"  stroke="#e1e4f0" stroke-width="0.8"/>
 
-    <text x="80"  y="188" font-size="10" text-anchor="middle" fill="#555">50</text>
-    <text x="130" y="188" font-size="10" text-anchor="middle" fill="#555">60</text>
-    <text x="180" y="188" font-size="10" text-anchor="middle" fill="#555">70</text>
-    <text x="230" y="188" font-size="10" text-anchor="middle" fill="#555">80</text>
-    <text x="280" y="188" font-size="10" text-anchor="middle" fill="#555">90</text>
+    <!-- X-axis ticks and labels (approx 50,60,70,80,90) -->
+    <line x1="100" y1="190" x2="100" y2="195" stroke="#555" stroke-width="1"/>
+    <line x1="160" y1="190" x2="160" y2="195" stroke="#555" stroke-width="1"/>
+    <line x1="220" y1="190" x2="220" y2="195" stroke="#555" stroke-width="1"/>
+    <line x1="280" y1="190" x2="280" y2="195" stroke="#555" stroke-width="1"/>
+    <line x1="340" y1="190" x2="340" y2="195" stroke="#555" stroke-width="1"/>
 
-    <!-- axis labels -->
-    <text x="185" y="205" font-size="11" text-anchor="middle" fill="#333">
-      Resting heart rate $x$ (beats per minute)
+    <text x="100" y="210" font-size="11" text-anchor="middle" fill="#555">50</text>
+    <text x="160" y="210" font-size="11" text-anchor="middle" fill="#555">60</text>
+    <text x="220" y="210" font-size="11" text-anchor="middle" fill="#555">70</text>
+    <text x="280" y="210" font-size="11" text-anchor="middle" fill="#555">80</text>
+    <text x="340" y="210" font-size="11" text-anchor="middle" fill="#555">90</text>
+
+    <!-- Axis labels -->
+    <text x="220" y="227" font-size="12" text-anchor="middle" fill="#333">
+      Resting heart rate (beats per minute)
     </text>
-    <text x="15" y="45" font-size="11" text-anchor="middle" fill="#333" transform="rotate(-90 15 45)">
+    <text x="25" y="55" font-size="12" text-anchor="middle" fill="#333"
+          transform="rotate(-90 25 55)">
       density
     </text>
 
-    <!-- bell curve (smooth Bezier approximation) -->
+    <!-- Filled area under the curve -->
     <path d="
-      M 60 160
-      C 100 150, 120 90, 150 60
-      C 170 40, 200 40, 220 60
-      C 250 90, 270 150, 310 160
-    "
-      fill="none" stroke="#3b6ea8" stroke-width="2.3"/>
+      M 80 190
+      C 110 180, 135 140, 165 105
+      C 190 80, 210 70, 235 80
+      C 265 95, 290 135, 315 180
+      L 315 190
+      Z
+    " fill="#cbd7f4"/>
 
-    <!-- light grid lines -->
-    <line x1="40" y1="140" x2="330" y2="140" stroke="#d7dce8" stroke-width="0.6"/>
-    <line x1="40" y1="110" x2="330" y2="110" stroke="#d7dce8" stroke-width="0.6"/>
-    <line x1="40" y1="80"  x2="330" y2="80"  stroke="#d7dce8" stroke-width="0.6"/>
-
+    <!-- Outline of the density curve -->
+    <path d="
+      M 80 190
+      C 110 180, 135 140, 165 105
+      C 190 80, 210 70, 235 80
+      C 265 95, 290 135, 315 180
+    " fill="none" stroke="#2f5fa1" stroke-width="2.5" stroke-linecap="round"/>
   </svg>
   <div class="curve-caption">
     A bell-shaped density curve for resting heart rate. Higher parts of the curve correspond to more
@@ -355,73 +365,80 @@
 </div>
 
 
+
     <h3>Area under the curve = probability</h3>
     <p>
       If $X$ is resting heart rate, then $P(60 \le X \le 80)$ is the area under the curve
       between 60 and 80 beats per minute:
     </p>
 
-    <div class="curve-wrapper">
-  <svg width="360" height="210" viewBox="0 0 360 210"
-       aria-label="Density curve with shaded middle region corresponding to an interval of heart rates.">
-    <!-- axes -->
-    <line x1="40" y1="170" x2="330" y2="170" stroke="#555" stroke-width="1.2"/>
-    <line x1="40" y1="30"  x2="40"  y2="170" stroke="#555" stroke-width="1.2"/>
+   <div class="curve-wrapper">
+  <svg width="420" height="230" viewBox="0 0 420 230"
+       aria-label="Density curve with shaded middle region for an interval of heart rates.">
+    <!-- Axes -->
+    <line x1="60" y1="190" x2="380" y2="190" stroke="#555" stroke-width="1.2"/>
+    <line x1="60" y1="40"  x2="60"  y2="190" stroke="#555" stroke-width="1.2"/>
 
-    <!-- x-axis ticks with labels (approx) -->
-    <line x1="80"  y1="170" x2="80"  y2="175" stroke="#555" stroke-width="1"/>
-    <line x1="130" y1="170" x2="130" y2="175" stroke="#555" stroke-width="1"/>
-    <line x1="230" y1="170" x2="230" y2="175" stroke="#555" stroke-width="1"/>
-    <line x1="280" y1="170" x2="280" y2="175" stroke="#555" stroke-width="1"/>
+    <!-- Horizontal grid lines -->
+    <line x1="60" y1="160" x2="380" y2="160" stroke="#e1e4f0" stroke-width="0.8"/>
+    <line x1="60" y1="130" x2="380" y2="130" stroke="#e1e4f0" stroke-width="0.8"/>
+    <line x1="60" y1="100" x2="380" y2="100" stroke="#e1e4f0" stroke-width="0.8"/>
+    <line x1="60" y1="70"  x2="380" y2="70"  stroke="#e1e4f0" stroke-width="0.8"/>
 
-    <text x="80"  y="188" font-size="10" text-anchor="middle" fill="#555">60</text>
-    <text x="130" y="188" font-size="10" text-anchor="middle" fill="#555">65</text>
-    <text x="230" y="188" font-size="10" text-anchor="middle" fill="#555">75</text>
-    <text x="280" y="188" font-size="10" text-anchor="middle" fill="#555">80</text>
+    <!-- X-axis ticks and labels (60,65,75,80-ish) -->
+    <line x1="120" y1="190" x2="120" y2="195" stroke="#555" stroke-width="1"/>
+    <line x1="170" y1="190" x2="170" y2="195" stroke="#555" stroke-width="1"/>
+    <line x1="270" y1="190" x2="270" y2="195" stroke="#555" stroke-width="1"/>
+    <line x1="320" y1="190" x2="320" y2="195" stroke="#555" stroke-width="1"/>
 
-    <text x="185" y="205" font-size="11" text-anchor="middle" fill="#333">
-      Resting heart rate $x$ (beats per minute)
+    <text x="120" y="210" font-size="11" text-anchor="middle" fill="#555">60</text>
+    <text x="170" y="210" font-size="11" text-anchor="middle" fill="#555">65</text>
+    <text x="270" y="210" font-size="11" text-anchor="middle" fill="#555">75</text>
+    <text x="320" y="210" font-size="11" text-anchor="middle" fill="#555">80</text>
+
+    <!-- Axis labels -->
+    <text x="220" y="227" font-size="12" text-anchor="middle" fill="#333">
+      Resting heart rate (beats per minute)
     </text>
-    <text x="15" y="45" font-size="11" text-anchor="middle" fill="#333" transform="rotate(-90 15 45)">
+    <text x="25" y="55" font-size="12" text-anchor="middle" fill="#333"
+          transform="rotate(-90 25 55)">
       density
     </text>
 
-    <!-- full bell curve (for reference) -->
-    <path id="fullCurve" d="
-      M 60 160
-      C 100 150, 120 90, 150 60
-      C 170 40, 200 40, 220 60
-      C 250 90, 270 150, 310 160
-    "
-      fill="none" stroke="#9baed5" stroke-width="1.6"/>
-
-    <!-- shaded middle (roughly 60 to 80 bpm region) -->
+    <!-- Full light area under curve -->
     <path d="
-      M 100 160
-      C 120 120, 140 80, 160 65
-      C 180 55, 200 65, 220 95
-      C 235 120, 250 145, 260 160
-      L 260 170
-      L 100 170
+      M 80 190
+      C 110 180, 135 140, 165 105
+      C 190 80, 210 70, 235 80
+      C 265 95, 290 135, 315 180
+      L 315 190
       Z
-    "
-      fill="#3b6ea8" fill-opacity="0.2" stroke="none"/>
+    " fill="#e0e6f8"/>
 
-    <!-- re-draw the curve on top for crisp edge -->
+    <!-- Darker middle slice (approx 60-80 bpm) -->
     <path d="
-      M 60 160
-      C 100 150, 120 90, 150 60
-      C 170 40, 200 40, 220 60
-      C 250 90, 270 150, 310 160
-    "
-      fill="none" stroke="#3b6ea8" stroke-width="2.3"/>
+      M 120 190
+      C 140 160, 155 135, 170 115
+      C 190 95, 210 90, 230 105
+      C 245 120, 260 145, 275 175
+      L 275 190
+      Z
+    " fill="#3b6ea8" fill-opacity="0.35"/>
 
+    <!-- Outline of the density curve on top -->
+    <path d="
+      M 80 190
+      C 110 180, 135 140, 165 105
+      C 190 80, 210 70, 235 80
+      C 265 95, 290 135, 315 180
+    " fill="none" stroke="#2f5fa1" stroke-width="2.5" stroke-linecap="round"/>
   </svg>
   <div class="curve-caption">
     The shaded region under the curve represents $P(60 \le X \le 80)$: the probability that a
     randomly chosen student’s heart rate lies in that interval.
   </div>
 </div>
+
 
 
     <p>
@@ -464,46 +481,46 @@
     </ul>
 
    <div class="curve-wrapper">
-  <svg width="360" height="210" viewBox="0 0 360 210"
+  <svg width="420" height="230" viewBox="0 0 420 230"
        aria-label="Two density curves with the same mean but different spreads.">
-    <!-- axes -->
-    <line x1="40" y1="170" x2="330" y2="170" stroke="#555" stroke-width="1.2"/>
-    <line x1="40" y1="30"  x2="40"  y2="170" stroke="#555" stroke-width="1.2"/>
+    <!-- Axes -->
+    <line x1="60" y1="190" x2="380" y2="190" stroke="#555" stroke-width="1.2"/>
+    <line x1="60" y1="40"  x2="60"  y2="190" stroke="#555" stroke-width="1.2"/>
 
-    <!-- mean marker at center -->
-    <line x1="185" y1="170" x2="185" y2="40" stroke="#666" stroke-dasharray="4,3" stroke-width="1"/>
+    <!-- Vertical mean line -->
+    <line x1="220" y1="190" x2="220" y2="50"
+          stroke="#777" stroke-width="1.2" stroke-dasharray="4,4"/>
 
-    <text x="185" y="32" font-size="10" text-anchor="middle" fill="#555">mean $\mu$</text>
+    <text x="220" y="45" font-size="11" text-anchor="middle" fill="#555">mean</text>
 
-    <!-- narrow curve (small sigma) -->
+    <!-- Narrow curve (smaller sigma) -->
     <path d="
-      M 80 160
-      C 120 150, 150 90, 185 50
-      C 220 90, 250 150, 290 160
-    "
-      fill="none" stroke="#3b6ea8" stroke-width="2.3"/>
+      M 120 190
+      C 150 170, 190 110, 220 70
+      C 250 110, 290 170, 320 190
+    " fill="none" stroke="#2f5fa1" stroke-width="2.5" stroke-linecap="round"/>
 
-    <!-- wide curve (large sigma) -->
+    <!-- Wide curve (larger sigma) -->
     <path d="
-      M 60 160
-      C 110 130, 145 95, 185 80
-      C 225 95, 260 130, 310 160
-    "
-      fill="none" stroke="#a5b7dd" stroke-width="2.3"/>
+      M 80 190
+      C 130 160, 175 120, 220 100
+      C 265 120, 310 160, 360 190
+    " fill="none" stroke="#8fa3d4" stroke-width="2.3" stroke-linecap="round"/>
 
-    <!-- legend -->
-    <rect x="215" y="40" width="10" height="3" fill="#3b6ea8"/>
-    <text x="230" y="45" font-size="10" fill="#555">smaller $\sigma$ (narrower)</text>
+    <!-- Legend -->
+    <rect x="255" y="60" width="20" height="3" fill="#2f5fa1"/>
+    <text x="280" y="65" font-size="10" fill="#555">smaller (narrower)</text>
 
-    <rect x="215" y="60" width="10" height="3" fill="#a5b7dd"/>
-    <text x="230" y="65" font-size="10" fill="#555">larger $\sigma$ (wider)</text>
+    <rect x="255" y="80" width="20" height="3" fill="#8fa3d4"/>
+    <text x="280" y="85" font-size="10" fill="#555">larger (wider)</text>
   </svg>
   <div class="curve-caption">
-    Both curves have the same mean $\mu$ (vertical dashed line). The darker curve is more tightly
-    concentrated around the mean (smaller $\sigma$); the lighter curve is more spread out
-    (larger $\sigma$).
+    Both curves have the same mean (dashed line). The darker curve is more tightly concentrated
+    around the mean (smaller standard deviation); the lighter curve is more spread out
+    (larger standard deviation).
   </div>
 </div>
+
 
   </details>
 
