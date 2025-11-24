@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Week 1 Practice: Populations, Samples, and Descriptive Statistics</title>
+  <script>
+    MathJax = {
+      tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script id="MathJax-script" async
+          src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-svg.js"></script>
+  <style>
+    :root {
+      --bg: #f5f6fb;
+      --card-bg: #ffffff;
+      --border-soft: #d7dce8;
+      --accent: #3b6ea8;
+      --accent-soft: #e4ecf8;
+      --text-main: #1f2833;
+      --text-muted: #5f6470;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      margin: 0;
+      padding: 0;
+      background: radial-gradient(circle at top left, #eef2ff, #f5f6fb 50%, #f9fafc);
+      color: var(--text-main);
+    }
+
+    .page {
+      max-width: 960px;
+      margin: 2.5rem auto 3rem;
+      padding: 0 1.5rem;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 2rem;
+      letter-spacing: 0.03em;
+      color: var(--accent);
+    }
+
+    h2 {
+      margin: 0.35rem 0 0.5rem;
+      font-weight: 500;
+      font-size: 1.1rem;
+      color: var(--text-muted);
+    }
+
+    .note {
+      max-width: 650px;
+      margin: 0.75rem auto 0;
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      background: rgba(255, 255, 255, 0.7);
+      border-radius: 999px;
+      padding: 0.5rem 1.2rem;
+      border: 1px solid rgba(215, 220, 232, 0.8);
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid rgba(215, 220, 232, 0.9);
+      margin: 2rem 0 1.75rem;
+    }
+
+    .problem {
+      border-radius: 16px;
+      padding: 1.3rem 1.4rem 1.5rem;
+      margin-bottom: 1.5rem;
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-soft);
+      box-shadow:
+        0 12px 25px rgba(15, 23, 42, 0.05),
+        0 1px 2px rgba(15, 23, 42, 0.04);
+    }
+
+    .problem h3 {
+      margin-top: 0;
+      margin-bottom: 0.4rem;
+      font-size: 1.1rem;
+      color: var(--accent);
+    }
+
+    .problem > p {
+      margin-top: 0.4rem;
+    }
+
+    .problem ol, .problem ul {
+      padding-left: 1.25rem;
+      margin-top: 0.6rem;
+      margin-bottom: 0.4rem;
+    }
+
+    details.solution {
+      margin-top: 0.7rem;
+      border-radius: 12px;
+      background: var(--accent-soft);
+      padding: 0.6rem 0.9rem 0.75rem;
+    }
+
+    summary {
+      cursor: pointer;
+      font-weight: 600;
+      color: var(--accent);
+      list-style: none;
+      position: relative;
+    }
+
+    summary::marker,
+    summary::-webkit-details-marker { display: none; }
+
+    summary::before {
+      content: "▾";
+      display: inline-block;
+      margin-right: 0.4rem;
+      transition: transform 0.15s ease;
+    }
+
+    details[open] summary::before { transform: rotate(180deg); }
+
+    details.solution > *:not(summary) {
+      margin-top: 0.55rem;
+    }
+
+    table {
+      border-collapse: collapse;
+      margin: 0.5rem 0 0.7rem;
+      width: auto;
+      max-width: 100%;
+      font-size: 0.9rem;
+      background: #fdfdff;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    th, td {
+      border: 1px solid #d9dfec;
+      padding: 0.3rem 0.7rem;
+      text-align: center;
+    }
+
+    th {
+      background: #edf1fb;
+      font-weight: 600;
+    }
+
+    @media (max-width: 600px) {
+      .page {
+        margin-top: 1.5rem;
+        padding: 0 1rem;
+      }
+      .problem {
+        padding: 1.1rem 1.1rem 1.3rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="page">
+  <header>
+    <h1>Week 1 Practice</h1>
+    <h2>Populations, Samples, and Descriptive Statistics</h2>
+    <p class="note">
+      Try each problem before opening the solution. Focus on the story: what is the population,
+      what is the sample, and what do the numbers actually say in context?
+    </p>
+  </header>
+
+  <hr>
+
+  <!-- Problem 1: Proportion in a new context -->
+  <div class="problem">
+    <h3>Problem 1: Campus Coffee Quality</h3>
+    <p>
+      The student government wants to know how many students think the coffee on campus is
+      “good or excellent.” There are about 20,000 students enrolled at the college.
+    </p>
+    <p>
+      They send a short online survey to a random sample of 1,000 students. Out of those, 640
+      say the campus coffee is “good or excellent.”
+    </p>
+    <ol>
+      <li>Identify the population and the sample in this situation.</li>
+      <li>
+        Define the population parameter of interest using a symbol and a clear sentence.
+      </li>
+      <li>
+        Compute the sample statistic that estimates this parameter (use standard notation and
+        give the numerical value).
+      </li>
+      <li>
+        Write one sentence interpreting your sample statistic in context (no symbols).
+      </li>
+    </ol>
+
+    <details class="solution">
+      <summary>Show solution</summary>
+
+      <p><strong>(a) Population and sample</strong></p>
+      <ul>
+        <li><em>Population:</em> all 20,000 students enrolled at the college.</li>
+        <li><em>Sample:</em> the 1,000 students who responded to the survey.</li>
+      </ul>
+
+      <p><strong>(b) Population parameter</strong></p>
+      <p>
+        We care about the true proportion of all students who think the coffee is “good or excellent.”
+        Let
+        \[
+          p = \text{proportion of all students who rate the coffee as good or excellent}.
+        \]
+        This $p$ is a population parameter (unknown).
+      </p>
+
+      <p><strong>(c) Sample statistic</strong></p>
+      <p>
+        In the sample, 640 out of 1,000 students gave that response. The sample proportion is
+        \[
+          \hat p = \frac{640}{1000} = 0.64.
+        \]
+        Here $\hat p$ is the statistic we use to estimate $p$.
+      </p>
+
+      <p><strong>(d) Interpretation in words</strong></p>
+      <p>
+        In our sample, 64% of the surveyed students said the campus coffee is good or excellent.
+      </p>
+      <p>
+        Later in the course, we will ask how close we think $\hat p = 0.64$ is to the true
+        population proportion $p$.
+      </p>
+    </details>
+  </div>
+
+  <!-- Problem 2: Mean/SD same numbers, new context -->
+  <div class="problem">
+    <h3>Problem 2: Weekly Reading Challenge</h3>
+    <p>
+      A reading group on campus challenges students to read more for fun. At the end of a week,
+      the facilitator asks 6 randomly chosen participants how many hours they spent reading
+      non-school books that week.
+    </p>
+    <p>
+      Their answers (in hours) are:
+    </p>
+    <table>
+      <tr>
+        <th>Student</th>
+        <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th>
+      </tr>
+      <tr>
+        <th>Hours $x_i$</th>
+        <td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td>
+      </tr>
+    </table>
+    <ol>
+      <li>Compute the sample mean number of hours $\bar x$.</li>
+      <li>
+        Compute the deviations $x_i - \bar x$ and use them to compute the sample variance $s^2$
+        and standard deviation $s$.
+      </li>
+      <li>
+        Interpret $\bar x$ and $s$ in the context of this reading challenge.
+      </li>
+    </ol>
+
+    <details class="solution">
+      <summary>Show solution</summary>
+
+      <p><strong>(a) Sample mean</strong></p>
+      <p>
+        The hours are $4,5,6,7,8,9$. The sample mean is
+        \[
+          \bar x = \frac{4 + 5 + 6 + 7 + 8 + 9}{6}
+                  = \frac{39}{6}
+                  = 6.5.
+        \]
+        So on average, these students read 6.5 hours that week.
+      </p>
+
+      <p><strong>(b) Sample variance and standard deviation</strong></p>
+      <p>First compute the deviations:</p>
+      <ul>
+        <li>$4 - 6.5 = -2.5$</li>
+        <li>$5 - 6.5 = -1.5$</li>
+        <li>$6 - 6.5 = -0.5$</li>
+        <li>$7 - 6.5 = 0.5$</li>
+        <li>$8 - 6.5 = 1.5$</li>
+        <li>$9 - 6.5 = 2.5$</li>
+      </ul>
+      <p>Square them and add:</p>
+      <p>
+        \[
+          (-2.5)^2 + (-1.5)^2 + (-0.5)^2 + (0.5)^2 + (1.5)^2 + (2.5)^2
+          = 6.25 + 2.25 + 0.25 + 0.25 + 2.25 + 6.25 = 17.5.
+        \]
+      </p>
+      <p>
+        The sample variance is
+        \[
+          s^2 = \frac{17.5}{n-1}
+               = \frac{17.5}{5}
+               = 3.5.
+        \]
+        So the sample standard deviation is
+        \[
+          s = \sqrt{3.5} \approx 1.87.
+        \]
+      </p>
+
+      <p><strong>(c) Interpretation</strong></p>
+      <p>
+        The average amount of reading for these 6 students was 6.5 hours that week. The
+        standard deviation of about 1.9 hours means that a typical student's reading time
+        is about 2 hours away from that average.
+      </p>
+      <p>
+        In other words, many students are between about $6.5 - 1.9 \approx 4.6$ and
+        $6.5 + 1.9 \approx 8.4$ hours of reading.
+      </p>
+    </details>
+  </div>
+
+  <!-- Problem 3: Parameter vs statistic with different stories -->
+  <div class="problem">
+    <h3>Problem 3: Parameter or Statistic?</h3>
+    <p>
+      For each statement below, decide whether the number described is a
+      <strong>parameter</strong> or a <strong>statistic</strong>. Briefly explain your reasoning.
+    </p>
+
+    <ol>
+      <li>
+        “Every single seat in the college theater (all 150 seats) was checked, and 60% of the
+        seats were found to have at least one broken armrest.”
+      </li>
+      <li>
+        “A random sample of 80 students from the college found that their average commuting
+        time was 39.2 minutes.”
+      </li>
+      <li>
+        “Exactly 32% of all currently enrolled students at the college are taking at least one
+        online class this term.”
+      </li>
+    </ol>
+
+    <details class="solution">
+      <summary>Show solution</summary>
+
+      <p><strong>(1) Theater seat inspection</strong></p>
+      <p>
+        The statement says that <em>every single seat</em> in the theater (all 150) was checked,
+        and 60% had a broken armrest. This describes the entire population of seats, not just a sample.
+      </p>
+      <p>
+        $\Rightarrow$ This is a <strong>parameter</strong> (a population-level number).
+      </p>
+
+      <p><strong>(2) Average commute from a random sample</strong></p>
+      <p>
+        Here we only have a random sample of 80 students from the larger population of all students.
+        The 39.2 minutes is computed from sample data and is meant to estimate the population mean
+        commuting time.
+      </p>
+      <p>
+        $\Rightarrow$ This is a <strong>statistic</strong> (a number from a sample).
+      </p>
+
+      <p><strong>(3) 32% of all students taking an online class</strong></p>
+      <p>
+        The phrasing “exactly 32% of all currently enrolled students” describes the entire
+        population of students. In reality, we might not know this number perfectly, but if
+        it were known, it would be population-level.
+      </p>
+      <p>
+        $\Rightarrow$ This is a <strong>parameter</strong>.
+      </p>
+    </details>
+  </div>
+
+  <!-- Problem 4: Social media minutes example, new context -->
+  <div class="problem">
+    <h3>Problem 4: Time in the Campus Fitness Center</h3>
+    <p>
+      The director of the fitness center wants a snapshot of how much time students actually
+      spend in the gym on a typical weekday.
+    </p>
+    <p>
+      On a randomly selected Tuesday, staff record how many minutes each of 10 randomly chosen
+      students spend inside the fitness center that day:
+    </p>
+    <table>
+      <tr>
+        <th>Student</th>
+        <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th>
+        <th>6</th><th>7</th><th>8</th><th>9</th><th>10</th>
+      </tr>
+      <tr>
+        <th>Minutes $x_i$</th>
+        <td>30</td><td>45</td><td>60</td><td>60</td><td>75</td>
+        <td>90</td><td>120</td><td>120</td><td>150</td><td>180</td>
+      </tr>
+    </table>
+
+    <ol>
+      <li>
+        Compute the sample mean number of minutes $\bar x$ that these students spend in the gym.
+      </li>
+      <li>
+        Using the fact that $\sum_{i=1}^{10} (x_i - \bar x)^2 = 21060$, compute the sample variance
+        $s^2$ and standard deviation $s$.
+      </li>
+      <li>
+        Interpret $\bar x$ and $s$ in the context of time spent in the fitness center.
+      </li>
+    </ol>
+
+    <details class="solution">
+      <summary>Show solution</summary>
+
+      <p><strong>(a) Sample mean</strong></p>
+      <p>
+        The total number of minutes is
+        \[
+          30 + 45 + 60 + 60 + 75 + 90 + 120 + 120 + 150 + 180 = 930.
+        \]
+        With $n = 10$ students,
+        \[
+          \bar x = \frac{930}{10} = 93.
+        \]
+        So on average, these students spent 93 minutes in the fitness center that day.
+      </p>
+
+      <p><strong>(b) Sample variance and standard deviation</strong></p>
+      <p>
+        We are told that
+        \[
+          \sum_{i=1}^{10} (x_i - \bar x)^2 = 21060.
+        \]
+        The sample variance is
+        \[
+          s^2 = \frac{1}{n-1} \sum_{i=1}^{10} (x_i - \bar x)^2
+              = \frac{21060}{10 - 1}
+              = \frac{21060}{9}
+              = 2340.
+        \]
+        So the standard deviation is
+        \[
+          s = \sqrt{2340} \approx 48.37.
+        \]
+        We might round this to $s \approx 48.4$ minutes.
+      </p>
+
+      <p><strong>(c) Interpretation</strong></p>
+      <p>
+        The mean $\bar x = 93$ minutes means that, on that Tuesday, the typical student in this
+        sample spent about an hour and a half in the fitness center.
+      </p>
+      <p>
+        The standard deviation $s \approx 48.4$ minutes tells us that there is a lot of variation:
+        a typical student's time is about 48 minutes away from the mean. Some students stayed
+        much less than 93 minutes, and some stayed much longer.
+      </p>
+    </details>
+  </div>
+
+</div>
+
+</body>
+</html>
