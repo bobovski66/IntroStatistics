@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Week 1 Summary: Populations, Samples, and Descriptive Statistics</title>
+  <script>
+    MathJax = {
+      tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script id="MathJax-script" async
+          src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-svg.js"></script>
+
+  <style>
+    :root {
+      --bg: #f5f6fb;
+      --card-bg: #ffffff;
+      --border-soft: #d7dce8;
+      --accent: #3b6ea8;
+      --accent-soft: #e4ecf8;
+      --text-main: #1f2833;
+      --text-muted: #5f6470;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      margin: 0;
+      padding: 0;
+      background: radial-gradient(circle at top left, #eef2ff, #f5f6fb 50%, #f9fafc);
+      color: var(--text-main);
+    }
+
+    .page {
+      max-width: 960px;
+      margin: 2.5rem auto 3rem;
+      padding: 0 1.5rem;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 2rem;
+      letter-spacing: 0.03em;
+      color: var(--accent);
+    }
+
+    h2 {
+      margin: 0.35rem 0 0.4rem;
+      font-weight: 500;
+      font-size: 1.1rem;
+      color: var(--text-muted);
+    }
+
+    .note {
+      max-width: 700px;
+      margin: 0.75rem auto 0;
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      background: rgba(255, 255, 255, 0.75);
+      border-radius: 999px;
+      padding: 0.55rem 1.3rem;
+      border: 1px solid rgba(215, 220, 232, 0.8);
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid rgba(215, 220, 232, 0.9);
+      margin: 2rem 0 1.75rem;
+    }
+
+    details.section {
+      border-radius: 16px;
+      padding: 0.9rem 1.2rem 1.1rem;
+      margin-bottom: 1.1rem;
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-soft);
+      box-shadow:
+        0 10px 24px rgba(15, 23, 42, 0.05),
+        0 1px 2px rgba(15, 23, 42, 0.04);
+    }
+
+    summary {
+      cursor: pointer;
+      font-weight: 600;
+      color: var(--accent);
+      list-style: none;
+      position: relative;
+      font-size: 1.02rem;
+    }
+
+    summary::marker,
+    summary::-webkit-details-marker { display: none; }
+
+    summary::before {
+      content: "▾";
+      display: inline-block;
+      margin-right: 0.45rem;
+      transition: transform 0.15s ease;
+    }
+
+    details[open] summary::before { transform: rotate(180deg); }
+
+    details.section > *:not(summary) { margin-top: 0.65rem; }
+
+    p {
+      margin: 0.35rem 0;
+      line-height: 1.6;
+    }
+
+    ul, ol {
+      margin-top: 0.4rem;
+      margin-bottom: 0.4rem;
+      padding-left: 1.3rem;
+    }
+
+    .running-example {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      background: #f0f3ff;
+      border-radius: 12px;
+      padding: 0.7rem 0.9rem;
+      border: 1px solid #d7dff5;
+      margin-top: 0.5rem;
+    }
+
+    table {
+      border-collapse: collapse;
+      margin: 0.5rem 0 0.7rem;
+      width: auto;
+      max-width: 100%;
+      font-size: 0.9rem;
+      background: #fdfdff;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    th, td {
+      border: 1px solid #d9dfec;
+      padding: 0.3rem 0.7rem;
+      text-align: center;
+    }
+
+    th {
+      background: #edf1fb;
+      font-weight: 600;
+    }
+
+    h3 {
+      margin: 0.1rem 0 0.2rem;
+      font-size: 1rem;
+      color: #243447;
+    }
+
+    /* Simple “bar chart” visualization using divs */
+    .mini-chart {
+      display: flex;
+      align-items: flex-end;
+      gap: 0.4rem;
+      height: 160px;
+      margin-top: 0.6rem;
+      padding-bottom: 0.3rem;
+    }
+
+    .bar {
+      flex: 1;
+      background: var(--accent-soft);
+      border-radius: 6px 6px 0 0;
+      position: relative;
+    }
+
+    .bar::after {
+      content: attr(data-label);
+      position: absolute;
+      bottom: -1.4rem;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .bar span {
+      position: absolute;
+      top: -1.2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .chart-caption {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 0.35rem;
+    }
+
+    /* Simple scatterplot using SVG */
+    .scatter-wrapper {
+      margin-top: 0.8rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .scatter-caption {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 0.3rem;
+      max-width: 420px;
+      text-align: center;
+    }
+
+    @media (max-width: 600px) {
+      .page {
+        margin-top: 1.8rem;
+        padding: 0 1rem;
+      }
+      .mini-chart {
+        height: 140px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="page">
+  <header>
+    <h1>Week 1 Summary</h1>
+    <h2>Populations, Samples, and Descriptive Statistics</h2>
+    <p class="note">
+      This week is about the language of statistics (population vs sample, parameter vs statistic)
+      and how to describe data with tables, graphs, and simple summary numbers.
+    </p>
+  </header>
+
+  <hr>
+
+  <!-- 1. Intro + running example -->
+  <details class="section" open>
+    <summary>1. Introduction and Running Example</summary>
+
+    <p>
+      Statistics is about using data from a <em>sample</em> to learn about a larger
+      <em>population</em>. We rarely see everyone; instead, we see a subset and try
+      to infer what is happening in the big picture.
+    </p>
+
+    <div class="running-example">
+      <strong>Running example: study hours and quiz scores.</strong>
+      <p>
+        We are teaching an introductory statistics course with many students. For each student, we record:
+      </p>
+      <ul>
+        <li>$X =$ number of hours they studied for Quiz 1,</li>
+        <li>$Y =$ their score on Quiz 1 (out of 10).</li>
+      </ul>
+      <p>
+        We take a sample of $n = 6$ students and record:
+      </p>
+      <table>
+        <tr>
+          <th>Student</th>
+          <th>$x_i$ (study hours)</th>
+          <th>$y_i$ (quiz score)</th>
+        </tr>
+        <tr><td>1</td><td>1</td><td>4</td></tr>
+        <tr><td>2</td><td>2</td><td>5</td></tr>
+        <tr><td>3</td><td>2</td><td>6</td></tr>
+        <tr><td>4</td><td>4</td><td>7</td></tr>
+        <tr><td>5</td><td>5</td><td>8</td></tr>
+        <tr><td>6</td><td>6</td><td>9</td></tr>
+      </table>
+      <p>
+        These $(x_i,y_i)$ pairs form our sample. We will use this same example throughout Week 1.
+      </p>
+    </div>
+  </details>
+
+  <!-- 2. Populations vs samples -->
+  <details class="section">
+    <summary>2. Populations, Samples, Parameters, and Statistics</summary>
+
+    <h3>Populations and parameters</h3>
+    <p>
+      A <strong>population</strong> is the entire group we care about, such as all students at the college
+      this term. Numbers that describe a population are called <strong>parameters</strong>. Standard symbols:
+    </p>
+    <ul>
+      <li>$\mu$: population mean,</li>
+      <li>$\sigma$: population standard deviation,</li>
+      <li>$p$: population proportion,</li>
+      <li>$\rho$: population correlation between two variables.</li>
+    </ul>
+
+    <h3>Samples and statistics</h3>
+    <p>
+      A <strong>sample</strong> is the part of the population we actually observe. Numbers computed from
+      the sample are called <strong>statistics</strong>:
+    </p>
+    <ul>
+      <li>$\bar x$: sample mean,</li>
+      <li>$s$: sample standard deviation,</li>
+      <li>$\hat p$: sample proportion,</li>
+      <li>$r$: sample correlation.</li>
+    </ul>
+    <p>
+      The idea is: sample statistics estimate population parameters. For example, $\bar x$ estimates $\mu$,
+      $s$ estimates $\sigma$, $\hat p$ estimates $p$, and $r$ estimates $\rho$.
+    </p>
+
+    <h3>Running example</h3>
+    <p>
+      In the study-hours example:
+    </p>
+    <ul>
+      <li>Population: all students taking intro statistics this term.</li>
+      <li>Sample: the 6 students in our table.</li>
+      <li>Parameters of interest: population mean quiz score $\mu$, population correlation $\rho$
+          between hours and scores.</li>
+      <li>Statistics: $\bar y$, $s_y$, and $r$ computed from the 6 students.</li>
+    </ul>
+  </details>
+
+  <!-- 3. Displaying data -->
+  <details class="section">
+    <summary>3. Displaying Data: Tables, Bar Charts, Histograms, and Scatterplots</summary>
+
+    <h3>Frequency table and bar chart</h3>
+    <p>
+      Imagine we now have quiz scores from $40$ students. Suppose the scores from 4 to 9 occur with
+      the following frequencies:
+    </p>
+    <table>
+      <tr>
+        <th>Quiz score</th>
+        <th>4</th>
+        <th>5</th>
+        <th>6</th>
+        <th>7</th>
+        <th>8</th>
+        <th>9</th>
+      </tr>
+      <tr>
+        <th>Frequency</th>
+        <td>2</td>
+        <td>6</td>
+        <td>10</td>
+        <td>9</td>
+        <td>8</td>
+        <td>5</td>
+      </tr>
+    </table>
+    <p>
+      This is a <strong>frequency table</strong> for a single variable (quiz score). Scores near 6–8 are
+      most common; low scores and high scores are less common.
+    </p>
+
+    <div class="mini-chart" aria-label="Bar chart of quiz scores (40 students).">
+      <!-- Scale: height = freq * 10px -->
+      <div class="bar" style="height:20px" data-label="4"><span>2</span></div>
+      <div class="bar" style="height:60px" data-label="5"><span>6</span></div>
+      <div class="bar" style="height:100px" data-label="6"><span>10</span></div>
+      <div class="bar" style="height:90px" data-label="7"><span>9</span></div>
+      <div class="bar" style="height:80px" data-label="8"><span>8</span></div>
+      <div class="bar" style="height:50px" data-label="9"><span>5</span></div>
+    </div>
+    <div class="chart-caption">
+      Bar chart of quiz scores for 40 students. Taller bars show more frequent scores.
+    </div>
+
+    <h3>Histogram with wider bins</h3>
+    <p>
+      A <strong>histogram</strong> groups values into bins. If we use wider bins, we might combine
+      scores like this:
+    </p>
+    <ul>
+      <li>4–5: $2 + 6 = 8$ students,</li>
+      <li>6–7: $10 + 9 = 19$ students,</li>
+      <li>8–9: $8 + 5 = 13$ students.</li>
+    </ul>
+    <table>
+      <tr>
+        <th>Bin</th>
+        <th>Scores included</th>
+        <th>Frequency</th>
+      </tr>
+      <tr><td>4–5</td><td>4 and 5</td><td>8</td></tr>
+      <tr><td>6–7</td><td>6 and 7</td><td>19</td></tr>
+      <tr><td>8–9</td><td>8 and 9</td><td>13</td></tr>
+    </table>
+
+    <div class="mini-chart" aria-label="Histogram of quiz scores using wider bins.">
+      <!-- Scale: height = freq * 6px -->
+      <div class="bar" style="height:48px" data-label="4–5"><span>8</span></div>
+      <div class="bar" style="height:114px" data-label="6–7"><span>19</span></div>
+      <div class="bar" style="height:78px" data-label="8–9"><span>13</span></div>
+    </div>
+    <div class="chart-caption">
+      Histogram of quiz scores. Using wider bins smooths the picture but keeps the same data:
+      most students are in the middle (6–7), fewer at the low and high ends.
+    </div>
+
+    <h3>Scatterplot (two variables)</h3>
+    <p>
+      To see the relationship between study hours and quiz scores, we draw a
+      <strong>scatterplot</strong> using the original 6-student sample.
+    </p>
+    <div class="scatter-wrapper">
+      <svg width="280" height="190" viewBox="0 0 280 190" aria-label="Scatterplot of study hours vs quiz scores.">
+        <!-- Axes -->
+        <line x1="30" y1="160" x2="260" y2="160" stroke="#555" stroke-width="1"/>
+        <line x1="30" y1="160" x2="30" y2="20" stroke="#555" stroke-width="1"/>
+
+        <!-- Points: map hours 1–6 to x; scores 4–9 to y -->
+        <!-- x = 30 + (h-1)*40; y = 160 - (score-4)*20 -->
+        <circle cx="30"  cy="160" r="4" fill="#3b6ea8" />  <!-- (1,4) -->
+        <circle cx="70"  cy="140" r="4" fill="#3b6ea8" />  <!-- (2,5) -->
+        <circle cx="70"  cy="120" r="4" fill="#3b6ea8" />  <!-- (2,6) -->
+        <circle cx="150" cy="100" r="4" fill="#3b6ea8" />  <!-- (4,7) -->
+        <circle cx="190" cy="80"  r="4" fill="#3b6ea8" />  <!-- (5,8) -->
+        <circle cx="230" cy="60"  r="4" fill="#3b6ea8" />  <!-- (6,9) -->
+
+        <!-- Labels (light) -->
+        <text x="260" y="175" font-size="10" text-anchor="end" fill="#5f6470">Study hours $x$</text>
+        <text x="15" y="25" font-size="10" text-anchor="start" fill="#5f6470">Quiz score $y$</text>
+      </svg>
+      <div class="scatter-caption">
+        Each point is one student. The pattern goes up and to the right:
+        students who studied more tended to score higher (a positive association).
+      </div>
+    </div>
+  </details>
+
+  <!-- 4. One variable: mean and sd -->
+  <details class="section">
+    <summary>4. Describing One Variable: Mean and Standard Deviation</summary>
+
+    <h3>Sample mean</h3>
+    <p>
+      For data $x_1,\dots,x_n$, the <strong>sample mean</strong> is
+      \[
+        \bar x = \frac{1}{n}\sum_{i=1}^n x_i,
+      \]
+      and is used to estimate the population mean $\mu$.
+    </p>
+
+    <h3>Running example: quiz scores</h3>
+    <p>
+      For the 6 quiz scores
+      \[
+        y_1,\dots,y_6 = 4,5,6,7,8,9,
+      \]
+      the sample mean is
+      \[
+        \bar y = \frac{4+5+6+7+8+9}{6} = \frac{39}{6} = 6.5.
+      \]
+      So the average quiz score in this sample is $6.5$ out of $10$.
+    </p>
+
+    <h3>Sample standard deviation</h3>
+    <p>
+      The <strong>sample standard deviation</strong> $s$ measures spread. It is based on the sample variance
+      \[
+        s^2 = \frac{1}{n-1}\sum_{i=1}^n (x_i - \bar x)^2,
+        \qquad s = \sqrt{s^2}.
+      \]
+    </p>
+    <p>
+      For the quiz scores, we found that $s_y \approx 1.87$. A typical score is about $1.9$ points
+      away from the mean of $6.5$.
+    </p>
+  </details>
+
+  <!-- 5. Two variables: covariance/correlation preview -->
+  <details class="section">
+    <summary>5. Describing Two Variables: Covariance and Correlation (Preview)</summary>
+
+    <p>
+      For paired data $(x_i,y_i)$, we can measure how $X$ and $Y$ move together.
+    </p>
+
+    <h3>Sample covariance (idea only)</h3>
+    <p>
+      The <strong>sample covariance</strong> is
+      \[
+        s_{xy} = \frac{1}{n-1}\sum_{i=1}^n (x_i - \bar x)(y_i - \bar y).
+      \]
+      If $x_i - \bar x$ and $y_i - \bar y$ tend to have the same sign, $s_{xy}$ is positive
+      (positive association). If they tend to have opposite signs, $s_{xy}$ is negative
+      (negative association).
+    </p>
+
+    <h3>Sample correlation</h3>
+    <p>
+      The <strong>sample correlation coefficient</strong> is the standardized covariance:
+      \[
+        r = \frac{s_{xy}}{s_x s_y},
+      \]
+      where $s_x$ and $s_y$ are the sample standard deviations of $X$ and $Y$.
+      It always satisfies $-1 \le r \le 1$.
+    </p>
+    <ul>
+      <li>$r > 0$: positive linear association,</li>
+      <li>$r < 0$: negative linear association,</li>
+      <li>$|r|$ close to 1: strong linear association,</li>
+      <li>$|r|$ near 0: weak or no linear association.</li>
+    </ul>
+    <p>
+      Later we will connect $r$ directly to the slope of the least squares regression line.
+    </p>
+  </details>
+
+  <!-- 6. Second example: social media minutes -->
+  <details class="section">
+    <summary>6. Second Example: Social Media Minutes</summary>
+
+    <p>
+      Suppose we ask $n = 10$ randomly selected students how many minutes they spend on social media
+      in a typical weekday:
+    </p>
+    <table>
+      <tr>
+        <th>Student</th>
+        <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th>
+        <th>6</th><th>7</th><th>8</th><th>9</th><th>10</th>
+      </tr>
+      <tr>
+        <th>Minutes $x_i$</th>
+        <td>30</td><td>45</td><td>60</td><td>60</td><td>75</td>
+        <td>90</td><td>120</td><td>120</td><td>150</td><td>180</td>
+      </tr>
+    </table>
+
+    <h3>Frequency table and histogram</h3>
+    <p>Group the data into 30-minute bins:</p>
+    <table>
+      <tr>
+        <th>Minutes per day</th>
+        <th>Bin</th>
+        <th>Frequency</th>
+      </tr>
+      <tr><td>30–59</td><td>(30–60)</td><td>2</td></tr>
+      <tr><td>60–89</td><td>(60–90)</td><td>3</td></tr>
+      <tr><td>90–119</td><td>(90–120)</td><td>1</td></tr>
+      <tr><td>120–149</td><td>(120–150)</td><td>2</td></tr>
+      <tr><td>150–179</td><td>(150–180)</td><td>1</td></tr>
+      <tr><td>180–209</td><td>(180–210)</td><td>1</td></tr>
+    </table>
+
+    <div class="mini-chart" aria-label="Histogram of social media minutes.">
+      <!-- rough scaling: height = freq * 25px -->
+      <div class="bar" style="height:50px" data-label="30–59"><span>2</span></div>
+      <div class="bar" style="height:75px" data-label="60–89"><span>3</span></div>
+      <div class="bar" style="height:25px" data-label="90–119"><span>1</span></div>
+      <div class="bar" style="height:50px" data-label="120–149"><span>2</span></div>
+      <div class="bar" style="height:25px" data-label="150–179"><span>1</span></div>
+      <div class="bar" style="height:25px" data-label="180–209"><span>1</span></div>
+    </div>
+    <div class="chart-caption">
+      Histogram of minutes of social media per day. Many students are between 60 and 150 minutes,
+      with a few much lower or higher.
+    </div>
+
+    <h3>Mean and standard deviation (fully worked)</h3>
+    <p><strong>Mean.</strong> The sample mean is</p>
+    <p>
+      \[
+        \bar x = \frac{30 + 45 + 60 + 60 + 75 + 90 + 120 + 120 + 150 + 180}{10}
+              = \frac{930}{10}
+              = 93.
+      \]
+      So the average is $93$ minutes per day.
+    </p>
+
+    <p><strong>Deviations $x_i - \bar x$.</strong></p>
+    <table>
+      <tr>
+        <th>Student</th>
+        <th>$x_i$</th>
+        <th>$x_i - \bar x$</th>
+      </tr>
+      <tr><td>1</td><td>30</td><td>$30 - 93 = -63$</td></tr>
+      <tr><td>2</td><td>45</td><td>$45 - 93 = -48$</td></tr>
+      <tr><td>3</td><td>60</td><td>$60 - 93 = -33$</td></tr>
+      <tr><td>4</td><td>60</td><td>$60 - 93 = -33$</td></tr>
+      <tr><td>5</td><td>75</td><td>$75 - 93 = -18$</td></tr>
+      <tr><td>6</td><td>90</td><td>$90 - 93 = -3$</td></tr>
+      <tr><td>7</td><td>120</td><td>$120 - 93 = 27$</td></tr>
+      <tr><td>8</td><td>120</td><td>$120 - 93 = 27$</td></tr>
+      <tr><td>9</td><td>150</td><td>$150 - 93 = 57$</td></tr>
+      <tr><td>10</td><td>180</td><td>$180 - 93 = 87$</td></tr>
+    </table>
+
+    <p><strong>Squared deviations and sum.</strong></p>
+    <p>
+      \[
+      \begin{aligned}
+      (-63)^2 &= 3969,\\
+      (-48)^2 &= 2304,\\
+      (-33)^2 &= 1089,\\
+      (-33)^2 &= 1089,\\
+      (-18)^2 &= 324,\\
+      (-3)^2  &= 9,\\
+      27^2    &= 729,\\
+      27^2    &= 729,\\
+      57^2    &= 3249,\\
+      87^2    &= 7569.
+      \end{aligned}
+      \]
+      Adding these:
+      \[
+        \sum_{i=1}^{10} (x_i - \bar x)^2 = 21060.
+      \]
+    </p>
+
+    <p><strong>Variance and standard deviation.</strong></p>
+    <p>
+      The sample variance is
+      \[
+        s^2 = \frac{21060}{10 - 1} = \frac{21060}{9} = 2340.
+      \]
+      So the sample standard deviation is
+      \[
+        s = \sqrt{2340} \approx 48.37,
+      \]
+      which we might round to $s \approx 48.4$ minutes.
+    </p>
+
+    <p><strong>Interpretation:</strong></p>
+    <ul>
+      <li>The mean $\bar x = 93$ says that, in this sample, students spend about 93 minutes per day on social media on average.</li>
+      <li>The standard deviation $s \approx 48.4$ says that a typical student is about 48 minutes away from the mean — there is a lot of variation.</li>
+    </ul>
+  </details>
+
+  <!-- 7. Big picture -->
+  <details class="section">
+    <summary>7. Big Picture and Review Checklist</summary>
+
+    <h3>Parameters vs statistics</h3>
+    <p>
+      Keep this correspondence in mind:
+    </p>
+    <ul>
+      <li>Mean: $\mu$ (population) vs. $\bar x$ (sample),</li>
+      <li>Standard deviation: $\sigma$ vs. $s$,</li>
+      <li>Proportion: $p$ vs. $\hat p$,</li>
+      <li>Correlation: $\rho$ vs. $r$.</li>
+    </ul>
+
+    <h3>Sampling variability</h3>
+    <p>
+      If we take a different random sample from the same population, we will get different values
+      of $\bar x$, $s$, $\hat p$, and $r$. This natural variation is called
+      <strong>sampling variability</strong>.
+    </p>
+
+    <h3>What you should be able to do in Week 1</h3>
+    <ul>
+      <li>Identify populations and samples in a story.</li>
+      <li>Recognize parameters ($\mu,\sigma,p,\rho$) vs statistics ($\bar x,s,\hat p,r$).</li>
+      <li>Read and make frequency tables, bar charts, and histograms.</li>
+      <li>Compute and interpret the sample mean $\bar x$ and sample standard deviation $s$ in context.</li>
+      <li>Read a scatterplot and recognize positive, negative, or weak linear relationships.</li>
+    </ul>
+  </details>
+</div>
+
+</body>
+</html>
