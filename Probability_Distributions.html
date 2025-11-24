@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Week 2 Summary: Probability Distributions as Models</title>
+  <script>
+    MathJax = {
+      tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script id="MathJax-script" async
+          src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-svg.js"></script>
+
+  <style>
+    :root {
+      --bg: #f5f6fb;
+      --card-bg: #ffffff;
+      --border-soft: #d7dce8;
+      --accent: #3b6ea8;
+      --accent-soft: #e4ecf8;
+      --text-main: #1f2833;
+      --text-muted: #5f6470;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      margin: 0;
+      padding: 0;
+      background: radial-gradient(circle at top left, #eef2ff, #f5f6fb 50%, #f9fafc);
+      color: var(--text-main);
+    }
+
+    .page {
+      max-width: 960px;
+      margin: 2.5rem auto 3rem;
+      padding: 0 1.5rem;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 2rem;
+      letter-spacing: 0.03em;
+      color: var(--accent);
+    }
+
+    h2 {
+      margin: 0.35rem 0 0.5rem;
+      font-weight: 500;
+      font-size: 1.1rem;
+      color: var(--text-muted);
+    }
+
+    .note {
+      max-width: 700px;
+      margin: 0.75rem auto 0;
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      background: rgba(255, 255, 255, 0.75);
+      border-radius: 999px;
+      padding: 0.55rem 1.3rem;
+      border: 1px solid rgba(215, 220, 232, 0.8);
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid rgba(215, 220, 232, 0.9);
+      margin: 2rem 0 1.75rem;
+    }
+
+    details.section {
+      border-radius: 16px;
+      padding: 0.9rem 1.2rem 1.1rem;
+      margin-bottom: 1.1rem;
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-soft);
+      box-shadow:
+        0 10px 24px rgba(15, 23, 42, 0.05),
+        0 1px 2px rgba(15, 23, 42, 0.04);
+    }
+
+    summary {
+      cursor: pointer;
+      font-weight: 600;
+      color: var(--accent);
+      list-style: none;
+      position: relative;
+      font-size: 1.02rem;
+    }
+
+    summary::marker,
+    summary::-webkit-details-marker { display: none; }
+
+    summary::before {
+      content: "▾";
+      display: inline-block;
+      margin-right: 0.45rem;
+      transition: transform 0.15s ease;
+    }
+
+    details[open] summary::before { transform: rotate(180deg); }
+
+    details.section > *:not(summary) { margin-top: 0.65rem; }
+
+    p {
+      margin: 0.35rem 0;
+      line-height: 1.6;
+    }
+
+    ul, ol {
+      margin-top: 0.4rem;
+      margin-bottom: 0.4rem;
+      padding-left: 1.3rem;
+    }
+
+    h3 {
+      margin: 0.2rem 0 0.2rem;
+      font-size: 1rem;
+      color: #243447;
+    }
+
+    .running-example {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      background: #f0f3ff;
+      border-radius: 12px;
+      padding: 0.7rem 0.9rem;
+      border: 1px solid #d7dff5;
+      margin-top: 0.5rem;
+    }
+
+    table {
+      border-collapse: collapse;
+      margin: 0.5rem 0 0.7rem;
+      width: auto;
+      max-width: 100%;
+      font-size: 0.9rem;
+      background: #fdfdff;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    th, td {
+      border: 1px solid #d9dfec;
+      padding: 0.3rem 0.7rem;
+      text-align: center;
+    }
+
+    th {
+      background: #edf1fb;
+      font-weight: 600;
+    }
+
+    /* Simple continuous-curve-ish visuals */
+    .curve-wrapper {
+      margin-top: 0.6rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .curve-caption {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 0.3rem;
+      max-width: 440px;
+      text-align: center;
+    }
+
+    /* Simple bar chart for discrete probabilities */
+    .mini-chart {
+      display: flex;
+      align-items: flex-end;
+      gap: 0.4rem;
+      height: 160px;
+      margin-top: 0.6rem;
+      padding-bottom: 0.3rem;
+    }
+
+    .bar {
+      flex: 1;
+      background: var(--accent-soft);
+      border-radius: 6px 6px 0 0;
+      position: relative;
+    }
+
+    .bar::after {
+      content: attr(data-label);
+      position: absolute;
+      bottom: -1.4rem;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .bar span {
+      position: absolute;
+      top: -1.2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .chart-caption {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 0.35rem;
+    }
+
+    @media (max-width: 600px) {
+      .page {
+        margin-top: 1.8rem;
+        padding: 0 1rem;
+      }
+      .mini-chart {
+        height: 140px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="page">
+  <header>
+    <h1>Week 2 Summary</h1>
+    <h2>Probability Distributions as Models</h2>
+    <p class="note">
+      This week we move from “what we saw in one sample” to “a model for the whole population.”
+      Continuous curves and discrete tables are both ways of describing probability distributions.
+    </p>
+  </header>
+
+  <hr>
+
+  <!-- 1. From histograms to distributions -->
+  <details class="section" open>
+    <summary>1. From Histograms to Probability Distributions</summary>
+
+    <p>
+      In Week 1, we used histograms and summary numbers (like $\bar x$ and $s$) to describe
+      <em>data from one sample</em>.
+    </p>
+    <p>
+      In Week 2, we treat a <strong>probability distribution</strong> as a <strong>model</strong>
+      for the whole population:
+    </p>
+    <ul>
+      <li>It tells us which values are more or less likely.</li>
+      <li>It lets us talk about long-run probabilities.</li>
+      <li>It has its own population mean $\mu$ and standard deviation $\sigma$.</li>
+    </ul>
+    <p>
+      We will use both:
+    </p>
+    <ul>
+      <li>
+        <strong>Continuous distributions:</strong> smooth curves where probability is area
+        under the curve.
+      </li>
+      <li>
+        <strong>Discrete distributions:</strong> probability tables and bar graphs where
+        each value gets its own probability.
+      </li>
+    </ul>
+
+    <div class="running-example">
+      <strong>Running examples for this week:</strong>
+      <ul>
+        <li>
+          <em>Continuous:</em> $X =$ resting heart rate (beats per minute) for a randomly
+          chosen student.
+        </li>
+        <li>
+          <em>Discrete:</em> $Y =$ number of tutoring center visits in a week for a randomly
+          chosen student.
+        </li>
+      </ul>
+      <p>
+        The continuous example uses a smooth curve. The discrete example uses a probability table.
+      </p>
+    </div>
+  </details>
+
+  <!-- 2. Continuous distributions -->
+  <details class="section">
+    <summary>2. Continuous Distributions: Density Curves and Area</summary>
+
+    <h3>Density curves as population models</h3>
+    <p>
+      A <strong>continuous probability distribution</strong> is described by a smooth curve
+      lying above the number line. We think of it as a population model:
+    </p>
+    <ul>
+      <li>Horizontal axis: possible values of $X$ (e.g., heart rates).</li>
+      <li>Vertical axis: density (how crowded the population is near each value).</li>
+      <li>Total area under the curve is $1$ (100% of the probability).</li>
+    </ul>
+
+    <div class="curve-wrapper">
+      <svg width="320" height="180" viewBox="0 0 320 180"
+           aria-label="A generic bell-shaped density curve.">
+        <!-- axis -->
+        <line x1="20" y1="150" x2="300" y2="150" stroke="#555" stroke-width="1"/>
+        <line x1="20" y1="150" x2="20" y2="30" stroke="#555" stroke-width="1"/>
+
+        <!-- rough bell curve -->
+        <path d="M 40 140
+                 Q 120 40 180 80
+                 T 280 140"
+              fill="none" stroke="#3b6ea8" stroke-width="2"/>
+      </svg>
+      <div class="curve-caption">
+        A density curve for resting heart rate. Higher parts of the curve correspond to
+        more common values; total area under the curve is 1.
+      </div>
+    </div>
+
+    <h3>Area under the curve = probability</h3>
+    <p>
+      If $X$ is resting heart rate, then $P(60 \le X \le 80)$ is the area under the curve
+      between 60 and 80 beats per minute:
+    </p>
+
+    <div class="curve-wrapper">
+      <svg width="320" height="180" viewBox="0 0 320 180"
+           aria-label="Density curve with a shaded middle region.">
+        <!-- axis -->
+        <line x1="20" y1="150" x2="300" y2="150" stroke="#555" stroke-width="1"/>
+        <line x1="20" y1="150" x2="20" y2="30" stroke="#555" stroke-width="1"/>
+
+        <!-- bell curve -->
+        <path d="M 40 140
+                 Q 120 40 180 80
+                 T 280 140"
+              fill="none" stroke="#3b6ea8" stroke-width="2"/>
+
+        <!-- shaded region (roughly the middle) -->
+        <path d="M 120 140
+                 Q 150 60 210 90
+                 L 210 150
+                 L 120 150
+                 Z"
+              fill="#3b6ea8" fill-opacity="0.18" stroke="none"/>
+      </svg>
+      <div class="curve-caption">
+        The probability that $X$ is in an interval is the area under the density curve over
+        that interval.
+      </div>
+    </div>
+
+    <p>
+      We interpret $P(60 \le X \le 80)$ as the proportion of all students whose resting heart
+      rates fall between 60 and 80 bpm.
+    </p>
+  </details>
+
+  <!-- 3. Mean & SD in continuous model -->
+  <details class="section">
+    <summary>3. Mean and Standard Deviation in Continuous Models</summary>
+
+    <h3>Mean as a balance point</h3>
+    <p>
+      For a continuous distribution, the population mean $\mu$ is like a balance point:
+    </p>
+    <ul>
+      <li>
+        Imagine the density curve is a thin metal sheet.
+      </li>
+      <li>
+        $\mu$ is the point where it would balance on a seesaw.
+      </li>
+    </ul>
+    <p>
+      In calculus language (not required for the course), the mean is
+      \[
+        \mu = \int_{-\infty}^{\infty} x f(x)\,dx,
+      \]
+      where $f(x)$ is the height of the density curve.
+    </p>
+
+    <h3>Standard deviation as width</h3>
+    <p>
+      The population standard deviation $\sigma$ controls the spread of the curve:
+    </p>
+    <ul>
+      <li>small $\sigma$ $\Rightarrow$ narrow, tall curve (values tightly clustered),</li>
+      <li>large $\sigma$ $\Rightarrow$ wide, flat curve (values more spread out).</li>
+    </ul>
+
+    <div class="curve-wrapper">
+      <svg width="320" height="180" viewBox="0 0 320 180"
+           aria-label="Two density curves with different spreads.">
+        <!-- axis -->
+        <line x1="20" y1="150" x2="300" y2="150" stroke="#555" stroke-width="1"/>
+        <line x1="20" y1="150" x2="20" y2="30" stroke="#555" stroke-width="1"/>
+
+        <!-- narrow curve -->
+        <path d="M 70 140
+                 Q 160 40 250 140"
+              fill="none" stroke="#3b6ea8" stroke-width="2"/>
+
+        <!-- wide curve -->
+        <path d="M 40 140
+                 Q 160 60 280 140"
+              fill="none" stroke="#9baed5" stroke-width="2"/>
+
+        <!-- mean marker -->
+        <line x1="160" y1="150" x2="160" y2="40" stroke="#666" stroke-dasharray="4,3" />
+      </svg>
+      <div class="curve-caption">
+        Both curves are centered at the same mean $\mu$ (vertical dashed line).
+        The darker curve has smaller $\sigma$ (narrower); the lighter curve has larger $\sigma$
+        (wider).
+      </div>
+    </div>
+  </details>
+
+  <!-- 4. Discrete distributions -->
+  <details class="section">
+    <summary>4. Discrete Distributions: Probability Tables and Means</summary>
+
+    <h3>Discrete random variables</h3>
+    <p>
+      A <strong>discrete random variable</strong> takes isolated values, often counts:
+      0,1,2,3,$\dots$.
+    </p>
+    <p>
+      Our example: $Y =$ number of tutoring center visits in a week by a randomly chosen student.
+    </p>
+
+    <h3>A discrete probability table</h3>
+    <p>
+      Suppose the population behaves like this:
+    </p>
+    <table>
+      <tr>
+        <th>$y$ (visits)</th>
+        <th>0</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th>
+      </tr>
+      <tr>
+        <th>$P(Y=y)$</th>
+        <td>0.40</td><td>0.30</td><td>0.15</td><td>0.08</td><td>0.05</td><td>0.02</td>
+      </tr>
+    </table>
+    <p>
+      Check the total probability:
+      \[
+        0.40 + 0.30 + 0.15 + 0.08 + 0.05 + 0.02 = 1.00.
+      \]
+    </p>
+
+    <div class="mini-chart" aria-label="Discrete distribution for tutoring visits.">
+      <!-- height approx = prob * 250px -->
+      <div class="bar" style="height:100px" data-label="0"><span>0.40</span></div>
+      <div class="bar" style="height:75px" data-label="1"><span>0.30</span></div>
+      <div class="bar" style="height:38px" data-label="2"><span>0.15</span></div>
+      <div class="bar" style="height:20px" data-label="3"><span>0.08</span></div>
+      <div class="bar" style="height:13px" data-label="4"><span>0.05</span></div>
+      <div class="bar" style="height:5px"  data-label="5"><span>0.02</span></div>
+    </div>
+    <div class="chart-caption">
+      Discrete probability distribution for weekly tutoring visits.
+      The height of each bar is $P(Y=y)$.
+    </div>
+
+    <h3>Computing probabilities and the mean</h3>
+    <p>
+      From the table:
+    </p>
+    <ul>
+      <li>$P(Y = 0) = 0.40$ (40% of students do not visit at all).</li>
+      <li>
+        $P(Y \ge 2) = P(Y=2)+P(Y=3)+P(Y=4)+P(Y=5)
+        = 0.15+0.08+0.05+0.02 = 0.30$.
+      </li>
+    </ul>
+
+    <p>
+      The population mean of this discrete distribution is a weighted average:
+      \[
+        \mu_Y = \sum_y y \cdot P(Y=y).
+      \]
+    </p>
+    <p>
+      For this table:
+      \[
+      \begin{aligned}
+      \mu_Y &=
+        0\cdot 0.40
+        + 1\cdot 0.30
+        + 2\cdot 0.15
+        + 3\cdot 0.08
+        + 4\cdot 0.05
+        + 5\cdot 0.02 \\
+        &= 0 + 0.30 + 0.30 + 0.24 + 0.20 + 0.10 = 1.14.
+      \end{aligned}
+      \]
+    </p>
+    <p>
+      Interpretation: in the long run, the average number of weekly visits per student is 1.14.
+    </p>
+  </details>
+
+  <!-- 5. Empirical distribution & sampling variability -->
+  <details class="section">
+    <summary>5. Empirical Distributions and Sampling Variability</summary>
+
+    <h3>From population model to sample data</h3>
+    <p>
+      The probability table for $Y$ is a <strong>population model</strong>.
+      In real life, we see only samples.
+    </p>
+    <p>
+      Suppose we sample $n = 10$ students and record their weekly tutoring visits:
+      \[
+        0,\ 0,\ 1,\ 1,\ 1,\ 2,\ 2,\ 3,\ 4,\ 5.
+      \]
+    </p>
+
+    <h3>Empirical (sample) distribution</h3>
+    <p>
+      Turn the sample into a frequency and relative-frequency table:
+    </p>
+    <table>
+      <tr>
+        <th>$y$ (visits)</th>
+        <th>0</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th>
+      </tr>
+      <tr>
+        <th>Frequency</th>
+        <td>2</td><td>3</td><td>2</td><td>1</td><td>1</td><td>1</td>
+      </tr>
+      <tr>
+        <th>Relative freq.</th>
+        <td>0.20</td><td>0.30</td><td>0.20</td><td>0.10</td><td>0.10</td><td>0.10</td>
+      </tr>
+    </table>
+
+    <p>
+      Compare to the population probabilities:
+    </p>
+    <table>
+      <tr>
+        <th></th>
+        <th>0</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th>
+      </tr>
+      <tr>
+        <th>Population $P(Y=y)$</th>
+        <td>0.40</td><td>0.30</td><td>0.15</td><td>0.08</td><td>0.05</td><td>0.02</td>
+      </tr>
+      <tr>
+        <th>Sample rel. freq.</th>
+        <td>0.20</td><td>0.30</td><td>0.20</td><td>0.10</td><td>0.10</td><td>0.10</td>
+      </tr>
+    </table>
+
+    <p>
+      They are not identical, but they are similar: some sample bars are higher, some lower.
+      This is normal.
+    </p>
+
+    <h3>Sample mean vs population mean</h3>
+    <p>
+      Sample mean from the 10 students:
+      \[
+        \bar y = \frac{0+0+1+1+1+2+2+3+4+5}{10} = \frac{19}{10} = 1.9.
+      \]
+    </p>
+    <p>
+      Compare:
+    </p>
+    <ul>
+      <li>Population mean: $\mu_Y = 1.14$ (from the probability table).</li>
+      <li>Sample mean: $\bar y = 1.9$ (from this particular sample).</li>
+    </ul>
+    <p>
+      They differ because a sample is only a subset of the population.
+      If we took a different random sample of 10 students, we would get a different $\bar y$.
+      This natural wobbling of sample statistics is called
+      <strong>sampling variability</strong>.
+    </p>
+  </details>
+
+  <!-- 6. Big picture -->
+  <details class="section">
+    <summary>6. Big Picture for Week 2</summary>
+
+    <p>
+      By the end of Week 2, you should be comfortable with:
+    </p>
+    <ul>
+      <li>
+        Reading a density curve as a population model where area under the curve = probability.
+      </li>
+      <li>
+        Interpreting the population mean $\mu$ as a center and the population standard deviation
+        $\sigma$ as the width (spread) of the distribution.
+      </li>
+      <li>
+        Reading a discrete probability table and computing probabilities like $P(Y \ge 2)$.
+      </li>
+      <li>
+        Computing the mean of a discrete distribution as a weighted average
+        $\mu = \sum y \cdot P(Y=y)$.
+      </li>
+      <li>
+        Understanding that samples have empirical distributions and sample statistics
+        ($\bar x$, $s$), which vary from sample to sample and generally differ from the
+        population model.
+      </li>
+    </ul>
+    <p>
+      In upcoming weeks, we will apply these ideas to specific named distributions like
+      the uniform, normal, geometric, and binomial.
+    </p>
+  </details>
+</div>
+
+</body>
+</html>
