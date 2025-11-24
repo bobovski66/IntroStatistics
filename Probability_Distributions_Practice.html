@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Week 2 Practice: Probability Distributions as Models</title>
+  <script>
+    MathJax = {
+      tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script id="MathJax-script" async
+          src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-svg.js"></script>
+  <style>
+    :root {
+      --bg: #f5f6fb;
+      --card-bg: #ffffff;
+      --border-soft: #d7dce8;
+      --accent: #3b6ea8;
+      --accent-soft: #e4ecf8;
+      --text-main: #1f2833;
+      --text-muted: #5f6470;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      margin: 0;
+      padding: 0;
+      background: radial-gradient(circle at top left, #eef2ff, #f5f6fb 50%, #f9fafc);
+      color: var(--text-main);
+    }
+
+    .page {
+      max-width: 960px;
+      margin: 2.5rem auto 3rem;
+      padding: 0 1.5rem;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 2rem;
+      letter-spacing: 0.03em;
+      color: var(--accent);
+    }
+
+    h2 {
+      margin: 0.35rem 0 0.5rem;
+      font-weight: 500;
+      font-size: 1.1rem;
+      color: var(--text-muted);
+    }
+
+    .note {
+      max-width: 650px;
+      margin: 0.75rem auto 0;
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      background: rgba(255, 255, 255, 0.7);
+      border-radius: 999px;
+      padding: 0.5rem 1.2rem;
+      border: 1px solid rgba(215, 220, 232, 0.8);
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid rgba(215, 220, 232, 0.9);
+      margin: 2rem 0 1.75rem;
+    }
+
+    .problem {
+      border-radius: 16px;
+      padding: 1.3rem 1.4rem 1.5rem;
+      margin-bottom: 1.5rem;
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-soft);
+      box-shadow:
+        0 12px 25px rgba(15, 23, 42, 0.05),
+        0 1px 2px rgba(15, 23, 42, 0.04);
+    }
+
+    .problem h3 {
+      margin-top: 0;
+      margin-bottom: 0.4rem;
+      font-size: 1.1rem;
+      color: var(--accent);
+    }
+
+    .problem > p {
+      margin-top: 0.4rem;
+    }
+
+    .problem ol, .problem ul {
+      padding-left: 1.25rem;
+      margin-top: 0.6rem;
+      margin-bottom: 0.4rem;
+    }
+
+    details.solution {
+      margin-top: 0.7rem;
+      border-radius: 12px;
+      background: var(--accent-soft);
+      padding: 0.6rem 0.9rem 0.75rem;
+    }
+
+    summary {
+      cursor: pointer;
+      font-weight: 600;
+      color: var(--accent);
+      list-style: none;
+      position: relative;
+    }
+
+    summary::marker,
+    summary::-webkit-details-marker { display: none; }
+
+    summary::before {
+      content: "▾";
+      display: inline-block;
+      margin-right: 0.4rem;
+      transition: transform 0.15s ease;
+    }
+
+    details[open] summary::before { transform: rotate(180deg); }
+
+    details.solution > *:not(summary) {
+      margin-top: 0.55rem;
+    }
+
+    table {
+      border-collapse: collapse;
+      margin: 0.5rem 0 0.7rem;
+      width: auto;
+      max-width: 100%;
+      font-size: 0.9rem;
+      background: #fdfdff;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    th, td {
+      border: 1px solid #d9dfec;
+      padding: 0.3rem 0.7rem;
+      text-align: center;
+    }
+
+    th {
+      background: #edf1fb;
+      font-weight: 600;
+    }
+
+    @media (max-width: 600px) {
+      .page {
+        margin-top: 1.5rem;
+        padding: 0 1rem;
+      }
+      .problem {
+        padding: 1.1rem 1.1rem 1.3rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="page">
+  <header>
+    <h1>Week 2 Practice</h1>
+    <h2>Probability Distributions as Models</h2>
+    <p class="note">
+      Try each problem before opening the solution. Focus on what the distribution is saying
+      about the population, and how the sample numbers relate to that model.
+    </p>
+  </header>
+
+  <hr>
+
+  <!-- Problem 1: Continuous, area as probability -->
+  <div class="problem">
+    <h3>Problem 1: Waiting Time for the Campus Shuttle</h3>
+    <p>
+      Suppose the time $T$ (in minutes) a student waits for a particular campus shuttle is
+      modeled by a continuous probability distribution with a smooth curve on the interval
+      from 0 to 20 minutes.
+    </p>
+    <p>
+      The curve is shaped so that:
+    </p>
+    <ul>
+      <li>Very short waits (0–2 minutes) are rare.</li>
+      <li>Moderate waits (5–10 minutes) are most common.</li>
+      <li>Very long waits (15–20 minutes) are rare again.</li>
+    </ul>
+    <p>
+      Think of this as a “bump” centered between 5 and 10 minutes, with total area 1 under the curve.
+    </p>
+
+    <ol>
+      <li>
+        In words, what does $P(5 \le T \le 10)$ represent in this model?
+      </li>
+      <li>
+        If the area under the curve from 5 to 10 minutes is 0.6, what is $P(5 \le T \le 10)$?
+      </li>
+      <li>
+        If the area from 0 to 5 minutes is 0.2, what is $P(10 < T \le 20)$?
+        Explain how you got your answer.
+      </li>
+    </ol>
+
+    <details class="solution">
+      <summary>Show solution</summary>
+
+      <p><strong>(a) Interpreting $P(5 \le T \le 10)$</strong></p>
+      <p>
+        $P(5 \le T \le 10)$ is the probability that a randomly chosen student’s waiting time
+        is between 5 and 10 minutes. In long-run language, it is the proportion of all shuttle
+        waits that fall between 5 and 10 minutes.
+      </p>
+
+      <p><strong>(b) Area as probability</strong></p>
+      <p>
+        If the area under the curve from 5 to 10 is 0.6, then
+        \[
+          P(5 \le T \le 10) = 0.6.
+        \]
+        The curve is a density; probability is literally the area.
+      </p>
+
+      <p><strong>(c) Using the fact that total area is 1</strong></p>
+      <p>
+        Total area under the curve is 1. We are told:
+      </p>
+      <ul>
+        <li>Area from 0 to 5 minutes: 0.2,</li>
+        <li>Area from 5 to 10 minutes: 0.6.</li>
+      </ul>
+      <p>
+        So the area from 0 to 10 minutes is $0.2 + 0.6 = 0.8$.
+        The area from 10 to 20 minutes must be
+        \[
+          1 - 0.8 = 0.2.
+        \]
+        That area is $P(10 < T \le 20)$.
+      </p>
+      <p>
+        So $P(10 < T \le 20) = 0.2$.
+      </p>
+    </details>
+  </div>
+
+  <!-- Problem 2: Mean & SD interpretation for continuous model -->
+  <div class="problem">
+    <h3>Problem 2: Daily Study Time as a Continuous Model</h3>
+    <p>
+      Suppose the number of hours a randomly chosen student studies in a day is modeled by
+      a continuous distribution with mean $\mu = 2.0$ hours and standard deviation
+      $\sigma = 0.5$ hours.
+    </p>
+    <ol>
+      <li>
+        In words, what does the mean $\mu = 2.0$ hours tell you about this distribution?
+      </li>
+      <li>
+        In words, what does the standard deviation $\sigma = 0.5$ hours tell you?
+      </li>
+      <li>
+        Consider another course where daily study time has the same mean $\mu = 2.0$ hours
+        but a larger standard deviation $\sigma = 1.0$ hours. How would the shape of that
+        distribution compare to the first one?
+      </li>
+    </ol>
+
+    <details class="solution">
+      <summary>Show solution</summary>
+
+      <p><strong>(a) Interpreting the mean</strong></p>
+      <p>
+        The mean $\mu = 2.0$ hours is the long-run average study time per day. If we look across
+        all students over many days, their study times would balance at about 2 hours. It is the
+        “center” of the distribution.
+      </p>
+
+      <p><strong>(b) Interpreting the standard deviation</strong></p>
+      <p>
+        The standard deviation $\sigma = 0.5$ hours measures how spread out the study times are
+        around the mean. A standard deviation of 0.5 hour means that a typical daily study time
+        is about half an hour away from the mean of 2 hours. Most students are between about
+        1.5 and 2.5 hours.
+      </p>
+
+      <p><strong>(c) Same mean, larger standard deviation</strong></p>
+      <p>
+        If another course has the same mean $\mu = 2.0$ but a larger standard deviation
+        $\sigma = 1.0$, then the second distribution is more spread out. The curves would be:
+      </p>
+      <ul>
+        <li>
+          First course: narrow, taller bump around 2 hours (study times tightly clustered).
+        </li>
+        <li>
+          Second course: wider, flatter bump around 2 hours (more variation; some students
+          study much less or much more).
+        </li>
+      </ul>
+      <p>
+        The center (mean) is the same, but the spread is different.
+      </p>
+    </details>
+  </div>
+
+  <!-- Problem 3: Discrete distribution and its mean -->
+  <div class="problem">
+    <h3>Problem 3: Number of Emails to a Club Advisor</h3>
+    <p>
+      Let $E$ be the number of emails a student club advisor receives from club members in a
+      randomly chosen day. The advisor believes the long-run behavior is described by this
+      discrete probability distribution:
+    </p>
+    <table>
+      <tr>
+        <th>$e$ (emails)</th>
+        <th>0</th><th>1</th><th>2</th><th>3</th><th>4</th>
+      </tr>
+      <tr>
+        <th>$P(E=e)$</th>
+        <td>0.20</td><td>0.35</td><td>0.25</td><td>0.15</td><td>0.05</td>
+      </tr>
+    </table>
+
+    <ol>
+      <li>Check that this is a valid probability distribution.</li>
+      <li>
+        Find $P(E \ge 2)$ and interpret it in context.
+      </li>
+      <li>
+        Compute the mean number of emails per day, $\mu_E = \sum e \cdot P(E=e)$.
+      </li>
+      <li>
+        Interpret $\mu_E$ in a sentence that does not use symbols.
+      </li>
+    </ol>
+
+    <details class="solution">
+      <summary>Show solution</summary>
+
+      <p><strong>(a) Valid distribution?</strong></p>
+      <p>
+        Add the probabilities:
+        \[
+          0.20 + 0.35 + 0.25 + 0.15 + 0.05 = 1.00.
+        \]
+        All probabilities are between 0 and 1 and the total is 1, so this is a valid
+        probability distribution.
+      </p>
+
+      <p><strong>(b) $P(E \ge 2)$</strong></p>
+      <p>
+        \[
+          P(E \ge 2) = P(E=2) + P(E=3) + P(E=4)
+                     = 0.25 + 0.15 + 0.05
+                     = 0.45.
+        \]
+        So on a randomly chosen day, there is a 45% chance that the advisor receives
+        2 or more emails.
+      </p>
+
+      <p><strong>(c) Mean number of emails</strong></p>
+      <p>
+        \[
+        \begin{aligned}
+          \mu_E
+            &= 0\cdot 0.20
+             + 1\cdot 0.35
+             + 2\cdot 0.25
+             + 3\cdot 0.15
+             + 4\cdot 0.05 \\
+            &= 0
+             + 0.35
+             + 0.50
+             + 0.45
+             + 0.20 \\
+            &= 1.50.
+        \end{aligned}
+        \]
+      </p>
+
+      <p><strong>(d) Interpretation of $\mu_E$</strong></p>
+      <p>
+        On average, the advisor receives about 1.5 emails per day from club members.
+        In the long run, if we look at many days, the mean number of emails per day
+        will be about 1.5.
+      </p>
+    </details>
+  </div>
+
+  <!-- Problem 4: Empirical distribution and sampling variability -->
+  <div class="problem">
+    <h3>Problem 4: Sample vs Model for Exercise Days</h3>
+    <p>
+      A health center models the number of days per week that students get at least
+      30 minutes of exercise with this discrete distribution for $D$:
+    </p>
+    <table>
+      <tr>
+        <th>$d$ (days/week)</th>
+        <th>0</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th>
+      </tr>
+      <tr>
+        <th>$P(D=d)$</th>
+        <td>0.05</td><td>0.10</td><td>0.20</td><td>0.25</td>
+        <td>0.15</td><td>0.10</td><td>0.08</td><td>0.07</td>
+      </tr>
+    </table>
+
+    <p>
+      Now suppose we take a sample of 12 students and record their number of exercise days:
+    </p>
+    <p>
+      $3,\ 3,\ 2,\ 4,\ 0,\ 1,\ 5,\ 2,\ 3,\ 4,\ 6,\ 2$.
+    </p>
+
+    <ol>
+      <li>
+        Construct a frequency table and relative-frequency table for this sample.
+      </li>
+      <li>
+        Compute the sample mean $\bar d$ for these 12 students.
+      </li>
+      <li>
+        Suppose the population mean from the model above is $\mu_D = 3.2$ days.
+        Compare $\bar d$ and $\mu_D$. Are they the same? Should we expect them to be?
+      </li>
+      <li>
+        In words, explain what <strong>sampling variability</strong> means in this context.
+      </li>
+    </ol>
+
+    <details class="solution">
+      <summary>Show solution</summary>
+
+      <p><strong>(a) Frequency and relative-frequency tables</strong></p>
+      <p>
+        First count how many times each value appears in the sample of 12:
+      </p>
+      <ul>
+        <li>$0$: once (one student),</li>
+        <li>$1$: once,</li>
+        <li>$2$: three times,</li>
+        <li>$3$: three times,</li>
+        <li>$4$: twice,</li>
+        <li>$5$: once,</li>
+        <li>$6$: once,</li>
+        <li>$7$: zero times.</li>
+      </ul>
+      <table>
+        <tr>
+          <th>$d$</th>
+          <th>0</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th>
+        </tr>
+        <tr>
+          <th>Frequency</th>
+          <td>1</td><td>1</td><td>3</td><td>3</td><td>2</td><td>1</td><td>1</td><td>0</td>
+        </tr>
+        <tr>
+          <th>Rel. freq.</th>
+          <td>1/12</td><td>1/12</td><td>3/12</td><td>3/12</td><td>2/12</td><td>1/12</td><td>1/12</td><td>0</td>
+        </tr>
+      </table>
+      <p>
+        In decimals, that’s approximately:
+      </p>
+      <ul>
+        <li>$0$: $0.083$,</li>
+        <li>$1$: $0.083$,</li>
+        <li>$2$: $0.25$,</li>
+        <li>$3$: $0.25$,</li>
+        <li>$4$: $0.167$,</li>
+        <li>$5$: $0.083$,</li>
+        <li>$6$: $0.083$,</li>
+        <li>$7$: $0$.</li>
+      </ul>
+
+      <p><strong>(b) Sample mean</strong></p>
+      <p>
+        Add up the 12 values:
+        \[
+          3 + 3 + 2 + 4 + 0 + 1 + 5 + 2 + 3 + 4 + 6 + 2
+          = 35.
+        \]
+        With $n = 12$ students:
+        \[
+          \bar d = \frac{35}{12} \approx 2.92 \text{ days}.
+        \]
+      </p>
+
+      <p><strong>(c) Comparing $\bar d$ and $\mu_D$</strong></p>
+      <p>
+        We are told the population model has mean $\mu_D = 3.2$ days.
+        Our sample mean is $\bar d \approx 2.92$ days. They are not exactly the same,
+        but they are reasonably close.
+      </p>
+      <p>
+        We do <em>not</em> expect $\bar d$ to equal $\mu_D$ exactly. Every random sample
+        gives slightly different data and therefore a slightly different sample mean.
+      </p>
+
+      <p><strong>(d) Sampling variability</strong></p>
+      <p>
+        <strong>Sampling variability</strong> means that statistics like $\bar d$ will change
+        from sample to sample, even when the population model is fixed. If we took another
+        random sample of 12 students, we would almost surely get different exercise counts
+        and a different sample mean.
+      </p>
+      <p>
+        The population mean $\mu_D$ is a fixed (but often unknown) number. The sample mean
+        $\bar d$ is random because it depends on which students happen to be in the sample.
+      </p>
+    </details>
+  </div>
+
+</div>
+
+</body>
+</html>
