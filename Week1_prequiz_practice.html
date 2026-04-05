@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Math 146 Week 1 Prequiz</title>
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(','\\)'], ['$', '$']],
+        displayMath: [['\\[','\\]'], ['$$','$$']]
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+      }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --panel: #ffffff;
+      --text: #1f2937;
+      --muted: #4b5563;
+      --border: #d1d5db;
+      --solution: #f0fdf4;
+      --solution-border: #86efac;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.6;
+      color: var(--text);
+      background: var(--bg);
+    }
+    .container {
+      max-width: 950px;
+      margin: 0 auto;
+      padding: 2rem 1rem 4rem;
+    }
+    header {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    h1, h2, h3 { line-height: 1.25; }
+    h1 { margin-top: 0; margin-bottom: .5rem; font-size: 2rem; }
+    .subtitle { color: var(--muted); margin: 0; }
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.25rem;
+      margin-bottom: 1.25rem;
+    }
+    .formula-box {
+      background: #f9fafb;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1rem;
+      overflow-x: auto;
+    }
+    ol.alpha { padding-left: 1.25rem; }
+    ol.alpha > li { margin-bottom: .75rem; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+      background: white;
+    }
+    th, td {
+      border: 1px solid var(--border);
+      padding: .65rem;
+      text-align: center;
+      vertical-align: middle;
+    }
+    th { background: #f3f4f6; }
+    details {
+      margin-top: 1rem;
+      border: 1px solid var(--solution-border);
+      border-radius: 12px;
+      background: var(--solution);
+      overflow: hidden;
+    }
+    summary {
+      cursor: pointer;
+      font-weight: 700;
+      padding: .9rem 1rem;
+      color: #166534;
+      background: #dcfce7;
+      outline-offset: 4px;
+    }
+    .solution-body { padding: 1rem; }
+    .small-note { color: var(--muted); font-size: .95rem; }
+    .sr-friendly { margin-top: .5rem; color: var(--muted); }
+    @media (max-width: 640px) {
+      body { font-size: 17px; }
+      h1 { font-size: 1.65rem; }
+      .container { padding: 1rem .75rem 3rem; }
+    }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <header>
+      <h1>Math 146 — Week 1 Prequiz</h1>
+      <p class="subtitle">Introduction to Statistics</p>
+      </header>
+
+    <section class="card" aria-labelledby="reference-formulas">
+      <h2 id="reference-formulas">Reference Formulas</h2>
+      <div class="formula-box">
+        <p>\[
+          \bar{x} = \frac{\sum x_i}{n}
+          \qquad
+          s = \sqrt{\frac{\sum (x_i - \bar{x})^2}{n-1}}
+          \qquad
+          \text{relative frequency} = \frac{\text{frequency}}{n}
+        \]</p>
+      </div>
+    </section>
+
+    <section class="card" aria-labelledby="problem1">
+      <h2 id="problem1">Problem 1. Population, Sample, and Notation</h2>
+      <p>A county health department wants to estimate the average number of hours of sleep adults in the county get per night. They recruit 120 randomly selected adults and record how many hours each person slept last night.</p>
+      <ol class="alpha" type="a">
+        <li>Identify the population in this study.</li>
+        <li>Identify the sample.</li>
+        <li>The department finds the average sleep time for the 120 participants is \(6.8\) hours. Which symbol represents this value — \(\mu\) or \(\bar{x}\)? Explain why.</li>
+        <li>The true average sleep time for all adults in the county is unknown. Which Greek letter would we use to represent this unknown value?</li>
+      </ol>
+
+      <details>
+        <summary>Show full solution</summary>
+        <div class="solution-body">
+          <ol class="alpha" type="a">
+            <li><strong>Population:</strong> all adults in the county.</li>
+            <li><strong>Sample:</strong> the 120 randomly selected adults who were recruited for the study.</li>
+            <li>The value \(6.8\) hours is the average computed from the <em>sample</em>, so the correct symbol is <strong>\(\bar{x}\)</strong>, not \(\mu\). The symbol \(\bar{x}\) is used for a sample mean.</li>
+            <li>The unknown true average for the entire population is represented by the Greek letter <strong>\(\mu\)</strong>.</li>
+          </ol>
+          <p class="small-note">Key idea: \(\bar{x}\) describes a sample, while \(\mu\) describes a population.</p>
+        </div>
+      </details>
+    </section>
+
+    <section class="card" aria-labelledby="problem2">
+      <h2 id="problem2">Problem 2. Summation Notation and Frequency</h2>
+      <p>Ten students report the number of cups of coffee they drank yesterday:</p>
+      <p><strong>\(0, 1, 2, 1, 3, 0, 2, 1, 0, 2\)</strong></p>
+      <ol class="alpha" type="a">
+        <li>Compute \(\sum_{i=1}^{10} x_i\).</li>
+        <li>Compute \(\sum_{i=1}^{10} x_i^2\).</li>
+        <li>Complete the frequency and relative frequency table below.</li>
+        <li>What percentage of students drank at least one cup of coffee?</li>
+      </ol>
+
+      <table aria-label="Blank frequency table for coffee data">
+        <thead>
+          <tr>
+            <th>Cups of coffee</th>
+            <th>Frequency</th>
+            <th>Relative frequency</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>0</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+          <tr><td>1</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+          <tr><td>2</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+          <tr><td>3</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+          <tr><td><strong>Total</strong></td><td>&nbsp;</td><td>&nbsp;</td></tr>
+        </tbody>
+      </table>
+
+      <details>
+        <summary>Show full solution</summary>
+        <div class="solution-body">
+          <p>Data: \(0, 1, 2, 1, 3, 0, 2, 1, 0, 2\)</p>
+          <ol class="alpha" type="a">
+            <li>
+              \[
+              \sum_{i=1}^{10} x_i = 0+1+2+1+3+0+2+1+0+2 = 12
+              \]
+            </li>
+            <li>
+              Square each value first:
+              \[
+              0^2,\,1^2,\,2^2,\,1^2,\,3^2,\,0^2,\,2^2,\,1^2,\,0^2,\,2^2
+              = 0,1,4,1,9,0,4,1,0,4
+              \]
+              So
+              \[
+              \sum_{i=1}^{10} x_i^2 = 0+1+4+1+9+0+4+1+0+4 = 24
+              \]
+            </li>
+            <li>
+              Count each value:
+              <ul>
+                <li>\(0\) appears 3 times</li>
+                <li>\(1\) appears 3 times</li>
+                <li>\(2\) appears 3 times</li>
+                <li>\(3\) appears 1 time</li>
+              </ul>
+
+              <table aria-label="Completed frequency table for coffee data">
+                <thead>
+                  <tr>
+                    <th>Cups of coffee</th>
+                    <th>Frequency</th>
+                    <th>Relative frequency</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td>0</td><td>3</td><td>\(\frac{3}{10}=0.30\)</td></tr>
+                  <tr><td>1</td><td>3</td><td>\(\frac{3}{10}=0.30\)</td></tr>
+                  <tr><td>2</td><td>3</td><td>\(\frac{3}{10}=0.30\)</td></tr>
+                  <tr><td>3</td><td>1</td><td>\(\frac{1}{10}=0.10\)</td></tr>
+                  <tr><td><strong>Total</strong></td><td><strong>10</strong></td><td><strong>\(1.00\)</strong></td></tr>
+                </tbody>
+              </table>
+            </li>
+            <li>
+              Students who drank at least one cup are everyone except those who drank \(0\) cups.
+              Since 3 students drank \(0\) cups, the number who drank at least one cup is
+              \[
+              10 - 3 = 7
+              \]
+              Therefore, the percentage is
+              \[
+              \frac{7}{10}\times 100\% = 70\%
+              \]
+            </li>
+          </ol>
+        </div>
+      </details>
+    </section>
+
+    <section class="card" aria-labelledby="problem3">
+      <h2 id="problem3">Problem 3. Mean and Standard Deviation</h2>
+      <p>Five friends compare the number of text messages they sent yesterday:</p>
+      <p><strong>\(12, 25, 8, 31, 14\)</strong></p>
+      <ol class="alpha" type="a">
+        <li>Compute the sample mean \(\bar{x}\).</li>
+        <li>Complete the deviation table, then compute the sample standard deviation \(s\). Round to two decimal places.</li>
+        <li>A sixth friend joins and says they sent \(500\) text messages. Without computing, does adding this person increase, decrease, or not change \(\bar{x}\)? Do you expect \(s\) to increase or decrease? Briefly explain.</li>
+      </ol>
+
+      <details>
+        <summary>Show full solution</summary>
+        <div class="solution-body">
+          <ol class="alpha" type="a">
+            <li>
+              First find the sum:
+              \[
+              12+25+8+31+14=90
+              \]
+              Since there are \(n=5\) values,
+              \[
+              \bar{x}=\frac{90}{5}=18
+              \]
+            </li>
+            <li>
+              Compute deviations from the mean \(\bar{x}=18\):
+
+              <table aria-label="Deviation table for text message data">
+                <thead>
+                  <tr>
+                    <th>\(x_i\)</th>
+                    <th>\(x_i-\bar{x}\)</th>
+                    <th>\((x_i-\bar{x})^2\)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td>12</td><td>\(12-18=-6\)</td><td>\(36\)</td></tr>
+                  <tr><td>25</td><td>\(25-18=7\)</td><td>\(49\)</td></tr>
+                  <tr><td>8</td><td>\(8-18=-10\)</td><td>\(100\)</td></tr>
+                  <tr><td>31</td><td>\(31-18=13\)</td><td>\(169\)</td></tr>
+                  <tr><td>14</td><td>\(14-18=-4\)</td><td>\(16\)</td></tr>
+                  <tr><td><strong>Sum</strong></td><td>&nbsp;</td><td><strong>\(370\)</strong></td></tr>
+                </tbody>
+              </table>
+
+              Now use the sample standard deviation formula:
+              \[
+              s=\sqrt{\frac{\sum (x_i-\bar{x})^2}{n-1}}
+              =\sqrt{\frac{370}{4}}
+              =\sqrt{92.5}
+              \approx 9.62
+              \]
+
+              So the sample standard deviation is
+              \[
+              \boxed{s\approx 9.62}
+              \]
+            </li>
+            <li>
+              Adding \(500\) will <strong>increase</strong> the mean \(\bar{x}\), because \(500\) is much larger than all the original values.
+              We also expect the standard deviation \(s\) to <strong>increase</strong>, because the new value is far from the rest of the data, so the data become much more spread out.
+            </li>
+          </ol>
+        </div>
+      </details>
+    </section>
+
+    <section class="card">
+      <h2>Notation Reminder</h2>
+      <ul>
+        <li><strong>\(\bar{x}\)</strong> = sample mean</li>
+        <li><strong>\(\mu\)</strong> = population mean</li>
+        <li><strong>\(s\)</strong> = sample standard deviation</li>
+        <li><strong>\(x_i\)</strong> = the \(i\)-th data value in a sample</li>
+        <li><strong>\(n\)</strong> = sample size</li>
+      </ul>
+    </section>
+  </main>
+</body>
+</html>
