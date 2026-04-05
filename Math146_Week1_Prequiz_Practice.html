@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MATH& 146 — Week 1 Prequiz Practice</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400&family=Cormorant+Garamond:wght@300;400;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-chtml.min.js"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:        #F4F1EA;
+    --surface:   #FDFCF8;
+    --ink:       #1C2430;
+    --ink-mid:   #3D4A5C;
+    --ink-light: #6B7889;
+    --rule:      #D5CFC0;
+    --accent:    #1E5F8C;
+    --accent-lt: #E8F1F8;
+    --gold:      #8A6A1F;
+    --gold-lt:   #F5EDD6;
+    --sol-bg:    #EFF7F0;
+    --sol-border:#2D7A48;
+    --radius:    6px;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Crimson Pro', Georgia, serif;
+    font-size: 19px;
+    line-height: 1.65;
+    padding: 2.5rem 1.5rem 5rem;
+  }
+
+  .page {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  /* Header */
+  .course-header {
+    border-bottom: 2px solid var(--ink);
+    padding-bottom: 1rem;
+    margin-bottom: 2.5rem;
+  }
+  .course-header .label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-light);
+    margin-bottom: 0.25rem;
+  }
+  .course-header h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: 2.1rem;
+    line-height: 1.2;
+    color: var(--ink);
+  }
+  .course-header h1 em {
+    font-style: normal;
+    color: var(--accent);
+  }
+  .course-header .subtitle {
+    font-size: 14px;
+    color: var(--ink-light);
+    margin-top: 0.4rem;
+    font-family: 'DM Mono', monospace;
+  }
+
+  /* Reference box */
+  .ref-box {
+    background: var(--gold-lt);
+    border-left: 3px solid var(--gold);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    padding: 1rem 1.25rem;
+    margin-bottom: 2.5rem;
+  }
+  .ref-box .ref-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+  }
+  .ref-box .formulas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem 2.5rem;
+    align-items: center;
+  }
+  .ref-box .formula-item {
+    font-size: 17px;
+  }
+
+  /* Problem sections */
+  .problem {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+    margin-bottom: 2rem;
+    overflow: hidden;
+  }
+  .problem-header {
+    background: var(--ink);
+    color: #F4F1EA;
+    padding: 0.65rem 1.25rem;
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+  }
+  .problem-number {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    opacity: 0.6;
+    white-space: nowrap;
+  }
+  .problem-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: 1.2rem;
+    line-height: 1.3;
+  }
+
+  .problem-body {
+    padding: 1.25rem 1.5rem;
+  }
+
+  /* Scenario text */
+  .scenario {
+    background: var(--accent-lt);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    padding: 0.75rem 1rem;
+    margin-bottom: 1.25rem;
+    font-size: 17px;
+    color: var(--ink-mid);
+  }
+
+  /* Data display */
+  .data-row {
+    font-family: 'DM Mono', monospace;
+    font-size: 15px;
+    background: var(--bg);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+    padding: 0.5rem 1rem;
+    margin-bottom: 1.25rem;
+    color: var(--ink-mid);
+    letter-spacing: 0.03em;
+  }
+
+  /* Parts */
+  .part {
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 1rem;
+  }
+  .part:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+    margin-bottom: 0;
+  }
+  .part-stem {
+    display: flex;
+    gap: 0.6rem;
+    align-items: baseline;
+    margin-bottom: 0.5rem;
+  }
+  .part-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--accent);
+    min-width: 1.4rem;
+  }
+  .part-text {
+    font-size: 18px;
+    line-height: 1.55;
+  }
+
+  /* Dropdown solution */
+  details {
+    margin-top: 0.5rem;
+    margin-left: 1.9rem;
+  }
+  details summary {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--sol-border);
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    user-select: none;
+    width: fit-content;
+  }
+  details summary::-webkit-details-marker { display: none; }
+  details summary::before {
+    content: '';
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-left: 7px solid var(--sol-border);
+    transition: transform 0.2s ease;
+    flex-shrink: 0;
+  }
+  details[open] summary::before {
+    transform: rotate(90deg);
+  }
+  details summary:hover {
+    color: #1C5A33;
+  }
+  .solution-body {
+    background: var(--sol-bg);
+    border-left: 3px solid var(--sol-border);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    padding: 0.85rem 1rem;
+    margin-top: 0.5rem;
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--ink-mid);
+    animation: reveal 0.18s ease;
+  }
+  @keyframes reveal {
+    from { opacity: 0; transform: translateY(-4px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .solution-body p + p { margin-top: 0.5rem; }
+  .solution-body .ans {
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .solution-body .note {
+    font-size: 15px;
+    color: var(--ink-light);
+    font-style: italic;
+  }
+
+  /* Tables */
+  .sol-table {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 16px;
+    margin: 0.5rem 0;
+    font-family: 'DM Mono', monospace;
+  }
+  .sol-table th {
+    background: #C8E6D0;
+    color: #1C5A33;
+    font-weight: 400;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.4rem 0.75rem;
+    text-align: left;
+    border: 1px solid #A8D4B2;
+  }
+  .sol-table td {
+    padding: 0.35rem 0.75rem;
+    border: 1px solid #C2DEC8;
+    color: var(--ink-mid);
+    vertical-align: middle;
+  }
+  .sol-table tr:nth-child(even) td { background: #F0FAF2; }
+  .sol-table .total td {
+    background: #C8E6D0;
+    font-weight: 600;
+    color: #1C5A33;
+  }
+
+  /* Deviation table */
+  .dev-table {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 16px;
+    margin: 0.5rem 0;
+    font-family: 'DM Mono', monospace;
+  }
+  .dev-table th {
+    background: #D5DFFB;
+    color: #1E3A8A;
+    font-weight: 400;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.4rem 0.75rem;
+    text-align: center;
+    border: 1px solid #B3C3F5;
+  }
+  .dev-table td {
+    padding: 0.35rem 0.75rem;
+    border: 1px solid #C5D2F7;
+    color: var(--ink-mid);
+    text-align: center;
+    vertical-align: middle;
+  }
+  .dev-table tr:nth-child(even) td { background: #F0F3FD; }
+  .dev-table .total td {
+    background: #D5DFFB;
+    font-weight: 600;
+    color: #1E3A8A;
+  }
+
+  .mono { font-family: 'DM Mono', monospace; font-size: 15px; }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--rule);
+    font-size: 13px;
+    color: var(--ink-light);
+    font-family: 'DM Mono', monospace;
+    letter-spacing: 0.05em;
+  }
+
+  @media (max-width: 540px) {
+    body { font-size: 17px; padding: 1.5rem 1rem 4rem; }
+    .course-header h1 { font-size: 1.6rem; }
+    .ref-box .formulas { flex-direction: column; gap: 0.5rem; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header class="course-header">
+    <div class="label">Centralia College &nbsp;·&nbsp; Mathematics</div>
+    <h1>MATH&amp; 146 &mdash; <em>Introduction to Statistics</em></h1>
+    <div class="subtitle">Week 1 &nbsp;·&nbsp; Prequiz Practice &nbsp;·&nbsp; Expand each part for a worked solution.</div>
+  </header>
+
+  <div class="ref-box">
+    <div class="ref-label">Reference Formulas</div>
+    <div class="formulas">
+      <div class="formula-item">\(\displaystyle \bar{x} = \frac{\sum x_i}{n}\)</div>
+      <div class="formula-item">\(\displaystyle s = \sqrt{\frac{\sum(x_i - \bar{x})^2}{n-1}}\)</div>
+      <div class="formula-item">\(\displaystyle \text{rel. freq.} = \frac{\text{freq.}}{n}\)</div>
+    </div>
+  </div>
+
+  <!-- PROBLEM 1 -->
+  <section class="problem">
+    <div class="problem-header">
+      <span class="problem-number">Problem 1</span>
+      <span class="problem-title">Population, sample, and notation</span>
+    </div>
+    <div class="problem-body">
+      <div class="scenario">
+        A county health department wants to estimate the average number of hours of sleep adults in the county get per night. They recruit 120 randomly selected adults and record how many hours each person slept last night.
+      </div>
+
+      <div class="part">
+        <div class="part-stem">
+          <span class="part-label">(a)</span>
+          <span class="part-text">Identify the population in this study.</span>
+        </div>
+        <details>
+          <summary>Show solution</summary>
+          <div class="solution-body">
+            <p><span class="ans">All adults in the county.</span></p>
+            <p class="note">The population is the entire group we want to draw conclusions about — here, every adult living in the county, not just those in the study.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="part">
+        <div class="part-stem">
+          <span class="part-label">(b)</span>
+          <span class="part-text">Identify the sample.</span>
+        </div>
+        <details>
+          <summary>Show solution</summary>
+          <div class="solution-body">
+            <p><span class="ans">The 120 randomly selected adults who participated in the study.</span></p>
+            <p class="note">The sample is the subset of the population that we actually observe. The sample gives us information about the population, but it is not the population.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="part">
+        <div class="part-stem">
+          <span class="part-label">(c)</span>
+          <span class="part-text">The department finds the average sleep time for the 120 participants is 6.8 hours. Which symbol represents this value — \(\mu\) or \(\bar{x}\)? Explain why.</span>
+        </div>
+        <details>
+          <summary>Show solution</summary>
+          <div class="solution-body">
+            <p><span class="ans">\(\bar{x} = 6.8\) hours.</span></p>
+            <p>This is a <em>sample statistic</em> — a number computed from sample data. We use \(\bar{x}\) (read: "x-bar") for statistics calculated from a sample.</p>
+            <p class="note">\(\mu\) is reserved for the true population mean, which we typically do not know and are trying to estimate.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="part">
+        <div class="part-stem">
+          <span class="part-label">(d)</span>
+          <span class="part-text">The true average sleep time for all adults in the county is unknown. Which Greek letter would we use to represent this unknown value?</span>
+        </div>
+        <details>
+          <summary>Show solution</summary>
+          <div class="solution-body">
+            <p><span class="ans">\(\mu\) (mu).</span></p>
+            <p>Greek letters denote <em>population parameters</em> — quantities describing the entire population. Since we cannot measure every adult in the county, \(\mu\) remains unknown; we use \(\bar{x}\) from our sample to estimate it.</p>
+          </div>
+        </details>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PROBLEM 2 -->
+  <section class="problem">
+    <div class="problem-header">
+      <span class="problem-number">Problem 2</span>
+      <span class="problem-title">Summation notation and frequency</span>
+    </div>
+    <div class="problem-body">
+      <div class="scenario">
+        Ten students report the number of cups of coffee they drank yesterday:
+      </div>
+      <div class="data-row">0, 1, 2, 1, 3, 0, 2, 1, 0, 2</div>
+
+      <div class="part">
+        <div class="part-stem">
+          <span class="part-label">(a)</span>
+          <span class="part-text">Compute \(\displaystyle\sum_{i=1}^{10} x_i\).</span>
+        </div>
+        <details>
+          <summary>Show solution</summary>
+          <div class="solution-body">
+            <p>\(\sum x_i = 0 + 1 + 2 + 1 + 3 + 0 + 2 + 1 + 0 + 2\)</p>
+            <p><span class="ans">\(= 12\)</span></p>
+          </div>
+        </details>
+      </div>
+
+      <div class="part">
+        <div class="part-stem">
+          <span class="part-label">(b)</span>
+          <span class="part-text">Compute \(\displaystyle\sum_{i=1}^{10} x_i^2\).</span>
+        </div>
+        <details>
+          <summary>Show solution</summary>
+          <div class="solution-body">
+            <p>Square each value first, then sum:</p>
+            <p>\(0^2 + 1^2 + 2^2 + 1^2 + 3^2 + 0^2 + 2^2 + 1^2 + 0^2 + 2^2\)</p>
+            <p>\(= 0 + 1 + 4 + 1 + 9 + 0 + 4 + 1 + 0 + 4\)</p>
+            <p><span class="ans">\(= 24\)</span></p>
+            <p class="note">Note: \(\sum x_i^2 \neq \left(\sum x_i\right)^2\). Here \(12^2 = 144\), which is very different from 24.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="part">
+        <div class="part-stem">
+          <span class="part-label">(c)</span>
+          <span class="part-text">Complete the frequency and relative frequency table.</span>
+        </div>
+        <details>
+          <summary>Show solution</summary>
+          <div class="solution-body">
+            <table class="sol-table">
+              <thead>
+                <tr>
+                  <th>Cups of coffee</th>
+                  <th>Frequency</th>
+                  <th>Relative frequency</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>0</td><td>3</td><td>3/10 = 0.30</td></tr>
+                <tr><td>1</td><td>3</td><td>3/10 = 0.30</td></tr>
+                <tr><td>2</td><td>3</td><td>3/10 = 0.30</td></tr>
+                <tr><td>3</td><td>1</td><td>1/10 = 0.10</td></tr>
+                <tr class="total"><td>Total</td><td>10</td><td>1.00</td></tr>
+              </tbody>
+            </table>
+            <p class="note" style="margin-top: 0.5rem;">Relative frequencies must sum to 1 (allowing for small rounding differences).</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="part">
+        <div class="part-stem">
+          <span class="part-label">(d)</span>
+          <span class="part-text">What percentage of students drank at least one cup of coffee?</span>
+        </div>
+        <details>
+          <summary>Show solution</summary>
+          <div class="solution-body">
+            <p>"At least one cup" means 1, 2, or 3 cups. From the table:</p>
+            <p>Frequency = \(3 + 3 + 1 = 7\) students out of 10.</p>
+            <p><span class="ans">Relative frequency \(= 7/10 = 0.70\), so <strong>70%</strong> of students drank at least one cup.</span></p>
+            <p class="note">Equivalently: only 3 students drank 0 cups, so \(10 - 3 = 7\) drank at least one.</p>
+          </div>
+        </details>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PROBLEM 3 -->
+  <section class="problem">
+    <div class="problem-header">
+      <span class="problem-number">Problem 3</span>
+      <span class="problem-title">Mean and standard deviation</span>
+    </div>
+    <div class="problem-body">
+      <div class="scenario">
+        Five friends compare the number of text messages they sent yesterday:
+      </div>
+      <div class="data-row">12, 25, 8, 31, 14</div>
+
+      <div class="part">
+        <div class="part-stem">
+          <span class="part-label">(a)</span>
+          <span class="part-text">Compute the sample mean \(\bar{x}\).</span>
+        </div>
+        <details>
+          <summary>Show solution</summary>
+          <div class="solution-body">
+            <p>\(\bar{x} = \dfrac{\sum x_i}{n} = \dfrac{12 + 25 + 8 + 31 + 14}{5} = \dfrac{90}{5}\)</p>
+            <p><span class="ans">\(\bar{x} = 18\) text messages.</span></p>
+          </div>
+        </details>
+      </div>
+
+      <div class="part">
+        <div class="part-stem">
+          <span class="part-label">(b)</span>
+          <span class="part-text">Complete the deviation table, then compute the sample standard deviation \(s\). Round to two decimal places.</span>
+        </div>
+        <details>
+          <summary>Show solution</summary>
+          <div class="solution-body">
+            <table class="dev-table">
+              <thead>
+                <tr>
+                  <th>\(x_i\)</th>
+                  <th>\(x_i - \bar{x}\)</th>
+                  <th>\((x_i - \bar{x})^2\)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>12</td><td>\(12 - 18 = -6\)</td><td>36</td></tr>
+                <tr><td>25</td><td>\(25 - 18 = 7\)</td><td>49</td></tr>
+                <tr><td>8</td><td>\(8 - 18 = -10\)</td><td>100</td></tr>
+                <tr><td>31</td><td>\(31 - 18 = 13\)</td><td>169</td></tr>
+                <tr><td>14</td><td>\(14 - 18 = -4\)</td><td>16</td></tr>
+                <tr class="total"><td>Sum</td><td>0</td><td>370</td></tr>
+              </tbody>
+            </table>
+            <p style="margin-top: 0.6rem;">\(s = \sqrt{\dfrac{370}{5 - 1}} = \sqrt{\dfrac{370}{4}} = \sqrt{92.5}\)</p>
+            <p><span class="ans">\(s \approx 9.62\) text messages.</span></p>
+            <p class="note">The sum of deviations is always 0 — a useful check. We divide by \(n - 1 = 4\) (not \(n\)) because this is a sample standard deviation.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="part">
+        <div class="part-stem">
+          <span class="part-label">(c)</span>
+          <span class="part-text">A sixth friend joins and says they sent 500 text messages. Without computing, does adding this person increase, decrease, or not change \(\bar{x}\)? Do you expect \(s\) to increase or decrease? Briefly explain.</span>
+        </div>
+        <details>
+          <summary>Show solution</summary>
+          <div class="solution-body">
+            <p><span class="ans">\(\bar{x}\) will increase; \(s\) will increase dramatically.</span></p>
+            <p>The current mean is 18. Adding a value of 500 — far above the mean — pulls the mean upward. It cannot stay the same or decrease.</p>
+            <p>For \(s\): standard deviation measures spread around the mean. The value 500 is an extreme outlier relative to the original data (roughly 482 units from the new mean), so the squared deviation for that one person will be enormous. The overall \(s\) will grow substantially.</p>
+            <p class="note">This illustrates that both the mean and standard deviation are sensitive to outliers — a single extreme value can shift them considerably.</p>
+          </div>
+        </details>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="footer">
+    MATH&amp; 146 &nbsp;·&nbsp; Centralia College &nbsp;·&nbsp; Week 1 Practice
+  </div>
+
+</div>
+</body>
+</html>
