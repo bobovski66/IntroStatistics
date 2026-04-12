@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Math 146 Week 2 Prequiz Practice</title>
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(','\\)'], ['$', '$']],
+        displayMath: [['\\[','\\]'], ['$$','$$']]
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+      }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --panel: #ffffff;
+      --text: #1f2937;
+      --muted: #4b5563;
+      --border: #d1d5db;
+      --solution: #f0fdf4;
+      --solution-border: #86efac;
+      --accent: #0f766e;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.6;
+      color: var(--text);
+      background: var(--bg);
+    }
+    .container {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 2rem 1rem 4rem;
+    }
+    header {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    h1, h2, h3 { line-height: 1.25; }
+    h1 { margin-top: 0; margin-bottom: .5rem; font-size: 2rem; }
+    .subtitle { color: var(--muted); margin: 0; }
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.25rem;
+      margin-bottom: 1.25rem;
+    }
+    .formula-box {
+      background: #f9fafb;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1rem;
+      overflow-x: auto;
+    }
+    ol.alpha { padding-left: 1.25rem; }
+    ol.alpha > li { margin-bottom: .75rem; }
+    ul.tight li { margin-bottom: .35rem; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+      background: white;
+    }
+    th, td {
+      border: 1px solid var(--border);
+      padding: .65rem;
+      text-align: center;
+      vertical-align: middle;
+    }
+    th { background: #f3f4f6; }
+    details {
+      margin-top: 1rem;
+      border: 1px solid var(--solution-border);
+      border-radius: 12px;
+      background: var(--solution);
+      overflow: hidden;
+    }
+    summary {
+      cursor: pointer;
+      font-weight: 700;
+      padding: .9rem 1rem;
+      color: #166534;
+      background: #dcfce7;
+      outline-offset: 4px;
+    }
+    .solution-body { padding: 1rem; }
+    .small-note { color: var(--muted); font-size: .95rem; }
+    .axis-box {
+      border: 1px dashed var(--border);
+      border-radius: 12px;
+      padding: .9rem 1rem;
+      background: #fcfcfd;
+      margin-top: .75rem;
+    }
+    .hist-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
+      gap: .75rem;
+      margin-top: .75rem;
+    }
+    .hist-bar {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: .7rem .8rem;
+      background: #fff;
+    }
+    .hist-bar strong {
+      color: var(--accent);
+    }
+    .tag {
+      display: inline-block;
+      padding: .15rem .5rem;
+      border-radius: 999px;
+      background: #ecfeff;
+      border: 1px solid #a5f3fc;
+      color: #155e75;
+      font-size: .9rem;
+      margin-right: .4rem;
+      margin-bottom: .35rem;
+    }
+
+    .plot-wrap {
+      margin-top: 1rem;
+      overflow-x: auto;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: .75rem;
+    }
+    .hist-svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .hist-svg rect {
+      fill: #dbeafe;
+      stroke: #1f2937;
+      stroke-width: 1.5;
+    }
+
+    @media (max-width: 640px) {
+      body { font-size: 17px; }
+      h1 { font-size: 1.65rem; }
+      .container { padding: 1rem .75rem 3rem; }
+    }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <header>
+      <h1>Math 146 — Week 2 Prequiz Practice</h1>
+      <p class="subtitle">Introduction to Statistics</p>
+    </header>
+
+    <section class="card" aria-labelledby="reference-formulas">
+      <h2 id="reference-formulas">Reference Formulas</h2>
+      <div class="formula-box">
+        <p>\[
+          P(\text{Geometric: } X=k)=(1-p)^{k-1}p
+          \qquad
+          \mu_{\text{geo}}=\frac{1}{p}
+        \]</p>
+        <p>\[
+          P(\text{Binomial: } X=k)=\binom{n}{k}p^k(1-p)^{n-k}
+          \qquad
+          \mu_{\text{bin}}=np
+          \qquad
+          \sigma_{\text{bin}}=\sqrt{np(1-p)}
+        \]</p>
+        <p>\[
+          \binom{n}{k}=\frac{n!}{k!(n-k)!}
+          \qquad
+          E(X)=\sum x\cdot P(X=x)
+        \]</p>
+      </div>
+    </section>
+
+    <section class="card" aria-labelledby="problem1">
+      <h2 id="problem1">Problem 1. Probability Distribution</h2>
+      <p>
+        A spinner is divided into four sectors: the spinner lands on \(1\) with probability \(0.10\),
+        on \(2\) with probability \(0.30\), on \(3\) with probability \(0.40\), and on \(4\) with probability \(0.20\).
+        Let \(X\) be the number the spinner lands on.
+      </p>
+
+      <ol class="alpha" type="a">
+        <li>Complete the probability distribution table.</li>
+        <li>Verify that the probabilities sum to \(1\).</li>
+        <li>Sketch the probability histogram. Label both axes, and make the bar heights match the probabilities.</li>
+        <li>Compute \(\mu = E(X)\).</li>
+      </ol>
+
+      <table aria-label="Probability distribution table for spinner">
+        <thead>
+          <tr>
+            <th>\(x\)</th>
+            <th>1</th>
+            <th>2</th>
+            <th>3</th>
+            <th>4</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>\(P(X=x)\)</td>
+            <td>0.10</td>
+            <td>&nbsp;</td>
+            <td>0.40</td>
+            <td>&nbsp;</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <details>
+        <summary>Show full solution</summary>
+        <div class="solution-body">
+          <ol class="alpha" type="a">
+            <li>
+              The completed table is:
+              <table aria-label="Completed probability distribution table for spinner">
+                <thead>
+                  <tr>
+                    <th>\(x\)</th>
+                    <th>1</th>
+                    <th>2</th>
+                    <th>3</th>
+                    <th>4</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>\(P(X=x)\)</td>
+                    <td>0.10</td>
+                    <td>0.30</td>
+                    <td>0.40</td>
+                    <td>0.20</td>
+                  </tr>
+                </tbody>
+              </table>
+            </li>
+            <li>
+              Add the probabilities:
+              \[
+                0.10+0.30+0.40+0.20=1.00
+              \]
+              So this is a valid probability distribution.
+            </li>
+            <li>
+              The histogram has four bars:
+              <div class="hist-list">
+                <div class="hist-bar"><strong>\(x=1\)</strong><br>height \(0.10\)</div>
+                <div class="hist-bar"><strong>\(x=2\)</strong><br>height \(0.30\)</div>
+                <div class="hist-bar"><strong>\(x=3\)</strong><br>height \(0.40\)</div>
+                <div class="hist-bar"><strong>\(x=4\)</strong><br>height \(0.20\)</div>
+              </div>
+              <div class="axis-box">
+                Horizontal axis: outcome \(x\)<br>
+                Vertical axis: \(P(X=x)\)
+              </div>
+
+<div class="plot-wrap" role="img" aria-label="Probability histogram for the spinner distribution">
+  <svg viewBox="0 0 520 280" class="hist-svg">
+    <line x1="60" y1="220" x2="470" y2="220" stroke="black" stroke-width="2"/>
+    <line x1="60" y1="220" x2="60" y2="30" stroke="black" stroke-width="2"/>
+
+    <line x1="55" y1="220" x2="60" y2="220" stroke="black"/>
+    <line x1="55" y1="182" x2="60" y2="182" stroke="black"/>
+    <line x1="55" y1="144" x2="60" y2="144" stroke="black"/>
+    <line x1="55" y1="106" x2="60" y2="106" stroke="black"/>
+    <line x1="55" y1="68" x2="60" y2="68" stroke="black"/>
+    <line x1="55" y1="30" x2="60" y2="30" stroke="black"/>
+
+    <text x="38" y="224" font-size="14">0</text>
+    <text x="24" y="186" font-size="14">0.1</text>
+    <text x="24" y="148" font-size="14">0.2</text>
+    <text x="24" y="110" font-size="14">0.3</text>
+    <text x="24" y="72" font-size="14">0.4</text>
+    <text x="24" y="34" font-size="14">0.5</text>
+
+    <rect x="95" y="182" width="55" height="38" />
+    <rect x="185" y="106" width="55" height="114" />
+    <rect x="275" y="68" width="55" height="152" />
+    <rect x="365" y="144" width="55" height="76" />
+
+    <line x1="122.5" y1="220" x2="122.5" y2="226" stroke="black"/>
+    <line x1="212.5" y1="220" x2="212.5" y2="226" stroke="black"/>
+    <line x1="302.5" y1="220" x2="302.5" y2="226" stroke="black"/>
+    <line x1="392.5" y1="220" x2="392.5" y2="226" stroke="black"/>
+
+    <text x="118" y="245" font-size="14">1</text>
+    <text x="208" y="245" font-size="14">2</text>
+    <text x="298" y="245" font-size="14">3</text>
+    <text x="388" y="245" font-size="14">4</text>
+
+    <text x="210" y="270" font-size="16">Outcome \(x\)</text>
+    <text x="18" y="145" font-size="16" transform="rotate(-90 18 145)">\(P(X=x)\)</text>
+  </svg>
+</div>
+
+            </li>
+            <li>
+              Compute the expected value:
+              \[
+              E(X)=1(0.10)+2(0.30)+3(0.40)+4(0.20)
+              \]
+              \[
+              =0.10+0.60+1.20+0.80=2.70
+              \]
+              So
+              \[
+                \boxed{\mu=E(X)=2.7}
+              \]
+            </li>
+          </ol>
+          <p class="small-note">The expected value is the long-run average outcome of the spinner.</p>
+        </div>
+      </details>
+    </section>
+
+    <section class="card" aria-labelledby="problem2">
+      <h2 id="problem2">Problem 2. Geometric Distribution</h2>
+      <p>
+        A student randomly guesses on each question of a multiple-choice exam where each question
+        has \(5\) choices and exactly one correct answer. Let \(X\) be the question number on which
+        the student first guesses correctly.
+      </p>
+
+      <ol class="alpha" type="a">
+        <li>What is the success probability \(p\) on each question?</li>
+        <li>Compute \(P(X=1)\), \(P(X=2)\), and \(P(X=4)\).</li>
+        <li>Compute \(\mu\). Interpret this number in a sentence.</li>
+        <li>Sketch the first 5 bars of the probability histogram. Is it skewed left, skewed right, or symmetric?</li>
+      </ol>
+
+      <details>
+        <summary>Show full solution</summary>
+        <div class="solution-body">
+          <ol class="alpha" type="a">
+            <li>
+              There is \(1\) correct answer out of \(5\) choices, so
+              \[
+                p=\frac{1}{5}=0.20
+              \]
+            </li>
+            <li>
+              Use the geometric formula
+              \[
+                P(X=k)=(1-p)^{k-1}p
+              \]
+              with \(p=0.20\), so \(1-p=0.80\).
+              <p>
+                For \(X=1\):
+                \[
+                  P(X=1)=(0.80)^0(0.20)=1(0.20)=0.20
+                \]
+              </p>
+              <p>
+                For \(X=2\):
+                \[
+                  P(X=2)=(0.80)^1(0.20)=0.16
+                \]
+              </p>
+              <p>
+                For \(X=4\):
+                \[
+                  P(X=4)=(0.80)^3(0.20)=0.512(0.20)=0.1024
+                \]
+              </p>
+            </li>
+            <li>
+              For a geometric distribution,
+              \[
+                \mu=\frac{1}{p}=\frac{1}{0.20}=5
+              \]
+              So
+              \[
+                \boxed{\mu=5}
+              \]
+              Interpretation: on average, the student will get the first correct answer on about the \(5\)th question.
+            </li>
+            <li>
+              The first five bar heights are:
+              <div class="hist-list">
+                <div class="hist-bar"><strong>\(k=1\)</strong><br>\(0.2000\)</div>
+                <div class="hist-bar"><strong>\(k=2\)</strong><br>\(0.1600\)</div>
+                <div class="hist-bar"><strong>\(k=3\)</strong><br>\(0.1280\)</div>
+                <div class="hist-bar"><strong>\(k=4\)</strong><br>\(0.1024\)</div>
+                <div class="hist-bar"><strong>\(k=5\)</strong><br>\(0.08192\)</div>
+              </div>
+              <div class="axis-box">
+                Horizontal axis: question number \(k\)<br>
+                Vertical axis: \(P(X=k)\)
+              </div>
+
+<div class="plot-wrap" role="img" aria-label="Histogram of the first five bars of the geometric distribution">
+  <svg viewBox="0 0 560 300" class="hist-svg">
+    <line x1="60" y1="235" x2="510" y2="235" stroke="black" stroke-width="2"/>
+    <line x1="60" y1="235" x2="60" y2="30" stroke="black" stroke-width="2"/>
+
+    <line x1="55" y1="235" x2="60" y2="235" stroke="black"/>
+    <line x1="55" y1="194" x2="60" y2="194" stroke="black"/>
+    <line x1="55" y1="153" x2="60" y2="153" stroke="black"/>
+    <line x1="55" y1="112" x2="60" y2="112" stroke="black"/>
+    <line x1="55" y1="71" x2="60" y2="71" stroke="black"/>
+    <line x1="55" y1="30" x2="60" y2="30" stroke="black"/>
+
+    <text x="38" y="239" font-size="14">0</text>
+    <text x="24" y="198" font-size="14">0.05</text>
+    <text x="24" y="157" font-size="14">0.10</text>
+    <text x="24" y="116" font-size="14">0.15</text>
+    <text x="24" y="75" font-size="14">0.20</text>
+    <text x="24" y="34" font-size="14">0.25</text>
+
+    <rect x="90" y="71" width="55" height="164" />
+    <rect x="170" y="104" width="55" height="131" />
+    <rect x="250" y="130" width="55" height="105" />
+    <rect x="330" y="151" width="55" height="84" />
+    <rect x="410" y="168" width="55" height="67" />
+
+    <line x1="117.5" y1="235" x2="117.5" y2="241" stroke="black"/>
+    <line x1="197.5" y1="235" x2="197.5" y2="241" stroke="black"/>
+    <line x1="277.5" y1="235" x2="277.5" y2="241" stroke="black"/>
+    <line x1="357.5" y1="235" x2="357.5" y2="241" stroke="black"/>
+    <line x1="437.5" y1="235" x2="437.5" y2="241" stroke="black"/>
+
+    <text x="113" y="260" font-size="14">1</text>
+    <text x="193" y="260" font-size="14">2</text>
+    <text x="273" y="260" font-size="14">3</text>
+    <text x="353" y="260" font-size="14">4</text>
+    <text x="433" y="260" font-size="14">5</text>
+
+    <text x="225" y="290" font-size="16">Question number \(k\)</text>
+    <text x="18" y="155" font-size="16" transform="rotate(-90 18 155)">\(P(X=k)\)</text>
+  </svg>
+</div>
+
+              Since the bars start high and then decrease as \(k\) increases, the histogram is <strong>skewed right</strong>.
+            </li>
+          </ol>
+        </div>
+      </details>
+    </section>
+
+    <section class="card" aria-labelledby="problem3">
+      <h2 id="problem3">Problem 3. Binomial Distribution</h2>
+      <p>
+        A pharmaceutical company tests a new drug. In clinical trials, the drug is effective for
+        \(70\%\) of patients. A doctor prescribes it to \(6\) new patients. Let \(X\) be the number
+        of patients for whom the drug is effective.
+      </p>
+
+      <ol class="alpha" type="a">
+        <li>Identify \(n\) and \(p\). Explain why this is a binomial setting.</li>
+        <li>Compute \(P(X=6)\).</li>
+        <li>Compute \(P(X=4)\). Show the combination calculation.</li>
+        <li>Compute \(\mu\) and \(\sigma\). Interpret \(\mu\).</li>
+        <li>Without computing every bar, describe what you would expect the histogram to look like: symmetric, skewed left, or skewed right? At approximately what value of \(k\) would the tallest bar be?</li>
+      </ol>
+
+      <details>
+        <summary>Show full solution</summary>
+        <div class="solution-body">
+          <ol class="alpha" type="a">
+            <li>
+              We have
+              \[
+                n=6 \qquad \text{and} \qquad p=0.70
+              \]
+              This is binomial because:
+              <ul class="tight">
+                <li>there is a fixed number of trials (\(6\) patients),</li>
+                <li>each trial has two outcomes (effective or not effective),</li>
+                <li>the probability of success stays the same (\(0.70\)),</li>
+                <li>and the trials are treated as independent.</li>
+              </ul>
+            </li>
+            <li>
+              Use the binomial formula:
+              \[
+                P(X=6)=\binom{6}{6}(0.70)^6(0.30)^0
+              \]
+              Since \(\binom{6}{6}=1\) and \((0.30)^0=1\),
+              \[
+                P(X=6)=(0.70)^6=0.117649
+              \]
+              So
+              \[
+                \boxed{P(X=6)\approx 0.1176}
+              \]
+            </li>
+            <li>
+              Now compute
+              \[
+                P(X=4)=\binom{6}{4}(0.70)^4(0.30)^2
+              \]
+              First,
+              \[
+                \binom{6}{4}=\frac{6!}{4!2!}=\frac{6\cdot 5}{2\cdot 1}=15
+              \]
+              Then
+              \[
+                P(X=4)=15(0.70)^4(0.30)^2
+              \]
+              \[
+                =15(0.2401)(0.09)=15(0.021609)=0.324135
+              \]
+              So
+              \[
+                \boxed{P(X=4)\approx 0.3241}
+              \]
+            </li>
+            <li>
+              For a binomial distribution,
+              \[
+                \mu=np=6(0.70)=4.2
+              \]
+              and
+              \[
+                \sigma=\sqrt{np(1-p)}=\sqrt{6(0.70)(0.30)}=\sqrt{1.26}\approx 1.1225
+              \]
+              So
+              \[
+                \boxed{\mu=4.2 \qquad \sigma\approx 1.12}
+              \]
+              Interpretation of \(\mu\): on average, about \(4.2\) out of the \(6\) patients would respond effectively to the drug.
+            </li>
+            <li>
+              Since \(p=0.70\) is greater than \(0.50\), the distribution is not symmetric. It is
+              <strong>skewed left</strong>, with more probability concentrated near the larger values of \(k\).
+              The tallest bar should be around \(k=4\), which is close to the mean \(4.2\) and in fact matches the large probability we computed for \(P(X=4)\).
+
+<div class="plot-wrap" role="img" aria-label="Histogram of the binomial distribution for n equals 6 and p equals 0.7">
+  <svg viewBox="0 0 620 310" class="hist-svg">
+    <line x1="60" y1="240" x2="565" y2="240" stroke="black" stroke-width="2"/>
+    <line x1="60" y1="240" x2="60" y2="30" stroke="black" stroke-width="2"/>
+
+    <line x1="55" y1="240" x2="60" y2="240" stroke="black"/>
+    <line x1="55" y1="188" x2="60" y2="188" stroke="black"/>
+    <line x1="55" y1="136" x2="60" y2="136" stroke="black"/>
+    <line x1="55" y1="84" x2="60" y2="84" stroke="black"/>
+    <line x1="55" y1="32" x2="60" y2="32" stroke="black"/>
+
+    <text x="38" y="244" font-size="14">0</text>
+    <text x="24" y="192" font-size="14">0.1</text>
+    <text x="24" y="140" font-size="14">0.2</text>
+    <text x="24" y="88" font-size="14">0.3</text>
+    <text x="24" y="36" font-size="14">0.4</text>
+
+    <rect x="85" y="240" width="45" height="0.15" />
+    <rect x="155" y="236.6" width="45" height="3.4" />
+    <rect x="225" y="213.5" width="45" height="26.5" />
+    <rect x="295" y="151.7" width="45" height="88.3" />
+    <rect x="365" y="71.4" width="45" height="168.6" />
+    <rect x="435" y="78.8" width="45" height="161.2" />
+    <rect x="505" y="178.8" width="45" height="61.2" />
+
+    <line x1="107.5" y1="240" x2="107.5" y2="246" stroke="black"/>
+    <line x1="177.5" y1="240" x2="177.5" y2="246" stroke="black"/>
+    <line x1="247.5" y1="240" x2="247.5" y2="246" stroke="black"/>
+    <line x1="317.5" y1="240" x2="317.5" y2="246" stroke="black"/>
+    <line x1="387.5" y1="240" x2="387.5" y2="246" stroke="black"/>
+    <line x1="457.5" y1="240" x2="457.5" y2="246" stroke="black"/>
+    <line x1="527.5" y1="240" x2="527.5" y2="246" stroke="black"/>
+
+    <text x="103" y="265" font-size="14">0</text>
+    <text x="173" y="265" font-size="14">1</text>
+    <text x="243" y="265" font-size="14">2</text>
+    <text x="313" y="265" font-size="14">3</text>
+    <text x="383" y="265" font-size="14">4</text>
+    <text x="453" y="265" font-size="14">5</text>
+    <text x="523" y="265" font-size="14">6</text>
+
+    <text x="270" y="295" font-size="16">Number of successes \(k\)</text>
+    <text x="18" y="160" font-size="16" transform="rotate(-90 18 160)">\(P(X=k)\)</text>
+  </svg>
+</div>
+
+            </li>
+          </ol>
+        </div>
+      </details>
+    </section>
+
+    <section class="card">
+      <h2>What to Watch For</h2>
+      <p>These are the main ideas from this week’s practice:</p>
+      <div>
+        <span class="tag">probability distribution</span>
+        <span class="tag">expected value</span>
+        <span class="tag">geometric distribution</span>
+        <span class="tag">binomial distribution</span>
+        <span class="tag">histogram shape</span>
+      </div>
+      <ul>
+        <li>For any probability distribution, the probabilities must add up to \(1\).</li>
+        <li>Expected value is a weighted average: multiply each outcome by its probability.</li>
+        <li>Geometric distributions model the first success.</li>
+        <li>Binomial distributions model the number of successes in a fixed number of trials.</li>
+      </ul>
+    </section>
+  </main>
+</body>
+</html>
