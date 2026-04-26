@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Math 146 Week 4 Prequiz Practice</title>
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(','\\)'], ['$','$']],
+        displayMath: [['\\[','\\]'], ['$$','$$']]
+      },
+      options: { skipHtmlTags: ['script','noscript','style','textarea','pre'] }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --panel: #ffffff;
+      --text: #1f2937;
+      --muted: #4b5563;
+      --border: #d1d5db;
+      --solution: #f0fdf4;
+      --solution-border: #86efac;
+      --accent: #0f766e;
+      --shade: #dbeafe;
+      --shade-stroke: #2563eb;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.6;
+      color: var(--text);
+      background: var(--bg);
+    }
+    .container {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 2rem 1rem 4rem;
+    }
+    header {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    h1 { margin: 0 0 .5rem; font-size: 2rem; line-height: 1.25; }
+    h2 { margin: 0 0 .75rem; font-size: 1.25rem; line-height: 1.25; }
+    .subtitle { color: var(--muted); margin: 0; }
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.25rem;
+      margin-bottom: 1.25rem;
+    }
+    .formula-box {
+      background: #f9fafb;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1rem;
+      overflow-x: auto;
+    }
+    .formula-box p { margin: .45rem 0; }
+    ol.alpha { padding-left: 1.25rem; }
+    ol.alpha > li { margin-bottom: .9rem; }
+    details {
+      margin-top: 1rem;
+      border: 1px solid var(--solution-border);
+      border-radius: 12px;
+      background: var(--solution);
+      overflow: hidden;
+    }
+    summary {
+      cursor: pointer;
+      font-weight: 700;
+      padding: .9rem 1rem;
+      color: #166534;
+    }
+    summary::marker { color: #166534; }
+    details[open] summary { border-bottom: 1px solid var(--solution-border); }
+    .sol-body { padding: 1rem; }
+    .answer-line {
+      margin-top: .75rem;
+      padding: .5rem .75rem;
+      background: #dcfce7;
+      border-radius: 8px;
+      border-left: 4px solid #16a34a;
+    }
+    .plot-wrap {
+      margin: 1rem 0;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      padding: .5rem;
+    }
+    .dist-svg { display: block; width: 100%; height: auto; }
+    /* SVG element styles — D3 will apply these via class */
+    .axis      { stroke: var(--text); stroke-width: 1.5; fill: none; }
+    .curve     { stroke: var(--text); stroke-width: 2; fill: none; }
+    .shade     { fill: var(--shade); stroke: var(--shade-stroke); stroke-width: 1.5; }
+    .tick      { stroke: var(--text); stroke-width: 1.5; }
+    .dashed    { stroke: var(--shade-stroke); stroke-dasharray: 6 5; stroke-width: 2; fill: none; }
+    .label-muted { font-family: Arial, sans-serif; font-size: 14px; fill: var(--muted); }
+    .label-main  { font-family: Arial, sans-serif; font-size: 16px; font-weight: bold; fill: var(--accent); }
+    .small-note { font-size: .875rem; color: var(--muted); margin-top: 1rem; }
+    .tag {
+      display: inline-block;
+      background: #e0f2fe;
+      color: #0369a1;
+      border-radius: 999px;
+      padding: .2rem .65rem;
+      font-size: .8rem;
+      margin: .15rem;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <header>
+    <h1>Math 146 — Week 4 Prequiz Practice</h1>
+    <p class="subtitle">Normal distributions, z-scores, and the Central Limit Theorem. Expand each solution to check your work.</p>
+  </header>
+
+  <main>
+
+    <!-- Reference -->
+    <section class="card">
+      <h2>Reference Formulas</h2>
+      <div class="formula-box">
+        <p>For \(X \sim N(\mu,\,\sigma)\): \(\displaystyle z = \frac{x - \mu}{\sigma}\)</p>
+        <p>For a sample mean: \(\bar{X} \approx N\!\left(\mu,\,\dfrac{\sigma}{\sqrt{n}}\right)\), \(\displaystyle z = \frac{\bar{x}-\mu}{\sigma/\sqrt{n}}\)</p>
+        <p>\(z\)-table gives \(P(Z \le z)\).&nbsp; Right tail: \(P(Z > z) = 1 - P(Z \le z)\).&nbsp; Middle: \(P(a \le Z \le b) = P(Z \le b) - P(Z \le a)\).</p>
+      </div>
+    </section>
+
+    <!-- Problem 1 -->
+    <section class="card">
+      <h2>Problem 1 — General Normal Distribution</h2>
+      <p>Adult heights are approximately normal with mean 67 inches and standard deviation 3 inches. Let \(X \sim N(67,\,3)\).</p>
+      <ol class="alpha" type="a">
+        <li>Find the \(z\)-score for a height of 70 inches.</li>
+        <li>Find \(P(X \le 70)\) using the \(z\)-table.</li>
+        <li>Sketch the normal curve, mark the mean, mark \(x = 70\), and shade the region for \(P(X \le 70)\).</li>
+      </ol>
+      <details>
+        <summary>Show Solution</summary>
+        <div class="sol-body">
+          <ol class="alpha" type="a">
+            <li>
+              \[ z = \frac{x - \mu}{\sigma} = \frac{70 - 67}{3} = \frac{3}{3} = 1.00 \]
+              <div class="answer-line"><strong>Answer:</strong> \(z = 1.00\)</div>
+            </li>
+            <li>
+              From the \(z\)-table, \(P(Z \le 1.00) = 0.8413\).
+              <div class="answer-line"><strong>Answer:</strong> \(P(X \le 70) \approx 0.8413\)</div>
+            </li>
+            <li>
+              <div class="plot-wrap" role="img" aria-label="Standard normal curve shaded from the left tail to z equals 1.00">
+                <svg id="curve-p1" viewBox="0 0 660 300" class="dist-svg"></svg>
+              </div>
+              <p class="small-note">The shaded region is the left 84.13% of the curve. The dashed vertical line marks \(z = 1.00\), which corresponds to \(x = 70\) inches.</p>
+            </li>
+          </ol>
+        </div>
+      </details>
+    </section>
+
+    <!-- Problem 2 -->
+    <section class="card">
+      <h2>Problem 2 — Probability Between Two Values</h2>
+      <p>A machine fills bottles with amounts that follow \(X \sim N(16.0,\;0.3)\) ounces.</p>
+      <ol class="alpha" type="a">
+        <li>Find the \(z\)-scores for 15.8 ounces and 16.4 ounces.</li>
+        <li>Find \(P(15.8 \le X \le 16.4)\).</li>
+        <li>Sketch the normal curve and shade the region that matches your probability.</li>
+      </ol>
+      <details>
+        <summary>Show Solution</summary>
+        <div class="sol-body">
+          <ol class="alpha" type="a">
+            <li>
+              \[ z_{15.8} = \frac{15.8 - 16.0}{0.3} = \frac{-0.2}{0.3} \approx -0.67 \]
+              \[ z_{16.4} = \frac{16.4 - 16.0}{0.3} = \frac{0.4}{0.3} \approx 1.33 \]
+              <div class="answer-line"><strong>Answer:</strong> \(z = -0.67\) for 15.8 oz; \(\;z = 1.33\) for 16.4 oz.</div>
+            </li>
+            <li>
+              \[ P(15.8 \le X \le 16.4) = P(-0.67 \le Z \le 1.33) = P(Z \le 1.33) - P(Z \le -0.67) \]
+              \[ = 0.9082 - 0.2514 = 0.6568 \]
+              <div class="answer-line"><strong>Answer:</strong> \(P(15.8 \le X \le 16.4) \approx 0.6568\)</div>
+            </li>
+            <li>
+              <div class="plot-wrap" role="img" aria-label="Standard normal curve with middle region from z equals negative 0.67 to z equals 1.33 shaded">
+                <svg id="curve-p2" viewBox="0 0 660 300" class="dist-svg"></svg>
+              </div>
+              <p class="small-note">The shaded band is not symmetric: 16.4 oz is 1.33 standard deviations above the mean, while 15.8 oz is only 0.67 below, so the right boundary is farther out.</p>
+            </li>
+          </ol>
+        </div>
+      </details>
+    </section>
+
+    <!-- Problem 3 -->
+    <section class="card">
+      <h2>Problem 3 — Sampling Distribution and Standard Error</h2>
+      <p>A population has mean \(\mu = 50\) and standard deviation \(\sigma = 20\). Samples of size \(n = 25\) are taken.</p>
+      <ol class="alpha" type="a">
+        <li>What is the mean of the sampling distribution of \(\bar{X}\)?</li>
+        <li>What is the standard error of \(\bar{X}\)?</li>
+        <li>Write the approximate sampling distribution of \(\bar{X}\) in the form \(\bar{X} \approx N(\text{mean},\;\text{standard error})\).</li>
+      </ol>
+      <details>
+        <summary>Show Solution</summary>
+        <div class="sol-body">
+          <ol class="alpha" type="a">
+            <li>
+              The mean of the sampling distribution always equals the population mean.
+              <div class="answer-line"><strong>Answer:</strong> \(\mu_{\bar{X}} = \mu = 50\)</div>
+            </li>
+            <li>
+              \[ \text{SE} = \frac{\sigma}{\sqrt{n}} = \frac{20}{\sqrt{25}} = \frac{20}{5} = 4 \]
+              <div class="answer-line"><strong>Answer:</strong> Standard error \(= 4\)</div>
+            </li>
+            <li>
+              <div class="answer-line"><strong>Answer:</strong> \(\bar{X} \approx N(50,\;4)\)</div>
+              <p class="small-note">By the Central Limit Theorem, sample means are approximately normally distributed for \(n \ge 25\). Averaging over 25 observations reduces the spread from \(\sigma = 20\) to \(\text{SE} = 4\). The center does not move — the mean of \(\bar{X}\) is still \(\mu\).</p>
+            </li>
+          </ol>
+        </div>
+      </details>
+    </section>
+
+    <!-- Problem 4 -->
+    <section class="card">
+      <h2>Problem 4 — CLT Probability for a Sample Mean</h2>
+      <p>The lifetime of a battery has mean 500 hours and standard deviation 40 hours. A random sample of \(n = 64\) batteries is taken.</p>
+      <ol class="alpha" type="a">
+        <li>What is the standard error of the sample mean lifetime?</li>
+        <li>Find the \(z\)-score for \(\bar{x} = 495\).</li>
+        <li>Find \(P(\bar{X} \le 495)\).</li>
+      </ol>
+      <details>
+        <summary>Show Solution</summary>
+        <div class="sol-body">
+          <ol class="alpha" type="a">
+            <li>
+              \[ \text{SE} = \frac{\sigma}{\sqrt{n}} = \frac{40}{\sqrt{64}} = \frac{40}{8} = 5 \]
+              <div class="answer-line"><strong>Answer:</strong> Standard error \(= 5\) hours</div>
+            </li>
+            <li>
+              \[ z = \frac{\bar{x} - \mu}{\sigma/\sqrt{n}} = \frac{495 - 500}{5} = \frac{-5}{5} = -1.00 \]
+              <div class="answer-line"><strong>Answer:</strong> \(z = -1.00\)</div>
+            </li>
+            <li>
+              From the \(z\)-table, \(P(Z \le {-1.00}) = 0.1587\).
+              <div class="answer-line"><strong>Answer:</strong> \(P(\bar{X} \le 495) \approx 0.1587\)</div>
+              <p class="small-note">A sample mean of 495 hours is exactly 1 standard error below \(\mu = 500\). There is about a 15.9% chance of seeing a result this low or lower, which is not unusual.</p>
+            </li>
+          </ol>
+        </div>
+      </details>
+    </section>
+
+    <!-- Tips -->
+    <section class="card">
+      <h2>What to Watch For</h2>
+      <div>
+        <span class="tag">z-score formula</span>
+        <span class="tag">left tail</span>
+        <span class="tag">right tail</span>
+        <span class="tag">middle area</span>
+        <span class="tag">standard error</span>
+        <span class="tag">CLT</span>
+        <span class="tag">sampling distribution</span>
+      </div>
+      <ul style="margin-top:.75rem;">
+        <li>The \(z\)-table always gives \(P(Z \le z)\) — a left-tail area.</li>
+        <li>For a middle region, subtract two left-tail values: \(P(a \le Z \le b) = P(Z \le b) - P(Z \le a)\).</li>
+        <li>The standard error is \(\sigma/\sqrt{n}\), not \(\sigma\). Using the wrong denominator is the most common mistake here.</li>
+        <li>The sampling distribution of \(\bar{X}\) is centered at \(\mu\) — sampling does not shift the mean, only tighten the spread.</li>
+        <li>Larger \(n\) gives a smaller SE and a tighter, taller sampling distribution.</li>
+      </ul>
+    </section>
+
+  </main>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+
+  // Standard normal PDF
+  function phi(z) {
+    return Math.exp(-0.5 * z * z) / Math.sqrt(2 * Math.PI);
+  }
+
+  // Draw one normal curve diagram.
+  // shadeLow / shadeHigh are z-values; use -Infinity / Infinity for open tails.
+  function drawNormalCurve(svgId, shadeLow, shadeHigh, ticks, probLabel, probX, probY) {
+    const W = 660, H = 300;
+    const margin = { top: 25, right: 40, bottom: 55, left: 40 };
+    const innerW = W - margin.left - margin.right;
+    const innerH = H - margin.top - margin.bottom;
+
+    const zMin = -3.6, zMax = 3.6;
+    const pdfPeak = phi(0);
+
+    function xScale(z)  { return margin.left + (z - zMin) / (zMax - zMin) * innerW; }
+    function yScale(p)  { return margin.top  + innerH    - (p / (pdfPeak * 1.1))  * innerH; }
+    const baseline = yScale(0);
+
+    // Dense z-values for smooth rendering
+    const zVals = d3.range(zMin, zMax + 0.001, 0.02);
+
+    // Shade z-values clamped to curve range
+    const shadeL = Math.max(shadeLow,  zMin);
+    const shadeH = Math.min(shadeHigh, zMax);
+    const shadeZs = [shadeL, ...d3.range(shadeL, shadeH + 0.001, 0.02).filter(z => z > shadeL && z < shadeH), shadeH];
+
+    const svg = d3.select('#' + svgId);
+
+    // Baseline axis
+    svg.append('line')
+      .attr('x1', margin.left).attr('y1', baseline)
+      .attr('x2', W - margin.right).attr('y2', baseline)
+      .attr('class', 'axis');
+
+    // Shaded area (area generator: y0 = baseline, y1 = PDF)
+    const areaPath = d3.area()
+      .x(z => xScale(z))
+      .y0(baseline)
+      .y1(z => yScale(phi(z)))
+      .curve(d3.curveBasis);
+
+    svg.append('path')
+      .datum(shadeZs)
+      .attr('d', areaPath)
+      .attr('class', 'shade');
+
+    // Bell curve (line generator)
+    const linePath = d3.line()
+      .x(z => xScale(z))
+      .y(z => yScale(phi(z)))
+      .curve(d3.curveBasis);
+
+    svg.append('path')
+      .datum(zVals)
+      .attr('d', linePath)
+      .attr('class', 'curve');
+
+    // Dashed vertical lines at finite shade boundaries
+    [shadeLow, shadeHigh].forEach(z => {
+      if (isFinite(z) && z > zMin + 0.05 && z < zMax - 0.05) {
+        svg.append('line')
+          .attr('x1', xScale(z)).attr('y1', baseline)
+          .attr('x2', xScale(z)).attr('y2', yScale(phi(z)))
+          .attr('class', 'dashed');
+      }
+    });
+
+    // Axis ticks and labels
+    ticks.forEach(({ z, label }) => {
+      const px = xScale(z);
+      svg.append('line')
+        .attr('x1', px).attr('y1', baseline)
+        .attr('x2', px).attr('y2', baseline + 7)
+        .attr('class', 'tick');
+      svg.append('text')
+        .attr('x', px).attr('y', baseline + 23)
+        .attr('text-anchor', 'middle')
+        .attr('class', 'label-muted')
+        .text(label);
+    });
+
+    // Probability label inside shaded region
+    svg.append('text')
+      .attr('x', probX).attr('y', probY)
+      .attr('text-anchor', 'middle')
+      .attr('class', 'label-main')
+      .text(probLabel);
+
+    // z-axis label
+    svg.append('text')
+      .attr('x', W / 2).attr('y', H - 4)
+      .attr('text-anchor', 'middle')
+      .attr('class', 'label-muted')
+      .text('z');
+  }
+
+  // Problem 1: left tail to z = 1.00
+  drawNormalCurve(
+    'curve-p1',
+    -Infinity, 1.00,
+    [
+      { z: -3,   label: '-3'   },
+      { z: -2,   label: '-2'   },
+      { z: -1,   label: '-1'   },
+      { z:  0,   label:  '0'   },
+      { z:  1,   label: '1.00' },
+      { z:  2,   label:  '2'   },
+      { z:  3,   label:  '3'   },
+    ],
+    '0.8413', 240, 155
+  );
+
+  // Problem 2: middle region z = -0.67 to z = 1.33
+  drawNormalCurve(
+    'curve-p2',
+    -0.67, 1.33,
+    [
+      { z: -2,    label:  '-2'   },
+      { z: -1,    label:  '-1'   },
+      { z: -0.67, label: '-0.67' },
+      { z:  0,    label:   '0'   },
+      { z:  1,    label:   '1'   },
+      { z:  1.33, label:  '1.33' },
+      { z:  2,    label:   '2'   },
+    ],
+    '0.6568', 355, 120
+  );
+
+});
+</script>
+</body>
+</html>
