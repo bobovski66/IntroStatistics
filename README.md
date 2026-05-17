@@ -59,24 +59,6 @@ Click any of the links above to open the corresponding activity.
 
 The links point to the live GitHub Pages version of each file. The source files are stored in this repository and can also be downloaded or edited directly.
 
-## Repository Structure
-
-IntroStatistics/
-├── Math146_Week1_Lab.html
-├── Math146_Week1_Prequiz_Practice.html
-├── Math146_Week2_Lab.html
-├── Math146_Week2_Prequiz_Practice.html
-├── Math146_Week3_Lab.html
-├── Math146_Week3_Prequiz_Practice.html
-├── Math146_Week4_Lab.html
-├── Math146_Week4_Prequiz_Practice.html
-├── Math146_Week5_Lab.html
-├── Math146_Week5_Prequiz_Practice.html
-├── Math146_Week6_Lab.html
-├── Math146_Week6_Prequiz_Practice.html
-├── Math146_Week7_Lab.html
-├── Math146_Week7_Prequiz_Practice.html
-└── fireball_guided_lab.html
 
 ## Notes for Students
 
