@@ -8,35 +8,49 @@ The materials are designed to support student learning through guided practice, 
 
 ### Week 1
 
+Topics: populations, samples, variables, frequency tables, relative frequency, and sample statistics.
+
 - Week 1 Lab: [Open Page](https://bobovski66.github.io/IntroStatistics/Math146_Week1_Lab.html) | [Source File](https://github.com/bobovski66/IntroStatistics/blob/main/Math146_Week1_Lab.html)
 - Week 1 Prequiz Practice: [Open Page](https://bobovski66.github.io/IntroStatistics/Math146_Week1_Prequiz_Practice.html) | [Source File](https://github.com/bobovski66/IntroStatistics/blob/main/Math146_Week1_Prequiz_Practice.html)
 
 ### Week 2
+
+Topics: probability distributions, expected value, geometric distributions, binomial distributions, and probability histograms.
 
 - Week 2 Lab: [Open Page](https://bobovski66.github.io/IntroStatistics/Math146_Week2_Lab.html) | [Source File](https://github.com/bobovski66/IntroStatistics/blob/main/Math146_Week2_Lab.html)
 - Week 2 Prequiz Practice: [Open Page](https://bobovski66.github.io/IntroStatistics/Math146_Week2_Prequiz_Practice.html) | [Source File](https://github.com/bobovski66/IntroStatistics/blob/main/Math146_Week2_Prequiz_Practice.html)
 
 ### Week 3
 
+Topics: continuous distributions, uniform distributions, empirical rule, standard normal distribution, and z-scores.
+
 - Week 3 Lab: [Open Page](https://bobovski66.github.io/IntroStatistics/Math146_Week3_Lab.html) | [Source File](https://github.com/bobovski66/IntroStatistics/blob/main/Math146_Week3_Lab.html)
 - Week 3 Prequiz Practice: [Open Page](https://bobovski66.github.io/IntroStatistics/Math146_Week3_Prequiz_Practice.html) | [Source File](https://github.com/bobovski66/IntroStatistics/blob/main/Math146_Week3_Prequiz_Practice.html)
 
 ### Week 4
+
+Topics: normal distributions, z-scores, sampling distributions, and the Central Limit Theorem.
 
 - Week 4 Lab: [Open Page](https://bobovski66.github.io/IntroStatistics/Math146_Week4_Lab.html) | [Source File](https://github.com/bobovski66/IntroStatistics/blob/main/Math146_Week4_Lab.html)
 - Week 4 Prequiz Practice: [Open Page](https://bobovski66.github.io/IntroStatistics/Math146_Week4_Prequiz_Practice.html) | [Source File](https://github.com/bobovski66/IntroStatistics/blob/main/Math146_Week4_Prequiz_Practice.html)
 
 ### Week 5
 
+Topics: confidence intervals for means and proportions, margin of error, and required sample size.
+
 - Week 5 Lab: [Open Page](https://bobovski66.github.io/IntroStatistics/Math146_Week5_Lab.html) | [Source File](https://github.com/bobovski66/IntroStatistics/blob/main/Math146_Week5_Lab.html)
 - Week 5 Prequiz Practice: [Open Page](https://bobovski66.github.io/IntroStatistics/Math146_Week5_Prequiz_Practice.html) | [Source File](https://github.com/bobovski66/IntroStatistics/blob/main/Math146_Week5_Prequiz_Practice.html)
 
 ### Week 6
 
+Topics: hypothesis testing for one population mean and one population proportion.
+
 - Week 6 Lab: [Open Page](https://bobovski66.github.io/IntroStatistics/Math146_Week6_Lab.html) | [Source File](https://github.com/bobovski66/IntroStatistics/blob/main/Math146_Week6_Lab.html)
 - Week 6 Prequiz Practice: [Open Page](https://bobovski66.github.io/IntroStatistics/Math146_Week6_Prequiz_Practice.html) | [Source File](https://github.com/bobovski66/IntroStatistics/blob/main/Math146_Week6_Prequiz_Practice.html)
 
 ### Week 7
+
+Topics: two-sample inference, independent versus paired data, confidence intervals, and hypothesis tests for two means and two proportions.
 
 - Week 7 Lab: [Open Page](https://bobovski66.github.io/IntroStatistics/Math146_Week7_Lab.html) | [Source File](https://github.com/bobovski66/IntroStatistics/blob/main/Math146_Week7_Lab.html)
 - Week 7 Prequiz Practice: [Open Page](https://bobovski66.github.io/IntroStatistics/Math146_Week7_Prequiz_Practice.html) | [Source File](https://github.com/bobovski66/IntroStatistics/blob/main/Math146_Week7_Prequiz_Practice.html)
@@ -48,6 +62,8 @@ The materials are designed to support student learning through guided practice, 
 ## Interactive Demonstrations
 
 These demonstrations are stored in the `demos/` directory.
+
+The order below follows the general topic sequence of the course: populations and samples, sample statistics, discrete probability models, long-run behavior, normal distributions, the Central Limit Theorem, confidence intervals, and hypothesis testing.
 
 - Galaxies Torus Demo: [Open Page](https://bobovski66.github.io/IntroStatistics/demos/galaxies_torus.html) | [Source File](https://github.com/bobovski66/IntroStatistics/blob/main/demos/galaxies_torus.html)
 - Sample Statistics Tool: [Open Page](https://bobovski66.github.io/IntroStatistics/demos/Sample_Statistics.html) | [Source File](https://github.com/bobovski66/IntroStatistics/blob/main/demos/Sample_Statistics.html)
@@ -65,13 +81,15 @@ These materials were created for Math 146: Introductory Statistics.
 
 The course emphasizes statistical reasoning, clear interpretation, and the use of real or realistic data. Students practice computing and interpreting sample statistics, working with probability models, using normal and related distributions, building confidence intervals, conducting hypothesis tests, and thinking carefully about variation in data.
 
-The HTML format allows students to work through activities directly in the browser. Some pages may include interactive elements, fill-in-the-blank prompts, generated summaries, or datasets that students can copy and analyze.
+The HTML format allows students to work through activities directly in the browser. Some pages may include interactive elements, fill-in-the-blank prompts, generated summaries, datasets that students can copy and analyze, or printable lab reports that can be saved as PDFs.
 
 ## How to Use These Files
 
 Use the **Open Page** links to view the live webpage version of each activity.
 
 Use the **Source File** links to view or edit the HTML files directly in the GitHub repository.
+
+For lab pages that include a report button, students can choose **Create / Save Lab Report as PDF** or **Print Lab Report**, then select **Save as PDF** in the browser print window.
 
 ## Repository Structure
 
@@ -93,12 +111,14 @@ IntroStatistics/
 ├── Math146_Week7_Prequiz_Practice.html
 ├── fireball_guided_lab.html
 └── demos/
-    ├── binomial_vs_geometric.html
-    ├── central_limit_theorem_averaging_machine.html
     ├── galaxies_torus.html
-    ├── galton_board.html
+    ├── Sample_Statistics.html
+    ├── binomial_vs_geometric.html
     ├── law_of_large_numbers_running_average.html
+    ├── galton_board.html
     ├── normal.html
+    ├── central_limit_theorem_averaging_machine.html
+    ├── ci_demo.html
     └── ztest_ci_demo.html
 ```
 
@@ -112,7 +132,7 @@ As you work through these activities, focus on three questions:
 2. What assumptions are we making?
 3. What conclusion is reasonable?
 
-When calculations are required, show enough work that another person can understand your reasoning.
+When calculations are required, show enough work that another person can understand your reasoning. When interpretation is required, write in complete sentences and refer back to the original context of the problem.
 
 ## Notes for Instructors
 
