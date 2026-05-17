@@ -1,0 +1,1169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Confidence Intervals: A Field Demo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f1e9d8;
+  --bg-panel: #faf4e6;
+  --bg-panel-deep: #ede4cd;
+  --ink: #1a1614;
+  --ink-soft: #4a3f36;
+  --ink-faint: #8a7a66;
+  --rule: #c9bea8;
+  --rule-soft: #d9d0bc;
+  --captured: #2d6a4f;
+  --captured-bg: #2d6a4f15;
+  --missed: #b34323;
+  --missed-bg: #b3432318;
+  --accent: #1d5b6f;
+  --accent-hover: #134554;
+  --pop-curve: #6b4423;
+  --mu-line: #1a1614;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'IBM Plex Sans', system-ui, sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+body {
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(107,68,35,0.04) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(29,91,111,0.04) 0%, transparent 50%);
+  min-height: 100vh;
+  padding: 32px 24px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+header.masthead {
+  border-bottom: 1px solid var(--ink);
+  padding-bottom: 18px;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+h1 {
+  font-family: 'EB Garamond', Georgia, serif;
+  font-weight: 500;
+  font-size: 38px;
+  letter-spacing: -0.01em;
+  margin: 0;
+  line-height: 1.1;
+}
+
+.kicker {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-bottom: 6px;
+}
+
+.subtitle {
+  font-family: 'EB Garamond', Georgia, serif;
+  font-style: italic;
+  font-size: 17px;
+  color: var(--ink-soft);
+  margin-top: 4px;
+}
+
+.truth-strip {
+  display: flex;
+  gap: 0;
+  border: 1px solid var(--rule);
+  background: var(--bg-panel);
+  margin-bottom: 24px;
+  overflow: hidden;
+}
+
+.truth-cell {
+  padding: 12px 18px;
+  border-right: 1px solid var(--rule);
+  flex: 1;
+  min-width: 140px;
+}
+
+.truth-cell:last-child { border-right: none; }
+
+.truth-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-bottom: 4px;
+}
+
+.truth-value {
+  font-family: 'EB Garamond', Georgia, serif;
+  font-size: 22px;
+  font-weight: 500;
+}
+
+.truth-value .num {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 1fr 280px;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+@media (max-width: 900px) {
+  .layout { grid-template-columns: 1fr; }
+}
+
+.viz-panel {
+  background: var(--bg-panel);
+  border: 1px solid var(--rule);
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.viz-header {
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--rule);
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  background: var(--bg-panel-deep);
+}
+
+.viz-title {
+  font-family: 'EB Garamond', Georgia, serif;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.viz-meta {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+#viz-canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.controls {
+  background: var(--bg-panel);
+  border: 1px solid var(--rule);
+  padding: 0;
+  align-self: start;
+  position: sticky;
+  top: 24px;
+}
+
+.controls-section {
+  padding: 18px;
+  border-bottom: 1px solid var(--rule);
+}
+
+.controls-section:last-child { border-bottom: none; }
+
+.section-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-bottom: 12px;
+}
+
+.slider-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.slider-row input[type=range] {
+  flex: 1;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 2px;
+  background: var(--rule);
+  outline: none;
+}
+
+.slider-row input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--accent);
+  cursor: pointer;
+  border: 2px solid var(--bg-panel);
+  box-shadow: 0 0 0 1px var(--accent);
+}
+
+.slider-row input[type=range]::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--accent);
+  cursor: pointer;
+  border: 2px solid var(--bg-panel);
+  box-shadow: 0 0 0 1px var(--accent);
+}
+
+.slider-value {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 14px;
+  font-weight: 500;
+  min-width: 32px;
+  text-align: right;
+}
+
+.level-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 6px;
+}
+
+.level-btn, .toggle-btn {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  font-weight: 500;
+  background: transparent;
+  border: 1px solid var(--rule);
+  padding: 8px 4px;
+  cursor: pointer;
+  color: var(--ink-soft);
+  transition: all 0.12s ease;
+}
+
+.level-btn:hover, .toggle-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.level-btn.active, .toggle-btn.active {
+  background: var(--ink);
+  color: var(--bg-panel);
+  border-color: var(--ink);
+}
+
+.toggle-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+}
+
+.action-btn {
+  width: 100%;
+  padding: 11px;
+  background: var(--accent);
+  color: var(--bg-panel);
+  border: none;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: background 0.12s ease;
+  margin-bottom: 6px;
+}
+
+.action-btn:hover { background: var(--accent-hover); }
+
+#play-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.play-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(250, 244, 230, 0.4);
+  transition: background 0.2s ease;
+}
+
+#play-btn.playing {
+  background: var(--ink);
+}
+
+#play-btn.playing:hover {
+  background: #000;
+}
+
+#play-btn.playing .play-dot {
+  background: #ff6b47;
+  animation: playpulse 1s ease-in-out infinite;
+}
+
+@keyframes playpulse {
+  0%, 100% { opacity: 0.45; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.3); }
+}
+
+.action-btn.secondary {
+  background: transparent;
+  color: var(--ink-soft);
+  border: 1px solid var(--rule);
+}
+
+.action-btn.secondary:hover {
+  border-color: var(--ink);
+  color: var(--ink);
+}
+
+.status-strip {
+  background: var(--bg-panel);
+  border: 1px solid var(--rule);
+  padding: 16px 22px;
+  margin-bottom: 18px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 28px;
+  align-items: baseline;
+}
+
+.status-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.status-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+.status-value {
+  font-family: 'EB Garamond', Georgia, serif;
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.status-value.captured { color: var(--captured); }
+.status-value.missed { color: var(--missed); }
+
+.status-value .small {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  color: var(--ink-faint);
+  font-weight: 400;
+}
+
+.formula-panel {
+  background: var(--bg-panel);
+  border: 1px solid var(--rule);
+  padding: 0;
+}
+
+.formula-header {
+  padding: 12px 22px;
+  background: var(--bg-panel-deep);
+  border-bottom: 1px solid var(--rule);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  display: flex;
+  justify-content: space-between;
+}
+
+.formula-body {
+  padding: 22px;
+}
+
+.formula-line {
+  font-family: 'EB Garamond', Georgia, serif;
+  font-size: 22px;
+  margin: 8px 0;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.formula-line.small { font-size: 17px; color: var(--ink-soft); }
+
+.formula-line .num {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 17px;
+  font-weight: 500;
+  background: var(--bg-panel-deep);
+  padding: 1px 6px;
+  border-radius: 2px;
+}
+
+.formula-line .op { color: var(--ink-faint); margin: 0 2px; }
+
+.formula-line .verdict {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-left: auto;
+  padding: 4px 10px;
+  border-radius: 2px;
+}
+
+.formula-line .verdict.captured {
+  background: var(--captured-bg);
+  color: var(--captured);
+}
+
+.formula-line .verdict.missed {
+  background: var(--missed-bg);
+  color: var(--missed);
+}
+
+.formula-empty {
+  color: var(--ink-faint);
+  font-family: 'EB Garamond', Georgia, serif;
+  font-style: italic;
+  font-size: 17px;
+}
+
+.tradeoff-note {
+  margin-top: 10px;
+  padding-top: 14px;
+  border-top: 1px dashed var(--rule);
+  font-family: 'EB Garamond', Georgia, serif;
+  font-style: italic;
+  color: var(--ink-soft);
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+footer {
+  margin-top: 32px;
+  padding-top: 18px;
+  border-top: 1px solid var(--rule);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.legend-inline {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.legend-swatch {
+  display: inline-block;
+  width: 14px;
+  height: 3px;
+}
+
+@keyframes fadein {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.fadein { animation: fadein 0.25s ease; }
+
+/* math notation */
+.math-x-bar { position: relative; padding-top: 2px; }
+.math-x-bar::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 1px;
+  right: 1px;
+  height: 1px;
+  background: currentColor;
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+  <header class="masthead">
+    <div>
+      <div class="kicker">MATH&amp; 146 · Inferential Statistics · Demonstration 04</div>
+      <h1>Confidence Intervals:</h1>
+      <div class="subtitle">The confidence interval is the random object that changes while <span style="font-family:'EB Garamond';">μ</span> is fixed.</div>
+    </div>
+  </header>
+
+  <div class="truth-strip">
+    <div class="truth-cell">
+      <div class="truth-label">Population</div>
+      <div class="truth-value">Normal</div>
+    </div>
+    <div class="truth-cell">
+      <div class="truth-label">True Mean μ</div>
+      <div class="truth-value"><span class="num">100</span></div>
+    </div>
+    <div class="truth-cell">
+      <div class="truth-label">True St. Dev. σ</div>
+      <div class="truth-value"><span class="num">15</span></div>
+    </div>
+    <div class="truth-cell">
+      <div class="truth-label">Method</div>
+      <div class="truth-value" id="method-display"><span class="num" style="font-size:15px;">z-interval</span></div>
+    </div>
+  </div>
+
+  <div class="layout">
+
+    <div class="viz-panel">
+      <div class="viz-header">
+        <div class="viz-title">Population &amp; Sampling Stack</div>
+        <div class="viz-meta" id="viz-meta">drawn: 0</div>
+      </div>
+      <canvas id="viz-canvas" width="1600" height="1240"></canvas>
+    </div>
+
+    <aside class="controls">
+
+      <div class="controls-section">
+        <div class="section-label">Sample Size n</div>
+        <div class="slider-row">
+          <input type="range" id="n-slider" min="2" max="200" value="30" step="1">
+          <span class="slider-value" id="n-value">30</span>
+        </div>
+      </div>
+
+      <div class="controls-section">
+        <div class="section-label">Confidence Level</div>
+        <div class="level-buttons">
+          <button class="level-btn" data-level="0.90">90%</button>
+          <button class="level-btn active" data-level="0.95">95%</button>
+          <button class="level-btn" data-level="0.99">99%</button>
+        </div>
+      </div>
+
+      <div class="controls-section">
+        <div class="section-label">Standard Deviation</div>
+        <div class="toggle-row">
+          <button class="toggle-btn active" data-sigma="known">σ known</button>
+          <button class="toggle-btn" data-sigma="unknown">σ unknown</button>
+        </div>
+      </div>
+
+      <div class="controls-section">
+        <div class="section-label">Sample</div>
+        <button class="action-btn" id="draw-one">draw one sample</button>
+        <button class="action-btn" id="play-btn"><span class="play-dot"></span><span class="play-label">play</span></button>
+        <button class="action-btn" id="draw-many">draw 100 samples</button>
+        <button class="action-btn secondary" id="reset">clear stack</button>
+      </div>
+
+    </aside>
+  </div>
+
+  <div class="status-strip">
+    <div class="status-item">
+      <div class="status-label">Intervals drawn</div>
+      <div class="status-value" id="stat-total">0</div>
+    </div>
+    <div class="status-item">
+      <div class="status-label">Captured μ</div>
+      <div class="status-value captured" id="stat-captured">0</div>
+    </div>
+    <div class="status-item">
+      <div class="status-label">Missed μ</div>
+      <div class="status-value missed" id="stat-missed">0</div>
+    </div>
+    <div class="status-item">
+      <div class="status-label">Empirical coverage</div>
+      <div class="status-value" id="stat-coverage">— <span class="small">vs. 95%</span></div>
+    </div>
+  </div>
+
+  <div class="formula-panel">
+    <div class="formula-header">
+      <span>Most recent interval</span>
+      <span id="formula-method">x̄ ± z* · σ/√n</span>
+    </div>
+    <div class="formula-body" id="formula-body">
+      <div class="formula-empty">draw a sample to begin.</div>
+    </div>
+  </div>
+
+  <footer>
+    <div>
+      <span class="legend-inline"><span class="legend-swatch" style="background:#2d6a4f;"></span>captured μ</span>
+      &nbsp;&nbsp;
+      <span class="legend-inline"><span class="legend-swatch" style="background:#b34323;"></span>missed μ</span>
+    </div>
+    <div>Centralia College · Lee-Jenkins</div>
+  </footer>
+
+</div>
+
+<script>
+'use strict';
+
+/* ================================================================
+   Numerical helpers
+   ================================================================ */
+
+// Box-Muller standard normal
+let _spare = null;
+function gaussian() {
+  if (_spare !== null) { const v = _spare; _spare = null; return v; }
+  let u, v, s;
+  do {
+    u = 2*Math.random() - 1;
+    v = 2*Math.random() - 1;
+    s = u*u + v*v;
+  } while (s >= 1 || s === 0);
+  const f = Math.sqrt(-2*Math.log(s)/s);
+  _spare = v*f;
+  return u*f;
+}
+
+function sampleNormal(mu, sigma, n) {
+  const s = new Array(n);
+  for (let i = 0; i < n; i++) s[i] = mu + sigma*gaussian();
+  return s;
+}
+
+// Hardcoded z* for the three confidence levels
+const Z_STAR = { '0.90': 1.6448536, '0.95': 1.9599640, '0.99': 2.5758293 };
+
+// log-gamma via Lanczos
+function logGamma(x) {
+  const c = [76.18009172947146, -86.50532032941677, 24.01409824083091,
+             -1.231739572450155, 0.1208650973866179e-2, -0.5395239384953e-5];
+  let y = x, t = x + 5.5;
+  t -= (x + 0.5)*Math.log(t);
+  let ser = 1.000000000190015;
+  for (let j = 0; j < 6; j++) ser += c[j]/++y;
+  return -t + Math.log(2.5066282746310005*ser/x);
+}
+
+// Continued fraction for incomplete beta (Lentz)
+function betacf(a, b, x) {
+  const MAXIT = 200, EPS = 3e-7, FPMIN = 1e-30;
+  const qab = a + b, qap = a + 1, qam = a - 1;
+  let c = 1, d = 1 - qab*x/qap;
+  if (Math.abs(d) < FPMIN) d = FPMIN;
+  d = 1/d;
+  let h = d;
+  for (let m = 1; m <= MAXIT; m++) {
+    const m2 = 2*m;
+    let aa = m*(b - m)*x / ((qam + m2)*(a + m2));
+    d = 1 + aa*d;
+    if (Math.abs(d) < FPMIN) d = FPMIN;
+    c = 1 + aa/c;
+    if (Math.abs(c) < FPMIN) c = FPMIN;
+    d = 1/d;
+    h *= d*c;
+    aa = -(a + m)*(qab + m)*x / ((a + m2)*(qap + m2));
+    d = 1 + aa*d;
+    if (Math.abs(d) < FPMIN) d = FPMIN;
+    c = 1 + aa/c;
+    if (Math.abs(c) < FPMIN) c = FPMIN;
+    d = 1/d;
+    const del = d*c;
+    h *= del;
+    if (Math.abs(del - 1) < EPS) break;
+  }
+  return h;
+}
+
+// Regularized incomplete beta I_x(a,b)
+function betai(a, b, x) {
+  if (x <= 0) return 0;
+  if (x >= 1) return 1;
+  const bt = Math.exp(logGamma(a + b) - logGamma(a) - logGamma(b)
+                      + a*Math.log(x) + b*Math.log(1 - x));
+  if (x < (a + 1)/(a + b + 2)) return bt*betacf(a, b, x)/a;
+  return 1 - bt*betacf(b, a, 1 - x)/b;
+}
+
+// CDF of Student t with df degrees of freedom
+function tCDF(t, df) {
+  const x = df / (df + t*t);
+  const ib = betai(df/2, 0.5, x);
+  return t >= 0 ? 1 - 0.5*ib : 0.5*ib;
+}
+
+// Inverse CDF of Student t via bisection
+const _tCache = {};
+function tQuantile(p, df) {
+  const key = p.toFixed(6) + ':' + df;
+  if (_tCache[key] !== undefined) return _tCache[key];
+  let lo = -50, hi = 50;
+  for (let i = 0; i < 80; i++) {
+    const mid = (lo + hi)/2;
+    if (tCDF(mid, df) < p) lo = mid; else hi = mid;
+    if (hi - lo < 1e-7) break;
+  }
+  const v = (lo + hi)/2;
+  _tCache[key] = v;
+  return v;
+}
+
+// Sample mean and (unbiased) sample standard deviation
+function meanSD(data) {
+  const n = data.length;
+  let sum = 0;
+  for (let i = 0; i < n; i++) sum += data[i];
+  const m = sum/n;
+  let ss = 0;
+  for (let i = 0; i < n; i++) { const d = data[i] - m; ss += d*d; }
+  return { mean: m, sd: Math.sqrt(ss/(n - 1)) };
+}
+
+/* ================================================================
+   State
+   ================================================================ */
+
+const POP_MU = 100;
+const POP_SIGMA = 15;
+const X_MIN = POP_MU - 4*POP_SIGMA;   // 40
+const X_MAX = POP_MU + 4*POP_SIGMA;   // 160
+const MAX_INTERVALS = 120;
+
+const state = {
+  n: 30,
+  level: 0.95,
+  sigmaKnown: true,
+  intervals: [],
+  totalDrawn: 0,
+  totalCaptured: 0
+};
+
+/* ================================================================
+   Sampling
+   ================================================================ */
+
+function drawSample() {
+  const data = sampleNormal(POP_MU, POP_SIGMA, state.n);
+  const { mean, sd } = meanSD(data);
+  const alpha = 1 - state.level;
+  let crit, se, kind;
+  if (state.sigmaKnown) {
+    crit = Z_STAR[state.level.toFixed(2)];
+    se = POP_SIGMA / Math.sqrt(state.n);
+    kind = 'z';
+  } else {
+    crit = tQuantile(1 - alpha/2, state.n - 1);
+    se = sd / Math.sqrt(state.n);
+    kind = 't';
+  }
+  const margin = crit*se;
+  const lo = mean - margin;
+  const hi = mean + margin;
+  const captured = lo <= POP_MU && POP_MU <= hi;
+  return { mean, sd, lo, hi, margin, crit, se, kind, captured, n: state.n, level: state.level };
+}
+
+function drawAndStore(count) {
+  for (let i = 0; i < count; i++) {
+    const ci = drawSample();
+    state.intervals.push(ci);
+    state.totalDrawn++;
+    if (ci.captured) state.totalCaptured++;
+  }
+  if (state.intervals.length > MAX_INTERVALS) {
+    state.intervals = state.intervals.slice(-MAX_INTERVALS);
+  }
+  render();
+  updateFormulaPanel(state.intervals[state.intervals.length - 1]);
+  updateStats();
+}
+
+/* ================================================================
+   Rendering
+   ================================================================ */
+
+const canvas = document.getElementById('viz-canvas');
+const ctx = canvas.getContext('2d');
+
+// Logical drawing dims
+const W = 1600;
+const H = 1240;
+const PAD_L = 80;
+const PAD_R = 60;
+const PAD_T = 30;
+const POP_H = 240;
+const GAP = 30;
+const STACK_TOP = PAD_T + POP_H + GAP;
+const STACK_H = H - STACK_TOP - 80;
+
+function xToPx(x) {
+  return PAD_L + (x - X_MIN)/(X_MAX - X_MIN) * (W - PAD_L - PAD_R);
+}
+
+function normalPdf(x, mu, s) {
+  const z = (x - mu)/s;
+  return Math.exp(-0.5*z*z) / (s*Math.sqrt(2*Math.PI));
+}
+
+function render() {
+  // background
+  ctx.fillStyle = '#faf4e6';
+  ctx.fillRect(0, 0, W, H);
+
+  drawPopulationDensity();
+  drawAxis();
+  drawMuLine();
+  drawStack();
+  drawStackHeader();
+}
+
+function drawPopulationDensity() {
+  // shade region under curve
+  const peak = normalPdf(POP_MU, POP_MU, POP_SIGMA);
+  const popBottom = PAD_T + POP_H;
+
+  ctx.beginPath();
+  ctx.moveTo(xToPx(X_MIN), popBottom);
+  for (let px = xToPx(X_MIN); px <= xToPx(X_MAX); px += 2) {
+    const x = X_MIN + (px - PAD_L)/(W - PAD_L - PAD_R) * (X_MAX - X_MIN);
+    const y = normalPdf(x, POP_MU, POP_SIGMA);
+    const py = popBottom - (y/peak) * (POP_H - 20);
+    ctx.lineTo(px, py);
+  }
+  ctx.lineTo(xToPx(X_MAX), popBottom);
+  ctx.closePath();
+  ctx.fillStyle = 'rgba(107,68,35,0.10)';
+  ctx.fill();
+
+  // outline
+  ctx.beginPath();
+  for (let px = xToPx(X_MIN); px <= xToPx(X_MAX); px += 1) {
+    const x = X_MIN + (px - PAD_L)/(W - PAD_L - PAD_R) * (X_MAX - X_MIN);
+    const y = normalPdf(x, POP_MU, POP_SIGMA);
+    const py = popBottom - (y/peak) * (POP_H - 20);
+    if (px === Math.floor(xToPx(X_MIN))) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+  }
+  ctx.strokeStyle = '#6b4423';
+  ctx.lineWidth = 2;
+  ctx.stroke();
+
+  // label "population N(100, 15)"
+  ctx.fillStyle = '#4a3f36';
+  ctx.font = '500 22px "IBM Plex Mono", monospace';
+  ctx.textAlign = 'left';
+  ctx.fillText('population: N(100, 15²)', PAD_L + 10, PAD_T + 28);
+}
+
+function drawAxis() {
+  const popBottom = PAD_T + POP_H;
+  // baseline along population
+  ctx.strokeStyle = '#1a1614';
+  ctx.lineWidth = 1.5;
+  ctx.beginPath();
+  ctx.moveTo(xToPx(X_MIN), popBottom);
+  ctx.lineTo(xToPx(X_MAX), popBottom);
+  ctx.stroke();
+
+  // ticks every 10 units
+  ctx.fillStyle = '#1a1614';
+  ctx.font = '500 20px "IBM Plex Mono", monospace';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'top';
+  for (let x = 50; x <= 150; x += 10) {
+    const px = xToPx(x);
+    ctx.beginPath();
+    ctx.moveTo(px, popBottom);
+    ctx.lineTo(px, popBottom + 8);
+    ctx.strokeStyle = '#1a1614';
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+    if (x % 20 === 0) {
+      ctx.fillText(x.toString(), px, popBottom + 14);
+    }
+  }
+}
+
+function drawMuLine() {
+  const px = xToPx(POP_MU);
+  // dashed line through pop and stack
+  ctx.save();
+  ctx.setLineDash([6, 6]);
+  ctx.strokeStyle = '#1a1614';
+  ctx.lineWidth = 1.5;
+  ctx.beginPath();
+  ctx.moveTo(px, PAD_T);
+  ctx.lineTo(px, STACK_TOP + STACK_H);
+  ctx.stroke();
+  ctx.restore();
+
+  // label μ at top
+  ctx.fillStyle = '#1a1614';
+  ctx.font = '500 italic 28px "EB Garamond", Georgia, serif';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'bottom';
+  ctx.fillText('μ', px, PAD_T - 4);
+}
+
+function drawStackHeader() {
+  ctx.fillStyle = '#8a7a66';
+  ctx.font = '500 18px "IBM Plex Mono", monospace';
+  ctx.textAlign = 'left';
+  ctx.textBaseline = 'top';
+  ctx.fillText('SAMPLED INTERVALS  (most recent at bottom)', PAD_L, STACK_TOP + 4);
+}
+
+function drawStack() {
+  const intervals = state.intervals;
+  if (intervals.length === 0) return;
+
+  const stackBodyTop = STACK_TOP + 36;
+  const stackBodyH = STACK_H - 36;
+  const slots = MAX_INTERVALS;
+  const slotH = stackBodyH / slots;
+
+  // draw guide vertical at μ already drawn
+
+  // x̄ tick size
+  for (let i = 0; i < intervals.length; i++) {
+    const ci = intervals[i];
+    const y = stackBodyTop + i*slotH + slotH/2;
+    const xl = xToPx(ci.lo);
+    const xh = xToPx(ci.hi);
+    const xm = xToPx(ci.mean);
+
+    const color = ci.captured ? '#2d6a4f' : '#b34323';
+    const isLatest = i === intervals.length - 1;
+
+    ctx.strokeStyle = color;
+    ctx.lineWidth = isLatest ? 2.8 : 1.8;
+
+    // main line
+    ctx.beginPath();
+    ctx.moveTo(xl, y);
+    ctx.lineTo(xh, y);
+    ctx.stroke();
+
+    // endpoint caps
+    const cap = isLatest ? 6 : 4;
+    ctx.beginPath();
+    ctx.moveTo(xl, y - cap); ctx.lineTo(xl, y + cap);
+    ctx.moveTo(xh, y - cap); ctx.lineTo(xh, y + cap);
+    ctx.stroke();
+
+    // x-bar marker
+    ctx.fillStyle = color;
+    const r = isLatest ? 3.2 : 2.2;
+    ctx.beginPath();
+    ctx.arc(xm, y, r, 0, 2*Math.PI);
+    ctx.fill();
+
+    // highlight latest with subtle background band
+    if (isLatest) {
+      ctx.save();
+      ctx.fillStyle = ci.captured ? 'rgba(45,106,79,0.08)' : 'rgba(179,67,35,0.08)';
+      ctx.fillRect(PAD_L, y - slotH/2, W - PAD_L - PAD_R, slotH);
+      ctx.restore();
+    }
+  }
+}
+
+/* ================================================================
+   UI updates
+   ================================================================ */
+
+function fmt(x, d) { return Number(x).toFixed(d); }
+
+function updateStats() {
+  document.getElementById('stat-total').textContent = state.totalDrawn;
+  document.getElementById('stat-captured').textContent = state.totalCaptured;
+  document.getElementById('stat-missed').textContent = state.totalDrawn - state.totalCaptured;
+
+  const cov = state.totalDrawn === 0 ? null : state.totalCaptured/state.totalDrawn;
+  const nominal = (state.level*100).toFixed(0) + '%';
+  const covEl = document.getElementById('stat-coverage');
+  if (cov === null) {
+    covEl.innerHTML = '— <span class="small">vs. ' + nominal + '</span>';
+  } else {
+    covEl.innerHTML = (cov*100).toFixed(1) + '% <span class="small">vs. ' + nominal + '</span>';
+  }
+
+  document.getElementById('viz-meta').textContent = 'drawn: ' + state.totalDrawn;
+}
+
+function updateFormulaPanel(ci) {
+  const body = document.getElementById('formula-body');
+  if (!ci) {
+    body.innerHTML = '<div class="formula-empty">draw a sample to begin.</div>';
+    return;
+  }
+  const isT = ci.kind === 't';
+  const critName = isT ? 't*' : 'z*';
+  const critSub = isT ? '<sub>' + (ci.n - 1) + ', ' + ((1 - ci.level)/2).toFixed(3) + '</sub>' : '<sub>' + ((1 - ci.level)/2).toFixed(3) + '</sub>';
+  const sdLabel = isT ? 's' : 'σ';
+  const sdValue = isT ? fmt(ci.sd, 2) : '15';
+
+  const verdict = ci.captured
+    ? '<span class="verdict captured">captured μ</span>'
+    : '<span class="verdict missed">missed μ</span>';
+
+  body.innerHTML = `
+    <div class="formula-line small fadein">
+      <span class="math-x-bar">x</span> <span class="op">=</span> <span class="num">${fmt(ci.mean, 2)}</span>
+      <span class="op">·</span>
+      <span>${sdLabel}</span> <span class="op">=</span> <span class="num">${sdValue}</span>
+      <span class="op">·</span>
+      <span>n</span> <span class="op">=</span> <span class="num">${ci.n}</span>
+      <span class="op">·</span>
+      <span>${critName}${critSub}</span> <span class="op">=</span> <span class="num">${fmt(ci.crit, 3)}</span>
+    </div>
+    <div class="formula-line fadein">
+      <span><span class="math-x-bar">x</span> ± ${critName} · ${sdLabel}/√n</span>
+      <span class="op">=</span>
+      <span class="num">${fmt(ci.mean, 2)}</span>
+      <span class="op">±</span>
+      <span class="num">${fmt(ci.crit, 3)} · ${sdValue}/√${ci.n}</span>
+      <span class="op">=</span>
+      <span class="num">${fmt(ci.mean, 2)}</span>
+      <span class="op">±</span>
+      <span class="num">${fmt(ci.margin, 2)}</span>
+    </div>
+    <div class="formula-line fadein">
+      <span>CI</span>
+      <span class="op">=</span>
+      <span class="num">(${fmt(ci.lo, 2)}, ${fmt(ci.hi, 2)})</span>
+      ${verdict}
+    </div>
+    <div class="tradeoff-note">
+      ${interpretation(ci)}
+    </div>
+  `;
+
+  document.getElementById('formula-method').innerHTML = isT
+    ? 'x̄ ± t* · s/√n'
+    : 'x̄ ± z* · σ/√n';
+  document.getElementById('method-display').innerHTML = isT
+    ? '<span class="num" style="font-size:15px;">t-interval</span>'
+    : '<span class="num" style="font-size:15px;">z-interval</span>';
+}
+
+function interpretation(ci) {
+  const w = ci.hi - ci.lo;
+  const note = ci.captured
+    ? 'this interval contains the true μ = 100. that does not mean μ has a 95% probability of lying inside; μ is fixed. it means the procedure produced an interval that did its job this time.'
+    : 'this interval missed μ = 100 entirely. at the 95% level, we expect roughly one in twenty intervals to miss; missing is not a defect of the method, it is part of the method.';
+  return `interval width: <span style="font-family:'IBM Plex Mono',monospace;font-weight:500;">${fmt(w, 2)}</span> units. ${note}`;
+}
+
+/* ================================================================
+   Wire up controls
+   ================================================================ */
+
+document.getElementById('n-slider').addEventListener('input', e => {
+  state.n = parseInt(e.target.value, 10);
+  document.getElementById('n-value').textContent = state.n;
+});
+
+document.querySelectorAll('.level-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.level-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    state.level = parseFloat(btn.dataset.level);
+    // refresh nominal display in coverage stat
+    updateStats();
+  });
+});
+
+document.querySelectorAll('.toggle-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    state.sigmaKnown = btn.dataset.sigma === 'known';
+    document.getElementById('method-display').innerHTML = state.sigmaKnown
+      ? '<span class="num" style="font-size:15px;">z-interval</span>'
+      : '<span class="num" style="font-size:15px;">t-interval</span>';
+    document.getElementById('formula-method').innerHTML = state.sigmaKnown
+      ? 'x̄ ± z* · σ/√n'
+      : 'x̄ ± t* · s/√n';
+  });
+});
+
+document.getElementById('draw-one').addEventListener('click', () => drawAndStore(1));
+document.getElementById('draw-many').addEventListener('click', () => drawAndStore(100));
+
+/* play / pause: animated stream, one sample at a time */
+const PLAY_DELAY_MS = 100;
+let playTimer = null;
+const playBtn = document.getElementById('play-btn');
+const playLabel = playBtn.querySelector('.play-label');
+
+function startPlay() {
+  if (playTimer) return;
+  playBtn.classList.add('playing');
+  playLabel.textContent = 'pause';
+  // draw one immediately so the click feels responsive
+  drawAndStore(1);
+  playTimer = setInterval(() => drawAndStore(1), PLAY_DELAY_MS);
+}
+
+function stopPlay() {
+  if (!playTimer) return;
+  clearInterval(playTimer);
+  playTimer = null;
+  playBtn.classList.remove('playing');
+  playLabel.textContent = 'play';
+}
+
+playBtn.addEventListener('click', () => {
+  if (playTimer) stopPlay(); else startPlay();
+});
+
+document.getElementById('reset').addEventListener('click', () => {
+  stopPlay();
+  state.intervals = [];
+  state.totalDrawn = 0;
+  state.totalCaptured = 0;
+  render();
+  updateFormulaPanel(null);
+  updateStats();
+});
+
+/* ================================================================
+   Initial render
+   ================================================================ */
+
+render();
+updateStats();
+</script>
+</body>
+</html>
