@@ -55,6 +55,10 @@ Topics: two-sample inference, independent versus paired data, confidence interva
 - Week 7 Lab: [Open Page](https://bobovski66.github.io/IntroStatistics/Math146_Week7_Lab.html) | [Source File](https://github.com/bobovski66/IntroStatistics/blob/main/Math146_Week7_Lab.html)
 - Week 7 Prequiz Practice: [Open Page](https://bobovski66.github.io/IntroStatistics/Math146_Week7_Prequiz_Practice.html) | [Source File](https://github.com/bobovski66/IntroStatistics/blob/main/Math146_Week7_Prequiz_Practice.html)
 
+## Additional Labs
+
+- Fireball Guided Lab: [Open Page](https://bobovski66.github.io/IntroStatistics/fireball_guided_lab.html) | [Source File](https://github.com/bobovski66/IntroStatistics/blob/main/fireball_guided_lab.html)
+
 ## Textbook Chapters
 
 The textbook chapters and answer keys are stored in the `textbook/` directory.
@@ -80,9 +84,6 @@ The textbook chapters and answer keys are stored in the `textbook/` directory.
 - Chapter 7 Textbook: [Open PDF](https://bobovski66.github.io/IntroStatistics/textbook/Math146_Ch7.pdf) | [Source File](https://github.com/bobovski66/IntroStatistics/blob/main/textbook/Math146_Ch7.pdf)
 - Chapter 7 Answer Key: [Open PDF](https://bobovski66.github.io/IntroStatistics/textbook/Math146_Ch7_AnswerKey.pdf) | [Source File](https://github.com/bobovski66/IntroStatistics/blob/main/textbook/Math146_Ch7_AnswerKey.pdf)
 
-## Additional Lab
-
-- Fireball Guided Lab: [Open Page](https://bobovski66.github.io/IntroStatistics/fireball_guided_lab.html) | [Source File](https://github.com/bobovski66/IntroStatistics/blob/main/fireball_guided_lab.html)
 
 ## Interactive Demonstrations
 
