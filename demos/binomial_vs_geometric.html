@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Binomial vs Geometric — Same Ω (v2)</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  body { font-family: sans-serif; background: #f5f4f0; margin: 0; padding: 16px; }
+  .card { background: #fff; border: 0.5px solid #d3d1c7; border-radius: 12px; padding: 10px 14px; }
+  .ctrl { font-size: 12px; color: #5f5e5a; display: flex; align-items: center; gap: 8px; }
+  .ctrl span { min-width: 32px; font-weight: 500; color: #2c2c2a; }
+  button { background: transparent; border: 0.5px solid #b4b2a9; border-radius: 8px; padding: 6px 14px; font-size: 13px; cursor: pointer; }
+  button:hover { background: #f1efe8; }
+  input[type=range] { flex: 1; accent-color: #534AB7; }
+</style>
+</head>
+<body>
+
+<div style="max-width:720px;margin:0 auto;display:grid;gap:10px;">
+
+  <div style="font-size:15px;font-weight:500;color:#2c2c2a;padding:4px 0 2px;">Two observers, one sample space</div>
+  <div style="font-size:12px;color:#5f5e5a;margin-top:-6px;margin-bottom:4px;">Same binary Ω — different equivalence relations — different quotient geometries</div>
+
+  <div class="card">
+    <div style="font-size:11px;color:#5f5e5a;margin-bottom:6px;">
+      Ω — <span id="nlabel">40</span> binary sequences of length <span id="klabel">10</span> &nbsp;|&nbsp; p(black) = <span id="pval">0.50</span>
+    </div>
+    <canvas id="cgrid" style="width:100%;height:120px;display:block;"></canvas>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;text-align:center;">
+    <div>
+      <div style="font-size:13px;font-weight:500;color:#534AB7;">X = count of black dots</div>
+      <div style="font-size:11px;color:#5f5e5a;">ω ~ ω′ iff same total &nbsp;→&nbsp; Binomial(K, p)</div>
+    </div>
+    <div>
+      <div style="font-size:13px;font-weight:500;color:#0F6E56;">Y = position of first black dot</div>
+      <div style="font-size:11px;color:#5f5e5a;">ω ~ ω′ iff first black at same slot &nbsp;→&nbsp; Geometric(p)</div>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+    <div class="card"><canvas id="chist1" style="width:100%;height:180px;display:block;"></canvas></div>
+    <div class="card"><canvas id="chist2" style="width:100%;height:180px;display:block;"></canvas></div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+    <div class="card" style="display:flex;flex-direction:column;gap:8px;">
+      <label class="ctrl">N (sequences) <input type="range" min="10" max="500" step="10" value="40" id="nsl" oninput="upN(this.value)"> <span id="nshow">40</span></label>
+      <label class="ctrl">K (length) <input type="range" min="5" max="20" step="1" value="10" id="ksl" oninput="upK(this.value)"> <span id="kshow">10</span></label>
+      <label class="ctrl">p &nbsp;<input type="range" min="0.05" max="0.95" step="0.05" value="0.5" id="psl" oninput="upP(this.value)"> <span id="pshow">0.50</span></label>
+    </div>
+    <div class="card" style="display:flex;flex-direction:column;gap:8px;justify-content:center;">
+      <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:#5f5e5a;">
+        <svg width="28" height="12"><rect x="2" y="2" width="24" height="8" rx="2" fill="#7F77DD" opacity="0.7"/></svg> empirical proportion
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:#5f5e5a;">
+        <svg width="28" height="12"><circle cx="14" cy="6" r="4" fill="none" stroke="#2C2C2A" stroke-width="1.5"/><line x1="14" y1="2" x2="14" y2="10" stroke="#2C2C2A" stroke-width="1.5"/></svg> theoretical PMF
+      </div>
+      <button onclick="resample()" style="margin-top:4px;">Resample Ω</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+let p=0.5, N=40, K=10, data=[];
+
+function binom(n,k){ if(k<0||k>n) return 0; let r=1; for(let i=0;i<k;i++) r=r*(n-i)/(i+1); return r; }
+function binomPMF(k){ return binom(K,k)*Math.pow(p,k)*Math.pow(1-p,K-k); }
+function geomPMF(k){ return Math.pow(1-p,k-1)*p; }
+
+function resample(){
+  data=Array.from({length:N},()=>Array.from({length:K},()=>Math.random()<p?1:0));
+  requestAnimationFrame(draw);
+}
+
+function upP(v){ p=+v; document.getElementById('pshow').textContent=p.toFixed(2); document.getElementById('pval').textContent=p.toFixed(2); resample(); }
+function upN(v){ N=+v; document.getElementById('nshow').textContent=v; document.getElementById('nlabel').textContent=v; resample(); }
+function upK(v){ K=+v; document.getElementById('kshow').textContent=v; document.getElementById('klabel').textContent=v; resample(); }
+
+function setupCanvas(id){
+  const c=document.getElementById(id), dpr=window.devicePixelRatio||1;
+  const rect=c.getBoundingClientRect(), W=rect.width, H=rect.height;
+  c.width=Math.round(W*dpr); c.height=Math.round(H*dpr);
+  const ctx=c.getContext('2d'); ctx.scale(dpr,dpr);
+  return [ctx,W,H];
+}
+
+function draw(){ drawGrid(); drawBinomial(); drawGeometric(); }
+
+function drawGrid(){
+  const [ctx,W,H]=setupCanvas('cgrid');
+  ctx.clearRect(0,0,W,H);
+  const rows=Math.min(N,40);
+  const rowH=H/rows, colW=W/K;
+  const r=Math.min(rowH,colW)*0.3;
+  for(let row=0;row<rows;row++){
+    const cy=row*rowH+rowH/2;
+    for(let col=0;col<K;col++){
+      const cx=col*colW+colW/2;
+      ctx.beginPath(); ctx.arc(cx,cy,r,0,Math.PI*2);
+      if(data[row][col]===1){ ctx.fillStyle='#2C2C2A'; ctx.fill(); }
+      else { ctx.strokeStyle='#B4B2A9'; ctx.lineWidth=0.5; ctx.fillStyle='transparent'; ctx.fill(); ctx.stroke(); }
+    }
+  }
+  if(N>40){
+    ctx.fillStyle='#888780'; ctx.font='10px sans-serif'; ctx.textAlign='center';
+    ctx.fillText('(showing 40 of '+N+')', W/2, H-2);
+  }
+}
+
+function drawHistWithTheory(canvasId, empirical, theoretical, barColor, theoryColor, title, titleColor, labels){
+  const [ctx,W,H]=setupCanvas(canvasId);
+  ctx.clearRect(0,0,W,H);
+  const padL=8,padR=8,padT=22,padB=22;
+  const slots=empirical.length;
+  const maxEmp=Math.max(...empirical,0.001);
+  const maxTh=Math.max(...theoretical,0.001);
+  const scale=maxEmp/maxTh;
+  const maxVal=Math.max(maxEmp, maxTh*scale);
+  const barW=(W-padL-padR)/slots;
+  const chartH=H-padT-padB;
+  ctx.textAlign='center'; ctx.font='10px sans-serif';
+
+  for(let i=0;i<slots;i++){
+    const x=padL+i*barW;
+    const bh=(empirical[i]/maxVal)*chartH;
+    if(bh>0){ ctx.fillStyle=barColor; ctx.globalAlpha=0.75; ctx.fillRect(x+1,padT+chartH-bh,barW-2,bh); ctx.globalAlpha=1; }
+    const th=(theoretical[i]*scale/maxVal)*chartH;
+    if(th>0){
+      const ty=padT+chartH-th;
+      ctx.strokeStyle=theoryColor; ctx.lineWidth=1.5;
+      ctx.beginPath(); ctx.moveTo(x+barW/2,ty-5); ctx.lineTo(x+barW/2,ty+5); ctx.stroke();
+      ctx.beginPath(); ctx.arc(x+barW/2,ty,3.5,0,Math.PI*2);
+      ctx.fillStyle='#fff'; ctx.fill();
+      ctx.strokeStyle=theoryColor; ctx.lineWidth=1.5; ctx.stroke();
+    }
+    ctx.fillStyle='#888780'; ctx.globalAlpha=1;
+    ctx.fillText(labels[i], x+barW/2, H-5);
+  }
+
+  ctx.strokeStyle='#B4B2A9'; ctx.lineWidth=0.5;
+  ctx.beginPath(); ctx.moveTo(padL,H-padB); ctx.lineTo(W-padR,H-padB); ctx.stroke();
+  ctx.fillStyle=titleColor; ctx.textAlign='left'; ctx.font='11px sans-serif';
+  ctx.fillText(title, padL, 13);
+}
+
+function drawBinomial(){
+  const counts=Array(K+1).fill(0);
+  data.forEach(row=>counts[row.reduce((a,b)=>a+b,0)]++);
+  const empirical=counts.map(c=>c/N);
+  const theoretical=Array.from({length:K+1},(_,k)=>binomPMF(k));
+  const labels=Array.from({length:K+1},(_,i)=>String(i));
+  drawHistWithTheory('chist1',empirical,theoretical,'#7F77DD','#2C2C2A','X = count  (Binomial)','#534AB7',labels);
+}
+
+function drawGeometric(){
+  const counts=Array(K+1).fill(0);
+  data.forEach(row=>{ const idx=row.indexOf(1); idx===-1?counts[0]++:counts[idx+1]++; });
+  const reordered=[...counts.slice(1),counts[0]];
+  const empirical=reordered.map(c=>c/N);
+  const theoretical=[...Array.from({length:K},(_,i)=>geomPMF(i+1)),0];
+  const labels=[...Array.from({length:K},(_,i)=>String(i+1)),'∞'];
+  drawHistWithTheory('chist2',empirical,theoretical,'#1D9E75','#2C2C2A','Y = first black  (Geometric)','#0F6E56',labels);
+}
+
+window.addEventListener('load', resample);
+window.addEventListener('resize', ()=>requestAnimationFrame(draw));
+</script>
+</body>
+</html>

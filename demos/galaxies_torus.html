@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Bubble Universe on a Torus (Ultra‐Slow Log Speed)</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background: #000;
+      color: #fff;
+      font-family: sans-serif;
+    }
+    #canvas {
+      display: block;
+      width: 100vw;
+      height: 100vh;
+    }
+    #ui {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      z-index: 10;
+      background: rgba(0,0,0,0.6);
+      padding: 12px;
+      border-radius: 6px;
+      line-height: 1.4;
+      max-width: 320px;
+      font-size: 0.9rem;
+    }
+    #ui label {
+      display: block;
+      margin: 6px 0;
+    }
+    #ui input[type="range"] {
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- UI Panel with Sliders, dt now ranges exponent −6 to −2 -->
+  <div id="ui">
+    <strong>Bubble Universe on a Torus</strong><br>
+    <label>
+      N (resolution): <span id="NVal">200</span>
+      <input type="range" id="Nslider" min="50" max="300" step="10" value="200">
+    </label>
+    <label>
+      dt (speed): <span id="dtVal">0.010</span>
+      <input type="range" id="dtslider" min="-6" max="-2" step="0.05" value="-4.15">
+      <small style="font-size:0.8em;">(10<sup><span id="dtExp">−2.00</span></sup>)</small>
+    </label>
+    <label>
+      R_major (major radius): <span id="RVal">1.00</span>
+      <input type="range" id="Rslider" min="0.5" max="2.0" step="0.05" value="0.75">
+    </label>
+    <label>
+      r_tube (tube radius): <span id="rVal">0.30</span>
+      <input type="range" id="rslider" min="0.1" max="1.0" step="0.05" value="0.75">
+    </label>
+    <label>
+      pointSize: <span id="psVal">0.015</span>
+      <input type="range" id="psslider" min="0.005" max="0.05" step="0.005" value="0.015">
+    </label>
+    <small>Click+drag to orbit. Scroll to zoom.</small>
+  </div>
+
+  <!-- Hidden 512×512 canvas for 2D Bubble Universe (optional) -->
+  <canvas id="bubbleCanvas" width="512" height="512" style="display:none;"></canvas>
+
+  <!-- Main Three.js canvas -->
+  <canvas id="canvas"></canvas>
+
+  <!-- Three.js & OrbitControls (r128) -->
+  <script src="https://unpkg.com/three@0.128.0/build/three.min.js"></script>
+  <script src="https://unpkg.com/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+
+  <script>
+  (function() {
+    // ──────────────────────────────────────────────────────────────
+    // 1) Grab DOM elements and initialize slider values
+    // ──────────────────────────────────────────────────────────────
+    const Nslider = document.getElementById("Nslider");
+    const dtslider = document.getElementById("dtslider");
+    const Rslider = document.getElementById("Rslider");
+    const rslider = document.getElementById("rslider");
+    const psslider = document.getElementById("psslider");
+
+    const NVal = document.getElementById("NVal");
+    const dtVal = document.getElementById("dtVal");
+    const dtExp = document.getElementById("dtExp");
+    const RVal = document.getElementById("RVal");
+    const rVal = document.getElementById("rVal");
+    const psVal = document.getElementById("psVal");
+
+    // Initial parameters matching slider defaults
+    let N = parseInt(Nslider.value);           // 200
+    let dtExpValue = parseFloat(dtslider.value); // exponent: −2
+    let dt = Math.pow(10, dtExpValue);          // dt = 10^(−2) = 0.01
+    let R_major = parseFloat(Rslider.value);    // 1.00
+    let r_tube = parseFloat(rslider.value);     // 0.30
+    let pointSize = parseFloat(psslider.value); // 0.015
+
+    // Update UI labels at startup
+    NVal.textContent = N;
+    dtVal.textContent = dt.toFixed(3);
+    dtExp.textContent = dtExpValue.toFixed(2);
+    RVal.textContent = R_major.toFixed(2);
+    rVal.textContent = r_tube.toFixed(2);
+    psVal.textContent = pointSize.toFixed(3);
+
+    // Slider event listeners
+    Nslider.addEventListener("input", () => {
+      N = parseInt(Nslider.value);
+      NVal.textContent = N;
+      rebuildPoints();
+    });
+    dtslider.addEventListener("input", () => {
+      dtExpValue = parseFloat(dtslider.value);
+      dt = Math.pow(10, dtExpValue);
+      dtVal.textContent = dt.toFixed(3);
+      dtExp.textContent = dtExpValue.toFixed(2);
+    });
+    Rslider.addEventListener("input", () => {
+      R_major = parseFloat(Rslider.value);
+      RVal.textContent = R_major.toFixed(2);
+    });
+    rslider.addEventListener("input", () => {
+      r_tube = parseFloat(rslider.value);
+      rVal.textContent = r_tube.toFixed(2);
+    });
+    psslider.addEventListener("input", () => {
+      pointSize = parseFloat(psslider.value);
+      psVal.textContent = pointSize.toFixed(3);
+      if (pointsMesh) pointsMesh.material.size = pointSize;
+    });
+
+    // ──────────────────────────────────────────────────────────────
+    // 2) Hidden 2D canvas & Bubble Universe draw function (optional)
+    // ──────────────────────────────────────────────────────────────
+    const bubbleCanvas = document.getElementById("bubbleCanvas");
+    const btx = bubbleCanvas.getContext("2d");
+    const W = bubbleCanvas.width, H = bubbleCanvas.height;
+
+    let t = 4 * Math.random();   // initial “time” seed
+
+    function drawBubble2D(currentT) {
+      btx.fillStyle = "#000";
+      btx.fillRect(0, 0, W, H);
+
+      const pi = Math.PI;
+      const r  = (2 * pi) / 235;
+      let u = 0, v = 0, x = 0;
+      const scale = 108 * (512 / 480);
+      const cx = W / 2, cy = H / 2;
+
+      // Use N here so 2D grid matches 3D resolution
+      for (let i = 0; i < N; i++) {
+        for (let j = 0; j < N; j++) {
+          u = Math.sin(i + v) + Math.sin(r * i + x);
+          v = Math.cos(i + v) + Math.cos(r * i + x);
+          x = u + currentT;
+
+          const px = Math.floor(cx + scale * u);
+          const py = Math.floor(cy + scale * v);
+          if (px >= 0 && px < W && py >= 0 && py < H) {
+            const rr = (i * 3) & 0xff;
+            const gg = (j * 3) & 0xff;
+            const halfIJ = Math.floor((i + j) / 2);
+            const bb = (255 - halfIJ) & 0xff;
+            btx.fillStyle = `rgb(${rr}, ${gg}, ${bb})`;
+            btx.fillRect(px, py, 1, 1);
+          }
+        }
+      }
+    }
+
+    // Initial call (if you ever unhide the 2D canvas for debugging)
+    drawBubble2D(t);
+
+    // ──────────────────────────────────────────────────────────────
+    // 3) Three.js setup: scene, camera, renderer, controls
+    // ──────────────────────────────────────────────────────────────
+    const canvas3D = document.getElementById("canvas");
+    const renderer = new THREE.WebGLRenderer({
+      canvas: canvas3D,
+      antialias: true,
+      alpha: true
+    });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(window.devicePixelRatio);
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(
+      50, window.innerWidth / window.innerHeight, 0.1, 1000
+    );
+    camera.position.set(0, 0, 5);
+
+    const controls = new THREE.OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.05;
+
+    const ambient = new THREE.AmbientLight(0xffffff, 0.6);
+    scene.add(ambient);
+
+    // ──────────────────────────────────────────────────────────────
+    // 4) Build buffers and geometry for N×N toroidal “bubbles”
+    // ──────────────────────────────────────────────────────────────
+    let positions, colors, pointsGeometry, pointsMesh;
+
+    function rebuildPoints() {
+      if (pointsMesh) {
+        scene.remove(pointsMesh);
+        pointsGeometry.dispose();
+        pointsMesh.material.dispose();
+      }
+
+      const total = N * N;
+      positions = new Float32Array(total * 3);
+      colors    = new Float32Array(total * 3);
+
+      pointsGeometry = new THREE.BufferGeometry();
+      pointsGeometry.setAttribute(
+        "position",
+        new THREE.BufferAttribute(positions, 3)
+      );
+      pointsGeometry.setAttribute(
+        "color",
+        new THREE.BufferAttribute(colors, 3)
+      );
+
+      const material = new THREE.PointsMaterial({
+        size: pointSize,
+        vertexColors: true,
+        sizeAttenuation: true
+      });
+
+      pointsMesh = new THREE.Points(pointsGeometry, material);
+      scene.add(pointsMesh);
+    }
+
+    // Initial build with N=200
+    rebuildPoints();
+
+    // ──────────────────────────────────────────────────────────────
+    // 5) Animation loop: update t, recalc points, map to torus, render
+    // ──────────────────────────────────────────────────────────────
+    function animate() {
+      requestAnimationFrame(animate);
+
+      // Increment “time” using dt = 10^dtExpValue
+      dt = Math.pow(10, dtExpValue);
+      t += dt;
+
+      // (Optional) 2D draw for debugging
+      // drawBubble2D(t);
+
+      // Precompute Bubble constants
+      const pi = Math.PI;
+      const r  = (2 * pi) / 235;
+      let u = 0, v = 0, x = 0;
+      let ptr = 0;
+
+      for (let i = 0; i < N; i++) {
+        for (let j = 0; j < N; j++) {
+          u = Math.sin(i + v) + Math.sin(r * i + x);
+          v = Math.cos(i + v) + Math.cos(r * i + x);
+          x = u + t;
+
+          let nu = (u * 0.5 + 0.5) % 1;
+          let nv = (v * 0.5 + 0.5) % 1;
+          if (nu < 0) nu += 1;
+          if (nv < 0) nv += 1;
+          const theta = nu * 2 * pi;
+          const phi   = nv * 2 * pi;
+
+          const cosPhi = Math.cos(phi);
+          const sinPhi = Math.sin(phi);
+          const cosTh  = Math.cos(theta);
+          const sinTh  = Math.sin(theta);
+          const rad    = R_major + r_tube * cosPhi;
+
+          const x3D = rad * cosTh;
+          const y3D = rad * sinTh;
+          const z3D = r_tube * sinPhi;
+
+          positions[ptr * 3 + 0] = x3D;
+          positions[ptr * 3 + 1] = y3D;
+          positions[ptr * 3 + 2] = z3D;
+
+          const rr = ((i * 3) & 0xff) / 255;
+          const gg = ((j * 3) & 0xff) / 255;
+          const halfIJ = Math.floor((i + j) / 2);
+          const bb = ((255 - halfIJ) & 0xff) / 255;
+
+          colors[ptr * 3 + 0] = rr;
+          colors[ptr * 3 + 1] = gg;
+          colors[ptr * 3 + 2] = bb;
+
+          ptr++;
+        }
+      }
+
+      pointsGeometry.attributes.position.needsUpdate = true;
+      pointsGeometry.attributes.color.needsUpdate    = true;
+
+      pointsMesh.rotation.y += 0.002;
+      pointsMesh.rotation.x += 0.001;
+
+      controls.update();
+      renderer.render(scene, camera);
+    }
+
+    animate();
+
+    // Handle window resize
+    window.addEventListener("resize", () => {
+      const w = window.innerWidth;
+      const h = window.innerHeight;
+      renderer.setSize(w, h);
+      camera.aspect = w / h;
+      camera.updateProjectionMatrix();
+    });
+  })();
+  </script>
+</body>
+</html>

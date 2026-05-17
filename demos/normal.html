@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Normal Distribution Explorer</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    :root {
+      --bg: #f6f7fb;
+      --card: #ffffff;
+      --ink: #172033;
+      --muted: #5f6b7a;
+      --line: #d9deea;
+      --accent: #3157d5;
+      --accent-soft: rgba(49, 87, 213, 0.14);
+      --shade: rgba(33, 150, 136, 0.28);
+      --shade-line: #219688;
+      --warning: #a45b00;
+      --good: #1f7a4d;
+      --radius: 18px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top left, rgba(49, 87, 213, 0.14), transparent 34rem),
+        linear-gradient(180deg, #ffffff 0%, var(--bg) 42%);
+      min-height: 100vh;
+    }
+
+    .page {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 34px 0 44px;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.4fr 0.9fr;
+      gap: 22px;
+      align-items: stretch;
+      margin-bottom: 22px;
+    }
+
+    .hero-card, .panel, .stat-card {
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(217, 222, 234, 0.9);
+      border-radius: var(--radius);
+      box-shadow: 0 16px 40px rgba(28, 37, 65, 0.08);
+    }
+
+    .hero-card { padding: 28px; }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      letter-spacing: -0.05em;
+      line-height: 1;
+    }
+
+    .subtitle {
+      margin: 0;
+      color: var(--muted);
+      font-size: 1.06rem;
+      line-height: 1.55;
+      max-width: 68ch;
+    }
+
+    .formula {
+      margin-top: 20px;
+      display: inline-flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      padding: 12px 14px;
+      background: #f2f5ff;
+      color: #243b91;
+      border: 1px solid #dfe5ff;
+      border-radius: 14px;
+      font-family: "Cambria Math", "Times New Roman", serif;
+      font-size: 1.1rem;
+    }
+
+    .note-card {
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .note-card h2 {
+      margin: 0;
+      font-size: 1.1rem;
+    }
+
+    .note-card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(290px, 360px) 1fr;
+      gap: 22px;
+      align-items: start;
+    }
+
+    .panel { padding: 20px; }
+
+    .panel h2 {
+      margin: 0 0 14px;
+      font-size: 1.2rem;
+      letter-spacing: -0.02em;
+    }
+
+    .control {
+      padding: 14px 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .control:first-of-type { border-top: none; padding-top: 0; }
+
+    label {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    label span:last-child {
+      color: var(--accent);
+      font-variant-numeric: tabular-nums;
+    }
+
+    input[type="range"] { width: 100%; accent-color: var(--accent); }
+
+    input[type="number"] {
+      width: 100%;
+      padding: 10px 11px;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      font-size: 1rem;
+      background: #fff;
+      color: var(--ink);
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    button {
+      border: 1px solid #cfd6e8;
+      background: #fff;
+      color: #24304a;
+      border-radius: 12px;
+      padding: 10px 12px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 120ms ease, background 120ms ease, border-color 120ms ease;
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+      border-color: var(--accent);
+      background: #f6f8ff;
+    }
+
+    .primary {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: white;
+    }
+
+    .chart-card { padding: 18px; }
+
+    .chart-wrap {
+      height: 430px;
+      position: relative;
+    }
+
+    canvas { max-width: 100%; }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .stat-card {
+      padding: 15px;
+      box-shadow: none;
+      background: #fff;
+    }
+
+    .stat-card .label {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin-bottom: 5px;
+    }
+
+    .stat-card .value {
+      font-size: 1.35rem;
+      font-weight: 800;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .explain {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    .mini {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 16px;
+    }
+
+    .mini h3 {
+      margin: 0 0 8px;
+      font-size: 1rem;
+    }
+
+    .mini p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.45;
+      font-size: 0.94rem;
+    }
+
+    .pill {
+      display: inline-block;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: #253f9d;
+      font-size: 0.8rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .footer-note {
+      margin: 22px 0 0;
+      color: var(--muted);
+      font-size: 0.93rem;
+      line-height: 1.45;
+    }
+
+    @media (max-width: 920px) {
+      .hero, .layout, .explain { grid-template-columns: 1fr; }
+      .stats { grid-template-columns: repeat(2, 1fr); }
+      .chart-wrap { height: 360px; }
+    }
+
+    @media (max-width: 540px) {
+      .stats, .two-col, .buttons { grid-template-columns: 1fr; }
+      .page { width: min(100% - 20px, 1180px); padding-top: 18px; }
+      .hero-card, .panel { padding: 16px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="hero">
+      <div class="hero-card">
+        <h1>Normal Distribution Explorer</h1>
+        <p class="subtitle">
+          Adjust the mean and standard deviation to see how a normal model moves, spreads out,
+          and assigns probability to intervals. The shaded region represents the probability between
+          the lower and upper cutoffs.
+        </p>
+        <div class="formula" aria-label="Normal density formula">
+          f(x) = 1/(σ√(2π)) · e<sup>−(x−μ)²/(2σ²)</sup>
+        </div>
+      </div>
+      <aside class="note-card hero-card">
+        <h2>How to read the picture</h2>
+        <p><strong>The curve is density, not probability.</strong> Probability comes from area under the curve.</p>
+        <p><strong>μ</strong> shifts the center. <strong>σ</strong> controls spread. Larger σ means a wider, flatter curve.</p>
+      </aside>
+    </section>
+
+    <section class="layout">
+      <aside class="panel">
+        <h2>Controls</h2>
+
+        <div class="control">
+          <label for="mean"><span>Mean μ</span><span id="meanValue">0.00</span></label>
+          <input type="range" id="mean" min="-10" max="10" step="0.1" value="0" />
+        </div>
+
+        <div class="control">
+          <label for="stddev"><span>Standard deviation σ</span><span id="stddevValue">1.00</span></label>
+          <input type="range" id="stddev" min="0.2" max="5" step="0.1" value="1" />
+        </div>
+
+        <div class="control">
+          <label><span>Probability interval</span><span id="intervalLabel">[-1.00, 1.00]</span></label>
+          <div class="two-col">
+            <div>
+              <label for="lower" style="font-weight:600; font-size:.9rem;"><span>Lower</span></label>
+              <input type="number" id="lower" step="0.1" value="-1" />
+            </div>
+            <div>
+              <label for="upper" style="font-weight:600; font-size:.9rem;"><span>Upper</span></label>
+              <input type="number" id="upper" step="0.1" value="1" />
+            </div>
+          </div>
+          <div class="buttons">
+            <button type="button" data-sigma="1">Shade ±1σ</button>
+            <button type="button" data-sigma="2">Shade ±2σ</button>
+            <button type="button" data-sigma="3">Shade ±3σ</button>
+            <button type="button" class="primary" id="resetBtn">Reset</button>
+          </div>
+        </div>
+      </aside>
+
+      <section class="panel chart-card">
+        <div class="chart-wrap">
+          <canvas id="normalChart"></canvas>
+        </div>
+
+        <div class="stats" aria-live="polite">
+          <div class="stat-card">
+            <div class="label">Area shaded</div>
+            <div class="value" id="probValue">0.6827</div>
+          </div>
+          <div class="stat-card">
+            <div class="label">Percent shaded</div>
+            <div class="value" id="percentValue">68.27%</div>
+          </div>
+          <div class="stat-card">
+            <div class="label">Lower z-score</div>
+            <div class="value" id="lowerZ">-1.00</div>
+          </div>
+          <div class="stat-card">
+            <div class="label">Upper z-score</div>
+            <div class="value" id="upperZ">1.00</div>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <section class="explain">
+      <article class="mini">
+        <span class="pill">Center</span>
+        <h3>Changing μ moves the model</h3>
+        <p>The mean is the balance point of the curve. Moving μ left or right changes the typical value but does not change the overall shape.</p>
+      </article>
+      <article class="mini">
+        <span class="pill">Spread</span>
+        <h3>Changing σ changes variability</h3>
+        <p>A smaller σ concentrates observations near the mean. A larger σ spreads them out and lowers the peak.</p>
+      </article>
+      <article class="mini">
+        <span class="pill">Area</span>
+        <h3>Probability is area</h3>
+        <p>The total area under the curve is 1. The shaded area estimates the chance that a randomly chosen value falls in the selected interval.</p>
+      </article>
+    </section>
+
+    <p class="footer-note">
+      Teaching tip: after students use the ±1σ, ±2σ, and ±3σ buttons, ask them to connect the observed percentages to the empirical rule: about 68%, 95%, and 99.7%.
+    </p>
+  </main>
+
+  <script>
+    const meanSlider = document.getElementById("mean");
+    const sdSlider = document.getElementById("stddev");
+    const lowerInput = document.getElementById("lower");
+    const upperInput = document.getElementById("upper");
+
+    const meanValue = document.getElementById("meanValue");
+    const sdValue = document.getElementById("stddevValue");
+    const intervalLabel = document.getElementById("intervalLabel");
+    const probValue = document.getElementById("probValue");
+    const percentValue = document.getElementById("percentValue");
+    const lowerZ = document.getElementById("lowerZ");
+    const upperZ = document.getElementById("upperZ");
+
+    function gaussian(x, mean, sd) {
+      return (1 / (sd * Math.sqrt(2 * Math.PI))) * Math.exp(-((x - mean) ** 2) / (2 * sd ** 2));
+    }
+
+    // Abramowitz-Stegun approximation for the standard normal CDF.
+    function normalCDF(z) {
+      const sign = z < 0 ? -1 : 1;
+      const x = Math.abs(z) / Math.sqrt(2);
+      const t = 1 / (1 + 0.3275911 * x);
+      const a1 = 0.254829592;
+      const a2 = -0.284496736;
+      const a3 = 1.421413741;
+      const a4 = -1.453152027;
+      const a5 = 1.061405429;
+      const erf = 1 - (((((a5 * t + a4) * t) + a3) * t + a2) * t + a1) * t * Math.exp(-x * x);
+      return 0.5 * (1 + sign * erf);
+    }
+
+    function domain(mean, sd, lower, upper) {
+      const min = Math.min(mean - 4 * sd, lower - sd, -10);
+      const max = Math.max(mean + 4 * sd, upper + sd, 10);
+      return { min, max };
+    }
+
+    function generateData(mean, sd, lower, upper) {
+      const { min, max } = domain(mean, sd, lower, upper);
+      const step = (max - min) / 360;
+      const curve = [];
+      const shaded = [];
+
+      for (let i = 0; i <= 360; i++) {
+        const x = min + i * step;
+        const y = gaussian(x, mean, sd);
+        curve.push({ x, y });
+        shaded.push({ x, y: x >= lower && x <= upper ? y : null });
+      }
+      return { curve, shaded, min, max };
+    }
+
+    const guideLinePlugin = {
+      id: "guideLinePlugin",
+      afterDatasetsDraw(chart) {
+        const { ctx, scales } = chart;
+        const mean = Number(meanSlider.value);
+        const sd = Number(sdSlider.value);
+        const yTop = scales.y.top;
+        const yBottom = scales.y.bottom;
+
+        const guides = [
+          { x: mean, label: "μ", width: 2 },
+          { x: mean - sd, label: "−1σ", width: 1 },
+          { x: mean + sd, label: "+1σ", width: 1 },
+          { x: mean - 2 * sd, label: "−2σ", width: 1 },
+          { x: mean + 2 * sd, label: "+2σ", width: 1 }
+        ];
+
+        ctx.save();
+        guides.forEach(g => {
+          const px = scales.x.getPixelForValue(g.x);
+          if (px < scales.x.left || px > scales.x.right) return;
+          ctx.beginPath();
+          ctx.setLineDash(g.label === "μ" ? [] : [5, 5]);
+          ctx.lineWidth = g.width;
+          ctx.strokeStyle = g.label === "μ" ? "#172033" : "#9aa4b8";
+          ctx.moveTo(px, yTop + 8);
+          ctx.lineTo(px, yBottom);
+          ctx.stroke();
+          ctx.setLineDash([]);
+          ctx.fillStyle = g.label === "μ" ? "#172033" : "#69758a";
+          ctx.font = "700 12px system-ui";
+          ctx.textAlign = "center";
+          ctx.fillText(g.label, px, yTop + 15);
+        });
+        ctx.restore();
+      }
+    };
+
+    const ctx = document.getElementById("normalChart").getContext("2d");
+    const initial = generateData(0, 1, -1, 1);
+
+    const chart = new Chart(ctx, {
+      type: "line",
+      data: {
+        datasets: [
+          {
+            label: "Shaded probability",
+            data: initial.shaded,
+            parsing: false,
+            borderColor: "#219688",
+            backgroundColor: "rgba(33, 150, 136, 0.28)",
+            fill: "origin",
+            pointRadius: 0,
+            tension: 0.25,
+            spanGaps: false
+          },
+          {
+            label: "Normal density curve",
+            data: initial.curve,
+            parsing: false,
+            borderColor: "#3157d5",
+            borderWidth: 3,
+            backgroundColor: "rgba(49, 87, 213, 0.08)",
+            pointRadius: 0,
+            tension: 0.25
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        animation: { duration: 180 },
+        plugins: {
+          legend: { position: "bottom", labels: { usePointStyle: true, boxWidth: 8 } },
+          tooltip: {
+            callbacks: {
+              label: context => `density ≈ ${context.parsed.y.toFixed(4)}`
+            }
+          }
+        },
+        scales: {
+          x: {
+            type: "linear",
+            title: { display: true, text: "x-value" },
+            grid: { color: "rgba(154, 164, 184, 0.18)" }
+          },
+          y: {
+            beginAtZero: true,
+            title: { display: true, text: "Probability density" },
+            grid: { color: "rgba(154, 164, 184, 0.18)" }
+          }
+        }
+      },
+      plugins: [guideLinePlugin]
+    });
+
+    function orderedBounds() {
+      let lower = Number(lowerInput.value);
+      let upper = Number(upperInput.value);
+      if (!Number.isFinite(lower)) lower = -1;
+      if (!Number.isFinite(upper)) upper = 1;
+      if (lower > upper) [lower, upper] = [upper, lower];
+      return { lower, upper };
+    }
+
+    function updateChart() {
+      const mean = Number(meanSlider.value);
+      const sd = Number(sdSlider.value);
+      const { lower, upper } = orderedBounds();
+      const zLow = (lower - mean) / sd;
+      const zHigh = (upper - mean) / sd;
+      const probability = normalCDF(zHigh) - normalCDF(zLow);
+      const newData = generateData(mean, sd, lower, upper);
+
+      meanValue.textContent = mean.toFixed(2);
+      sdValue.textContent = sd.toFixed(2);
+      intervalLabel.textContent = `[${lower.toFixed(2)}, ${upper.toFixed(2)}]`;
+      probValue.textContent = probability.toFixed(4);
+      percentValue.textContent = `${(100 * probability).toFixed(2)}%`;
+      lowerZ.textContent = zLow.toFixed(2);
+      upperZ.textContent = zHigh.toFixed(2);
+
+      chart.data.datasets[0].data = newData.shaded;
+      chart.data.datasets[1].data = newData.curve;
+      chart.options.scales.x.min = newData.min;
+      chart.options.scales.x.max = newData.max;
+      chart.update();
+    }
+
+    document.querySelectorAll("[data-sigma]").forEach(button => {
+      button.addEventListener("click", () => {
+        const k = Number(button.dataset.sigma);
+        const mean = Number(meanSlider.value);
+        const sd = Number(sdSlider.value);
+        lowerInput.value = (mean - k * sd).toFixed(2);
+        upperInput.value = (mean + k * sd).toFixed(2);
+        updateChart();
+      });
+    });
+
+    document.getElementById("resetBtn").addEventListener("click", () => {
+      meanSlider.value = 0;
+      sdSlider.value = 1;
+      lowerInput.value = -1;
+      upperInput.value = 1;
+      updateChart();
+    });
+
+    [meanSlider, sdSlider, lowerInput, upperInput].forEach(input => {
+      input.addEventListener("input", updateChart);
+      input.addEventListener("change", updateChart);
+    });
+
+    updateChart();
+  </script>
+</body>
+</html>

@@ -1,0 +1,1235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>z-Test and Confidence Interval Explorer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Crimson+Pro:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f7f3ea;
+  --paper: #fdfbf5;
+  --ink: #1a1d1c;
+  --ink-soft: #5a5d5a;
+  --ink-faint: #9a9d96;
+  --rule: #d8d2c5;
+  --rule-soft: #ebe6d8;
+  --accent: #1d3557;
+  --accent-soft: #4a6fa5;
+  --reject: #9c1f2e;
+  --reject-soft: #e8c5cb;
+  --reject-bg: #fbeef0;
+  --ok: #2f5d3f;
+  --ok-bg: #eef4ee;
+  --shade-tail: rgba(156, 31, 46, 0.25);
+  --shade-curve: rgba(29, 53, 87, 0.08);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Crimson Pro', Georgia, 'Times New Roman', serif;
+  font-size: 17px;
+  line-height: 1.55;
+}
+
+.page {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 2.5rem 2rem 4rem;
+}
+
+header {
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+h1 {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-weight: 600;
+  font-size: 2.6rem;
+  margin: 0 0 0.3rem 0;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+.subtitle {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-style: italic;
+  font-size: 1.15rem;
+  color: var(--ink-soft);
+  margin: 0;
+}
+
+.preamble {
+  margin: 0.8rem 0 0 0;
+  color: var(--ink-soft);
+  max-width: 720px;
+  font-size: 1.02rem;
+}
+
+/* Top bar with mode toggle and examples */
+.topbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  align-items: center;
+  padding: 1rem 1.25rem;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  margin-bottom: 1.5rem;
+}
+
+.topbar-section {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.topbar-label {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: var(--ink-soft);
+  letter-spacing: 0.02em;
+}
+
+.btn {
+  font-family: 'Crimson Pro', serif;
+  font-size: 0.95rem;
+  background: transparent;
+  border: 1px solid var(--rule);
+  color: var(--ink);
+  padding: 0.4rem 0.9rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  border-radius: 2px;
+}
+
+.btn:hover {
+  background: var(--accent);
+  color: var(--paper);
+  border-color: var(--accent);
+}
+
+.btn.active {
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+}
+
+.btn-example {
+  font-style: italic;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+}
+
+/* Main grid */
+.main-grid {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 1.5rem;
+}
+
+@media (max-width: 880px) {
+  .main-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Controls panel */
+.controls {
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 1.5rem 1.25rem;
+}
+
+.controls h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin: 0 0 1rem 0;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--rule-soft);
+  color: var(--ink-soft);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+}
+
+.control-row {
+  margin-bottom: 1.1rem;
+}
+
+.control-row label {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 0.3rem;
+  font-size: 0.95rem;
+}
+
+.control-name {
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.control-name .sym {
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-style: italic;
+  font-size: 1.05rem;
+  margin-right: 0.2em;
+}
+
+.control-row input[type="number"] {
+  width: 100%;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.95rem;
+  padding: 0.45rem 0.6rem;
+  border: 1px solid var(--rule);
+  background: #fff;
+  color: var(--ink);
+  border-radius: 2px;
+}
+
+.control-row input[type="number"]:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px rgba(29, 53, 87, 0.15);
+}
+
+.control-row input[type="number"]:disabled {
+  background: var(--rule-soft);
+  color: var(--ink-faint);
+  cursor: not-allowed;
+}
+
+.radio-group, .alpha-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.alpha-group {
+  flex-direction: row;
+  gap: 0.4rem;
+}
+
+.alpha-group .btn {
+  flex: 1;
+  padding: 0.35rem 0.5rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+}
+
+.radio-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  padding: 0.25rem 0.4rem;
+  border-radius: 2px;
+  transition: background 0.1s;
+}
+
+.radio-row:hover {
+  background: var(--rule-soft);
+}
+
+.radio-row input[type="radio"] {
+  margin: 0;
+  cursor: pointer;
+  accent-color: var(--accent);
+}
+
+.radio-row span {
+  font-size: 0.92rem;
+}
+
+.condition-warning {
+  margin-top: 0.5rem;
+  padding: 0.5rem 0.7rem;
+  background: var(--reject-bg);
+  border-left: 2px solid var(--reject);
+  font-size: 0.82rem;
+  color: var(--reject);
+  font-style: italic;
+}
+
+.condition-warning.hidden {
+  display: none;
+}
+
+/* Plot panel */
+.plot-panel {
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.plot-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: var(--ink);
+  margin: 0 0 0.3rem 0;
+}
+
+.plot-subtitle {
+  font-style: italic;
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+  margin: 0 0 0.8rem 0;
+}
+
+canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  background: #fdfbf5;
+}
+
+.plot-divider {
+  height: 1px;
+  background: var(--rule-soft);
+  margin: 1.4rem 0 1.2rem 0;
+}
+
+/* Readouts */
+.readouts {
+  margin-top: 1.5rem;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 1.5rem 1.75rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.4rem 2rem;
+}
+
+@media (max-width: 720px) {
+  .readouts {
+    grid-template-columns: 1fr;
+  }
+}
+
+.readout {
+  display: flex;
+  flex-direction: column;
+}
+
+.readout-label {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+  margin-bottom: 0.3rem;
+}
+
+.readout-formula {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.92rem;
+  color: var(--ink);
+  line-height: 1.6;
+}
+
+.readout-formula .num {
+  color: var(--accent);
+}
+
+.readout-formula .op {
+  color: var(--ink-faint);
+}
+
+.verdict {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.9rem 1.5rem;
+  border-radius: 2px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.35rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  margin-top: 0.5rem;
+}
+
+.verdict.reject {
+  background: var(--reject-bg);
+  color: var(--reject);
+  border: 1px solid var(--reject-soft);
+}
+
+.verdict.fail {
+  background: var(--ok-bg);
+  color: var(--ok);
+  border: 1px solid #c5d4c5;
+}
+
+.verdict-detail {
+  font-style: italic;
+  font-weight: 400;
+  font-size: 0.95rem;
+  margin-left: 0.7rem;
+  color: var(--ink-soft);
+}
+
+/* Sym (mathematical symbols inline) */
+.sym {
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-style: italic;
+}
+
+.sub {
+  font-size: 0.75em;
+  vertical-align: sub;
+  font-style: normal;
+}
+
+.sup {
+  font-size: 0.75em;
+  vertical-align: super;
+  font-style: normal;
+}
+
+.bar {
+  text-decoration: overline;
+  font-style: italic;
+}
+
+/* Footer note */
+footer {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--rule);
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+  font-style: italic;
+}
+
+footer p {
+  margin: 0.3rem 0;
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<header>
+  <h1>z-Test and Confidence Interval Explorer</h1>
+  <p class="subtitle">Chapter 6 &middot; The Connection Between Hypothesis Tests and Confidence Intervals</p>
+  <p class="preamble">
+    The top panel shows the null sampling distribution centered at the claimed value <span class="sym">&mu;<span class="sub">0</span></span>; the shaded tail is the p-value. The bottom panel shows the corresponding confidence interval for <span class="sym">&mu;</span>. The two pictures are linked: any value of <span class="sym">&mu;<span class="sub">0</span></span> outside the interval is exactly a value the test would reject at level <span class="sym">&alpha;</span>.
+  </p>
+</header>
+
+<div class="topbar">
+  <div class="topbar-section">
+    <span class="topbar-label">Parameter:</span>
+    <button class="btn active" data-mode="mean">Mean (&mu;)</button>
+    <button class="btn" data-mode="prop">Proportion (p)</button>
+  </div>
+  <div class="topbar-section">
+    <span class="topbar-label">Examples:</span>
+    <button class="btn btn-example" data-example="coffee">Coffee Machine</button>
+    <button class="btn btn-example" data-example="exam">Exam Scores</button>
+    <button class="btn btn-example" data-example="seeds">Seed Germination</button>
+    <button class="btn btn-example" data-example="calories">Fast-Food Calories</button>
+  </div>
+</div>
+
+<div class="main-grid">
+  <aside class="controls">
+    <h3>Sample &amp; Hypothesis</h3>
+
+    <div class="control-row">
+      <label>
+        <span class="control-name" id="lbl-stat">Sample mean <span class="sym bar">x</span></span>
+        <span class="ink-faint" id="hint-stat"></span>
+      </label>
+      <input type="number" id="inp-stat" step="0.01" value="7.82">
+    </div>
+
+    <div class="control-row">
+      <label>
+        <span class="control-name" id="lbl-claim">Claimed value <span class="sym">&mu;<span class="sub">0</span></span></span>
+      </label>
+      <input type="number" id="inp-claim" step="0.01" value="8.00">
+    </div>
+
+    <div class="control-row" id="row-sigma">
+      <label>
+        <span class="control-name">Population SD <span class="sym">&sigma;</span></span>
+      </label>
+      <input type="number" id="inp-sigma" step="0.01" min="0.01" value="0.50">
+    </div>
+
+    <div class="control-row">
+      <label>
+        <span class="control-name">Sample size <span class="sym">n</span></span>
+      </label>
+      <input type="number" id="inp-n" step="1" min="2" value="36">
+    </div>
+
+    <div id="warning" class="condition-warning hidden"></div>
+
+    <h3 style="margin-top:1.5rem;">Test Type</h3>
+    <div class="radio-group">
+      <label class="radio-row">
+        <input type="radio" name="tail" value="left">
+        <span>Left-tailed &nbsp; <span class="sym">H<span class="sub">a</span></span> : <span class="sym">&mu; &lt; &mu;<span class="sub">0</span></span></span>
+      </label>
+      <label class="radio-row">
+        <input type="radio" name="tail" value="two" checked>
+        <span>Two-tailed &nbsp; <span class="sym">H<span class="sub">a</span></span> : <span class="sym">&mu; &ne; &mu;<span class="sub">0</span></span></span>
+      </label>
+      <label class="radio-row">
+        <input type="radio" name="tail" value="right">
+        <span>Right-tailed &nbsp; <span class="sym">H<span class="sub">a</span></span> : <span class="sym">&mu; &gt; &mu;<span class="sub">0</span></span></span>
+      </label>
+    </div>
+
+    <h3 style="margin-top:1.5rem;">Significance <span class="sym">&alpha;</span></h3>
+    <div class="alpha-group">
+      <button class="btn" data-alpha="0.10">0.10</button>
+      <button class="btn active" data-alpha="0.05">0.05</button>
+      <button class="btn" data-alpha="0.01">0.01</button>
+    </div>
+  </aside>
+
+  <section class="plot-panel">
+    <h2 class="plot-title">Null sampling distribution</h2>
+    <p class="plot-subtitle" id="plot-subtitle-top">
+      Distribution of <span class="sym bar">x</span> under <span class="sym">H<span class="sub">0</span></span>: <span class="sym">&mu; = &mu;<span class="sub">0</span></span>. Shaded area is the p-value.
+    </p>
+    <canvas id="plot-top" width="780" height="320"></canvas>
+
+    <div class="plot-divider"></div>
+
+    <h2 class="plot-title">Confidence interval for <span id="param-name" class="sym">&mu;</span></h2>
+    <p class="plot-subtitle" id="plot-subtitle-bot">
+      The set of all <span class="sym">&mu;<span class="sub">0</span></span> values the test would <em>not</em> reject at the chosen <span class="sym">&alpha;</span> (two-tailed).
+    </p>
+    <canvas id="plot-bot" width="780" height="140"></canvas>
+  </section>
+</div>
+
+<div class="readouts">
+  <div class="readout">
+    <div class="readout-label">Test statistic</div>
+    <div class="readout-formula" id="rd-z"></div>
+  </div>
+  <div class="readout">
+    <div class="readout-label">p-value</div>
+    <div class="readout-formula" id="rd-p"></div>
+  </div>
+  <div class="readout">
+    <div class="readout-label">Confidence interval</div>
+    <div class="readout-formula" id="rd-ci"></div>
+  </div>
+  <div class="readout">
+    <div class="readout-label">Decision rule</div>
+    <div class="readout-formula" id="rd-rule"></div>
+  </div>
+  <div class="verdict" id="verdict"></div>
+</div>
+
+<footer>
+  <p>For one-sample tests with known <span class="sym">&sigma;</span> and <span class="sym">n &ge;</span> 30 (means) or <span class="sym">np<span class="sub">0</span> &ge;</span> 10 and <span class="sym">n(1 &minus; p<span class="sub">0</span>) &ge;</span> 10 (proportions). The proportion test uses <span class="sym">SE = &radic;(p<span class="sub">0</span>(1 &minus; p<span class="sub">0</span>)/n)</span>; the proportion CI uses <span class="sym">SE = &radic;(p&#770;(1 &minus; p&#770;)/n)</span>.</p>
+</footer>
+
+</div>
+
+<script>
+//============================================================
+// MATH UTILITIES
+//============================================================
+
+// Standard normal CDF via Abramowitz & Stegun 7.1.26
+function normalCDF(z) {
+  const a1 =  0.254829592;
+  const a2 = -0.284496736;
+  const a3 =  1.421413741;
+  const a4 = -1.453152027;
+  const a5 =  1.061405429;
+  const p  =  0.3275911;
+  const sign = z < 0 ? -1 : 1;
+  const x = Math.abs(z) / Math.sqrt(2);
+  const t = 1.0 / (1.0 + p * x);
+  const y = 1.0 - (((((a5 * t + a4) * t) + a3) * t + a2) * t + a1) * t * Math.exp(-x * x);
+  return 0.5 * (1.0 + sign * y);
+}
+
+function normalPDF(z) {
+  return Math.exp(-0.5 * z * z) / Math.sqrt(2 * Math.PI);
+}
+
+// z-critical values for the standard alpha levels
+const Z_CRIT = {
+  '0.10': 1.6449,  // for two-tailed 90% CI; one-tailed 0.10 also = 1.2816 but we report 2-sided CI
+  '0.05': 1.9600,
+  '0.01': 2.5758
+};
+
+// One-tailed critical values (used only for the plot's rejection region marker)
+const Z_CRIT_ONE = {
+  '0.10': 1.2816,
+  '0.05': 1.6449,
+  '0.01': 2.3263
+};
+
+function fmt(x, digits = 4) {
+  if (!isFinite(x)) return '\u2014';
+  if (Math.abs(x) >= 10000 || (Math.abs(x) < 0.0001 && x !== 0)) {
+    return x.toExponential(2);
+  }
+  return x.toFixed(digits);
+}
+
+function fmtSig(x, sig = 4) {
+  if (!isFinite(x)) return '\u2014';
+  return Number(x.toPrecision(sig)).toString();
+}
+
+//============================================================
+// STATE
+//============================================================
+
+const state = {
+  mode: 'mean',          // 'mean' or 'prop'
+  stat: 7.82,            // x-bar or p-hat
+  claim: 8.00,           // mu_0 or p_0
+  sigma: 0.50,           // for mean mode only
+  n: 36,
+  tail: 'two',           // 'left', 'right', 'two'
+  alpha: 0.05
+};
+
+//============================================================
+// DERIVED QUANTITIES
+//============================================================
+
+function seNull(s) {
+  if (s.mode === 'mean') return s.sigma / Math.sqrt(s.n);
+  return Math.sqrt(s.claim * (1 - s.claim) / s.n);
+}
+
+function seCI(s) {
+  if (s.mode === 'mean') return s.sigma / Math.sqrt(s.n);
+  // Wald CI for proportion uses p-hat
+  const ph = Math.max(0.0001, Math.min(0.9999, s.stat));
+  return Math.sqrt(ph * (1 - ph) / s.n);
+}
+
+function zScore(s) {
+  return (s.stat - s.claim) / seNull(s);
+}
+
+function pValue(s) {
+  const z = zScore(s);
+  if (s.tail === 'left') return normalCDF(z);
+  if (s.tail === 'right') return 1 - normalCDF(z);
+  return 2 * (1 - normalCDF(Math.abs(z)));
+}
+
+function ciBounds(s) {
+  const zc = Z_CRIT[s.alpha.toFixed(2)];
+  const se = seCI(s);
+  return [s.stat - zc * se, s.stat + zc * se];
+}
+
+function isReject(s) {
+  return pValue(s) <= s.alpha;
+}
+
+function checkConditions(s) {
+  if (s.mode === 'mean') {
+    if (s.n < 30) return 'Condition warning: n < 30 (CLT approximation may be poor).';
+    return null;
+  }
+  const np = s.n * s.claim;
+  const nq = s.n * (1 - s.claim);
+  if (np < 10 || nq < 10) {
+    return `Condition warning: np\u2080 = ${fmt(np,1)}, n(1\u2212p\u2080) = ${fmt(nq,1)}; both should be \u2265 10.`;
+  }
+  return null;
+}
+
+//============================================================
+// PLOT: SHARED X-RANGE
+//============================================================
+
+function xRange(s) {
+  const seN = seNull(s);
+  const seC = seCI(s);
+  const zc = Z_CRIT[s.alpha.toFixed(2)];
+  const left  = Math.min(s.claim - 4 * seN, s.stat - 1.5 * zc * seC);
+  const right = Math.max(s.claim + 4 * seN, s.stat + 1.5 * zc * seC);
+  const w = right - left;
+  return { lo: left - 0.04 * w, hi: right + 0.04 * w };
+}
+
+//============================================================
+// PLOT: TOP CANVAS (NULL DISTRIBUTION)
+//============================================================
+
+function plotTop() {
+  const cv = document.getElementById('plot-top');
+  const ctx = cv.getContext('2d');
+  const W = cv.width, H = cv.height;
+  const M = { l: 50, r: 30, t: 24, b: 56 };
+  const pw = W - M.l - M.r;
+  const ph = H - M.t - M.b;
+
+  ctx.clearRect(0, 0, W, H);
+
+  const { lo, hi } = xRange(state);
+  const mu0 = state.claim;
+  const se = seNull(state);
+  const xobs = state.stat;
+  const z = zScore(state);
+
+  // Map x-data to canvas px
+  const xPx = x => M.l + ((x - lo) / (hi - lo)) * pw;
+
+  // Compute pdf max for vertical scaling
+  const pdfMax = normalPDF(0) / se;
+  const yPx = pdf => M.t + ph - (pdf / pdfMax) * (ph - 8);
+
+  // Generate curve
+  const N = 220;
+  const curve = [];
+  for (let i = 0; i <= N; i++) {
+    const x = lo + (i / N) * (hi - lo);
+    const pdf = normalPDF((x - mu0) / se) / se;
+    curve.push({ x, pdf });
+  }
+
+  // Shade rejection region (lighter, in the background)
+  ctx.fillStyle = 'rgba(156, 31, 46, 0.06)';
+  const zcOne = Z_CRIT_ONE[state.alpha.toFixed(2)];
+  if (state.tail === 'left' || state.tail === 'two') {
+    const zc = state.tail === 'two' ? Z_CRIT[state.alpha.toFixed(2)] : zcOne;
+    const xCut = mu0 - zc * se;
+    ctx.beginPath();
+    ctx.moveTo(xPx(lo), yPx(0));
+    for (const p of curve) {
+      if (p.x > xCut) break;
+      ctx.lineTo(xPx(p.x), yPx(p.pdf));
+    }
+    ctx.lineTo(xPx(xCut), yPx(0));
+    ctx.closePath();
+    ctx.fill();
+  }
+  if (state.tail === 'right' || state.tail === 'two') {
+    const zc = state.tail === 'two' ? Z_CRIT[state.alpha.toFixed(2)] : zcOne;
+    const xCut = mu0 + zc * se;
+    ctx.beginPath();
+    ctx.moveTo(xPx(xCut), yPx(0));
+    for (const p of curve) {
+      if (p.x < xCut) continue;
+      ctx.lineTo(xPx(p.x), yPx(p.pdf));
+    }
+    ctx.lineTo(xPx(hi), yPx(0));
+    ctx.closePath();
+    ctx.fill();
+  }
+
+  // Shade actual p-value tail (darker)
+  ctx.fillStyle = 'rgba(156, 31, 46, 0.32)';
+  function shadeTailLeft(cutx) {
+    ctx.beginPath();
+    ctx.moveTo(xPx(lo), yPx(0));
+    for (const p of curve) {
+      if (p.x > cutx) break;
+      ctx.lineTo(xPx(p.x), yPx(p.pdf));
+    }
+    ctx.lineTo(xPx(cutx), yPx(normalPDF((cutx - mu0) / se) / se));
+    ctx.lineTo(xPx(cutx), yPx(0));
+    ctx.closePath();
+    ctx.fill();
+  }
+  function shadeTailRight(cutx) {
+    ctx.beginPath();
+    ctx.moveTo(xPx(cutx), yPx(0));
+    ctx.lineTo(xPx(cutx), yPx(normalPDF((cutx - mu0) / se) / se));
+    for (const p of curve) {
+      if (p.x < cutx) continue;
+      ctx.lineTo(xPx(p.x), yPx(p.pdf));
+    }
+    ctx.lineTo(xPx(hi), yPx(0));
+    ctx.closePath();
+    ctx.fill();
+  }
+  if (state.tail === 'left')  shadeTailLeft(xobs);
+  if (state.tail === 'right') shadeTailRight(xobs);
+  if (state.tail === 'two') {
+    const dist = Math.abs(z);
+    shadeTailLeft(mu0 - dist * se);
+    shadeTailRight(mu0 + dist * se);
+  }
+
+  // Draw bell curve
+  ctx.strokeStyle = '#1d3557';
+  ctx.lineWidth = 1.8;
+  ctx.beginPath();
+  for (let i = 0; i < curve.length; i++) {
+    const p = curve[i];
+    if (i === 0) ctx.moveTo(xPx(p.x), yPx(p.pdf));
+    else ctx.lineTo(xPx(p.x), yPx(p.pdf));
+  }
+  ctx.stroke();
+
+  // x-axis
+  ctx.strokeStyle = '#5a5d5a';
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(M.l, M.t + ph);
+  ctx.lineTo(M.l + pw, M.t + ph);
+  ctx.stroke();
+
+  // x-axis ticks (mu0 - 3se, ..., mu0 + 3se)
+  ctx.fillStyle = '#5a5d5a';
+  ctx.font = "12px 'JetBrains Mono', monospace";
+  ctx.textAlign = 'center';
+  for (let k = -3; k <= 3; k++) {
+    const xv = mu0 + k * se;
+    if (xv < lo || xv > hi) continue;
+    const px = xPx(xv);
+    ctx.beginPath();
+    ctx.moveTo(px, M.t + ph);
+    ctx.lineTo(px, M.t + ph + 4);
+    ctx.stroke();
+    ctx.fillText(fmtSig(xv, 4), px, M.t + ph + 16);
+  }
+
+  // mu_0 marker (on axis)
+  const muPx = xPx(mu0);
+  ctx.strokeStyle = '#1d3557';
+  ctx.lineWidth = 1.5;
+  ctx.setLineDash([3, 3]);
+  ctx.beginPath();
+  ctx.moveTo(muPx, M.t + ph);
+  ctx.lineTo(muPx, M.t + 4);
+  ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.fillStyle = '#1d3557';
+  ctx.font = "italic 13px 'Crimson Pro', serif";
+  ctx.textAlign = 'center';
+  ctx.fillText('\u03bc\u2080', muPx, M.t - 6);
+
+  // observed value marker
+  const xobsPx = xPx(xobs);
+  ctx.strokeStyle = '#9c1f2e';
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.moveTo(xobsPx, M.t + ph + 1);
+  ctx.lineTo(xobsPx, M.t + 4);
+  ctx.stroke();
+  ctx.fillStyle = '#9c1f2e';
+  const obsLabel = state.mode === 'mean' ? 'x\u0304' : 'p\u0302';
+  ctx.font = "italic 13px 'Crimson Pro', serif";
+  ctx.fillText(obsLabel, xobsPx, M.t - 6);
+
+  // axis caption (param name)
+  ctx.fillStyle = '#5a5d5a';
+  ctx.font = "italic 14px 'Crimson Pro', serif";
+  ctx.textAlign = 'center';
+  const paramSym = state.mode === 'mean' ? 'sample mean' : 'sample proportion';
+  ctx.fillText(paramSym, M.l + pw/2, M.t + ph + 38);
+
+  // p-value annotation
+  ctx.fillStyle = '#9c1f2e';
+  ctx.font = "12px 'JetBrains Mono', monospace";
+  ctx.textAlign = 'right';
+  ctx.fillText(`p = ${fmt(pValue(state),4)}`, M.l + pw - 6, M.t + 14);
+  ctx.textAlign = 'left';
+  ctx.fillStyle = '#1d3557';
+  ctx.fillText(`z = ${fmt(z,3)}`, M.l + 6, M.t + 14);
+}
+
+//============================================================
+// PLOT: BOTTOM CANVAS (CONFIDENCE INTERVAL)
+//============================================================
+
+function plotBot() {
+  const cv = document.getElementById('plot-bot');
+  const ctx = cv.getContext('2d');
+  const W = cv.width, H = cv.height;
+  const M = { l: 50, r: 30, t: 22, b: 44 };
+  const pw = W - M.l - M.r;
+  const ph = H - M.t - M.b;
+
+  ctx.clearRect(0, 0, W, H);
+
+  const { lo, hi } = xRange(state);
+  const xPx = x => M.l + ((x - lo) / (hi - lo)) * pw;
+  const [ciLo, ciHi] = ciBounds(state);
+  const isOutside = state.claim < ciLo || state.claim > ciHi;
+  const cy = M.t + ph / 2;
+  const barH = 18;
+
+  // x-axis line
+  ctx.strokeStyle = '#5a5d5a';
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(M.l, M.t + ph);
+  ctx.lineTo(M.l + pw, M.t + ph);
+  ctx.stroke();
+
+  // Background line through the CI range (shows axis scale)
+  ctx.strokeStyle = '#d8d2c5';
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(M.l, cy);
+  ctx.lineTo(M.l + pw, cy);
+  ctx.stroke();
+
+  // CI bar
+  const xLoPx = xPx(ciLo);
+  const xHiPx = xPx(ciHi);
+  ctx.fillStyle = isOutside ? 'rgba(156, 31, 46, 0.18)' : 'rgba(29, 53, 87, 0.16)';
+  ctx.strokeStyle = isOutside ? '#9c1f2e' : '#1d3557';
+  ctx.lineWidth = 1.5;
+  ctx.beginPath();
+  ctx.rect(xLoPx, cy - barH/2, xHiPx - xLoPx, barH);
+  ctx.fill();
+  ctx.stroke();
+
+  // CI endpoints (vertical bars)
+  ctx.strokeStyle = isOutside ? '#9c1f2e' : '#1d3557';
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.moveTo(xLoPx, cy - barH/2 - 4);
+  ctx.lineTo(xLoPx, cy + barH/2 + 4);
+  ctx.moveTo(xHiPx, cy - barH/2 - 4);
+  ctx.lineTo(xHiPx, cy + barH/2 + 4);
+  ctx.stroke();
+
+  // observed (x-bar / p-hat) tick at center
+  const xobsPx = xPx(state.stat);
+  ctx.strokeStyle = '#1d3557';
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.moveTo(xobsPx, cy - barH/2 - 8);
+  ctx.lineTo(xobsPx, cy + barH/2 + 8);
+  ctx.stroke();
+  ctx.fillStyle = '#1d3557';
+  ctx.font = "italic 13px 'Crimson Pro', serif";
+  ctx.textAlign = 'center';
+  const obsLabel = state.mode === 'mean' ? 'x\u0304' : 'p\u0302';
+  ctx.fillText(obsLabel, xobsPx, cy - barH/2 - 12);
+
+  // mu_0 tick
+  const muPx = xPx(state.claim);
+  ctx.strokeStyle = isOutside ? '#9c1f2e' : '#5a5d5a';
+  ctx.lineWidth = 2;
+  ctx.setLineDash(isOutside ? [] : [3, 3]);
+  ctx.beginPath();
+  ctx.moveTo(muPx, cy - barH/2 - 8);
+  ctx.lineTo(muPx, cy + barH/2 + 8);
+  ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.fillStyle = isOutside ? '#9c1f2e' : '#5a5d5a';
+  ctx.fillText('\u03bc\u2080', muPx, cy + barH/2 + 22);
+
+  // CI endpoint labels
+  ctx.fillStyle = '#5a5d5a';
+  ctx.font = "11px 'JetBrains Mono', monospace";
+  ctx.textAlign = 'center';
+  ctx.fillText(fmtSig(ciLo, 4), xLoPx, cy + barH/2 + 22);
+  ctx.fillText(fmtSig(ciHi, 4), xHiPx, cy + barH/2 + 22);
+
+  // CI label (top center)
+  ctx.fillStyle = isOutside ? '#9c1f2e' : '#1d3557';
+  ctx.font = "12px 'JetBrains Mono', monospace";
+  ctx.textAlign = 'left';
+  const conf = (1 - state.alpha) * 100;
+  ctx.fillText(`${fmt(conf,0)}% CI`, M.l + 4, M.t + 14);
+
+  // Outside indicator
+  if (isOutside) {
+    ctx.fillStyle = '#9c1f2e';
+    ctx.font = "italic 12px 'Crimson Pro', serif";
+    ctx.textAlign = 'right';
+    ctx.fillText('\u03bc\u2080 lies outside the interval', M.l + pw - 4, M.t + 14);
+  } else {
+    ctx.fillStyle = '#2f5d3f';
+    ctx.font = "italic 12px 'Crimson Pro', serif";
+    ctx.textAlign = 'right';
+    ctx.fillText('\u03bc\u2080 lies inside the interval', M.l + pw - 4, M.t + 14);
+  }
+}
+
+//============================================================
+// READOUTS
+//============================================================
+
+function updateReadouts() {
+  const z = zScore(state);
+  const p = pValue(state);
+  const [lo, hi] = ciBounds(state);
+  const se = seCI(state);
+  const seN = seNull(state);
+  const reject = isReject(state);
+  const conf = (1 - state.alpha) * 100;
+  const zc = Z_CRIT[state.alpha.toFixed(2)];
+  const obsSym = state.mode === 'mean' ? 'x\u0304' : 'p\u0302';
+  const claimSym = state.mode === 'mean' ? '\u03bc\u2080' : 'p\u2080';
+
+  // Test statistic formula
+  let zForm;
+  if (state.mode === 'mean') {
+    zForm = `z = (${obsSym} \u2212 ${claimSym}) / (\u03c3/\u221an)
+    = (${fmt(state.stat,4)} \u2212 ${fmt(state.claim,4)}) / (${fmt(state.sigma,4)}/\u221a${state.n})
+    = <span class="num">${fmt(z,3)}</span>`;
+  } else {
+    zForm = `z = (${obsSym} \u2212 ${claimSym}) / \u221a(${claimSym}(1\u2212${claimSym})/n)
+    = (${fmt(state.stat,4)} \u2212 ${fmt(state.claim,4)}) / ${fmt(seN,5)}
+    = <span class="num">${fmt(z,3)}</span>`;
+  }
+  document.getElementById('rd-z').innerHTML = zForm.replace(/\n/g, '<br>');
+
+  // p-value formula
+  let pForm;
+  if (state.tail === 'left')       pForm = `P(Z \u2264 ${fmt(z,3)}) = <span class="num">${fmt(p,4)}</span>`;
+  else if (state.tail === 'right') pForm = `P(Z \u2265 ${fmt(z,3)}) = <span class="num">${fmt(p,4)}</span>`;
+  else                              pForm = `2 \u00b7 P(Z \u2265 |${fmt(z,3)}|) = 2 \u00b7 ${fmt(p/2,4)} = <span class="num">${fmt(p,4)}</span>`;
+  document.getElementById('rd-p').innerHTML = pForm;
+
+  // CI formula
+  let ciForm;
+  if (state.mode === 'mean') {
+    ciForm = `${obsSym} \u00b1 z* \u00b7 (\u03c3/\u221an)
+    = ${fmt(state.stat,4)} \u00b1 ${fmt(zc,3)} \u00b7 ${fmt(se,5)}
+    = (<span class="num">${fmt(lo,4)}</span>, <span class="num">${fmt(hi,4)}</span>)`;
+  } else {
+    ciForm = `${obsSym} \u00b1 z* \u00b7 \u221a(${obsSym}(1\u2212${obsSym})/n)
+    = ${fmt(state.stat,4)} \u00b1 ${fmt(zc,3)} \u00b7 ${fmt(se,5)}
+    = (<span class="num">${fmt(lo,4)}</span>, <span class="num">${fmt(hi,4)}</span>)`;
+  }
+  document.getElementById('rd-ci').innerHTML = ciForm.replace(/\n/g, '<br>');
+
+  // Decision rule
+  const cmp = reject ? '\u2264' : '>';
+  document.getElementById('rd-rule').innerHTML =
+    `Reject H\u2080 if p \u2264 \u03b1.<br>
+     Here p = ${fmt(p,4)} ${cmp} \u03b1 = ${fmt(state.alpha,2)}.`;
+
+  // Verdict
+  const v = document.getElementById('verdict');
+  if (reject) {
+    v.className = 'verdict reject';
+    v.innerHTML = `Reject H\u2080 <span class="verdict-detail">at the ${fmt(state.alpha*100,0)}% significance level</span>`;
+  } else {
+    v.className = 'verdict fail';
+    v.innerHTML = `Fail to reject H\u2080 <span class="verdict-detail">at the ${fmt(state.alpha*100,0)}% significance level</span>`;
+  }
+}
+
+//============================================================
+// CONDITION WARNINGS
+//============================================================
+
+function updateWarning() {
+  const w = document.getElementById('warning');
+  const msg = checkConditions(state);
+  if (msg) {
+    w.textContent = msg;
+    w.classList.remove('hidden');
+  } else {
+    w.classList.add('hidden');
+  }
+}
+
+//============================================================
+// FULL RENDER
+//============================================================
+
+function render() {
+  plotTop();
+  plotBot();
+  updateReadouts();
+  updateWarning();
+}
+
+//============================================================
+// MODE SWITCHING
+//============================================================
+
+function setMode(mode) {
+  state.mode = mode;
+  const lblStat = document.getElementById('lbl-stat');
+  const lblClaim = document.getElementById('lbl-claim');
+  const rowSigma = document.getElementById('row-sigma');
+  const paramName = document.getElementById('param-name');
+  const inpStat = document.getElementById('inp-stat');
+  const inpClaim = document.getElementById('inp-claim');
+
+  if (mode === 'mean') {
+    lblStat.innerHTML = '<span class="control-name">Sample mean <span class="sym bar">x</span></span>';
+    lblClaim.innerHTML = '<span class="control-name">Claimed value <span class="sym">&mu;<span class="sub">0</span></span></span>';
+    rowSigma.style.display = '';
+    paramName.innerHTML = '&mu;';
+    inpStat.step = '0.01';
+    inpClaim.step = '0.01';
+    inpStat.removeAttribute('min');
+    inpStat.removeAttribute('max');
+    inpClaim.removeAttribute('min');
+    inpClaim.removeAttribute('max');
+    // If values look like proportions (0..1), reset to coffee defaults
+    if (state.stat <= 1 && state.claim <= 1) {
+      state.stat = 7.82;
+      state.claim = 8.00;
+      state.sigma = 0.50;
+      state.n = 36;
+      inpStat.value = state.stat;
+      inpClaim.value = state.claim;
+      document.getElementById('inp-sigma').value = state.sigma;
+      document.getElementById('inp-n').value = state.n;
+    }
+  } else {
+    lblStat.innerHTML = '<span class="control-name">Sample proportion <span class="sym">p&#770;</span></span>';
+    lblClaim.innerHTML = '<span class="control-name">Claimed value <span class="sym">p<span class="sub">0</span></span></span>';
+    rowSigma.style.display = 'none';
+    paramName.innerHTML = 'p';
+    inpStat.step = '0.001';
+    inpClaim.step = '0.001';
+    inpStat.min = '0.001';
+    inpStat.max = '0.999';
+    inpClaim.min = '0.001';
+    inpClaim.max = '0.999';
+    // If values are out of [0,1], reset to seeds defaults
+    if (state.stat < 0.001 || state.stat > 0.999 ||
+        state.claim < 0.001 || state.claim > 0.999) {
+      state.stat = 0.79;
+      state.claim = 0.85;
+      state.n = 200;
+      inpStat.value = state.stat;
+      inpClaim.value = state.claim;
+      document.getElementById('inp-n').value = state.n;
+    }
+  }
+
+  document.querySelectorAll('[data-mode]').forEach(b => {
+    b.classList.toggle('active', b.dataset.mode === mode);
+  });
+  // Also update Hₐ symbol displays in radio labels
+  document.querySelectorAll('input[name="tail"]').forEach((r, i) => {
+    const sym = mode === 'mean' ? '\u03bc' : 'p';
+    const sub = mode === 'mean' ? '\u03bc\u2080' : 'p\u2080';
+    const op = ['<', '\u2260', '>'][i];
+    const label = r.parentElement.querySelector('span');
+    const tail = ['Left-tailed', 'Two-tailed', 'Right-tailed'][i];
+    label.innerHTML = `${tail} &nbsp; <span class="sym">H<span class="sub">a</span></span> : <span class="sym">${sym} ${op} ${sub}</span>`;
+  });
+}
+
+//============================================================
+// EXAMPLES
+//============================================================
+
+const EXAMPLES = {
+  coffee:   { mode: 'mean', stat: 7.82, claim: 8.00, sigma: 0.50, n: 36,  tail: 'left',  alpha: 0.05 },
+  exam:     { mode: 'mean', stat: 511,  claim: 500,  sigma: 80,   n: 64,  tail: 'two',   alpha: 0.05 },
+  seeds:    { mode: 'prop', stat: 0.79, claim: 0.85, sigma: 0,    n: 200, tail: 'left',  alpha: 0.05 },
+  calories: { mode: 'mean', stat: 562,  claim: 540,  sigma: 60,   n: 36,  tail: 'two',   alpha: 0.05 }
+};
+
+function loadExample(name) {
+  const ex = EXAMPLES[name];
+  Object.assign(state, ex);
+  setMode(ex.mode);
+  document.getElementById('inp-stat').value = ex.stat;
+  document.getElementById('inp-claim').value = ex.claim;
+  document.getElementById('inp-sigma').value = ex.sigma;
+  document.getElementById('inp-n').value = ex.n;
+  document.querySelector(`input[name="tail"][value="${ex.tail}"]`).checked = true;
+  document.querySelectorAll('[data-alpha]').forEach(b => {
+    b.classList.toggle('active', parseFloat(b.dataset.alpha) === ex.alpha);
+  });
+  render();
+}
+
+//============================================================
+// EVENT WIRING
+//============================================================
+
+function wireEvents() {
+  document.getElementById('inp-stat').addEventListener('input', e => {
+    state.stat = parseFloat(e.target.value) || 0;
+    render();
+  });
+  document.getElementById('inp-claim').addEventListener('input', e => {
+    state.claim = parseFloat(e.target.value) || 0;
+    render();
+  });
+  document.getElementById('inp-sigma').addEventListener('input', e => {
+    state.sigma = Math.max(0.0001, parseFloat(e.target.value) || 0);
+    render();
+  });
+  document.getElementById('inp-n').addEventListener('input', e => {
+    state.n = Math.max(2, Math.round(parseFloat(e.target.value) || 2));
+    render();
+  });
+
+  document.querySelectorAll('input[name="tail"]').forEach(r => {
+    r.addEventListener('change', e => {
+      state.tail = e.target.value;
+      render();
+    });
+  });
+
+  document.querySelectorAll('[data-alpha]').forEach(b => {
+    b.addEventListener('click', () => {
+      state.alpha = parseFloat(b.dataset.alpha);
+      document.querySelectorAll('[data-alpha]').forEach(x => x.classList.remove('active'));
+      b.classList.add('active');
+      render();
+    });
+  });
+
+  document.querySelectorAll('[data-mode]').forEach(b => {
+    b.addEventListener('click', () => {
+      setMode(b.dataset.mode);
+      render();
+    });
+  });
+
+  document.querySelectorAll('[data-example]').forEach(b => {
+    b.addEventListener('click', () => loadExample(b.dataset.example));
+  });
+}
+
+//============================================================
+// INIT
+//============================================================
+
+window.addEventListener('DOMContentLoaded', () => {
+  setMode('mean');
+  wireEvents();
+  render();
+});
+
+window.addEventListener('resize', () => {
+  render();
+});
+</script>
+
+</body>
+</html>
