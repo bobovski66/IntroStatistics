@@ -1,8 +1,8 @@
 # Intro to Statistics
 
-This repository contains interactive HTML labs, prequiz practice pages, and demonstrations for an introductory statistics course.
+This repository contains interactive HTML labs, prequiz practice pages, demonstrations, and textbook chapters for an introductory statistics course.
 
-The materials are designed to support student learning through guided practice, worked examples, and interactive activities. Each week includes a lab activity and a prequiz practice page. The lab pages are intended for exploration and guided class work, while the prequiz practice pages help students prepare for weekly assessments.
+The materials are designed to support student learning through guided practice, worked examples, interactive activities, and textbook-style reference material. Each week includes a lab activity and a prequiz practice page. The lab pages are intended for exploration and guided class work, while the prequiz practice pages help students prepare for weekly assessments.
 
 ## Course Materials
 
@@ -55,6 +55,31 @@ Topics: two-sample inference, independent versus paired data, confidence interva
 - Week 7 Lab: [Open Page](https://bobovski66.github.io/IntroStatistics/Math146_Week7_Lab.html) | [Source File](https://github.com/bobovski66/IntroStatistics/blob/main/Math146_Week7_Lab.html)
 - Week 7 Prequiz Practice: [Open Page](https://bobovski66.github.io/IntroStatistics/Math146_Week7_Prequiz_Practice.html) | [Source File](https://github.com/bobovski66/IntroStatistics/blob/main/Math146_Week7_Prequiz_Practice.html)
 
+## Textbook Chapters
+
+The textbook chapters and answer keys are stored in the `textbook/` directory.
+
+- Chapter 1 Textbook: [Open PDF](https://bobovski66.github.io/IntroStatistics/textbook/Math146_Ch1.pdf) | [Source File](https://github.com/bobovski66/IntroStatistics/blob/main/textbook/Math146_Ch1.pdf)
+- Chapter 1 Answer Key: [Open PDF](https://bobovski66.github.io/IntroStatistics/textbook/Math146_Ch1_AnswerKey.pdf) | [Source File](https://github.com/bobovski66/IntroStatistics/blob/main/textbook/Math146_Ch1_AnswerKey.pdf)
+
+- Chapter 2 Textbook: [Open PDF](https://bobovski66.github.io/IntroStatistics/textbook/Math146_Ch2.pdf) | [Source File](https://github.com/bobovski66/IntroStatistics/blob/main/textbook/Math146_Ch2.pdf)
+- Chapter 2 Answer Key: [Open PDF](https://bobovski66.github.io/IntroStatistics/textbook/Math146_Ch2_AnswerKey.pdf) | [Source File](https://github.com/bobovski66/IntroStatistics/blob/main/textbook/Math146_Ch2_AnswerKey.pdf)
+
+- Chapter 3 Textbook: [Open PDF](https://bobovski66.github.io/IntroStatistics/textbook/Math146_Ch3.pdf) | [Source File](https://github.com/bobovski66/IntroStatistics/blob/main/textbook/Math146_Ch3.pdf)
+- Chapter 3 Answer Key: [Open PDF](https://bobovski66.github.io/IntroStatistics/textbook/Math146_Ch3_AnswerKey.pdf) | [Source File](https://github.com/bobovski66/IntroStatistics/blob/main/textbook/Math146_Ch3_AnswerKey.pdf)
+
+- Chapter 4 Textbook: [Open PDF](https://bobovski66.github.io/IntroStatistics/textbook/Math146_Ch4.pdf) | [Source File](https://github.com/bobovski66/IntroStatistics/blob/main/textbook/Math146_Ch4.pdf)
+- Chapter 4 Answer Key: [Open PDF](https://bobovski66.github.io/IntroStatistics/textbook/Math146_Ch4_AnswerKey.pdf) | [Source File](https://github.com/bobovski66/IntroStatistics/blob/main/textbook/Math146_Ch4_AnswerKey.pdf)
+
+- Chapter 5 Textbook: [Open PDF](https://bobovski66.github.io/IntroStatistics/textbook/Math146_Ch5.pdf) | [Source File](https://github.com/bobovski66/IntroStatistics/blob/main/textbook/Math146_Ch5.pdf)
+- Chapter 5 Answer Key: [Open PDF](https://bobovski66.github.io/IntroStatistics/textbook/Math146_Ch5_AnswerKey.pdf) | [Source File](https://github.com/bobovski66/IntroStatistics/blob/main/textbook/Math146_Ch5_AnswerKey.pdf)
+
+- Chapter 6 Textbook: [Open PDF](https://bobovski66.github.io/IntroStatistics/textbook/Math146_Ch6.pdf) | [Source File](https://github.com/bobovski66/IntroStatistics/blob/main/textbook/Math146_Ch6.pdf)
+- Chapter 6 Answer Key: [Open PDF](https://bobovski66.github.io/IntroStatistics/textbook/Math146_Ch6_AnswerKey.pdf) | [Source File](https://github.com/bobovski66/IntroStatistics/blob/main/textbook/Math146_Ch6_AnswerKey.pdf)
+
+- Chapter 7 Textbook: [Open PDF](https://bobovski66.github.io/IntroStatistics/textbook/Math146_Ch7.pdf) | [Source File](https://github.com/bobovski66/IntroStatistics/blob/main/textbook/Math146_Ch7.pdf)
+- Chapter 7 Answer Key: [Open PDF](https://bobovski66.github.io/IntroStatistics/textbook/Math146_Ch7_AnswerKey.pdf) | [Source File](https://github.com/bobovski66/IntroStatistics/blob/main/textbook/Math146_Ch7_AnswerKey.pdf)
+
 ## Additional Lab
 
 - Fireball Guided Lab: [Open Page](https://bobovski66.github.io/IntroStatistics/fireball_guided_lab.html) | [Source File](https://github.com/bobovski66/IntroStatistics/blob/main/fireball_guided_lab.html)
@@ -91,6 +116,8 @@ Use the **Source File** links to view or edit the HTML files directly in the Git
 
 For lab pages that include a report button, students can choose **Create / Save Lab Report as PDF** or **Print Lab Report**, then select **Save as PDF** in the browser print window.
 
+Textbook chapters are provided as PDFs. The matching answer keys are included for review, checking, and instructional use.
+
 ## Repository Structure
 
 ```text
@@ -110,6 +137,21 @@ IntroStatistics/
 ├── Math146_Week7_Lab.html
 ├── Math146_Week7_Prequiz_Practice.html
 ├── fireball_guided_lab.html
+├── textbook/
+│   ├── Math146_Ch1.pdf
+│   ├── Math146_Ch1_AnswerKey.pdf
+│   ├── Math146_Ch2.pdf
+│   ├── Math146_Ch2_AnswerKey.pdf
+│   ├── Math146_Ch3.pdf
+│   ├── Math146_Ch3_AnswerKey.pdf
+│   ├── Math146_Ch4.pdf
+│   ├── Math146_Ch4_AnswerKey.pdf
+│   ├── Math146_Ch5.pdf
+│   ├── Math146_Ch5_AnswerKey.pdf
+│   ├── Math146_Ch6.pdf
+│   ├── Math146_Ch6_AnswerKey.pdf
+│   ├── Math146_Ch7.pdf
+│   └── Math146_Ch7_AnswerKey.pdf
 └── demos/
     ├── galaxies_torus.html
     ├── Sample_Statistics.html
@@ -120,7 +162,6 @@ IntroStatistics/
     ├── central_limit_theorem_averaging_machine.html
     ├── ci_demo.html
     └── ztest_ci_demo.html
-```
 
 ## Notes for Students
 
