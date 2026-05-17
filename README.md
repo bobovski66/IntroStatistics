@@ -163,6 +163,8 @@ IntroStatistics/
     ├── central_limit_theorem_averaging_machine.html
     ├── ci_demo.html
     └── ztest_ci_demo.html
+```
+
 
 ## Notes for Students
 
