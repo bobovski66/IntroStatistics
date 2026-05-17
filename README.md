@@ -73,6 +73,7 @@ Use the **Source File** links to view or edit the HTML files directly in the Git
 
 ## Repository Structure
 
+```text
 IntroStatistics/
 ├── Math146_Week1_Lab.html
 ├── Math146_Week1_Prequiz_Practice.html
@@ -97,6 +98,7 @@ IntroStatistics/
     ├── law_of_large_numbers_running_average.html
     ├── normal.html
     └── ztest_ci_demo.html
+```
 
 ## Notes for Students
 
