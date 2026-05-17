@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>MATH& 146 Guided Fireball Inference Lab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+<script>
+  MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']],
+      processEscapes: true
+    },
+    chtml: { scale: 1.05 },
+    startup: {
+      ready: () => { MathJax.startup.defaultReady(); }
+    }
+  };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<style>
+  :root {
+    --bg:#f7f7fb; --paper:#ffffff; --ink:#222433; --muted:#667085; --line:#d7dce8;
+    --blue:#2457a6; --blue2:#e8f0ff; --red:#9f3f4a; --red2:#fff0f1;
+    --green:#276749; --green2:#ecfdf3; --amber:#996600; --amber2:#fff7df;
+    --bad:#b42318; --bad2:#fff1f0; --shadow:0 10px 25px rgba(30,35,60,.08);
+    --math-bg:#fbfcff; --math-ink:#1a2342;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.55}
+  header{background:linear-gradient(135deg,#1f3d78,#15233f);color:white;padding:34px 18px 30px}
+  .wrap{max-width:1080px;margin:0 auto}
+  header h1{font-size:clamp(1.6rem,3vw,2.4rem);margin:0 0 8px;font-weight:800;letter-spacing:.01em}
+  header p{margin:4px 0;color:#dbe8ff;max-width:850px}
+  .toolbar{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  .toolbar .wrap{display:flex;gap:10px;align-items:center;justify-content:space-between;padding:10px 18px;flex-wrap:wrap}
+  .nav{display:flex;gap:8px;flex-wrap:wrap}
+  .nav a{font-size:.9rem;text-decoration:none;color:var(--blue);background:var(--blue2);padding:6px 9px;border-radius:999px;border:1px solid #d4e2ff}
+  .actions{display:flex;gap:8px;flex-wrap:wrap}
+  button{border:1px solid var(--line);background:#fff;border-radius:10px;padding:8px 11px;color:var(--ink);cursor:pointer;font-weight:650}
+  button.primary{background:var(--blue);color:white;border-color:var(--blue)}
+  button:hover{filter:brightness(.98)}
+  main.wrap{padding:22px 18px 60px}
+  .card{background:var(--paper);border:1px solid var(--line);box-shadow:var(--shadow);border-radius:18px;padding:22px;margin:18px 0}
+  h2{font-size:1.35rem;margin:0 0 10px;color:#162b55}
+  h3{font-size:1.08rem;margin:20px 0 8px;color:#263b62}
+  .subtle{color:var(--muted)}
+  .callout{border-left:5px solid var(--blue);background:var(--blue2);padding:12px 14px;border-radius:12px;margin:14px 0}
+  .warning{border-left-color:var(--amber);background:var(--amber2)}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  @media(max-width:850px){.grid2,.grid3{grid-template-columns:1fr}}
+  table{width:100%;border-collapse:collapse;margin:12px 0;background:#fff}
+  th,td{border-bottom:1px solid var(--line);padding:9px 8px;text-align:left;vertical-align:middle}
+  th{font-size:.88rem;text-transform:uppercase;letter-spacing:.03em;color:var(--muted);background:#fafbff}
+  td.num,th.num{text-align:right}
+  .mini{font-size:.9rem;color:var(--muted)}
+  input[type="text"],input[type="number"],textarea{width:100%;border:1px solid #cbd3e1;border-radius:10px;padding:8px 10px;font:inherit;background:#fff}
+  input[type="number"]{text-align:right}
+  textarea{min-height:86px;resize:vertical}
+  .small-input{max-width:130px}
+  .feedback{font-size:.86rem;margin-top:4px;min-height:1.1em}
+  .ok{color:var(--green)} .close{color:var(--amber)} .no{color:var(--bad)}
+  .pill{display:inline-block;border-radius:999px;padding:2px 8px;font-size:.82rem;font-weight:700}
+  .pill.blue{background:var(--blue2);color:var(--blue)} .pill.red{background:var(--red2);color:var(--red)}
+  .formula{background:var(--math-bg);border:1px solid var(--line);border-radius:14px;padding:10px 14px 6px;margin:14px 0;overflow-x:auto;color:var(--math-ink)}
+  .formula .label{display:block;font-family:system-ui,sans-serif;font-style:italic;color:var(--muted);font-size:.85rem;margin:4px 0 0;letter-spacing:.02em;text-align:center}
+  .formula mjx-container{margin:0 auto}
+  .stepbox{border:1px dashed #aeb8cc;border-radius:14px;padding:14px;margin:12px 0;background:#fff}
+  canvas{width:100%;height:300px;border:1px solid var(--line);border-radius:14px;background:#fff}
+  details{border:1px solid var(--line);border-radius:14px;padding:10px 12px;background:#fcfdff;margin:12px 0}
+  summary{cursor:pointer;font-weight:700;color:var(--blue)}
+  .raw-table-wrap{max-height:340px;overflow:auto;border:1px solid var(--line);border-radius:12px}
+  .raw-table-wrap table{font-size:.82rem;margin:0}
+  .report-preview{white-space:pre-wrap;background:#fbfcff;border:1px solid var(--line);border-radius:14px;padding:14px;min-height:160px}
+  .footer-note{font-size:.86rem;color:var(--muted);text-align:center;margin:30px 0}
+  .teacher-answer{display:none}
+  .threshold-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  input[type="range"]{accent-color:var(--blue);width:min(440px,100%)}
+  .kbd{font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;background:#eef2f7;border:1px solid #d6dce7;border-radius:6px;padding:1px 5px}
+
+  .copy-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:850px){.copy-grid{grid-template-columns:1fr}}
+  .copy-box textarea{min-height:150px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.88rem;line-height:1.35}
+  .copy-actions{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}
+  .csv-box textarea{min-height:220px}
+  @media print{
+    .toolbar,.actions,button,.no-print,details summary{display:none!important}
+    body{background:#fff;color:#000;font-size:11pt}
+    .card{box-shadow:none;border:1px solid #bbb;break-inside:avoid;margin:10px 0;padding:14px}
+    header{background:#fff;color:#000;border-bottom:1px solid #999;padding:10px}
+    header p{color:#333}
+    main.wrap{padding:0}
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <h1>MATH& 146 Guided Lab: Fireball Reports and Two-Sample Inference</h1>
+    <p>Compare Q1 fireball report counts from 2026 with Q1 fireball report counts from 2021–2025. The lab asks how conclusions may change when the same dataset is summarized with different statistics.</p>
+  </div>
+</header>
+<div class="toolbar no-print">
+  <div class="wrap">
+    <nav class="nav">
+      <a href="#intro">Start</a><a href="#dataLists">Data lists</a><a href="#part1">Stats</a><a href="#graphs">Graphs</a><a href="#means">Means</a><a href="#diagnosis">Diagnosis</a><a href="#props">Proportions</a><a href="#report">Report</a>
+    </nav>
+    <div class="actions">
+      <button onclick="saveAll()">Save</button>
+      <button onclick="clearAll()">Clear answers</button>
+      <button class="primary" onclick="generateReport()">Generate report</button>
+    </div>
+  </div>
+</div>
+<main class="wrap">
+<section id="intro" class="card">
+  <h2>Purpose of the lab</h2>
+  <p>This lab uses first-quarter fireball report data from the American Meteor Society (AMS). The 2026 data are compared with first-quarter data from 2021 through 2025. The goal is to use standard two-sample inference methods to decide how the 2026 data compare with the earlier years.</p>
+  <p>Each row in the dataset is one fireball event. The main variable is <span class="kbd">reports_count</span>, the number of witness reports for that event. You will use two-sample $z$-procedures for means and for proportions. Both procedures are applied to the same 261 events, but they summarize the data in different ways.</p>
+  <div class="callout"><strong>How to use this page:</strong> Read each explanation, complete the numerical work, and then write the requested interpretations. The page can check numerical answers, but the written explanations should be based on your own analysis.</div>
+  <div class="callout">
+    <strong>Main question:</strong> Does the 2026 fireball data differ from the 2021&ndash;2025 baseline? You will answer this question using two different statistics and then compare the conclusions.
+  </div>
+  <div class="grid2">
+    <div><span class="pill blue">Baseline group</span><p>Q1 events from 2021, 2022, 2023, 2024, and 2025; these five years are combined as the comparison group.</p></div>
+    <div><span class="pill red">2026 group</span><p>Q1 events from 2026 only; this is the group being compared with the baseline.</p></div>
+  </div>
+  <label>Your name <input type="text" data-save="student_name" placeholder="Type your name"></label>
+  <p class="mini">Your answers are saved in this browser only. Nothing is sent to a server.</p>
+</section>
+
+<section id="dataLists" class="card">
+  <h2>Data for calculation</h2>
+  <p>The values below are the actual <span class="kbd">reports_count</span> data used in this lab. You may copy the baseline list, the 2026 list, or the full original dataset.</p>
+  <p>Use the two short lists when you are computing the summary statistics for each group. Use the full dataset when you need the event date or location information.</p>
+
+  <div class="copy-grid">
+    <div class="copy-box">
+      <h3>Baseline reports_count list</h3>
+      <p class="mini">This list contains the Q1 events from 2021 through 2025.</p>
+      <textarea id="baselineList" readonly></textarea>
+      <div class="copy-actions"><button onclick="copyText('baselineList')">Copy baseline list</button></div>
+    </div>
+    <div class="copy-box">
+      <h3>2026 reports_count list</h3>
+      <p class="mini">This list contains the Q1 events from 2026 only.</p>
+      <textarea id="y2026List" readonly></textarea>
+      <div class="copy-actions"><button onclick="copyText('y2026List')">Copy 2026 list</button></div>
+    </div>
+  </div>
+
+  <details class="csv-box" open>
+    <summary>Original dataset</summary>
+    <p class="mini">The table below gives the original dataset columns used in this lab: event ID, date, year, report count, and starting coordinates.</p>
+    <div class="raw-table-wrap" id="rawData"></div>
+    <p class="mini">You may also copy or download the same data as a CSV file.</p>
+    <textarea id="fullCsv" readonly></textarea>
+    <div class="copy-actions">
+      <button onclick="copyText('fullCsv')">Copy full CSV</button>
+      <button onclick="downloadCsv()">Download CSV</button>
+    </div>
+  </details>
+</section>
+
+
+<section id="part1" class="card">
+  <h2>Part 1. Describe the two groups</h2>
+  <p>Begin by computing descriptive statistics for each group. The sample mean and sample standard deviation are inputs for later inference procedures. The median, minimum, and maximum provide additional information about the shape and spread of the distributions.</p>
+  <div class="callout"><strong>Interpreting the statistics:</strong> The sample size records the number of events in each group. The mean and median both describe center; a substantial difference between them is evidence of skewness. The standard deviation describes spread. The minimum and maximum help identify the range of observed values and possible extreme observations.</div>
+  <p>Compute each statistic for <span class="kbd">reports_count</span> in both groups. The copy-paste lists in the previous section give you the raw numbers; you can paste them into a calculator, a spreadsheet, or any tool you prefer.</p>
+  <table>
+    <thead><tr><th>Statistic</th><th class="num">Baseline 2021–2025</th><th class="num">2026</th><th>Check</th></tr></thead>
+    <tbody id="statsInputs"></tbody>
+  </table>
+  <button onclick="checkStats()">Check Part 1 numerical values</button>
+  <div id="statsFeedback" class="feedback"></div>
+  <h3>Written questions</h3>
+  <label>1. In each group, compare the mean and the median. Which is larger? What does this suggest about the shape of the distribution?<textarea data-save="q_shape"></textarea></label>
+  <label>2. Which group has the larger standard deviation? About how many times larger is it?<textarea data-save="q_spread"></textarea></label>
+  <label>3. Find the largest 2026 event. Record the date, the report count, and the starting latitude and longitude. Briefly describe what you found.<textarea data-save="q_largest"></textarea></label>
+</section>
+
+<section id="graphs" class="card">
+  <h2>Part 2. Graph the data</h2>
+  <p>A histogram shows the shape of a distribution: where the data cluster, how far the tails extend, and whether any observations are separated from the rest. The two histograms use the same horizontal scale so that the groups can be compared directly.</p>
+  <div class="callout"><strong>What to look for:</strong> Determine whether most report counts are concentrated at smaller values and whether the distribution has a long right tail. This shape is called <em>right-skewed</em>. Also note whether any observation lies far from the rest of its group.</div>
+  <div class="grid2">
+    <div><h3>Histogram: baseline</h3><canvas id="histBase"></canvas></div>
+    <div><h3>Histogram: 2026</h3><canvas id="hist2026"></canvas></div>
+  </div>
+  <label>Describe what you see in the histograms. Mention skewness, the typical range of values, and any extreme values. Compare the two groups directly: are their shapes similar, or are there noticeable differences in the 2026 distribution?<textarea data-save="q_graphs"></textarea></label>
+</section>
+
+<section id="means" class="card">
+  <h2>Part 3. Confidence interval for the difference in means</h2>
+  <p>Next, estimate the difference between the 2026 population mean and the baseline population mean number of reports per event. A confidence interval gives a range of plausible values for this difference, based on the sample data.</p>
+  <div class="callout"><strong>Use of the normal approximation:</strong> The individual <span class="kbd">reports_count</span> values are skewed. However, by the Central Limit Theorem, the difference of two sample means is approximately normal when both sample sizes are large. The sample sizes in this lab are 194 and 67, so the normal approximation is reasonable for the difference of means. The standard error measures the estimated sampling variability of the difference in sample means.</div>
+  <div class="formula">
+    \[ (\bar{x}_{2026} - \bar{x}_{\text{base}}) \;\pm\; z^{*} \sqrt{\frac{s_{2026}^{2}}{n_{2026}} + \frac{s_{\text{base}}^{2}}{n_{\text{base}}}} \]
+    <span class="label">Two-sample $z$ confidence interval for $\mu_{2026} - \mu_{\text{base}}$</span>
+  </div>
+  <p>For a 95% confidence interval, use $z^{*} = 1.96$. Since the population standard deviations are unknown, substitute the sample standard deviations from Part 1.</p>
+  <div class="grid3">
+    <label>Point estimate <input type="number" step="any" data-save="ci_point"></label>
+    <label>Standard error <input type="number" step="any" data-save="ci_se"></label>
+    <label>Margin of error <input type="number" step="any" data-save="ci_me"></label>
+  </div>
+  <div class="grid2">
+    <label>Lower bound <input type="number" step="any" data-save="ci_low"></label>
+    <label>Upper bound <input type="number" step="any" data-save="ci_high"></label>
+  </div>
+  <button onclick="checkCI()">Check confidence interval values</button>
+  <div id="ciFeedback" class="feedback"></div>
+  <label>Interpret your confidence interval in context. Does it contain 0? What does that fact mean about whether the two population means are equal?<textarea data-save="ci_interp"></textarea></label>
+
+  <h2>Part 4. Hypothesis test for the difference in means</h2>
+  <p>The confidence interval estimates the true difference in population means. The hypothesis test addresses the related question of whether the observed difference is statistically significant. Under the null hypothesis, the two population means are equal, so the difference is zero. The test statistic measures the observed difference in standard-error units.</p>
+  <div class="callout"><strong>Role of the standard error:</strong> A hypothesis test compares the observed difference of means with the standard error. If the observed difference is large relative to the standard error, the $z$-statistic has large magnitude. If the standard error is large, the same observed difference may produce a smaller $z$-statistic. Since the standard error depends on the sample standard deviations, unusually large spread in either group affects the test.</div>
+  <div class="formula">
+    \[ z \;=\; \dfrac{(\bar{x}_{2026} - \bar{x}_{\text{base}}) - 0}{\sqrt{\dfrac{s_{2026}^{2}}{n_{2026}} + \dfrac{s_{\text{base}}^{2}}{n_{\text{base}}}}} \]
+    <span class="label">Two-sample $z$-statistic for the difference in means</span>
+  </div>
+  <div class="stepbox"><strong>Step 1: State.</strong><br>$H_0 : \mu_{2026} = \mu_{\text{base}}$<br>$H_a : \mu_{2026} \neq \mu_{\text{base}}$<br>Use $\alpha = 0.05$.</div>
+  <p>Compute the $z$-statistic, look up the two-sided $p$-value in your normal table or use technology, and write your decision.</p>
+  <div class="grid2">
+    <label>z-statistic <input type="number" step="any" data-save="mean_z"></label>
+    <label>p-value <input type="number" step="any" data-save="mean_p"></label>
+  </div>
+  <label>Decision: reject $H_0$ or fail to reject $H_0$?<input type="text" data-save="mean_decision" placeholder="Type your decision"></label>
+  <button onclick="checkMeanTest()">Check mean test values</button>
+  <div id="meanTestFeedback" class="feedback"></div>
+  <label>Conclusion in context: write one sentence saying what your decision implies about the 2026 fireball data.<textarea data-save="mean_conclusion"></textarea></label>
+</section>
+
+<section id="diagnosis" class="card">
+  <h2>Part 5. Examining the standard error</h2>
+  <p>The mean comparison may show a noticeable difference between the two sample means while still failing to reject the null hypothesis. To understand this result, examine the standard error used in the test statistic.</p>
+  <div class="callout"><strong>Main point:</strong> The test does not only consider whether the two sample means are different. It considers whether the difference is large relative to the expected sampling variability of the difference. That variability is summarized by the standard error, which depends on the sample standard deviations of both groups. An extreme observation can increase a sample standard deviation, which increases the standard error, decreases the magnitude of the $z$-statistic, and increases the $p$-value.</div>
+  <div class="formula">
+    \[ \text{SE} \;=\; \sqrt{\frac{s_{2026}^{2}}{n_{2026}} + \frac{s_{\text{base}}^{2}}{n_{\text{base}}}} \]
+    <span class="label">Standard error of $\bar{x}_{2026} - \bar{x}_{\text{base}}$</span>
+  </div>
+  <p>Compute the ratio of standard deviations and the two terms inside the radical separately. These quantities show how much each group contributes to the standard error.</p>
+  <div class="grid3">
+    <label>$s_{2026} / s_{\text{base}}$<input type="number" step="any" data-save="diag_ratio"></label>
+    <label>$s_{2026}^{2} / n_{2026}$<input type="number" step="any" data-save="diag_term2026"></label>
+    <label>$s_{\text{base}}^{2} / n_{\text{base}}$<input type="number" step="any" data-save="diag_termbase"></label>
+  </div>
+  <button onclick="checkDiagnosis()">Check diagnosis values</button>
+  <div id="diagFeedback" class="feedback"></div>
+  <label>Explain the calculation in your own words. Discuss how the 2026 standard deviation affects the standard error, how the standard error affects the $z$-statistic, and how the $z$-statistic affects the $p$-value. Refer to the largest 2026 event you identified in Part 1.<textarea data-save="diag_explain"></textarea></label>
+</section>
+
+<section id="props" class="card">
+  <h2>Part 6. Comparing proportions of large events</h2>
+  <p>The mean of <span class="kbd">reports_count</span> is affected by very large observations. A related question is to compare the fraction of events that exceed a specified threshold. This changes the statistic from an average report count to a proportion of large events.</p>
+  <div class="callout"><strong>Changing the statistic:</strong> When using the threshold <span class="kbd">reports_count &ge; 50</span>, an event with 3,229 reports and an event with 51 reports each count as one large event. The exact size of an event above the threshold is not used in the proportion. This makes the proportion less sensitive to the magnitude of any single extreme observation.</div>
+  <div class="callout warning">For the main lab, define a large event as <strong>reports_count &ge; 50</strong>. You may drag the slider to explore other cutoffs, but use 50 for your submitted test unless your instructor says otherwise.</div>
+  <div class="threshold-row no-print">
+    <label for="threshold"><strong>Explore threshold:</strong></label>
+    <input id="threshold" type="range" min="25" max="250" value="50" step="1" oninput="updateThreshold()">
+    <span id="thresholdLabel" class="pill blue">&ge; 50</span>
+  </div>
+  <table>
+    <thead><tr><th>Group</th><th class="num">Large events $x$</th><th class="num">Sample size $n$</th><th class="num">Sample proportion $\hat{p}$</th></tr></thead>
+    <tbody id="thresholdTable"></tbody>
+  </table>
+  <p id="thresholdZ" class="mini"></p>
+  <p>The procedure is the same two-sample $z$-test you learned in Chapter 7, applied to proportions instead of means. The pooled proportion $\hat{p}_{\text{pool}}$ combines both samples under the null hypothesis that the two population proportions are equal.</p>
+  <div class="formula">
+    \[ z \;=\; \dfrac{\hat{p}_{2026} - \hat{p}_{\text{base}}}{\sqrt{\,\hat{p}_{\text{pool}}\!\left(1 - \hat{p}_{\text{pool}}\right)\!\left(\dfrac{1}{n_{2026}} + \dfrac{1}{n_{\text{base}}}\right)}} \]
+    <span class="label">Two-sample $z$-statistic for the difference in proportions</span>
+  </div>
+  <h3>For the required threshold 50, fill in the table</h3>
+  <p>Use the slider value 50 (or set it manually) and read the counts and proportions from the table above, then compute the pooled proportion, the $z$-statistic, and the $p$-value. The hypotheses are $H_0: p_{2026} = p_{\text{base}}$ versus $H_a: p_{2026} \neq p_{\text{base}}$, two-sided, $\alpha = 0.05$.</p>
+  <div class="grid3">
+    <label>$x_{\text{base}}$<input type="number" step="any" data-save="prop_xbase"></label>
+    <label>$\hat{p}_{\text{base}}$<input type="number" step="any" data-save="prop_pbase"></label>
+    <label>$x_{2026}$<input type="number" step="any" data-save="prop_x2026"></label>
+  </div>
+  <div class="grid3">
+    <label>$\hat{p}_{2026}$<input type="number" step="any" data-save="prop_p2026"></label>
+    <label>$\hat{p}_{\text{pool}}$<input type="number" step="any" data-save="prop_ppool"></label>
+    <label>$z$-statistic<input type="number" step="any" data-save="prop_z"></label>
+  </div>
+  <div class="grid2">
+    <label>$p$-value<input type="number" step="any" data-save="prop_pval"></label>
+    <label>Decision<input type="text" data-save="prop_decision" placeholder="Reject H0 or fail to reject H0"></label>
+  </div>
+  <button onclick="checkPropTest()">Check proportion test values</button>
+  <div id="propFeedback" class="feedback"></div>
+  <label>Conclusion in context: what does your decision say about the proportion of large fireball events in 2026 compared to the 2021&ndash;2025 baseline?<textarea data-save="prop_conclusion"></textarea></label>
+</section>
+
+<section id="report" class="card">
+  <h2>Part 7. Final synthesis and report</h2>
+  <p>You have now applied two tests from the same chapter to the same 261 fireball events. Your synthesis paragraph should compare the conclusions and explain why the two procedures may give different results.</p>
+  <div class="callout"><strong>Address three things in your paragraph:</strong> First, explain the mathematical reason that the test for means and the test for proportions may lead to different conclusions. In particular, describe how each statistic responds to a single 3,229-report event. Second, state which procedure you think is more appropriate for this dataset, and justify your choice. Third, based on the full analysis, state whether the 2026 data appear different from the 2021&ndash;2025 baseline, and identify the strongest evidence for your conclusion.</div>
+  <textarea data-save="synthesis" style="min-height:170px" placeholder="Write your final synthesis paragraph here. Five to eight sentences."></textarea>
+  <div class="actions no-print" style="margin-top:12px">
+    <button class="primary" onclick="generateReport()">Generate printable report</button>
+    <button onclick="saveAll()">Save answers</button>
+  </div>
+  <h3>Report preview</h3>
+  <div id="reportPreview" class="report-preview">Click &ldquo;Generate printable report&rdquo; to build your report.</div>
+</section>
+<p class="footer-note">MATH& 146 · Two-sample inference · Fireball report lab</p>
+</main>
+<script>
+const DATA=[{"event_id":52513,"event_date":"2021-01-04","year":2021,"reports_count":71,"start_lat":42.769127050527,"start_long":-73.479918893741,"end_lat":42.66217457199,"end_long":-74.656274770843},{"event_id":52613,"event_date":"2021-01-07","year":2021,"reports_count":41,"start_lat":49.667235971683,"start_long":-94.313449464927,"end_lat":49.652008821016,"end_long":-95.278008161155},{"event_id":52686,"event_date":"2021-01-10","year":2021,"reports_count":53,"start_lat":38.21964342132,"start_long":-77.032691496369,"end_lat":38.218032349119,"end_long":-77.562241982927},{"event_id":52761,"event_date":"2021-01-13","year":2021,"reports_count":25,"start_lat":34.002472313983,"start_long":-77.143760328398,"end_lat":35.17918474204,"end_long":-77.39383913865},{"event_id":52797,"event_date":"2021-01-15","year":2021,"reports_count":58,"start_lat":52.57067179253,"start_long":104.49138837003,"end_lat":52.363486548674,"end_long":104.4711004744},{"event_id":52894,"event_date":"2021-01-18","year":2021,"reports_count":36,"start_lat":36.954136224584,"start_long":-96.198275610083,"end_lat":36.069559164464,"end_long":-96.132375339588},{"event_id":52976,"event_date":"2021-01-22","year":2021,"reports_count":230,"start_lat":51.358214716619,"start_long":3.995706948992,"end_lat":51.188269863308,"end_long":4.054914475995},{"event_id":53018,"event_date":"2021-01-23","year":2021,"reports_count":44,"start_lat":54.847881524552,"start_long":12.703433376409,"end_lat":53.922889556518,"end_long":13.048478268162},{"event_id":53160,"event_date":"2021-02-03","year":2021,"reports_count":27,"start_lat":29.0,"start_long":-98.0,"end_lat":28.0,"end_long":-98.0},{"event_id":53193,"event_date":"2021-02-04","year":2021,"reports_count":114,"start_lat":40.248491622364,"start_long":-88.291723359759,"end_lat":40.216482076564,"end_long":-88.327074885275},{"event_id":53312,"event_date":"2021-02-09","year":2021,"reports_count":26,"start_lat":28.217325582271,"start_long":-76.560315912419,"end_lat":26.578383374975,"end_long":-77.89813306581},{"event_id":53295,"event_date":"2021-02-11","year":2021,"reports_count":32,"start_lat":38.426618428858,"start_long":-116.39613218932,"end_lat":39.015147480272,"end_long":-116.57418742582},{"event_id":53327,"event_date":"2021-02-12","year":2021,"reports_count":93,"start_lat":50.820405834927,"start_long":1.151181159546,"end_lat":50.703492583909,"end_long":-0.190837669224},{"event_id":53426,"event_date":"2021-02-18","year":2021,"reports_count":148,"start_lat":56.574110686384,"start_long":-3.527312470753,"end_lat":55.907710372946,"end_long":-4.206782506716},{"event_id":53428,"event_date":"2021-02-19","year":2021,"reports_count":55,"start_lat":36.118603547178,"start_long":-99.686873342886,"end_lat":36.7508024127,"end_long":-98.671492895479},{"event_id":53501,"event_date":"2021-02-22","year":2021,"reports_count":507,"start_lat":54.023956374996,"start_long":-113.00014979254,"end_lat":54.652898632069,"end_long":-113.65846187055},{"event_id":53623,"event_date":"2021-02-25","year":2021,"reports_count":129,"start_lat":35.671176634843,"start_long":-92.362253089223,"end_lat":33.580737502519,"end_long":-92.372740627678},{"event_id":53624,"event_date":"2021-02-25","year":2021,"reports_count":70,"start_lat":40.745900525581,"start_long":-81.588223231313,"end_lat":40.28579507265,"end_long":-81.264035334587},{"event_id":53690,"event_date":"2021-02-27","year":2021,"reports_count":320,"start_lat":42.932337689383,"start_long":-81.262746996886,"end_lat":43.386763379306,"end_long":-81.926519824061},{"event_id":53710,"event_date":"2021-02-27","year":2021,"reports_count":135,"start_lat":44.24178448059,"start_long":0.772416902326,"end_lat":44.565467397075,"end_long":0.339827812531},{"event_id":53735,"event_date":"2021-02-28","year":2021,"reports_count":1176,"start_lat":52.113240361046,"start_long":-2.613023941031,"end_lat":52.12958700878,"end_long":-1.806624867671},{"event_id":53775,"event_date":"2021-03-01","year":2021,"reports_count":52,"start_lat":53.870897031295,"start_long":-3.203115610261,"end_lat":53.926445301304,"end_long":-3.499998635029},{"event_id":53780,"event_date":"2021-03-02","year":2021,"reports_count":30,"start_lat":43.524967962833,"start_long":-106.46857909842,"end_lat":42.776767958144,"end_long":-106.69244432131},{"event_id":53782,"event_date":"2021-03-02","year":2021,"reports_count":26,"start_lat":45.059882529644,"start_long":-113.34616945556,"end_lat":45.019095428283,"end_long":-119.26700099228},{"event_id":53847,"event_date":"2021-03-04","year":2021,"reports_count":26,"start_lat":40.177156212091,"start_long":-101.34008353075,"end_lat":40.052611689237,"end_long":-101.36910811697},{"event_id":53883,"event_date":"2021-03-05","year":2021,"reports_count":28,"start_lat":38.422007407941,"start_long":-80.722747368244,"end_lat":38.186801421446,"end_long":-81.398212085939},{"event_id":53896,"event_date":"2021-03-06","year":2021,"reports_count":29,"start_lat":48.345057155523,"start_long":5.318716627412,"end_lat":49.413683524795,"end_long":7.412238696568},{"event_id":53937,"event_date":"2021-03-07","year":2021,"reports_count":231,"start_lat":44.554088332633,"start_long":-72.524980883067,"end_lat":44.719704452985,"end_long":-72.148902348044},{"event_id":53962,"event_date":"2021-03-08","year":2021,"reports_count":44,"start_lat":29.664658240226,"start_long":-83.096901552673,"end_lat":29.479120003953,"end_long":-82.35282257372},{"event_id":53991,"event_date":"2021-03-08","year":2021,"reports_count":128,"start_lat":53.364283504544,"start_long":0.141314097845,"end_lat":53.868264105343,"end_long":0.092314771811},{"event_id":54015,"event_date":"2021-03-09","year":2021,"reports_count":38,"start_lat":43.708363684853,"start_long":0.581315243494,"end_lat":43.477046585014,"end_long":1.741928327463},{"event_id":54018,"event_date":"2021-03-10","year":2021,"reports_count":34,"start_lat":34.188469005955,"start_long":-81.817582352171,"end_lat":34.478228241338,"end_long":-83.84877918461},{"event_id":54097,"event_date":"2021-03-12","year":2021,"reports_count":139,"start_lat":42.739199833471,"start_long":-89.178444061107,"end_lat":43.203514361521,"end_long":-89.018871538631},{"event_id":54114,"event_date":"2021-03-13","year":2021,"reports_count":57,"start_lat":45.21525873479,"start_long":-122.35114312793,"end_lat":45.260788435141,"end_long":-123.01898246151},{"event_id":54117,"event_date":"2021-03-13","year":2021,"reports_count":36,"start_lat":43.689618227651,"start_long":-73.796545781114,"end_lat":43.377606497582,"end_long":-74.725360235068},{"event_id":54171,"event_date":"2021-03-14","year":2021,"reports_count":141,"start_lat":38.109792141777,"start_long":-74.292801442478,"end_lat":40.510185091458,"end_long":-73.396222055377},{"event_id":54333,"event_date":"2021-03-20","year":2021,"reports_count":168,"start_lat":49.606053076683,"start_long":-2.343924790067,"end_lat":50.246368500472,"end_long":-1.448304912984},{"event_id":54347,"event_date":"2021-03-21","year":2021,"reports_count":61,"start_lat":27.786058286993,"start_long":-82.526228945957,"end_lat":27.699704930349,"end_long":-83.1296016194},{"event_id":54355,"event_date":"2021-03-21","year":2021,"reports_count":97,"start_lat":35.159093903995,"start_long":-118.22824420505,"end_lat":35.010327575802,"end_long":-117.23280181283},{"event_id":54354,"event_date":"2021-03-21","year":2021,"reports_count":307,"start_lat":40.097474122038,"start_long":-77.399203255934,"end_lat":40.672632566708,"end_long":-77.673602837262},{"event_id":54387,"event_date":"2021-03-21","year":2021,"reports_count":72,"start_lat":51.813639446911,"start_long":2.820890897989,"end_lat":52.209388419818,"end_long":2.058140255233},{"event_id":54401,"event_date":"2021-03-22","year":2021,"reports_count":26,"start_lat":51.25446467906,"start_long":-0.10681040056,"end_lat":51.503470891433,"end_long":-1.17211819817},{"event_id":54420,"event_date":"2021-03-23","year":2021,"reports_count":26,"start_lat":34.72928041838,"start_long":-113.67512742079,"end_lat":35.017474475372,"end_long":-112.65960053727},{"event_id":62484,"event_date":"2022-01-07","year":2022,"reports_count":35,"start_lat":28.414227972928,"start_long":-80.766761175168,"end_lat":27.551754245935,"end_long":-81.673471461178},{"event_id":62529,"event_date":"2022-01-07","year":2022,"reports_count":37,"start_lat":52.747976419701,"start_long":-1.32346677751,"end_lat":52.933712074369,"end_long":-2.130499600666},{"event_id":62548,"event_date":"2022-01-08","year":2022,"reports_count":30,"start_lat":51.484214701676,"start_long":8.130768666418,"end_lat":51.510188888741,"end_long":7.069985732132},{"event_id":62612,"event_date":"2022-01-11","year":2022,"reports_count":29,"start_lat":42.631558363629,"start_long":-90.663162434026,"end_lat":42.230589449918,"end_long":-90.132644784236},{"event_id":62673,"event_date":"2022-01-13","year":2022,"reports_count":59,"start_lat":49.0,"start_long":17.0,"end_lat":48.0,"end_long":16.0},{"event_id":62706,"event_date":"2022-01-15","year":2022,"reports_count":52,"start_lat":40.216246432364,"start_long":-72.089981494277,"end_lat":40.727979938496,"end_long":-71.693967532624},{"event_id":62842,"event_date":"2022-01-20","year":2022,"reports_count":419,"start_lat":43.584109287356,"start_long":-90.364275052991,"end_lat":43.068202435479,"end_long":-91.164945541719},{"event_id":62881,"event_date":"2022-01-21","year":2022,"reports_count":166,"start_lat":47.799870857915,"start_long":5.558118838839,"end_lat":47.770260859306,"end_long":4.318406531852},{"event_id":62992,"event_date":"2022-01-25","year":2022,"reports_count":25,"start_lat":45.128749940495,"start_long":16.274560663896,"end_lat":45.198529216738,"end_long":14.574945057489},{"event_id":63085,"event_date":"2022-01-29","year":2022,"reports_count":73,"start_lat":29.689232475011,"start_long":-98.335100263656,"end_lat":30.593526477866,"end_long":-98.666997190347},{"event_id":63093,"event_date":"2022-01-29","year":2022,"reports_count":341,"start_lat":55.858709405113,"start_long":-0.348157730833,"end_lat":55.270021608317,"end_long":-1.846229146724},{"event_id":63165,"event_date":"2022-02-02","year":2022,"reports_count":26,"start_lat":42.537587677758,"start_long":-80.099650151895,"end_lat":42.879515211812,"end_long":-79.912146635689},{"event_id":63314,"event_date":"2022-02-08","year":2022,"reports_count":40,"start_lat":50.112274814009,"start_long":2.51159360579,"end_lat":50.509471099474,"end_long":2.397653474878},{"event_id":63320,"event_date":"2022-02-09","year":2022,"reports_count":60,"start_lat":32.431990045991,"start_long":-98.079430419412,"end_lat":32.692645930753,"end_long":-98.361015506067},{"event_id":63351,"event_date":"2022-02-09","year":2022,"reports_count":51,"start_lat":36.298088191293,"start_long":-80.179995991461,"end_lat":35.578714944708,"end_long":-80.292728753233},{"event_id":63355,"event_date":"2022-02-11","year":2022,"reports_count":29,"start_lat":38.194471510596,"start_long":-85.977380979156,"end_lat":37.447932639464,"end_long":-85.638046921533},{"event_id":63432,"event_date":"2022-02-13","year":2022,"reports_count":44,"start_lat":42.079377066502,"start_long":-99.107434149556,"end_lat":41.114545165731,"end_long":-103.79557330743},{"event_id":63462,"event_date":"2022-02-15","year":2022,"reports_count":35,"start_lat":40.606017550747,"start_long":-87.455460208763,"end_lat":40.556402054457,"end_long":-87.466145410907},{"event_id":63461,"event_date":"2022-02-16","year":2022,"reports_count":47,"start_lat":39.549859865467,"start_long":-80.278578362783,"end_lat":39.514148713371,"end_long":-80.464313477586},{"event_id":63528,"event_date":"2022-02-19","year":2022,"reports_count":48,"start_lat":39.474810807711,"start_long":-105.43434731454,"end_lat":38.611040269419,"end_long":-104.47396934381},{"event_id":63642,"event_date":"2022-02-23","year":2022,"reports_count":34,"start_lat":48.562215114656,"start_long":9.362024653881,"end_lat":48.129559012378,"end_long":9.033229160205},{"event_id":63682,"event_date":"2022-02-25","year":2022,"reports_count":35,"start_lat":53.416435424285,"start_long":-0.823210676783,"end_lat":53.522311385141,"end_long":-1.635831474632},{"event_id":63733,"event_date":"2022-02-27","year":2022,"reports_count":29,"start_lat":49.671574006398,"start_long":7.188652332773,"end_lat":49.673887717545,"end_long":7.427699585651},{"event_id":63865,"event_date":"2022-03-05","year":2022,"reports_count":216,"start_lat":43.732046062855,"start_long":12.043439663177,"end_lat":43.813162476258,"end_long":13.322444345174},{"event_id":63908,"event_date":"2022-03-07","year":2022,"reports_count":46,"start_lat":48.019075863358,"start_long":-122.55253038429,"end_lat":47.935226648992,"end_long":-121.45554337091},{"event_id":63896,"event_date":"2022-03-07","year":2022,"reports_count":25,"start_lat":50.476960938974,"start_long":16.526988982556,"end_lat":51.002239283427,"end_long":15.709330006926},{"event_id":63987,"event_date":"2022-03-11","year":2022,"reports_count":42,"start_lat":36.965615424011,"start_long":-86.409649604859,"end_lat":36.548122302584,"end_long":-85.839425856723},{"event_id":63998,"event_date":"2022-03-11","year":2022,"reports_count":31,"start_lat":50.299912878764,"start_long":0.383179414186,"end_lat":51.060466764043,"end_long":-0.706176557921},{"event_id":64001,"event_date":"2022-03-11","year":2022,"reports_count":39,"start_lat":56.691752447054,"start_long":11.382820062014,"end_lat":56.987007328078,"end_long":11.274547588698},{"event_id":64012,"event_date":"2022-03-12","year":2022,"reports_count":39,"start_lat":48.90377537836,"start_long":-92.248498323733,"end_lat":47.801753159989,"end_long":-94.354000855419},{"event_id":64139,"event_date":"2022-03-15","year":2022,"reports_count":42,"start_lat":42.128801196794,"start_long":-77.171461917417,"end_lat":42.647876507835,"end_long":-78.218842017556},{"event_id":64169,"event_date":"2022-03-15","year":2022,"reports_count":36,"start_lat":39.639682699178,"start_long":-95.103892447709,"end_lat":38.976458008373,"end_long":-95.352312072413},{"event_id":64171,"event_date":"2022-03-16","year":2022,"reports_count":36,"start_lat":41.109511744341,"start_long":-97.817838792132,"end_lat":41.276227110885,"end_long":-100.07445578899},{"event_id":64201,"event_date":"2022-03-17","year":2022,"reports_count":26,"start_lat":42.059592390043,"start_long":-71.421798959129,"end_lat":42.306020281583,"end_long":-71.930100211391},{"event_id":64222,"event_date":"2022-03-18","year":2022,"reports_count":54,"start_lat":52.083307038157,"start_long":4.337550178022,"end_lat":51.473861587822,"end_long":5.083265261386},{"event_id":64341,"event_date":"2022-03-22","year":2022,"reports_count":41,"start_lat":51.116244845877,"start_long":-0.377174515597,"end_lat":51.298561403068,"end_long":-0.064986373082},{"event_id":64347,"event_date":"2022-03-23","year":2022,"reports_count":57,"start_lat":52.996484469704,"start_long":-102.61323256555,"end_lat":52.201286670861,"end_long":-104.0840530449},{"event_id":64366,"event_date":"2022-03-24","year":2022,"reports_count":110,"start_lat":51.701506379015,"start_long":-97.9354363826,"end_lat":51.771708470687,"end_long":-97.714019961522},{"event_id":73092,"event_date":"2023-01-02","year":2023,"reports_count":27,"start_lat":37.85733,"start_long":-79.84944,"end_lat":37.6133,"end_long":-80.62285},{"event_id":73125,"event_date":"2023-01-04","year":2023,"reports_count":28,"start_lat":38.67562,"start_long":-83.30636,"end_lat":38.61108,"end_long":-83.91503},{"event_id":73138,"event_date":"2023-01-05","year":2023,"reports_count":72,"start_lat":45.78532,"start_long":12.61456,"end_lat":45.45026,"end_long":12.02141},{"event_id":73214,"event_date":"2023-01-09","year":2023,"reports_count":56,"start_lat":40.79802,"start_long":-71.30042,"end_lat":41.15387,"end_long":-71.4101},{"event_id":73234,"event_date":"2023-01-11","year":2023,"reports_count":219,"start_lat":31.031707479505,"start_long":-97.948902391632,"end_lat":31.186694071871,"end_long":-97.64647159089},{"event_id":73248,"event_date":"2023-01-11","year":2023,"reports_count":44,"start_lat":29.0,"start_long":-85.0,"end_lat":28.0,"end_long":-84.0},{"event_id":73279,"event_date":"2023-01-13","year":2023,"reports_count":29,"start_lat":33.72199,"start_long":-84.76794,"end_lat":33.72915,"end_long":-85.77268},{"event_id":73359,"event_date":"2023-01-16","year":2023,"reports_count":26,"start_lat":-35.33374,"start_long":174.17273,"end_lat":-35.49302,"end_long":173.9113},{"event_id":73442,"event_date":"2023-01-20","year":2023,"reports_count":35,"start_lat":49.32238,"start_long":-122.83925,"end_lat":49.65984,"end_long":-119.99597},{"event_id":73458,"event_date":"2023-01-20","year":2023,"reports_count":46,"start_lat":48.58518,"start_long":-2.62455,"end_lat":49.02113,"end_long":-1.98822},{"event_id":73446,"event_date":"2023-01-20","year":2023,"reports_count":131,"start_lat":36.229050334671,"start_long":-95.44023932996,"end_lat":35.877891212061,"end_long":-95.404374697126},{"event_id":73478,"event_date":"2023-01-21","year":2023,"reports_count":98,"start_lat":53.720717299982,"start_long":-4.603279537608,"end_lat":53.734355003594,"end_long":-3.98839793543},{"event_id":73495,"event_date":"2023-01-21","year":2023,"reports_count":26,"start_lat":52.57189,"start_long":-0.62615,"end_lat":53.26076,"end_long":-0.20368},{"event_id":73548,"event_date":"2023-01-24","year":2023,"reports_count":216,"start_lat":52.0,"start_long":-1.0,"end_lat":52.0,"end_long":-2.0},{"event_id":73594,"event_date":"2023-01-26","year":2023,"reports_count":38,"start_lat":55.0,"start_long":-7.0,"end_lat":54.0,"end_long":-7.0},{"event_id":73629,"event_date":"2023-01-28","year":2023,"reports_count":68,"start_lat":43.406721825141,"start_long":-73.715312805502,"end_lat":43.586328665168,"end_long":-73.870414234354},{"event_id":73690,"event_date":"2023-01-31","year":2023,"reports_count":38,"start_lat":51.653200393132,"start_long":-1.075553929408,"end_lat":51.594640020298,"end_long":-0.929073889087},{"event_id":73761,"event_date":"2023-02-02","year":2023,"reports_count":28,"start_lat":40.0,"start_long":-78.0,"end_lat":42.0,"end_long":-78.0},{"event_id":73767,"event_date":"2023-02-02","year":2023,"reports_count":27,"start_lat":40.512719288898,"start_long":-74.758666042845,"end_lat":40.645090678883,"end_long":-75.423853374331},{"event_id":73848,"event_date":"2023-02-07","year":2023,"reports_count":123,"start_lat":34.0,"start_long":-91.0,"end_lat":34.0,"end_long":-92.0},{"event_id":73899,"event_date":"2023-02-07","year":2023,"reports_count":51,"start_lat":51.426140050331,"start_long":7.099755390648,"end_lat":51.725155684214,"end_long":7.051401324719},{"event_id":73928,"event_date":"2023-02-08","year":2023,"reports_count":30,"start_lat":55.295274563419,"start_long":5.712526777208,"end_lat":55.190269504503,"end_long":4.636139235413},{"event_id":73977,"event_date":"2023-02-10","year":2023,"reports_count":42,"start_lat":46.761753594123,"start_long":14.062768023196,"end_lat":47.131209726551,"end_long":14.447040938668},{"event_id":74028,"event_date":"2023-02-13","year":2023,"reports_count":84,"start_lat":50.136830514599,"start_long":0.206117977183,"end_lat":50.038602680766,"end_long":0.936127224317},{"event_id":74102,"event_date":"2023-02-14","year":2023,"reports_count":34,"start_lat":41.407553612129,"start_long":16.801779479988,"end_lat":41.184869250779,"end_long":16.371317606542},{"event_id":74188,"event_date":"2023-02-19","year":2023,"reports_count":53,"start_lat":27.66186,"start_long":-83.31613,"end_lat":27.53917,"end_long":-82.95939},{"event_id":74226,"event_date":"2023-02-19","year":2023,"reports_count":41,"start_lat":39.2463,"start_long":-75.23508,"end_lat":38.85704,"end_long":-76.12744},{"event_id":74230,"event_date":"2023-02-20","year":2023,"reports_count":210,"start_lat":43.1978,"start_long":-84.1502,"end_lat":43.15765,"end_long":-85.1936},{"event_id":74276,"event_date":"2023-02-22","year":2023,"reports_count":29,"start_lat":34.77873,"start_long":-116.59509,"end_lat":34.51843,"end_long":-115.0034},{"event_id":74274,"event_date":"2023-02-23","year":2023,"reports_count":26,"start_lat":30.54385,"start_long":-96.8227,"end_lat":29.8053,"end_long":-96.30942},{"event_id":74355,"event_date":"2023-02-26","year":2023,"reports_count":27,"start_lat":38.0,"start_long":-87.0,"end_lat":38.0,"end_long":-85.0},{"event_id":74369,"event_date":"2023-02-26","year":2023,"reports_count":33,"start_lat":55.177481498379,"start_long":12.615306528357,"end_lat":54.314371879562,"end_long":12.866302729068},{"event_id":74424,"event_date":"2023-02-28","year":2023,"reports_count":278,"start_lat":49.0,"start_long":3.0,"end_lat":50.0,"end_long":3.0},{"event_id":74426,"event_date":"2023-03-01","year":2023,"reports_count":29,"start_lat":34.49139,"start_long":-80.17315,"end_lat":34.70512,"end_long":-80.76508},{"event_id":74482,"event_date":"2023-03-02","year":2023,"reports_count":27,"start_lat":35.10276,"start_long":-121.30654,"end_lat":34.77143,"end_long":-121.70001},{"event_id":74548,"event_date":"2023-03-06","year":2023,"reports_count":25,"start_lat":43.916459169474,"start_long":4.821835807412,"end_lat":43.995771639916,"end_long":5.277096971491},{"event_id":74553,"event_date":"2023-03-07","year":2023,"reports_count":107,"start_lat":44.997678306434,"start_long":-78.082054194308,"end_lat":45.412375395931,"end_long":-78.445984392696},{"event_id":74586,"event_date":"2023-03-09","year":2023,"reports_count":53,"start_lat":44.31891753954,"start_long":-77.357125501619,"end_lat":43.712437179995,"end_long":-77.709035139957},{"event_id":74585,"event_date":"2023-03-09","year":2023,"reports_count":61,"start_lat":34.23594,"start_long":-111.47607,"end_lat":34.36336,"end_long":-110.06733},{"event_id":74641,"event_date":"2023-03-12","year":2023,"reports_count":105,"start_lat":41.56888,"start_long":-73.67287,"end_lat":41.07544,"end_long":-73.38262},{"event_id":74740,"event_date":"2023-03-18","year":2023,"reports_count":63,"start_lat":39.70251,"start_long":-121.65847,"end_lat":38.64598,"end_long":-119.95647},{"event_id":81611,"event_date":"2024-01-02","year":2024,"reports_count":112,"start_lat":46.43781870514,"start_long":-0.54807104285,"end_lat":46.474948854671,"end_long":-1.742549582871},{"event_id":81630,"event_date":"2024-01-03","year":2024,"reports_count":47,"start_lat":51.0,"start_long":-3.0,"end_lat":52.0,"end_long":-3.0},{"event_id":81706,"event_date":"2024-01-04","year":2024,"reports_count":86,"start_lat":37.0,"start_long":-86.0,"end_lat":37.0,"end_long":-87.0},{"event_id":81750,"event_date":"2024-01-06","year":2024,"reports_count":75,"start_lat":50.655843383822,"start_long":4.107479616166,"end_lat":50.686400272743,"end_long":2.735647102754},{"event_id":81798,"event_date":"2024-01-09","year":2024,"reports_count":63,"start_lat":45.978067368909,"start_long":0.473734696444,"end_lat":45.638680571198,"end_long":-0.279647425387},{"event_id":81802,"event_date":"2024-01-09","year":2024,"reports_count":81,"start_lat":49.889328052595,"start_long":4.271590597297,"end_lat":50.026683881457,"end_long":4.40868959438},{"event_id":81836,"event_date":"2024-01-11","year":2024,"reports_count":80,"start_lat":47.445596379218,"start_long":-1.791061756158,"end_lat":47.262292749402,"end_long":-2.047899927197},{"event_id":81931,"event_date":"2024-01-16","year":2024,"reports_count":524,"start_lat":42.547826024657,"start_long":0.340212477401,"end_lat":42.197916112789,"end_long":1.613056604017},{"event_id":81968,"event_date":"2024-01-17","year":2024,"reports_count":45,"start_lat":51.139203707807,"start_long":-4.537603322165,"end_lat":51.060287841521,"end_long":-5.850727969084},{"event_id":81972,"event_date":"2024-01-18","year":2024,"reports_count":60,"start_lat":43.516489934083,"start_long":-82.528779310851,"end_lat":43.220305891983,"end_long":-83.306187839726},{"event_id":81993,"event_date":"2024-01-18","year":2024,"reports_count":113,"start_lat":52.0,"start_long":-4.0,"end_lat":52.0,"end_long":-3.0},{"event_id":82052,"event_date":"2024-01-20","year":2024,"reports_count":28,"start_lat":44.73170256566,"start_long":-3.168592529356,"end_lat":45.196514286772,"end_long":-3.45102384402},{"event_id":82034,"event_date":"2024-01-21","year":2024,"reports_count":37,"start_lat":52.582104319251,"start_long":12.308016874116,"end_lat":52.677545015245,"end_long":12.618256528783},{"event_id":82072,"event_date":"2024-01-21","year":2024,"reports_count":27,"start_lat":-38.46795529385,"start_long":175.76430096867,"end_lat":-38.291927619336,"end_long":176.23449981244},{"event_id":82121,"event_date":"2024-01-25","year":2024,"reports_count":46,"start_lat":52.627212758135,"start_long":0.418161863473,"end_lat":52.608638724318,"end_long":0.794283274874},{"event_id":82144,"event_date":"2024-01-27","year":2024,"reports_count":401,"start_lat":48.0,"start_long":11.0,"end_lat":48.0,"end_long":10.0},{"event_id":82261,"event_date":"2024-02-01","year":2024,"reports_count":41,"start_lat":34.979928218021,"start_long":-84.629867992778,"end_lat":35.392746372054,"end_long":-84.489652723206},{"event_id":82276,"event_date":"2024-02-01","year":2024,"reports_count":65,"start_lat":45.0,"start_long":8.0,"end_lat":45.0,"end_long":7.0},{"event_id":82290,"event_date":"2024-02-03","year":2024,"reports_count":36,"start_lat":29.157365927691,"start_long":-80.214831894195,"end_lat":28.975708765917,"end_long":-80.987582921771},{"event_id":82339,"event_date":"2024-02-04","year":2024,"reports_count":141,"start_lat":45.0,"start_long":6.0,"end_lat":45.0,"end_long":5.0},{"event_id":82359,"event_date":"2024-02-06","year":2024,"reports_count":27,"start_lat":39.30444596166,"start_long":-75.792029637817,"end_lat":39.215176923317,"end_long":-75.308690654825},{"event_id":82413,"event_date":"2024-02-09","year":2024,"reports_count":41,"start_lat":35.375083126086,"start_long":-95.890929431358,"end_lat":35.275136373162,"end_long":-96.695956835873},{"event_id":82432,"event_date":"2024-02-10","year":2024,"reports_count":30,"start_lat":44.51065577544,"start_long":-80.589060012701,"end_lat":44.661565465163,"end_long":-80.152715447897},{"event_id":82492,"event_date":"2024-02-14","year":2024,"reports_count":47,"start_lat":32.026676782589,"start_long":-94.776094094159,"end_lat":32.211707520674,"end_long":-94.668068104231},{"event_id":82604,"event_date":"2024-02-19","year":2024,"reports_count":112,"start_lat":53.309866920233,"start_long":1.221069842312,"end_lat":53.593628442768,"end_long":1.37906596953},{"event_id":82619,"event_date":"2024-02-21","year":2024,"reports_count":433,"start_lat":40.0,"start_long":-78.0,"end_lat":40.0,"end_long":-77.0},{"event_id":82677,"event_date":"2024-02-23","year":2024,"reports_count":34,"start_lat":34.384526700077,"start_long":-118.73551583817,"end_lat":34.127955142871,"end_long":-118.60883863327},{"event_id":82787,"event_date":"2024-02-28","year":2024,"reports_count":47,"start_lat":45.113195562805,"start_long":2.540502175647,"end_lat":44.89399489467,"end_long":1.774482244754},{"event_id":82843,"event_date":"2024-03-02","year":2024,"reports_count":90,"start_lat":52.934398690946,"start_long":3.213135128465,"end_lat":53.138751305955,"end_long":2.8634734409},{"event_id":82850,"event_date":"2024-03-03","year":2024,"reports_count":64,"start_lat":34.327379963073,"start_long":-87.762643558904,"end_lat":34.227470121277,"end_long":-86.630674608276},{"event_id":82865,"event_date":"2024-03-04","year":2024,"reports_count":38,"start_lat":42.500111226792,"start_long":-86.379773860017,"end_lat":42.704873284671,"end_long":-86.218833992414},{"event_id":82944,"event_date":"2024-03-08","year":2024,"reports_count":270,"start_lat":50.103530387733,"start_long":9.686251307029,"end_lat":49.356686670371,"end_long":8.882968420864},{"event_id":82967,"event_date":"2024-03-09","year":2024,"reports_count":26,"start_lat":45.0,"start_long":0.0,"end_lat":46.0,"end_long":0.0},{"event_id":83015,"event_date":"2024-03-12","year":2024,"reports_count":196,"start_lat":52.058810987431,"start_long":13.764639689332,"end_lat":52.700189627013,"end_long":12.44401770551},{"event_id":83109,"event_date":"2024-03-17","year":2024,"reports_count":25,"start_lat":41.0,"start_long":-88.0,"end_lat":39.0,"end_long":-90.0},{"event_id":83161,"event_date":"2024-03-19","year":2024,"reports_count":66,"start_lat":42.20995107982,"start_long":-74.898804296423,"end_lat":42.748409707531,"end_long":-73.68548538028},{"event_id":83227,"event_date":"2024-03-23","year":2024,"reports_count":35,"start_lat":47.429132608397,"start_long":8.288461861771,"end_lat":46.873005586972,"end_long":7.924631756224},{"event_id":90066,"event_date":"2025-01-01","year":2025,"reports_count":25,"start_lat":28.0,"start_long":-81.0,"end_lat":28.0,"end_long":-83.0},{"event_id":90065,"event_date":"2025-01-01","year":2025,"reports_count":36,"start_lat":33.857387240884,"start_long":-79.894542026231,"end_lat":33.129141081228,"end_long":-79.413420107968},{"event_id":90160,"event_date":"2025-01-03","year":2025,"reports_count":32,"start_lat":54.255204604312,"start_long":3.869423307332,"end_lat":52.511536282179,"end_long":3.092398860968},{"event_id":90234,"event_date":"2025-01-07","year":2025,"reports_count":41,"start_lat":52.935807284744,"start_long":-3.816319581144,"end_lat":53.259286512771,"end_long":-3.93102508553},{"event_id":90385,"event_date":"2025-01-15","year":2025,"reports_count":81,"start_lat":44.199825477888,"start_long":-71.460649612284,"end_lat":43.932989361557,"end_long":-72.093808141676},{"event_id":90439,"event_date":"2025-01-18","year":2025,"reports_count":44,"start_lat":48.82448653836,"start_long":-123.17716511797,"end_lat":48.921380190819,"end_long":-124.29109628717},{"event_id":90470,"event_date":"2025-01-18","year":2025,"reports_count":72,"start_lat":42.0,"start_long":-87.0,"end_lat":42.0,"end_long":-86.0},{"event_id":90697,"event_date":"2025-01-29","year":2025,"reports_count":72,"start_lat":40.215092061529,"start_long":-79.903574237891,"end_lat":40.608481803275,"end_long":-80.600613055972},{"event_id":90700,"event_date":"2025-01-29","year":2025,"reports_count":71,"start_lat":43.122209372822,"start_long":-89.621169199392,"end_lat":42.848709704462,"end_long":-86.823490912279},{"event_id":90702,"event_date":"2025-01-29","year":2025,"reports_count":30,"start_lat":40.857331893908,"start_long":-82.656823578325,"end_lat":41.277222118932,"end_long":-81.511216045101},{"event_id":90773,"event_date":"2025-01-31","year":2025,"reports_count":59,"start_lat":-44.882960985026,"start_long":168.91151998807,"end_lat":-45.199856180149,"end_long":168.53702721605},{"event_id":90785,"event_date":"2025-02-01","year":2025,"reports_count":30,"start_lat":27.689117138668,"start_long":-82.275300792869,"end_lat":27.691728830393,"end_long":-82.805888428693},{"event_id":91009,"event_date":"2025-02-10","year":2025,"reports_count":36,"start_lat":52.787400578165,"start_long":13.028674184939,"end_lat":52.808479373303,"end_long":12.466357076487},{"event_id":91080,"event_date":"2025-02-16","year":2025,"reports_count":45,"start_lat":55.950065481872,"start_long":-112.97588562983,"end_lat":55.807221573905,"end_long":-114.44777684813},{"event_id":91084,"event_date":"2025-02-16","year":2025,"reports_count":38,"start_lat":32.619424607596,"start_long":-115.25093877065,"end_lat":33.271289969216,"end_long":-115.05426020924},{"event_id":91124,"event_date":"2025-02-18","year":2025,"reports_count":29,"start_lat":37.495100031727,"start_long":-122.3912183844,"end_lat":37.978258652141,"end_long":-122.79791919191},{"event_id":91140,"event_date":"2025-02-18","year":2025,"reports_count":36,"start_lat":52.001802894737,"start_long":6.527307545521,"end_lat":51.505156120994,"end_long":6.508745845997},{"event_id":91151,"event_date":"2025-02-19","year":2025,"reports_count":325,"start_lat":53.312604881962,"start_long":7.721200558698,"end_lat":53.003275384331,"end_long":12.624679711806},{"event_id":91211,"event_date":"2025-02-22","year":2025,"reports_count":28,"start_lat":40.365264529319,"start_long":-83.666894034677,"end_lat":40.038820709106,"end_long":-84.332651513451},{"event_id":91281,"event_date":"2025-02-24","year":2025,"reports_count":76,"start_lat":45.0,"start_long":-95.0,"end_lat":44.0,"end_long":-96.0},{"event_id":91288,"event_date":"2025-02-24","year":2025,"reports_count":25,"start_lat":37.428619464899,"start_long":-96.171216058916,"end_lat":37.789947081306,"end_long":-96.576409875053},{"event_id":91409,"event_date":"2025-03-01","year":2025,"reports_count":25,"start_lat":36.455940135381,"start_long":-85.690191368377,"end_lat":36.83354075413,"end_long":-86.759364780089},{"event_id":91448,"event_date":"2025-03-03","year":2025,"reports_count":33,"start_lat":47.024109384811,"start_long":-98.061822318783,"end_lat":47.03333767091,"end_long":-100.22179962194},{"event_id":91465,"event_date":"2025-03-03","year":2025,"reports_count":25,"start_lat":53.0,"start_long":12.0,"end_lat":50.0,"end_long":14.0},{"event_id":91466,"event_date":"2025-03-04","year":2025,"reports_count":104,"start_lat":43.574628403498,"start_long":-81.877226650036,"end_lat":43.404941181069,"end_long":-83.487324230611},{"event_id":91531,"event_date":"2025-03-05","year":2025,"reports_count":73,"start_lat":52.211431386418,"start_long":3.725818909624,"end_lat":51.993672072965,"end_long":2.791879800336},{"event_id":91549,"event_date":"2025-03-06","year":2025,"reports_count":62,"start_lat":26.083779842361,"start_long":-81.01024645517,"end_lat":26.139052422577,"end_long":-79.751989584835},{"event_id":91552,"event_date":"2025-03-07","year":2025,"reports_count":33,"start_lat":38.647835649125,"start_long":-78.166208605421,"end_lat":37.718093427062,"end_long":-77.210832125246},{"event_id":91639,"event_date":"2025-03-11","year":2025,"reports_count":28,"start_lat":48.399452072802,"start_long":17.242186454657,"end_lat":47.952403269698,"end_long":17.289138223151},{"event_id":91655,"event_date":"2025-03-12","year":2025,"reports_count":25,"start_lat":31.155308753781,"start_long":-96.881799875651,"end_lat":30.673116592751,"end_long":-96.834788129227},{"event_id":91717,"event_date":"2025-03-15","year":2025,"reports_count":54,"start_lat":37.494648503153,"start_long":-83.909563588618,"end_lat":37.776266017816,"end_long":-84.097714278082},{"event_id":91772,"event_date":"2025-03-18","year":2025,"reports_count":119,"start_lat":38.196578284461,"start_long":-83.219053108318,"end_lat":38.68695406361,"end_long":-83.666578306851},{"event_id":91788,"event_date":"2025-03-18","year":2025,"reports_count":44,"start_lat":56.010294890766,"start_long":11.900594799444,"end_lat":56.014283172342,"end_long":11.045581954382},{"event_id":91843,"event_date":"2025-03-21","year":2025,"reports_count":57,"start_lat":51.0,"start_long":15.0,"end_lat":51.0,"end_long":18.0},{"event_id":91915,"event_date":"2025-03-24","year":2025,"reports_count":58,"start_lat":44.0,"start_long":2.0,"end_lat":44.0,"end_long":1.0},{"event_id":100720,"event_date":"2026-01-01","year":2026,"reports_count":35,"start_lat":48.394514306981,"start_long":-122.44972269887,"end_lat":48.51352024698,"end_long":-123.27279393574},{"event_id":100731,"event_date":"2026-01-01","year":2026,"reports_count":33,"start_lat":33.494488435106,"start_long":-84.418713452628,"end_lat":32.573123743844,"end_long":-84.653727851293},{"event_id":100744,"event_date":"2026-01-02","year":2026,"reports_count":99,"start_lat":38.759169968466,"start_long":-89.922326974502,"end_lat":38.554462995679,"end_long":-90.765011425459},{"event_id":100804,"event_date":"2026-01-03","year":2026,"reports_count":48,"start_lat":46.593199861096,"start_long":-0.088855761594,"end_lat":45.650613628942,"end_long":-0.917285556121},{"event_id":100960,"event_date":"2026-01-08","year":2026,"reports_count":115,"start_lat":41.410469183267,"start_long":-81.754916211564,"end_lat":40.723923533318,"end_long":-81.896387383408},{"event_id":101018,"event_date":"2026-01-11","year":2026,"reports_count":60,"start_lat":42.77845078072,"start_long":-83.846074555831,"end_lat":42.988380614544,"end_long":-84.928031160479},{"event_id":101020,"event_date":"2026-01-11","year":2026,"reports_count":55,"start_lat":34.213234815511,"start_long":-119.07135993867,"end_lat":34.275201429471,"end_long":-118.82272784882},{"event_id":101112,"event_date":"2026-01-14","year":2026,"reports_count":61,"start_lat":52.7857117383,"start_long":4.438740603658,"end_lat":52.485429073419,"end_long":4.246414382573},{"event_id":101136,"event_date":"2026-01-15","year":2026,"reports_count":84,"start_lat":34.494822190761,"start_long":-119.93822376196,"end_lat":33.637938048084,"end_long":-118.53444176528},{"event_id":101159,"event_date":"2026-01-16","year":2026,"reports_count":35,"start_lat":42.316937442264,"start_long":-68.699181056669,"end_lat":42.584856349271,"end_long":-69.757530133057},{"event_id":101185,"event_date":"2026-01-18","year":2026,"reports_count":91,"start_lat":41.862990071115,"start_long":-122.16850548861,"end_lat":41.75361162582,"end_long":-123.2614791084},{"event_id":101233,"event_date":"2026-01-19","year":2026,"reports_count":39,"start_lat":49.781726060841,"start_long":10.119331839019,"end_lat":49.883511981548,"end_long":9.985327052832},{"event_id":101316,"event_date":"2026-01-22","year":2026,"reports_count":41,"start_lat":48.344311665729,"start_long":15.365979761566,"end_lat":47.930079430837,"end_long":16.29100180761},{"event_id":101366,"event_date":"2026-01-24","year":2026,"reports_count":82,"start_lat":43.488333159383,"start_long":-92.350470446152,"end_lat":46.276219380972,"end_long":-93.147346237439},{"event_id":101426,"event_date":"2026-01-28","year":2026,"reports_count":28,"start_lat":38.05619780382,"start_long":-95.034099601359,"end_lat":38.262405586969,"end_long":-95.120814604955},{"event_id":101432,"event_date":"2026-01-28","year":2026,"reports_count":54,"start_lat":44.845017594273,"start_long":-72.06820137768,"end_lat":44.908159832743,"end_long":-72.153867860577},{"event_id":101457,"event_date":"2026-01-30","year":2026,"reports_count":36,"start_lat":-44.429661111155,"start_long":175.98204226457,"end_lat":-44.516947743006,"end_long":173.29427261515},{"event_id":101512,"event_date":"2026-02-01","year":2026,"reports_count":52,"start_lat":29.887240137729,"start_long":-80.478736774903,"end_lat":29.741549161878,"end_long":-80.938202746755},{"event_id":101514,"event_date":"2026-02-01","year":2026,"reports_count":27,"start_lat":43.678077308835,"start_long":14.664136540841,"end_lat":44.368707827121,"end_long":15.268284069536},{"event_id":101549,"event_date":"2026-02-03","year":2026,"reports_count":31,"start_lat":34.617400660646,"start_long":-84.645267903735,"end_lat":35.549776201741,"end_long":-85.427806768027},{"event_id":101550,"event_date":"2026-02-03","year":2026,"reports_count":87,"start_lat":27.055846168062,"start_long":-82.902477985294,"end_lat":27.283023649425,"end_long":-83.954370741889},{"event_id":101578,"event_date":"2026-02-04","year":2026,"reports_count":37,"start_lat":-36.090500206602,"start_long":173.0557310239,"end_lat":-36.549059503285,"end_long":172.693183812},{"event_id":101609,"event_date":"2026-02-06","year":2026,"reports_count":26,"start_lat":39.289109378838,"start_long":-104.72808089751,"end_lat":39.314844686961,"end_long":-104.83844989105},{"event_id":101614,"event_date":"2026-02-06","year":2026,"reports_count":45,"start_lat":41.042596204731,"start_long":-109.17415583222,"end_lat":41.003653716146,"end_long":-109.55606709523},{"event_id":101637,"event_date":"2026-02-07","year":2026,"reports_count":28,"start_lat":41.822018597786,"start_long":-88.541611588838,"end_lat":42.294956834925,"end_long":-89.227739118515},{"event_id":101646,"event_date":"2026-02-07","year":2026,"reports_count":28,"start_lat":37.150692313552,"start_long":-73.811695017636,"end_lat":37.746366831154,"end_long":-75.342799013734},{"event_id":101663,"event_date":"2026-02-08","year":2026,"reports_count":62,"start_lat":35.792340583328,"start_long":-77.881506169012,"end_lat":36.08529759751,"end_long":-78.137560057608},{"event_id":101712,"event_date":"2026-02-10","year":2026,"reports_count":29,"start_lat":41.602879795666,"start_long":-95.373883197527,"end_lat":41.243725569925,"end_long":-95.168043082851},{"event_id":101729,"event_date":"2026-02-10","year":2026,"reports_count":73,"start_lat":53.559160726253,"start_long":-116.27324620716,"end_lat":53.182421044789,"end_long":-116.30308050293},{"event_id":101735,"event_date":"2026-02-11","year":2026,"reports_count":164,"start_lat":40.65998999943,"start_long":-84.870004822604,"end_lat":39.974311200866,"end_long":-84.789565641172},{"event_id":101751,"event_date":"2026-02-12","year":2026,"reports_count":129,"start_lat":48.240559143568,"start_long":11.005914009843,"end_lat":48.987424955896,"end_long":11.817522725857},{"event_id":101813,"event_date":"2026-02-14","year":2026,"reports_count":126,"start_lat":33.676925776006,"start_long":-117.2500683493,"end_lat":33.680034698449,"end_long":-117.80311512264},{"event_id":101863,"event_date":"2026-02-16","year":2026,"reports_count":85,"start_lat":41.135180648891,"start_long":-88.781501289898,"end_lat":40.774474445721,"end_long":-88.61545804153},{"event_id":101922,"event_date":"2026-02-19","year":2026,"reports_count":31,"start_lat":34.154595945077,"start_long":-96.360501549766,"end_lat":34.432346099263,"end_long":-96.663229669069},{"event_id":101952,"event_date":"2026-02-20","year":2026,"reports_count":41,"start_lat":51.318234335465,"start_long":-2.118351015334,"end_lat":51.984099346946,"end_long":-2.829567628323},{"event_id":102020,"event_date":"2026-02-24","year":2026,"reports_count":85,"start_lat":51.377615126529,"start_long":-0.01581709487,"end_lat":51.729202415109,"end_long":0.004468897583},{"event_id":102054,"event_date":"2026-02-25","year":2026,"reports_count":37,"start_lat":51.809758500283,"start_long":12.554059133431,"end_lat":52.484507171832,"end_long":11.818400873762},{"event_id":102055,"event_date":"2026-02-25","year":2026,"reports_count":65,"start_lat":50.545625850174,"start_long":8.593759704954,"end_lat":50.160076794407,"end_long":8.687459338839},{"event_id":102105,"event_date":"2026-02-28","year":2026,"reports_count":32,"start_lat":39.806864293078,"start_long":-77.728682015182,"end_lat":39.779084622091,"end_long":-77.635467500368},{"event_id":102113,"event_date":"2026-02-28","year":2026,"reports_count":28,"start_lat":42.814253224375,"start_long":11.088173592123,"end_lat":41.300092470871,"end_long":11.22950136035},{"event_id":102147,"event_date":"2026-03-01","year":2026,"reports_count":84,"start_lat":47.07444481945,"start_long":-1.918030834536,"end_lat":46.822875921035,"end_long":-1.409607664093},{"event_id":102175,"event_date":"2026-03-03","year":2026,"reports_count":59,"start_lat":43.234972803843,"start_long":-71.868045177745,"end_lat":43.278253741017,"end_long":-73.647186266675},{"event_id":102197,"event_date":"2026-03-03","year":2026,"reports_count":59,"start_lat":32.809621513043,"start_long":-90.804718367903,"end_lat":32.771442858362,"end_long":-91.745065937014},{"event_id":102243,"event_date":"2026-03-04","year":2026,"reports_count":63,"start_lat":43.366093219603,"start_long":6.42050697118,"end_lat":43.156829729303,"end_long":6.193657926215},{"event_id":102276,"event_date":"2026-03-05","year":2026,"reports_count":91,"start_lat":52.330466572769,"start_long":12.963025905799,"end_lat":52.248958045129,"end_long":12.026403371893},{"event_id":102242,"event_date":"2026-03-08","year":2026,"reports_count":3229,"start_lat":49.560737434974,"start_long":5.824779280992,"end_lat":50.383911875182,"end_long":7.340200939148},{"event_id":102339,"event_date":"2026-03-09","year":2026,"reports_count":282,"start_lat":39.954234014369,"start_long":-78.582917980734,"end_lat":40.136114769139,"end_long":-80.203873552775},{"event_id":102367,"event_date":"2026-03-10","year":2026,"reports_count":35,"start_lat":33.059763709857,"start_long":-117.38800190067,"end_lat":32.854203572513,"end_long":-117.79618683693},{"event_id":102419,"event_date":"2026-03-10","year":2026,"reports_count":145,"start_lat":42.739830143757,"start_long":0.056019579802,"end_lat":43.12440636621,"end_long":-0.730312563477},{"event_id":102428,"event_date":"2026-03-11","year":2026,"reports_count":122,"start_lat":42.057124648114,"start_long":-77.187624338756,"end_lat":42.24581556208,"end_long":-77.947121571997},{"event_id":102454,"event_date":"2026-03-11","year":2026,"reports_count":236,"start_lat":47.898771374599,"start_long":2.453186972549,"end_lat":48.279661613309,"end_long":1.34339914392},{"event_id":102487,"event_date":"2026-03-13","year":2026,"reports_count":91,"start_lat":37.388081499108,"start_long":-81.058616837368,"end_lat":37.790206264637,"end_long":-80.649135812344},{"event_id":102488,"event_date":"2026-03-13","year":2026,"reports_count":58,"start_lat":37.743124914814,"start_long":-78.750745616633,"end_lat":37.775616997347,"end_long":-79.67621052133},{"event_id":102506,"event_date":"2026-03-13","year":2026,"reports_count":38,"start_lat":54.878730376264,"start_long":0.48448226802,"end_lat":55.352967935017,"end_long":-0.46091050955},{"event_id":102609,"event_date":"2026-03-17","year":2026,"reports_count":222,"start_lat":41.64406421716,"start_long":-81.452013065158,"end_lat":40.950156909217,"end_long":-81.433340267105},{"event_id":102626,"event_date":"2026-03-17","year":2026,"reports_count":86,"start_lat":49.502279852885,"start_long":14.463404054509,"end_lat":48.858164018799,"end_long":14.280479169757},{"event_id":102747,"event_date":"2026-03-21","year":2026,"reports_count":181,"start_lat":30.15492760362,"start_long":-95.709782477691,"end_lat":30.227280086809,"end_long":-95.475213389867},{"event_id":102805,"event_date":"2026-03-23","year":2026,"reports_count":306,"start_lat":37.553673570907,"start_long":-120.85059217662,"end_lat":36.920111914986,"end_long":-120.75121597491},{"event_id":102810,"event_date":"2026-03-23","year":2026,"reports_count":122,"start_lat":43.246716179184,"start_long":-121.30793803058,"end_lat":43.648130354222,"end_long":-120.78886638073},{"event_id":102811,"event_date":"2026-03-23","year":2026,"reports_count":56,"start_lat":53.617751553539,"start_long":12.524363746927,"end_lat":53.341389339513,"end_long":12.323218669607},{"event_id":102845,"event_date":"2026-03-24","year":2026,"reports_count":111,"start_lat":43.763347763057,"start_long":-84.300145368157,"end_lat":43.943845028863,"end_long":-83.360730405119},{"event_id":102927,"event_date":"2026-03-26","year":2026,"reports_count":26,"start_lat":36.219127,"start_long":-121.813122,"end_lat":36.723057,"end_long":-122.531899},{"event_id":102928,"event_date":"2026-03-26","year":2026,"reports_count":38,"start_lat":39.864985,"start_long":-82.663305,"end_lat":39.544235,"end_long":-82.658861},{"event_id":102964,"event_date":"2026-03-27","year":2026,"reports_count":115,"start_lat":39.688999,"start_long":-80.938903,"end_lat":40.220455,"end_long":-81.692693},{"event_id":103050,"event_date":"2026-03-29","year":2026,"reports_count":32,"start_lat":36.479366,"start_long":-84.033114,"end_lat":36.857355,"end_long":-84.667322},{"event_id":103048,"event_date":"2026-03-29","year":2026,"reports_count":126,"start_lat":47.325975,"start_long":-121.935533,"end_lat":47.504517,"end_long":-123.067115},{"event_id":103126,"event_date":"2026-03-31","year":2026,"reports_count":36,"start_lat":38.479722,"start_long":-88.348182,"end_lat":38.680046,"end_long":-88.358405}];
+const baseline = DATA.filter(d => d.year >= 2021 && d.year <= 2025);
+const y2026 = DATA.filter(d => d.year === 2026);
+const vals = arr => arr.map(d=>Number(d.reports_count));
+function mean(a){return a.reduce((x,y)=>x+y,0)/a.length}
+function median(a){let b=[...a].sort((x,y)=>x-y), n=b.length; return n%2?b[(n-1)/2]:(b[n/2-1]+b[n/2])/2}
+function quantile(a,q){let b=[...a].sort((x,y)=>x-y); let pos=(b.length-1)*q; let lo=Math.floor(pos), hi=Math.ceil(pos); if(lo===hi)return b[lo]; return b[lo]+(b[hi]-b[lo])*(pos-lo)}
+function sd(a){let m=mean(a); return Math.sqrt(a.reduce((s,x)=>s+(x-m)*(x-m),0)/(a.length-1))}
+function normalCDF(x){ // Abramowitz-Stegun approximation
+  const sign=x<0?-1:1; x=Math.abs(x)/Math.sqrt(2);
+  const t=1/(1+0.3275911*x);
+  const y=1-(((((1.061405429*t-1.453152027)*t)+1.421413741)*t-0.284496736)*t+0.254829592)*t*Math.exp(-x*x);
+  return 0.5*(1+sign*y);
+}
+function round(x,d=2){return Number(x).toFixed(d)}
+function statObj(group){let a=vals(group); return {n:a.length, mean:mean(a), median:median(a), sd:sd(a), min:Math.min(...a), max:Math.max(...a)}}
+const S={base:statObj(baseline), y:statObj(y2026)};
+const ANSWERS={
+  n_base:S.base.n, n_2026:S.y.n, mean_base:S.base.mean, mean_2026:S.y.mean,
+  median_base:S.base.median, median_2026:S.y.median, sd_base:S.base.sd, sd_2026:S.y.sd,
+  min_base:S.base.min, min_2026:S.y.min, max_base:S.base.max, max_2026:S.y.max
+};
+const point=S.y.mean-S.base.mean;
+const termY=S.y.sd*S.y.sd/S.y.n, termB=S.base.sd*S.base.sd/S.base.n;
+const se=Math.sqrt(termY+termB), me=1.96*se;
+const zMean=point/se, pMean=2*(1-normalCDF(Math.abs(zMean)));
+const xb50=baseline.filter(d=>d.reports_count>=50).length, xy50=y2026.filter(d=>d.reports_count>=50).length;
+const phb=xb50/S.base.n, phy=xy50/S.y.n, ppool=(xb50+xy50)/(S.base.n+S.y.n);
+const seProp=Math.sqrt(ppool*(1-ppool)*(1/S.y.n+1/S.base.n));
+const zProp=(phy-phb)/seProp, pProp=2*(1-normalCDF(Math.abs(zProp)));
+const exact={ci_point:point,ci_se:se,ci_me:me,ci_low:point-me,ci_high:point+me,mean_z:zMean,mean_p:pMean,diag_ratio:S.y.sd/S.base.sd,diag_term2026:termY,diag_termbase:termB,prop_xbase:xb50,prop_pbase:phb,prop_x2026:xy50,prop_p2026:phy,prop_ppool:ppool,prop_z:zProp,prop_pval:pProp};
+const statRows=[['Sample size n','n_base','n_2026',0],['Sample mean x̄','mean_base','mean_2026',2],['Median','median_base','median_2026',2],['Sample standard deviation s','sd_base','sd_2026',2],['Minimum','min_base','min_2026',0],['Maximum','max_base','max_2026',0]];
+function initStatsInputs(){
+  document.getElementById('statsInputs').innerHTML=statRows.map(r=>`<tr><td>${r[0]}</td><td><input type="number" step="any" data-save="${r[1]}"></td><td><input type="number" step="any" data-save="${r[2]}"></td><td class="mini" id="fb_${r[1]}_${r[2]}"></td></tr>`).join('');
+}
+function makeRawTable(){
+  let rows=DATA.map(d=>`<tr><td>${d.event_id}</td><td>${d.event_date}</td><td>${d.year}</td><td class="num">${d.reports_count}</td><td class="num">${Number(d.start_lat).toFixed(3)}</td><td class="num">${Number(d.start_long).toFixed(3)}</td></tr>`).join('');
+  document.getElementById('rawData').innerHTML=`<table><thead><tr><th>event_id</th><th>date</th><th>year</th><th class="num">reports_count</th><th class="num">start_lat</th><th class="num">start_long</th></tr></thead><tbody>${rows}</tbody></table>`;
+}
+
+function csvEscape(value){
+  const s=String(value ?? '');
+  if(/[",\n]/.test(s)) return '"'+s.replaceAll('"','""')+'"';
+  return s;
+}
+function makeCsv(){
+  const headers=['event_id','event_date','year','reports_count','start_lat','start_long'];
+  const lines=[headers.join(',')];
+  DATA.forEach(d=>{
+    lines.push(headers.map(h=>csvEscape(d[h])).join(','));
+  });
+  return lines.join('\n');
+}
+function makeDataLists(){
+  const baselineText=vals(baseline).join(', ');
+  const y2026Text=vals(y2026).join(', ');
+  const csvText=makeCsv();
+  const b=document.getElementById('baselineList');
+  const y=document.getElementById('y2026List');
+  const c=document.getElementById('fullCsv');
+  if(b) b.value=baselineText;
+  if(y) y.value=y2026Text;
+  if(c) c.value=csvText;
+}
+function copyText(id){
+  const el=document.getElementById(id);
+  if(!el) return;
+  el.focus();
+  el.select();
+  const text=el.value;
+  if(navigator.clipboard && window.isSecureContext){
+    navigator.clipboard.writeText(text).then(()=>flash('Copied.')).catch(()=>fallbackCopy(el));
+  } else {
+    fallbackCopy(el);
+  }
+}
+function fallbackCopy(el){
+  try{document.execCommand('copy'); flash('Copied.');}
+  catch(e){flash('Select the text and press Ctrl+C to copy.');}
+}
+function downloadCsv(){
+  const blob=new Blob([makeCsv()],{type:'text/csv'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;
+  a.download='ams-q1-2026-radiant-data.csv';
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+  flash('CSV downloaded.');
+}
+function checkOne(key, val, tol=.05){ if(val===''||isNaN(Number(val))) return '<span class="no">blank</span>'; let diff=Math.abs(Number(val)-exact[key]); if(diff<=tol) return '<span class="ok">correct</span>'; if(diff<=Math.max(tol*5, Math.abs(exact[key])*.03)) return '<span class="close">close</span>'; return '<span class="no">check</span>'; }
+function checkStats(){
+  let messages=[];
+  statRows.forEach(r=>{
+    let b=document.querySelector(`[data-save="${r[1]}"]`).value, y=document.querySelector(`[data-save="${r[2]}"]`).value;
+    let tol=r[3]===0?.01:.08;
+    let fb=document.getElementById(`fb_${r[1]}_${r[2]}`);
+    fb.innerHTML=`base: ${checkStatKey(r[1],b,tol)}<br>2026: ${checkStatKey(r[2],y,tol)}`;
+  });
+  document.getElementById('statsFeedback').innerHTML='<span class="mini">Use two decimals for means, standard deviations, and standard deviations unless your instructor says otherwise.</span>';
+}
+function checkStatKey(key,val,tol){ if(val===''||isNaN(Number(val))) return '<span class="no">blank</span>'; let diff=Math.abs(Number(val)-ANSWERS[key]); if(diff<=tol) return '<span class="ok">correct</span>'; if(diff<=Math.max(tol*5, Math.abs(ANSWERS[key])*.03)) return '<span class="close">close</span>'; return '<span class="no">check</span>'; }
+function checkGroup(keys, divId, tolerances={}){
+  let out=[]; keys.forEach(k=>{let tol=tolerances[k]??(k.includes('p')||k.includes('z')?0.02:0.12); out.push(`${labelFor(k)}: ${checkOne(k, document.querySelector(`[data-save="${k}"]`).value, tol)}`); });
+  document.getElementById(divId).innerHTML=out.join(' · ');
+}
+function labelFor(k){return k.replaceAll('_',' ')}
+function checkCI(){checkGroup(['ci_point','ci_se','ci_me','ci_low','ci_high'],'ciFeedback',{ci_low:.2,ci_high:.2})}
+function checkMeanTest(){checkGroup(['mean_z','mean_p'],'meanTestFeedback',{mean_z:.03,mean_p:.03})}
+function checkDiagnosis(){checkGroup(['diag_ratio','diag_term2026','diag_termbase'],'diagFeedback',{diag_ratio:.05,diag_term2026:.5,diag_termbase:.2})}
+function checkPropTest(){checkGroup(['prop_xbase','prop_pbase','prop_x2026','prop_p2026','prop_ppool','prop_z','prop_pval'],'propFeedback',{prop_xbase:.01,prop_x2026:.01,prop_pbase:.005,prop_p2026:.005,prop_ppool:.005,prop_z:.04,prop_pval:.02})}
+function saveAll(){document.querySelectorAll('[data-save]').forEach(el=>localStorage.setItem('fireball_'+el.dataset.save, el.value)); flash('Saved.')}
+function loadAll(){document.querySelectorAll('[data-save]').forEach(el=>{let v=localStorage.getItem('fireball_'+el.dataset.save); if(v!==null) el.value=v; el.addEventListener('input',()=>localStorage.setItem('fireball_'+el.dataset.save,el.value));})}
+function clearAll(){if(!confirm('Clear all saved answers on this page?'))return; Object.keys(localStorage).filter(k=>k.startsWith('fireball_')).forEach(k=>localStorage.removeItem(k)); document.querySelectorAll('[data-save]').forEach(el=>el.value=''); flash('Answers cleared.')}
+function flash(msg){let d=document.createElement('div'); d.textContent=msg; d.style.cssText='position:fixed;right:18px;bottom:18px;background:#162b55;color:#fff;padding:10px 14px;border-radius:12px;z-index:50;box-shadow:0 6px 16px rgba(0,0,0,.2)'; document.body.appendChild(d); setTimeout(()=>d.remove(),1600)}
+function drawHist(canvasId, arr, color){
+  const c=document.getElementById(canvasId), ctx=c.getContext('2d'); const ratio=window.devicePixelRatio||1; c.width=c.clientWidth*ratio; c.height=c.clientHeight*ratio; ctx.scale(ratio,ratio);
+  const w=c.clientWidth,h=c.clientHeight, pad=42, maxX=3500, bin=100, bins=Array(Math.ceil(maxX/bin)).fill(0); arr.forEach(x=>{let idx=Math.min(bins.length-1, Math.floor(x/bin)); bins[idx]++;}); const maxY=Math.max(...bins);
+  ctx.clearRect(0,0,w,h); ctx.strokeStyle='#cbd3e1'; ctx.lineWidth=1; ctx.beginPath(); ctx.moveTo(pad,h-pad); ctx.lineTo(w-12,h-pad); ctx.moveTo(pad,h-pad); ctx.lineTo(pad,12); ctx.stroke();
+  ctx.fillStyle=color; bins.forEach((count,i)=>{let x=pad+i*(w-pad-16)/bins.length; let bw=(w-pad-16)/bins.length-1; let bh=count/maxY*(h-pad-22); ctx.fillRect(x,h-pad-bh,bw,bh);});
+  ctx.fillStyle='#667085'; ctx.font='12px system-ui'; ctx.fillText('0',pad-3,h-pad+16); ctx.fillText('3500 reports',w-86,h-pad+16); ctx.fillText('frequency',8,20);
+}
+function updateThreshold(){
+  const t=Number(document.getElementById('threshold').value); document.getElementById('thresholdLabel').textContent='≥ '+t;
+  const xb=baseline.filter(d=>d.reports_count>=t).length, xy=y2026.filter(d=>d.reports_count>=t).length;
+  const pb=xb/S.base.n, py=xy/S.y.n, pp=(xb+xy)/(S.base.n+S.y.n); const sep=Math.sqrt(pp*(1-pp)*(1/S.y.n+1/S.base.n)); const z=(py-pb)/sep; const p=2*(1-normalCDF(Math.abs(z)));
+  document.getElementById('thresholdTable').innerHTML=`<tr><td>Baseline 2021–2025</td><td class="num">${xb}</td><td class="num">${S.base.n}</td><td class="num">${pb.toFixed(4)}</td></tr><tr><td>2026</td><td class="num">${xy}</td><td class="num">${S.y.n}</td><td class="num">${py.toFixed(4)}</td></tr><tr><td>Pooled</td><td class="num">${xb+xy}</td><td class="num">${S.base.n+S.y.n}</td><td class="num">${pp.toFixed(4)}</td></tr>`;
+  document.getElementById('thresholdZ').textContent=`At threshold ${t}, z = ${z.toFixed(3)} and two-sided p-value ≈ ${p.toFixed(3)}.`;
+}
+function getVal(k){return document.querySelector(`[data-save="${k}"]`)?.value || ''}
+function esc(s){return String(s||'').replace(/[&<>]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[m]))}
+function generateReport(){
+  saveAll();
+  const histB=document.getElementById('histBase').toDataURL('image/png'), histY=document.getElementById('hist2026').toDataURL('image/png');
+  const name=esc(getVal('student_name')) || 'Student'; const today=new Date().toLocaleDateString();
+  const statLines=statRows.map(r=>`<tr><td>${r[0]}</td><td>${esc(getVal(r[1]))}</td><td>${esc(getVal(r[2]))}</td></tr>`).join('');
+  const report=`<!DOCTYPE html><html><head><title>Fireball Inference Report</title><style>body{font-family:system-ui, sans-serif;max-width:900px;margin:24px auto;line-height:1.5;color:#222} h1{color:#162b55} h2{border-bottom:1px solid #ccc;padding-bottom:4px;color:#263b62} table{width:100%;border-collapse:collapse;margin:10px 0} td,th{border-bottom:1px solid #ddd;padding:7px;text-align:left} th{background:#f2f4f7} img{max-width:100%;border:1px solid #ddd;border-radius:10px;margin:8px 0} .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px} .box{border:1px solid #ddd;border-radius:12px;padding:12px;margin:10px 0;background:#fbfcff} @media print{button{display:none} body{margin:0;max-width:none} .box{break-inside:avoid}}</style></head><body><button onclick="window.print()">Print or save as PDF</button><h1>Fireball Reports and Two-Sample Inference</h1><p><strong>Name:</strong> ${name}<br><strong>Date:</strong> ${today}</p><h2>Summary statistics</h2><table><thead><tr><th>Statistic</th><th>Baseline 2021–2025</th><th>2026</th></tr></thead><tbody>${statLines}</tbody></table><div class="box"><h2>Written description</h2><p><strong>Mean versus median:</strong><br>${esc(getVal('q_shape'))}</p><p><strong>Spread:</strong><br>${esc(getVal('q_spread'))}</p><p><strong>Largest 2026 event:</strong><br>${esc(getVal('q_largest'))}</p></div><h2>Graphs</h2><div class="grid"><div><h3>Baseline histogram</h3><img src="${histB}"></div><div><h3>2026 histogram</h3><img src="${histY}"></div></div><p>${esc(getVal('q_graphs'))}</p><h2>Confidence interval for means</h2><p>Point estimate: ${esc(getVal('ci_point'))}<br>Standard error: ${esc(getVal('ci_se'))}<br>Margin of error: ${esc(getVal('ci_me'))}<br>Confidence interval: (${esc(getVal('ci_low'))}, ${esc(getVal('ci_high'))})</p><p>${esc(getVal('ci_interp'))}</p><h2>Hypothesis test for means</h2><p>z-statistic: ${esc(getVal('mean_z'))}<br>p-value: ${esc(getVal('mean_p'))}<br>Decision: ${esc(getVal('mean_decision'))}</p><p>${esc(getVal('mean_conclusion'))}</p><h2>Standard error diagnosis</h2><p>s2026/sbase: ${esc(getVal('diag_ratio'))}<br>s2026²/n2026: ${esc(getVal('diag_term2026'))}<br>sbase²/nbase: ${esc(getVal('diag_termbase'))}</p><p>${esc(getVal('diag_explain'))}</p><h2>Hypothesis test for proportions</h2><p>xbase: ${esc(getVal('prop_xbase'))}, p̂base: ${esc(getVal('prop_pbase'))}<br>x2026: ${esc(getVal('prop_x2026'))}, p̂2026: ${esc(getVal('prop_p2026'))}<br>p̂pool: ${esc(getVal('prop_ppool'))}<br>z-statistic: ${esc(getVal('prop_z'))}<br>p-value: ${esc(getVal('prop_pval'))}<br>Decision: ${esc(getVal('prop_decision'))}</p><p>${esc(getVal('prop_conclusion'))}</p><h2>Final synthesis</h2><p>${esc(getVal('synthesis'))}</p></body></html>`;
+  document.getElementById('reportPreview').textContent='Report generated. A new tab/window should open. Use Print or Save as PDF from that page.';
+  const win=window.open('','_blank'); if(win){win.document.open(); win.document.write(report); win.document.close();} else {document.getElementById('reportPreview').innerHTML='<p>Your browser blocked the pop-up. Copy the generated report HTML below into a new file, or allow pop-ups for this page.</p><textarea style="width:100%;min-height:300px">'+esc(report)+'</textarea>';}
+}
+window.addEventListener('resize',()=>{drawHist('histBase',vals(baseline),'#2457a6'); drawHist('hist2026',vals(y2026),'#9f3f4a');});
+initStatsInputs(); makeRawTable(); makeDataLists(); loadAll(); drawHist('histBase',vals(baseline),'#2457a6'); drawHist('hist2026',vals(y2026),'#9f3f4a'); updateThreshold();
+</script>
+</body>
+</html>
