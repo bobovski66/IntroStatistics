@@ -1,0 +1,220 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Math 146 Week 4 Lab</title>
+<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},options:{skipHtmlTags:['script','noscript','style','textarea','pre']}};</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<style>
+:root{--bg:#f8fafc;--panel:#fff;--text:#1f2937;--muted:#4b5563;--border:#d1d5db;--ok:#16a34a;--ok-bg:#dcfce7;--ok-border:#86efac;--err:#dc2626;--err-bg:#fef2f2;--err-border:#fca5a5;--field:#f0f9ff;--field-border:#7dd3fc;--accent:#0f766e;--locked:#9ca3af;--locked-bg:#f3f4f6;--shade:#dbeafe;--shade-stroke:#2563eb;}
+*{box-sizing:border-box;}body{margin:0;font-family:Arial,Helvetica,sans-serif;font-size:15px;line-height:1.6;color:var(--text);background:var(--bg);}
+.container{max-width:860px;margin:0 auto;padding:1.5rem 1rem 4rem;}
+.lab-header{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:1.25rem 1.5rem;margin-bottom:1.25rem;}
+.lab-header h1{margin:0 0 .2rem;font-size:1.5rem;}.lab-header p{margin:0;color:var(--muted);font-size:.875rem;}
+.id-row{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-top:1rem;}
+.id-row label{display:flex;flex-direction:column;gap:.2rem;font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);}
+.id-row input{border:1px solid var(--border);border-radius:6px;padding:.4rem .6rem;font-size:1rem;font-family:inherit;width:100%;}
+.card{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:1.25rem;margin-bottom:1.25rem;}
+.card h2{margin:0 0 .75rem;font-size:1.1rem;}.card h3{margin:1rem 0 .4rem;font-size:.85rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;}
+.formula-box{background:#f9fafb;border:1px solid var(--border);border-radius:10px;padding:.85rem 1rem;margin-bottom:.75rem;overflow-x:auto;}
+.formula-box p{margin:.35rem 0;}.part-divider{border:none;border-top:1px solid var(--border);margin:.85rem 0;}
+.step-row{display:flex;align-items:center;gap:.5rem;margin:.45rem 0;flex-wrap:wrap;font-size:.95rem;}
+.step-row .prompt{flex:1 1 200px;}
+.num-input{width:90px;border:1.5px solid var(--field-border);border-radius:6px;padding:.3rem .5rem;font-size:.95rem;font-family:inherit;background:var(--field);text-align:center;}
+.num-input:focus{outline:2px solid var(--accent);border-color:var(--accent);}
+.num-input.correct{border-color:var(--ok);background:#f0fdf4;}.num-input.wrong{border-color:var(--err);background:#fef2f2;}
+.wide{width:120px;}
+.interp-label{display:block;margin-top:.75rem;}
+.interp-label span{display:block;font-size:.85rem;font-weight:700;color:var(--muted);margin-bottom:.3rem;}
+textarea{width:100%;border:1.5px solid var(--border);border-radius:8px;padding:.5rem .65rem;font-family:inherit;font-size:.9rem;min-height:65px;resize:vertical;}
+textarea:focus{outline:2px solid var(--accent);border-color:var(--accent);}
+.btn-row{display:flex;gap:.6rem;align-items:center;margin-top:.6rem;flex-wrap:wrap;}
+.check-btn{background:var(--accent);color:#fff;border:none;border-radius:7px;padding:.4rem .9rem;font-size:.875rem;font-family:inherit;cursor:pointer;}
+.check-btn:hover{background:#0d5f5a;}
+.sol-btn{background:var(--locked-bg);color:var(--locked);border:1.5px solid var(--border);border-radius:7px;padding:.4rem .9rem;font-size:.875rem;font-family:inherit;cursor:not-allowed;transition:all .2s;}
+.sol-btn.unlocked{background:#1e40af;color:#fff;border-color:#1e40af;cursor:pointer;}.sol-btn.unlocked:hover{background:#1e3a8a;}
+.print-btn{background:#374151;color:#fff;border:none;border-radius:8px;padding:.55rem 1.2rem;font-size:.9rem;font-family:inherit;cursor:pointer;margin-bottom:1rem;}
+.feedback{margin-top:.4rem;padding:.4rem .7rem;border-radius:7px;font-size:.875rem;display:none;}
+.feedback.ok{background:var(--ok-bg);color:var(--ok);border:1px solid var(--ok-border);display:block;}
+.feedback.err{background:var(--err-bg);color:var(--err);border:1px solid var(--err-border);display:block;}
+.sol-panel{display:none;margin-top:.75rem;border:1px solid #bfdbfe;border-radius:10px;background:#eff6ff;}
+.sol-panel.open{display:block;}.sol-panel-inner{padding:.85rem 1rem;font-size:.9rem;}.sol-panel-inner p{margin:.4rem 0;}
+.answer-line{margin-top:.6rem;padding:.4rem .65rem;background:var(--ok-bg);border-radius:7px;border-left:4px solid var(--ok);}
+.plot-wrap{margin:.75rem 0;background:white;border:1px solid var(--border);border-radius:10px;padding:.5rem;}
+.dist-svg{display:block;width:100%;height:auto;}
+.axis{stroke:var(--text);stroke-width:1.5;fill:none;}.curve{stroke:var(--text);stroke-width:2;fill:none;}
+.shade{fill:var(--shade);stroke:var(--shade-stroke);stroke-width:1.5;}.tick{stroke:var(--text);stroke-width:1.5;}
+.dashed{stroke:var(--shade-stroke);stroke-dasharray:6 5;stroke-width:2;fill:none;}
+.label-muted{font-family:Arial,sans-serif;font-size:14px;fill:var(--muted);}
+.label-main{font-family:Arial,sans-serif;font-size:15px;font-weight:bold;fill:var(--accent);}
+@media print{body{background:#fff;font-size:11pt;}.container{padding:0;max-width:100%;}
+.no-print,.check-btn,.print-btn,.sol-btn,.sol-panel,.feedback{display:none!important;}
+.card{border:1px solid #ccc;border-radius:6px;margin-bottom:.75rem;padding:.85rem;page-break-inside:avoid;}
+.num-input,.id-row input,textarea{border:none;border-bottom:1px solid #999;background:transparent;border-radius:0;}
+textarea{min-height:40pt;}h1{font-size:14pt;}h2{font-size:11pt;}}
+</style></head><body>
+<div class="container">
+<div class="no-print" style="margin-bottom:.75rem;"><button class="print-btn" onclick="window.print()">🖨 Print Lab Report</button></div>
+<div class="lab-header">
+  <h1>Math 146 — Week 4 Lab: Normal Distribution and the CLT</h1>
+  <p>z-scores, normal probabilities, sampling distributions, and the Central Limit Theorem.</p>
+  <div class="id-row">
+    <label>Student name <input type="text" data-save="w4_name" placeholder="Your full name"></label>
+    <label>Date <input type="text" data-save="w4_date" placeholder="mm/dd/yyyy"></label>
+  </div>
+</div>
+<div class="card">
+  <h2>Reference Formulas</h2>
+  <div class="formula-box">
+    <p>For \(X\sim N(\mu,\sigma)\): \(\displaystyle z=\frac{x-\mu}{\sigma}\)</p>
+    <p>For \(\bar{X}\): \(\displaystyle z=\frac{\bar{x}-\mu}{\sigma/\sqrt{n}}\) &ensp; and &ensp; \(\bar{X}\approx N\!\left(\mu,\,\dfrac{\sigma}{\sqrt{n}}\right)\)</p>
+  </div>
+</div>
+
+<!-- P1 -->
+<div class="card">
+  <h2>Problem 1 — General Normal Distribution</h2>
+  <p>Adult heights follow \(X\sim N(67, 3)\) (mean 67 in, SD 3 in).</p>
+  <hr class="part-divider">
+  <h3>(a) z-score for \(x=70\)</h3>
+  <div class="step-row"><span class="prompt">\(z=(x-\mu)/\sigma\) =</span><input class="num-input" id="w4_1a" type="number" step="any" data-save="w4_1a" placeholder="?"></div>
+  <div class="btn-row no-print"><button class="check-btn" onclick="check1a()">Check (a)</button></div>
+  <div id="fb1a" class="feedback"></div>
+  <hr class="part-divider">
+  <h3>(b) \(P(X\le 70)\) from the z-table</h3>
+  <div class="step-row"><span class="prompt">\(P(Z\le 1.00)\) =</span><input class="num-input wide" id="w4_1b" type="number" step="any" data-save="w4_1b" placeholder="?"></div>
+  <div class="btn-row no-print">
+    <button class="check-btn" onclick="check1b()">Check (b)</button>
+    <button class="sol-btn" id="sol-btn-1" onclick="toggleSol('sol-1')">🔒 Unlock solution by completing checks</button>
+  </div>
+  <div id="fb1b" class="feedback"></div>
+  <div class="sol-panel" id="sol-1"><div class="sol-panel-inner">
+    <p>\(z=(70-67)/3=1.00\). From z-table: \(P(Z\le 1.00)=0.8413\).</p>
+    <div class="answer-line">\(z=1.00\) · \(P(X\le 70)\approx 0.8413\) (84.1% of adults are shorter)</div>
+    <div class="plot-wrap"><svg id="curve-p1" viewBox="0 0 660 260" class="dist-svg"></svg></div>
+  </div></div>
+  <hr class="part-divider">
+  <h3>(c) Sketch the normal curve and shade \(P(X\le 70)\)</h3>
+  <label class="interp-label"><span>Describe what the shaded region represents and where it falls on the curve.</span><textarea data-save="w4_1c" placeholder="The shaded region is to the left of z=1.00 and represents…"></textarea></label>
+</div>
+
+<!-- P2 -->
+<div class="card">
+  <h2>Problem 2 — Probability Between Two Values</h2>
+  <p>Bottle fill amounts follow \(X\sim N(16.0,\,0.3)\) oz.</p>
+  <hr class="part-divider">
+  <h3>(a) z-scores for 15.8 and 16.4 oz</h3>
+  <div class="step-row"><span class="prompt">\(z_{15.8}=(15.8-16.0)/0.3\) =</span><input class="num-input wide" id="w4_2a_lo" type="number" step="any" data-save="w4_2a_lo" placeholder="?"></div>
+  <div class="step-row"><span class="prompt">\(z_{16.4}=(16.4-16.0)/0.3\) =</span><input class="num-input wide" id="w4_2a_hi" type="number" step="any" data-save="w4_2a_hi" placeholder="?"></div>
+  <div class="btn-row no-print"><button class="check-btn" onclick="check2a()">Check (a)</button></div>
+  <div id="fb2a" class="feedback"></div>
+  <hr class="part-divider">
+  <h3>(b) \(P(15.8\le X\le 16.4)\)</h3>
+  <div class="step-row"><span class="prompt">\(P(Z\le 1.33)\) =</span><input class="num-input wide" id="w4_2b_hi" type="number" step="any" data-save="w4_2b_hi" placeholder="?"></div>
+  <div class="step-row"><span class="prompt">\(P(Z\le -0.67)\) =</span><input class="num-input wide" id="w4_2b_lo" type="number" step="any" data-save="w4_2b_lo" placeholder="?"></div>
+  <div class="step-row"><span class="prompt">Difference =</span><input class="num-input wide" id="w4_2b_diff" type="number" step="any" data-save="w4_2b_diff" placeholder="?"></div>
+  <div class="btn-row no-print">
+    <button class="check-btn" onclick="check2b()">Check (b)</button>
+    <button class="sol-btn" id="sol-btn-2" onclick="toggleSol('sol-2')">🔒 Unlock solution by completing checks</button>
+  </div>
+  <div id="fb2b" class="feedback"></div>
+  <div class="sol-panel" id="sol-2"><div class="sol-panel-inner">
+    <p>\(z_{15.8}=-0.67\), \(z_{16.4}=1.33\)</p>
+    <p>\(P(Z\le 1.33)=0.9082\), \(P(Z\le -0.67)=0.2514\), difference = 0.6568</p>
+    <div class="answer-line">\(P(15.8\le X\le 16.4)\approx 0.6568\)</div>
+    <div class="plot-wrap"><svg id="curve-p2" viewBox="0 0 660 260" class="dist-svg"></svg></div>
+  </div></div>
+</div>
+
+<!-- P3 -->
+<div class="card">
+  <h2>Problem 3 — Sampling Distribution and Standard Error</h2>
+  <p>Population: \(\mu=50\), \(\sigma=20\). Sample size \(n=25\).</p>
+  <hr class="part-divider">
+  <h3>(a) Mean of the sampling distribution of \(\bar{X}\)</h3>
+  <div class="step-row"><span class="prompt">\(\mu_{\bar{X}}\) =</span><input class="num-input" id="w4_3a" type="number" step="any" data-save="w4_3a" placeholder="?"></div>
+  <div class="btn-row no-print"><button class="check-btn" onclick="check3a()">Check (a)</button></div>
+  <div id="fb3a" class="feedback"></div>
+  <hr class="part-divider">
+  <h3>(b) Standard error of \(\bar{X}\)</h3>
+  <div class="step-row"><span class="prompt">\(\text{SE}=\sigma/\sqrt{n}\) =</span><input class="num-input" id="w4_3b" type="number" step="any" data-save="w4_3b" placeholder="?"></div>
+  <div class="btn-row no-print"><button class="check-btn" onclick="check3b()">Check (b)</button></div>
+  <div id="fb3b" class="feedback"></div>
+  <hr class="part-divider">
+  <h3>(c) Write the sampling distribution in the form \(\bar{X}\approx N(\cdot,\cdot)\)</h3>
+  <label class="interp-label"><span>Fill in the mean and SE, then state what the CLT tells us.</span><textarea data-save="w4_3c" placeholder="X̄ ≈ N(   ,   ). This follows from the CLT because…"></textarea></label>
+  <div class="btn-row no-print"><button class="sol-btn" id="sol-btn-3" onclick="toggleSol('sol-3')">🔒 Unlock solution by completing checks</button></div>
+  <div class="sol-panel" id="sol-3"><div class="sol-panel-inner">
+    <p>\(\mu_{\bar{X}}=\mu=50\) (sampling does not shift the center)</p>
+    <p>\(\text{SE}=20/\sqrt{25}=20/5=4\)</p>
+    <div class="answer-line">\(\bar{X}\approx N(50,\,4)\)</div>
+  </div></div>
+</div>
+
+<!-- P4 -->
+<div class="card">
+  <h2>Problem 4 — CLT Probability for a Sample Mean</h2>
+  <p>Battery lifetime: \(\mu=500\) hr, \(\sigma=40\) hr. Sample \(n=64\).</p>
+  <hr class="part-divider">
+  <h3>(a) Standard error</h3>
+  <div class="step-row"><span class="prompt">\(\text{SE}=\sigma/\sqrt{n}\) =</span><input class="num-input" id="w4_4a" type="number" step="any" data-save="w4_4a" placeholder="?"></div>
+  <div class="btn-row no-print"><button class="check-btn" onclick="check4a()">Check (a)</button></div>
+  <div id="fb4a" class="feedback"></div>
+  <hr class="part-divider">
+  <h3>(b) z-score for \(\bar{x}=495\)</h3>
+  <div class="step-row"><span class="prompt">\(z=(\bar{x}-\mu)/\text{SE}\) =</span><input class="num-input" id="w4_4b" type="number" step="any" data-save="w4_4b" placeholder="?"></div>
+  <div class="btn-row no-print"><button class="check-btn" onclick="check4b()">Check (b)</button></div>
+  <div id="fb4b" class="feedback"></div>
+  <hr class="part-divider">
+  <h3>(c) \(P(\bar{X}\le 495)\)</h3>
+  <div class="step-row"><span class="prompt">\(P(Z\le -1.00)\) =</span><input class="num-input wide" id="w4_4c" type="number" step="any" data-save="w4_4c" placeholder="?"></div>
+  <div class="btn-row no-print">
+    <button class="check-btn" onclick="check4c()">Check (c)</button>
+    <button class="sol-btn" id="sol-btn-4" onclick="toggleSol('sol-4')">🔒 Unlock solution by completing checks</button>
+  </div>
+  <div id="fb4c" class="feedback"></div>
+  <div class="sol-panel" id="sol-4"><div class="sol-panel-inner">
+    <p>\(\text{SE}=40/8=5\). \(z=(495-500)/5=-1.00\). \(P(Z\le -1.00)=0.1587\).</p>
+    <div class="answer-line">\(\text{SE}=5\) · \(z=-1.00\) · \(P(\bar{X}\le 495)\approx 0.1587\)</div>
+  </div></div>
+</div>
+</div>
+<script>
+function save(k,v){try{localStorage.setItem(k,v);}catch(e){}}function load(k){try{return localStorage.getItem(k)||'';}catch(e){return '';}}
+document.querySelectorAll('[data-save]').forEach(el=>{el.value=load(el.dataset.save);el.addEventListener('input',()=>save(el.dataset.save,el.value));});
+function get(id){return parseFloat(document.getElementById(id).value);}
+function near(a,b,t){return !isNaN(a)&&Math.abs(a-b)<=t;}
+function setFB(id,ok,msg){const el=document.getElementById(id);el.className='feedback '+(ok?'ok':'err');el.textContent=(ok?'✓ ':'✗ ')+msg;}
+function mark(id,ok){const el=document.getElementById(id);if(!el)return;el.classList.remove('correct','wrong');if(!isNaN(parseFloat(el.value)))el.classList.add(ok?'correct':'wrong');}
+function unlock(id){const b=document.getElementById(id);b.classList.add('unlocked');b.textContent='▸ Show solution';}
+function toggleSol(id){document.getElementById(id).classList.toggle('open');if(id==='sol-1')drawCurve('curve-p1',-3.6,1.00,[[-3,'−3'],[-2,'−2'],[-1,'−1'],[0,'0'],[1,'1.00'],[2,'2'],[3,'3']],'0.8413',220,130);if(id==='sol-2')drawCurve('curve-p2',-0.67,1.33,[[-2,'−2'],[-1,'−1'],[-0.67,'−0.67'],[0,'0'],[1,'1'],[1.33,'1.33'],[2,'2']],'0.6568',350,110);}
+var p1ok={a:false,b:false},p3ok={a:false,b:false},p4ok={a:false,b:false,c:false};
+function check1a(){const v=get('w4_1a');const ok=near(v,1.00,.01);mark('w4_1a',ok);setFB('fb1a',ok,ok?'Correct. z=1.00.':'(70−67)/3=1.00.');p1ok.a=ok;if(p1ok.a&&p1ok.b)unlock('sol-btn-1');}
+function check1b(){const v=get('w4_1b');const ok=near(v,0.8413,.002);mark('w4_1b',ok);setFB('fb1b',ok,ok?'Correct. P(X≤70)≈0.8413.':'z-table at z=1.00 → 0.8413.');p1ok.b=ok;if(p1ok.a&&p1ok.b)unlock('sol-btn-1');}
+var p2ok={a:false,b:false};
+function check2a(){const lo=get('w4_2a_lo'),hi=get('w4_2a_hi');const cs=[{id:'w4_2a_lo',ok:near(lo,-0.67,.02),hint:'z₁=(15.8−16.0)/0.3=−0.67'},{id:'w4_2a_hi',ok:near(hi,1.33,.02),hint:'z₂=(16.4−16.0)/0.3=1.33'}];cs.forEach(c=>mark(c.id,c.ok));const f=cs.filter(c=>!c.ok);const ok=f.length===0;setFB('fb2a',ok,ok?'Correct. z=−0.67 and z=1.33.':'Review: '+f.map(c=>c.hint).join(' · '));p2ok.a=ok;if(p2ok.a&&p2ok.b)unlock('sol-btn-2');}
+function check2b(){const hi=get('w4_2b_hi'),lo=get('w4_2b_lo'),diff=get('w4_2b_diff');const cs=[{id:'w4_2b_hi',ok:near(hi,0.9082,.002),hint:'P(Z≤1.33)=0.9082'},{id:'w4_2b_lo',ok:near(lo,0.2514,.002),hint:'P(Z≤−0.67)=0.2514'},{id:'w4_2b_diff',ok:near(diff,0.6568,.003),hint:'0.9082−0.2514=0.6568'}];cs.forEach(c=>mark(c.id,c.ok));const f=cs.filter(c=>!c.ok);const ok=f.length===0;setFB('fb2b',ok,ok?'Correct. P=0.6568.':'Review: '+f.map(c=>c.hint).join(' · '));p2ok.b=ok;if(p2ok.a&&p2ok.b)unlock('sol-btn-2');}
+function check3a(){const v=get('w4_3a');const ok=near(v,50,.01);mark('w4_3a',ok);setFB('fb3a',ok,ok?'Correct. μ_X̄=50.':'The mean of X̄ equals the population mean μ=50.');p3ok.a=ok;if(p3ok.a&&p3ok.b)unlock('sol-btn-3');}
+function check3b(){const v=get('w4_3b');const ok=near(v,4,.05);mark('w4_3b',ok);setFB('fb3b',ok,ok?'Correct. SE=4.':'SE=20/√25=20/5=4.');p3ok.b=ok;if(p3ok.a&&p3ok.b)unlock('sol-btn-3');}
+function check4a(){const v=get('w4_4a');const ok=near(v,5,.05);mark('w4_4a',ok);setFB('fb4a',ok,ok?'Correct. SE=5.':'SE=40/√64=40/8=5.');p4ok.a=ok;if(p4ok.a&&p4ok.b&&p4ok.c)unlock('sol-btn-4');}
+function check4b(){const v=get('w4_4b');const ok=near(v,-1.00,.02);mark('w4_4b',ok);setFB('fb4b',ok,ok?'Correct. z=−1.00.':'(495−500)/5=−1.00.');p4ok.b=ok;if(p4ok.a&&p4ok.b&&p4ok.c)unlock('sol-btn-4');}
+function check4c(){const v=get('w4_4c');const ok=near(v,0.1587,.002);mark('w4_4c',ok);setFB('fb4c',ok,ok?'Correct. P(X̄≤495)≈0.1587.':'z-table at z=−1.00 → 0.1587.');p4ok.c=ok;if(p4ok.a&&p4ok.b&&p4ok.c)unlock('sol-btn-4');}
+function drawCurve(svgId,shadeLo,shadeHi,ticks,label,lx,ly){
+  const svg=d3.select('#'+svgId);if(!svg.node()||svg.selectAll('*').size()>0)return;
+  const W=660,H=260,ml=40,mr=40,mt=20,mb=50,iW=W-ml-mr,iH=H-mt-mb;
+  const zMin=-3.6,zMax=3.6;const phi=z=>Math.exp(-0.5*z*z)/Math.sqrt(2*Math.PI);
+  const pk=phi(0);const xs=z=>ml+(z-zMin)/(zMax-zMin)*iW,ys=p=>mt+iH-(p/(pk*1.1))*iH,bl=ys(0);
+  const zs=d3.range(zMin,zMax,.02);
+  svg.append('line').attr('x1',ml).attr('y1',bl).attr('x2',W-mr).attr('y2',bl).attr('class','axis');
+  const sL=Math.max(shadeLo,zMin),sH=Math.min(shadeHi,zMax);
+  const szs=[sL,...d3.range(sL,sH,.02).filter(z=>z>sL&&z<sH),sH];
+  const area=d3.area().x(z=>xs(z)).y0(bl).y1(z=>ys(phi(z))).curve(d3.curveBasis);
+  svg.append('path').datum(szs).attr('d',area).attr('class','shade');
+  const line=d3.line().x(z=>xs(z)).y(z=>ys(phi(z))).curve(d3.curveBasis);
+  svg.append('path').datum(zs).attr('d',line).attr('class','curve');
+  [shadeLo,shadeHi].forEach(z=>{if(isFinite(z)&&z>zMin+.1&&z<zMax-.1){svg.append('line').attr('x1',xs(z)).attr('y1',bl).attr('x2',xs(z)).attr('y2',ys(phi(z))).attr('class','dashed');}});
+  ticks.forEach(([z,lbl])=>{svg.append('line').attr('x1',xs(z)).attr('y1',bl).attr('x2',xs(z)).attr('y2',bl+6).attr('class','tick');svg.append('text').attr('x',xs(z)).attr('y',bl+22).attr('text-anchor','middle').attr('class','label-muted').text(lbl);});
+  svg.append('text').attr('x',lx).attr('y',ly).attr('text-anchor','middle').attr('class','label-main').text(label);
+  svg.append('text').attr('x',W/2).attr('y',H-2).attr('text-anchor','middle').attr('class','label-muted').text('z');
+}
+</script>
+</body></html>

@@ -1,0 +1,196 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Math 146 Week 6 Lab</title>
+<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},options:{skipHtmlTags:['script','noscript','style','textarea','pre']}};</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.min.js"></script>
+<style>
+:root{--bg:#f8fafc;--panel:#fff;--text:#1f2937;--muted:#4b5563;--border:#d1d5db;--ok:#16a34a;--ok-bg:#dcfce7;--ok-border:#86efac;--err:#dc2626;--err-bg:#fef2f2;--err-border:#fca5a5;--field:#f0f9ff;--field-border:#7dd3fc;--accent:#0f766e;--locked:#9ca3af;--locked-bg:#f3f4f6;}
+*{box-sizing:border-box;}body{margin:0;font-family:Arial,Helvetica,sans-serif;font-size:15px;line-height:1.6;color:var(--text);background:var(--bg);}
+.container{max-width:860px;margin:0 auto;padding:1.5rem 1rem 4rem;}
+.lab-header{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:1.25rem 1.5rem;margin-bottom:1.25rem;}
+.lab-header h1{margin:0 0 .2rem;font-size:1.5rem;}.lab-header p{margin:0;color:var(--muted);font-size:.875rem;}
+.id-row{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-top:1rem;}
+.id-row label{display:flex;flex-direction:column;gap:.2rem;font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);}
+.id-row input{border:1px solid var(--border);border-radius:6px;padding:.4rem .6rem;font-size:1rem;font-family:inherit;width:100%;}
+.card{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:1.25rem;margin-bottom:1.25rem;}
+.card h2{margin:0 0 .75rem;font-size:1.1rem;}.card h3{margin:1rem 0 .4rem;font-size:.85rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;}
+.formula-box{background:#f9fafb;border:1px solid var(--border);border-radius:10px;padding:.85rem 1rem;margin-bottom:.75rem;overflow-x:auto;}
+.formula-box p{margin:.35rem 0;}.part-divider{border:none;border-top:1px solid var(--border);margin:.85rem 0;}
+.step-row{display:flex;align-items:center;gap:.5rem;margin:.45rem 0;flex-wrap:wrap;font-size:.95rem;}
+.step-row .prompt{flex:1 1 200px;}
+.num-input{width:90px;border:1.5px solid var(--field-border);border-radius:6px;padding:.3rem .5rem;font-size:.95rem;font-family:inherit;background:var(--field);text-align:center;}
+.num-input:focus{outline:2px solid var(--accent);border-color:var(--accent);}
+.num-input.correct{border-color:var(--ok);background:#f0fdf4;}.num-input.wrong{border-color:var(--err);background:#fef2f2;}
+.wide{width:120px;}
+.interp-label{display:block;margin-top:.75rem;}
+.interp-label span{display:block;font-size:.85rem;font-weight:700;color:var(--muted);margin-bottom:.3rem;}
+textarea{width:100%;border:1.5px solid var(--border);border-radius:8px;padding:.5rem .65rem;font-family:inherit;font-size:.9rem;min-height:65px;resize:vertical;}
+textarea:focus{outline:2px solid var(--accent);border-color:var(--accent);}
+.btn-row{display:flex;gap:.6rem;align-items:center;margin-top:.6rem;flex-wrap:wrap;}
+.check-btn{background:var(--accent);color:#fff;border:none;border-radius:7px;padding:.4rem .9rem;font-size:.875rem;font-family:inherit;cursor:pointer;}
+.check-btn:hover{background:#0d5f5a;}
+.sol-btn{background:var(--locked-bg);color:var(--locked);border:1.5px solid var(--border);border-radius:7px;padding:.4rem .9rem;font-size:.875rem;font-family:inherit;cursor:not-allowed;transition:all .2s;}
+.sol-btn.unlocked{background:#1e40af;color:#fff;border-color:#1e40af;cursor:pointer;}.sol-btn.unlocked:hover{background:#1e3a8a;}
+.print-btn{background:#374151;color:#fff;border:none;border-radius:8px;padding:.55rem 1.2rem;font-size:.9rem;font-family:inherit;cursor:pointer;margin-bottom:1rem;}
+.feedback{margin-top:.4rem;padding:.4rem .7rem;border-radius:7px;font-size:.875rem;display:none;}
+.feedback.ok{background:var(--ok-bg);color:var(--ok);border:1px solid var(--ok-border);display:block;}
+.feedback.err{background:var(--err-bg);color:var(--err);border:1px solid var(--err-border);display:block;}
+.sol-panel{display:none;margin-top:.75rem;border:1px solid #bfdbfe;border-radius:10px;background:#eff6ff;}
+.sol-panel.open{display:block;}.sol-panel-inner{padding:.85rem 1rem;font-size:.9rem;}.sol-panel-inner p{margin:.4rem 0;}
+.answer-line{margin-top:.6rem;padding:.4rem .65rem;background:var(--ok-bg);border-radius:7px;border-left:4px solid var(--ok);}
+.reject-line{margin-top:.6rem;padding:.4rem .65rem;background:#fef2f2;border-radius:7px;border-left:4px solid #dc2626;}
+.ftreject-line{margin-top:.6rem;padding:.4rem .65rem;background:#fffbeb;border-radius:7px;border-left:4px solid #d97706;}
+table{width:100%;border-collapse:collapse;margin:.75rem 0;background:white;}
+th,td{border:1px solid var(--border);padding:.55rem .65rem;text-align:center;vertical-align:middle;}th{background:#f3f4f6;}
+td.lft{text-align:left;font-weight:600;width:9rem;}
+@media print{body{background:#fff;font-size:11pt;}.container{padding:0;max-width:100%;}
+.no-print,.check-btn,.print-btn,.sol-btn,.sol-panel,.feedback{display:none!important;}
+.card{border:1px solid #ccc;border-radius:6px;margin-bottom:.75rem;padding:.85rem;page-break-inside:avoid;}
+.num-input,.id-row input,textarea{border:none;border-bottom:1px solid #999;background:transparent;border-radius:0;}
+textarea{min-height:40pt;}h1{font-size:14pt;}h2{font-size:11pt;}}
+</style></head><body>
+<div class="container">
+<div class="no-print" style="margin-bottom:.75rem;"><button class="print-btn" onclick="window.print()">🖨 Print Lab Report</button></div>
+<div class="lab-header">
+  <h1>Math 146 — Week 6 Lab: Hypothesis Testing</h1>
+  <p>One-sample z-tests for means and proportions. Fill in answers; solutions unlock after correct checks.</p>
+  <div class="id-row">
+    <label>Student name <input type="text" data-save="w6_name" placeholder="Your full name"></label>
+    <label>Date <input type="text" data-save="w6_date" placeholder="mm/dd/yyyy"></label>
+  </div>
+</div>
+<div class="card">
+  <h2>Reference Formulas</h2>
+  <div class="formula-box">
+    <p>Test statistic for a mean: \[\displaystyle z=\frac{\bar{x}-\mu_0}{\sigma/\sqrt{n}}\]</p>
+    <p>Test statistic for a proportion: \[\displaystyle z=\frac{\hat{p}-p_0}{\sqrt{p_0(1-p_0)/n}}\]</p>
+    <p>Left-tailed \(p\)-value: \(P(Z\le z)\) &ensp; Right-tailed: \(1-P(Z\le z)\) &ensp; Two-tailed: \(2(1-P(Z\le|z|))\)</p>
+  </div>
+</div>
+
+<!-- P1 -->
+<div class="card">
+  <h2>Problem 1 — Writing Hypotheses</h2>
+  <p>For each scenario, state \(H_0\) and \(H_a\) and identify the test type.</p>
+  <hr class="part-divider">
+  <h3>(a) Cereal boxes should contain 18 oz on average; a consumer group suspects they contain less.</h3>
+  <label class="interp-label"><span>State \(H_0\), \(H_a\), and the test type.</span><textarea data-save="w6_1a" placeholder="H₀: μ = …    Hₐ: μ …    Test type: …"></textarea></label>
+  <hr class="part-divider">
+  <h3>(b) A school claims average commute time is 24 min; a researcher asks whether it has changed.</h3>
+  <label class="interp-label"><span>State \(H_0\), \(H_a\), and the test type.</span><textarea data-save="w6_1b" placeholder="H₀: μ = …    Hₐ: μ …    Test type: …"></textarea></label>
+  <hr class="part-divider">
+  <h3>(c) A site claims 70% of users finish registration; a manager believes the true proportion is higher.</h3>
+  <label class="interp-label"><span>State \(H_0\), \(H_a\), and the test type.</span><textarea data-save="w6_1c" placeholder="H₀: p = …    Hₐ: p …    Test type: …"></textarea></label>
+</div>
+
+<!-- P2 -->
+<div class="card">
+  <h2>Problem 2 — One-Sample \(z\)-Test for a Mean</h2>
+  <p>Machine target: 20.0 oz. Sample: \(n=49\), \(\bar{x}=19.7\) oz, \(\sigma=0.8\) oz.</p>
+  <p>Test \(H_0:\mu=20.0\) vs. \(H_a:\mu&lt;20.0\) at \(\alpha=0.05\).</p>
+  <hr class="part-divider">
+  <h3>(a) Test statistic \(z\)</h3>
+  <div class="step-row"><span class="prompt">\(\text{SE}=\sigma/\sqrt{n}\) =</span><input class="num-input wide" id="w6_2a_se" type="number" step="any" data-save="w6_2a_se" placeholder="?"></div>
+  <div class="step-row"><span class="prompt">\(z=(\bar{x}-\mu_0)/\text{SE}\) =</span><input class="num-input wide" id="w6_2a_z" type="number" step="any" data-save="w6_2a_z" placeholder="?"></div>
+  <div class="btn-row no-print"><button class="check-btn" onclick="check2a()">Check (a)</button></div>
+  <div id="fb2a" class="feedback"></div>
+  <hr class="part-divider">
+  <h3>(b) \(p\)-value (left-tailed)</h3>
+  <div class="step-row"><span class="prompt">\(P(Z\le -2.63)\) =</span><input class="num-input wide" id="w6_2b" type="number" step="any" data-save="w6_2b" placeholder="?"></div>
+  <div class="btn-row no-print"><button class="check-btn" onclick="check2b()">Check (b)</button></div>
+  <div id="fb2b" class="feedback"></div>
+  <hr class="part-divider">
+  <h3>(c) Decision (\(\alpha=0.05\))</h3>
+  <label class="interp-label"><span>Compare \(p\)-value to \(\alpha\) and state your decision.</span><textarea data-save="w6_2c" placeholder="Since p-value = … < / > 0.05, we reject / fail to reject H₀."></textarea></label>
+  <hr class="part-divider">
+  <h3>(d) Conclusion in context</h3>
+  <label class="interp-label"><span>Write one complete sentence naming the variable, the direction, and the significance level.</span><textarea data-save="w6_2d" placeholder="There is sufficient / insufficient evidence at α=0.05 to conclude that…"></textarea></label>
+  <div class="btn-row no-print"><button class="sol-btn" id="sol-btn-2" onclick="toggleSol('sol-2')">🔒 Unlock solution by completing checks</button></div>
+  <div class="sol-panel" id="sol-2"><div class="sol-panel-inner">
+    <p>SE = 0.8/7 ≈ 0.1143. \(z=(19.7-20.0)/0.1143\approx -2.63\)</p>
+    <p>\(p\)-value \(= P(Z\le -2.63)\approx 0.0043\)</p>
+    <div class="reject-line"><strong>Reject \(H_0\)</strong> — \(p=0.0043 &lt; \alpha=0.05\).</div>
+    <div class="answer-line">The machine is underfilling. There is sufficient evidence at \(\alpha=0.05\) that the true mean fill is less than 20.0 oz.</div>
+  </div></div>
+</div>
+
+<!-- P3 -->
+<div class="card">
+  <h2>Problem 3 — Interpreting a \(p\)-Value</h2>
+  <p>A test gives \(z=1.84\).</p>
+  <hr class="part-divider">
+  <h3>(a) \(p\)-value for a right-tailed test</h3>
+  <div class="step-row"><span class="prompt">\(1-P(Z\le 1.84)\) =</span><input class="num-input wide" id="w6_3a" type="number" step="any" data-save="w6_3a" placeholder="?"></div>
+  <div class="btn-row no-print"><button class="check-btn" onclick="check3a()">Check (a)</button></div>
+  <div id="fb3a" class="feedback"></div>
+  <hr class="part-divider">
+  <h3>(b) \(p\)-value for a two-tailed test</h3>
+  <div class="step-row"><span class="prompt">\(2(1-P(Z\le 1.84))\) =</span><input class="num-input wide" id="w6_3b" type="number" step="any" data-save="w6_3b" placeholder="?"></div>
+  <div class="btn-row no-print"><button class="check-btn" onclick="check3b()">Check (b)</button></div>
+  <div id="fb3b" class="feedback"></div>
+  <hr class="part-divider">
+  <h3>(c) Decision for each test at \(\alpha=0.05\)</h3>
+  <label class="interp-label"><span>State the decision for both the right-tailed and two-tailed tests, and explain why the same z gives different conclusions.</span><textarea data-save="w6_3c" placeholder="Right-tailed: … Two-tailed: … This happens because…"></textarea></label>
+  <div class="btn-row no-print"><button class="sol-btn" id="sol-btn-3" onclick="toggleSol('sol-3')">🔒 Unlock solution by completing checks</button></div>
+  <div class="sol-panel" id="sol-3"><div class="sol-panel-inner">
+    <p>(a) \(P(Z\le 1.84)=0.9671\); right-tailed \(p=1-0.9671=0.0329\)</p>
+    <p>(b) Two-tailed \(p=2(0.0329)=0.0658\)</p>
+    <table><thead><tr><th>Test</th><th>\(p\)-value</th><th>Decision</th></tr></thead>
+    <tbody><tr><td>Right-tailed</td><td>0.0329</td><td>Reject \(H_0\) (0.0329 &lt; 0.05)</td></tr>
+    <tr><td>Two-tailed</td><td>0.0658</td><td>Fail to reject (0.0658 &gt; 0.05)</td></tr></tbody></table>
+    <div class="answer-line">Right-tailed: reject · Two-tailed: fail to reject</div>
+  </div></div>
+</div>
+
+<!-- P4 -->
+<div class="card">
+  <h2>Problem 4 — One-Sample \(z\)-Test for a Proportion</h2>
+  <p>Claim: 65% of customers renew. Sample: \(n=200\), 118 renew.</p>
+  <p>Test \(H_0:p=0.65\) vs. \(H_a:p&lt;0.65\) at \(\alpha=0.05\).</p>
+  <hr class="part-divider">
+  <h3>(a) Sample proportion \(\hat{p}\)</h3>
+  <div class="step-row"><span class="prompt">\(\hat{p}=118/200\) =</span><input class="num-input" id="w6_4a" type="number" step="any" data-save="w6_4a" placeholder="?"></div>
+  <div class="btn-row no-print"><button class="check-btn" onclick="check4a()">Check (a)</button></div>
+  <div id="fb4a" class="feedback"></div>
+  <hr class="part-divider">
+  <h3>(b) Test statistic \(z\)</h3>
+  <div class="step-row"><span class="prompt">\(\text{SE}=\sqrt{p_0(1-p_0)/n}\) =</span><input class="num-input wide" id="w6_4b_se" type="number" step="any" data-save="w6_4b_se" placeholder="?"></div>
+  <div class="step-row"><span class="prompt">\(z=(\hat{p}-p_0)/\text{SE}\) =</span><input class="num-input wide" id="w6_4b_z" type="number" step="any" data-save="w6_4b_z" placeholder="?"></div>
+  <div class="btn-row no-print"><button class="check-btn" onclick="check4b()">Check (b)</button></div>
+  <div id="fb4b" class="feedback"></div>
+  <hr class="part-divider">
+  <h3>(c) \(p\)-value</h3>
+  <div class="step-row"><span class="prompt">\(P(Z\le -1.78)\) =</span><input class="num-input wide" id="w6_4c" type="number" step="any" data-save="w6_4c" placeholder="?"></div>
+  <div class="btn-row no-print"><button class="check-btn" onclick="check4c()">Check (c)</button></div>
+  <div id="fb4c" class="feedback"></div>
+  <hr class="part-divider">
+  <h3>(d) Decision and conclusion in context</h3>
+  <label class="interp-label"><span>State the decision and write a complete conclusion sentence.</span><textarea data-save="w6_4d" placeholder="Since p-value = … < 0.05, we … There is sufficient evidence to conclude that…"></textarea></label>
+  <div class="btn-row no-print"><button class="sol-btn" id="sol-btn-4" onclick="toggleSol('sol-4')">🔒 Unlock solution by completing checks</button></div>
+  <div class="sol-panel" id="sol-4"><div class="sol-panel-inner">
+    <p>\(\hat{p}=0.59\). SE\(=\sqrt{0.65\times0.35/200}\approx0.0337\). \(z=(0.59-0.65)/0.0337\approx-1.78\).</p>
+    <p>\(p\)-value\(=P(Z\le-1.78)\approx0.0375\). Since \(0.0375&lt;0.05\):</p>
+    <div class="reject-line"><strong>Reject \(H_0\).</strong></div>
+    <div class="answer-line">There is sufficient evidence at \(\alpha=0.05\) that the true renewal proportion is less than 65%.</div>
+  </div></div>
+</div>
+</div>
+<script>
+function save(k,v){try{localStorage.setItem(k,v);}catch(e){}}function load(k){try{return localStorage.getItem(k)||'';}catch(e){return '';}}
+document.querySelectorAll('[data-save]').forEach(el=>{el.value=load(el.dataset.save);el.addEventListener('input',()=>save(el.dataset.save,el.value));});
+function get(id){return parseFloat(document.getElementById(id).value);}
+function near(a,b,t){return !isNaN(a)&&Math.abs(a-b)<=t;}
+function setFB(id,ok,msg){const el=document.getElementById(id);el.className='feedback '+(ok?'ok':'err');el.textContent=(ok?'✓ ':'✗ ')+msg;}
+function mark(id,ok){const el=document.getElementById(id);if(!el)return;el.classList.remove('correct','wrong');if(!isNaN(parseFloat(el.value)))el.classList.add(ok?'correct':'wrong');}
+function unlock(id){const b=document.getElementById(id);b.classList.add('unlocked');b.textContent='▸ Show solution';}
+function toggleSol(id){document.getElementById(id).classList.toggle('open');}
+var p2ok={a:false,b:false},p3ok={a:false,b:false},p4ok={a:false,b:false,c:false};
+function check2a(){const se=get('w6_2a_se'),z=get('w6_2a_z');const cs=[{id:'w6_2a_se',ok:near(se,0.1143,.003),hint:'SE=0.8/7≈0.1143'},{id:'w6_2a_z',ok:near(z,-2.63,.04),hint:'z=(19.7−20.0)/0.1143≈−2.63'}];cs.forEach(c=>mark(c.id,c.ok));const f=cs.filter(c=>!c.ok);const ok=f.length===0;setFB('fb2a',ok,ok?'Correct. z≈−2.63.':'Review: '+f.map(c=>c.hint).join(' · '));p2ok.a=ok;if(p2ok.a&&p2ok.b)unlock('sol-btn-2');}
+function check2b(){const v=get('w6_2b');const ok=near(v,0.0043,.001);mark('w6_2b',ok);setFB('fb2b',ok,ok?'Correct. p-value≈0.0043.':'Left tail at z=−2.63 → 0.0043.');p2ok.b=ok;if(p2ok.a&&p2ok.b)unlock('sol-btn-2');}
+function check3a(){const v=get('w6_3a');const ok=near(v,0.0329,.002);mark('w6_3a',ok);setFB('fb3a',ok,ok?'Correct. p=0.0329.':'P(Z≤1.84)=0.9671; 1−0.9671=0.0329.');p3ok.a=ok;if(p3ok.a&&p3ok.b)unlock('sol-btn-3');}
+function check3b(){const v=get('w6_3b');const ok=near(v,0.0658,.002);mark('w6_3b',ok);setFB('fb3b',ok,ok?'Correct. p=0.0658.':'2×0.0329=0.0658.');p3ok.b=ok;if(p3ok.a&&p3ok.b)unlock('sol-btn-3');}
+function check4a(){const v=get('w6_4a');const ok=near(v,0.59,.005);mark('w6_4a',ok);setFB('fb4a',ok,ok?'Correct. p̂=0.59.':'118/200=0.59.');p4ok.a=ok;if(p4ok.a&&p4ok.b&&p4ok.c)unlock('sol-btn-4');}
+function check4b(){const se=get('w6_4b_se'),z=get('w6_4b_z');const cs=[{id:'w6_4b_se',ok:near(se,0.0337,.003),hint:'SE=√(0.65×0.35/200)≈0.0337'},{id:'w6_4b_z',ok:near(z,-1.78,.04),hint:'z=(0.59−0.65)/0.0337≈−1.78'}];cs.forEach(c=>mark(c.id,c.ok));const f=cs.filter(c=>!c.ok);const ok=f.length===0;setFB('fb4b',ok,ok?'Correct. z≈−1.78.':'Review: '+f.map(c=>c.hint).join(' · '));p4ok.b=ok;if(p4ok.a&&p4ok.b&&p4ok.c)unlock('sol-btn-4');}
+function check4c(){const v=get('w6_4c');const ok=near(v,0.0375,.002);mark('w6_4c',ok);setFB('fb4c',ok,ok?'Correct. p-value≈0.0375.':'Left tail at z=−1.78 → 0.0375.');p4ok.c=ok;if(p4ok.a&&p4ok.b&&p4ok.c)unlock('sol-btn-4');}
+</script>
+</body></html>

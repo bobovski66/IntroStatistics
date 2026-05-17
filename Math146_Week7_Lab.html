@@ -1,0 +1,224 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Math 146 Week 7 Lab</title>
+<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},options:{skipHtmlTags:['script','noscript','style','textarea','pre']}};</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.min.js"></script>
+<style>
+:root{--bg:#f8fafc;--panel:#fff;--text:#1f2937;--muted:#4b5563;--border:#d1d5db;--ok:#16a34a;--ok-bg:#dcfce7;--ok-border:#86efac;--err:#dc2626;--err-bg:#fef2f2;--err-border:#fca5a5;--field:#f0f9ff;--field-border:#7dd3fc;--accent:#0f766e;--locked:#9ca3af;--locked-bg:#f3f4f6;}
+*{box-sizing:border-box;}body{margin:0;font-family:Arial,Helvetica,sans-serif;font-size:15px;line-height:1.6;color:var(--text);background:var(--bg);}
+.container{max-width:860px;margin:0 auto;padding:1.5rem 1rem 4rem;}
+.lab-header{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:1.25rem 1.5rem;margin-bottom:1.25rem;}
+.lab-header h1{margin:0 0 .2rem;font-size:1.5rem;}.lab-header p{margin:0;color:var(--muted);font-size:.875rem;}
+.id-row{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-top:1rem;}
+.id-row label{display:flex;flex-direction:column;gap:.2rem;font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);}
+.id-row input{border:1px solid var(--border);border-radius:6px;padding:.4rem .6rem;font-size:1rem;font-family:inherit;width:100%;}
+.card{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:1.25rem;margin-bottom:1.25rem;}
+.card h2{margin:0 0 .75rem;font-size:1.1rem;}.card h3{margin:1rem 0 .4rem;font-size:.85rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;}
+.formula-box{background:#f9fafb;border:1px solid var(--border);border-radius:10px;padding:.85rem 1rem;margin-bottom:.75rem;overflow-x:auto;}
+.formula-box p{margin:.35rem 0;}.part-divider{border:none;border-top:1px solid var(--border);margin:.85rem 0;}
+.step-row{display:flex;align-items:center;gap:.5rem;margin:.45rem 0;flex-wrap:wrap;font-size:.95rem;}
+.step-row .prompt{flex:1 1 200px;}
+.num-input{width:90px;border:1.5px solid var(--field-border);border-radius:6px;padding:.3rem .5rem;font-size:.95rem;font-family:inherit;background:var(--field);text-align:center;}
+.num-input:focus{outline:2px solid var(--accent);border-color:var(--accent);}
+.num-input.correct{border-color:var(--ok);background:#f0fdf4;}.num-input.wrong{border-color:var(--err);background:#fef2f2;}
+.wide{width:120px;}
+.interp-label{display:block;margin-top:.75rem;}
+.interp-label span{display:block;font-size:.85rem;font-weight:700;color:var(--muted);margin-bottom:.3rem;}
+textarea{width:100%;border:1.5px solid var(--border);border-radius:8px;padding:.5rem .65rem;font-family:inherit;font-size:.9rem;min-height:65px;resize:vertical;}
+textarea:focus{outline:2px solid var(--accent);border-color:var(--accent);}
+.btn-row{display:flex;gap:.6rem;align-items:center;margin-top:.6rem;flex-wrap:wrap;}
+.check-btn{background:var(--accent);color:#fff;border:none;border-radius:7px;padding:.4rem .9rem;font-size:.875rem;font-family:inherit;cursor:pointer;}
+.check-btn:hover{background:#0d5f5a;}
+.sol-btn{background:var(--locked-bg);color:var(--locked);border:1.5px solid var(--border);border-radius:7px;padding:.4rem .9rem;font-size:.875rem;font-family:inherit;cursor:not-allowed;transition:all .2s;}
+.sol-btn.unlocked{background:#1e40af;color:#fff;border-color:#1e40af;cursor:pointer;}.sol-btn.unlocked:hover{background:#1e3a8a;}
+.print-btn{background:#374151;color:#fff;border:none;border-radius:8px;padding:.55rem 1.2rem;font-size:.9rem;font-family:inherit;cursor:pointer;margin-bottom:1rem;}
+.feedback{margin-top:.4rem;padding:.4rem .7rem;border-radius:7px;font-size:.875rem;display:none;}
+.feedback.ok{background:var(--ok-bg);color:var(--ok);border:1px solid var(--ok-border);display:block;}
+.feedback.err{background:var(--err-bg);color:var(--err);border:1px solid var(--err-border);display:block;}
+.sol-panel{display:none;margin-top:.75rem;border:1px solid #bfdbfe;border-radius:10px;background:#eff6ff;}
+.sol-panel.open{display:block;}.sol-panel-inner{padding:.85rem 1rem;font-size:.9rem;}.sol-panel-inner p{margin:.4rem 0;}
+.answer-line{margin-top:.6rem;padding:.4rem .65rem;background:var(--ok-bg);border-radius:7px;border-left:4px solid var(--ok);}
+.reject-line{margin-top:.6rem;padding:.4rem .65rem;background:#fef2f2;border-radius:7px;border-left:4px solid #dc2626;}
+.ftreject-line{margin-top:.6rem;padding:.4rem .65rem;background:#fffbeb;border-radius:7px;border-left:4px solid #d97706;}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin:.5rem 0;}
+.verdict-box{border:1px solid var(--border);border-radius:10px;padding:.65rem .85rem;background:#f9fafb;}
+.verdict-box .v{font-weight:700;color:var(--accent);margin-bottom:.15rem;}
+.verdict-box .r{font-size:.875rem;color:var(--muted);}
+table{width:100%;border-collapse:collapse;margin:.75rem 0;background:white;}
+th,td{border:1px solid var(--border);padding:.55rem .65rem;text-align:center;vertical-align:middle;}th{background:#f3f4f6;}
+@media print{body{background:#fff;font-size:11pt;}.container{padding:0;max-width:100%;}
+.no-print,.check-btn,.print-btn,.sol-btn,.sol-panel,.feedback{display:none!important;}
+.card{border:1px solid #ccc;border-radius:6px;margin-bottom:.75rem;padding:.85rem;page-break-inside:avoid;}
+.num-input,.id-row input,textarea{border:none;border-bottom:1px solid #999;background:transparent;border-radius:0;}
+textarea{min-height:40pt;}h1{font-size:14pt;}h2{font-size:11pt;}}
+</style></head><body>
+<div class="container">
+<div class="no-print" style="margin-bottom:.75rem;"><button class="print-btn" onclick="window.print()">🖨 Print Lab Report</button></div>
+<div class="lab-header">
+  <h1>Math 146 — Week 7 Lab: Two-Sample Inference</h1>
+  <p>Two-sample z-tests and confidence intervals for means and proportions.</p>
+  <div class="id-row">
+    <label>Student name <input type="text" data-save="w7_name" placeholder="Your full name"></label>
+    <label>Date <input type="text" data-save="w7_date" placeholder="mm/dd/yyyy"></label>
+  </div>
+</div>
+<div class="card">
+  <h2>Reference Formulas</h2>
+  <div class="formula-box">
+    <p>\[\text{SE}_{\bar{x}_1-\bar{x}_2}=\sqrt{\frac{\sigma_1^2}{n_1}+\frac{\sigma_2^2}{n_2}} \qquad z=\frac{(\bar{x}_1-\bar{x}_2)-0}{\text{SE}} \qquad \text{CI: }(\bar{x}_1-\bar{x}_2)\pm z^*\,\text{SE}\]</p>
+    <p>\[\hat{p}_{\text{pool}}=\frac{x_1+x_2}{n_1+n_2} \qquad z=\frac{\hat{p}_1-\hat{p}_2}{\sqrt{\hat{p}_{\text{pool}}(1-\hat{p}_{\text{pool}})(1/n_1+1/n_2)}}\]</p>
+  </div>
+</div>
+
+<!-- P1 -->
+<div class="card">
+  <h2>Problem 1 — Independent or Paired?</h2>
+  <p>For each scenario, classify the data and explain briefly.</p>
+  <hr class="part-divider">
+  <div class="grid2">
+    <div class="verdict-box">
+      <div class="v">(a) Same 30 students, before and after a review session.</div>
+      <label class="interp-label"><span>Paired or independent?</span><textarea data-save="w7_1a" placeholder="These data are…" style="min-height:50px;"></textarea></label>
+    </div>
+    <div class="verdict-box">
+      <div class="v">(b) Two separate class sections using different textbooks.</div>
+      <label class="interp-label"><span>Paired or independent?</span><textarea data-save="w7_1b" placeholder="These data are…" style="min-height:50px;"></textarea></label>
+    </div>
+    <div class="verdict-box">
+      <div class="v">(c) Patient blood pressure measured before and after medication.</div>
+      <label class="interp-label"><span>Paired or independent?</span><textarea data-save="w7_1c" placeholder="These data are…" style="min-height:50px;"></textarea></label>
+    </div>
+    <div class="verdict-box">
+      <div class="v">(d) Ballot measure support surveyed in two different cities.</div>
+      <label class="interp-label"><span>Paired or independent?</span><textarea data-save="w7_1d" placeholder="These data are…" style="min-height:50px;"></textarea></label>
+    </div>
+  </div>
+</div>
+
+<!-- P2 -->
+<div class="card">
+  <h2>Problem 2 — Two-Sample \(z\)-Test for Means</h2>
+  <p>Layout 1: \(n_1=40\), \(\bar{x}_1=58.2\), \(\sigma_1=8.0\) · Layout 2: \(n_2=45\), \(\bar{x}_2=54.6\), \(\sigma_2=7.5\)</p>
+  <p>Test \(H_0:\mu_1=\mu_2\) vs. \(H_a:\mu_1&gt;\mu_2\) at \(\alpha=0.05\).</p>
+  <hr class="part-divider">
+  <h3>(a) Standard error</h3>
+  <div class="step-row"><span class="prompt">\(\sigma_1^2/n_1\) =</span><input class="num-input" id="w7_2a_t1" type="number" step="any" data-save="w7_2a_t1" placeholder="?"></div>
+  <div class="step-row"><span class="prompt">\(\sigma_2^2/n_2\) =</span><input class="num-input" id="w7_2a_t2" type="number" step="any" data-save="w7_2a_t2" placeholder="?"></div>
+  <div class="step-row"><span class="prompt">\(\text{SE}=\sqrt{\text{sum}}\) =</span><input class="num-input wide" id="w7_2a_se" type="number" step="any" data-save="w7_2a_se" placeholder="?"></div>
+  <div class="btn-row no-print"><button class="check-btn" onclick="check2a()">Check (a)</button></div>
+  <div id="fb2a" class="feedback"></div>
+  <hr class="part-divider">
+  <h3>(b) Test statistic \(z\)</h3>
+  <div class="step-row"><span class="prompt">\(z=(\bar{x}_1-\bar{x}_2)/\text{SE}\) =</span><input class="num-input wide" id="w7_2b" type="number" step="any" data-save="w7_2b" placeholder="?"></div>
+  <div class="btn-row no-print"><button class="check-btn" onclick="check2b()">Check (b)</button></div>
+  <div id="fb2b" class="feedback"></div>
+  <hr class="part-divider">
+  <h3>(c) \(p\)-value (right-tailed)</h3>
+  <div class="step-row"><span class="prompt">\(1-P(Z\le 2.13)\) =</span><input class="num-input wide" id="w7_2c" type="number" step="any" data-save="w7_2c" placeholder="?"></div>
+  <div class="btn-row no-print"><button class="check-btn" onclick="check2c()">Check (c)</button></div>
+  <div id="fb2c" class="feedback"></div>
+  <hr class="part-divider">
+  <h3>(d) Decision and conclusion in context</h3>
+  <label class="interp-label"><span>Compare \(p\)-value to \(\alpha\) and write a complete conclusion.</span><textarea data-save="w7_2d" placeholder="Since p-value = … < 0.05, we … There is sufficient evidence to conclude that…"></textarea></label>
+  <div class="btn-row no-print"><button class="sol-btn" id="sol-btn-2" onclick="toggleSol('sol-2')">🔒 Unlock solution by completing checks</button></div>
+  <div class="sol-panel" id="sol-2"><div class="sol-panel-inner">
+    <p>\(\sigma_1^2/n_1=64/40=1.6\), \(\sigma_2^2/n_2=56.25/45=1.25\). SE\(=\sqrt{2.85}\approx1.688\).</p>
+    <p>\(z=3.6/1.688\approx2.13\). \(p\)-value\(=1-0.9834=0.0166&lt;0.05\).</p>
+    <div class="reject-line"><strong>Reject \(H_0\).</strong></div>
+    <div class="answer-line">SE≈1.688 · z≈2.13 · p≈0.0166 · Layout 1 sells more units on average.</div>
+  </div></div>
+</div>
+
+<!-- P3 -->
+<div class="card">
+  <h2>Problem 3 — CI for \(\mu_1-\mu_2\)</h2>
+  <p>Using the same data from Problem 2, construct a 95% CI for \(\mu_1-\mu_2\).</p>
+  <hr class="part-divider">
+  <h3>(a) Margin of error</h3>
+  <div class="step-row"><span class="prompt">\(\text{ME}=z^*\times\text{SE}=1.96\times1.688\) =</span><input class="num-input wide" id="w7_3a" type="number" step="any" data-save="w7_3a" placeholder="?"></div>
+  <div class="btn-row no-print"><button class="check-btn" onclick="check3a()">Check (a)</button></div>
+  <div id="fb3a" class="feedback"></div>
+  <hr class="part-divider">
+  <h3>(b) Confidence interval</h3>
+  <div class="step-row">
+    <span class="prompt">(\(\bar{x}_1-\bar{x}_2)\pm\text{ME} = 3.6\pm\text{ME}\): (</span>
+    <input class="num-input" id="w7_3b_lo" type="number" step="any" data-save="w7_3b_lo" placeholder="lower">
+    <span>,</span>
+    <input class="num-input" id="w7_3b_hi" type="number" step="any" data-save="w7_3b_hi" placeholder="upper">
+    <span>)</span>
+  </div>
+  <div class="btn-row no-print">
+    <button class="check-btn" onclick="check3b()">Check (b)</button>
+    <button class="sol-btn" id="sol-btn-3" onclick="toggleSol('sol-3')">🔒 Unlock solution by completing checks</button>
+  </div>
+  <div id="fb3b" class="feedback"></div>
+  <div class="sol-panel" id="sol-3"><div class="sol-panel-inner">
+    <p>ME\(=1.96\times1.688\approx3.308\). Interval: \(3.6\pm3.31=(0.29,\,6.91)\).</p>
+    <div class="answer-line">ME≈3.31 · CI: (0.29, 6.91)</div>
+  </div></div>
+  <hr class="part-divider">
+  <h3>(c) Does the interval contain 0? What does that tell you?</h3>
+  <label class="interp-label"><span>State whether 0 is in the interval and what that implies about \(\mu_1-\mu_2\).</span><textarea data-save="w7_3c" placeholder="The interval (0.29, 6.91) does / does not contain 0. This tells us…"></textarea></label>
+</div>
+
+<!-- P4 -->
+<div class="card">
+  <h2>Problem 4 — Two-Sample \(z\)-Test for Proportions</h2>
+  <p>Grade 11: 84 of 150 participate. Grade 12: 63 of 140 participate.</p>
+  <p>Test \(H_0:p_1=p_2\) vs. \(H_a:p_1\ne p_2\) at \(\alpha=0.05\).</p>
+  <hr class="part-divider">
+  <h3>(a) Sample proportions</h3>
+  <div class="step-row"><span class="prompt">\(\hat{p}_1=84/150\) =</span><input class="num-input" id="w7_4a_p1" type="number" step="any" data-save="w7_4a_p1" placeholder="?"></div>
+  <div class="step-row"><span class="prompt">\(\hat{p}_2=63/140\) =</span><input class="num-input" id="w7_4a_p2" type="number" step="any" data-save="w7_4a_p2" placeholder="?"></div>
+  <div class="btn-row no-print"><button class="check-btn" onclick="check4a()">Check (a)</button></div>
+  <div id="fb4a" class="feedback"></div>
+  <hr class="part-divider">
+  <h3>(b) Pooled proportion</h3>
+  <div class="step-row"><span class="prompt">\(\hat{p}_{\text{pool}}=(84+63)/(150+140)\) =</span><input class="num-input wide" id="w7_4b" type="number" step="any" data-save="w7_4b" placeholder="?"></div>
+  <div class="btn-row no-print"><button class="check-btn" onclick="check4b()">Check (b)</button></div>
+  <div id="fb4b" class="feedback"></div>
+  <hr class="part-divider">
+  <h3>(c) Test statistic \(z\)</h3>
+  <div class="step-row"><span class="prompt">\(\text{SE}=\sqrt{\hat{p}_{\text{pool}}(1-\hat{p}_{\text{pool}})(1/150+1/140)}\) =</span><input class="num-input wide" id="w7_4c_se" type="number" step="any" data-save="w7_4c_se" placeholder="?"></div>
+  <div class="step-row"><span class="prompt">\(z=(\hat{p}_1-\hat{p}_2)/\text{SE}\) =</span><input class="num-input wide" id="w7_4c_z" type="number" step="any" data-save="w7_4c_z" placeholder="?"></div>
+  <div class="btn-row no-print"><button class="check-btn" onclick="check4c()">Check (c)</button></div>
+  <div id="fb4c" class="feedback"></div>
+  <hr class="part-divider">
+  <h3>(d) \(p\)-value and conclusion</h3>
+  <div class="step-row"><span class="prompt">\(p\)-value \(=2(1-P(Z\le 1.87))\) =</span><input class="num-input wide" id="w7_4d_pv" type="number" step="any" data-save="w7_4d_pv" placeholder="?"></div>
+  <div class="btn-row no-print">
+    <button class="check-btn" onclick="check4d()">Check (d)</button>
+    <button class="sol-btn" id="sol-btn-4" onclick="toggleSol('sol-4')">🔒 Unlock solution by completing checks</button>
+  </div>
+  <div id="fb4d" class="feedback"></div>
+  <label class="interp-label"><span>Write the decision and a complete conclusion in context.</span><textarea data-save="w7_4d_conc" placeholder="Since p-value = … > 0.05, we … There is insufficient/sufficient evidence that…"></textarea></label>
+  <div class="sol-panel" id="sol-4"><div class="sol-panel-inner">
+    <p>\(\hat{p}_1=0.56\), \(\hat{p}_2=0.45\). \(\hat{p}_{\text{pool}}=147/290\approx0.5069\).</p>
+    <p>SE\(=\sqrt{0.2500\times0.01381}\approx0.05876\). \(z=0.11/0.05876\approx1.87\).</p>
+    <p>\(p\)-value\(=2(1-0.9693)=0.0614&gt;0.05\).</p>
+    <div class="ftreject-line"><strong>Fail to reject \(H_0\).</strong></div>
+    <div class="answer-line">There is insufficient evidence at \(\alpha=0.05\) that participation rates differ between Grade 11 and Grade 12.</div>
+  </div></div>
+</div>
+</div>
+<script>
+function save(k,v){try{localStorage.setItem(k,v);}catch(e){}}function load(k){try{return localStorage.getItem(k)||'';}catch(e){return '';}}
+document.querySelectorAll('[data-save]').forEach(el=>{el.value=load(el.dataset.save);el.addEventListener('input',()=>save(el.dataset.save,el.value));});
+function get(id){return parseFloat(document.getElementById(id).value);}
+function near(a,b,t){return !isNaN(a)&&Math.abs(a-b)<=t;}
+function setFB(id,ok,msg){const el=document.getElementById(id);el.className='feedback '+(ok?'ok':'err');el.textContent=(ok?'✓ ':'✗ ')+msg;}
+function mark(id,ok){const el=document.getElementById(id);if(!el)return;el.classList.remove('correct','wrong');if(!isNaN(parseFloat(el.value)))el.classList.add(ok?'correct':'wrong');}
+function unlock(id){const b=document.getElementById(id);b.classList.add('unlocked');b.textContent='▸ Show solution';}
+function toggleSol(id){document.getElementById(id).classList.toggle('open');}
+var p2ok={a:false,b:false,c:false},p3ok={a:false,b:false},p4ok={a:false,b:false,c:false,d:false};
+function check2a(){const t1=get('w7_2a_t1'),t2=get('w7_2a_t2'),se=get('w7_2a_se');const cs=[{id:'w7_2a_t1',ok:near(t1,1.6,.05),hint:'64/40=1.6'},{id:'w7_2a_t2',ok:near(t2,1.25,.05),hint:'56.25/45=1.25'},{id:'w7_2a_se',ok:near(se,1.688,.02),hint:'√2.85≈1.688'}];cs.forEach(c=>mark(c.id,c.ok));const f=cs.filter(c=>!c.ok);const ok=f.length===0;setFB('fb2a',ok,ok?'Correct. SE≈1.688.':'Review: '+f.map(c=>c.hint).join(' · '));p2ok.a=ok;if(p2ok.a&&p2ok.b&&p2ok.c)unlock('sol-btn-2');}
+function check2b(){const v=get('w7_2b');const ok=near(v,2.13,.04);mark('w7_2b',ok);setFB('fb2b',ok,ok?'Correct. z≈2.13.':'3.6/1.688≈2.13.');p2ok.b=ok;if(p2ok.a&&p2ok.b&&p2ok.c)unlock('sol-btn-2');}
+function check2c(){const v=get('w7_2c');const ok=near(v,0.0166,.003);mark('w7_2c',ok);setFB('fb2c',ok,ok?'Correct. p≈0.0166.':'1−P(Z≤2.13)=1−0.9834=0.0166.');p2ok.c=ok;if(p2ok.a&&p2ok.b&&p2ok.c)unlock('sol-btn-2');}
+function check3a(){const v=get('w7_3a');const ok=near(v,3.308,.02);mark('w7_3a',ok);setFB('fb3a',ok,ok?'Correct. ME≈3.31.':'1.96×1.688≈3.308.');p3ok.a=ok;if(p3ok.a&&p3ok.b)unlock('sol-btn-3');}
+function check3b(){const lo=get('w7_3b_lo'),hi=get('w7_3b_hi');const cs=[{id:'w7_3b_lo',ok:near(lo,0.29,.05),hint:'lower=3.6−3.31=0.29'},{id:'w7_3b_hi',ok:near(hi,6.91,.05),hint:'upper=3.6+3.31=6.91'}];cs.forEach(c=>mark(c.id,c.ok));const f=cs.filter(c=>!c.ok);const ok=f.length===0;setFB('fb3b',ok,ok?'Correct. CI=(0.29, 6.91).':'Review: '+f.map(c=>c.hint).join(' · '));p3ok.b=ok;if(p3ok.a&&p3ok.b)unlock('sol-btn-3');}
+function check4a(){const p1=get('w7_4a_p1'),p2=get('w7_4a_p2');const cs=[{id:'w7_4a_p1',ok:near(p1,0.56,.005),hint:'84/150=0.56'},{id:'w7_4a_p2',ok:near(p2,0.45,.005),hint:'63/140=0.45'}];cs.forEach(c=>mark(c.id,c.ok));const f=cs.filter(c=>!c.ok);const ok=f.length===0;setFB('fb4a',ok,ok?'Correct. p̂₁=0.56, p̂₂=0.45.':'Review: '+f.map(c=>c.hint).join(' · '));p4ok.a=ok;if(p4ok.a&&p4ok.b&&p4ok.c&&p4ok.d)unlock('sol-btn-4');}
+function check4b(){const v=get('w7_4b');const ok=near(v,0.5069,.003);mark('w7_4b',ok);setFB('fb4b',ok,ok?'Correct. p̂pool≈0.5069.':'147/290≈0.5069.');p4ok.b=ok;if(p4ok.a&&p4ok.b&&p4ok.c&&p4ok.d)unlock('sol-btn-4');}
+function check4c(){const se=get('w7_4c_se'),z=get('w7_4c_z');const cs=[{id:'w7_4c_se',ok:near(se,0.05876,.003),hint:'SE≈0.0588'},{id:'w7_4c_z',ok:near(z,1.87,.04),hint:'z=0.11/0.0588≈1.87'}];cs.forEach(c=>mark(c.id,c.ok));const f=cs.filter(c=>!c.ok);const ok=f.length===0;setFB('fb4c',ok,ok?'Correct. z≈1.87.':'Review: '+f.map(c=>c.hint).join(' · '));p4ok.c=ok;if(p4ok.a&&p4ok.b&&p4ok.c&&p4ok.d)unlock('sol-btn-4');}
+function check4d(){const v=get('w7_4d_pv');const ok=near(v,0.0614,.003);mark('w7_4d_pv',ok);setFB('fb4d',ok,ok?'Correct. p-value≈0.0614.':'2×(1−P(Z≤1.87))=2×0.0307=0.0614.');p4ok.d=ok;if(p4ok.a&&p4ok.b&&p4ok.c&&p4ok.d)unlock('sol-btn-4');}
+</script>
+</body></html>

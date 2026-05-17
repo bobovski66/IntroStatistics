@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Math 146 Week 5 — Confidence Intervals Lab</title>
+  <script>
+    window.MathJax = {
+      tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] },
+      options: { skipHtmlTags: ['script','noscript','style','textarea','pre'] }
+    };
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.min.js"></script>
+  <style>
+    :root {
+      --bg: #f8fafc; --panel: #fff; --text: #1f2937; --muted: #4b5563;
+      --border: #d1d5db; --accent: #0f766e;
+      --ok: #16a34a; --ok-bg: #dcfce7; --ok-border: #86efac;
+      --err: #dc2626; --err-bg: #fef2f2; --err-border: #fca5a5;
+      --field: #f0f9ff; --field-border: #7dd3fc;
+      --locked: #9ca3af; --locked-bg: #f3f4f6;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; font-family: Arial, Helvetica, sans-serif;
+      font-size: 15px; line-height: 1.6; color: var(--text); background: var(--bg);
+    }
+    .container { max-width: 860px; margin: 0 auto; padding: 1.5rem 1rem 4rem; }
+
+    /* Header */
+    .lab-header {
+      background: var(--panel); border: 1px solid var(--border);
+      border-radius: 14px; padding: 1.25rem 1.5rem; margin-bottom: 1.25rem;
+    }
+    .lab-header h1 { margin: 0 0 .2rem; font-size: 1.5rem; }
+    .lab-header p { margin: 0; color: var(--muted); font-size: .875rem; }
+    .id-row { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; margin-top: 1rem; }
+    .id-row label { display: flex; flex-direction: column; gap: .2rem; font-size: .8rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); }
+    .id-row input { border: 1px solid var(--border); border-radius: 6px; padding: .4rem .6rem; font-size: 1rem; font-family: inherit; width: 100%; }
+
+    /* Card */
+    .card { background: var(--panel); border: 1px solid var(--border); border-radius: 14px; padding: 1.25rem; margin-bottom: 1.25rem; }
+    .card h2 { margin: 0 0 .75rem; font-size: 1.1rem; }
+    .card h3 { margin: 1rem 0 .4rem; font-size: .85rem; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; }
+    .formula-box { background: #f9fafb; border: 1px solid var(--border); border-radius: 10px; padding: .85rem 1rem; margin-bottom: .75rem; overflow-x: auto; }
+    .formula-box p { margin: .35rem 0; }
+    .part-divider { border: none; border-top: 1px solid var(--border); margin: .85rem 0; }
+
+    /* Step rows */
+    .step-row { display: flex; align-items: center; gap: .5rem; margin: .45rem 0; flex-wrap: wrap; font-size: .95rem; }
+    .step-row .prompt { flex: 1 1 220px; }
+    .num-input {
+      width: 90px; border: 1.5px solid var(--field-border); border-radius: 6px;
+      padding: .3rem .5rem; font-size: .95rem; font-family: inherit;
+      background: var(--field); text-align: center;
+    }
+    .num-input:focus { outline: 2px solid var(--accent); border-color: var(--accent); }
+    .num-input.correct { border-color: var(--ok); background: #f0fdf4; }
+    .num-input.wrong   { border-color: var(--err); background: #fef2f2; }
+
+    /* Textareas */
+    .interp-label { display: block; margin-top: .75rem; }
+    .interp-label span { display: block; font-size: .85rem; font-weight: 700; color: var(--muted); margin-bottom: .3rem; }
+    textarea { width: 100%; border: 1.5px solid var(--border); border-radius: 8px; padding: .5rem .65rem; font-family: inherit; font-size: .9rem; min-height: 70px; resize: vertical; }
+    textarea:focus { outline: 2px solid var(--accent); border-color: var(--accent); }
+
+    /* Buttons */
+    .btn-row { display: flex; gap: .6rem; align-items: center; margin-top: .6rem; flex-wrap: wrap; }
+    .check-btn { background: var(--accent); color: #fff; border: none; border-radius: 7px; padding: .4rem .9rem; font-size: .875rem; font-family: inherit; cursor: pointer; }
+    .check-btn:hover { background: #0d5f5a; }
+    .sol-btn {
+      background: var(--locked-bg); color: var(--locked); border: 1.5px solid var(--border);
+      border-radius: 7px; padding: .4rem .9rem; font-size: .875rem; font-family: inherit;
+      cursor: not-allowed; transition: all .2s;
+    }
+    .sol-btn.unlocked { background: #1e40af; color: #fff; border-color: #1e40af; cursor: pointer; }
+    .sol-btn.unlocked:hover { background: #1e3a8a; }
+    .print-btn { background: #374151; color: #fff; border: none; border-radius: 8px; padding: .55rem 1.2rem; font-size: .9rem; font-family: inherit; cursor: pointer; margin-bottom: 1rem; }
+    .print-btn:hover { background: #1f2937; }
+
+    /* Feedback */
+    .feedback { margin-top: .4rem; padding: .4rem .7rem; border-radius: 7px; font-size: .875rem; display: none; }
+    .feedback.ok  { background: var(--ok-bg);  color: var(--ok);  border: 1px solid var(--ok-border);  display: block; }
+    .feedback.err { background: var(--err-bg); color: var(--err); border: 1px solid var(--err-border); display: block; }
+
+    /* Solution panel */
+    .sol-panel { display: none; margin-top: .75rem; border: 1px solid #bfdbfe; border-radius: 10px; background: #eff6ff; overflow: hidden; }
+    .sol-panel.open { display: block; }
+    .sol-panel-inner { padding: .85rem 1rem; font-size: .9rem; }
+    .sol-panel-inner p { margin: .4rem 0; }
+    .answer-line { margin-top: .6rem; padding: .4rem .65rem; background: var(--ok-bg); border-radius: 7px; border-left: 4px solid var(--ok); }
+
+    /* Print */
+    @media print {
+      body { background: #fff; font-size: 11pt; }
+      .container { padding: 0; max-width: 100%; }
+      .no-print, .check-btn, .print-btn, .sol-btn, .sol-panel, .feedback { display: none !important; }
+      .card { border: 1px solid #ccc; border-radius: 6px; margin-bottom: .75rem; padding: .85rem; page-break-inside: avoid; }
+      .lab-header { border-radius: 6px; }
+      .num-input, .id-row input, textarea { border: none; border-bottom: 1px solid #999; background: transparent; border-radius: 0; }
+      textarea { min-height: 48pt; }
+      h1 { font-size: 14pt; } h2 { font-size: 11pt; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <div class="no-print" style="margin-bottom:.75rem;">
+    <button class="print-btn" onclick="window.print()">🖨 Print Lab Report</button>
+  </div>
+
+  <div class="lab-header">
+    <h1>Math 146 — Week 5 Lab: Confidence Intervals</h1>
+    <p>Fill in each blank and check your numerical answers. Solutions unlock once all checks in that problem pass. Interpretations are yours to write — no auto-check. Your work saves automatically in this browser.</p>
+    <div class="id-row">
+      <label>Student name <input type="text" data-save="w5_name" placeholder="Your full name"></label>
+      <label>Date <input type="text" data-save="w5_date" placeholder="mm/dd/yyyy"></label>
+    </div>
+  </div>
+
+  <!-- Reference -->
+  <div class="card">
+    <h2>Reference Formulas</h2>
+    <div class="formula-box">
+      <p>CI for a mean (\(\sigma\) known): \[ \bar{x} \pm z^* \frac{\sigma}{\sqrt{n}} \]</p>
+      <p>CI for a proportion: \[ \hat{p} \pm z^* \sqrt{\frac{\hat{p}(1-\hat{p})}{n}} \]</p>
+      <p>Required sample size: \[ n \ge \left(\frac{z^*\sigma}{\text{ME}}\right)^2 \]</p>
+      <p>Critical values: \(90\%: z^*=1.645\) &ensp; \(95\%: z^*=1.96\) &ensp; \(99\%: z^*=2.576\)</p>
+    </div>
+  </div>
+
+  <!-- ===== PROBLEM 1 ===== -->
+  <div class="card">
+    <h2>Problem 1 — CI for a Population Mean</h2>
+    <p>A school counselor samples 36 students and finds mean sleep time \(\bar{x}=6.8\) hours. Assume \(\sigma=1.5\) hours.</p>
+    <hr class="part-divider">
+
+    <h3>(a) Construct a 95% confidence interval for \(\mu\)</h3>
+    <div class="step-row">
+      <span class="prompt">Standard error &ensp; \(\sigma/\sqrt{n}\) =</span>
+      <input class="num-input" id="w5_1a_se" type="number" step="any" data-save="w5_1a_se" placeholder="?">
+    </div>
+    <div class="step-row">
+      <span class="prompt">Critical value &ensp; \(z^*\) =</span>
+      <input class="num-input" id="w5_1a_zs" type="number" step="any" data-save="w5_1a_zs" placeholder="?">
+    </div>
+    <div class="step-row">
+      <span class="prompt">Margin of error &ensp; \(\text{ME} = z^* \times \text{SE}\) =</span>
+      <input class="num-input" id="w5_1a_me" type="number" step="any" data-save="w5_1a_me" placeholder="?">
+    </div>
+    <div class="step-row">
+      <span class="prompt">Lower bound &ensp; \(\bar{x} - \text{ME}\) =</span>
+      <input class="num-input" id="w5_1a_lo" type="number" step="any" data-save="w5_1a_lo" placeholder="?">
+      &ensp; Upper bound &ensp; \(\bar{x} + \text{ME}\) =
+      <input class="num-input" id="w5_1a_hi" type="number" step="any" data-save="w5_1a_hi" placeholder="?">
+    </div>
+    <div class="btn-row no-print">
+      <button class="check-btn" onclick="check1a()">Check (a)</button>
+      <button class="sol-btn" id="sol-btn-1" onclick="toggleSol('sol-1')">🔒 Unlock solution by completing checks</button>
+    </div>
+    <div id="fb1a" class="feedback"></div>
+    <div class="sol-panel" id="sol-1">
+      <div class="sol-panel-inner">
+        <p>\(\text{SE} = 1.5/\sqrt{36} = 1.5/6 = 0.25\)</p>
+        <p>\(\text{ME} = 1.96 \times 0.25 = 0.49\)</p>
+        <p>\(\bar{x} \pm \text{ME} = 6.8 \pm 0.49\)</p>
+        <div class="answer-line"><strong>95% CI:</strong> \((6.31,\ 7.29)\) hours &ensp;|&ensp; \(\text{ME} = 0.49\) hours</div>
+      </div>
+    </div>
+
+    <hr class="part-divider">
+    <h3>(b) State the margin of error</h3>
+    <div class="step-row">
+      <span class="prompt">\(\text{ME}\) =</span>
+      <input class="num-input" id="w5_1b_me" type="number" step="any" data-save="w5_1b_me" placeholder="?">
+    </div>
+    <div class="btn-row no-print">
+      <button class="check-btn" onclick="check1b()">Check (b)</button>
+    </div>
+    <div id="fb1b" class="feedback"></div>
+
+    <hr class="part-divider">
+    <h3>(c) Interpret your interval in context</h3>
+    <label class="interp-label">
+      <span>Write one complete sentence. Include the confidence level, the population, and both bounds.</span>
+      <textarea data-save="w5_1c" placeholder="We are 95% confident that…"></textarea>
+    </label>
+  </div>
+
+  <!-- ===== PROBLEM 2 ===== -->
+  <div class="card">
+    <h2>Problem 2 — Confidence Level and Width</h2>
+    <p>A sample of 64 packages has \(\bar{x}=12.4\) oz with \(\sigma=1.2\) oz.</p>
+    <hr class="part-divider">
+
+    <h3>Shared standard error</h3>
+    <div class="step-row">
+      <span class="prompt">\(\text{SE} = \sigma/\sqrt{n}\) =</span>
+      <input class="num-input" id="w5_2_se" type="number" step="any" data-save="w5_2_se" placeholder="?">
+    </div>
+
+    <hr class="part-divider">
+    <h3>(a) 90% confidence interval for \(\mu\)</h3>
+    <div class="step-row">
+      <span class="prompt">\(\text{ME}_{90} = 1.645 \times \text{SE}\) =</span>
+      <input class="num-input" id="w5_2a_me" type="number" step="any" data-save="w5_2a_me" placeholder="?">
+    </div>
+    <div class="step-row">
+      <span class="prompt">Interval: (</span>
+      <input class="num-input" id="w5_2a_lo" type="number" step="any" data-save="w5_2a_lo" placeholder="lower">
+      <span>,</span>
+      <input class="num-input" id="w5_2a_hi" type="number" step="any" data-save="w5_2a_hi" placeholder="upper">
+      <span>)</span>
+    </div>
+    <div class="btn-row no-print">
+      <button class="check-btn" onclick="check2a()">Check (a)</button>
+    </div>
+    <div id="fb2a" class="feedback"></div>
+
+    <hr class="part-divider">
+    <h3>(b) 99% confidence interval for \(\mu\)</h3>
+    <div class="step-row">
+      <span class="prompt">\(\text{ME}_{99} = 2.576 \times \text{SE}\) =</span>
+      <input class="num-input" id="w5_2b_me" type="number" step="any" data-save="w5_2b_me" placeholder="?">
+    </div>
+    <div class="step-row">
+      <span class="prompt">Interval: (</span>
+      <input class="num-input" id="w5_2b_lo" type="number" step="any" data-save="w5_2b_lo" placeholder="lower">
+      <span>,</span>
+      <input class="num-input" id="w5_2b_hi" type="number" step="any" data-save="w5_2b_hi" placeholder="upper">
+      <span>)</span>
+    </div>
+    <div class="btn-row no-print">
+      <button class="check-btn" onclick="check2b()">Check (b)</button>
+      <button class="sol-btn" id="sol-btn-2" onclick="toggleSol('sol-2')">🔒 Unlock solution by completing checks</button>
+    </div>
+    <div id="fb2b" class="feedback"></div>
+    <div class="sol-panel" id="sol-2">
+      <div class="sol-panel-inner">
+        <p>\(\text{SE} = 1.2/8 = 0.15\)</p>
+        <p>90%: \(\text{ME} = 1.645 \times 0.15 = 0.247 \;\Rightarrow\; (12.153,\ 12.647)\)</p>
+        <p>99%: \(\text{ME} = 2.576 \times 0.15 = 0.386 \;\Rightarrow\; (12.014,\ 12.786)\)</p>
+        <div class="answer-line">The 99% interval is wider. Higher confidence \(\Rightarrow\) larger \(z^*\) \(\Rightarrow\) larger ME.</div>
+      </div>
+    </div>
+
+    <hr class="part-divider">
+    <h3>(c) Which interval is wider, and why?</h3>
+    <label class="interp-label">
+      <span>Name the wider interval and explain the trade-off between confidence level and width.</span>
+      <textarea data-save="w5_2c" placeholder="The ___ interval is wider because…"></textarea>
+    </label>
+  </div>
+
+  <!-- ===== PROBLEM 3 ===== -->
+  <div class="card">
+    <h2>Problem 3 — Required Sample Size</h2>
+    <p>Estimate mean commute time within \(\text{ME} = 2\) minutes at 95% confidence. Historical \(\sigma = 10\) min.</p>
+    <hr class="part-divider">
+
+    <h3>(a) Find the required sample size</h3>
+    <div class="step-row">
+      <span class="prompt">\(z^*\sigma/\text{ME}\) =</span>
+      <input class="num-input" id="w5_3a_r" type="number" step="any" data-save="w5_3a_r" placeholder="?">
+    </div>
+    <div class="step-row">
+      <span class="prompt">\((z^*\sigma/\text{ME})^2\) =</span>
+      <input class="num-input" id="w5_3a_sq" type="number" step="any" data-save="w5_3a_sq" placeholder="?">
+    </div>
+    <div class="step-row">
+      <span class="prompt">Required \(n\) (rounded up) =</span>
+      <input class="num-input" id="w5_3a_n" type="number" step="1" data-save="w5_3a_n" placeholder="?">
+    </div>
+    <div class="btn-row no-print">
+      <button class="check-btn" onclick="check3a()">Check (a)</button>
+      <button class="sol-btn" id="sol-btn-3" onclick="toggleSol('sol-3')">🔒 Unlock solution by completing checks</button>
+    </div>
+    <div id="fb3a" class="feedback"></div>
+    <div class="sol-panel" id="sol-3">
+      <div class="sol-panel-inner">
+        <p>\(n \ge \left(\dfrac{1.96 \times 10}{2}\right)^2 = (9.8)^2 = 96.04\)</p>
+        <div class="answer-line">\(n = 97\). We always round up: \(n = 96\) gives \(\text{ME} > 2\), violating the requirement.</div>
+      </div>
+    </div>
+
+    <hr class="part-divider">
+    <h3>(b) Why do we round up rather than down?</h3>
+    <label class="interp-label">
+      <span>Explain in one or two sentences.</span>
+      <textarea data-save="w5_3b" placeholder="We round up because…"></textarea>
+    </label>
+  </div>
+
+  <!-- ===== PROBLEM 4 ===== -->
+  <div class="card">
+    <h2>Problem 4 — CI for a Population Proportion</h2>
+    <p>In a survey of 250 adults, 145 check the weather forecast on their phone every day.</p>
+    <hr class="part-divider">
+
+    <h3>(a) Sample proportion \(\hat{p}\)</h3>
+    <div class="step-row">
+      <span class="prompt">\(\hat{p} = 145/250\) =</span>
+      <input class="num-input" id="w5_4a_p" type="number" step="any" data-save="w5_4a_p" placeholder="?">
+    </div>
+    <div class="btn-row no-print">
+      <button class="check-btn" onclick="check4a()">Check (a)</button>
+    </div>
+    <div id="fb4a" class="feedback"></div>
+
+    <hr class="part-divider">
+    <h3>(b) Success-failure condition</h3>
+    <div class="step-row">
+      <span class="prompt">\(n\hat{p}\) =</span>
+      <input class="num-input" id="w5_4b_np" type="number" step="any" data-save="w5_4b_np" placeholder="?">
+      &ensp; \(n(1-\hat{p})\) =
+      <input class="num-input" id="w5_4b_nq" type="number" step="any" data-save="w5_4b_nq" placeholder="?">
+    </div>
+    <div class="btn-row no-print">
+      <button class="check-btn" onclick="check4b()">Check (b)</button>
+    </div>
+    <div id="fb4b" class="feedback"></div>
+
+    <hr class="part-divider">
+    <h3>(c) Construct a 95% CI for \(p\)</h3>
+    <div class="step-row">
+      <span class="prompt">\(\text{SE} = \sqrt{\hat{p}(1-\hat{p})/n}\) =</span>
+      <input class="num-input" id="w5_4c_se" type="number" step="any" data-save="w5_4c_se" placeholder="?">
+    </div>
+    <div class="step-row">
+      <span class="prompt">\(\text{ME} = 1.96 \times \text{SE}\) =</span>
+      <input class="num-input" id="w5_4c_me" type="number" step="any" data-save="w5_4c_me" placeholder="?">
+    </div>
+    <div class="step-row">
+      <span class="prompt">Interval: (</span>
+      <input class="num-input" id="w5_4c_lo" type="number" step="any" data-save="w5_4c_lo" placeholder="lower">
+      <span>,</span>
+      <input class="num-input" id="w5_4c_hi" type="number" step="any" data-save="w5_4c_hi" placeholder="upper">
+      <span>)</span>
+    </div>
+    <div class="btn-row no-print">
+      <button class="check-btn" onclick="check4c()">Check (c)</button>
+      <button class="sol-btn" id="sol-btn-4" onclick="toggleSol('sol-4')">🔒 Unlock solution by completing checks</button>
+    </div>
+    <div id="fb4c" class="feedback"></div>
+    <div class="sol-panel" id="sol-4">
+      <div class="sol-panel-inner">
+        <p>\(\hat{p} = 0.58\), &ensp; \(n\hat{p}=145 \ge 10\) ✓, &ensp; \(n(1-\hat{p})=105 \ge 10\) ✓</p>
+        <p>\(\text{SE} = \sqrt{0.58 \times 0.42 / 250} \approx 0.0312\)</p>
+        <p>\(\text{ME} = 1.96 \times 0.0312 \approx 0.0612\)</p>
+        <div class="answer-line"><strong>95% CI:</strong> \((0.519,\ 0.641)\)</div>
+      </div>
+    </div>
+
+    <hr class="part-divider">
+    <h3>(d) Interpret your interval in context</h3>
+    <label class="interp-label">
+      <span>Write one complete sentence naming the population, the variable, the confidence level, and both bounds.</span>
+      <textarea data-save="w5_4d" placeholder="We are 95% confident that…"></textarea>
+    </label>
+  </div>
+
+</div><!-- end container -->
+
+<script>
+// ---- localStorage ----
+function save(key, val) { try { localStorage.setItem(key, val); } catch(e) {} }
+function load(key) { try { return localStorage.getItem(key) || ''; } catch(e) { return ''; } }
+
+document.querySelectorAll('[data-save]').forEach(el => {
+  const key = el.dataset.save;
+  el.value = load(key);
+  el.addEventListener('input', () => save(key, el.value));
+});
+
+// ---- helpers ----
+function get(id) { return parseFloat(document.getElementById(id).value); }
+function near(a, b, tol) { return !isNaN(a) && Math.abs(a - b) <= tol; }
+
+function setFeedback(id, ok, msg) {
+  const el = document.getElementById(id);
+  el.className = 'feedback ' + (ok ? 'ok' : 'err');
+  el.textContent = (ok ? '✓ ' : '✗ ') + msg;
+}
+
+function markField(id, ok) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.classList.remove('correct', 'wrong');
+  if (!isNaN(parseFloat(el.value))) el.classList.add(ok ? 'correct' : 'wrong');
+}
+
+function unlock(btnId, panelId) {
+  const btn = document.getElementById(btnId);
+  btn.classList.add('unlocked');
+  btn.textContent = '▸ Show solution';
+}
+
+function toggleSol(id) {
+  const panel = document.getElementById(id);
+  if (panel.classList.contains('open')) {
+    panel.classList.remove('open');
+  } else {
+    panel.classList.add('open');
+  }
+}
+
+// ---- Problem 1a ----
+var p1aOk = false;
+function check1a() {
+  const se = get('w5_1a_se'), zs = get('w5_1a_zs'),
+        me = get('w5_1a_me'), lo = get('w5_1a_lo'), hi = get('w5_1a_hi');
+
+  const checks = [
+    { id:'w5_1a_se', ok: near(se,0.25,.005),  hint:'SE = 1.5 ÷ √36 = 0.25' },
+    { id:'w5_1a_zs', ok: near(zs,1.96,.005),  hint:'z* = 1.96 for 95%' },
+    { id:'w5_1a_me', ok: near(me,0.49,.01),   hint:'ME = 1.96 × 0.25 = 0.49' },
+    { id:'w5_1a_lo', ok: near(lo,6.31,.02),   hint:'Lower = 6.8 − 0.49 = 6.31' },
+    { id:'w5_1a_hi', ok: near(hi,7.29,.02),   hint:'Upper = 6.8 + 0.49 = 7.29' },
+  ];
+
+  checks.forEach(c => markField(c.id, c.ok));
+  const failed = checks.filter(c => !c.ok);
+
+  if (failed.length === 0) {
+    setFeedback('fb1a', true, 'All correct. CI = (6.31, 7.29), ME = 0.49.');
+    p1aOk = true;
+    unlock('sol-btn-1', 'sol-1');
+  } else {
+    const hints = failed.map(c => c.hint).join(' · ');
+    setFeedback('fb1a', false, 'Review: ' + hints);
+  }
+}
+
+// ---- Problem 1b ----
+function check1b() {
+  const me = get('w5_1b_me');
+  const ok = near(me, 0.49, .01);
+  markField('w5_1b_me', ok);
+  setFeedback('fb1b', ok, ok ? 'Correct. ME = 0.49 hours.' : 'ME = z* × SE = 1.96 × 0.25 = 0.49.');
+}
+
+// ---- Problem 2a ----
+var p2aOk = false, p2bOk = false;
+function check2a() {
+  const se = get('w5_2_se'), me = get('w5_2a_me'), lo = get('w5_2a_lo'), hi = get('w5_2a_hi');
+  const checks = [
+    { id:'w5_2_se',  ok: near(se,0.15,.005),    hint:'SE = 1.2 ÷ √64 = 0.15' },
+    { id:'w5_2a_me', ok: near(me,0.247,.005),   hint:'ME = 1.645 × 0.15 = 0.247' },
+    { id:'w5_2a_lo', ok: near(lo,12.153,.01),   hint:'Lower = 12.4 − 0.247 = 12.153' },
+    { id:'w5_2a_hi', ok: near(hi,12.647,.01),   hint:'Upper = 12.4 + 0.247 = 12.647' },
+  ];
+  checks.forEach(c => markField(c.id, c.ok));
+  const failed = checks.filter(c => !c.ok);
+  if (failed.length === 0) {
+    setFeedback('fb2a', true, 'Correct. 90% CI = (12.153, 12.647).');
+    p2aOk = true; if (p2bOk) unlock('sol-btn-2', 'sol-2');
+  } else {
+    setFeedback('fb2a', false, 'Review: ' + failed.map(c=>c.hint).join(' · '));
+  }
+}
+
+function check2b() {
+  const me = get('w5_2b_me'), lo = get('w5_2b_lo'), hi = get('w5_2b_hi');
+  const checks = [
+    { id:'w5_2b_me', ok: near(me,0.386,.005),   hint:'ME = 2.576 × 0.15 = 0.386' },
+    { id:'w5_2b_lo', ok: near(lo,12.014,.01),   hint:'Lower = 12.4 − 0.386 = 12.014' },
+    { id:'w5_2b_hi', ok: near(hi,12.786,.01),   hint:'Upper = 12.4 + 0.386 = 12.786' },
+  ];
+  checks.forEach(c => markField(c.id, c.ok));
+  const failed = checks.filter(c => !c.ok);
+  if (failed.length === 0) {
+    setFeedback('fb2b', true, 'Correct. 99% CI = (12.014, 12.786).');
+    p2bOk = true; if (p2aOk) unlock('sol-btn-2', 'sol-2');
+  } else {
+    setFeedback('fb2b', false, 'Review: ' + failed.map(c=>c.hint).join(' · '));
+  }
+}
+
+// ---- Problem 3a ----
+function check3a() {
+  const r = get('w5_3a_r'), sq = get('w5_3a_sq'), n = get('w5_3a_n');
+  const checks = [
+    { id:'w5_3a_r',  ok: near(r,9.8,.05),    hint:'1.96 × 10 ÷ 2 = 9.8' },
+    { id:'w5_3a_sq', ok: near(sq,96.04,.5),  hint:'9.8² = 96.04' },
+    { id:'w5_3a_n',  ok: n === 97,           hint:'96.04 rounds up to 97' },
+  ];
+  checks.forEach(c => markField(c.id, c.ok));
+  const failed = checks.filter(c => !c.ok);
+  if (failed.length === 0) {
+    setFeedback('fb3a', true, 'Correct. Required n = 97.');
+    unlock('sol-btn-3', 'sol-3');
+  } else {
+    setFeedback('fb3a', false, 'Review: ' + failed.map(c=>c.hint).join(' · '));
+  }
+}
+
+// ---- Problem 4a ----
+var p4aOk = false, p4bOk = false, p4cOk = false;
+function check4a() {
+  const p = get('w5_4a_p');
+  const ok = near(p,0.58,.005);
+  markField('w5_4a_p', ok);
+  setFeedback('fb4a', ok, ok ? 'Correct. p̂ = 0.58.' : '145 ÷ 250 = 0.58.');
+  if (ok) { p4aOk = true; if (p4bOk && p4cOk) unlock('sol-btn-4','sol-4'); }
+}
+
+function check4b() {
+  const np = get('w5_4b_np'), nq = get('w5_4b_nq');
+  const checks = [
+    { id:'w5_4b_np', ok: near(np,145,1), hint:'n p̂ = 250 × 0.58 = 145' },
+    { id:'w5_4b_nq', ok: near(nq,105,1), hint:'n(1−p̂) = 250 × 0.42 = 105' },
+  ];
+  checks.forEach(c => markField(c.id, c.ok));
+  const failed = checks.filter(c => !c.ok);
+  if (failed.length === 0) {
+    setFeedback('fb4b', true, 'Both ≥ 10 ✓ — normal approximation is valid.');
+    p4bOk = true; if (p4aOk && p4cOk) unlock('sol-btn-4','sol-4');
+  } else {
+    setFeedback('fb4b', false, 'Review: ' + failed.map(c=>c.hint).join(' · '));
+  }
+}
+
+function check4c() {
+  const se = get('w5_4c_se'), me = get('w5_4c_me'), lo = get('w5_4c_lo'), hi = get('w5_4c_hi');
+  const checks = [
+    { id:'w5_4c_se', ok: near(se,0.0312,.003), hint:'SE = √(0.58×0.42÷250) ≈ 0.0312' },
+    { id:'w5_4c_me', ok: near(me,0.0612,.005), hint:'ME = 1.96 × 0.0312 ≈ 0.061' },
+    { id:'w5_4c_lo', ok: near(lo,0.519,.01),   hint:'Lower = 0.58 − 0.061 = 0.519' },
+    { id:'w5_4c_hi', ok: near(hi,0.641,.01),   hint:'Upper = 0.58 + 0.061 = 0.641' },
+  ];
+  checks.forEach(c => markField(c.id, c.ok));
+  const failed = checks.filter(c => !c.ok);
+  if (failed.length === 0) {
+    setFeedback('fb4c', true, 'Correct. 95% CI = (0.519, 0.641).');
+    p4cOk = true; if (p4aOk && p4bOk) unlock('sol-btn-4','sol-4');
+  } else {
+    setFeedback('fb4c', false, 'Review: ' + failed.map(c=>c.hint).join(' · '));
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,206 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Math 146 Week 2 Lab</title>
+<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},options:{skipHtmlTags:['script','noscript','style','textarea','pre']}};</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.min.js"></script>
+<style>
+:root{--bg:#f8fafc;--panel:#fff;--text:#1f2937;--muted:#4b5563;--border:#d1d5db;--ok:#16a34a;--ok-bg:#dcfce7;--ok-border:#86efac;--err:#dc2626;--err-bg:#fef2f2;--err-border:#fca5a5;--field:#f0f9ff;--field-border:#7dd3fc;--accent:#0f766e;--locked:#9ca3af;--locked-bg:#f3f4f6;}
+*{box-sizing:border-box;}body{margin:0;font-family:Arial,Helvetica,sans-serif;font-size:15px;line-height:1.6;color:var(--text);background:var(--bg);}
+.container{max-width:860px;margin:0 auto;padding:1.5rem 1rem 4rem;}
+.lab-header{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:1.25rem 1.5rem;margin-bottom:1.25rem;}
+.lab-header h1{margin:0 0 .2rem;font-size:1.5rem;}.lab-header p{margin:0;color:var(--muted);font-size:.875rem;}
+.id-row{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-top:1rem;}
+.id-row label{display:flex;flex-direction:column;gap:.2rem;font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);}
+.id-row input{border:1px solid var(--border);border-radius:6px;padding:.4rem .6rem;font-size:1rem;font-family:inherit;width:100%;}
+.card{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:1.25rem;margin-bottom:1.25rem;}
+.card h2{margin:0 0 .75rem;font-size:1.1rem;}.card h3{margin:1rem 0 .4rem;font-size:.85rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;}
+.formula-box{background:#f9fafb;border:1px solid var(--border);border-radius:10px;padding:.85rem 1rem;margin-bottom:.75rem;overflow-x:auto;}
+.formula-box p{margin:.35rem 0;}.part-divider{border:none;border-top:1px solid var(--border);margin:.85rem 0;}
+.step-row{display:flex;align-items:center;gap:.5rem;margin:.45rem 0;flex-wrap:wrap;font-size:.95rem;}
+.step-row .prompt{flex:1 1 200px;}
+.num-input{width:90px;border:1.5px solid var(--field-border);border-radius:6px;padding:.3rem .5rem;font-size:.95rem;font-family:inherit;background:var(--field);text-align:center;}
+.num-input:focus{outline:2px solid var(--accent);border-color:var(--accent);}
+.num-input.correct{border-color:var(--ok);background:#f0fdf4;}.num-input.wrong{border-color:var(--err);background:#fef2f2;}
+.wide{width:120px;}
+.interp-label{display:block;margin-top:.75rem;}
+.interp-label span{display:block;font-size:.85rem;font-weight:700;color:var(--muted);margin-bottom:.3rem;}
+textarea{width:100%;border:1.5px solid var(--border);border-radius:8px;padding:.5rem .65rem;font-family:inherit;font-size:.9rem;min-height:65px;resize:vertical;}
+textarea:focus{outline:2px solid var(--accent);border-color:var(--accent);}
+.btn-row{display:flex;gap:.6rem;align-items:center;margin-top:.6rem;flex-wrap:wrap;}
+.check-btn{background:var(--accent);color:#fff;border:none;border-radius:7px;padding:.4rem .9rem;font-size:.875rem;font-family:inherit;cursor:pointer;}
+.check-btn:hover{background:#0d5f5a;}
+.sol-btn{background:var(--locked-bg);color:var(--locked);border:1.5px solid var(--border);border-radius:7px;padding:.4rem .9rem;font-size:.875rem;font-family:inherit;cursor:not-allowed;transition:all .2s;}
+.sol-btn.unlocked{background:#1e40af;color:#fff;border-color:#1e40af;cursor:pointer;}.sol-btn.unlocked:hover{background:#1e3a8a;}
+.print-btn{background:#374151;color:#fff;border:none;border-radius:8px;padding:.55rem 1.2rem;font-size:.9rem;font-family:inherit;cursor:pointer;margin-bottom:1rem;}
+.feedback{margin-top:.4rem;padding:.4rem .7rem;border-radius:7px;font-size:.875rem;display:none;}
+.feedback.ok{background:var(--ok-bg);color:var(--ok);border:1px solid var(--ok-border);display:block;}
+.feedback.err{background:var(--err-bg);color:var(--err);border:1px solid var(--err-border);display:block;}
+.sol-panel{display:none;margin-top:.75rem;border:1px solid #bfdbfe;border-radius:10px;background:#eff6ff;}
+.sol-panel.open{display:block;}.sol-panel-inner{padding:.85rem 1rem;font-size:.9rem;}.sol-panel-inner p{margin:.4rem 0;}
+.answer-line{margin-top:.6rem;padding:.4rem .65rem;background:var(--ok-bg);border-radius:7px;border-left:4px solid var(--ok);}
+table{width:100%;border-collapse:collapse;margin:.75rem 0;background:white;}
+th,td{border:1px solid var(--border);padding:.55rem .65rem;text-align:center;vertical-align:middle;}th{background:#f3f4f6;}
+@media print{body{background:#fff;font-size:11pt;}.container{padding:0;max-width:100%;}
+.no-print,.check-btn,.print-btn,.sol-btn,.sol-panel,.feedback{display:none!important;}
+.card{border:1px solid #ccc;border-radius:6px;margin-bottom:.75rem;padding:.85rem;page-break-inside:avoid;}
+.num-input,.id-row input,textarea{border:none;border-bottom:1px solid #999;background:transparent;border-radius:0;}
+textarea{min-height:40pt;}h1{font-size:14pt;}h2{font-size:11pt;}}
+</style></head><body>
+<div class="container">
+<div class="no-print" style="margin-bottom:.75rem;"><button class="print-btn" onclick="window.print()">🖨 Print Lab Report</button></div>
+<div class="lab-header">
+  <h1>Math 146 — Week 2 Lab: Probability Distributions</h1>
+  <p>Geometric and binomial distributions, expected value, and histograms. Fill in answers and check; solutions unlock after correct completion.</p>
+  <div class="id-row">
+    <label>Student name <input type="text" data-save="w2_name" placeholder="Your full name"></label>
+    <label>Date <input type="text" data-save="w2_date" placeholder="mm/dd/yyyy"></label>
+  </div>
+</div>
+
+<div class="card">
+  <h2>Reference Formulas</h2>
+  <div class="formula-box">
+    <p>\[ P(X=k) = (1-p)^{k-1}p \qquad \mu_{\text{geo}} = \frac{1}{p} \]</p>
+    <p>\[ P(X=k) = \binom{n}{k}p^k(1-p)^{n-k} \qquad \mu_{\text{bin}} = np \qquad \sigma_{\text{bin}} = \sqrt{np(1-p)} \]</p>
+    <p>\[ \binom{n}{k} = \frac{n!}{k!(n-k)!} \qquad E(X) = \sum x \cdot P(X=x) \]</p>
+  </div>
+</div>
+
+<!-- P1 -->
+<div class="card">
+  <h2>Problem 1 — Probability Distribution and Expected Value</h2>
+  <p>A spinner lands on 1 with probability 0.10, on 2 with probability 0.30, on 3 with probability 0.40, and on 4 with probability 0.20.</p>
+  <hr class="part-divider">
+  <h3>(a &amp; b) Complete the table and verify the sum equals 1</h3>
+  <table>
+    <thead><tr><th>\(x\)</th><th>1</th><th>2</th><th>3</th><th>4</th><th>Sum</th></tr></thead>
+    <tbody><tr><td>\(P(X=x)\)</td>
+      <td>0.10</td>
+      <td><input class="num-input" id="w2_1_p2" type="number" step="any" data-save="w2_1_p2" placeholder="?"></td>
+      <td>0.40</td>
+      <td><input class="num-input" id="w2_1_p4" type="number" step="any" data-save="w2_1_p4" placeholder="?"></td>
+      <td><input class="num-input" id="w2_1_sum" type="number" step="any" data-save="w2_1_sum" placeholder="?"></td>
+    </tr></tbody>
+  </table>
+  <div class="btn-row no-print"><button class="check-btn" onclick="check1ab()">Check (a &amp; b)</button></div>
+  <div id="fb1ab" class="feedback"></div>
+  <hr class="part-divider">
+  <h3>(c) Sketch the probability histogram</h3>
+  <label class="interp-label"><span>Describe or sketch: what are the bar heights, and what do the axes represent?</span><textarea data-save="w2_1c" placeholder="The x-axis shows…, the y-axis shows…, the bars have heights…"></textarea></label>
+  <hr class="part-divider">
+  <h3>(d) Compute \(\mu = E(X)\)</h3>
+  <div class="step-row"><span class="prompt">\(E(X) = \sum x \cdot P(X=x)\) =</span><input class="num-input wide" id="w2_1d" type="number" step="any" data-save="w2_1d" placeholder="?"></div>
+  <div class="btn-row no-print">
+    <button class="check-btn" onclick="check1d()">Check (d)</button>
+    <button class="sol-btn" id="sol-btn-1" onclick="toggleSol('sol-1')">🔒 Unlock solution by completing checks</button>
+  </div>
+  <div id="fb1d" class="feedback"></div>
+  <div class="sol-panel" id="sol-1"><div class="sol-panel-inner">
+    <p>Table: 0.10, 0.30, 0.40, 0.20 — sum = 1.00 ✓</p>
+    <p>\(E(X)=1(0.10)+2(0.30)+3(0.40)+4(0.20)=0.10+0.60+1.20+0.80\)</p>
+    <div class="answer-line">\(E(X) = 2.70\)</div>
+  </div></div>
+</div>
+
+<!-- P2 -->
+<div class="card">
+  <h2>Problem 2 — Geometric Distribution</h2>
+  <p>A student answers each multiple-choice question correctly with probability \(p = 0.20\). Let \(X\) be the question number of the first correct answer.</p>
+  <hr class="part-divider">
+  <h3>(a) Compute \(P(X = 3)\)</h3>
+  <div class="step-row"><span class="prompt">\((1-p)^{k-1} \cdot p\) with \(k=3\):</span><input class="num-input wide" id="w2_2a" type="number" step="any" data-save="w2_2a" placeholder="?"></div>
+  <div class="btn-row no-print"><button class="check-btn" onclick="check2a()">Check (a)</button></div>
+  <div id="fb2a" class="feedback"></div>
+  <hr class="part-divider">
+  <h3>(b) Compute \(\mu\). Interpret in one sentence.</h3>
+  <div class="step-row"><span class="prompt">\(\mu = 1/p\) =</span><input class="num-input" id="w2_2b" type="number" step="any" data-save="w2_2b" placeholder="?"></div>
+  <div class="btn-row no-print">
+    <button class="check-btn" onclick="check2b()">Check (b)</button>
+    <button class="sol-btn" id="sol-btn-2" onclick="toggleSol('sol-2')">🔒 Unlock solution by completing checks</button>
+  </div>
+  <div id="fb2b" class="feedback"></div>
+  <div class="sol-panel" id="sol-2"><div class="sol-panel-inner">
+    <p>(a) \(P(X=3)=(0.80)^2 \times 0.20 = 0.64 \times 0.20 = 0.128\)</p>
+    <p>(b) \(\mu = 1/0.20 = 5\)</p>
+    <div class="answer-line">\(P(X=3)=0.128\) · \(\mu=5\) questions on average until first correct answer</div>
+  </div></div>
+  <hr class="part-divider">
+  <h3>(c) Describe the histogram shape</h3>
+  <label class="interp-label"><span>Is the geometric distribution histogram symmetric, skewed left, or skewed right? Why?</span><textarea data-save="w2_2c" placeholder="The histogram is…"></textarea></label>
+</div>
+
+<!-- P3 -->
+<div class="card">
+  <h2>Problem 3 — Binomial Distribution</h2>
+  <p>A drug is effective for 70% of patients. A doctor prescribes it to 6 patients. Let \(X\) be the number for whom it is effective. So \(n=6\), \(p=0.70\).</p>
+  <hr class="part-divider">
+  <h3>(a) Identify \(n\) and \(p\); explain the binomial conditions</h3>
+  <label class="interp-label"><span>List the four binomial conditions and confirm each applies here.</span><textarea data-save="w2_3a" placeholder="n = …, p = …. This is binomial because…"></textarea></label>
+  <hr class="part-divider">
+  <h3>(b) Compute \(P(X = 6)\)</h3>
+  <div class="step-row"><span class="prompt">\(\binom{6}{6}(0.70)^6(0.30)^0\) =</span><input class="num-input wide" id="w2_3b" type="number" step="any" data-save="w2_3b" placeholder="?"></div>
+  <div class="btn-row no-print"><button class="check-btn" onclick="check3b()">Check (b)</button></div>
+  <div id="fb3b" class="feedback"></div>
+  <hr class="part-divider">
+  <h3>(c) Compute \(P(X = 4)\) — show the combination</h3>
+  <div class="step-row"><span class="prompt">\(\binom{6}{4}\) =</span><input class="num-input" id="w2_3c_c" type="number" step="any" data-save="w2_3c_c" placeholder="?"></div>
+  <div class="step-row"><span class="prompt">\(P(X=4) = \binom{6}{4}(0.70)^4(0.30)^2\) =</span><input class="num-input wide" id="w2_3c_p" type="number" step="any" data-save="w2_3c_p" placeholder="?"></div>
+  <div class="btn-row no-print"><button class="check-btn" onclick="check3c()">Check (c)</button></div>
+  <div id="fb3c" class="feedback"></div>
+  <hr class="part-divider">
+  <h3>(d) Compute \(\mu\) and \(\sigma\). Interpret \(\mu\).</h3>
+  <div class="step-row"><span class="prompt">\(\mu = np\) =</span><input class="num-input" id="w2_3d_mu" type="number" step="any" data-save="w2_3d_mu" placeholder="?"></div>
+  <div class="step-row"><span class="prompt">\(\sigma = \sqrt{np(1-p)}\) =</span><input class="num-input wide" id="w2_3d_sig" type="number" step="any" data-save="w2_3d_sig" placeholder="?"></div>
+  <div class="btn-row no-print">
+    <button class="check-btn" onclick="check3d()">Check (d)</button>
+    <button class="sol-btn" id="sol-btn-3" onclick="toggleSol('sol-3')">🔒 Unlock solution by completing checks</button>
+  </div>
+  <div id="fb3d" class="feedback"></div>
+  <div class="sol-panel" id="sol-3"><div class="sol-panel-inner">
+    <p>(b) \((0.70)^6 = 0.117649 \approx 0.1176\)</p>
+    <p>(c) \(\binom{6}{4}=15\). \(P(X=4)=15(0.2401)(0.09)=0.3241\)</p>
+    <p>(d) \(\mu=6(0.70)=4.2\). \(\sigma=\sqrt{6(0.70)(0.30)}=\sqrt{1.26}\approx 1.12\)</p>
+    <div class="answer-line">\(P(X=6)\approx 0.1176\) · \(P(X=4)\approx 0.3241\) · \(\mu=4.2\) · \(\sigma\approx 1.12\)</div>
+  </div></div>
+  <hr class="part-divider">
+  <h3>(e) Describe the expected histogram shape</h3>
+  <label class="interp-label"><span>Symmetric, skewed left, or skewed right? Where is the tallest bar? Why?</span><textarea data-save="w2_3e" placeholder="Since p = 0.70 > 0.50, the histogram is…"></textarea></label>
+</div>
+</div>
+<script>
+function save(k,v){try{localStorage.setItem(k,v);}catch(e){}}function load(k){try{return localStorage.getItem(k)||'';}catch(e){return '';}}
+document.querySelectorAll('[data-save]').forEach(el=>{el.value=load(el.dataset.save);el.addEventListener('input',()=>save(el.dataset.save,el.value));});
+function get(id){return parseFloat(document.getElementById(id).value);}
+function near(a,b,t){return !isNaN(a)&&Math.abs(a-b)<=t;}
+function setFB(id,ok,msg){const el=document.getElementById(id);el.className='feedback '+(ok?'ok':'err');el.textContent=(ok?'✓ ':'✗ ')+msg;}
+function mark(id,ok){const el=document.getElementById(id);if(!el)return;el.classList.remove('correct','wrong');if(!isNaN(parseFloat(el.value)))el.classList.add(ok?'correct':'wrong');}
+function unlock(id){const b=document.getElementById(id);b.classList.add('unlocked');b.textContent='▸ Show solution';}
+function toggleSol(id){document.getElementById(id).classList.toggle('open');}
+var p1ok={ab:false,d:false},p2ok={a:false,b:false},p3ok={b:false,c:false,d:false};
+function tryUnlock(n,keys,btnId){if(keys.every(k=>p1ok[k]||p2ok[k]||p3ok[k]))unlock(btnId);}
+function check1ab(){
+  const checks=[{id:'w2_1_p2',ok:near(get('w2_1_p2'),0.30,.005),hint:'P(X=2)=0.30'},{id:'w2_1_p4',ok:near(get('w2_1_p4'),0.20,.005),hint:'P(X=4)=0.20'},{id:'w2_1_sum',ok:near(get('w2_1_sum'),1.00,.005),hint:'sum=1.00'}];
+  checks.forEach(c=>mark(c.id,c.ok));const failed=checks.filter(c=>!c.ok);const ok=failed.length===0;
+  setFB('fb1ab',ok,ok?'Table correct and sums to 1.':'Review: '+failed.map(c=>c.hint).join(' · '));
+  p1ok.ab=ok;if(p1ok.ab&&p1ok.d)unlock('sol-btn-1');
+}
+function check1d(){const v=get('w2_1d');const ok=near(v,2.70,.02);mark('w2_1d',ok);setFB('fb1d',ok,ok?'Correct. E(X) = 2.70.':'E(X)=1(0.10)+2(0.30)+3(0.40)+4(0.20)=2.70.');p1ok.d=ok;if(p1ok.ab&&p1ok.d)unlock('sol-btn-1');}
+function check2a(){const v=get('w2_2a');const ok=near(v,0.128,.002);mark('w2_2a',ok);setFB('fb2a',ok,ok?'Correct. P(X=3) = 0.128.':'(0.80)²×0.20 = 0.64×0.20 = 0.128.');p2ok.a=ok;if(p2ok.a&&p2ok.b)unlock('sol-btn-2');}
+function check2b(){const v=get('w2_2b');const ok=near(v,5,.01);mark('w2_2b',ok);setFB('fb2b',ok,ok?'Correct. μ = 5.':'μ = 1/p = 1/0.20 = 5.');p2ok.b=ok;if(p2ok.a&&p2ok.b)unlock('sol-btn-2');}
+function check3b(){const v=get('w2_3b');const ok=near(v,0.1176,.002);mark('w2_3b',ok);setFB('fb3b',ok,ok?'Correct. P(X=6) ≈ 0.1176.':'(0.70)⁶ ≈ 0.117649 ≈ 0.1176.');p3ok.b=ok;if(p3ok.b&&p3ok.c&&p3ok.d)unlock('sol-btn-3');}
+function check3c(){
+  const cc=get('w2_3c_c'),cp=get('w2_3c_p');
+  const checks=[{id:'w2_3c_c',ok:near(cc,15,.01),hint:'C(6,4)=15'},{id:'w2_3c_p',ok:near(cp,0.3241,.005),hint:'P(X=4)≈0.3241'}];
+  checks.forEach(c=>mark(c.id,c.ok));const failed=checks.filter(c=>!c.ok);const ok=failed.length===0;
+  setFB('fb3c',ok,ok?'Correct. C(6,4)=15, P(X=4)≈0.3241.':'Review: '+failed.map(c=>c.hint).join(' · '));
+  p3ok.c=ok;if(p3ok.b&&p3ok.c&&p3ok.d)unlock('sol-btn-3');
+}
+function check3d(){
+  const mu=get('w2_3d_mu'),sig=get('w2_3d_sig');
+  const checks=[{id:'w2_3d_mu',ok:near(mu,4.2,.05),hint:'μ=np=4.2'},{id:'w2_3d_sig',ok:near(sig,1.12,.03),hint:'σ=√(1.26)≈1.12'}];
+  checks.forEach(c=>mark(c.id,c.ok));const failed=checks.filter(c=>!c.ok);const ok=failed.length===0;
+  setFB('fb3d',ok,ok?'Correct. μ=4.2, σ≈1.12.':'Review: '+failed.map(c=>c.hint).join(' · '));
+  p3ok.d=ok;if(p3ok.b&&p3ok.c&&p3ok.d)unlock('sol-btn-3');
+}
+</script>
+</body></html>
