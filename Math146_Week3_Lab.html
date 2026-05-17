@@ -1,5 +1,6 @@
-<!DOCTYPE html><html lang="en"><head>
-<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/><meta content="width=device-width,initial-scale=1.0" name="viewport"/>
 <title>Math 146 Week 3 Lab</title>
 <script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},options:{skipHtmlTags:['script','noscript','style','textarea','pre']}};</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.min.js"></script>
@@ -55,116 +56,117 @@ textarea{min-height:40pt;}h1{font-size:14pt;}h2{font-size:11pt;}}
 <div class="container">
 <div class="no-print" style="margin-bottom:.75rem;"><button class="print-btn" onclick="window.print()">🖨 Print Lab Report</button></div>
 <div class="lab-header">
-  <h1>Math 146 — Week 3 Lab: Continuous Distributions and z-Scores</h1>
-  <p>Uniform distribution, empirical rule, and standard normal probabilities. Fill in answers; solutions unlock after correct checks.</p>
-  <div class="id-row">
-    <label>Student name <input type="text" data-save="w3_name" placeholder="Your full name"></label>
-    <label>Date <input type="text" data-save="w3_date" placeholder="mm/dd/yyyy"></label>
-  </div>
+<h1>Math 146 — Week 3 Lab: Continuous Distributions and z-Scores</h1>
+<p>Work through each problem in order. Enter numerical answers in the blanks and use the check buttons to test your work. Written explanations are not auto-checked, so use complete sentences and connect your answer back to the situation. Your work saves automatically in this browser.</p>
+<div class="id-row">
+<label>Student name <input data-save="w3_name" placeholder="Your full name" type="text"/></label>
+<label>Date <input data-save="w3_date" placeholder="mm/dd/yyyy" type="text"/></label>
+</div>
+</div>
+<div class="card lab-goal">
+<h2>Lab Goal</h2>
+<p>This lab shifts from discrete probabilities to continuous probability models where area represents probability. Each problem begins with a setting, then asks you to compute, interpret, and write a conclusion in context.</p>
 </div>
 
 <div class="card">
-  <h2>Reference Formulas</h2>
-  <div class="formula-box">
-    <p>\[ U(a,b): \quad \text{height}=\frac{1}{b-a}, \quad P(c\le X\le d)=\frac{d-c}{b-a}, \quad \mu=\frac{a+b}{2} \]</p>
-    <p>\[ P(Z>z)=1-P(Z\le z) \qquad P(a\le Z\le b)=P(Z\le b)-P(Z\le a) \]</p>
-  </div>
+<h2>Reference Formulas</h2>
+<div class="formula-box">
+<p>\[ U(a,b): \quad \text{height}=\frac{1}{b-a}, \quad P(c\le X\le d)=\frac{d-c}{b-a}, \quad \mu=\frac{a+b}{2} \]</p>
+<p>\[ P(Z&gt;z)=1-P(Z\le z) \qquad P(a\le Z\le b)=P(Z\le b)-P(Z\le a) \]</p>
 </div>
-
+</div>
 <!-- P1 -->
 <div class="card">
-  <h2>Problem 1 — Uniform Distribution</h2>
-  <p>A coffee shop fills cups with espresso uniformly distributed between 1.5 and 2.5 ounces. Let \(X \sim U(1.5,\,2.5)\).</p>
-  <hr class="part-divider">
-  <h3>(a) Height of the density curve</h3>
-  <div class="step-row"><span class="prompt">\(\text{height} = 1/(b-a)\) =</span><input class="num-input" id="w3_1a_h" type="number" step="any" data-save="w3_1a_h" placeholder="?"></div>
-  <div class="step-row"><span class="prompt">Total area = height × width =</span><input class="num-input" id="w3_1a_area" type="number" step="any" data-save="w3_1a_area" placeholder="?"></div>
-  <div class="btn-row no-print"><button class="check-btn" onclick="check1a()">Check (a)</button></div>
-  <div id="fb1a" class="feedback"></div>
-  <hr class="part-divider">
-  <h3>(b) Sketch the density curve</h3>
-  <label class="interp-label"><span>Describe the shape, height, and axis labels in words.</span><textarea data-save="w3_1b" placeholder="The curve is a horizontal line at height… from x = … to x = …"></textarea></label>
-  <hr class="part-divider">
-  <h3>(c) Find \(P(X &lt; 2.0)\)</h3>
-  <div class="step-row"><span class="prompt">\((2.0-1.5)/(2.5-1.5)\) =</span><input class="num-input" id="w3_1c" type="number" step="any" data-save="w3_1c" placeholder="?"></div>
-  <div class="btn-row no-print"><button class="check-btn" onclick="check1c()">Check (c)</button></div>
-  <div id="fb1c" class="feedback"></div>
-  <hr class="part-divider">
-  <h3>(d) Find \(\mu\). Interpret in one sentence.</h3>
-  <div class="step-row"><span class="prompt">\(\mu = (a+b)/2\) =</span><input class="num-input" id="w3_1d_mu" type="number" step="any" data-save="w3_1d_mu" placeholder="?"></div>
-  <div class="btn-row no-print">
-    <button class="check-btn" onclick="check1d()">Check (d)</button>
-    <button class="sol-btn" id="sol-btn-1" onclick="toggleSol('sol-1')">🔒 Unlock solution by completing checks</button>
-  </div>
-  <div id="fb1d" class="feedback"></div>
-  <div class="sol-panel" id="sol-1"><div class="sol-panel-inner">
-    <p>(a) height = 1/(2.5−1.5) = 1. Total area = 1×1 = 1 ✓</p>
-    <p>(c) P(X&lt;2.0) = (2.0−1.5)/(2.5−1.5) = 0.5/1 = 0.5</p>
-    <p>(d) μ = (1.5+2.5)/2 = 2.0 oz. On average the machine pours 2.0 oz.</p>
-    <div class="answer-line">height=1 · total area=1 · P(X&lt;2.0)=0.5 · μ=2.0 oz</div>
-  </div></div>
-  <hr class="part-divider">
-  <label class="interp-label"><span>Interpret \(\mu\) in one sentence in context.</span><textarea data-save="w3_1d_interp" placeholder="On average…"></textarea></label>
+<h2>Problem 1 — Uniform Distribution</h2>
+<p>A coffee shop fills espresso shots with amounts that vary uniformly between 1.5 and 2.5 ounces. Let \(X \sim U(1.5,\,2.5)\). In a uniform distribution, probability comes from area, so the rectangle must have total area 1.</p>
+<hr class="part-divider"/>
+<h3>(a) Height of the density curve</h3>
+<div class="step-row"><span class="prompt">\(\text{height} = 1/(b-a)\) =</span><input class="num-input" data-save="w3_1a_h" id="w3_1a_h" placeholder="?" step="any" type="number"/></div>
+<div class="step-row"><span class="prompt">Total area = height × width =</span><input class="num-input" data-save="w3_1a_area" id="w3_1a_area" placeholder="?" step="any" type="number"/></div>
+<div class="btn-row no-print"><button class="check-btn" onclick="check1a()">Check (a)</button></div>
+<div class="feedback" id="fb1a"></div>
+<hr class="part-divider"/>
+<h3>(b) Sketch the density curve</h3>
+<label class="interp-label"><span>Describe the shape, height, and axis labels in words.</span><textarea data-save="w3_1b" placeholder="The curve is a horizontal line at height… from x = … to x = …"></textarea></label>
+<hr class="part-divider"/>
+<h3>(c) Find \(P(X &lt; 2.0)\)</h3>
+<div class="step-row"><span class="prompt">\((2.0-1.5)/(2.5-1.5)\) =</span><input class="num-input" data-save="w3_1c" id="w3_1c" placeholder="?" step="any" type="number"/></div>
+<div class="btn-row no-print"><button class="check-btn" onclick="check1c()">Check (c)</button></div>
+<div class="feedback" id="fb1c"></div>
+<hr class="part-divider"/>
+<h3>(d) Find \(\mu\). Interpret in one sentence.</h3>
+<div class="step-row"><span class="prompt">\(\mu = (a+b)/2\) =</span><input class="num-input" data-save="w3_1d_mu" id="w3_1d_mu" placeholder="?" step="any" type="number"/></div>
+<div class="btn-row no-print">
+<button class="check-btn" onclick="check1d()">Check (d)</button>
+<button class="sol-btn" id="sol-btn-1" onclick="toggleSol('sol-1')">🔒 Unlock solution by completing checks</button>
 </div>
-
+<div class="feedback" id="fb1d"></div>
+<div class="sol-panel" id="sol-1"><div class="sol-panel-inner">
+<p>(a) height = 1/(2.5−1.5) = 1. Total area = 1×1 = 1 ✓</p>
+<p>(c) P(X&lt;2.0) = (2.0−1.5)/(2.5−1.5) = 0.5/1 = 0.5</p>
+<p>(d) μ = (1.5+2.5)/2 = 2.0 oz. On average the machine pours 2.0 oz.</p>
+<div class="answer-line">height=1 · total area=1 · P(X&lt;2.0)=0.5 · μ=2.0 oz</div>
+</div></div>
+<hr class="part-divider"/>
+<label class="interp-label"><span>Interpret \(\mu\) in one sentence in context.</span><textarea data-save="w3_1d_interp" placeholder="On average…"></textarea></label>
+</div>
 <!-- P2 -->
 <div class="card">
-  <h2>Problem 2 — Empirical Rule</h2>
-  <p>For the standard normal \(Z \sim N(0,1)\), use the Empirical Rule. Do not use the z-table.</p>
-  <hr class="part-divider">
-  <h3>(a) Percentage between \(z=-2\) and \(z=2\)?</h3>
-  <div class="step-row"><span class="prompt">Empirical Rule: percentage =</span><input class="num-input wide" id="w3_2a" type="number" step="any" data-save="w3_2a" placeholder="?"> %</div>
-  <div class="btn-row no-print"><button class="check-btn" onclick="check2a()">Check (a)</button></div>
-  <div id="fb2a" class="feedback"></div>
-  <hr class="part-divider">
-  <h3>(b) Percentage above \(z=1\)?</h3>
-  <div class="step-row"><span class="prompt">Empirical Rule: percentage above \(z=1\) =</span><input class="num-input wide" id="w3_2b" type="number" step="any" data-save="w3_2b" placeholder="?"> %</div>
-  <div class="btn-row no-print">
-    <button class="check-btn" onclick="check2b()">Check (b)</button>
-    <button class="sol-btn" id="sol-btn-2" onclick="toggleSol('sol-2')">🔒 Unlock solution by completing checks</button>
-  </div>
-  <div id="fb2b" class="feedback"></div>
-  <div class="sol-panel" id="sol-2"><div class="sol-panel-inner">
-    <p>(a) The Empirical Rule: 95% of data falls within 2 standard deviations.</p>
-    <p>(b) 68% falls between z=−1 and z=1, so 32% falls outside. By symmetry, 16% is above z=1.</p>
-    <div class="answer-line">95% between z=±2 · 16% above z=1</div>
-  </div></div>
-  <hr class="part-divider">
-  <h3>(c) Sketch and label the region \(P(Z&gt;1)\)</h3>
-  <label class="interp-label"><span>Describe the sketch: where is the shaded region, and what is its probability?</span><textarea data-save="w3_2c" placeholder="The shaded region is to the right of z=1 and has area…"></textarea></label>
+<h2>Problem 2 — Empirical Rule</h2>
+<p>For the standard normal random variable \(Z \sim N(0,1)\), use the Empirical Rule to estimate the requested percentages. Do not use the z-table for this problem; the goal is to reason from the 68–95–99.7 pattern.</p>
+<hr class="part-divider"/>
+<h3>(a) Percentage between \(z=-2\) and \(z=2\)?</h3>
+<div class="step-row"><span class="prompt">Empirical Rule: percentage =</span><input class="num-input wide" data-save="w3_2a" id="w3_2a" placeholder="?" step="any" type="number"/> %</div>
+<div class="btn-row no-print"><button class="check-btn" onclick="check2a()">Check (a)</button></div>
+<div class="feedback" id="fb2a"></div>
+<hr class="part-divider"/>
+<h3>(b) Percentage above \(z=1\)?</h3>
+<div class="step-row"><span class="prompt">Empirical Rule: percentage above \(z=1\) =</span><input class="num-input wide" data-save="w3_2b" id="w3_2b" placeholder="?" step="any" type="number"/> %</div>
+<div class="btn-row no-print">
+<button class="check-btn" onclick="check2b()">Check (b)</button>
+<button class="sol-btn" id="sol-btn-2" onclick="toggleSol('sol-2')">🔒 Unlock solution by completing checks</button>
 </div>
-
+<div class="feedback" id="fb2b"></div>
+<div class="sol-panel" id="sol-2"><div class="sol-panel-inner">
+<p>(a) The Empirical Rule: 95% of data falls within 2 standard deviations.</p>
+<p>(b) 68% falls between z=−1 and z=1, so 32% falls outside. By symmetry, 16% is above z=1.</p>
+<div class="answer-line">95% between z=±2 · 16% above z=1</div>
+</div></div>
+<hr class="part-divider"/>
+<h3>(c) Sketch and label the region \(P(Z&gt;1)\)</h3>
+<label class="interp-label"><span>Describe the sketch: where is the shaded region, and what is its probability?</span><textarea data-save="w3_2c" placeholder="The shaded region is to the right of z=1 and has area…"></textarea></label>
+</div>
 <!-- P3 -->
 <div class="card">
-  <h2>Problem 3 — z-Table Probabilities</h2>
-  <p>Use the z-table (which gives left-tail areas \(P(Z \le z)\)) to find each probability.</p>
-  <hr class="part-divider">
-  <h3>(a) \(P(Z \le 1.72)\)</h3>
-  <div class="step-row"><span class="prompt">Left tail — read directly from table:</span><input class="num-input wide" id="w3_3a" type="number" step="any" data-save="w3_3a" placeholder="?"></div>
-  <div class="btn-row no-print"><button class="check-btn" onclick="check3a()">Check (a)</button></div>
-  <div id="fb3a" class="feedback"></div>
-  <hr class="part-divider">
-  <h3>(b) \(P(Z &gt; -0.63)\)</h3>
-  <div class="step-row"><span class="prompt">\(1 - P(Z \le -0.63)\) =</span><input class="num-input wide" id="w3_3b" type="number" step="any" data-save="w3_3b" placeholder="?"></div>
-  <div class="btn-row no-print"><button class="check-btn" onclick="check3b()">Check (b)</button></div>
-  <div id="fb3b" class="feedback"></div>
-  <hr class="part-divider">
-  <h3>(c) \(P(-1.20 \le Z \le 0.50)\)</h3>
-  <div class="step-row"><span class="prompt">\(P(Z\le 0.50)\) =</span><input class="num-input wide" id="w3_3c_hi" type="number" step="any" data-save="w3_3c_hi" placeholder="?"></div>
-  <div class="step-row"><span class="prompt">\(P(Z\le -1.20)\) =</span><input class="num-input wide" id="w3_3c_lo" type="number" step="any" data-save="w3_3c_lo" placeholder="?"></div>
-  <div class="step-row"><span class="prompt">Difference =</span><input class="num-input wide" id="w3_3c_diff" type="number" step="any" data-save="w3_3c_diff" placeholder="?"></div>
-  <div class="btn-row no-print">
-    <button class="check-btn" onclick="check3c()">Check (c)</button>
-    <button class="sol-btn" id="sol-btn-3" onclick="toggleSol('sol-3')">🔒 Unlock solution by completing checks</button>
-  </div>
-  <div id="fb3c" class="feedback"></div>
-  <div class="sol-panel" id="sol-3"><div class="sol-panel-inner">
-    <p>(a) \(P(Z\le 1.72) = 0.9573\) (left tail, read directly)</p>
-    <p>(b) \(P(Z\le -0.63)=0.2643\), so \(P(Z>-0.63)=1-0.2643=0.7357\)</p>
-    <p>(c) \(P(Z\le 0.50)=0.6915\), \(P(Z\le -1.20)=0.1151\), difference = 0.5764</p>
-    <div class="answer-line">0.9573 · 0.7357 · 0.5764</div>
-    <div class="plot-wrap"><svg id="curve-sol" viewBox="0 0 660 260" class="dist-svg"></svg></div>
-  </div></div>
+<h2>Problem 3 — z-Table Probabilities</h2>
+<p>Now use the z-table, which gives left-tail areas \(P(Z \le z)\), to find each probability. Pay attention to whether the problem asks for a left tail, a right tail, or the area between two z-scores.</p>
+<hr class="part-divider"/>
+<h3>(a) \(P(Z \le 1.72)\)</h3>
+<div class="step-row"><span class="prompt">Left tail — read directly from table:</span><input class="num-input wide" data-save="w3_3a" id="w3_3a" placeholder="?" step="any" type="number"/></div>
+<div class="btn-row no-print"><button class="check-btn" onclick="check3a()">Check (a)</button></div>
+<div class="feedback" id="fb3a"></div>
+<hr class="part-divider"/>
+<h3>(b) \(P(Z &gt; -0.63)\)</h3>
+<div class="step-row"><span class="prompt">\(1 - P(Z \le -0.63)\) =</span><input class="num-input wide" data-save="w3_3b" id="w3_3b" placeholder="?" step="any" type="number"/></div>
+<div class="btn-row no-print"><button class="check-btn" onclick="check3b()">Check (b)</button></div>
+<div class="feedback" id="fb3b"></div>
+<hr class="part-divider"/>
+<h3>(c) \(P(-1.20 \le Z \le 0.50)\)</h3>
+<div class="step-row"><span class="prompt">\(P(Z\le 0.50)\) =</span><input class="num-input wide" data-save="w3_3c_hi" id="w3_3c_hi" placeholder="?" step="any" type="number"/></div>
+<div class="step-row"><span class="prompt">\(P(Z\le -1.20)\) =</span><input class="num-input wide" data-save="w3_3c_lo" id="w3_3c_lo" placeholder="?" step="any" type="number"/></div>
+<div class="step-row"><span class="prompt">Difference =</span><input class="num-input wide" data-save="w3_3c_diff" id="w3_3c_diff" placeholder="?" step="any" type="number"/></div>
+<div class="btn-row no-print">
+<button class="check-btn" onclick="check3c()">Check (c)</button>
+<button class="sol-btn" id="sol-btn-3" onclick="toggleSol('sol-3')">🔒 Unlock solution by completing checks</button>
+</div>
+<div class="feedback" id="fb3c"></div>
+<div class="sol-panel" id="sol-3"><div class="sol-panel-inner">
+<p>(a) \(P(Z\le 1.72) = 0.9573\) (left tail, read directly)</p>
+<p>(b) \(P(Z\le -0.63)=0.2643\), so \(P(Z&gt;-0.63)=1-0.2643=0.7357\)</p>
+<p>(c) \(P(Z\le 0.50)=0.6915\), \(P(Z\le -1.20)=0.1151\), difference = 0.5764</p>
+<div class="answer-line">0.9573 · 0.7357 · 0.5764</div>
+<div class="plot-wrap"><svg class="dist-svg" id="curve-sol" viewbox="0 0 660 260"></svg></div>
+</div></div>
 </div>
 </div>
 <script>

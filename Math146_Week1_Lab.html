@@ -1,5 +1,6 @@
-<!DOCTYPE html><html lang="en"><head>
-<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/><meta content="width=device-width,initial-scale=1.0" name="viewport"/>
 <title>Math 146 Week 1 Lab</title>
 <script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},options:{skipHtmlTags:['script','noscript','style','textarea','pre']}};</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.min.js"></script>
@@ -51,126 +52,127 @@ textarea{min-height:40pt;}h1{font-size:14pt;}h2{font-size:11pt;}}
 <div class="container">
 <div class="no-print" style="margin-bottom:.75rem;"><button class="print-btn" onclick="window.print()">🖨 Print Lab Report</button></div>
 <div class="lab-header">
-  <h1>Math 146 — Week 1 Lab: Populations, Samples, and Descriptive Statistics</h1>
-  <p>Fill in each blank and check your answers. Solutions unlock once all checks pass. Written responses are yours to compose.</p>
-  <div class="id-row">
-    <label>Student name <input type="text" data-save="w1_name" placeholder="Your full name"></label>
-    <label>Date <input type="text" data-save="w1_date" placeholder="mm/dd/yyyy"></label>
-  </div>
+<h1>Math 146 — Week 1 Lab: Populations, Samples, and Descriptive Statistics</h1>
+<p>Work through each problem in order. Enter numerical answers in the blanks and use the check buttons to test your work. Written explanations are not auto-checked, so use complete sentences and connect your answer back to the situation. Your work saves automatically in this browser.</p>
+<div class="id-row">
+<label>Student name <input data-save="w1_name" placeholder="Your full name" type="text"/></label>
+<label>Date <input data-save="w1_date" placeholder="mm/dd/yyyy" type="text"/></label>
+</div>
+</div>
+<div class="card lab-goal">
+<h2>Lab Goal</h2>
+<p>This lab introduces the statistical habit of separating the question we care about from the data we actually observe. Each problem begins with a setting, then asks you to compute, interpret, and write a conclusion in context.</p>
 </div>
 
 <div class="card">
-  <h2>Reference Formulas</h2>
-  <div class="formula-box">
-    <p>\[ \bar{x} = \frac{\sum x_i}{n} \qquad s = \sqrt{\frac{\sum(x_i-\bar{x})^2}{n-1}} \qquad \text{rel. freq.} = \frac{\text{freq.}}{n} \]</p>
-  </div>
+<h2>Reference Formulas</h2>
+<div class="formula-box">
+<p>\[ \bar{x} = \frac{\sum x_i}{n} \qquad s = \sqrt{\frac{\sum(x_i-\bar{x})^2}{n-1}} \qquad \text{rel. freq.} = \frac{\text{freq.}}{n} \]</p>
 </div>
-
+</div>
 <!-- P1 -->
 <div class="card">
-  <h2>Problem 1 — Population, Sample, and Notation</h2>
-  <p>A county health department recruits 120 randomly selected adults and records how many hours each slept last night. They find the group average is 6.8 hours.</p>
-  <hr class="part-divider">
-  <h3>(a) Identify the population</h3>
-  <label class="interp-label"><span>Write one sentence.</span><textarea data-save="w1_1a" placeholder="The population is…"></textarea></label>
-  <hr class="part-divider">
-  <h3>(b) Identify the sample</h3>
-  <label class="interp-label"><span>Write one sentence.</span><textarea data-save="w1_1b" placeholder="The sample is…"></textarea></label>
-  <hr class="part-divider">
-  <h3>(c) Which symbol — \(\mu\) or \(\bar{x}\) — represents 6.8 hours? Explain.</h3>
-  <label class="interp-label"><span>Name the symbol and explain why.</span><textarea data-save="w1_1c" placeholder="The symbol is … because…"></textarea></label>
-  <hr class="part-divider">
-  <h3>(d) Which Greek letter represents the unknown true average?</h3>
-  <label class="interp-label"><span>Name it and state what it represents.</span><textarea data-save="w1_1d" placeholder="The symbol is…"></textarea></label>
+<h2>Problem 1 — Population, Sample, and Notation</h2>
+<p>A county health department wants to learn about sleep habits among adults in the county. They randomly select 120 adults, record how many hours each person slept last night, and find that this sample has an average of 6.8 hours. Use this situation to distinguish the group being studied from the smaller group actually measured.</p>
+<hr class="part-divider"/>
+<h3>(a) Identify the population</h3>
+<label class="interp-label"><span>Write one sentence.</span><textarea data-save="w1_1a" placeholder="The population is…"></textarea></label>
+<hr class="part-divider"/>
+<h3>(b) Identify the sample</h3>
+<label class="interp-label"><span>Write one sentence.</span><textarea data-save="w1_1b" placeholder="The sample is…"></textarea></label>
+<hr class="part-divider"/>
+<h3>(c) Which symbol — \(\mu\) or \(\bar{x}\) — represents 6.8 hours? Explain.</h3>
+<label class="interp-label"><span>Name the symbol and explain why.</span><textarea data-save="w1_1c" placeholder="The symbol is … because…"></textarea></label>
+<hr class="part-divider"/>
+<h3>(d) Which Greek letter represents the unknown true average?</h3>
+<label class="interp-label"><span>Name it and state what it represents.</span><textarea data-save="w1_1d" placeholder="The symbol is…"></textarea></label>
 </div>
-
 <!-- P2 -->
 <div class="card">
-  <h2>Problem 2 — Summation Notation and Frequency</h2>
-  <p>Ten students report cups of coffee drunk yesterday: <strong>0, 1, 2, 1, 3, 0, 2, 1, 0, 2</strong></p>
-  <hr class="part-divider">
-  <h3>(a) Compute \(\displaystyle\sum_{i=1}^{10} x_i\)</h3>
-  <div class="step-row">
-    <span class="prompt">Add all ten values:</span>
-    <input class="num-input" id="w1_2a" type="number" step="any" data-save="w1_2a" placeholder="?">
-  </div>
-  <div class="btn-row no-print"><button class="check-btn" onclick="check2a()">Check (a)</button></div>
-  <div id="fb2a" class="feedback"></div>
-  <hr class="part-divider">
-  <h3>(b) Compute \(\displaystyle\sum_{i=1}^{10} x_i^2\)</h3>
-  <div class="step-row"><span class="prompt">Square each value first, then add:</span><input class="num-input" id="w1_2b" type="number" step="any" data-save="w1_2b" placeholder="?"></div>
-  <div class="btn-row no-print"><button class="check-btn" onclick="check2b()">Check (b)</button></div>
-  <div id="fb2b" class="feedback"></div>
-  <hr class="part-divider">
-  <h3>(c) Complete the frequency table</h3>
-  <table>
-    <thead><tr><th>Cups</th><th>Frequency</th><th>Relative frequency</th></tr></thead>
-    <tbody>
-      <tr><td>0</td><td><input class="num-input" id="w1_2c_f0" type="number" step="any" data-save="w1_2c_f0" placeholder="?"></td><td><input class="num-input" id="w1_2c_r0" type="number" step="any" data-save="w1_2c_r0" placeholder="?"></td></tr>
-      <tr><td>1</td><td><input class="num-input" id="w1_2c_f1" type="number" step="any" data-save="w1_2c_f1" placeholder="?"></td><td><input class="num-input" id="w1_2c_r1" type="number" step="any" data-save="w1_2c_r1" placeholder="?"></td></tr>
-      <tr><td>2</td><td><input class="num-input" id="w1_2c_f2" type="number" step="any" data-save="w1_2c_f2" placeholder="?"></td><td><input class="num-input" id="w1_2c_r2" type="number" step="any" data-save="w1_2c_r2" placeholder="?"></td></tr>
-      <tr><td>3</td><td><input class="num-input" id="w1_2c_f3" type="number" step="any" data-save="w1_2c_f3" placeholder="?"></td><td><input class="num-input" id="w1_2c_r3" type="number" step="any" data-save="w1_2c_r3" placeholder="?"></td></tr>
-      <tr><td><strong>Total</strong></td><td><input class="num-input" id="w1_2c_ft" type="number" step="any" data-save="w1_2c_ft" placeholder="?"></td><td><input class="num-input" id="w1_2c_rt" type="number" step="any" data-save="w1_2c_rt" placeholder="?"></td></tr>
-    </tbody>
-  </table>
-  <div class="btn-row no-print"><button class="check-btn" onclick="check2c()">Check (c)</button></div>
-  <div id="fb2c" class="feedback"></div>
-  <hr class="part-divider">
-  <h3>(d) What percentage of students drank at least one cup?</h3>
-  <div class="step-row"><span class="prompt">Percentage =</span><input class="num-input wide" id="w1_2d" type="number" step="any" data-save="w1_2d" placeholder="?"> %</div>
-  <div class="btn-row no-print">
-    <button class="check-btn" onclick="check2d()">Check (d)</button>
-    <button class="sol-btn" id="sol-btn-2" onclick="toggleSol('sol-2')">🔒 Unlock solution by completing checks</button>
-  </div>
-  <div id="fb2d" class="feedback"></div>
-  <div class="sol-panel" id="sol-2"><div class="sol-panel-inner">
-    <p>(a) \(\sum x_i = 0+1+2+1+3+0+2+1+0+2 = 12\)</p>
-    <p>(b) \(\sum x_i^2 = 0+1+4+1+9+0+4+1+0+4 = 24\)</p>
-    <p>(c) 0 appears 3×, 1 appears 3×, 2 appears 3×, 3 appears 1×. All relative frequencies divide by 10.</p>
-    <p>(d) 7 students drank at least one cup (everyone except the 3 who drank 0). \(7/10 = 70\%\).</p>
-    <div class="answer-line">Σx = 12 · Σx² = 24 · 70% drank at least one cup</div>
-  </div></div>
+<h2>Problem 2 — Summation Notation and Frequency</h2>
+<p>Ten students report the number of cups of coffee they drank yesterday: <strong>0, 1, 2, 1, 3, 0, 2, 1, 0, 2</strong>. Use this small dataset to practice summation notation and to organize the values into a frequency table.</p>
+<hr class="part-divider"/>
+<h3>(a) Compute \(\displaystyle\sum_{i=1}^{10} x_i\)</h3>
+<div class="step-row">
+<span class="prompt">Add all ten values:</span>
+<input class="num-input" data-save="w1_2a" id="w1_2a" placeholder="?" step="any" type="number"/>
 </div>
-
+<div class="btn-row no-print"><button class="check-btn" onclick="check2a()">Check (a)</button></div>
+<div class="feedback" id="fb2a"></div>
+<hr class="part-divider"/>
+<h3>(b) Compute \(\displaystyle\sum_{i=1}^{10} x_i^2\)</h3>
+<div class="step-row"><span class="prompt">Square each value first, then add:</span><input class="num-input" data-save="w1_2b" id="w1_2b" placeholder="?" step="any" type="number"/></div>
+<div class="btn-row no-print"><button class="check-btn" onclick="check2b()">Check (b)</button></div>
+<div class="feedback" id="fb2b"></div>
+<hr class="part-divider"/>
+<h3>(c) Complete the frequency table</h3>
+<table>
+<thead><tr><th>Cups</th><th>Frequency</th><th>Relative frequency</th></tr></thead>
+<tbody>
+<tr><td>0</td><td><input class="num-input" data-save="w1_2c_f0" id="w1_2c_f0" placeholder="?" step="any" type="number"/></td><td><input class="num-input" data-save="w1_2c_r0" id="w1_2c_r0" placeholder="?" step="any" type="number"/></td></tr>
+<tr><td>1</td><td><input class="num-input" data-save="w1_2c_f1" id="w1_2c_f1" placeholder="?" step="any" type="number"/></td><td><input class="num-input" data-save="w1_2c_r1" id="w1_2c_r1" placeholder="?" step="any" type="number"/></td></tr>
+<tr><td>2</td><td><input class="num-input" data-save="w1_2c_f2" id="w1_2c_f2" placeholder="?" step="any" type="number"/></td><td><input class="num-input" data-save="w1_2c_r2" id="w1_2c_r2" placeholder="?" step="any" type="number"/></td></tr>
+<tr><td>3</td><td><input class="num-input" data-save="w1_2c_f3" id="w1_2c_f3" placeholder="?" step="any" type="number"/></td><td><input class="num-input" data-save="w1_2c_r3" id="w1_2c_r3" placeholder="?" step="any" type="number"/></td></tr>
+<tr><td><strong>Total</strong></td><td><input class="num-input" data-save="w1_2c_ft" id="w1_2c_ft" placeholder="?" step="any" type="number"/></td><td><input class="num-input" data-save="w1_2c_rt" id="w1_2c_rt" placeholder="?" step="any" type="number"/></td></tr>
+</tbody>
+</table>
+<div class="btn-row no-print"><button class="check-btn" onclick="check2c()">Check (c)</button></div>
+<div class="feedback" id="fb2c"></div>
+<hr class="part-divider"/>
+<h3>(d) What percentage of students drank at least one cup?</h3>
+<div class="step-row"><span class="prompt">Percentage =</span><input class="num-input wide" data-save="w1_2d" id="w1_2d" placeholder="?" step="any" type="number"/> %</div>
+<div class="btn-row no-print">
+<button class="check-btn" onclick="check2d()">Check (d)</button>
+<button class="sol-btn" id="sol-btn-2" onclick="toggleSol('sol-2')">🔒 Unlock solution by completing checks</button>
+</div>
+<div class="feedback" id="fb2d"></div>
+<div class="sol-panel" id="sol-2"><div class="sol-panel-inner">
+<p>(a) \(\sum x_i = 0+1+2+1+3+0+2+1+0+2 = 12\)</p>
+<p>(b) \(\sum x_i^2 = 0+1+4+1+9+0+4+1+0+4 = 24\)</p>
+<p>(c) 0 appears 3×, 1 appears 3×, 2 appears 3×, 3 appears 1×. All relative frequencies divide by 10.</p>
+<p>(d) 7 students drank at least one cup (everyone except the 3 who drank 0). \(7/10 = 70\%\).</p>
+<div class="answer-line">Σx = 12 · Σx² = 24 · 70% drank at least one cup</div>
+</div></div>
+</div>
 <!-- P3 -->
 <div class="card">
-  <h2>Problem 3 — Mean and Standard Deviation</h2>
-  <p>Five friends sent <strong>12, 25, 8, 31, 14</strong> text messages yesterday.</p>
-  <hr class="part-divider">
-  <h3>(a) Compute the sample mean \(\bar{x}\)</h3>
-  <div class="step-row"><span class="prompt">Sum of values:</span><input class="num-input" id="w1_3a_sum" type="number" step="any" data-save="w1_3a_sum" placeholder="?"></div>
-  <div class="step-row"><span class="prompt">\(\bar{x} = \text{sum}/n\) =</span><input class="num-input" id="w1_3a_xbar" type="number" step="any" data-save="w1_3a_xbar" placeholder="?"></div>
-  <div class="btn-row no-print"><button class="check-btn" onclick="check3a()">Check (a)</button></div>
-  <div id="fb3a" class="feedback"></div>
-  <hr class="part-divider">
-  <h3>(b) Deviation table and sample standard deviation \(s\)</h3>
-  <table>
-    <thead><tr><th>\(x_i\)</th><th>\(x_i - \bar{x}\)</th><th>\((x_i-\bar{x})^2\)</th></tr></thead>
-    <tbody>
-      <tr><td>12</td><td><input class="num-input" id="w1_3b_d1" type="number" step="any" data-save="w1_3b_d1" placeholder="?"></td><td><input class="num-input" id="w1_3b_sq1" type="number" step="any" data-save="w1_3b_sq1" placeholder="?"></td></tr>
-      <tr><td>25</td><td><input class="num-input" id="w1_3b_d2" type="number" step="any" data-save="w1_3b_d2" placeholder="?"></td><td><input class="num-input" id="w1_3b_sq2" type="number" step="any" data-save="w1_3b_sq2" placeholder="?"></td></tr>
-      <tr><td>8</td><td><input class="num-input" id="w1_3b_d3" type="number" step="any" data-save="w1_3b_d3" placeholder="?"></td><td><input class="num-input" id="w1_3b_sq3" type="number" step="any" data-save="w1_3b_sq3" placeholder="?"></td></tr>
-      <tr><td>31</td><td><input class="num-input" id="w1_3b_d4" type="number" step="any" data-save="w1_3b_d4" placeholder="?"></td><td><input class="num-input" id="w1_3b_sq4" type="number" step="any" data-save="w1_3b_sq4" placeholder="?"></td></tr>
-      <tr><td>14</td><td><input class="num-input" id="w1_3b_d5" type="number" step="any" data-save="w1_3b_d5" placeholder="?"></td><td><input class="num-input" id="w1_3b_sq5" type="number" step="any" data-save="w1_3b_sq5" placeholder="?"></td></tr>
-      <tr><td><strong>Sum</strong></td><td><input class="num-input" id="w1_3b_dsum" type="number" step="any" data-save="w1_3b_dsum" placeholder="?"></td><td><input class="num-input" id="w1_3b_sqsum" type="number" step="any" data-save="w1_3b_sqsum" placeholder="?"></td></tr>
-    </tbody>
-  </table>
-  <div class="step-row"><span class="prompt">\(s = \sqrt{\sum(x_i-\bar{x})^2/(n-1)}\) =</span><input class="num-input wide" id="w1_3b_s" type="number" step="any" data-save="w1_3b_s" placeholder="?"></div>
-  <div class="btn-row no-print">
-    <button class="check-btn" onclick="check3b()">Check (b)</button>
-    <button class="sol-btn" id="sol-btn-3" onclick="toggleSol('sol-3')">🔒 Unlock solution by completing checks</button>
-  </div>
-  <div id="fb3b" class="feedback"></div>
-  <div class="sol-panel" id="sol-3"><div class="sol-panel-inner">
-    <p>\(\bar{x} = 90/5 = 18\)</p>
-    <p>Deviations: −6, 7, −10, 13, −4. Sum of deviations = 0 (always).</p>
-    <p>Squared deviations: 36, 49, 100, 169, 16. Sum = 370.</p>
-    <p>\(s = \sqrt{370/4} = \sqrt{92.5} \approx 9.62\)</p>
-    <div class="answer-line">\(\bar{x} = 18\) · \(s \approx 9.62\)</div>
-  </div></div>
-  <hr class="part-divider">
-  <h3>(c) A sixth friend sent 500 messages. Without computing, what happens to \(\bar{x}\) and \(s\)?</h3>
-  <label class="interp-label"><span>Explain both changes in one or two sentences.</span><textarea data-save="w1_3c" placeholder="Adding 500 will…"></textarea></label>
+<h2>Problem 3 — Mean and Standard Deviation</h2>
+<p>Five friends report how many text messages they sent yesterday: <strong>12, 25, 8, 31, 14</strong>. Use these values to compute the sample mean and sample standard deviation, then think about how an extreme value would affect both statistics.</p>
+<hr class="part-divider"/>
+<h3>(a) Compute the sample mean \(\bar{x}\)</h3>
+<div class="step-row"><span class="prompt">Sum of values:</span><input class="num-input" data-save="w1_3a_sum" id="w1_3a_sum" placeholder="?" step="any" type="number"/></div>
+<div class="step-row"><span class="prompt">\(\bar{x} = \text{sum}/n\) =</span><input class="num-input" data-save="w1_3a_xbar" id="w1_3a_xbar" placeholder="?" step="any" type="number"/></div>
+<div class="btn-row no-print"><button class="check-btn" onclick="check3a()">Check (a)</button></div>
+<div class="feedback" id="fb3a"></div>
+<hr class="part-divider"/>
+<h3>(b) Deviation table and sample standard deviation \(s\)</h3>
+<table>
+<thead><tr><th>\(x_i\)</th><th>\(x_i - \bar{x}\)</th><th>\((x_i-\bar{x})^2\)</th></tr></thead>
+<tbody>
+<tr><td>12</td><td><input class="num-input" data-save="w1_3b_d1" id="w1_3b_d1" placeholder="?" step="any" type="number"/></td><td><input class="num-input" data-save="w1_3b_sq1" id="w1_3b_sq1" placeholder="?" step="any" type="number"/></td></tr>
+<tr><td>25</td><td><input class="num-input" data-save="w1_3b_d2" id="w1_3b_d2" placeholder="?" step="any" type="number"/></td><td><input class="num-input" data-save="w1_3b_sq2" id="w1_3b_sq2" placeholder="?" step="any" type="number"/></td></tr>
+<tr><td>8</td><td><input class="num-input" data-save="w1_3b_d3" id="w1_3b_d3" placeholder="?" step="any" type="number"/></td><td><input class="num-input" data-save="w1_3b_sq3" id="w1_3b_sq3" placeholder="?" step="any" type="number"/></td></tr>
+<tr><td>31</td><td><input class="num-input" data-save="w1_3b_d4" id="w1_3b_d4" placeholder="?" step="any" type="number"/></td><td><input class="num-input" data-save="w1_3b_sq4" id="w1_3b_sq4" placeholder="?" step="any" type="number"/></td></tr>
+<tr><td>14</td><td><input class="num-input" data-save="w1_3b_d5" id="w1_3b_d5" placeholder="?" step="any" type="number"/></td><td><input class="num-input" data-save="w1_3b_sq5" id="w1_3b_sq5" placeholder="?" step="any" type="number"/></td></tr>
+<tr><td><strong>Sum</strong></td><td><input class="num-input" data-save="w1_3b_dsum" id="w1_3b_dsum" placeholder="?" step="any" type="number"/></td><td><input class="num-input" data-save="w1_3b_sqsum" id="w1_3b_sqsum" placeholder="?" step="any" type="number"/></td></tr>
+</tbody>
+</table>
+<div class="step-row"><span class="prompt">\(s = \sqrt{\sum(x_i-\bar{x})^2/(n-1)}\) =</span><input class="num-input wide" data-save="w1_3b_s" id="w1_3b_s" placeholder="?" step="any" type="number"/></div>
+<div class="btn-row no-print">
+<button class="check-btn" onclick="check3b()">Check (b)</button>
+<button class="sol-btn" id="sol-btn-3" onclick="toggleSol('sol-3')">🔒 Unlock solution by completing checks</button>
+</div>
+<div class="feedback" id="fb3b"></div>
+<div class="sol-panel" id="sol-3"><div class="sol-panel-inner">
+<p>\(\bar{x} = 90/5 = 18\)</p>
+<p>Deviations: −6, 7, −10, 13, −4. Sum of deviations = 0 (always).</p>
+<p>Squared deviations: 36, 49, 100, 169, 16. Sum = 370.</p>
+<p>\(s = \sqrt{370/4} = \sqrt{92.5} \approx 9.62\)</p>
+<div class="answer-line">\(\bar{x} = 18\) · \(s \approx 9.62\)</div>
+</div></div>
+<hr class="part-divider"/>
+<h3>(c) A sixth friend sent 500 messages. Without computing, what happens to \(\bar{x}\) and \(s\)?</h3>
+<label class="interp-label"><span>Explain both changes in one or two sentences.</span><textarea data-save="w1_3c" placeholder="Adding 500 will…"></textarea></label>
 </div>
 </div>
 <script>

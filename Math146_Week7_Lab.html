@@ -1,5 +1,6 @@
-<!DOCTYPE html><html lang="en"><head>
-<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/><meta content="width=device-width,initial-scale=1.0" name="viewport"/>
 <title>Math 146 Week 7 Lab</title>
 <script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},options:{skipHtmlTags:['script','noscript','style','textarea','pre']}};</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.min.js"></script>
@@ -55,150 +56,152 @@ textarea{min-height:40pt;}h1{font-size:14pt;}h2{font-size:11pt;}}
 <div class="container">
 <div class="no-print" style="margin-bottom:.75rem;"><button class="print-btn" onclick="window.print()">🖨 Print Lab Report</button></div>
 <div class="lab-header">
-  <h1>Math 146 — Week 7 Lab: Two-Sample Inference</h1>
-  <p>Two-sample z-tests and confidence intervals for means and proportions.</p>
-  <div class="id-row">
-    <label>Student name <input type="text" data-save="w7_name" placeholder="Your full name"></label>
-    <label>Date <input type="text" data-save="w7_date" placeholder="mm/dd/yyyy"></label>
-  </div>
+<h1>Math 146 — Week 7 Lab: Two-Sample Inference</h1>
+<p>Work through each problem in order. Enter numerical answers in the blanks and use the check buttons to test your work. Written explanations are not auto-checked, so use complete sentences and connect your answer back to the situation. Your work saves automatically in this browser.</p>
+<div class="id-row">
+<label>Student name <input data-save="w7_name" placeholder="Your full name" type="text"/></label>
+<label>Date <input data-save="w7_date" placeholder="mm/dd/yyyy" type="text"/></label>
 </div>
-<div class="card">
-  <h2>Reference Formulas</h2>
-  <div class="formula-box">
-    <p>\[\text{SE}_{\bar{x}_1-\bar{x}_2}=\sqrt{\frac{\sigma_1^2}{n_1}+\frac{\sigma_2^2}{n_2}} \qquad z=\frac{(\bar{x}_1-\bar{x}_2)-0}{\text{SE}} \qquad \text{CI: }(\bar{x}_1-\bar{x}_2)\pm z^*\,\text{SE}\]</p>
-    <p>\[\hat{p}_{\text{pool}}=\frac{x_1+x_2}{n_1+n_2} \qquad z=\frac{\hat{p}_1-\hat{p}_2}{\sqrt{\hat{p}_{\text{pool}}(1-\hat{p}_{\text{pool}})(1/n_1+1/n_2)}}\]</p>
-  </div>
+</div>
+<div class="card lab-goal">
+<h2>Lab Goal</h2>
+<p>This lab extends inference to comparisons between two groups. Each problem begins with a setting, then asks you to compute, interpret, and write a conclusion in context.</p>
 </div>
 
+<div class="card">
+<h2>Reference Formulas</h2>
+<div class="formula-box">
+<p>\[\text{SE}_{\bar{x}_1-\bar{x}_2}=\sqrt{\frac{\sigma_1^2}{n_1}+\frac{\sigma_2^2}{n_2}} \qquad z=\frac{(\bar{x}_1-\bar{x}_2)-0}{\text{SE}} \qquad \text{CI: }(\bar{x}_1-\bar{x}_2)\pm z^*\,\text{SE}\]</p>
+<p>\[\hat{p}_{\text{pool}}=\frac{x_1+x_2}{n_1+n_2} \qquad z=\frac{\hat{p}_1-\hat{p}_2}{\sqrt{\hat{p}_{\text{pool}}(1-\hat{p}_{\text{pool}})(1/n_1+1/n_2)}}\]</p>
+</div>
+</div>
 <!-- P1 -->
 <div class="card">
-  <h2>Problem 1 — Independent or Paired?</h2>
-  <p>For each scenario, classify the data and explain briefly.</p>
-  <hr class="part-divider">
-  <div class="grid2">
-    <div class="verdict-box">
-      <div class="v">(a) Same 30 students, before and after a review session.</div>
-      <label class="interp-label"><span>Paired or independent?</span><textarea data-save="w7_1a" placeholder="These data are…" style="min-height:50px;"></textarea></label>
-    </div>
-    <div class="verdict-box">
-      <div class="v">(b) Two separate class sections using different textbooks.</div>
-      <label class="interp-label"><span>Paired or independent?</span><textarea data-save="w7_1b" placeholder="These data are…" style="min-height:50px;"></textarea></label>
-    </div>
-    <div class="verdict-box">
-      <div class="v">(c) Patient blood pressure measured before and after medication.</div>
-      <label class="interp-label"><span>Paired or independent?</span><textarea data-save="w7_1c" placeholder="These data are…" style="min-height:50px;"></textarea></label>
-    </div>
-    <div class="verdict-box">
-      <div class="v">(d) Ballot measure support surveyed in two different cities.</div>
-      <label class="interp-label"><span>Paired or independent?</span><textarea data-save="w7_1d" placeholder="These data are…" style="min-height:50px;"></textarea></label>
-    </div>
-  </div>
+<h2>Problem 1 — Independent or Paired?</h2>
+<p>Before choosing a two-sample method, decide whether the two sets of data are independent or paired. Independent samples come from separate groups. Paired data come from matched measurements, such as before-and-after measurements on the same people.</p>
+<hr class="part-divider"/>
+<div class="grid2">
+<div class="verdict-box">
+<div class="v">(a) The same 30 students take a short quiz before and after a review session.</div>
+<label class="interp-label"><span>Paired or independent?</span><textarea data-save="w7_1a" placeholder="These data are…" style="min-height:50px;"></textarea></label>
 </div>
-
+<div class="verdict-box">
+<div class="v">(b) Two separate class sections use different textbooks and their quiz scores are compared.</div>
+<label class="interp-label"><span>Paired or independent?</span><textarea data-save="w7_1b" placeholder="These data are…" style="min-height:50px;"></textarea></label>
+</div>
+<div class="verdict-box">
+<div class="v">(c) Each patient has blood pressure measured before and after taking a medication.</div>
+<label class="interp-label"><span>Paired or independent?</span><textarea data-save="w7_1c" placeholder="These data are…" style="min-height:50px;"></textarea></label>
+</div>
+<div class="verdict-box">
+<div class="v">(d) Ballot measure support surveyed in two different cities.</div>
+<label class="interp-label"><span>Paired or independent?</span><textarea data-save="w7_1d" placeholder="These data are…" style="min-height:50px;"></textarea></label>
+</div>
+</div>
+</div>
 <!-- P2 -->
 <div class="card">
-  <h2>Problem 2 — Two-Sample \(z\)-Test for Means</h2>
-  <p>Layout 1: \(n_1=40\), \(\bar{x}_1=58.2\), \(\sigma_1=8.0\) · Layout 2: \(n_2=45\), \(\bar{x}_2=54.6\), \(\sigma_2=7.5\)</p>
-  <p>Test \(H_0:\mu_1=\mu_2\) vs. \(H_a:\mu_1&gt;\mu_2\) at \(\alpha=0.05\).</p>
-  <hr class="part-divider">
-  <h3>(a) Standard error</h3>
-  <div class="step-row"><span class="prompt">\(\sigma_1^2/n_1\) =</span><input class="num-input" id="w7_2a_t1" type="number" step="any" data-save="w7_2a_t1" placeholder="?"></div>
-  <div class="step-row"><span class="prompt">\(\sigma_2^2/n_2\) =</span><input class="num-input" id="w7_2a_t2" type="number" step="any" data-save="w7_2a_t2" placeholder="?"></div>
-  <div class="step-row"><span class="prompt">\(\text{SE}=\sqrt{\text{sum}}\) =</span><input class="num-input wide" id="w7_2a_se" type="number" step="any" data-save="w7_2a_se" placeholder="?"></div>
-  <div class="btn-row no-print"><button class="check-btn" onclick="check2a()">Check (a)</button></div>
-  <div id="fb2a" class="feedback"></div>
-  <hr class="part-divider">
-  <h3>(b) Test statistic \(z\)</h3>
-  <div class="step-row"><span class="prompt">\(z=(\bar{x}_1-\bar{x}_2)/\text{SE}\) =</span><input class="num-input wide" id="w7_2b" type="number" step="any" data-save="w7_2b" placeholder="?"></div>
-  <div class="btn-row no-print"><button class="check-btn" onclick="check2b()">Check (b)</button></div>
-  <div id="fb2b" class="feedback"></div>
-  <hr class="part-divider">
-  <h3>(c) \(p\)-value (right-tailed)</h3>
-  <div class="step-row"><span class="prompt">\(1-P(Z\le 2.13)\) =</span><input class="num-input wide" id="w7_2c" type="number" step="any" data-save="w7_2c" placeholder="?"></div>
-  <div class="btn-row no-print"><button class="check-btn" onclick="check2c()">Check (c)</button></div>
-  <div id="fb2c" class="feedback"></div>
-  <hr class="part-divider">
-  <h3>(d) Decision and conclusion in context</h3>
-  <label class="interp-label"><span>Compare \(p\)-value to \(\alpha\) and write a complete conclusion.</span><textarea data-save="w7_2d" placeholder="Since p-value = … < 0.05, we … There is sufficient evidence to conclude that…"></textarea></label>
-  <div class="btn-row no-print"><button class="sol-btn" id="sol-btn-2" onclick="toggleSol('sol-2')">🔒 Unlock solution by completing checks</button></div>
-  <div class="sol-panel" id="sol-2"><div class="sol-panel-inner">
-    <p>\(\sigma_1^2/n_1=64/40=1.6\), \(\sigma_2^2/n_2=56.25/45=1.25\). SE\(=\sqrt{2.85}\approx1.688\).</p>
-    <p>\(z=3.6/1.688\approx2.13\). \(p\)-value\(=1-0.9834=0.0166&lt;0.05\).</p>
-    <div class="reject-line"><strong>Reject \(H_0\).</strong></div>
-    <div class="answer-line">SE≈1.688 · z≈2.13 · p≈0.0166 · Layout 1 sells more units on average.</div>
-  </div></div>
+<h2>Problem 2 — Two-Sample \(z\)-Test for Means</h2>
+<p>A website team compares the average time, in seconds, that users spend on two page layouts. For Layout 1, \(n_1=40\), \(ar{x}_1=58.2\), and \(\sigma_1=8.0\). For Layout 2, \(n_2=45\), \(ar{x}_2=54.6\), and \(\sigma_2=7.5\). Test whether users spend more time on Layout 1 than on Layout 2.</p>
+<p>Use \(H_0:\mu_1=\mu_2\) and \(H_a:\mu_1&gt;\mu_2\). Test at significance level \(lpha=0.05\).</p>
+<hr class="part-divider"/>
+<h3>(a) Standard error</h3>
+<div class="step-row"><span class="prompt">\(\sigma_1^2/n_1\) =</span><input class="num-input" data-save="w7_2a_t1" id="w7_2a_t1" placeholder="?" step="any" type="number"/></div>
+<div class="step-row"><span class="prompt">\(\sigma_2^2/n_2\) =</span><input class="num-input" data-save="w7_2a_t2" id="w7_2a_t2" placeholder="?" step="any" type="number"/></div>
+<div class="step-row"><span class="prompt">\(\text{SE}=\sqrt{\text{sum}}\) =</span><input class="num-input wide" data-save="w7_2a_se" id="w7_2a_se" placeholder="?" step="any" type="number"/></div>
+<div class="btn-row no-print"><button class="check-btn" onclick="check2a()">Check (a)</button></div>
+<div class="feedback" id="fb2a"></div>
+<hr class="part-divider"/>
+<h3>(b) Test statistic \(z\)</h3>
+<div class="step-row"><span class="prompt">\(z=(\bar{x}_1-\bar{x}_2)/\text{SE}\) =</span><input class="num-input wide" data-save="w7_2b" id="w7_2b" placeholder="?" step="any" type="number"/></div>
+<div class="btn-row no-print"><button class="check-btn" onclick="check2b()">Check (b)</button></div>
+<div class="feedback" id="fb2b"></div>
+<hr class="part-divider"/>
+<h3>(c) \(p\)-value (right-tailed)</h3>
+<div class="step-row"><span class="prompt">\(1-P(Z\le 2.13)\) =</span><input class="num-input wide" data-save="w7_2c" id="w7_2c" placeholder="?" step="any" type="number"/></div>
+<div class="btn-row no-print"><button class="check-btn" onclick="check2c()">Check (c)</button></div>
+<div class="feedback" id="fb2c"></div>
+<hr class="part-divider"/>
+<h3>(d) Decision and conclusion in context</h3>
+<label class="interp-label"><span>Compare \(p\)-value to \(\alpha\) and write a complete conclusion.</span><textarea data-save="w7_2d" placeholder="Since p-value = … &lt; 0.05, we … There is sufficient evidence to conclude that…"></textarea></label>
+<div class="btn-row no-print"><button class="sol-btn" id="sol-btn-2" onclick="toggleSol('sol-2')">🔒 Unlock solution by completing checks</button></div>
+<div class="sol-panel" id="sol-2"><div class="sol-panel-inner">
+<p>\(\sigma_1^2/n_1=64/40=1.6\), \(\sigma_2^2/n_2=56.25/45=1.25\). SE\(=\sqrt{2.85}\approx1.688\).</p>
+<p>\(z=3.6/1.688\approx2.13\). \(p\)-value\(=1-0.9834=0.0166&lt;0.05\).</p>
+<div class="reject-line"><strong>Reject \(H_0\).</strong></div>
+<div class="answer-line">SE≈1.688 · z≈2.13 · p≈0.0166 · Layout 1 sells more units on average.</div>
+</div></div>
 </div>
-
 <!-- P3 -->
 <div class="card">
-  <h2>Problem 3 — CI for \(\mu_1-\mu_2\)</h2>
-  <p>Using the same data from Problem 2, construct a 95% CI for \(\mu_1-\mu_2\).</p>
-  <hr class="part-divider">
-  <h3>(a) Margin of error</h3>
-  <div class="step-row"><span class="prompt">\(\text{ME}=z^*\times\text{SE}=1.96\times1.688\) =</span><input class="num-input wide" id="w7_3a" type="number" step="any" data-save="w7_3a" placeholder="?"></div>
-  <div class="btn-row no-print"><button class="check-btn" onclick="check3a()">Check (a)</button></div>
-  <div id="fb3a" class="feedback"></div>
-  <hr class="part-divider">
-  <h3>(b) Confidence interval</h3>
-  <div class="step-row">
-    <span class="prompt">(\(\bar{x}_1-\bar{x}_2)\pm\text{ME} = 3.6\pm\text{ME}\): (</span>
-    <input class="num-input" id="w7_3b_lo" type="number" step="any" data-save="w7_3b_lo" placeholder="lower">
-    <span>,</span>
-    <input class="num-input" id="w7_3b_hi" type="number" step="any" data-save="w7_3b_hi" placeholder="upper">
-    <span>)</span>
-  </div>
-  <div class="btn-row no-print">
-    <button class="check-btn" onclick="check3b()">Check (b)</button>
-    <button class="sol-btn" id="sol-btn-3" onclick="toggleSol('sol-3')">🔒 Unlock solution by completing checks</button>
-  </div>
-  <div id="fb3b" class="feedback"></div>
-  <div class="sol-panel" id="sol-3"><div class="sol-panel-inner">
-    <p>ME\(=1.96\times1.688\approx3.308\). Interval: \(3.6\pm3.31=(0.29,\,6.91)\).</p>
-    <div class="answer-line">ME≈3.31 · CI: (0.29, 6.91)</div>
-  </div></div>
-  <hr class="part-divider">
-  <h3>(c) Does the interval contain 0? What does that tell you?</h3>
-  <label class="interp-label"><span>State whether 0 is in the interval and what that implies about \(\mu_1-\mu_2\).</span><textarea data-save="w7_3c" placeholder="The interval (0.29, 6.91) does / does not contain 0. This tells us…"></textarea></label>
+<h2>Problem 3 — Confidence Interval for \(\mu_1-\mu_2\)</h2>
+<p>Using the same layout data from Problem 2, construct a 95% confidence interval for \(\mu_1-\mu_2\). The interval estimates how much longer, on average, users spend on Layout 1 compared with Layout 2.</p>
+<hr class="part-divider"/>
+<h3>(a) Margin of error</h3>
+<div class="step-row"><span class="prompt">\(\text{ME}=z^*\times\text{SE}=1.96\times1.688\) =</span><input class="num-input wide" data-save="w7_3a" id="w7_3a" placeholder="?" step="any" type="number"/></div>
+<div class="btn-row no-print"><button class="check-btn" onclick="check3a()">Check (a)</button></div>
+<div class="feedback" id="fb3a"></div>
+<hr class="part-divider"/>
+<h3>(b) Confidence interval</h3>
+<div class="step-row">
+<span class="prompt">(\(\bar{x}_1-\bar{x}_2)\pm\text{ME} = 3.6\pm\text{ME}\): (</span>
+<input class="num-input" data-save="w7_3b_lo" id="w7_3b_lo" placeholder="lower" step="any" type="number"/>
+<span>,</span>
+<input class="num-input" data-save="w7_3b_hi" id="w7_3b_hi" placeholder="upper" step="any" type="number"/>
+<span>)</span>
 </div>
-
+<div class="btn-row no-print">
+<button class="check-btn" onclick="check3b()">Check (b)</button>
+<button class="sol-btn" id="sol-btn-3" onclick="toggleSol('sol-3')">🔒 Unlock solution by completing checks</button>
+</div>
+<div class="feedback" id="fb3b"></div>
+<div class="sol-panel" id="sol-3"><div class="sol-panel-inner">
+<p>ME\(=1.96\times1.688\approx3.308\). Interval: \(3.6\pm3.31=(0.29,\,6.91)\).</p>
+<div class="answer-line">ME≈3.31 · CI: (0.29, 6.91)</div>
+</div></div>
+<hr class="part-divider"/>
+<h3>(c) Does the interval contain 0? What does that tell you?</h3>
+<label class="interp-label"><span>State whether 0 is in the interval and what that implies about \(\mu_1-\mu_2\).</span><textarea data-save="w7_3c" placeholder="The interval (0.29, 6.91) does / does not contain 0. This tells us…"></textarea></label>
+</div>
 <!-- P4 -->
 <div class="card">
-  <h2>Problem 4 — Two-Sample \(z\)-Test for Proportions</h2>
-  <p>Grade 11: 84 of 150 participate. Grade 12: 63 of 140 participate.</p>
-  <p>Test \(H_0:p_1=p_2\) vs. \(H_a:p_1\ne p_2\) at \(\alpha=0.05\).</p>
-  <hr class="part-divider">
-  <h3>(a) Sample proportions</h3>
-  <div class="step-row"><span class="prompt">\(\hat{p}_1=84/150\) =</span><input class="num-input" id="w7_4a_p1" type="number" step="any" data-save="w7_4a_p1" placeholder="?"></div>
-  <div class="step-row"><span class="prompt">\(\hat{p}_2=63/140\) =</span><input class="num-input" id="w7_4a_p2" type="number" step="any" data-save="w7_4a_p2" placeholder="?"></div>
-  <div class="btn-row no-print"><button class="check-btn" onclick="check4a()">Check (a)</button></div>
-  <div id="fb4a" class="feedback"></div>
-  <hr class="part-divider">
-  <h3>(b) Pooled proportion</h3>
-  <div class="step-row"><span class="prompt">\(\hat{p}_{\text{pool}}=(84+63)/(150+140)\) =</span><input class="num-input wide" id="w7_4b" type="number" step="any" data-save="w7_4b" placeholder="?"></div>
-  <div class="btn-row no-print"><button class="check-btn" onclick="check4b()">Check (b)</button></div>
-  <div id="fb4b" class="feedback"></div>
-  <hr class="part-divider">
-  <h3>(c) Test statistic \(z\)</h3>
-  <div class="step-row"><span class="prompt">\(\text{SE}=\sqrt{\hat{p}_{\text{pool}}(1-\hat{p}_{\text{pool}})(1/150+1/140)}\) =</span><input class="num-input wide" id="w7_4c_se" type="number" step="any" data-save="w7_4c_se" placeholder="?"></div>
-  <div class="step-row"><span class="prompt">\(z=(\hat{p}_1-\hat{p}_2)/\text{SE}\) =</span><input class="num-input wide" id="w7_4c_z" type="number" step="any" data-save="w7_4c_z" placeholder="?"></div>
-  <div class="btn-row no-print"><button class="check-btn" onclick="check4c()">Check (c)</button></div>
-  <div id="fb4c" class="feedback"></div>
-  <hr class="part-divider">
-  <h3>(d) \(p\)-value and conclusion</h3>
-  <div class="step-row"><span class="prompt">\(p\)-value \(=2(1-P(Z\le 1.87))\) =</span><input class="num-input wide" id="w7_4d_pv" type="number" step="any" data-save="w7_4d_pv" placeholder="?"></div>
-  <div class="btn-row no-print">
-    <button class="check-btn" onclick="check4d()">Check (d)</button>
-    <button class="sol-btn" id="sol-btn-4" onclick="toggleSol('sol-4')">🔒 Unlock solution by completing checks</button>
-  </div>
-  <div id="fb4d" class="feedback"></div>
-  <label class="interp-label"><span>Write the decision and a complete conclusion in context.</span><textarea data-save="w7_4d_conc" placeholder="Since p-value = … > 0.05, we … There is insufficient/sufficient evidence that…"></textarea></label>
-  <div class="sol-panel" id="sol-4"><div class="sol-panel-inner">
-    <p>\(\hat{p}_1=0.56\), \(\hat{p}_2=0.45\). \(\hat{p}_{\text{pool}}=147/290\approx0.5069\).</p>
-    <p>SE\(=\sqrt{0.2500\times0.01381}\approx0.05876\). \(z=0.11/0.05876\approx1.87\).</p>
-    <p>\(p\)-value\(=2(1-0.9693)=0.0614&gt;0.05\).</p>
-    <div class="ftreject-line"><strong>Fail to reject \(H_0\).</strong></div>
-    <div class="answer-line">There is insufficient evidence at \(\alpha=0.05\) that participation rates differ between Grade 11 and Grade 12.</div>
-  </div></div>
+<h2>Problem 4 — Two-Sample \(z\)-Test for Proportions</h2>
+<p>A school compares participation in an after-school program for two grade levels. In Grade 11, 84 of 150 students participate. In Grade 12, 63 of 140 students participate. Test whether the participation proportions differ between the two grades.</p>
+<p>Use \(H_0:p_1=p_2\) and \(H_a:p_1
+e p_2\). Test at significance level \(lpha=0.05\).</p>
+<hr class="part-divider"/>
+<h3>(a) Sample proportions</h3>
+<div class="step-row"><span class="prompt">\(\hat{p}_1=84/150\) =</span><input class="num-input" data-save="w7_4a_p1" id="w7_4a_p1" placeholder="?" step="any" type="number"/></div>
+<div class="step-row"><span class="prompt">\(\hat{p}_2=63/140\) =</span><input class="num-input" data-save="w7_4a_p2" id="w7_4a_p2" placeholder="?" step="any" type="number"/></div>
+<div class="btn-row no-print"><button class="check-btn" onclick="check4a()">Check (a)</button></div>
+<div class="feedback" id="fb4a"></div>
+<hr class="part-divider"/>
+<h3>(b) Pooled proportion</h3>
+<div class="step-row"><span class="prompt">\(\hat{p}_{\text{pool}}=(84+63)/(150+140)\) =</span><input class="num-input wide" data-save="w7_4b" id="w7_4b" placeholder="?" step="any" type="number"/></div>
+<div class="btn-row no-print"><button class="check-btn" onclick="check4b()">Check (b)</button></div>
+<div class="feedback" id="fb4b"></div>
+<hr class="part-divider"/>
+<h3>(c) Test statistic \(z\)</h3>
+<div class="step-row"><span class="prompt">\(\text{SE}=\sqrt{\hat{p}_{\text{pool}}(1-\hat{p}_{\text{pool}})(1/150+1/140)}\) =</span><input class="num-input wide" data-save="w7_4c_se" id="w7_4c_se" placeholder="?" step="any" type="number"/></div>
+<div class="step-row"><span class="prompt">\(z=(\hat{p}_1-\hat{p}_2)/\text{SE}\) =</span><input class="num-input wide" data-save="w7_4c_z" id="w7_4c_z" placeholder="?" step="any" type="number"/></div>
+<div class="btn-row no-print"><button class="check-btn" onclick="check4c()">Check (c)</button></div>
+<div class="feedback" id="fb4c"></div>
+<hr class="part-divider"/>
+<h3>(d) \(p\)-value and conclusion</h3>
+<div class="step-row"><span class="prompt">\(p\)-value \(=2(1-P(Z\le 1.87))\) =</span><input class="num-input wide" data-save="w7_4d_pv" id="w7_4d_pv" placeholder="?" step="any" type="number"/></div>
+<div class="btn-row no-print">
+<button class="check-btn" onclick="check4d()">Check (d)</button>
+<button class="sol-btn" id="sol-btn-4" onclick="toggleSol('sol-4')">🔒 Unlock solution by completing checks</button>
+</div>
+<div class="feedback" id="fb4d"></div>
+<label class="interp-label"><span>Write the decision and a complete conclusion in context.</span><textarea data-save="w7_4d_conc" placeholder="Since p-value = … &gt; 0.05, we … There is insufficient/sufficient evidence that…"></textarea></label>
+<div class="sol-panel" id="sol-4"><div class="sol-panel-inner">
+<p>\(\hat{p}_1=0.56\), \(\hat{p}_2=0.45\). \(\hat{p}_{\text{pool}}=147/290\approx0.5069\).</p>
+<p>SE\(=\sqrt{0.2500\times0.01381}\approx0.05876\). \(z=0.11/0.05876\approx1.87\).</p>
+<p>\(p\)-value\(=2(1-0.9693)=0.0614&gt;0.05\).</p>
+<div class="ftreject-line"><strong>Fail to reject \(H_0\).</strong></div>
+<div class="answer-line">There is insufficient evidence at \(\alpha=0.05\) that participation rates differ between Grade 11 and Grade 12.</div>
+</div></div>
 </div>
 </div>
 <script>

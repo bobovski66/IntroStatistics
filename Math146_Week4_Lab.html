@@ -1,5 +1,6 @@
-<!DOCTYPE html><html lang="en"><head>
-<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/><meta content="width=device-width,initial-scale=1.0" name="viewport"/>
 <title>Math 146 Week 4 Lab</title>
 <script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},options:{skipHtmlTags:['script','noscript','style','textarea','pre']}};</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.min.js"></script>
@@ -55,127 +56,128 @@ textarea{min-height:40pt;}h1{font-size:14pt;}h2{font-size:11pt;}}
 <div class="container">
 <div class="no-print" style="margin-bottom:.75rem;"><button class="print-btn" onclick="window.print()">🖨 Print Lab Report</button></div>
 <div class="lab-header">
-  <h1>Math 146 — Week 4 Lab: Normal Distribution and the CLT</h1>
-  <p>z-scores, normal probabilities, sampling distributions, and the Central Limit Theorem.</p>
-  <div class="id-row">
-    <label>Student name <input type="text" data-save="w4_name" placeholder="Your full name"></label>
-    <label>Date <input type="text" data-save="w4_date" placeholder="mm/dd/yyyy"></label>
-  </div>
+<h1>Math 146 — Week 4 Lab: Normal Distribution and the CLT</h1>
+<p>Work through each problem in order. Enter numerical answers in the blanks and use the check buttons to test your work. Written explanations are not auto-checked, so use complete sentences and connect your answer back to the situation. Your work saves automatically in this browser.</p>
+<div class="id-row">
+<label>Student name <input data-save="w4_name" placeholder="Your full name" type="text"/></label>
+<label>Date <input data-save="w4_date" placeholder="mm/dd/yyyy" type="text"/></label>
 </div>
-<div class="card">
-  <h2>Reference Formulas</h2>
-  <div class="formula-box">
-    <p>For \(X\sim N(\mu,\sigma)\): \(\displaystyle z=\frac{x-\mu}{\sigma}\)</p>
-    <p>For \(\bar{X}\): \(\displaystyle z=\frac{\bar{x}-\mu}{\sigma/\sqrt{n}}\) &ensp; and &ensp; \(\bar{X}\approx N\!\left(\mu,\,\dfrac{\sigma}{\sqrt{n}}\right)\)</p>
-  </div>
+</div>
+<div class="card lab-goal">
+<h2>Lab Goal</h2>
+<p>This lab connects individual normal observations with sample means and the Central Limit Theorem. Each problem begins with a setting, then asks you to compute, interpret, and write a conclusion in context.</p>
 </div>
 
+<div class="card">
+<h2>Reference Formulas</h2>
+<div class="formula-box">
+<p>For \(X\sim N(\mu,\sigma)\): \(\displaystyle z=\frac{x-\mu}{\sigma}\)</p>
+<p>For \(\bar{X}\): \(\displaystyle z=\frac{\bar{x}-\mu}{\sigma/\sqrt{n}}\)   and   \(\bar{X}\approx N\!\left(\mu,\,\dfrac{\sigma}{\sqrt{n}}\right)\)</p>
+</div>
+</div>
 <!-- P1 -->
 <div class="card">
-  <h2>Problem 1 — General Normal Distribution</h2>
-  <p>Adult heights follow \(X\sim N(67, 3)\) (mean 67 in, SD 3 in).</p>
-  <hr class="part-divider">
-  <h3>(a) z-score for \(x=70\)</h3>
-  <div class="step-row"><span class="prompt">\(z=(x-\mu)/\sigma\) =</span><input class="num-input" id="w4_1a" type="number" step="any" data-save="w4_1a" placeholder="?"></div>
-  <div class="btn-row no-print"><button class="check-btn" onclick="check1a()">Check (a)</button></div>
-  <div id="fb1a" class="feedback"></div>
-  <hr class="part-divider">
-  <h3>(b) \(P(X\le 70)\) from the z-table</h3>
-  <div class="step-row"><span class="prompt">\(P(Z\le 1.00)\) =</span><input class="num-input wide" id="w4_1b" type="number" step="any" data-save="w4_1b" placeholder="?"></div>
-  <div class="btn-row no-print">
-    <button class="check-btn" onclick="check1b()">Check (b)</button>
-    <button class="sol-btn" id="sol-btn-1" onclick="toggleSol('sol-1')">🔒 Unlock solution by completing checks</button>
-  </div>
-  <div id="fb1b" class="feedback"></div>
-  <div class="sol-panel" id="sol-1"><div class="sol-panel-inner">
-    <p>\(z=(70-67)/3=1.00\). From z-table: \(P(Z\le 1.00)=0.8413\).</p>
-    <div class="answer-line">\(z=1.00\) · \(P(X\le 70)\approx 0.8413\) (84.1% of adults are shorter)</div>
-    <div class="plot-wrap"><svg id="curve-p1" viewBox="0 0 660 260" class="dist-svg"></svg></div>
-  </div></div>
-  <hr class="part-divider">
-  <h3>(c) Sketch the normal curve and shade \(P(X\le 70)\)</h3>
-  <label class="interp-label"><span>Describe what the shaded region represents and where it falls on the curve.</span><textarea data-save="w4_1c" placeholder="The shaded region is to the left of z=1.00 and represents…"></textarea></label>
+<h2>Problem 1 — General Normal Distribution</h2>
+<p>Adult heights are modeled by \(X\sim N(67, 3)\), where the mean is 67 inches and the standard deviation is 3 inches. Use this model to find where a height of 70 inches sits on the normal curve, then translate that z-score into a probability.</p>
+<hr class="part-divider"/>
+<h3>(a) z-score for \(x=70\)</h3>
+<div class="step-row"><span class="prompt">\(z=(x-\mu)/\sigma\) =</span><input class="num-input" data-save="w4_1a" id="w4_1a" placeholder="?" step="any" type="number"/></div>
+<div class="btn-row no-print"><button class="check-btn" onclick="check1a()">Check (a)</button></div>
+<div class="feedback" id="fb1a"></div>
+<hr class="part-divider"/>
+<h3>(b) \(P(X\le 70)\) from the z-table</h3>
+<div class="step-row"><span class="prompt">\(P(Z\le 1.00)\) =</span><input class="num-input wide" data-save="w4_1b" id="w4_1b" placeholder="?" step="any" type="number"/></div>
+<div class="btn-row no-print">
+<button class="check-btn" onclick="check1b()">Check (b)</button>
+<button class="sol-btn" id="sol-btn-1" onclick="toggleSol('sol-1')">🔒 Unlock solution by completing checks</button>
 </div>
-
+<div class="feedback" id="fb1b"></div>
+<div class="sol-panel" id="sol-1"><div class="sol-panel-inner">
+<p>\(z=(70-67)/3=1.00\). From z-table: \(P(Z\le 1.00)=0.8413\).</p>
+<div class="answer-line">\(z=1.00\) · \(P(X\le 70)\approx 0.8413\) (84.1% of adults are shorter)</div>
+<div class="plot-wrap"><svg class="dist-svg" id="curve-p1" viewbox="0 0 660 260"></svg></div>
+</div></div>
+<hr class="part-divider"/>
+<h3>(c) Sketch the normal curve and shade \(P(X\le 70)\)</h3>
+<label class="interp-label"><span>Describe what the shaded region represents and where it falls on the curve.</span><textarea data-save="w4_1c" placeholder="The shaded region is to the left of z=1.00 and represents…"></textarea></label>
+</div>
 <!-- P2 -->
 <div class="card">
-  <h2>Problem 2 — Probability Between Two Values</h2>
-  <p>Bottle fill amounts follow \(X\sim N(16.0,\,0.3)\) oz.</p>
-  <hr class="part-divider">
-  <h3>(a) z-scores for 15.8 and 16.4 oz</h3>
-  <div class="step-row"><span class="prompt">\(z_{15.8}=(15.8-16.0)/0.3\) =</span><input class="num-input wide" id="w4_2a_lo" type="number" step="any" data-save="w4_2a_lo" placeholder="?"></div>
-  <div class="step-row"><span class="prompt">\(z_{16.4}=(16.4-16.0)/0.3\) =</span><input class="num-input wide" id="w4_2a_hi" type="number" step="any" data-save="w4_2a_hi" placeholder="?"></div>
-  <div class="btn-row no-print"><button class="check-btn" onclick="check2a()">Check (a)</button></div>
-  <div id="fb2a" class="feedback"></div>
-  <hr class="part-divider">
-  <h3>(b) \(P(15.8\le X\le 16.4)\)</h3>
-  <div class="step-row"><span class="prompt">\(P(Z\le 1.33)\) =</span><input class="num-input wide" id="w4_2b_hi" type="number" step="any" data-save="w4_2b_hi" placeholder="?"></div>
-  <div class="step-row"><span class="prompt">\(P(Z\le -0.67)\) =</span><input class="num-input wide" id="w4_2b_lo" type="number" step="any" data-save="w4_2b_lo" placeholder="?"></div>
-  <div class="step-row"><span class="prompt">Difference =</span><input class="num-input wide" id="w4_2b_diff" type="number" step="any" data-save="w4_2b_diff" placeholder="?"></div>
-  <div class="btn-row no-print">
-    <button class="check-btn" onclick="check2b()">Check (b)</button>
-    <button class="sol-btn" id="sol-btn-2" onclick="toggleSol('sol-2')">🔒 Unlock solution by completing checks</button>
-  </div>
-  <div id="fb2b" class="feedback"></div>
-  <div class="sol-panel" id="sol-2"><div class="sol-panel-inner">
-    <p>\(z_{15.8}=-0.67\), \(z_{16.4}=1.33\)</p>
-    <p>\(P(Z\le 1.33)=0.9082\), \(P(Z\le -0.67)=0.2514\), difference = 0.6568</p>
-    <div class="answer-line">\(P(15.8\le X\le 16.4)\approx 0.6568\)</div>
-    <div class="plot-wrap"><svg id="curve-p2" viewBox="0 0 660 260" class="dist-svg"></svg></div>
-  </div></div>
+<h2>Problem 2 — Probability Between Two Values</h2>
+<p>A bottling machine fills bottles with amounts modeled by \(X\sim N(16.0,\,0.3)\) ounces. A bottle is considered acceptably filled if it contains between 15.8 and 16.4 ounces. Use z-scores and the standard normal table to estimate the proportion of bottles in that acceptable range.</p>
+<hr class="part-divider"/>
+<h3>(a) z-scores for 15.8 and 16.4 oz</h3>
+<div class="step-row"><span class="prompt">\(z_{15.8}=(15.8-16.0)/0.3\) =</span><input class="num-input wide" data-save="w4_2a_lo" id="w4_2a_lo" placeholder="?" step="any" type="number"/></div>
+<div class="step-row"><span class="prompt">\(z_{16.4}=(16.4-16.0)/0.3\) =</span><input class="num-input wide" data-save="w4_2a_hi" id="w4_2a_hi" placeholder="?" step="any" type="number"/></div>
+<div class="btn-row no-print"><button class="check-btn" onclick="check2a()">Check (a)</button></div>
+<div class="feedback" id="fb2a"></div>
+<hr class="part-divider"/>
+<h3>(b) \(P(15.8\le X\le 16.4)\)</h3>
+<div class="step-row"><span class="prompt">\(P(Z\le 1.33)\) =</span><input class="num-input wide" data-save="w4_2b_hi" id="w4_2b_hi" placeholder="?" step="any" type="number"/></div>
+<div class="step-row"><span class="prompt">\(P(Z\le -0.67)\) =</span><input class="num-input wide" data-save="w4_2b_lo" id="w4_2b_lo" placeholder="?" step="any" type="number"/></div>
+<div class="step-row"><span class="prompt">Difference =</span><input class="num-input wide" data-save="w4_2b_diff" id="w4_2b_diff" placeholder="?" step="any" type="number"/></div>
+<div class="btn-row no-print">
+<button class="check-btn" onclick="check2b()">Check (b)</button>
+<button class="sol-btn" id="sol-btn-2" onclick="toggleSol('sol-2')">🔒 Unlock solution by completing checks</button>
 </div>
-
+<div class="feedback" id="fb2b"></div>
+<div class="sol-panel" id="sol-2"><div class="sol-panel-inner">
+<p>\(z_{15.8}=-0.67\), \(z_{16.4}=1.33\)</p>
+<p>\(P(Z\le 1.33)=0.9082\), \(P(Z\le -0.67)=0.2514\), difference = 0.6568</p>
+<div class="answer-line">\(P(15.8\le X\le 16.4)\approx 0.6568\)</div>
+<div class="plot-wrap"><svg class="dist-svg" id="curve-p2" viewbox="0 0 660 260"></svg></div>
+</div></div>
+</div>
 <!-- P3 -->
 <div class="card">
-  <h2>Problem 3 — Sampling Distribution and Standard Error</h2>
-  <p>Population: \(\mu=50\), \(\sigma=20\). Sample size \(n=25\).</p>
-  <hr class="part-divider">
-  <h3>(a) Mean of the sampling distribution of \(\bar{X}\)</h3>
-  <div class="step-row"><span class="prompt">\(\mu_{\bar{X}}\) =</span><input class="num-input" id="w4_3a" type="number" step="any" data-save="w4_3a" placeholder="?"></div>
-  <div class="btn-row no-print"><button class="check-btn" onclick="check3a()">Check (a)</button></div>
-  <div id="fb3a" class="feedback"></div>
-  <hr class="part-divider">
-  <h3>(b) Standard error of \(\bar{X}\)</h3>
-  <div class="step-row"><span class="prompt">\(\text{SE}=\sigma/\sqrt{n}\) =</span><input class="num-input" id="w4_3b" type="number" step="any" data-save="w4_3b" placeholder="?"></div>
-  <div class="btn-row no-print"><button class="check-btn" onclick="check3b()">Check (b)</button></div>
-  <div id="fb3b" class="feedback"></div>
-  <hr class="part-divider">
-  <h3>(c) Write the sampling distribution in the form \(\bar{X}\approx N(\cdot,\cdot)\)</h3>
-  <label class="interp-label"><span>Fill in the mean and SE, then state what the CLT tells us.</span><textarea data-save="w4_3c" placeholder="X̄ ≈ N(   ,   ). This follows from the CLT because…"></textarea></label>
-  <div class="btn-row no-print"><button class="sol-btn" id="sol-btn-3" onclick="toggleSol('sol-3')">🔒 Unlock solution by completing checks</button></div>
-  <div class="sol-panel" id="sol-3"><div class="sol-panel-inner">
-    <p>\(\mu_{\bar{X}}=\mu=50\) (sampling does not shift the center)</p>
-    <p>\(\text{SE}=20/\sqrt{25}=20/5=4\)</p>
-    <div class="answer-line">\(\bar{X}\approx N(50,\,4)\)</div>
-  </div></div>
+<h2>Problem 3 — Sampling Distribution and Standard Error</h2>
+<p>A population has mean \(\mu=50\) and standard deviation \(\sigma=20\). Suppose we repeatedly take random samples of size \(n=25\) and compute the sample mean each time. This problem asks for the mean and standard error of the sampling distribution of \(ar{X}\), not for one individual observation.</p>
+<hr class="part-divider"/>
+<h3>(a) Mean of the sampling distribution of \(\bar{X}\)</h3>
+<div class="step-row"><span class="prompt">\(\mu_{\bar{X}}\) =</span><input class="num-input" data-save="w4_3a" id="w4_3a" placeholder="?" step="any" type="number"/></div>
+<div class="btn-row no-print"><button class="check-btn" onclick="check3a()">Check (a)</button></div>
+<div class="feedback" id="fb3a"></div>
+<hr class="part-divider"/>
+<h3>(b) Standard error of \(\bar{X}\)</h3>
+<div class="step-row"><span class="prompt">\(\text{SE}=\sigma/\sqrt{n}\) =</span><input class="num-input" data-save="w4_3b" id="w4_3b" placeholder="?" step="any" type="number"/></div>
+<div class="btn-row no-print"><button class="check-btn" onclick="check3b()">Check (b)</button></div>
+<div class="feedback" id="fb3b"></div>
+<hr class="part-divider"/>
+<h3>(c) Write the sampling distribution in the form \(\bar{X}\approx N(\cdot,\cdot)\)</h3>
+<label class="interp-label"><span>Fill in the mean and SE, then state what the CLT tells us.</span><textarea data-save="w4_3c" placeholder="X̄ ≈ N(   ,   ). This follows from the CLT because…"></textarea></label>
+<div class="btn-row no-print"><button class="sol-btn" id="sol-btn-3" onclick="toggleSol('sol-3')">🔒 Unlock solution by completing checks</button></div>
+<div class="sol-panel" id="sol-3"><div class="sol-panel-inner">
+<p>\(\mu_{\bar{X}}=\mu=50\) (sampling does not shift the center)</p>
+<p>\(\text{SE}=20/\sqrt{25}=20/5=4\)</p>
+<div class="answer-line">\(\bar{X}\approx N(50,\,4)\)</div>
+</div></div>
 </div>
-
 <!-- P4 -->
 <div class="card">
-  <h2>Problem 4 — CLT Probability for a Sample Mean</h2>
-  <p>Battery lifetime: \(\mu=500\) hr, \(\sigma=40\) hr. Sample \(n=64\).</p>
-  <hr class="part-divider">
-  <h3>(a) Standard error</h3>
-  <div class="step-row"><span class="prompt">\(\text{SE}=\sigma/\sqrt{n}\) =</span><input class="num-input" id="w4_4a" type="number" step="any" data-save="w4_4a" placeholder="?"></div>
-  <div class="btn-row no-print"><button class="check-btn" onclick="check4a()">Check (a)</button></div>
-  <div id="fb4a" class="feedback"></div>
-  <hr class="part-divider">
-  <h3>(b) z-score for \(\bar{x}=495\)</h3>
-  <div class="step-row"><span class="prompt">\(z=(\bar{x}-\mu)/\text{SE}\) =</span><input class="num-input" id="w4_4b" type="number" step="any" data-save="w4_4b" placeholder="?"></div>
-  <div class="btn-row no-print"><button class="check-btn" onclick="check4b()">Check (b)</button></div>
-  <div id="fb4b" class="feedback"></div>
-  <hr class="part-divider">
-  <h3>(c) \(P(\bar{X}\le 495)\)</h3>
-  <div class="step-row"><span class="prompt">\(P(Z\le -1.00)\) =</span><input class="num-input wide" id="w4_4c" type="number" step="any" data-save="w4_4c" placeholder="?"></div>
-  <div class="btn-row no-print">
-    <button class="check-btn" onclick="check4c()">Check (c)</button>
-    <button class="sol-btn" id="sol-btn-4" onclick="toggleSol('sol-4')">🔒 Unlock solution by completing checks</button>
-  </div>
-  <div id="fb4c" class="feedback"></div>
-  <div class="sol-panel" id="sol-4"><div class="sol-panel-inner">
-    <p>\(\text{SE}=40/8=5\). \(z=(495-500)/5=-1.00\). \(P(Z\le -1.00)=0.1587\).</p>
-    <div class="answer-line">\(\text{SE}=5\) · \(z=-1.00\) · \(P(\bar{X}\le 495)\approx 0.1587\)</div>
-  </div></div>
+<h2>Problem 4 — CLT Probability for a Sample Mean</h2>
+<p>Battery lifetimes have population mean \(\mu=500\) hours and standard deviation \(\sigma=40\) hours. A quality-control team takes a random sample of \(n=64\) batteries and records the sample mean. Use the Central Limit Theorem to find the probability that this sample mean is 495 hours or less.</p>
+<hr class="part-divider"/>
+<h3>(a) Standard error</h3>
+<div class="step-row"><span class="prompt">\(\text{SE}=\sigma/\sqrt{n}\) =</span><input class="num-input" data-save="w4_4a" id="w4_4a" placeholder="?" step="any" type="number"/></div>
+<div class="btn-row no-print"><button class="check-btn" onclick="check4a()">Check (a)</button></div>
+<div class="feedback" id="fb4a"></div>
+<hr class="part-divider"/>
+<h3>(b) z-score for \(\bar{x}=495\)</h3>
+<div class="step-row"><span class="prompt">\(z=(\bar{x}-\mu)/\text{SE}\) =</span><input class="num-input" data-save="w4_4b" id="w4_4b" placeholder="?" step="any" type="number"/></div>
+<div class="btn-row no-print"><button class="check-btn" onclick="check4b()">Check (b)</button></div>
+<div class="feedback" id="fb4b"></div>
+<hr class="part-divider"/>
+<h3>(c) \(P(\bar{X}\le 495)\)</h3>
+<div class="step-row"><span class="prompt">\(P(Z\le -1.00)\) =</span><input class="num-input wide" data-save="w4_4c" id="w4_4c" placeholder="?" step="any" type="number"/></div>
+<div class="btn-row no-print">
+<button class="check-btn" onclick="check4c()">Check (c)</button>
+<button class="sol-btn" id="sol-btn-4" onclick="toggleSol('sol-4')">🔒 Unlock solution by completing checks</button>
+</div>
+<div class="feedback" id="fb4c"></div>
+<div class="sol-panel" id="sol-4"><div class="sol-panel-inner">
+<p>\(\text{SE}=40/8=5\). \(z=(495-500)/5=-1.00\). \(P(Z\le -1.00)=0.1587\).</p>
+<div class="answer-line">\(\text{SE}=5\) · \(z=-1.00\) · \(P(\bar{X}\le 495)\approx 0.1587\)</div>
+</div></div>
 </div>
 </div>
 <script>

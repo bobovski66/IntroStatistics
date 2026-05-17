@@ -1,5 +1,6 @@
-<!DOCTYPE html><html lang="en"><head>
-<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/><meta content="width=device-width,initial-scale=1.0" name="viewport"/>
 <title>Math 146 Week 6 Lab</title>
 <script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},options:{skipHtmlTags:['script','noscript','style','textarea','pre']}};</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.min.js"></script>
@@ -52,127 +53,128 @@ textarea{min-height:40pt;}h1{font-size:14pt;}h2{font-size:11pt;}}
 <div class="container">
 <div class="no-print" style="margin-bottom:.75rem;"><button class="print-btn" onclick="window.print()">🖨 Print Lab Report</button></div>
 <div class="lab-header">
-  <h1>Math 146 — Week 6 Lab: Hypothesis Testing</h1>
-  <p>One-sample z-tests for means and proportions. Fill in answers; solutions unlock after correct checks.</p>
-  <div class="id-row">
-    <label>Student name <input type="text" data-save="w6_name" placeholder="Your full name"></label>
-    <label>Date <input type="text" data-save="w6_date" placeholder="mm/dd/yyyy"></label>
-  </div>
+<h1>Math 146 — Week 6 Lab: Hypothesis Testing</h1>
+<p>Work through each problem in order. Enter numerical answers in the blanks and use the check buttons to test your work. Written explanations are not auto-checked, so use complete sentences and connect your answer back to the situation. Your work saves automatically in this browser.</p>
+<div class="id-row">
+<label>Student name <input data-save="w6_name" placeholder="Your full name" type="text"/></label>
+<label>Date <input data-save="w6_date" placeholder="mm/dd/yyyy" type="text"/></label>
 </div>
-<div class="card">
-  <h2>Reference Formulas</h2>
-  <div class="formula-box">
-    <p>Test statistic for a mean: \[\displaystyle z=\frac{\bar{x}-\mu_0}{\sigma/\sqrt{n}}\]</p>
-    <p>Test statistic for a proportion: \[\displaystyle z=\frac{\hat{p}-p_0}{\sqrt{p_0(1-p_0)/n}}\]</p>
-    <p>Left-tailed \(p\)-value: \(P(Z\le z)\) &ensp; Right-tailed: \(1-P(Z\le z)\) &ensp; Two-tailed: \(2(1-P(Z\le|z|))\)</p>
-  </div>
+</div>
+<div class="card lab-goal">
+<h2>Lab Goal</h2>
+<p>This lab uses sample data to test claims about unknown population values. Each problem begins with a setting, then asks you to compute, interpret, and write a conclusion in context.</p>
 </div>
 
+<div class="card">
+<h2>Reference Formulas</h2>
+<div class="formula-box">
+<p>Test statistic for a mean: \[\displaystyle z=\frac{\bar{x}-\mu_0}{\sigma/\sqrt{n}}\]</p>
+<p>Test statistic for a proportion: \[\displaystyle z=\frac{\hat{p}-p_0}{\sqrt{p_0(1-p_0)/n}}\]</p>
+<p>Left-tailed \(p\)-value: \(P(Z\le z)\)   Right-tailed: \(1-P(Z\le z)\)   Two-tailed: \(2(1-P(Z\le|z|))\)</p>
+</div>
+</div>
 <!-- P1 -->
 <div class="card">
-  <h2>Problem 1 — Writing Hypotheses</h2>
-  <p>For each scenario, state \(H_0\) and \(H_a\) and identify the test type.</p>
-  <hr class="part-divider">
-  <h3>(a) Cereal boxes should contain 18 oz on average; a consumer group suspects they contain less.</h3>
-  <label class="interp-label"><span>State \(H_0\), \(H_a\), and the test type.</span><textarea data-save="w6_1a" placeholder="H₀: μ = …    Hₐ: μ …    Test type: …"></textarea></label>
-  <hr class="part-divider">
-  <h3>(b) A school claims average commute time is 24 min; a researcher asks whether it has changed.</h3>
-  <label class="interp-label"><span>State \(H_0\), \(H_a\), and the test type.</span><textarea data-save="w6_1b" placeholder="H₀: μ = …    Hₐ: μ …    Test type: …"></textarea></label>
-  <hr class="part-divider">
-  <h3>(c) A site claims 70% of users finish registration; a manager believes the true proportion is higher.</h3>
-  <label class="interp-label"><span>State \(H_0\), \(H_a\), and the test type.</span><textarea data-save="w6_1c" placeholder="H₀: p = …    Hₐ: p …    Test type: …"></textarea></label>
+<h2>Problem 1 — Writing Hypotheses</h2>
+<p>For each situation, write the null and alternative hypotheses and identify whether the test is left-tailed, right-tailed, or two-tailed. Pay close attention to the wording of the claim: phrases such as less, higher, and changed determine the direction of \(H_a\).</p>
+<hr class="part-divider"/>
+<h3>(a) Cereal boxes are labeled as containing 18 oz on average. A consumer group suspects the true mean fill amount is less than 18 oz.</h3>
+<label class="interp-label"><span>State \(H_0\), \(H_a\), and the test type.</span><textarea data-save="w6_1a" placeholder="H₀: μ = …    Hₐ: μ …    Test type: …"></textarea></label>
+<hr class="part-divider"/>
+<h3>(b) A school reports that the average commute time is 24 minutes. A researcher wants to know whether the true mean commute time has changed.</h3>
+<label class="interp-label"><span>State \(H_0\), \(H_a\), and the test type.</span><textarea data-save="w6_1b" placeholder="H₀: μ = …    Hₐ: μ …    Test type: …"></textarea></label>
+<hr class="part-divider"/>
+<h3>(c) A website reports that 70% of users finish registration. A manager believes the true completion proportion is higher than 70%.</h3>
+<label class="interp-label"><span>State \(H_0\), \(H_a\), and the test type.</span><textarea data-save="w6_1c" placeholder="H₀: p = …    Hₐ: p …    Test type: …"></textarea></label>
 </div>
-
 <!-- P2 -->
 <div class="card">
-  <h2>Problem 2 — One-Sample \(z\)-Test for a Mean</h2>
-  <p>Machine target: 20.0 oz. Sample: \(n=49\), \(\bar{x}=19.7\) oz, \(\sigma=0.8\) oz.</p>
-  <p>Test \(H_0:\mu=20.0\) vs. \(H_a:\mu&lt;20.0\) at \(\alpha=0.05\).</p>
-  <hr class="part-divider">
-  <h3>(a) Test statistic \(z\)</h3>
-  <div class="step-row"><span class="prompt">\(\text{SE}=\sigma/\sqrt{n}\) =</span><input class="num-input wide" id="w6_2a_se" type="number" step="any" data-save="w6_2a_se" placeholder="?"></div>
-  <div class="step-row"><span class="prompt">\(z=(\bar{x}-\mu_0)/\text{SE}\) =</span><input class="num-input wide" id="w6_2a_z" type="number" step="any" data-save="w6_2a_z" placeholder="?"></div>
-  <div class="btn-row no-print"><button class="check-btn" onclick="check2a()">Check (a)</button></div>
-  <div id="fb2a" class="feedback"></div>
-  <hr class="part-divider">
-  <h3>(b) \(p\)-value (left-tailed)</h3>
-  <div class="step-row"><span class="prompt">\(P(Z\le -2.63)\) =</span><input class="num-input wide" id="w6_2b" type="number" step="any" data-save="w6_2b" placeholder="?"></div>
-  <div class="btn-row no-print"><button class="check-btn" onclick="check2b()">Check (b)</button></div>
-  <div id="fb2b" class="feedback"></div>
-  <hr class="part-divider">
-  <h3>(c) Decision (\(\alpha=0.05\))</h3>
-  <label class="interp-label"><span>Compare \(p\)-value to \(\alpha\) and state your decision.</span><textarea data-save="w6_2c" placeholder="Since p-value = … < / > 0.05, we reject / fail to reject H₀."></textarea></label>
-  <hr class="part-divider">
-  <h3>(d) Conclusion in context</h3>
-  <label class="interp-label"><span>Write one complete sentence naming the variable, the direction, and the significance level.</span><textarea data-save="w6_2d" placeholder="There is sufficient / insufficient evidence at α=0.05 to conclude that…"></textarea></label>
-  <div class="btn-row no-print"><button class="sol-btn" id="sol-btn-2" onclick="toggleSol('sol-2')">🔒 Unlock solution by completing checks</button></div>
-  <div class="sol-panel" id="sol-2"><div class="sol-panel-inner">
-    <p>SE = 0.8/7 ≈ 0.1143. \(z=(19.7-20.0)/0.1143\approx -2.63\)</p>
-    <p>\(p\)-value \(= P(Z\le -2.63)\approx 0.0043\)</p>
-    <div class="reject-line"><strong>Reject \(H_0\)</strong> — \(p=0.0043 &lt; \alpha=0.05\).</div>
-    <div class="answer-line">The machine is underfilling. There is sufficient evidence at \(\alpha=0.05\) that the true mean fill is less than 20.0 oz.</div>
-  </div></div>
+<h2>Problem 2 — One-Sample \(z\)-Test for a Population Mean</h2>
+<p>A filling machine is supposed to put 20.0 ounces of product into each container. A quality-control sample of \(n=49\) containers has mean fill amount \(ar{x}=19.7\) ounces. Assume the population standard deviation is known to be \(\sigma=0.8\) ounces. Test whether the machine is underfilling containers.</p>
+<p>Use \(H_0:\mu=20.0\) and \(H_a:\mu&lt;20.0\). Test at significance level \(lpha=0.05\).</p>
+<hr class="part-divider"/>
+<h3>(a) Test statistic \(z\)</h3>
+<div class="step-row"><span class="prompt">\(\text{SE}=\sigma/\sqrt{n}\) =</span><input class="num-input wide" data-save="w6_2a_se" id="w6_2a_se" placeholder="?" step="any" type="number"/></div>
+<div class="step-row"><span class="prompt">\(z=(\bar{x}-\mu_0)/\text{SE}\) =</span><input class="num-input wide" data-save="w6_2a_z" id="w6_2a_z" placeholder="?" step="any" type="number"/></div>
+<div class="btn-row no-print"><button class="check-btn" onclick="check2a()">Check (a)</button></div>
+<div class="feedback" id="fb2a"></div>
+<hr class="part-divider"/>
+<h3>(b) \(p\)-value (left-tailed)</h3>
+<div class="step-row"><span class="prompt">\(P(Z\le -2.63)\) =</span><input class="num-input wide" data-save="w6_2b" id="w6_2b" placeholder="?" step="any" type="number"/></div>
+<div class="btn-row no-print"><button class="check-btn" onclick="check2b()">Check (b)</button></div>
+<div class="feedback" id="fb2b"></div>
+<hr class="part-divider"/>
+<h3>(c) Decision (\(\alpha=0.05\))</h3>
+<label class="interp-label"><span>Compare \(p\)-value to \(\alpha\) and state your decision.</span><textarea data-save="w6_2c" placeholder="Since p-value = … &lt; / &gt; 0.05, we reject / fail to reject H₀."></textarea></label>
+<hr class="part-divider"/>
+<h3>(d) Conclusion in context</h3>
+<label class="interp-label"><span>Write one complete sentence naming the variable, the direction, and the significance level.</span><textarea data-save="w6_2d" placeholder="There is sufficient / insufficient evidence at α=0.05 to conclude that…"></textarea></label>
+<div class="btn-row no-print"><button class="sol-btn" id="sol-btn-2" onclick="toggleSol('sol-2')">🔒 Unlock solution by completing checks</button></div>
+<div class="sol-panel" id="sol-2"><div class="sol-panel-inner">
+<p>SE = 0.8/7 ≈ 0.1143. \(z=(19.7-20.0)/0.1143\approx -2.63\)</p>
+<p>\(p\)-value \(= P(Z\le -2.63)\approx 0.0043\)</p>
+<div class="reject-line"><strong>Reject \(H_0\)</strong> — \(p=0.0043 &lt; \alpha=0.05\).</div>
+<div class="answer-line">The machine is underfilling. There is sufficient evidence at \(\alpha=0.05\) that the true mean fill is less than 20.0 oz.</div>
+</div></div>
 </div>
-
 <!-- P3 -->
 <div class="card">
-  <h2>Problem 3 — Interpreting a \(p\)-Value</h2>
-  <p>A test gives \(z=1.84\).</p>
-  <hr class="part-divider">
-  <h3>(a) \(p\)-value for a right-tailed test</h3>
-  <div class="step-row"><span class="prompt">\(1-P(Z\le 1.84)\) =</span><input class="num-input wide" id="w6_3a" type="number" step="any" data-save="w6_3a" placeholder="?"></div>
-  <div class="btn-row no-print"><button class="check-btn" onclick="check3a()">Check (a)</button></div>
-  <div id="fb3a" class="feedback"></div>
-  <hr class="part-divider">
-  <h3>(b) \(p\)-value for a two-tailed test</h3>
-  <div class="step-row"><span class="prompt">\(2(1-P(Z\le 1.84))\) =</span><input class="num-input wide" id="w6_3b" type="number" step="any" data-save="w6_3b" placeholder="?"></div>
-  <div class="btn-row no-print"><button class="check-btn" onclick="check3b()">Check (b)</button></div>
-  <div id="fb3b" class="feedback"></div>
-  <hr class="part-divider">
-  <h3>(c) Decision for each test at \(\alpha=0.05\)</h3>
-  <label class="interp-label"><span>State the decision for both the right-tailed and two-tailed tests, and explain why the same z gives different conclusions.</span><textarea data-save="w6_3c" placeholder="Right-tailed: … Two-tailed: … This happens because…"></textarea></label>
-  <div class="btn-row no-print"><button class="sol-btn" id="sol-btn-3" onclick="toggleSol('sol-3')">🔒 Unlock solution by completing checks</button></div>
-  <div class="sol-panel" id="sol-3"><div class="sol-panel-inner">
-    <p>(a) \(P(Z\le 1.84)=0.9671\); right-tailed \(p=1-0.9671=0.0329\)</p>
-    <p>(b) Two-tailed \(p=2(0.0329)=0.0658\)</p>
-    <table><thead><tr><th>Test</th><th>\(p\)-value</th><th>Decision</th></tr></thead>
-    <tbody><tr><td>Right-tailed</td><td>0.0329</td><td>Reject \(H_0\) (0.0329 &lt; 0.05)</td></tr>
-    <tr><td>Two-tailed</td><td>0.0658</td><td>Fail to reject (0.0658 &gt; 0.05)</td></tr></tbody></table>
-    <div class="answer-line">Right-tailed: reject · Two-tailed: fail to reject</div>
-  </div></div>
+<h2>Problem 3 — Interpreting a \(p\)-Value</h2>
+<p>A test statistic is reported as \(z=1.84\). Use this same z-score to compare how the p-value changes depending on whether the alternative hypothesis is right-tailed or two-tailed.</p>
+<hr class="part-divider"/>
+<h3>(a) \(p\)-value for a right-tailed test</h3>
+<div class="step-row"><span class="prompt">\(1-P(Z\le 1.84)\) =</span><input class="num-input wide" data-save="w6_3a" id="w6_3a" placeholder="?" step="any" type="number"/></div>
+<div class="btn-row no-print"><button class="check-btn" onclick="check3a()">Check (a)</button></div>
+<div class="feedback" id="fb3a"></div>
+<hr class="part-divider"/>
+<h3>(b) \(p\)-value for a two-tailed test</h3>
+<div class="step-row"><span class="prompt">\(2(1-P(Z\le 1.84))\) =</span><input class="num-input wide" data-save="w6_3b" id="w6_3b" placeholder="?" step="any" type="number"/></div>
+<div class="btn-row no-print"><button class="check-btn" onclick="check3b()">Check (b)</button></div>
+<div class="feedback" id="fb3b"></div>
+<hr class="part-divider"/>
+<h3>(c) Decision for each test at \(\alpha=0.05\)</h3>
+<label class="interp-label"><span>State the decision for both the right-tailed and two-tailed tests, and explain why the same z gives different conclusions.</span><textarea data-save="w6_3c" placeholder="Right-tailed: … Two-tailed: … This happens because…"></textarea></label>
+<div class="btn-row no-print"><button class="sol-btn" id="sol-btn-3" onclick="toggleSol('sol-3')">🔒 Unlock solution by completing checks</button></div>
+<div class="sol-panel" id="sol-3"><div class="sol-panel-inner">
+<p>(a) \(P(Z\le 1.84)=0.9671\); right-tailed \(p=1-0.9671=0.0329\)</p>
+<p>(b) Two-tailed \(p=2(0.0329)=0.0658\)</p>
+<table><thead><tr><th>Test</th><th>\(p\)-value</th><th>Decision</th></tr></thead>
+<tbody><tr><td>Right-tailed</td><td>0.0329</td><td>Reject \(H_0\) (0.0329 &lt; 0.05)</td></tr>
+<tr><td>Two-tailed</td><td>0.0658</td><td>Fail to reject (0.0658 &gt; 0.05)</td></tr></tbody></table>
+<div class="answer-line">Right-tailed: reject · Two-tailed: fail to reject</div>
+</div></div>
 </div>
-
 <!-- P4 -->
 <div class="card">
-  <h2>Problem 4 — One-Sample \(z\)-Test for a Proportion</h2>
-  <p>Claim: 65% of customers renew. Sample: \(n=200\), 118 renew.</p>
-  <p>Test \(H_0:p=0.65\) vs. \(H_a:p&lt;0.65\) at \(\alpha=0.05\).</p>
-  <hr class="part-divider">
-  <h3>(a) Sample proportion \(\hat{p}\)</h3>
-  <div class="step-row"><span class="prompt">\(\hat{p}=118/200\) =</span><input class="num-input" id="w6_4a" type="number" step="any" data-save="w6_4a" placeholder="?"></div>
-  <div class="btn-row no-print"><button class="check-btn" onclick="check4a()">Check (a)</button></div>
-  <div id="fb4a" class="feedback"></div>
-  <hr class="part-divider">
-  <h3>(b) Test statistic \(z\)</h3>
-  <div class="step-row"><span class="prompt">\(\text{SE}=\sqrt{p_0(1-p_0)/n}\) =</span><input class="num-input wide" id="w6_4b_se" type="number" step="any" data-save="w6_4b_se" placeholder="?"></div>
-  <div class="step-row"><span class="prompt">\(z=(\hat{p}-p_0)/\text{SE}\) =</span><input class="num-input wide" id="w6_4b_z" type="number" step="any" data-save="w6_4b_z" placeholder="?"></div>
-  <div class="btn-row no-print"><button class="check-btn" onclick="check4b()">Check (b)</button></div>
-  <div id="fb4b" class="feedback"></div>
-  <hr class="part-divider">
-  <h3>(c) \(p\)-value</h3>
-  <div class="step-row"><span class="prompt">\(P(Z\le -1.78)\) =</span><input class="num-input wide" id="w6_4c" type="number" step="any" data-save="w6_4c" placeholder="?"></div>
-  <div class="btn-row no-print"><button class="check-btn" onclick="check4c()">Check (c)</button></div>
-  <div id="fb4c" class="feedback"></div>
-  <hr class="part-divider">
-  <h3>(d) Decision and conclusion in context</h3>
-  <label class="interp-label"><span>State the decision and write a complete conclusion sentence.</span><textarea data-save="w6_4d" placeholder="Since p-value = … < 0.05, we … There is sufficient evidence to conclude that…"></textarea></label>
-  <div class="btn-row no-print"><button class="sol-btn" id="sol-btn-4" onclick="toggleSol('sol-4')">🔒 Unlock solution by completing checks</button></div>
-  <div class="sol-panel" id="sol-4"><div class="sol-panel-inner">
-    <p>\(\hat{p}=0.59\). SE\(=\sqrt{0.65\times0.35/200}\approx0.0337\). \(z=(0.59-0.65)/0.0337\approx-1.78\).</p>
-    <p>\(p\)-value\(=P(Z\le-1.78)\approx0.0375\). Since \(0.0375&lt;0.05\):</p>
-    <div class="reject-line"><strong>Reject \(H_0\).</strong></div>
-    <div class="answer-line">There is sufficient evidence at \(\alpha=0.05\) that the true renewal proportion is less than 65%.</div>
-  </div></div>
+<h2>Problem 4 — One-Sample \(z\)-Test for a Population Proportion</h2>
+<p>A company claims that 65% of its customers renew their subscription. In a random sample of \(n=200\) customers, 118 renew. Test whether the true renewal proportion is less than the company claims.</p>
+<p>Use \(H_0:p=0.65\) and \(H_a:p&lt;0.65\). Test at significance level \(lpha=0.05\).</p>
+<hr class="part-divider"/>
+<h3>(a) Sample proportion \(\hat{p}\)</h3>
+<div class="step-row"><span class="prompt">\(\hat{p}=118/200\) =</span><input class="num-input" data-save="w6_4a" id="w6_4a" placeholder="?" step="any" type="number"/></div>
+<div class="btn-row no-print"><button class="check-btn" onclick="check4a()">Check (a)</button></div>
+<div class="feedback" id="fb4a"></div>
+<hr class="part-divider"/>
+<h3>(b) Test statistic \(z\)</h3>
+<div class="step-row"><span class="prompt">\(\text{SE}=\sqrt{p_0(1-p_0)/n}\) =</span><input class="num-input wide" data-save="w6_4b_se" id="w6_4b_se" placeholder="?" step="any" type="number"/></div>
+<div class="step-row"><span class="prompt">\(z=(\hat{p}-p_0)/\text{SE}\) =</span><input class="num-input wide" data-save="w6_4b_z" id="w6_4b_z" placeholder="?" step="any" type="number"/></div>
+<div class="btn-row no-print"><button class="check-btn" onclick="check4b()">Check (b)</button></div>
+<div class="feedback" id="fb4b"></div>
+<hr class="part-divider"/>
+<h3>(c) \(p\)-value</h3>
+<div class="step-row"><span class="prompt">\(P(Z\le -1.78)\) =</span><input class="num-input wide" data-save="w6_4c" id="w6_4c" placeholder="?" step="any" type="number"/></div>
+<div class="btn-row no-print"><button class="check-btn" onclick="check4c()">Check (c)</button></div>
+<div class="feedback" id="fb4c"></div>
+<hr class="part-divider"/>
+<h3>(d) Decision and conclusion in context</h3>
+<label class="interp-label"><span>State the decision and write a complete conclusion sentence.</span><textarea data-save="w6_4d" placeholder="Since p-value = … &lt; 0.05, we … There is sufficient evidence to conclude that…"></textarea></label>
+<div class="btn-row no-print"><button class="sol-btn" id="sol-btn-4" onclick="toggleSol('sol-4')">🔒 Unlock solution by completing checks</button></div>
+<div class="sol-panel" id="sol-4"><div class="sol-panel-inner">
+<p>\(\hat{p}=0.59\). SE\(=\sqrt{0.65\times0.35/200}\approx0.0337\). \(z=(0.59-0.65)/0.0337\approx-1.78\).</p>
+<p>\(p\)-value\(=P(Z\le-1.78)\approx0.0375\). Since \(0.0375&lt;0.05\):</p>
+<div class="reject-line"><strong>Reject \(H_0\).</strong></div>
+<div class="answer-line">There is sufficient evidence at \(\alpha=0.05\) that the true renewal proportion is less than 65%.</div>
+</div></div>
 </div>
 </div>
 <script>

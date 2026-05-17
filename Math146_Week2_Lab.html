@@ -1,5 +1,6 @@
-<!DOCTYPE html><html lang="en"><head>
-<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/><meta content="width=device-width,initial-scale=1.0" name="viewport"/>
 <title>Math 146 Week 2 Lab</title>
 <script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},options:{skipHtmlTags:['script','noscript','style','textarea','pre']}};</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.min.js"></script>
@@ -49,122 +50,123 @@ textarea{min-height:40pt;}h1{font-size:14pt;}h2{font-size:11pt;}}
 <div class="container">
 <div class="no-print" style="margin-bottom:.75rem;"><button class="print-btn" onclick="window.print()">🖨 Print Lab Report</button></div>
 <div class="lab-header">
-  <h1>Math 146 — Week 2 Lab: Probability Distributions</h1>
-  <p>Geometric and binomial distributions, expected value, and histograms. Fill in answers and check; solutions unlock after correct completion.</p>
-  <div class="id-row">
-    <label>Student name <input type="text" data-save="w2_name" placeholder="Your full name"></label>
-    <label>Date <input type="text" data-save="w2_date" placeholder="mm/dd/yyyy"></label>
-  </div>
+<h1>Math 146 — Week 2 Lab: Probability Distributions</h1>
+<p>Work through each problem in order. Enter numerical answers in the blanks and use the check buttons to test your work. Written explanations are not auto-checked, so use complete sentences and connect your answer back to the situation. Your work saves automatically in this browser.</p>
+<div class="id-row">
+<label>Student name <input data-save="w2_name" placeholder="Your full name" type="text"/></label>
+<label>Date <input data-save="w2_date" placeholder="mm/dd/yyyy" type="text"/></label>
+</div>
+</div>
+<div class="card lab-goal">
+<h2>Lab Goal</h2>
+<p>This lab moves from individual data values to probability models for random variables. Each problem begins with a setting, then asks you to compute, interpret, and write a conclusion in context.</p>
 </div>
 
 <div class="card">
-  <h2>Reference Formulas</h2>
-  <div class="formula-box">
-    <p>\[ P(X=k) = (1-p)^{k-1}p \qquad \mu_{\text{geo}} = \frac{1}{p} \]</p>
-    <p>\[ P(X=k) = \binom{n}{k}p^k(1-p)^{n-k} \qquad \mu_{\text{bin}} = np \qquad \sigma_{\text{bin}} = \sqrt{np(1-p)} \]</p>
-    <p>\[ \binom{n}{k} = \frac{n!}{k!(n-k)!} \qquad E(X) = \sum x \cdot P(X=x) \]</p>
-  </div>
+<h2>Reference Formulas</h2>
+<div class="formula-box">
+<p>\[ P(X=k) = (1-p)^{k-1}p \qquad \mu_{\text{geo}} = \frac{1}{p} \]</p>
+<p>\[ P(X=k) = \binom{n}{k}p^k(1-p)^{n-k} \qquad \mu_{\text{bin}} = np \qquad \sigma_{\text{bin}} = \sqrt{np(1-p)} \]</p>
+<p>\[ \binom{n}{k} = \frac{n!}{k!(n-k)!} \qquad E(X) = \sum x \cdot P(X=x) \]</p>
 </div>
-
+</div>
 <!-- P1 -->
 <div class="card">
-  <h2>Problem 1 — Probability Distribution and Expected Value</h2>
-  <p>A spinner lands on 1 with probability 0.10, on 2 with probability 0.30, on 3 with probability 0.40, and on 4 with probability 0.20.</p>
-  <hr class="part-divider">
-  <h3>(a &amp; b) Complete the table and verify the sum equals 1</h3>
-  <table>
-    <thead><tr><th>\(x\)</th><th>1</th><th>2</th><th>3</th><th>4</th><th>Sum</th></tr></thead>
-    <tbody><tr><td>\(P(X=x)\)</td>
-      <td>0.10</td>
-      <td><input class="num-input" id="w2_1_p2" type="number" step="any" data-save="w2_1_p2" placeholder="?"></td>
-      <td>0.40</td>
-      <td><input class="num-input" id="w2_1_p4" type="number" step="any" data-save="w2_1_p4" placeholder="?"></td>
-      <td><input class="num-input" id="w2_1_sum" type="number" step="any" data-save="w2_1_sum" placeholder="?"></td>
-    </tr></tbody>
-  </table>
-  <div class="btn-row no-print"><button class="check-btn" onclick="check1ab()">Check (a &amp; b)</button></div>
-  <div id="fb1ab" class="feedback"></div>
-  <hr class="part-divider">
-  <h3>(c) Sketch the probability histogram</h3>
-  <label class="interp-label"><span>Describe or sketch: what are the bar heights, and what do the axes represent?</span><textarea data-save="w2_1c" placeholder="The x-axis shows…, the y-axis shows…, the bars have heights…"></textarea></label>
-  <hr class="part-divider">
-  <h3>(d) Compute \(\mu = E(X)\)</h3>
-  <div class="step-row"><span class="prompt">\(E(X) = \sum x \cdot P(X=x)\) =</span><input class="num-input wide" id="w2_1d" type="number" step="any" data-save="w2_1d" placeholder="?"></div>
-  <div class="btn-row no-print">
-    <button class="check-btn" onclick="check1d()">Check (d)</button>
-    <button class="sol-btn" id="sol-btn-1" onclick="toggleSol('sol-1')">🔒 Unlock solution by completing checks</button>
-  </div>
-  <div id="fb1d" class="feedback"></div>
-  <div class="sol-panel" id="sol-1"><div class="sol-panel-inner">
-    <p>Table: 0.10, 0.30, 0.40, 0.20 — sum = 1.00 ✓</p>
-    <p>\(E(X)=1(0.10)+2(0.30)+3(0.40)+4(0.20)=0.10+0.60+1.20+0.80\)</p>
-    <div class="answer-line">\(E(X) = 2.70\)</div>
-  </div></div>
+<h2>Problem 1 — Probability Distribution and Expected Value</h2>
+<p>A simple game uses a spinner with four possible outcomes. The spinner lands on 1 with probability 0.10, on 2 with probability 0.30, on 3 with probability 0.40, and on 4 with probability 0.20. Treat the spinner value as the random variable \(X\), then check that the probabilities form a valid distribution and compute the long-run average outcome.</p>
+<hr class="part-divider"/>
+<h3>(a &amp; b) Complete the table and verify the sum equals 1</h3>
+<table>
+<thead><tr><th>\(x\)</th><th>1</th><th>2</th><th>3</th><th>4</th><th>Sum</th></tr></thead>
+<tbody><tr><td>\(P(X=x)\)</td>
+<td>0.10</td>
+<td><input class="num-input" data-save="w2_1_p2" id="w2_1_p2" placeholder="?" step="any" type="number"/></td>
+<td>0.40</td>
+<td><input class="num-input" data-save="w2_1_p4" id="w2_1_p4" placeholder="?" step="any" type="number"/></td>
+<td><input class="num-input" data-save="w2_1_sum" id="w2_1_sum" placeholder="?" step="any" type="number"/></td>
+</tr></tbody>
+</table>
+<div class="btn-row no-print"><button class="check-btn" onclick="check1ab()">Check (a &amp; b)</button></div>
+<div class="feedback" id="fb1ab"></div>
+<hr class="part-divider"/>
+<h3>(c) Sketch the probability histogram</h3>
+<label class="interp-label"><span>Describe or sketch: what are the bar heights, and what do the axes represent?</span><textarea data-save="w2_1c" placeholder="The x-axis shows…, the y-axis shows…, the bars have heights…"></textarea></label>
+<hr class="part-divider"/>
+<h3>(d) Compute \(\mu = E(X)\)</h3>
+<div class="step-row"><span class="prompt">\(E(X) = \sum x \cdot P(X=x)\) =</span><input class="num-input wide" data-save="w2_1d" id="w2_1d" placeholder="?" step="any" type="number"/></div>
+<div class="btn-row no-print">
+<button class="check-btn" onclick="check1d()">Check (d)</button>
+<button class="sol-btn" id="sol-btn-1" onclick="toggleSol('sol-1')">🔒 Unlock solution by completing checks</button>
 </div>
-
+<div class="feedback" id="fb1d"></div>
+<div class="sol-panel" id="sol-1"><div class="sol-panel-inner">
+<p>Table: 0.10, 0.30, 0.40, 0.20 — sum = 1.00 ✓</p>
+<p>\(E(X)=1(0.10)+2(0.30)+3(0.40)+4(0.20)=0.10+0.60+1.20+0.80\)</p>
+<div class="answer-line">\(E(X) = 2.70\)</div>
+</div></div>
+</div>
 <!-- P2 -->
 <div class="card">
-  <h2>Problem 2 — Geometric Distribution</h2>
-  <p>A student answers each multiple-choice question correctly with probability \(p = 0.20\). Let \(X\) be the question number of the first correct answer.</p>
-  <hr class="part-divider">
-  <h3>(a) Compute \(P(X = 3)\)</h3>
-  <div class="step-row"><span class="prompt">\((1-p)^{k-1} \cdot p\) with \(k=3\):</span><input class="num-input wide" id="w2_2a" type="number" step="any" data-save="w2_2a" placeholder="?"></div>
-  <div class="btn-row no-print"><button class="check-btn" onclick="check2a()">Check (a)</button></div>
-  <div id="fb2a" class="feedback"></div>
-  <hr class="part-divider">
-  <h3>(b) Compute \(\mu\). Interpret in one sentence.</h3>
-  <div class="step-row"><span class="prompt">\(\mu = 1/p\) =</span><input class="num-input" id="w2_2b" type="number" step="any" data-save="w2_2b" placeholder="?"></div>
-  <div class="btn-row no-print">
-    <button class="check-btn" onclick="check2b()">Check (b)</button>
-    <button class="sol-btn" id="sol-btn-2" onclick="toggleSol('sol-2')">🔒 Unlock solution by completing checks</button>
-  </div>
-  <div id="fb2b" class="feedback"></div>
-  <div class="sol-panel" id="sol-2"><div class="sol-panel-inner">
-    <p>(a) \(P(X=3)=(0.80)^2 \times 0.20 = 0.64 \times 0.20 = 0.128\)</p>
-    <p>(b) \(\mu = 1/0.20 = 5\)</p>
-    <div class="answer-line">\(P(X=3)=0.128\) · \(\mu=5\) questions on average until first correct answer</div>
-  </div></div>
-  <hr class="part-divider">
-  <h3>(c) Describe the histogram shape</h3>
-  <label class="interp-label"><span>Is the geometric distribution histogram symmetric, skewed left, or skewed right? Why?</span><textarea data-save="w2_2c" placeholder="The histogram is…"></textarea></label>
+<h2>Problem 2 — Geometric Distribution</h2>
+<p>A student guesses on a sequence of multiple-choice questions. Each question has probability \(p = 0.20\) of being answered correctly, and the guesses are independent. Let \(X\) be the question number of the first correct answer. This is a geometric setting because we are counting how long it takes until the first success.</p>
+<hr class="part-divider"/>
+<h3>(a) Compute \(P(X = 3)\)</h3>
+<div class="step-row"><span class="prompt">\((1-p)^{k-1} \cdot p\) with \(k=3\):</span><input class="num-input wide" data-save="w2_2a" id="w2_2a" placeholder="?" step="any" type="number"/></div>
+<div class="btn-row no-print"><button class="check-btn" onclick="check2a()">Check (a)</button></div>
+<div class="feedback" id="fb2a"></div>
+<hr class="part-divider"/>
+<h3>(b) Compute \(\mu\). Interpret in one sentence.</h3>
+<div class="step-row"><span class="prompt">\(\mu = 1/p\) =</span><input class="num-input" data-save="w2_2b" id="w2_2b" placeholder="?" step="any" type="number"/></div>
+<div class="btn-row no-print">
+<button class="check-btn" onclick="check2b()">Check (b)</button>
+<button class="sol-btn" id="sol-btn-2" onclick="toggleSol('sol-2')">🔒 Unlock solution by completing checks</button>
 </div>
-
+<div class="feedback" id="fb2b"></div>
+<div class="sol-panel" id="sol-2"><div class="sol-panel-inner">
+<p>(a) \(P(X=3)=(0.80)^2 \times 0.20 = 0.64 \times 0.20 = 0.128\)</p>
+<p>(b) \(\mu = 1/0.20 = 5\)</p>
+<div class="answer-line">\(P(X=3)=0.128\) · \(\mu=5\) questions on average until first correct answer</div>
+</div></div>
+<hr class="part-divider"/>
+<h3>(c) Describe the histogram shape</h3>
+<label class="interp-label"><span>Is the geometric distribution histogram symmetric, skewed left, or skewed right? Why?</span><textarea data-save="w2_2c" placeholder="The histogram is…"></textarea></label>
+</div>
 <!-- P3 -->
 <div class="card">
-  <h2>Problem 3 — Binomial Distribution</h2>
-  <p>A drug is effective for 70% of patients. A doctor prescribes it to 6 patients. Let \(X\) be the number for whom it is effective. So \(n=6\), \(p=0.70\).</p>
-  <hr class="part-divider">
-  <h3>(a) Identify \(n\) and \(p\); explain the binomial conditions</h3>
-  <label class="interp-label"><span>List the four binomial conditions and confirm each applies here.</span><textarea data-save="w2_3a" placeholder="n = …, p = …. This is binomial because…"></textarea></label>
-  <hr class="part-divider">
-  <h3>(b) Compute \(P(X = 6)\)</h3>
-  <div class="step-row"><span class="prompt">\(\binom{6}{6}(0.70)^6(0.30)^0\) =</span><input class="num-input wide" id="w2_3b" type="number" step="any" data-save="w2_3b" placeholder="?"></div>
-  <div class="btn-row no-print"><button class="check-btn" onclick="check3b()">Check (b)</button></div>
-  <div id="fb3b" class="feedback"></div>
-  <hr class="part-divider">
-  <h3>(c) Compute \(P(X = 4)\) — show the combination</h3>
-  <div class="step-row"><span class="prompt">\(\binom{6}{4}\) =</span><input class="num-input" id="w2_3c_c" type="number" step="any" data-save="w2_3c_c" placeholder="?"></div>
-  <div class="step-row"><span class="prompt">\(P(X=4) = \binom{6}{4}(0.70)^4(0.30)^2\) =</span><input class="num-input wide" id="w2_3c_p" type="number" step="any" data-save="w2_3c_p" placeholder="?"></div>
-  <div class="btn-row no-print"><button class="check-btn" onclick="check3c()">Check (c)</button></div>
-  <div id="fb3c" class="feedback"></div>
-  <hr class="part-divider">
-  <h3>(d) Compute \(\mu\) and \(\sigma\). Interpret \(\mu\).</h3>
-  <div class="step-row"><span class="prompt">\(\mu = np\) =</span><input class="num-input" id="w2_3d_mu" type="number" step="any" data-save="w2_3d_mu" placeholder="?"></div>
-  <div class="step-row"><span class="prompt">\(\sigma = \sqrt{np(1-p)}\) =</span><input class="num-input wide" id="w2_3d_sig" type="number" step="any" data-save="w2_3d_sig" placeholder="?"></div>
-  <div class="btn-row no-print">
-    <button class="check-btn" onclick="check3d()">Check (d)</button>
-    <button class="sol-btn" id="sol-btn-3" onclick="toggleSol('sol-3')">🔒 Unlock solution by completing checks</button>
-  </div>
-  <div id="fb3d" class="feedback"></div>
-  <div class="sol-panel" id="sol-3"><div class="sol-panel-inner">
-    <p>(b) \((0.70)^6 = 0.117649 \approx 0.1176\)</p>
-    <p>(c) \(\binom{6}{4}=15\). \(P(X=4)=15(0.2401)(0.09)=0.3241\)</p>
-    <p>(d) \(\mu=6(0.70)=4.2\). \(\sigma=\sqrt{6(0.70)(0.30)}=\sqrt{1.26}\approx 1.12\)</p>
-    <div class="answer-line">\(P(X=6)\approx 0.1176\) · \(P(X=4)\approx 0.3241\) · \(\mu=4.2\) · \(\sigma\approx 1.12\)</div>
-  </div></div>
-  <hr class="part-divider">
-  <h3>(e) Describe the expected histogram shape</h3>
-  <label class="interp-label"><span>Symmetric, skewed left, or skewed right? Where is the tallest bar? Why?</span><textarea data-save="w2_3e" placeholder="Since p = 0.70 > 0.50, the histogram is…"></textarea></label>
+<h2>Problem 3 — Binomial Distribution</h2>
+<p>A drug is effective for 70% of patients. A doctor prescribes it to 6 patients and records how many of those patients respond to the drug. Let \(X\) be the number of patients for whom the drug is effective, so \(n=6\) and \(p=0.70\). This is a binomial setting because there are a fixed number of independent trials and each trial has the same probability of success.</p>
+<hr class="part-divider"/>
+<h3>(a) Identify \(n\) and \(p\); explain the binomial conditions</h3>
+<label class="interp-label"><span>List the four binomial conditions and confirm each applies here.</span><textarea data-save="w2_3a" placeholder="n = …, p = …. This is binomial because…"></textarea></label>
+<hr class="part-divider"/>
+<h3>(b) Compute \(P(X = 6)\)</h3>
+<div class="step-row"><span class="prompt">\(\binom{6}{6}(0.70)^6(0.30)^0\) =</span><input class="num-input wide" data-save="w2_3b" id="w2_3b" placeholder="?" step="any" type="number"/></div>
+<div class="btn-row no-print"><button class="check-btn" onclick="check3b()">Check (b)</button></div>
+<div class="feedback" id="fb3b"></div>
+<hr class="part-divider"/>
+<h3>(c) Compute \(P(X = 4)\) — show the combination</h3>
+<div class="step-row"><span class="prompt">\(\binom{6}{4}\) =</span><input class="num-input" data-save="w2_3c_c" id="w2_3c_c" placeholder="?" step="any" type="number"/></div>
+<div class="step-row"><span class="prompt">\(P(X=4) = \binom{6}{4}(0.70)^4(0.30)^2\) =</span><input class="num-input wide" data-save="w2_3c_p" id="w2_3c_p" placeholder="?" step="any" type="number"/></div>
+<div class="btn-row no-print"><button class="check-btn" onclick="check3c()">Check (c)</button></div>
+<div class="feedback" id="fb3c"></div>
+<hr class="part-divider"/>
+<h3>(d) Compute \(\mu\) and \(\sigma\). Interpret \(\mu\).</h3>
+<div class="step-row"><span class="prompt">\(\mu = np\) =</span><input class="num-input" data-save="w2_3d_mu" id="w2_3d_mu" placeholder="?" step="any" type="number"/></div>
+<div class="step-row"><span class="prompt">\(\sigma = \sqrt{np(1-p)}\) =</span><input class="num-input wide" data-save="w2_3d_sig" id="w2_3d_sig" placeholder="?" step="any" type="number"/></div>
+<div class="btn-row no-print">
+<button class="check-btn" onclick="check3d()">Check (d)</button>
+<button class="sol-btn" id="sol-btn-3" onclick="toggleSol('sol-3')">🔒 Unlock solution by completing checks</button>
+</div>
+<div class="feedback" id="fb3d"></div>
+<div class="sol-panel" id="sol-3"><div class="sol-panel-inner">
+<p>(b) \((0.70)^6 = 0.117649 \approx 0.1176\)</p>
+<p>(c) \(\binom{6}{4}=15\). \(P(X=4)=15(0.2401)(0.09)=0.3241\)</p>
+<p>(d) \(\mu=6(0.70)=4.2\). \(\sigma=\sqrt{6(0.70)(0.30)}=\sqrt{1.26}\approx 1.12\)</p>
+<div class="answer-line">\(P(X=6)\approx 0.1176\) · \(P(X=4)\approx 0.3241\) · \(\mu=4.2\) · \(\sigma\approx 1.12\)</div>
+</div></div>
+<hr class="part-divider"/>
+<h3>(e) Describe the expected histogram shape</h3>
+<label class="interp-label"><span>Symmetric, skewed left, or skewed right? Where is the tallest bar? Why?</span><textarea data-save="w2_3e" placeholder="Since p = 0.70 &gt; 0.50, the histogram is…"></textarea></label>
 </div>
 </div>
 <script>
