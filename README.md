@@ -54,6 +54,7 @@ These demonstrations are stored in the `demos/` directory.
 - Galaxies Torus Demo: [Open Page](https://bobovski66.github.io/IntroStatistics/demos/galaxies_torus.html) | [Source File](https://github.com/bobovski66/IntroStatistics/blob/main/demos/galaxies_torus.html)
 - Galton Board: [Open Page](https://bobovski66.github.io/IntroStatistics/demos/galton_board.html) | [Source File](https://github.com/bobovski66/IntroStatistics/blob/main/demos/galton_board.html)
 - Law of Large Numbers Running Average: [Open Page](https://bobovski66.github.io/IntroStatistics/demos/law_of_large_numbers_running_average.html) | [Source File](https://github.com/bobovski66/IntroStatistics/blob/main/demos/law_of_large_numbers_running_average.html)
+- Confidence Intervals: [Open Page](https://bobovski66.github.io/IntroStatistics/demos/ci_demo.html) | [Source File](https://github.com/bobovski66/IntroStatistics/blob/main/demos/ci_demo.html)
 - Normal Distribution Demo: [Open Page](https://bobovski66.github.io/IntroStatistics/demos/normal.html) | [Source File](https://github.com/bobovski66/IntroStatistics/blob/main/demos/normal.html)
 - Z-Test and Confidence Interval Demo: [Open Page](https://bobovski66.github.io/IntroStatistics/demos/ztest_ci_demo.html) | [Source File](https://github.com/bobovski66/IntroStatistics/blob/main/demos/ztest_ci_demo.html)
 
