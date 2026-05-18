@@ -134,7 +134,7 @@
 <!-- ===== PROBLEM 1 ===== -->
 <div class="card">
 <h2>Problem 1 — Confidence Interval for a Population Mean</h2>
-<p>A school counselor samples 36 students and finds a mean sleep time of \(ar{x}=6.8\) hours. Assume the population standard deviation is known to be \(\sigma=1.5\) hours. Use this sample to construct a 95% confidence interval for the true mean sleep time of students at the school.</p>
+<p>A school counselor samples 36 students and finds a mean sleep time of \(\bar{x}=6.8\) hours. Assume the population standard deviation is known to be \(\sigma=1.5\) hours. Use this sample to construct a 95% confidence interval for the true mean sleep time of students at the school.</p>
 <hr class="part-divider"/>
 <h3>(a) Construct a 95% confidence interval for \(\mu\)</h3>
 <div class="step-row">
@@ -188,7 +188,7 @@
 <!-- ===== PROBLEM 2 ===== -->
 <div class="card">
 <h2>Problem 2 — Confidence Level and Width</h2>
-<p>A sample of 64 packages has mean weight \(ar{x}=12.4\) ounces. Assume the population standard deviation is \(\sigma=1.2\) ounces. You will use the same data to compare a 90% confidence interval with a 99% confidence interval and explain how confidence level affects interval width.</p>
+<p>A sample of 64 packages has mean weight \(\bar{x}=12.4\) ounces. Assume the population standard deviation is \(\sigma=1.2\) ounces. You will use the same data to compare a 90% confidence interval with a 99% confidence interval and explain how confidence level affects interval width.</p>
 <hr class="part-divider"/>
 <h3>Shared standard error</h3>
 <div class="step-row">
@@ -248,7 +248,7 @@
 <!-- ===== PROBLEM 3 ===== -->
 <div class="card">
 <h2>Problem 3 — Required Sample Size for a Mean</h2>
-<p>A transportation planner wants to estimate the mean commute time for workers in a city. The estimate should be within \(	ext{ME} = 2\) minutes at 95% confidence. Historical data suggest \(\sigma = 10\) minutes. Find the minimum sample size needed to meet this margin of error.</p>
+<p>A transportation planner wants to estimate the mean commute time for workers in a city. The estimate should be within \(\text{ME} = 2\) minutes at 95% confidence. Historical data suggest \(\sigma = 10\) minutes. Find the minimum sample size needed to meet this margin of error.</p>
 <hr class="part-divider"/>
 <h3>(a) Find the required sample size</h3>
 <div class="step-row">
@@ -497,7 +497,7 @@ function check4b() {
   checks.forEach(c => markField(c.id, c.ok));
   const failed = checks.filter(c => !c.ok);
   if (failed.length === 0) {
-    setFeedback('fb4b', true, 'Both ≥ 10 ✓ — normal approximation is valid.');
+    setFeedback('fb4b', true, 'Both ≥ 10 ✓; normal approximation is valid.');
     p4bOk = true; if (p4aOk && p4cOk) unlock('sol-btn-4','sol-4');
   } else {
     setFeedback('fb4b', false, 'Review: ' + failed.map(c=>c.hint).join(' · '));
