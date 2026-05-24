@@ -1,0 +1,417 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Math 146 Week 8 Lab</title>
+<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},options:{skipHtmlTags:['script','noscript','style','textarea','pre']}};</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.min.js"></script>
+<style>
+:root{--bg:#f8fafc;--panel:#fff;--text:#1f2937;--muted:#4b5563;--border:#d1d5db;--ok:#16a34a;--ok-bg:#dcfce7;--ok-border:#86efac;--err:#dc2626;--err-bg:#fef2f2;--err-border:#fca5a5;--field:#f0f9ff;--field-border:#7dd3fc;--accent:#0f766e;--locked:#9ca3af;--locked-bg:#f3f4f6;}
+*{box-sizing:border-box;}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;font-size:15px;line-height:1.6;color:var(--text);background:var(--bg);}
+.container{max-width:860px;margin:0 auto;padding:1.5rem 1rem 4rem;}
+.lab-header{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:1.25rem 1.5rem;margin-bottom:1.25rem;}
+.lab-header h1{margin:0 0 .2rem;font-size:1.5rem;}.lab-header p{margin:0;color:var(--muted);font-size:.875rem;}
+.id-row{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-top:1rem;}
+.id-row label{display:flex;flex-direction:column;gap:.2rem;font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);}
+.id-row input[type=text]{border:1px solid var(--border);border-radius:6px;padding:.4rem .6rem;font-size:1rem;font-family:inherit;width:100%;}
+.card{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:1.25rem;margin-bottom:1.25rem;}
+.card h2{margin:0 0 .75rem;font-size:1.1rem;}.card h3{margin:1rem 0 .4rem;font-size:.85rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;}
+.formula-box{background:#f9fafb;border:1px solid var(--border);border-radius:10px;padding:.85rem 1rem;margin-bottom:.75rem;overflow-x:auto;}
+.formula-box p{margin:.35rem 0;}.part-divider{border:none;border-top:1px solid var(--border);margin:.85rem 0;}
+.step-row{display:flex;align-items:center;gap:.5rem;margin:.45rem 0;flex-wrap:wrap;font-size:.95rem;}
+.step-row .prompt{flex:1 1 220px;}
+.num-input{width:90px;border:1.5px solid var(--field-border);border-radius:6px;padding:.3rem .5rem;font-size:.95rem;font-family:inherit;background:var(--field);text-align:center;}
+.num-input:focus{outline:2px solid var(--accent);border-color:var(--accent);}
+.num-input.correct{border-color:var(--ok);background:#f0fdf4;}.num-input.wrong{border-color:var(--err);background:#fef2f2;}
+.wide{width:120px;}
+.interp-label{display:block;margin-top:.75rem;}
+.interp-label span{display:block;font-size:.85rem;font-weight:700;color:var(--muted);margin-bottom:.3rem;}
+textarea{width:100%;border:1.5px solid var(--border);border-radius:8px;padding:.5rem .65rem;font-family:inherit;font-size:.9rem;min-height:65px;resize:vertical;}
+textarea:focus{outline:2px solid var(--accent);border-color:var(--accent);}
+.btn-row{display:flex;gap:.6rem;align-items:center;margin-top:.6rem;flex-wrap:wrap;}
+.check-btn{background:var(--accent);color:#fff;border:none;border-radius:7px;padding:.4rem .9rem;font-size:.875rem;font-family:inherit;cursor:pointer;}
+.check-btn:hover{background:#0d5f5a;}
+.sol-btn{background:var(--locked-bg);color:var(--locked);border:1.5px solid var(--border);border-radius:7px;padding:.4rem .9rem;font-size:.875rem;font-family:inherit;cursor:not-allowed;transition:all .2s;}
+.sol-btn.unlocked{background:#1e40af;color:#fff;border-color:#1e40af;cursor:pointer;}.sol-btn.unlocked:hover{background:#1e3a8a;}
+.print-btn{background:#374151;color:#fff;border:none;border-radius:8px;padding:.55rem 1.2rem;font-size:.9rem;font-family:inherit;cursor:pointer;margin-bottom:1rem;}
+.feedback{margin-top:.4rem;padding:.4rem .7rem;border-radius:7px;font-size:.875rem;display:none;}
+.feedback.ok{background:var(--ok-bg);color:var(--ok);border:1px solid var(--ok-border);display:block;}
+.feedback.err{background:var(--err-bg);color:var(--err);border:1px solid var(--err-border);display:block;}
+.sol-panel{display:none;margin-top:.75rem;border:1px solid #bfdbfe;border-radius:10px;background:#eff6ff;}
+.sol-panel.open{display:block;}.sol-panel-inner{padding:.85rem 1rem;font-size:.9rem;}.sol-panel-inner p{margin:.4rem 0;}
+.answer-line{margin-top:.6rem;padding:.4rem .65rem;background:var(--ok-bg);border-radius:7px;border-left:4px solid var(--ok);}
+.reject-line{margin-top:.6rem;padding:.4rem .65rem;background:#fef2f2;border-radius:7px;border-left:4px solid var(--err);}
+table{width:100%;border-collapse:collapse;margin:.75rem 0;background:white;}
+th,td{border:1px solid var(--border);padding:.55rem .75rem;text-align:center;vertical-align:middle;}
+th{background:#f3f4f6;font-weight:600;}
+td.lft{text-align:left;}
+@media print{
+  body{background:#fff;font-size:11pt;}.container{padding:0;max-width:100%;}
+  .no-print,.check-btn,.print-btn,.sol-btn,.sol-panel,.feedback{display:none!important;}
+  .card{border:1px solid #ccc;border-radius:6px;margin-bottom:.75rem;padding:.85rem;page-break-inside:avoid;}
+  .num-input,.id-row input,textarea{border:none;border-bottom:1px solid #999;background:transparent;border-radius:0;}
+  textarea{min-height:40pt;}h1{font-size:14pt;}h2{font-size:11pt;}
+}
+</style></head><body>
+<div class="container">
+
+<div class="no-print" style="margin-bottom:.75rem;">
+  <button class="print-btn" onclick="window.print()">🖨 Print Lab Report</button>
+</div>
+
+<div class="lab-header">
+  <h1>Math 146 — Week 8 Lab: Chi-Squared Tests for Categorical Data</h1>
+  <p>Goodness-of-fit and test of independence. Fill in each blank and check your answers. Solutions unlock once all checks in a problem pass.</p>
+  <div class="id-row">
+    <label>Student name <input type="text" data-save="w8_name" placeholder="Your full name"></label>
+    <label>Date <input type="text" data-save="w8_date" placeholder="mm/dd/yyyy"></label>
+  </div>
+</div>
+
+<!-- Reference -->
+<div class="card">
+  <h2>Reference Formulas</h2>
+  <div class="formula-box">
+    <p>Chi-squared test statistic: \[\chi^2 = \sum \frac{(O - E)^2}{E}\]</p>
+    <p>Expected count (goodness-of-fit, equal proportions): \(E = n/k\) where \(k\) = number of categories.</p>
+    <p>Expected count (test of independence): \[E = \frac{(\text{row total})(\text{column total})}{\text{grand total}}\]</p>
+    <p>Degrees of freedom: goodness-of-fit: \(df = k - 1\) &ensp;·&ensp; independence: \(df = (r-1)(c-1)\)</p>
+  </div>
+</div>
+
+<!-- Problem 1 -->
+<div class="card">
+  <h2>Problem 1 — Goodness-of-Fit: Lunch Choices</h2>
+  <p>A campus survey asks 100 students which lunch option they prefer. The null hypothesis says all four options are equally popular.</p>
+  <table>
+    <thead><tr><th>Lunch choice</th><th>Pizza</th><th>Sandwiches</th><th>Salad</th><th>Tacos</th></tr></thead>
+    <tbody><tr><td class="lft">Observed \(O\)</td><td>40</td><td>22</td><td>18</td><td>20</td></tr></tbody>
+  </table>
+  <hr class="part-divider">
+
+  <h3>(a) Expected count for each category</h3>
+  <div class="step-row">
+    <span class="prompt">Under \(H_0\): \(E = 100/4\) =</span>
+    <input class="num-input" id="w8_1a" type="number" step="any" data-save="w8_1a" placeholder="?">
+    <span>for each category</span>
+  </div>
+  <div class="btn-row no-print"><button class="check-btn" onclick="check1a()">Check (a)</button></div>
+  <div id="fb1a" class="feedback"></div>
+  <hr class="part-divider">
+
+  <h3>(b) Chi-squared contributions \((O-E)^2/E\)</h3>
+  <table>
+    <thead><tr><th>Category</th><th>\(O\)</th><th>\(E\)</th><th>\((O-E)^2/E\)</th></tr></thead>
+    <tbody>
+      <tr>
+        <td class="lft">Pizza</td><td>40</td>
+        <td><input class="num-input" id="w8_1b_e1" type="number" step="any" data-save="w8_1b_e1" placeholder="?"></td>
+        <td><input class="num-input" id="w8_1b_c1" type="number" step="any" data-save="w8_1b_c1" placeholder="?"></td>
+      </tr>
+      <tr>
+        <td class="lft">Sandwiches</td><td>22</td>
+        <td><input class="num-input" id="w8_1b_e2" type="number" step="any" data-save="w8_1b_e2" placeholder="?"></td>
+        <td><input class="num-input" id="w8_1b_c2" type="number" step="any" data-save="w8_1b_c2" placeholder="?"></td>
+      </tr>
+      <tr>
+        <td class="lft">Salad</td><td>18</td>
+        <td><input class="num-input" id="w8_1b_e3" type="number" step="any" data-save="w8_1b_e3" placeholder="?"></td>
+        <td><input class="num-input" id="w8_1b_c3" type="number" step="any" data-save="w8_1b_c3" placeholder="?"></td>
+      </tr>
+      <tr>
+        <td class="lft">Tacos</td><td>20</td>
+        <td><input class="num-input" id="w8_1b_e4" type="number" step="any" data-save="w8_1b_e4" placeholder="?"></td>
+        <td><input class="num-input" id="w8_1b_c4" type="number" step="any" data-save="w8_1b_c4" placeholder="?"></td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="btn-row no-print"><button class="check-btn" onclick="check1b()">Check (b)</button></div>
+  <div id="fb1b" class="feedback"></div>
+  <hr class="part-divider">
+
+  <h3>(c) Sum contributions to find \(\chi^2\)</h3>
+  <div class="step-row">
+    <span class="prompt">\(\chi^2 = \sum (O-E)^2/E\) =</span>
+    <input class="num-input wide" id="w8_1c" type="number" step="any" data-save="w8_1c" placeholder="?">
+  </div>
+  <div class="btn-row no-print"><button class="check-btn" onclick="check1c()">Check (c)</button></div>
+  <div id="fb1c" class="feedback"></div>
+  <hr class="part-divider">
+
+  <h3>(d) Degrees of freedom</h3>
+  <div class="step-row">
+    <span class="prompt">\(df = k - 1 =\)</span>
+    <input class="num-input" id="w8_1d" type="number" step="1" data-save="w8_1d" placeholder="?">
+  </div>
+  <div class="btn-row no-print">
+    <button class="check-btn" onclick="check1d()">Check (d)</button>
+    <button class="sol-btn" id="sol-btn-1" onclick="toggleSol('sol-1')">🔒 Unlock solution by completing checks</button>
+  </div>
+  <div id="fb1d" class="feedback"></div>
+  <div class="sol-panel" id="sol-1"><div class="sol-panel-inner">
+    <p>(a) \(E = 100/4 = 25\) for each category — under \(H_0\) all four are equally likely.</p>
+    <p>(b) Contributions: Pizza \((40-25)^2/25 = 225/25 = 9.00\) · Sandwiches \((22-25)^2/25 = 9/25 = 0.36\) · Salad \((18-25)^2/25 = 49/25 = 1.96\) · Tacos \((20-25)^2/25 = 25/25 = 1.00\)</p>
+    <p>(c) \(\chi^2 = 9.00 + 0.36 + 1.96 + 1.00 = 12.32\)</p>
+    <p>(d) \(df = 4 - 1 = 3\)</p>
+    <div class="answer-line">\(E=25\) each · contributions: 9.00, 0.36, 1.96, 1.00 · \(\chi^2 = 12.32\) · \(df = 3\)</div>
+  </div></div>
+
+  <hr class="part-divider">
+  <h3>(e) Interpret a large \(\chi^2\) in this setting</h3>
+  <label class="interp-label">
+    <span>Write one sentence explaining what a large chi-squared statistic means.</span>
+    <textarea data-save="w8_1e" placeholder="A large chi-squared statistic means…"></textarea>
+  </label>
+</div>
+
+<!-- Problem 2 -->
+<div class="card">
+  <h2>Problem 2 — Why Do We Divide by the Expected Count?</h2>
+  <p>Both cases have a raw difference of 5.</p>
+  <table>
+    <thead><tr><th>Case</th><th>Observed \(O\)</th><th>Expected \(E\)</th><th>\(|O-E|\)</th></tr></thead>
+    <tbody>
+      <tr><td>A</td><td>15</td><td>10</td><td>5</td></tr>
+      <tr><td>B</td><td>105</td><td>100</td><td>5</td></tr>
+    </tbody>
+  </table>
+  <hr class="part-divider">
+
+  <h3>(a) Contribution for Case A: \((15-10)^2/10\)</h3>
+  <div class="step-row">
+    <span class="prompt">\((15-10)^2/10\) =</span>
+    <input class="num-input" id="w8_2a" type="number" step="any" data-save="w8_2a" placeholder="?">
+  </div>
+  <div class="btn-row no-print"><button class="check-btn" onclick="check2a()">Check (a)</button></div>
+  <div id="fb2a" class="feedback"></div>
+  <hr class="part-divider">
+
+  <h3>(b) Contribution for Case B: \((105-100)^2/100\)</h3>
+  <div class="step-row">
+    <span class="prompt">\((105-100)^2/100\) =</span>
+    <input class="num-input" id="w8_2b" type="number" step="any" data-save="w8_2b" placeholder="?">
+  </div>
+  <div class="btn-row no-print">
+    <button class="check-btn" onclick="check2b()">Check (b)</button>
+    <button class="sol-btn" id="sol-btn-2" onclick="toggleSol('sol-2')">🔒 Unlock solution by completing checks</button>
+  </div>
+  <div id="fb2b" class="feedback"></div>
+  <div class="sol-panel" id="sol-2"><div class="sol-panel-inner">
+    <p>(a) \(25/10 = 2.5\)</p>
+    <p>(b) \(25/100 = 0.25\)</p>
+    <div class="answer-line">Case A: 2.5 · Case B: 0.25</div>
+  </div></div>
+  <hr class="part-divider">
+
+  <h3>(c) Explain why the same raw difference gives different contributions</h3>
+  <label class="interp-label">
+    <span>Why does dividing by \(E\) matter? What does the contribution actually measure?</span>
+    <textarea data-save="w8_2c" placeholder="Dividing by E scales the difference relative to…"></textarea>
+  </label>
+</div>
+
+<!-- Problem 3 -->
+<div class="card">
+  <h2>Problem 3 — Expected Counts for Independence</h2>
+  <p>Study method vs. exam result:</p>
+  <table>
+    <thead><tr><th class="lft">Study method</th><th>Passed</th><th>Did not pass</th><th>Row total</th></tr></thead>
+    <tbody>
+      <tr><td class="lft">Flashcards</td><td>18</td><td>12</td><td>30</td></tr>
+      <tr><td class="lft">Practice problems</td><td>42</td><td>8</td><td>50</td></tr>
+      <tr><td class="lft">Videos</td><td>20</td><td>10</td><td>30</td></tr>
+      <tr><td class="lft"><strong>Column total</strong></td><td><strong>80</strong></td><td><strong>30</strong></td><td><strong>110</strong></td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:.9rem;color:var(--muted);margin:.25rem 0 .75rem;">Formula: \(E = \dfrac{(\text{row total})(\text{column total})}{\text{grand total}}\)</p>
+  <hr class="part-divider">
+
+  <h3>(a) Flashcards / Passed: \(E = (30)(80)/110\)</h3>
+  <div class="step-row">
+    <span class="prompt">Numerator \(30 \times 80\) =</span>
+    <input class="num-input" id="w8_3a_num" type="number" step="any" data-save="w8_3a_num" placeholder="?">
+    <span>&ensp; \(E\) =</span>
+    <input class="num-input wide" id="w8_3a_e" type="number" step="any" data-save="w8_3a_e" placeholder="?">
+  </div>
+  <div class="btn-row no-print"><button class="check-btn" onclick="check3a()">Check (a)</button></div>
+  <div id="fb3a" class="feedback"></div>
+  <hr class="part-divider">
+
+  <h3>(b) Flashcards / Did not pass: \(E = (30)(30)/110\)</h3>
+  <div class="step-row">
+    <span class="prompt">Numerator \(30 \times 30\) =</span>
+    <input class="num-input" id="w8_3b_num" type="number" step="any" data-save="w8_3b_num" placeholder="?">
+    <span>&ensp; \(E\) =</span>
+    <input class="num-input wide" id="w8_3b_e" type="number" step="any" data-save="w8_3b_e" placeholder="?">
+  </div>
+  <div class="btn-row no-print"><button class="check-btn" onclick="check3b()">Check (b)</button></div>
+  <div id="fb3b" class="feedback"></div>
+  <hr class="part-divider">
+
+  <h3>(c) Practice problems / Passed: \(E = (50)(80)/110\)</h3>
+  <div class="step-row">
+    <span class="prompt">Numerator \(50 \times 80\) =</span>
+    <input class="num-input" id="w8_3c_num" type="number" step="any" data-save="w8_3c_num" placeholder="?">
+    <span>&ensp; \(E\) =</span>
+    <input class="num-input wide" id="w8_3c_e" type="number" step="any" data-save="w8_3c_e" placeholder="?">
+  </div>
+  <div class="btn-row no-print"><button class="check-btn" onclick="check3c()">Check (c)</button></div>
+  <div id="fb3c" class="feedback"></div>
+  <hr class="part-divider">
+
+  <h3>(d) Degrees of freedom for a \(3 \times 2\) table</h3>
+  <div class="step-row">
+    <span class="prompt">\(df = (r-1)(c-1)\) =</span>
+    <input class="num-input" id="w8_3d" type="number" step="1" data-save="w8_3d" placeholder="?">
+  </div>
+  <div class="btn-row no-print">
+    <button class="check-btn" onclick="check3d()">Check (d)</button>
+    <button class="sol-btn" id="sol-btn-3" onclick="toggleSol('sol-3')">🔒 Unlock solution by completing checks</button>
+  </div>
+  <div id="fb3d" class="feedback"></div>
+  <div class="sol-panel" id="sol-3"><div class="sol-panel-inner">
+    <p>(a) \((30)(80)/110 = 2400/110 \approx 21.82\)</p>
+    <p>(b) \((30)(30)/110 = 900/110 \approx 8.18\)</p>
+    <p>(c) \((50)(80)/110 = 4000/110 \approx 36.36\)</p>
+    <p>(d) \(df = (3-1)(2-1) = 2 \times 1 = 2\)</p>
+    <div class="answer-line">21.82 · 8.18 · 36.36 · \(df = 2\)</div>
+  </div></div>
+</div>
+
+<!-- Problem 4 -->
+<div class="card">
+  <h2>Problem 4 — Decision and Conclusion</h2>
+  <p>A chi-squared test of independence gives \(\chi^2 = 8.40\), \(df = 2\), \(p\text{-value} = 0.015\). Use \(\alpha = 0.05\).</p>
+  <hr class="part-divider">
+
+  <h3>(a) Reject or fail to reject \(H_0\)?</h3>
+  <div class="step-row">
+    <span class="prompt">\(p\text{-value} = 0.015\) compared to \(\alpha = 0.05\): reject? (enter 1 = yes, 0 = no)</span>
+    <input class="num-input" id="w8_4a" type="number" step="1" data-save="w8_4a" placeholder="?">
+  </div>
+  <div class="btn-row no-print">
+    <button class="check-btn" onclick="check4a()">Check (a)</button>
+    <button class="sol-btn" id="sol-btn-4" onclick="toggleSol('sol-4')">🔒 Unlock solution by completing checks</button>
+  </div>
+  <div id="fb4a" class="feedback"></div>
+  <div class="sol-panel" id="sol-4"><div class="sol-panel-inner">
+    <p>(a) \(p = 0.015 < \alpha = 0.05\) → Reject \(H_0\).</p>
+    <div class="reject-line"><strong>Reject \(H_0\).</strong></div>
+    <div class="answer-line" style="margin-top:.5rem;">(b) There is sufficient evidence at \(\alpha = 0.05\) to conclude that study method and exam result are associated — they are not independent.</div>
+  </div></div>
+  <hr class="part-divider">
+
+  <h3>(b) Write a conclusion in context</h3>
+  <label class="interp-label">
+    <span>Use the words <em>evidence</em> and <em>associated</em>. Reference the specific variables.</span>
+    <textarea data-save="w8_4b" placeholder="There is sufficient / insufficient evidence at α = 0.05 to conclude that study method and exam result are…"></textarea>
+  </label>
+</div>
+
+</div><!-- end container -->
+
+<script>
+function save(k,v){try{localStorage.setItem(k,v);}catch(e){}}
+function load(k){try{return localStorage.getItem(k)||'';}catch(e){return '';}}
+document.querySelectorAll('[data-save]').forEach(el=>{
+  el.value=load(el.dataset.save);
+  el.addEventListener('input',()=>save(el.dataset.save,el.value));
+});
+function get(id){return parseFloat(document.getElementById(id).value);}
+function near(a,b,t){return !isNaN(a)&&Math.abs(a-b)<=t;}
+function setFB(id,ok,msg){const el=document.getElementById(id);el.className='feedback '+(ok?'ok':'err');el.textContent=(ok?'✓ ':'✗ ')+msg;}
+function mark(id,ok){const el=document.getElementById(id);if(!el)return;el.classList.remove('correct','wrong');if(!isNaN(parseFloat(el.value)))el.classList.add(ok?'correct':'wrong');}
+function unlock(id){const b=document.getElementById(id);b.classList.add('unlocked');b.textContent='▸ Show solution';}
+function toggleSol(id){document.getElementById(id).classList.toggle('open');}
+
+var p1ok={a:false,b:false,c:false,d:false};
+function tryP1(){if(p1ok.a&&p1ok.b&&p1ok.c&&p1ok.d)unlock('sol-btn-1');}
+
+function check1a(){
+  const v=get('w8_1a');const ok=near(v,25,.01);
+  mark('w8_1a',ok);setFB('fb1a',ok,ok?'Correct. E = 25 each.':'E = 100 ÷ 4 = 25.');
+  p1ok.a=ok;tryP1();
+}
+function check1b(){
+  const checks=[
+    {id:'w8_1b_e1',ok:near(get('w8_1b_e1'),25,.01),hint:'E(Pizza)=25'},
+    {id:'w8_1b_c1',ok:near(get('w8_1b_c1'),9.00,.05),hint:'(40−25)²/25=9.00'},
+    {id:'w8_1b_e2',ok:near(get('w8_1b_e2'),25,.01),hint:'E(Sandwiches)=25'},
+    {id:'w8_1b_c2',ok:near(get('w8_1b_c2'),0.36,.02),hint:'(22−25)²/25=0.36'},
+    {id:'w8_1b_e3',ok:near(get('w8_1b_e3'),25,.01),hint:'E(Salad)=25'},
+    {id:'w8_1b_c3',ok:near(get('w8_1b_c3'),1.96,.05),hint:'(18−25)²/25=1.96'},
+    {id:'w8_1b_e4',ok:near(get('w8_1b_e4'),25,.01),hint:'E(Tacos)=25'},
+    {id:'w8_1b_c4',ok:near(get('w8_1b_c4'),1.00,.02),hint:'(20−25)²/25=1.00'},
+  ];
+  checks.forEach(c=>mark(c.id,c.ok));
+  const f=checks.filter(c=>!c.ok);const ok=f.length===0;
+  setFB('fb1b',ok,ok?'All contributions correct.':'Review: '+f.map(c=>c.hint).join(' · '));
+  p1ok.b=ok;tryP1();
+}
+function check1c(){
+  const v=get('w8_1c');const ok=near(v,12.32,.05);
+  mark('w8_1c',ok);setFB('fb1c',ok,ok?'Correct. χ² = 12.32.':'9.00 + 0.36 + 1.96 + 1.00 = 12.32.');
+  p1ok.c=ok;tryP1();
+}
+function check1d(){
+  const v=get('w8_1d');const ok=v===3;
+  mark('w8_1d',ok);setFB('fb1d',ok,ok?'Correct. df = 3.':'df = k − 1 = 4 − 1 = 3.');
+  p1ok.d=ok;tryP1();
+}
+
+var p2ok={a:false,b:false};
+function check2a(){
+  const v=get('w8_2a');const ok=near(v,2.5,.01);
+  mark('w8_2a',ok);setFB('fb2a',ok,ok?'Correct. 2.5.':'25 ÷ 10 = 2.5.');
+  p2ok.a=ok;if(p2ok.a&&p2ok.b)unlock('sol-btn-2');
+}
+function check2b(){
+  const v=get('w8_2b');const ok=near(v,0.25,.01);
+  mark('w8_2b',ok);setFB('fb2b',ok,ok?'Correct. 0.25.':'25 ÷ 100 = 0.25.');
+  p2ok.b=ok;if(p2ok.a&&p2ok.b)unlock('sol-btn-2');
+}
+
+var p3ok={a:false,b:false,c:false,d:false};
+function tryP3(){if(p3ok.a&&p3ok.b&&p3ok.c&&p3ok.d)unlock('sol-btn-3');}
+function check3a(){
+  const cs=[
+    {id:'w8_3a_num',ok:near(get('w8_3a_num'),2400,1),hint:'30×80=2400'},
+    {id:'w8_3a_e',  ok:near(get('w8_3a_e'),21.82,.05),hint:'2400/110≈21.82'},
+  ];
+  cs.forEach(c=>mark(c.id,c.ok));const f=cs.filter(c=>!c.ok);const ok=f.length===0;
+  setFB('fb3a',ok,ok?'Correct. E ≈ 21.82.':'Review: '+f.map(c=>c.hint).join(' · '));
+  p3ok.a=ok;tryP3();
+}
+function check3b(){
+  const cs=[
+    {id:'w8_3b_num',ok:near(get('w8_3b_num'),900,1),hint:'30×30=900'},
+    {id:'w8_3b_e',  ok:near(get('w8_3b_e'),8.18,.05),hint:'900/110≈8.18'},
+  ];
+  cs.forEach(c=>mark(c.id,c.ok));const f=cs.filter(c=>!c.ok);const ok=f.length===0;
+  setFB('fb3b',ok,ok?'Correct. E ≈ 8.18.':'Review: '+f.map(c=>c.hint).join(' · '));
+  p3ok.b=ok;tryP3();
+}
+function check3c(){
+  const cs=[
+    {id:'w8_3c_num',ok:near(get('w8_3c_num'),4000,1),hint:'50×80=4000'},
+    {id:'w8_3c_e',  ok:near(get('w8_3c_e'),36.36,.05),hint:'4000/110≈36.36'},
+  ];
+  cs.forEach(c=>mark(c.id,c.ok));const f=cs.filter(c=>!c.ok);const ok=f.length===0;
+  setFB('fb3c',ok,ok?'Correct. E ≈ 36.36.':'Review: '+f.map(c=>c.hint).join(' · '));
+  p3ok.c=ok;tryP3();
+}
+function check3d(){
+  const v=get('w8_3d');const ok=v===2;
+  mark('w8_3d',ok);setFB('fb3d',ok,ok?'Correct. df = 2.':'(3−1)(2−1) = 2×1 = 2.');
+  p3ok.d=ok;tryP3();
+}
+
+function check4a(){
+  const v=get('w8_4a');const ok=v===1;
+  mark('w8_4a',ok);
+  setFB('fb4a',ok,
+    ok?'Correct. p = 0.015 < 0.05 → Reject H₀.':
+       'Since 0.015 < 0.05, we reject H₀. Enter 1.');
+  if(ok)unlock('sol-btn-4');
+}
+</script>
+</body></html>
