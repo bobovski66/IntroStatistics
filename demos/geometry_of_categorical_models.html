@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Geometry of Categorical Models</title>
+  <style>
+    :root{
+      --bg:#f7f8fc;
+      --panel:#ffffff;
+      --ink:#1f2937;
+      --muted:#64748b;
+      --line:#d7dfeb;
+      --blue:#2563eb;
+      --orange:#ea580c;
+      --purple:#7c3aed;
+      --green:#15803d;
+      --shadow:0 12px 30px rgba(15,23,42,.08);
+      --radius:18px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      color:var(--ink);
+      background:radial-gradient(circle at top left,#eaf1ff 0,#f7f8fc 40%,#ffffff 100%);
+      line-height:1.5;
+    }
+    header,main{max-width:1240px;margin:0 auto;padding:0 22px}
+    header{padding:28px 22px 14px}
+    h1{margin:0 0 8px;font-size:clamp(2rem,3.2vw,3.4rem);line-height:1.04;letter-spacing:-.045em}
+    .subtitle{max-width:980px;color:var(--muted);font-size:1.06rem;margin:0}
+    .layout{display:grid;grid-template-columns:370px minmax(500px,1fr);gap:18px;align-items:start;padding-bottom:42px}
+    .panel{background:rgba(255,255,255,.95);border:1px solid rgba(203,213,225,.9);box-shadow:var(--shadow);border-radius:var(--radius);padding:18px;margin-bottom:18px}
+    h2,h3{margin-top:0;line-height:1.14;letter-spacing:-.02em}
+    h2{font-size:1.28rem} h3{font-size:1.03rem}
+    .small{color:var(--muted);font-size:.94rem}
+    .row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    select,button{font:inherit;border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:12px;padding:10px 12px}
+    button{cursor:pointer}
+    button.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:700}
+    button.orange{background:var(--orange);border-color:var(--orange);color:#fff;font-weight:700}
+    button.secondary{background:#f8fafc}
+    .metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+    .metric{background:#f8fafc;border:1px solid var(--line);border-radius:15px;padding:12px}
+    .label{font-size:.75rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:800}
+    .value{font-size:1.45rem;font-weight:900;letter-spacing:-.035em;margin-top:4px}
+    .control{border:1px solid var(--line);border-radius:15px;background:#fbfdff;padding:13px;margin:12px 0}
+    .control-top{display:flex;justify-content:space-between;gap:10px;align-items:baseline;margin-bottom:7px}
+    .cat{font-weight:800}.count{color:var(--blue);font-weight:800}
+    input[type=range]{width:100%}
+    canvas{width:100%;max-width:100%;display:block;border:1px solid var(--line);border-radius:16px;background:#fff}
+    .legend{display:flex;gap:14px 18px;flex-wrap:wrap;margin-top:10px;color:#475569;font-size:.92rem}
+    .swatch{display:inline-block;width:12px;height:12px;border-radius:50%;margin-right:6px;vertical-align:-1px}
+    .sw-blue{background:var(--blue)} .sw-orange{background:var(--orange)} .sw-black{background:#111827} .sw-purple{background:var(--purple);border-radius:3px}
+    table{width:100%;border-collapse:collapse;font-size:.93rem}
+    th,td{padding:8px;border-bottom:1px solid var(--line);text-align:right}
+    th:first-child,td:first-child{text-align:left}
+    th{background:#f8fafc;color:#475569;text-transform:uppercase;letter-spacing:.04em;font-size:.77rem}
+    .note{border-left:5px solid var(--blue);padding:10px 13px;background:#eff6ff;color:#1e3a8a;border-radius:0 12px 12px 0;margin-top:12px}
+    .formula{background:#0f172a;color:#e5e7eb;border-radius:15px;padding:14px 16px;margin:10px 0;overflow:auto;font-family:Cambria,Georgia,serif}
+    .decision{padding:12px 14px;border-radius:14px;border:1px solid var(--line);font-weight:800;margin-top:12px}
+    .good{background:#ecfdf5;color:#15803d;border-color:#bbf7d0}
+    .warn{background:#fff7ed;color:#b45309;border-color:#fed7aa}
+    .bad{background:#fef2f2;color:#b91c1c;border-color:#fecaca}
+    .twocol{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+    .comp{margin:10px 0}
+    .comp-label{display:flex;justify-content:space-between;gap:10px;font-size:.9rem}
+    .track{height:20px;border-radius:999px;background:linear-gradient(90deg,#fee2e2,#f8fafc 48%,#f8fafc 52%,#dcfce7);border:1px solid var(--line);position:relative;overflow:hidden}
+    .zero{position:absolute;left:50%;top:0;bottom:0;width:2px;background:#334155}
+    .fill{position:absolute;top:4px;height:12px;border-radius:999px;background:linear-gradient(90deg,var(--purple),var(--blue))}
+    footer{padding:8px 0 24px;color:var(--muted);font-size:.92rem}
+    @media (max-width:980px){.layout,.metrics,.twocol,.row{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+<header>
+  <h1>Geometry of Categorical Models</h1>
+  <p class="subtitle">A categorical model is a point in a shape. With 2 categories the shape is a line segment, with 3 categories it is a triangle, and with 4 categories it is a tetrahedron. This demo shows the expected model point, the observed data point, and the chi-squared distance between them.</p>
+</header>
+<main>
+  <div class="layout">
+    <section>
+      <div class="panel">
+        <h2>1. Choose the model size</h2>
+        <div class="row">
+          <select id="kSelect">
+            <option value="2">2 categories</option>
+            <option value="3" selected>3 categories</option>
+            <option value="4">4 categories</option>
+          </select>
+          <select id="scenarioSelect"></select>
+        </div>
+        <div class="row" style="margin-top:10px;">
+          <button class="orange" id="newExpectedBtn">New expected model</button>
+          <button class="secondary" id="newObservedBtn">Random observed start</button>
+        </div>
+        <div class="row" style="margin-top:10px;">
+          <button class="primary" id="matchBtn">Match expected</button>
+          <button class="secondary" id="resetBtn">Reset example</button>
+        </div>
+        <div id="controls"></div>
+        <div class="note">
+          The total sample size is fixed at <strong id="nLabel">60</strong>. That is why one count is always dependent on the others.
+        </div>
+      </div>
+      <div class="panel">
+        <h2>2. What the picture means</h2>
+        <p class="small" id="shapeText"></p>
+        <div class="formula">
+          <div><strong>Chi-squared:</strong> &chi;<sup>2</sup> = &Sigma; (O - E)<sup>2</sup> / E</div>
+          <div style="margin-top:8px;"><strong>Degrees of freedom:</strong> df = k - 1</div>
+        </div>
+        <p class="small">The expected counts define a target point in the shape. The observed counts define another point. The chi-squared statistic measures a weighted distance from observed to expected.</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="panel">
+        <h2>3. Geometry view</h2>
+        <div class="metrics">
+          <div class="metric"><div class="label">Shape</div><div class="value" id="shapeLabel">Triangle</div></div>
+          <div class="metric"><div class="label">df</div><div class="value" id="dfLabel">2</div></div>
+          <div class="metric"><div class="label">&chi;<sup>2</sup></div><div class="value" id="chiLabel">0.00</div></div>
+          <div class="metric"><div class="label">p-value</div><div class="value" id="pLabel">1.000</div></div>
+        </div>
+        <div id="decision" class="decision good">Small weighted distance: the observed counts look compatible with the expected model.</div>
+        <canvas id="geomCanvas" width="900" height="630"></canvas>
+        <div class="legend">
+          <span><span class="swatch sw-black"></span>equal model</span>
+          <span><span class="swatch sw-orange"></span>expected model</span>
+          <span><span class="swatch sw-blue"></span>observed counts</span>
+          <span><span class="swatch sw-purple"></span>difference vector</span>
+        </div>
+      </div>
+
+      <div class="twocol">
+        <div class="panel">
+          <h2>4. Counts and contributions</h2>
+          <table>
+            <thead><tr><th>Category</th><th>O</th><th>E</th><th>O-E</th><th>Contribution</th></tr></thead>
+            <tbody id="calcTable"></tbody>
+          </table>
+        </div>
+        <div class="panel">
+          <h2>5. Standardized components</h2>
+          <p class="small">These are the coordinates of the standardized difference vector \(z=(O-E)/\sqrt{E}\). The chi-squared statistic is the sum of their squares.</p>
+          <div id="stdComponents"></div>
+        </div>
+      </div>
+      <footer>Tip: in the 4-category case, drag inside the picture to rotate the tetrahedron.</footer>
+    </section>
+  </div>
+</main>
+<script>
+const N = 60;
+const scenarioNames = {
+  2: ['Pass / Not Pass','Tea / Coffee','Cats / Dogs'],
+  3: ['Pizza / Tacos / Salad','Drive / Bus / Walk','Rock / Jazz / Classical'],
+  4: ['Pizza / Tacos / Salad / Sandwiches','Drive / Bus / Walk / Bike','Rock / Jazz / Classical / Pop']
+};
+const scenarioCats = {
+  'Pass / Not Pass': ['Pass','Not Pass'],
+  'Tea / Coffee': ['Tea','Coffee'],
+  'Cats / Dogs': ['Cats','Dogs'],
+  'Pizza / Tacos / Salad': ['Pizza','Tacos','Salad'],
+  'Drive / Bus / Walk': ['Drive','Bus','Walk'],
+  'Rock / Jazz / Classical': ['Rock','Jazz','Classical'],
+  'Pizza / Tacos / Salad / Sandwiches': ['Pizza','Tacos','Salad','Sandwiches'],
+  'Drive / Bus / Walk / Bike': ['Drive','Bus','Walk','Bike'],
+  'Rock / Jazz / Classical / Pop': ['Rock','Jazz','Classical','Pop']
+};
+
+let k = 3;
+let scenario = scenarioNames[3][0];
+let cats = scenarioCats[scenario];
+let expected = randomExpected(k);
+let observed = randomObserved(k);
+let rotX = -0.35, rotY = 0.75;
+let dragging = false, lastX = 0, lastY = 0;
+
+const controlsDiv = document.getElementById('controls');
+const canvas = document.getElementById('geomCanvas');
+const ctx = canvas.getContext('2d');
+
+function fillScenarioSelect() {
+  const sel = document.getElementById('scenarioSelect');
+  sel.innerHTML = scenarioNames[k].map(name => `<option value="${name}">${name}</option>`).join('');
+  sel.value = scenarioNames[k][0];
+  scenario = sel.value;
+  cats = scenarioCats[scenario];
+}
+
+function randomExpected(dim){
+  const raw = Array.from({length:dim}, () => 0.25 + Math.random());
+  const sum = raw.reduce((a,b)=>a+b,0);
+  const probs = raw.map(x => x/sum);
+  let counts = probs.map(x => +(x*N).toFixed(1));
+  let subtotal = counts.slice(0,dim-1).reduce((a,b)=>a+b,0);
+  counts[dim-1] = +(N - subtotal).toFixed(1);
+  return counts;
+}
+
+function randomObserved(dim){
+  let remain = N;
+  const arr = [];
+  for(let i=0;i<dim-1;i++){
+    const v = Math.floor(Math.random()*(remain+1));
+    arr.push(v);
+    remain -= v;
+  }
+  arr.push(remain);
+  for(let i=arr.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [arr[i],arr[j]] = [arr[j],arr[i]];
+  }
+  return arr;
+}
+
+function setObservedToExpected(){
+  observed = expected.map(x => Math.round(x));
+  adjustLastToTotal(observed);
+}
+
+function adjustLastToTotal(arr){
+  const sum = arr.slice(0, arr.length-1).reduce((a,b)=>a+b,0);
+  arr[arr.length-1] = N - sum;
+}
+
+function computeRows(){
+  return cats.map((cat,i)=>{
+    const e = expected[i];
+    const o = observed[i];
+    const diff = o-e;
+    const z = diff/Math.sqrt(e);
+    return {cat,o,e,diff,z,c:z*z};
+  });
+}
+function chiValue(){ return computeRows().reduce((s,r)=>s+r.c,0); }
+
+function gammln(xx){const cof=[76.18009172947146,-86.50532032941677,24.01409824083091,-1.231739572450155,.1208650973866179e-2,-.5395239384953e-5];let x=xx-1,tmp=x+5.5;tmp-=(x+.5)*Math.log(tmp);let ser=1.000000000190015;for(let j=0;j<6;j++){x+=1;ser+=cof[j]/x}return -tmp+Math.log(2.5066282746310005*ser)}
+function gser(a,x){if(x<=0)return 0;let sum=1/a,del=sum,ap=a;for(let n=1;n<=100;n++){ap+=1;del*=x/ap;sum+=del;if(Math.abs(del)<Math.abs(sum)*3e-7)break}return sum*Math.exp(-x+a*Math.log(x)-gammln(a))}
+function gcf(a,x){const FPMIN=1e-30;let b=x+1-a,c=1/FPMIN,d=1/b,h=d;for(let i=1;i<=100;i++){const an=-i*(i-a);b+=2;d=an*d+b;if(Math.abs(d)<FPMIN)d=FPMIN;c=b+an/c;if(Math.abs(c)<FPMIN)c=FPMIN;d=1/d;const del=d*c;h*=del;if(Math.abs(del-1)<3e-7)break}return Math.exp(-x+a*Math.log(x)-gammln(a))*h}
+function gammaP(a,x){return x<a+1?gser(a,x):1-gcf(a,x)}
+function pChi(x,df){return Math.max(0,Math.min(1,1-gammaP(df/2,x/2)))}
+
+function renderControls(){
+  const html = [];
+  for(let i=0;i<k-1;i++){
+    html.push(`
+      <div class="control">
+        <div class="control-top"><span class="cat">${cats[i]}</span><span class="count" id="count-${i}">${observed[i]}</span></div>
+        <input type="range" id="slider-${i}" min="0" max="${maxForIndex(i)}" value="${observed[i]}">
+      </div>
+    `);
+  }
+  html.push(`
+    <div class="control">
+      <div class="control-top"><span class="cat">${cats[k-1]}</span><span class="count" id="count-${k-1}">${observed[k-1]}</span></div>
+      <div class="small">This count is dependent: it equals ${N} minus the other displayed counts.</div>
+    </div>
+  `);
+  controlsDiv.innerHTML = html.join('');
+
+  for(let i=0;i<k-1;i++){
+    document.getElementById(`slider-${i}`).addEventListener('input', e => {
+      const val = Number(e.target.value);
+      observed[i] = val;
+      rebalanceFrom(i);
+      updateSliders();
+      update();
+    });
+  }
+}
+
+function maxForIndex(index){
+  let used = 0;
+  for(let i=0;i<k-1;i++){
+    if(i!==index) used += observed[i];
+  }
+  return Math.max(0, N - used);
+}
+
+function rebalanceFrom(index){
+  // Keep the first k-1 sliders as the free parameters and let the final
+  // category absorb the remainder. If the free counts accidentally exceed N,
+  // trim only the slider being moved. This avoids one slider visibly dragging
+  // another around.
+  const others = observed.slice(0,k-1).reduce((s,v,i)=> i===index ? s : s+v, 0);
+  if(others + observed[index] > N){
+    observed[index] = N - others;
+  }
+  adjustLastToTotal(observed);
+}
+
+function updateSliders(){
+  for(let i=0;i<k-1;i++){
+    const slider = document.getElementById(`slider-${i}`);
+    if(!slider) continue;
+    slider.max = maxForIndex(i);
+    slider.value = observed[i];
+  }
+  for(let i=0;i<k;i++){
+    const lab = document.getElementById(`count-${i}`);
+    if(lab) lab.textContent = observed[i];
+  }
+}
+
+function bary2Line(weights){
+  const A = {x:130,y:315}, B = {x:770,y:315};
+  return {x:weights[0]*A.x + weights[1]*B.x, y:weights[0]*A.y + weights[1]*B.y, A, B};
+}
+function bary3Triangle(weights){
+  const A = {x:450,y:86}, B = {x:145,y:545}, C = {x:755,y:545};
+  return {x:weights[0]*A.x + weights[1]*B.x + weights[2]*C.x, y:weights[0]*A.y + weights[1]*B.y + weights[2]*C.y, A, B, C};
+}
+function tetra3DPoint(weights){
+  // Four vertices of a centered tetrahedron. Each category owns one vertex.
+  const V = [
+    {x: 1, y: 1, z: 1},
+    {x:-1, y:-1, z: 1},
+    {x:-1, y: 1, z:-1},
+    {x: 1, y:-1, z:-1}
+  ].map(v => ({x:v.x/1.45, y:v.y/1.45, z:v.z/1.45}));
+  const p = {x:0,y:0,z:0};
+  for(let i=0;i<4;i++){
+    p.x += weights[i]*V[i].x;
+    p.y += weights[i]*V[i].y;
+    p.z += weights[i]*V[i].z;
+  }
+  p.V = V;
+  return p;
+}
+function rotate3D(p){
+  let x=p.x, y=p.y, z=p.z;
+  let cy=Math.cos(rotY), sy=Math.sin(rotY);
+  let x1 = cy*x + sy*z;
+  let z1 = -sy*x + cy*z;
+  let cx=Math.cos(rotX), sx=Math.sin(rotX);
+  let y2 = cx*y - sx*z1;
+  let z2 = sx*y + cx*z1;
+  return {x:x1,y:y2,z:z2};
+}
+function proj3D(p){
+  // Orthographic projection keeps the tetrahedron stable and readable.
+  // The earlier perspective-style scale could blow the shape off the canvas
+  // when a vertex rotated toward the viewer.
+  const r = rotate3D(p);
+  const scale = 210;
+  return {x:450 + scale*r.x, y:330 - scale*r.y, depth:r.z};
+}
+function norm(arr){ return arr.map(v=>v/N); }
+
+function drawArrow(x1,y1,x2,y2,color,width=4){
+  const ang = Math.atan2(y2-y1,x2-x1), head=13;
+  ctx.strokeStyle=color; ctx.fillStyle=color; ctx.lineWidth=width;
+  ctx.beginPath(); ctx.moveTo(x1,y1); ctx.lineTo(x2,y2); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(x2,y2);
+  ctx.lineTo(x2-head*Math.cos(ang-Math.PI/6), y2-head*Math.sin(ang-Math.PI/6));
+  ctx.lineTo(x2-head*Math.cos(ang+Math.PI/6), y2-head*Math.sin(ang+Math.PI/6));
+  ctx.closePath(); ctx.fill();
+}
+function drawPoint(x,y,color,r=11,stroke='#fff'){ ctx.fillStyle=color; ctx.beginPath(); ctx.arc(x,y,r,0,Math.PI*2); ctx.fill(); ctx.strokeStyle=stroke; ctx.lineWidth=3; ctx.stroke(); }
+
+function drawGeometry(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  ctx.fillStyle='#fff'; ctx.fillRect(0,0,canvas.width,canvas.height);
+
+  const obsW = norm(observed), expW = expected.map(x=>x/N), eqW = Array(k).fill(1/k);
+
+  if(k===2) drawLine(obsW,expW,eqW);
+  if(k===3) drawTriangle(obsW,expW,eqW);
+  if(k===4) drawTetra(obsW,expW,eqW);
+}
+
+function drawLine(obsW,expW,eqW){
+  const P = bary2Line(obsW), E = bary2Line(expW), Q = bary2Line(eqW);
+  ctx.strokeStyle='#cbd5e1'; ctx.lineWidth=5; ctx.beginPath(); ctx.moveTo(P.A.x,P.A.y); ctx.lineTo(P.B.x,P.B.y); ctx.stroke();
+  ctx.fillStyle='#475569'; ctx.font='bold 18px system-ui'; ctx.textAlign='center';
+  ctx.fillText(cats[0],P.A.x,P.A.y-24); ctx.fillText(cats[1],P.B.x,P.B.y-24);
+  drawArrow(E.x,E.y-8,P.x,P.y-8,'#7c3aed',4);
+  drawPoint(Q.x,Q.y,'#111827',8); drawPoint(E.x,E.y,'#ea580c',11); drawPoint(P.x,P.y,'#2563eb',11);
+  ctx.fillStyle='#111827'; ctx.textAlign='left'; ctx.font='bold 14px system-ui'; ctx.fillText('Equal model',Q.x+12,Q.y-10);
+  ctx.fillStyle='#9a3412'; ctx.fillText('Expected model',E.x+12,E.y-14);
+  ctx.fillStyle='#1e3a8a'; ctx.fillText('Observed counts',P.x+12,P.y+20);
+  ctx.fillStyle='#475569'; ctx.font='15px system-ui'; ctx.fillText('Two categories live on a line segment. Once one count is chosen, the other is determined.',35,38);
+}
+
+function drawTriangle(obsW,expW,eqW){
+  const P = bary3Triangle(obsW), E = bary3Triangle(expW), Q = bary3Triangle(eqW);
+  ctx.beginPath(); ctx.moveTo(P.A.x,P.A.y); ctx.lineTo(P.B.x,P.B.y); ctx.lineTo(P.C.x,P.C.y); ctx.closePath();
+  ctx.fillStyle='rgba(37,99,235,.04)'; ctx.fill(); ctx.strokeStyle='#94a3b8'; ctx.lineWidth=3; ctx.stroke();
+  ctx.strokeStyle='#e2e8f0'; ctx.lineWidth=1;
+  for(let t=.2;t<1;t+=.2){
+    let p1=bary3Triangle([t,1-t,0]), p2=bary3Triangle([t,0,1-t]); ctx.beginPath(); ctx.moveTo(p1.x,p1.y); ctx.lineTo(p2.x,p2.y); ctx.stroke();
+    p1=bary3Triangle([1-t,t,0]); p2=bary3Triangle([0,t,1-t]); ctx.beginPath(); ctx.moveTo(p1.x,p1.y); ctx.lineTo(p2.x,p2.y); ctx.stroke();
+    p1=bary3Triangle([1-t,0,t]); p2=bary3Triangle([0,1-t,t]); ctx.beginPath(); ctx.moveTo(p1.x,p1.y); ctx.lineTo(p2.x,p2.y); ctx.stroke();
+  }
+  ctx.fillStyle='#334155'; ctx.textAlign='center'; ctx.font='bold 18px system-ui';
+  ctx.fillText(cats[0],P.A.x,P.A.y-24); ctx.fillText(cats[1],P.B.x,P.B.y+30); ctx.fillText(cats[2],P.C.x,P.C.y+30);
+  drawArrow(E.x,E.y,P.x,P.y,'#7c3aed',4);
+  drawPoint(Q.x,Q.y,'#111827',8); drawPoint(E.x,E.y,'#ea580c',11); drawPoint(P.x,P.y,'#2563eb',11);
+  ctx.textAlign='left'; ctx.font='bold 14px system-ui'; ctx.fillStyle='#111827'; ctx.fillText('Equal model',Q.x+12,Q.y+18);
+  ctx.fillStyle='#9a3412'; ctx.fillText('Expected model',E.x+12,E.y-12);
+  ctx.fillStyle='#1e3a8a'; ctx.fillText('Observed counts',P.x+12,P.y+18);
+  ctx.fillStyle='#475569'; ctx.font='15px system-ui'; ctx.fillText('Three categories live in a triangle. There are two free parameters and one dependent parameter.',35,38);
+}
+
+function drawTetra(obsW,expW,eqW){
+  const obs = tetra3DPoint(obsW), exp = tetra3DPoint(expW), eq = tetra3DPoint(eqW);
+  const V = obs.V.map(v => proj3D(v));
+  const edges = [[0,1],[0,2],[0,3],[1,2],[1,3],[2,3]];
+  // translucent faces
+  const faces = [[0,1,2],[0,1,3],[0,2,3],[1,2,3]].map(face => {
+    const pts = face.map(i => V[i]);
+    const depth = pts.reduce((s,p)=>s+p.depth,0)/3;
+    return {face,pts,depth};
+  }).sort((a,b)=>a.depth-b.depth);
+  faces.forEach((f,idx)=>{
+    ctx.beginPath(); ctx.moveTo(f.pts[0].x,f.pts[0].y); ctx.lineTo(f.pts[1].x,f.pts[1].y); ctx.lineTo(f.pts[2].x,f.pts[2].y); ctx.closePath();
+    ctx.fillStyle = ['rgba(37,99,235,.04)','rgba(234,88,12,.03)','rgba(124,58,237,.03)','rgba(16,185,129,.03)'][idx%4];
+    ctx.fill();
+    ctx.strokeStyle='#dbe4ef'; ctx.lineWidth=1; ctx.stroke();
+  });
+  edges.forEach(([i,j])=>{ ctx.strokeStyle='#94a3b8'; ctx.lineWidth=2.5; ctx.beginPath(); ctx.moveTo(V[i].x,V[i].y); ctx.lineTo(V[j].x,V[j].y); ctx.stroke(); });
+  ctx.fillStyle='#334155'; ctx.font='bold 16px system-ui'; ctx.textAlign='center';
+  V.forEach((p,i)=>ctx.fillText(cats[i],p.x,p.y-16));
+  const P = proj3D(obs), E = proj3D(exp), Q = proj3D(eq);
+  drawArrow(E.x,E.y,P.x,P.y,'#7c3aed',4);
+  drawPoint(Q.x,Q.y,'#111827',8); drawPoint(E.x,E.y,'#ea580c',11); drawPoint(P.x,P.y,'#2563eb',11);
+  ctx.textAlign='left'; ctx.font='bold 14px system-ui'; ctx.fillStyle='#111827'; ctx.fillText('Equal model',Q.x+12,Q.y+18);
+  ctx.fillStyle='#9a3412'; ctx.fillText('Expected model',E.x+12,E.y-12);
+  ctx.fillStyle='#1e3a8a'; ctx.fillText('Observed counts',P.x+12,P.y+18);
+  ctx.fillStyle='#475569'; ctx.font='15px system-ui'; ctx.fillText('Four categories live in a tetrahedron. Drag to rotate. There are three free parameters and one dependent parameter.',35,38);
+}
+
+function updateText(){
+  const shapeNames = {2:'Line',3:'Triangle',4:'Tetrahedron'};
+  document.getElementById('shapeLabel').textContent = shapeNames[k];
+  document.getElementById('dfLabel').textContent = k-1;
+  document.getElementById('chiLabel').textContent = chiValue().toFixed(2);
+  const p = pChi(chiValue(),k-1);
+  document.getElementById('pLabel').textContent = p<.001 ? '< .001' : p.toFixed(3);
+  const dec = document.getElementById('decision');
+  dec.className = 'decision';
+  if(p<.05){ dec.classList.add('bad'); dec.textContent = 'Large weighted distance: the observed counts are far from the expected model.'; }
+  else if(p<.15){ dec.classList.add('warn'); dec.textContent = 'Moderate weighted distance: the observed counts are beginning to pull away from the expected model.'; }
+  else { dec.classList.add('good'); dec.textContent = 'Small weighted distance: the observed counts look compatible with the expected model.'; }
+  document.getElementById('shapeText').innerHTML = (
+    k===2 ? 'With two categories, there are <strong>two parameters</strong>, but only <strong>one free parameter</strong>. Once one probability or count is chosen, the other is a <strong>dependent</strong> or <strong>bound parameter</strong> because the total must stay fixed.' :
+    k===3 ? 'With three categories, there are <strong>three parameters</strong>, but only <strong>two free parameters</strong>. The third parameter is dependent because all three proportions must add to 1, or all three counts must add to the total sample size.' :
+    'With four categories, there are <strong>four parameters</strong>, but only <strong>three free parameters</strong>. The fourth parameter is dependent because the total probability or total count is fixed.'
+  );
+}
+
+function updateTable(){
+  const rows = computeRows();
+  document.getElementById('calcTable').innerHTML = rows.map(r => `
+    <tr><td>${r.cat}</td><td>${r.o.toFixed(0)}</td><td>${r.e.toFixed(1)}</td><td>${r.diff.toFixed(1)}</td><td><strong>${r.c.toFixed(2)}</strong></td></tr>
+  `).join('');
+  const scale = Math.max(...rows.map(r=>Math.abs(r.z)),1);
+  document.getElementById('stdComponents').innerHTML = rows.map(r=>{
+    const pct = Math.min(50, Math.abs(r.z)/scale*50);
+    const left = r.z>=0 ? 50 : 50-pct;
+    return `
+      <div class="comp">
+        <div class="comp-label"><strong>${r.cat}</strong><span>${r.z>=0?'+':''}${r.z.toFixed(2)}</span></div>
+        <div class="track"><div class="zero"></div><div class="fill" style="left:${left}%;width:${pct}%;"></div></div>
+      </div>
+    `;
+  }).join('');
+}
+
+function update(){
+  updateText();
+  updateTable();
+  drawGeometry();
+}
+
+function resetExample(){
+  expected = randomExpected(k);
+  observed = randomObserved(k);
+  renderControls();
+  update();
+}
+
+document.getElementById('kSelect').addEventListener('change', e => {
+  k = Number(e.target.value);
+  fillScenarioSelect();
+  cats = scenarioCats[scenario];
+  expected = randomExpected(k);
+  observed = randomObserved(k);
+  renderControls();
+  update();
+});
+document.getElementById('scenarioSelect').addEventListener('change', e => { scenario = e.target.value; cats = scenarioCats[scenario]; update(); });
+document.getElementById('newExpectedBtn').addEventListener('click', ()=>{ expected = randomExpected(k); update(); });
+document.getElementById('newObservedBtn').addEventListener('click', ()=>{ observed = randomObserved(k); renderControls(); update(); });
+document.getElementById('matchBtn').addEventListener('click', ()=>{ setObservedToExpected(); renderControls(); update(); });
+document.getElementById('resetBtn').addEventListener('click', resetExample);
+
+canvas.addEventListener('mousedown', e => { if(k!==4) return; dragging=true; lastX=e.offsetX; lastY=e.offsetY; });
+canvas.addEventListener('mousemove', e => { if(!dragging || k!==4) return; rotY += (e.offsetX-lastX)*0.01; rotX += (e.offsetY-lastY)*0.01; lastX=e.offsetX; lastY=e.offsetY; drawGeometry(); });
+window.addEventListener('mouseup', ()=> dragging=false);
+
+fillScenarioSelect();
+renderControls();
+update();
+</script>
+</body>
+</html>
