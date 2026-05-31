@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Math 146 — Linear Regression Calculator</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:Arial,Helvetica,sans-serif;font-size:15px;line-height:1.5;background:#f8fafc;color:#1f2937;padding:1.5rem 1rem 4rem;}
+h1{font-size:1.4rem;font-weight:600;margin-bottom:1.25rem;}
+.wrap{max-width:900px;margin:0 auto;}
+
+/* Layout */
+.top-bar{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:1.25rem;}
+.btn-group{display:flex;gap:6px;flex-wrap:wrap;}
+.two-col{display:grid;grid-template-columns:220px 1fr;gap:16px;align-items:start;margin-bottom:1rem;}
+
+/* Buttons */
+button{cursor:pointer;border-radius:6px;font-size:13px;padding:6px 14px;border:1px solid #d1d5db;background:#fff;color:#1f2937;font-family:inherit;}
+button:hover{background:#f3f4f6;}
+button.blue{background:#dbeafe;border-color:#93c5fd;color:#1e40af;}
+button.blue:hover{background:#bfdbfe;}
+
+/* Cards */
+.card{background:#fff;border:1px solid #d1d5db;border-radius:12px;padding:1rem;margin-bottom:1rem;}
+
+/* Data table */
+.data-header{display:grid;grid-template-columns:1fr 1fr 32px;gap:4px;margin-bottom:5px;font-size:12px;font-weight:600;color:#6b7280;text-align:center;}
+#data-rows{max-height:380px;overflow-y:auto;}
+.data-row{display:grid;grid-template-columns:1fr 1fr 32px;gap:4px;margin-bottom:4px;}
+.data-row input{width:100%;border:1px solid #d1d5db;border-radius:5px;padding:5px 6px;font-size:14px;text-align:center;background:#f0f9ff;color:#1f2937;font-family:inherit;}
+.data-row input:focus{outline:none;border-color:#0f766e;box-shadow:0 0 0 2px rgba(15,118,110,.15);}
+.del-btn{border:1px solid #fca5a5;background:#fef2f2;color:#dc2626;border-radius:5px;padding:0;font-size:16px;line-height:1;cursor:pointer;}
+.del-btn:hover{background:#fee2e2;}
+#add-row-btn{width:100%;margin-top:8px;font-size:13px;}
+
+/* Stats panel */
+.metric-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px;}
+.metric{background:#f9fafb;border-radius:8px;padding:9px 10px;text-align:center;}
+.metric .lbl{font-size:11px;color:#6b7280;margin-bottom:2px;}
+.metric .val{font-size:18px;font-weight:600;color:#1f2937;}
+.r2-box{background:#dbeafe;border-radius:8px;padding:10px 14px;text-align:center;margin-bottom:10px;}
+.r2-box .lbl{font-size:12px;color:#1e40af;margin-bottom:2px;}
+.r2-box .val{font-size:22px;font-weight:700;color:#1e40af;}
+.eq-box{background:#f9fafb;border:1px solid #e5e7eb;border-radius:8px;padding:10px 14px;margin-bottom:10px;}
+.eq-box .lbl{font-size:11px;color:#6b7280;margin-bottom:4px;}
+.eq-box .val{font-size:19px;font-weight:600;font-family:monospace;color:#1f2937;}
+.eq-box .sub{font-size:12px;color:#9ca3af;margin-top:3px;}
+.pred-box{background:#f9fafb;border:1px solid #e5e7eb;border-radius:8px;padding:10px 14px;}
+.pred-box .lbl{font-size:11px;color:#6b7280;margin-bottom:6px;}
+.pred-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.pred-row span{font-size:14px;color:#6b7280;white-space:nowrap;}
+.pred-row input{width:90px;border:1px solid #d1d5db;border-radius:5px;padding:5px 8px;font-size:14px;text-align:center;font-family:inherit;background:#fff;}
+.pred-row input:focus{outline:none;border-color:#0f766e;}
+#pred-result{font-size:17px;font-weight:700;color:#1e40af;min-width:60px;}
+.empty-state{background:#f9fafb;border-radius:8px;padding:2rem;text-align:center;color:#9ca3af;font-size:14px;}
+
+/* Chart */
+.chart-wrap{background:#fff;border:1px solid #d1d5db;border-radius:12px;padding:1rem;margin-bottom:1rem;}
+.chart-title{font-size:12px;color:#6b7280;margin-bottom:8px;}
+#scatter-svg{display:block;width:100%;height:auto;}
+
+/* Paste */
+.paste-wrap{background:#f9fafb;border:1px solid #e5e7eb;border-radius:8px;padding:12px;margin-bottom:1rem;}
+.paste-wrap p{font-size:13px;color:#6b7280;margin-bottom:8px;}
+.paste-wrap textarea{width:100%;height:90px;font-family:monospace;font-size:13px;border:1px solid #d1d5db;border-radius:5px;padding:6px 8px;resize:vertical;}
+.paste-wrap textarea:focus{outline:none;border-color:#0f766e;}
+
+/* Residuals */
+#res-table-wrap{overflow-x:auto;}
+table.res{width:100%;border-collapse:collapse;font-size:13px;}
+table.res th{padding:7px 12px;text-align:right;background:#f9fafb;font-weight:600;color:#6b7280;border-bottom:1px solid #e5e7eb;white-space:nowrap;}
+table.res td{padding:5px 12px;text-align:right;border-bottom:1px solid #f3f4f6;}
+.pos{color:#16a34a;font-weight:500;}
+.neg{color:#dc2626;font-weight:500;}
+.i-col{color:#d1d5db;font-size:12px;}
+
+#hint{font-size:12px;color:#9ca3af;text-align:center;margin-top:8px;}
+
+@media(max-width:640px){
+  .two-col{grid-template-columns:1fr;}
+  .metric-grid{grid-template-columns:repeat(2,1fr);}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="top-bar">
+    <h1>Linear Regression Calculator</h1>
+    <div class="btn-group">
+      <button class="blue" onclick="loadExample()">Load week 10 example</button>
+      <button onclick="togglePaste()">Paste data</button>
+      <button onclick="clearAll()">Clear</button>
+    </div>
+  </div>
+
+  <div id="paste-section" style="display:none;">
+    <div class="paste-wrap">
+      <p>Paste x and y pairs — one per line. Tab, comma, or space separated.</p>
+      <textarea id="paste-area" placeholder="26.4&#9;153.2&#10;34.3&#9;120.4&#10;..."></textarea>
+      <button class="blue" style="margin-top:8px;" onclick="importPaste()">Import</button>
+    </div>
+  </div>
+
+  <div class="two-col">
+
+    <!-- Data entry -->
+    <div class="card" style="padding:.85rem;">
+      <div class="data-header">
+        <div>x</div><div>y</div><div></div>
+      </div>
+      <div id="data-rows"></div>
+      <button id="add-row-btn" onclick="addRow()">+ Add row</button>
+      <div id="hint"></div>
+    </div>
+
+    <!-- Stats -->
+    <div id="stats-panel">
+      <div class="empty-state">
+        Results appear here once you enter at least 2 complete data points.
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Chart -->
+  <div id="chart-section" class="chart-wrap" style="display:none;">
+    <div class="chart-title">Scatterplot with regression line</div>
+    <svg id="scatter-svg" viewBox="0 0 640 300"></svg>
+  </div>
+
+  <!-- Residuals -->
+  <div id="res-section" style="display:none;">
+    <button onclick="toggleResiduals()" style="width:100%;margin-bottom:8px;" id="res-btn">▼ Show residuals table</button>
+    <div class="card" id="res-table-wrap" style="display:none;padding:0;overflow:hidden;">
+      <div style="overflow-x:auto;">
+        <table class="res" id="res-table">
+          <thead><tr>
+            <th style="text-align:center;">i</th>
+            <th>x</th><th>y</th><th>ŷ</th><th>e = y − ŷ</th>
+          </tr></thead>
+          <tbody id="res-body"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ── Data storage ──────────────────────────────────────────────
+let rows = [];
+let rowId = 0;
+let resVisible = false;
+let pasteVisible = false;
+
+const EXAMPLE = [
+  [26.4,153.2],[34.3,120.4],[44.9,94.7],[42.2,146.4],
+  [85.5,-1.7],[95,-40.3],[67.1,68.8],[63,81.6],
+  [69.6,38.5],[43.3,119.1],[85.2,-47],[59.3,42.6],
+  [56.5,45.2],[34.6,114.1],[48.2,119.3],[61.6,94.3],
+  [47.2,104.7],[53.5,61.2],[36.1,148.4]
+];
+
+// ── Bootstrap ─────────────────────────────────────────────────
+function init() {
+  for (let i = 0; i < 3; i++) addRow();
+}
+
+function addRow(xVal='', yVal='') {
+  const id = rowId++;
+  rows.push({ id, x: xVal, y: yVal });
+  renderTable();
+}
+
+function renderTable() {
+  const container = document.getElementById('data-rows');
+  container.innerHTML = '';
+  rows.forEach(row => {
+    const div = document.createElement('div');
+    div.className = 'data-row';
+    div.innerHTML = `
+      <input type="number" step="any" placeholder="x" value="${row.x}"
+        oninput="updateRow(${row.id},'x',this.value)" />
+      <input type="number" step="any" placeholder="y" value="${row.y}"
+        oninput="updateRow(${row.id},'y',this.value)" />
+      <button class="del-btn" onclick="deleteRow(${row.id})" aria-label="Delete row">×</button>
+    `;
+    container.appendChild(div);
+  });
+  recalc();
+}
+
+function updateRow(id, field, val) {
+  const row = rows.find(r => r.id === id);
+  if (row) row[field] = val;
+  recalc();
+}
+
+function deleteRow(id) {
+  if (rows.length <= 1) return;
+  rows = rows.filter(r => r.id !== id);
+  renderTable();
+}
+
+function clearAll() {
+  rows = [];
+  rowId = 0;
+  document.getElementById('paste-area').value = '';
+  document.getElementById('pred-x') && (document.getElementById('pred-x').value = '');
+  init();
+}
+
+function loadExample() {
+  rows = [];
+  rowId = 0;
+  EXAMPLE.forEach(([x, y]) => rows.push({ id: rowId++, x, y }));
+  renderTable();
+}
+
+function togglePaste() {
+  pasteVisible = !pasteVisible;
+  document.getElementById('paste-section').style.display = pasteVisible ? 'block' : 'none';
+}
+
+function importPaste() {
+  const text = document.getElementById('paste-area').value.trim();
+  const parsed = text.split(/\n/).map(line => {
+    const parts = line.trim().split(/[\t,\s]+/);
+    const x = parseFloat(parts[0]), y = parseFloat(parts[1]);
+    return (!isNaN(x) && !isNaN(y)) ? [x, y] : null;
+  }).filter(Boolean);
+  if (parsed.length === 0) return;
+  rows = [];
+  rowId = 0;
+  parsed.forEach(([x, y]) => rows.push({ id: rowId++, x, y }));
+  document.getElementById('paste-section').style.display = 'none';
+  pasteVisible = false;
+  renderTable();
+}
+
+function toggleResiduals() {
+  resVisible = !resVisible;
+  document.getElementById('res-table-wrap').style.display = resVisible ? 'block' : 'none';
+  document.getElementById('res-btn').textContent = (resVisible ? '▲ Hide' : '▼ Show') + ' residuals table';
+}
+
+// ── Statistics ────────────────────────────────────────────────
+function compute() {
+  const pts = rows
+    .filter(r => r.x !== '' && r.y !== '' && !isNaN(+r.x) && !isNaN(+r.y))
+    .map(r => ({ x: +r.x, y: +r.y }));
+  const n = pts.length;
+  if (n < 2) return null;
+
+  const xs = pts.map(p => p.x), ys = pts.map(p => p.y);
+  const xb = xs.reduce((a,b)=>a+b,0)/n;
+  const yb = ys.reduce((a,b)=>a+b,0)/n;
+  const sx = Math.sqrt(xs.reduce((s,x)=>s+(x-xb)**2,0)/(n-1));
+  const sy = Math.sqrt(ys.reduce((s,y)=>s+(y-yb)**2,0)/(n-1));
+  if (sx === 0) return null;
+  const r = xs.reduce((s,x,i)=>s+(x-xb)*(ys[i]-yb),0)/((n-1)*sx*sy);
+  const b = r*sy/sx, a = yb-b*xb, r2 = r*r;
+  return { n, xb, yb, sx, sy, r, r2, b, a, pts };
+}
+
+function f(v, d=4) {
+  if (v === null || v === undefined || isNaN(v)) return '—';
+  return (+v).toFixed(d);
+}
+
+function fmtEq(a, b) {
+  const sign = b < 0 ? ' − ' : ' + ';
+  return `ŷ = ${f(a,2)}${sign}${Math.abs(b).toFixed(2)}x`;
+}
+
+// ── Main update ───────────────────────────────────────────────
+function recalc() {
+  const st = compute();
+  const pts = rows.filter(r=>r.x!==''&&r.y!==''&&!isNaN(+r.x)&&!isNaN(+r.y));
+  const hint = document.getElementById('hint');
+  hint.textContent = pts.length < 2 ? `${pts.length} valid point${pts.length===1?'':'s'} — need at least 2.` : `${pts.length} data points loaded.`;
+
+  if (!st) {
+    document.getElementById('stats-panel').innerHTML = `<div class="empty-state">Results appear here once you enter at least 2 complete data points.</div>`;
+    document.getElementById('chart-section').style.display = 'none';
+    document.getElementById('res-section').style.display = 'none';
+    return;
+  }
+
+  renderStats(st);
+  renderChart(st);
+  renderResiduals(st);
+  document.getElementById('chart-section').style.display = 'block';
+  document.getElementById('res-section').style.display = 'block';
+}
+
+// ── Stats panel ───────────────────────────────────────────────
+function renderStats(st) {
+  const metrics = [
+    ['n', st.n, 0], ['x̄', st.xb, 2], ['ȳ', st.yb, 2],
+    ['sₓ', st.sx, 3], ['sᵧ', st.sy, 3], ['r', st.r, 4]
+  ];
+
+  const metricCards = metrics.map(([l,v,d]) => `
+    <div class="metric">
+      <div class="lbl">${l}</div>
+      <div class="val">${f(v,d)}</div>
+    </div>`).join('');
+
+  document.getElementById('stats-panel').innerHTML = `
+    <div class="metric-grid">${metricCards}</div>
+    <div class="r2-box">
+      <div class="lbl">r² — variability explained</div>
+      <div class="val">${f(st.r2,4)} = ${f(st.r2*100,1)}%</div>
+    </div>
+    <div class="eq-box">
+      <div class="lbl">regression equation</div>
+      <div class="val">${fmtEq(st.a, st.b)}</div>
+      <div class="sub">b = ${f(st.b,4)} &nbsp;·&nbsp; a = ${f(st.a,4)}</div>
+    </div>
+    <div class="pred-box">
+      <div class="lbl">predict ŷ for a given x</div>
+      <div class="pred-row">
+        <span>x =</span>
+        <input type="number" step="any" id="pred-x" placeholder="enter x"
+          oninput="updatePred(this.value, ${st.a}, ${st.b})"/>
+        <span>→ ŷ =</span>
+        <span id="pred-result">—</span>
+      </div>
+    </div>`;
+}
+
+function updatePred(val, a, b) {
+  const el = document.getElementById('pred-result');
+  if (!el) return;
+  if (val === '' || isNaN(+val)) { el.textContent = '—'; return; }
+  el.textContent = f(a + b*(+val), 2);
+}
+
+// ── Chart ─────────────────────────────────────────────────────
+function renderChart(st) {
+  const W = 640, H = 300;
+  const ml = 52, mr = 24, mt = 18, mb = 46;
+  const pw = W - ml - mr, ph = H - mt - mb;
+
+  const xs = st.pts.map(p=>p.x), ys = st.pts.map(p=>p.y);
+  const xMin = Math.min(...xs), xMax = Math.max(...xs);
+  const yMin = Math.min(...ys), yMax = Math.max(...ys);
+  const xPad = (xMax-xMin)*0.08 || 1, yPad = (yMax-yMin)*0.12 || 1;
+  const x1 = xMin-xPad, x2 = xMax+xPad;
+  const y1 = yMin-yPad, y2 = yMax+yPad;
+
+  const px = v => ml + (v-x1)/(x2-x1)*pw;
+  const py = v => mt + ph - (v-y1)/(y2-y1)*ph;
+
+  // Grid + ticks
+  function niceTicks(min, max, count=5) {
+    const range = max-min, step = Math.pow(10, Math.floor(Math.log10(range/count)));
+    const nice = [1,2,5,10].map(f=>f*step).find(s=>(range/s)<=count+1) || step;
+    const ticks = [];
+    for (let v = Math.ceil(min/nice)*nice; v <= max+nice*0.01; v += nice)
+      ticks.push(+v.toFixed(10));
+    return ticks;
+  }
+  const xTicks = niceTicks(x1, x2, 6);
+  const yTicks = niceTicks(y1, y2, 5);
+
+  let svg = `<rect x="${ml}" y="${mt}" width="${pw}" height="${ph}" fill="#f9fafb" rx="4"/>`;
+
+  // Grid lines
+  xTicks.forEach(v => {
+    const cx = px(v);
+    if (cx < ml || cx > ml+pw) return;
+    svg += `<line x1="${cx}" y1="${mt}" x2="${cx}" y2="${mt+ph}" stroke="#e5e7eb" stroke-width="1"/>`;
+  });
+  yTicks.forEach(v => {
+    const cy = py(v);
+    if (cy < mt || cy > mt+ph) return;
+    svg += `<line x1="${ml}" y1="${cy}" x2="${ml+pw}" y2="${cy}" stroke="#e5e7eb" stroke-width="1"/>`;
+  });
+
+  // Regression line
+  const lx1 = x1, lx2 = x2;
+  const ly1 = st.a + st.b*lx1, ly2 = st.a + st.b*lx2;
+  svg += `<line x1="${px(lx1)}" y1="${py(ly1)}" x2="${px(lx2)}" y2="${py(ly2)}"
+    stroke="#dc2626" stroke-width="2.5" stroke-linecap="round"/>`;
+
+  // Data points
+  st.pts.forEach(p => {
+    const cx = px(p.x), cy = py(p.y);
+    svg += `<circle cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="5"
+      fill="#3b82f6" stroke="#1d4ed8" stroke-width="1" opacity="0.85"/>`;
+  });
+
+  // Axes
+  svg += `<line x1="${ml}" y1="${mt}" x2="${ml}" y2="${mt+ph}" stroke="#9ca3af" stroke-width="1.5"/>`;
+  svg += `<line x1="${ml}" y1="${mt+ph}" x2="${ml+pw}" y2="${mt+ph}" stroke="#9ca3af" stroke-width="1.5"/>`;
+
+  // Tick labels
+  xTicks.forEach(v => {
+    const cx = px(v);
+    if (cx < ml-2 || cx > ml+pw+2) return;
+    svg += `<text x="${cx.toFixed(1)}" y="${mt+ph+16}" text-anchor="middle"
+      font-size="11" fill="#9ca3af" font-family="Arial">${f(v,v%1===0?0:1)}</text>`;
+  });
+  yTicks.forEach(v => {
+    const cy = py(v);
+    if (cy < mt-2 || cy > mt+ph+2) return;
+    svg += `<text x="${ml-6}" y="${(cy+4).toFixed(1)}" text-anchor="end"
+      font-size="11" fill="#9ca3af" font-family="Arial">${f(v,v%1===0?0:1)}</text>`;
+  });
+
+  // Axis labels
+  svg += `<text x="${ml+pw/2}" y="${H-4}" text-anchor="middle"
+    font-size="12" fill="#6b7280" font-family="Arial">x</text>`;
+  svg += `<text x="12" y="${mt+ph/2}" text-anchor="middle"
+    font-size="12" fill="#6b7280" font-family="Arial"
+    transform="rotate(-90,12,${mt+ph/2})">y</text>`;
+
+  // Legend
+  const legy = mt + ph + 34;
+  svg += `<circle cx="${ml}" cy="${legy}" r="5" fill="#3b82f6" stroke="#1d4ed8" stroke-width="1" opacity="0.85"/>`;
+  svg += `<text x="${ml+10}" y="${legy+4}" font-size="11" fill="#6b7280" font-family="Arial">data</text>`;
+  svg += `<line x1="${ml+45}" y1="${legy}" x2="${ml+65}" y2="${legy}" stroke="#dc2626" stroke-width="2.5"/>`;
+  svg += `<text x="${ml+70}" y="${legy+4}" font-size="11" fill="#6b7280" font-family="Arial">regression line</text>`;
+
+  // Equation overlay top-right
+  const eq = fmtEq(st.a, st.b);
+  svg += `<text x="${ml+pw-4}" y="${mt+14}" text-anchor="end"
+    font-size="12" fill="#1e40af" font-family="monospace" font-weight="600">${eq}</text>`;
+
+  document.getElementById('scatter-svg').innerHTML = svg;
+}
+
+// ── Residuals ─────────────────────────────────────────────────
+function renderResiduals(st) {
+  const tbody = document.getElementById('res-body');
+  tbody.innerHTML = st.pts.map((p, i) => {
+    const yhat = st.a + st.b * p.x;
+    const e = p.y - yhat;
+    const cls = e >= 0 ? 'pos' : 'neg';
+    const eStr = (e > 0 ? '+' : '') + f(e, 2);
+    return `<tr>
+      <td class="i-col" style="text-align:center;">${i+1}</td>
+      <td>${f(p.x,1)}</td>
+      <td>${f(p.y,1)}</td>
+      <td>${f(yhat,2)}</td>
+      <td class="${cls}">${eStr}</td>
+    </tr>`;
+  }).join('');
+}
+
+// ── Start ─────────────────────────────────────────────────────
+init();
+</script>
+</body>
+</html>
