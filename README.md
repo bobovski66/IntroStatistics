@@ -1,8 +1,8 @@
 # Intro to Statistics
 
-This repository contains interactive HTML labs, prequiz practice pages, demonstrations, and textbook chapters for an introductory statistics course.
+This repository contains interactive HTML labs, demonstrations, and textbook chapters for an introductory statistics course.
 
-The materials are designed to support student learning through guided practice, worked examples, interactive activities, and textbook-style reference material. Each week includes a lab activity and a prequiz practice page. The lab pages are intended for exploration and guided class work, while the prequiz practice pages help students prepare for weekly assessments.
+The materials are designed to support student learning through guided practice, worked examples, interactive activities, and textbook-style reference material. 
 
 ## Course Materials
 
@@ -54,11 +54,14 @@ Topics: chi-squared tests for categorical data, including goodness-of-fit tests,
 - Week 8 Lab: [Open Page](https://bobovski66.github.io/IntroStatistics/Math146_Week8_Lab.html)
 
 ## Week 9
+Topics: Applications of two-sample statistics to real-world data. 
 
-- Fireball Guided Lab: [Open Page](https://bobovski66.github.io/IntroStatistics/fireball_guided_lab.html)
+- Week 9 Lab: [Open Page](https://bobovski66.github.io/IntroStatistics/fireball_guided_lab.html)
 
 ## Week 10
-- Week 8 Lab: [Open Page](https://bobovski66.github.io/IntroStatistics/Math146_Week1-_Lab.html)
+Topics: Linear Regression
+
+- Week 10 Lab: [Open Page](https://bobovski66.github.io/IntroStatistics/Math146_Week10_Lab.html)
 
 
 
