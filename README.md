@@ -54,11 +54,13 @@ Topics: chi-squared tests for categorical data, including goodness-of-fit tests,
 - Week 8 Lab: [Open Page](https://bobovski66.github.io/IntroStatistics/Math146_Week8_Lab.html)
 
 ## Week 9
+
 Topics: Applications of two-sample statistics to real-world data. 
 
 - Week 9 Lab: [Open Page](https://bobovski66.github.io/IntroStatistics/fireball_guided_lab.html)
 
 ## Week 10
+
 Topics: Linear Regression
 
 - Week 10 Lab: [Open Page](https://bobovski66.github.io/IntroStatistics/Math146_Week10_Lab.html)
@@ -128,8 +130,4 @@ The order below follows the general topic sequence of the course: populations an
 ## About the Course
 
 The course emphasizes statistical reasoning, clear interpretation, and the use of real or realistic data. Students practice computing and interpreting sample statistics, working with probability models, using normal and related distributions, building confidence intervals, conducting hypothesis tests, and thinking carefully about variation in data.
-
-
-```
-
 
