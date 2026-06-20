@@ -30,7 +30,7 @@ textarea:focus{outline:2px solid var(--accent);border-color:var(--accent);}
 .btn-row{display:flex;gap:.6rem;align-items:center;margin-top:.6rem;flex-wrap:wrap;}
 .check-btn{background:var(--accent);color:#fff;border:none;border-radius:7px;padding:.4rem .9rem;font-size:.875rem;font-family:inherit;cursor:pointer;}
 .check-btn:hover{background:#0d5f5a;}
-.sol-btn{background:var(--locked-bg);color:var(--locked);border:1.5px solid var(--border);border-radius:7px;padding:.4rem .9rem;font-size:.875rem;font-family:inherit;cursor:not-allowed;transition:all .2s;}
+.sol-btn{background:#1e40af;color:#fff;border:1.5px solid #1e40af;border-radius:7px;padding:.4rem .9rem;font-size:.875rem;font-family:inherit;cursor:pointer;}.sol-btn:hover{background:#1e3a8a;}
 .sol-btn.unlocked{background:#1e40af;color:#fff;border-color:#1e40af;cursor:pointer;}.sol-btn.unlocked:hover{background:#1e3a8a;}
 .print-btn{background:#374151;color:#fff;border:none;border-radius:8px;padding:.55rem 1.2rem;font-size:.9rem;font-family:inherit;cursor:pointer;margin-bottom:1rem;}
 .feedback{margin-top:.4rem;padding:.4rem .7rem;border-radius:7px;font-size:.875rem;display:none;}
@@ -46,20 +46,27 @@ th,td{border:1px solid var(--border);padding:.55rem .65rem;text-align:center;ver
 .card{border:1px solid #ccc;border-radius:6px;margin-bottom:.75rem;padding:.85rem;page-break-inside:avoid;}
 .num-input,.id-row input,textarea{border:none;border-bottom:1px solid #999;background:transparent;border-radius:0;}
 textarea{min-height:40pt;}h1{font-size:14pt;}h2{font-size:11pt;}}
+.clear-btn{background:#b91c1c;color:#fff;border:none;border-radius:8px;padding:.55rem 1.2rem;font-size:.9rem;font-family:inherit;cursor:pointer;margin-bottom:1rem;}.clear-btn:hover{background:#991b1b;}.toolbar{display:flex;gap:.6rem;flex-wrap:wrap;margin-bottom:.75rem;}.objectives{margin:.5rem 0 0;padding-left:1.25rem;}.objectives li{margin:.35rem 0;}
 </style></head><body>
 <div class="container">
-<div class="no-print" style="margin-bottom:.75rem;"><button class="print-btn" onclick="window.print()">🖨 Print Lab Report</button></div>
+<div class="no-print toolbar"><button class="print-btn" onclick="window.print()">Print lab report</button><button class="clear-btn" onclick="clearData()">Clear data</button></div>
 <div class="lab-header">
 <h1>Math 146 — Week 2 Lab: Probability Distributions</h1>
-<p>Work through each problem in order. Enter numerical answers in the blanks and use the check buttons to test your work. Written explanations are not auto-checked, so use complete sentences and connect your answer back to the situation. Your work saves automatically in this browser.</p>
+<p>Work through the problems in order. Type numerical answers in the blue blanks and use the Check buttons to test each part. Written explanations are not auto-checked, so answer in complete sentences and connect your reasoning to the situation. Use Show solution if you get stuck. Your work saves automatically in this browser on the computer you are using.</p>
 <div class="id-row">
 <label>Student name <input data-save="w2_name" placeholder="Your full name" type="text"/></label>
 <label>Date <input data-save="w2_date" placeholder="mm/dd/yyyy" type="text"/></label>
 </div>
 </div>
 <div class="card lab-goal">
-<h2>Lab Goal</h2>
-<p>This lab moves from individual data values to probability models for random variables. Each problem begins with a setting, then asks you to compute, interpret, and write a conclusion in context.</p>
+<h2>Objectives</h2>
+<p>By the end of this lab you should be able to:</p>
+<ul class="objectives">
+<li>Verify that a table is a valid probability distribution and compute its expected value \(E(X)\).</li>
+<li>Apply the geometric model to find \(P(X=k)\) and the mean number of trials \(\mu = 1/p\).</li>
+<li>Apply the binomial model to compute probabilities, the mean \(\mu = np\), and the standard deviation \(\sigma = \sqrt{np(1-p)}\).</li>
+<li>Interpret each computed value as a statement about the real-world situation.</li>
+</ul>
 </div>
 
 <div class="card">
@@ -96,7 +103,7 @@ textarea{min-height:40pt;}h1{font-size:14pt;}h2{font-size:11pt;}}
 <div class="step-row"><span class="prompt">\(E(X) = \sum x \cdot P(X=x)\) =</span><input class="num-input wide" data-save="w2_1d" id="w2_1d" placeholder="?" step="any" type="number"/></div>
 <div class="btn-row no-print">
 <button class="check-btn" onclick="check1d()">Check (d)</button>
-<button class="sol-btn" id="sol-btn-1" onclick="toggleSol('sol-1')">🔒 Unlock solution by completing checks</button>
+<button class="sol-btn" onclick="toggleSol('sol-1')">Show solution</button>
 </div>
 <div class="feedback" id="fb1d"></div>
 <div class="sol-panel" id="sol-1"><div class="sol-panel-inner">
@@ -119,7 +126,7 @@ textarea{min-height:40pt;}h1{font-size:14pt;}h2{font-size:11pt;}}
 <div class="step-row"><span class="prompt">\(\mu = 1/p\) =</span><input class="num-input" data-save="w2_2b" id="w2_2b" placeholder="?" step="any" type="number"/></div>
 <div class="btn-row no-print">
 <button class="check-btn" onclick="check2b()">Check (b)</button>
-<button class="sol-btn" id="sol-btn-2" onclick="toggleSol('sol-2')">🔒 Unlock solution by completing checks</button>
+<button class="sol-btn" onclick="toggleSol('sol-2')">Show solution</button>
 </div>
 <div class="feedback" id="fb2b"></div>
 <div class="sol-panel" id="sol-2"><div class="sol-panel-inner">
@@ -155,7 +162,7 @@ textarea{min-height:40pt;}h1{font-size:14pt;}h2{font-size:11pt;}}
 <div class="step-row"><span class="prompt">\(\sigma = \sqrt{np(1-p)}\) =</span><input class="num-input wide" data-save="w2_3d_sig" id="w2_3d_sig" placeholder="?" step="any" type="number"/></div>
 <div class="btn-row no-print">
 <button class="check-btn" onclick="check3d()">Check (d)</button>
-<button class="sol-btn" id="sol-btn-3" onclick="toggleSol('sol-3')">🔒 Unlock solution by completing checks</button>
+<button class="sol-btn" onclick="toggleSol('sol-3')">Show solution</button>
 </div>
 <div class="feedback" id="fb3d"></div>
 <div class="sol-panel" id="sol-3"><div class="sol-panel-inner">
@@ -170,16 +177,18 @@ textarea{min-height:40pt;}h1{font-size:14pt;}h2{font-size:11pt;}}
 </div>
 </div>
 <script>
+
+function clearData(){if(confirm('Clear all of your saved answers for this lab on this computer? This cannot be undone.')){document.querySelectorAll('[data-save]').forEach(el=>{try{localStorage.removeItem(el.dataset.save);}catch(e){}el.value='';el.classList&&el.classList.remove('correct','wrong');});document.querySelectorAll('.feedback').forEach(f=>{f.className='feedback';f.textContent='';});document.querySelectorAll('.sol-panel.open').forEach(s=>s.classList.remove('open'));}}
 function save(k,v){try{localStorage.setItem(k,v);}catch(e){}}function load(k){try{return localStorage.getItem(k)||'';}catch(e){return '';}}
 document.querySelectorAll('[data-save]').forEach(el=>{el.value=load(el.dataset.save);el.addEventListener('input',()=>save(el.dataset.save,el.value));});
 function get(id){return parseFloat(document.getElementById(id).value);}
 function near(a,b,t){return !isNaN(a)&&Math.abs(a-b)<=t;}
 function setFB(id,ok,msg){const el=document.getElementById(id);el.className='feedback '+(ok?'ok':'err');el.textContent=(ok?'✓ ':'✗ ')+msg;}
 function mark(id,ok){const el=document.getElementById(id);if(!el)return;el.classList.remove('correct','wrong');if(!isNaN(parseFloat(el.value)))el.classList.add(ok?'correct':'wrong');}
-function unlock(id){const b=document.getElementById(id);b.classList.add('unlocked');b.textContent='▸ Show solution';}
+function unlock(){/* solutions always available */}
 function toggleSol(id){document.getElementById(id).classList.toggle('open');}
 var p1ok={ab:false,d:false},p2ok={a:false,b:false},p3ok={b:false,c:false,d:false};
-function tryUnlock(n,keys,btnId){if(keys.every(k=>p1ok[k]||p2ok[k]||p3ok[k]))unlock(btnId);}
+function tryUnlock(){}
 function check1ab(){
   const checks=[{id:'w2_1_p2',ok:near(get('w2_1_p2'),0.30,.005),hint:'P(X=2)=0.30'},{id:'w2_1_p4',ok:near(get('w2_1_p4'),0.20,.005),hint:'P(X=4)=0.20'},{id:'w2_1_sum',ok:near(get('w2_1_sum'),1.00,.005),hint:'sum=1.00'}];
   checks.forEach(c=>mark(c.id,c.ok));const failed=checks.filter(c=>!c.ok);const ok=failed.length===0;

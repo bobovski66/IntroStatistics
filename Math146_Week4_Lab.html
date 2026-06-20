@@ -31,7 +31,7 @@ textarea:focus{outline:2px solid var(--accent);border-color:var(--accent);}
 .btn-row{display:flex;gap:.6rem;align-items:center;margin-top:.6rem;flex-wrap:wrap;}
 .check-btn{background:var(--accent);color:#fff;border:none;border-radius:7px;padding:.4rem .9rem;font-size:.875rem;font-family:inherit;cursor:pointer;}
 .check-btn:hover{background:#0d5f5a;}
-.sol-btn{background:var(--locked-bg);color:var(--locked);border:1.5px solid var(--border);border-radius:7px;padding:.4rem .9rem;font-size:.875rem;font-family:inherit;cursor:not-allowed;transition:all .2s;}
+.sol-btn{background:#1e40af;color:#fff;border:1.5px solid #1e40af;border-radius:7px;padding:.4rem .9rem;font-size:.875rem;font-family:inherit;cursor:pointer;}.sol-btn:hover{background:#1e3a8a;}
 .sol-btn.unlocked{background:#1e40af;color:#fff;border-color:#1e40af;cursor:pointer;}.sol-btn.unlocked:hover{background:#1e3a8a;}
 .print-btn{background:#374151;color:#fff;border:none;border-radius:8px;padding:.55rem 1.2rem;font-size:.9rem;font-family:inherit;cursor:pointer;margin-bottom:1rem;}
 .feedback{margin-top:.4rem;padding:.4rem .7rem;border-radius:7px;font-size:.875rem;display:none;}
@@ -52,20 +52,27 @@ textarea:focus{outline:2px solid var(--accent);border-color:var(--accent);}
 .card{border:1px solid #ccc;border-radius:6px;margin-bottom:.75rem;padding:.85rem;page-break-inside:avoid;}
 .num-input,.id-row input,textarea{border:none;border-bottom:1px solid #999;background:transparent;border-radius:0;}
 textarea{min-height:40pt;}h1{font-size:14pt;}h2{font-size:11pt;}}
+.clear-btn{background:#b91c1c;color:#fff;border:none;border-radius:8px;padding:.55rem 1.2rem;font-size:.9rem;font-family:inherit;cursor:pointer;margin-bottom:1rem;}.clear-btn:hover{background:#991b1b;}.toolbar{display:flex;gap:.6rem;flex-wrap:wrap;margin-bottom:.75rem;}.objectives{margin:.5rem 0 0;padding-left:1.25rem;}.objectives li{margin:.35rem 0;}
 </style></head><body>
 <div class="container">
-<div class="no-print" style="margin-bottom:.75rem;"><button class="print-btn" onclick="window.print()">🖨 Print Lab Report</button></div>
+<div class="no-print toolbar"><button class="print-btn" onclick="window.print()">Print lab report</button><button class="clear-btn" onclick="clearData()">Clear data</button></div>
 <div class="lab-header">
 <h1>Math 146 — Week 4 Lab: Normal Distribution and the CLT</h1>
-<p>Work through each problem in order. Enter numerical answers in the blanks and use the check buttons to test your work. Written explanations are not auto-checked, so use complete sentences and connect your answer back to the situation. Your work saves automatically in this browser.</p>
+<p>Work through the problems in order. Type numerical answers in the blue blanks and use the Check buttons to test each part. Written explanations are not auto-checked, so answer in complete sentences and connect your reasoning to the situation. Use Show solution if you get stuck. Your work saves automatically in this browser on the computer you are using.</p>
 <div class="id-row">
 <label>Student name <input data-save="w4_name" placeholder="Your full name" type="text"/></label>
 <label>Date <input data-save="w4_date" placeholder="mm/dd/yyyy" type="text"/></label>
 </div>
 </div>
 <div class="card lab-goal">
-<h2>Lab Goal</h2>
-<p>This lab connects individual normal observations with sample means and the Central Limit Theorem. Each problem begins with a setting, then asks you to compute, interpret, and write a conclusion in context.</p>
+<h2>Objectives</h2>
+<p>By the end of this lab you should be able to:</p>
+<ul class="objectives">
+<li>Find probabilities for an individual observation from any normal distribution using \(z\)-scores.</li>
+<li>Compute the probability that a value falls between two points.</li>
+<li>Find the standard error of the mean, \(\sigma_{\bar{x}} = \sigma/\sqrt{n}\), and describe the sampling distribution of \(\bar{x}\).</li>
+<li>Use the Central Limit Theorem to find probabilities about a sample mean.</li>
+</ul>
 </div>
 
 <div class="card">
@@ -89,7 +96,7 @@ textarea{min-height:40pt;}h1{font-size:14pt;}h2{font-size:11pt;}}
 <div class="step-row"><span class="prompt">\(P(Z\le 1.00)\) =</span><input class="num-input wide" data-save="w4_1b" id="w4_1b" placeholder="?" step="any" type="number"/></div>
 <div class="btn-row no-print">
 <button class="check-btn" onclick="check1b()">Check (b)</button>
-<button class="sol-btn" id="sol-btn-1" onclick="toggleSol('sol-1')">🔒 Unlock solution by completing checks</button>
+<button class="sol-btn" onclick="toggleSol('sol-1')">Show solution</button>
 </div>
 <div class="feedback" id="fb1b"></div>
 <div class="sol-panel" id="sol-1"><div class="sol-panel-inner">
@@ -118,7 +125,7 @@ textarea{min-height:40pt;}h1{font-size:14pt;}h2{font-size:11pt;}}
 <div class="step-row"><span class="prompt">Difference =</span><input class="num-input wide" data-save="w4_2b_diff" id="w4_2b_diff" placeholder="?" step="any" type="number"/></div>
 <div class="btn-row no-print">
 <button class="check-btn" onclick="check2b()">Check (b)</button>
-<button class="sol-btn" id="sol-btn-2" onclick="toggleSol('sol-2')">🔒 Unlock solution by completing checks</button>
+<button class="sol-btn" onclick="toggleSol('sol-2')">Show solution</button>
 </div>
 <div class="feedback" id="fb2b"></div>
 <div class="sol-panel" id="sol-2"><div class="sol-panel-inner">
@@ -145,7 +152,7 @@ textarea{min-height:40pt;}h1{font-size:14pt;}h2{font-size:11pt;}}
 <hr class="part-divider"/>
 <h3>(c) Write the sampling distribution in the form \(\bar{X}\approx N(\cdot,\cdot)\)</h3>
 <label class="interp-label"><span>Fill in the mean and SE, then state what the CLT tells us.</span><textarea data-save="w4_3c" placeholder="X̄ ≈ N(   ,   ). This follows from the CLT because…"></textarea></label>
-<div class="btn-row no-print"><button class="sol-btn" id="sol-btn-3" onclick="toggleSol('sol-3')">🔒 Unlock solution by completing checks</button></div>
+<div class="btn-row no-print"><button class="sol-btn" onclick="toggleSol('sol-3')">Show solution</button></div>
 <div class="sol-panel" id="sol-3"><div class="sol-panel-inner">
 <p>\(\mu_{\bar{X}}=\mu=50\) (sampling does not shift the center)</p>
 <p>\(\text{SE}=20/\sqrt{25}=20/5=4\)</p>
@@ -171,7 +178,7 @@ textarea{min-height:40pt;}h1{font-size:14pt;}h2{font-size:11pt;}}
 <div class="step-row"><span class="prompt">\(P(Z\le -1.00)\) =</span><input class="num-input wide" data-save="w4_4c" id="w4_4c" placeholder="?" step="any" type="number"/></div>
 <div class="btn-row no-print">
 <button class="check-btn" onclick="check4c()">Check (c)</button>
-<button class="sol-btn" id="sol-btn-4" onclick="toggleSol('sol-4')">🔒 Unlock solution by completing checks</button>
+<button class="sol-btn" onclick="toggleSol('sol-4')">Show solution</button>
 </div>
 <div class="feedback" id="fb4c"></div>
 <div class="sol-panel" id="sol-4"><div class="sol-panel-inner">
@@ -181,13 +188,15 @@ textarea{min-height:40pt;}h1{font-size:14pt;}h2{font-size:11pt;}}
 </div>
 </div>
 <script>
+
+function clearData(){if(confirm('Clear all of your saved answers for this lab on this computer? This cannot be undone.')){document.querySelectorAll('[data-save]').forEach(el=>{try{localStorage.removeItem(el.dataset.save);}catch(e){}el.value='';el.classList&&el.classList.remove('correct','wrong');});document.querySelectorAll('.feedback').forEach(f=>{f.className='feedback';f.textContent='';});document.querySelectorAll('.sol-panel.open').forEach(s=>s.classList.remove('open'));}}
 function save(k,v){try{localStorage.setItem(k,v);}catch(e){}}function load(k){try{return localStorage.getItem(k)||'';}catch(e){return '';}}
 document.querySelectorAll('[data-save]').forEach(el=>{el.value=load(el.dataset.save);el.addEventListener('input',()=>save(el.dataset.save,el.value));});
 function get(id){return parseFloat(document.getElementById(id).value);}
 function near(a,b,t){return !isNaN(a)&&Math.abs(a-b)<=t;}
 function setFB(id,ok,msg){const el=document.getElementById(id);el.className='feedback '+(ok?'ok':'err');el.textContent=(ok?'✓ ':'✗ ')+msg;}
 function mark(id,ok){const el=document.getElementById(id);if(!el)return;el.classList.remove('correct','wrong');if(!isNaN(parseFloat(el.value)))el.classList.add(ok?'correct':'wrong');}
-function unlock(id){const b=document.getElementById(id);b.classList.add('unlocked');b.textContent='▸ Show solution';}
+function unlock(){/* solutions always available */}
 function toggleSol(id){document.getElementById(id).classList.toggle('open');if(id==='sol-1')drawCurve('curve-p1',-3.6,1.00,[[-3,'−3'],[-2,'−2'],[-1,'−1'],[0,'0'],[1,'1.00'],[2,'2'],[3,'3']],'0.8413',220,130);if(id==='sol-2')drawCurve('curve-p2',-0.67,1.33,[[-2,'−2'],[-1,'−1'],[-0.67,'−0.67'],[0,'0'],[1,'1'],[1.33,'1.33'],[2,'2']],'0.6568',350,110);}
 var p1ok={a:false,b:false},p3ok={a:false,b:false},p4ok={a:false,b:false,c:false};
 function check1a(){const v=get('w4_1a');const ok=near(v,1.00,.01);mark('w4_1a',ok);setFB('fb1a',ok,ok?'Correct. z=1.00.':'(70−67)/3=1.00.');p1ok.a=ok;if(p1ok.a&&p1ok.b)unlock('sol-btn-1');}
