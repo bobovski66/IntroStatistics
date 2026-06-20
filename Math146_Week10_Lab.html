@@ -28,7 +28,7 @@ textarea{width:100%;border:1.5px solid var(--border);border-radius:8px;padding:.
 textarea.tall{min-height:110px;}textarea:focus{outline:2px solid var(--accent);border-color:var(--accent);}
 .btn-row{display:flex;gap:.6rem;align-items:center;margin-top:.6rem;flex-wrap:wrap;}
 .check-btn{background:var(--accent);color:#fff;border:none;border-radius:7px;padding:.4rem .9rem;font-size:.875rem;font-family:inherit;cursor:pointer;}.check-btn:hover{background:#0d5f5a;}
-.sol-btn{background:var(--locked-bg);color:var(--locked);border:1.5px solid var(--border);border-radius:7px;padding:.4rem .9rem;font-size:.875rem;font-family:inherit;cursor:not-allowed;transition:all .2s;}
+.sol-btn{background:#1e40af;color:#fff;border:1.5px solid #1e40af;border-radius:7px;padding:.4rem .9rem;font-size:.875rem;font-family:inherit;cursor:pointer;}.sol-btn:hover{background:#1e3a8a;}
 .sol-btn.unlocked{background:#1e40af;color:#fff;border-color:#1e40af;cursor:pointer;}.sol-btn.unlocked:hover{background:#1e3a8a;}
 .print-btn{background:#374151;color:#fff;border:none;border-radius:8px;padding:.55rem 1.2rem;font-size:.9rem;font-family:inherit;cursor:pointer;margin-bottom:1rem;}
 .feedback{margin-top:.4rem;padding:.4rem .7rem;border-radius:7px;font-size:.875rem;display:none;}
@@ -47,20 +47,29 @@ th,td{border:1px solid var(--border);padding:.55rem .75rem;text-align:center;ver
 .card{border:1px solid #ccc;border-radius:6px;margin-bottom:.75rem;padding:.85rem;page-break-inside:avoid;}
 .num-input,.id-row input,textarea{border:none;border-bottom:1px solid #999;background:transparent;border-radius:0;}
 textarea{min-height:40pt;}h1{font-size:14pt;}h2{font-size:11pt;}}
+.clear-btn{background:#b91c1c;color:#fff;border:none;border-radius:8px;padding:.55rem 1.2rem;font-size:.9rem;font-family:inherit;cursor:pointer;margin-bottom:1rem;}.clear-btn:hover{background:#991b1b;}.toolbar{display:flex;gap:.6rem;flex-wrap:wrap;margin-bottom:.75rem;}.objectives{margin:.5rem 0 0;padding-left:1.25rem;}.objectives li{margin:.35rem 0;}
 </style></head><body>
 <div class="container">
 
-<div class="no-print" style="margin-bottom:.75rem;">
-  <button class="print-btn" onclick="window.print()">🖨 Print Lab Report</button>
-</div>
+<div class="no-print toolbar"><button class="print-btn" onclick="window.print()">Print lab report</button><button class="clear-btn" onclick="clearData()">Clear data</button></div>
 
 <div class="lab-header">
   <h1>Math 146 — Week 10 Lab: Linear Regression</h1>
-  <p>Scatterplots, correlation, least-squares regression, \(r^2\), and residual analysis. Solutions unlock after correct numerical checks.</p>
+  <p>Work through the problems in order. Type numerical answers in the blue blanks and use the Check buttons to test each part. Written explanations are not auto-checked, so answer in complete sentences and connect your reasoning to the situation. Use Show solution if you get stuck. Your work saves automatically in this browser on the computer you are using.</p>
   <div class="id-row">
     <label>Student name <input type="text" data-save="w10_name" placeholder="Your full name"></label>
     <label>Date <input type="text" data-save="w10_date" placeholder="mm/dd/yyyy"></label>
   </div>
+</div>
+<div class="card lab-goal">
+<h2>Objectives</h2>
+<p>By the end of this lab you should be able to:</p>
+<ul class="objectives">
+<li>Compute a least-squares regression line from summary statistics using \(b = r\,s_y/s_x\) and \(a = \bar{y} - b\bar{x}\).</li>
+<li>Use a regression line to make a prediction and interpret the slope in context.</li>
+<li>Compute \(r^2\) and interpret it as the proportion of variability in \(y\) explained by \(x\).</li>
+<li>Find a regression line from raw bivariate data and recognize the limits of correlation and extrapolation.</li>
+</ul>
 </div>
 
 <div class="card">
@@ -112,7 +121,7 @@ textarea{min-height:40pt;}h1{font-size:14pt;}h2{font-size:11pt;}}
   </div>
   <div class="btn-row no-print">
     <button class="check-btn" onclick="check1c()">Check (c)</button>
-    <button class="sol-btn" id="sol-btn-1" onclick="toggleSol('sol-1')">🔒 Unlock solution by completing checks</button>
+    <button class="sol-btn" onclick="toggleSol('sol-1')">Show solution</button>
   </div>
   <div id="fb1c" class="feedback"></div>
   <div class="sol-panel" id="sol-1"><div class="sol-panel-inner">
@@ -175,7 +184,7 @@ textarea{min-height:40pt;}h1{font-size:14pt;}h2{font-size:11pt;}}
     <input class="num-input wide" id="w10_3b_3" type="number" step="any" data-save="w10_3b_3" placeholder="?"></div>
   <div class="btn-row no-print">
     <button class="check-btn" onclick="check3b()">Check (b)</button>
-    <button class="sol-btn" id="sol-btn-3" onclick="toggleSol('sol-3')">🔒 Unlock solution by completing checks</button>
+    <button class="sol-btn" onclick="toggleSol('sol-3')">Show solution</button>
   </div>
   <div id="fb3b" class="feedback"></div>
   <div class="sol-panel" id="sol-3"><div class="sol-panel-inner">
@@ -244,7 +253,7 @@ textarea{min-height:40pt;}h1{font-size:14pt;}h2{font-size:11pt;}}
   </div>
   <div class="btn-row no-print">
     <button class="check-btn" onclick="check4b()">Check (b)</button>
-    <button class="sol-btn" id="sol-btn-4" onclick="toggleSol('sol-4')">🔒 Unlock solution by completing checks</button>
+    <button class="sol-btn" onclick="toggleSol('sol-4')">Show solution</button>
   </div>
   <div id="fb4b" class="feedback"></div>
   <div class="sol-panel" id="sol-4"><div class="sol-panel-inner">
@@ -275,6 +284,8 @@ textarea{min-height:40pt;}h1{font-size:14pt;}h2{font-size:11pt;}}
 
 </div>
 <script>
+
+function clearData(){if(confirm('Clear all of your saved answers for this lab on this computer? This cannot be undone.')){document.querySelectorAll('[data-save]').forEach(el=>{try{localStorage.removeItem(el.dataset.save);}catch(e){}el.value='';el.classList&&el.classList.remove('correct','wrong');});document.querySelectorAll('.feedback').forEach(f=>{f.className='feedback';f.textContent='';});document.querySelectorAll('.sol-panel.open').forEach(s=>s.classList.remove('open'));}}
 function save(k,v){try{localStorage.setItem(k,v);}catch(e){}}
 function load(k){try{return localStorage.getItem(k)||'';}catch(e){return '';}}
 document.querySelectorAll('[data-save]').forEach(el=>{
@@ -285,7 +296,7 @@ function get(id){return parseFloat(document.getElementById(id).value);}
 function near(a,b,t){return !isNaN(a)&&Math.abs(a-b)<=t;}
 function setFB(id,ok,msg){const el=document.getElementById(id);el.className='feedback '+(ok?'ok':'err');el.textContent=(ok?'✓ ':'✗ ')+msg;}
 function mark(id,ok){const el=document.getElementById(id);if(!el)return;el.classList.remove('correct','wrong');if(!isNaN(parseFloat(el.value)))el.classList.add(ok?'correct':'wrong');}
-function unlock(id){const b=document.getElementById(id);b.classList.add('unlocked');b.textContent='▸ Show solution';}
+function unlock(){/* solutions always available */}
 function toggleSol(id){document.getElementById(id).classList.toggle('open');}
 
 var p1ok={a:false,b:false,c:false};
