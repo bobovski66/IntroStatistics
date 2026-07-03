@@ -1,210 +1,309 @@
-<!DOCTYPE html><html lang="en"><head>
-<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Math 146 Week 10 Lab</title>
-<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},options:{skipHtmlTags:['script','noscript','style','textarea','pre']}};</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.min.js"></script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Math 146 — Week 10 Lab: Linear Regression</title>
+<script>
+  window.MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] }, svg: { fontCache: 'global' } };
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.min.js" id="MathJax-script" async></script>
 <style>
-:root{--bg:#f8fafc;--panel:#fff;--text:#1f2937;--muted:#4b5563;--border:#d1d5db;--ok:#16a34a;--ok-bg:#dcfce7;--ok-border:#86efac;--err:#dc2626;--err-bg:#fef2f2;--err-border:#fca5a5;--field:#f0f9ff;--field-border:#7dd3fc;--accent:#0f766e;--locked:#9ca3af;--locked-bg:#f3f4f6;}
-*{box-sizing:border-box;}
-body{margin:0;font-family:Arial,Helvetica,sans-serif;font-size:15px;line-height:1.6;color:var(--text);background:var(--bg);}
-.container{max-width:860px;margin:0 auto;padding:1.5rem 1rem 4rem;}
-.lab-header{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:1.25rem 1.5rem;margin-bottom:1.25rem;}
-.lab-header h1{margin:0 0 .2rem;font-size:1.5rem;}.lab-header p{margin:0;color:var(--muted);font-size:.875rem;}
-.id-row{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-top:1rem;}
-.id-row label{display:flex;flex-direction:column;gap:.2rem;font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);}
-.id-row input[type=text]{border:1px solid var(--border);border-radius:6px;padding:.4rem .6rem;font-size:1rem;font-family:inherit;width:100%;}
-.card{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:1.25rem;margin-bottom:1.25rem;}
-.card h2{margin:0 0 .75rem;font-size:1.1rem;}.card h3{margin:1rem 0 .4rem;font-size:.85rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;}
-.formula-box{background:#f9fafb;border:1px solid var(--border);border-radius:10px;padding:.85rem 1rem;margin-bottom:.75rem;overflow-x:auto;}.formula-box p{margin:.35rem 0;}
-.part-divider{border:none;border-top:1px solid var(--border);margin:.85rem 0;}
-.step-row{display:flex;align-items:center;gap:.5rem;margin:.45rem 0;flex-wrap:wrap;font-size:.95rem;}.step-row .prompt{flex:1 1 240px;}
-.num-input{width:90px;border:1.5px solid var(--field-border);border-radius:6px;padding:.3rem .5rem;font-size:.95rem;font-family:inherit;background:var(--field);text-align:center;}
-.num-input:focus{outline:2px solid var(--accent);border-color:var(--accent);}
-.num-input.correct{border-color:var(--ok);background:#f0fdf4;}.num-input.wrong{border-color:var(--err);background:#fef2f2;}
-.wide{width:120px;}.xwide{width:160px;}
-.interp-label{display:block;margin-top:.75rem;}
-.interp-label span{display:block;font-size:.85rem;font-weight:700;color:var(--muted);margin-bottom:.3rem;}
-textarea{width:100%;border:1.5px solid var(--border);border-radius:8px;padding:.5rem .65rem;font-family:inherit;font-size:.9rem;min-height:70px;resize:vertical;}
-textarea.tall{min-height:110px;}textarea:focus{outline:2px solid var(--accent);border-color:var(--accent);}
-.btn-row{display:flex;gap:.6rem;align-items:center;margin-top:.6rem;flex-wrap:wrap;}
-.check-btn{background:var(--accent);color:#fff;border:none;border-radius:7px;padding:.4rem .9rem;font-size:.875rem;font-family:inherit;cursor:pointer;}.check-btn:hover{background:#0d5f5a;}
-.sol-btn{background:#1e40af;color:#fff;border:1.5px solid #1e40af;border-radius:7px;padding:.4rem .9rem;font-size:.875rem;font-family:inherit;cursor:pointer;}.sol-btn:hover{background:#1e3a8a;}
-.sol-btn.unlocked{background:#1e40af;color:#fff;border-color:#1e40af;cursor:pointer;}.sol-btn.unlocked:hover{background:#1e3a8a;}
-.print-btn{background:#374151;color:#fff;border:none;border-radius:8px;padding:.55rem 1.2rem;font-size:.9rem;font-family:inherit;cursor:pointer;margin-bottom:1rem;}
-.feedback{margin-top:.4rem;padding:.4rem .7rem;border-radius:7px;font-size:.875rem;display:none;}
-.feedback.ok{background:var(--ok-bg);color:var(--ok);border:1px solid var(--ok-border);display:block;}
-.feedback.err{background:var(--err-bg);color:var(--err);border:1px solid var(--err-border);display:block;}
-.sol-panel{display:none;margin-top:.75rem;border:1px solid #bfdbfe;border-radius:10px;background:#eff6ff;}
-.sol-panel.open{display:block;}.sol-panel-inner{padding:.85rem 1rem;font-size:.9rem;}.sol-panel-inner p{margin:.4rem 0;}
-.answer-line{margin-top:.6rem;padding:.4rem .65rem;background:var(--ok-bg);border-radius:7px;border-left:4px solid var(--ok);}
-.calc-note{background:#fefce8;border:1px solid #fde047;border-radius:8px;padding:.5rem .85rem;font-size:.875rem;color:#713f12;margin-bottom:.75rem;}
-table{width:100%;border-collapse:collapse;margin:.75rem 0;background:white;}
-th,td{border:1px solid var(--border);padding:.55rem .75rem;text-align:center;vertical-align:middle;}th{background:#f3f4f6;}td.lft{text-align:left;}
-.data-table{width:auto;margin:.75rem auto;}
-.data-table td,.data-table th{padding:.35rem .75rem;font-size:.95rem;}
-@media print{body{background:#fff;font-size:11pt;}.container{padding:0;max-width:100%;}
-.no-print,.check-btn,.print-btn,.sol-btn,.sol-panel,.feedback{display:none!important;}
-.card{border:1px solid #ccc;border-radius:6px;margin-bottom:.75rem;padding:.85rem;page-break-inside:avoid;}
-.num-input,.id-row input,textarea{border:none;border-bottom:1px solid #999;background:transparent;border-radius:0;}
-textarea{min-height:40pt;}h1{font-size:14pt;}h2{font-size:11pt;}}
-.clear-btn{background:#b91c1c;color:#fff;border:none;border-radius:8px;padding:.55rem 1.2rem;font-size:.9rem;font-family:inherit;cursor:pointer;margin-bottom:1rem;}.clear-btn:hover{background:#991b1b;}.toolbar{display:flex;gap:.6rem;flex-wrap:wrap;margin-bottom:.75rem;}.objectives{margin:.5rem 0 0;padding-left:1.25rem;}.objectives li{margin:.35rem 0;}
-</style></head><body>
-<div class="container">
+  @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=DM+Mono:wght@400;500&display=swap');
+  :root{--ink:#1c1c1c;--paper:#fcfbf8;--rule:#d8d3c8;--blue:#2a4d7a;--blue-bg:#eef2f8;--blue-rule:#bcccdf;--green:#1f6b46;--green-bg:#edf5ef;--green-rule:#b7d6c2;--amber:#9a6a00;--red:#9a2a2a;--mono:'DM Mono',monospace;}
+  *{box-sizing:border-box;}
+  body{background:var(--paper);color:var(--ink);font-family:'Crimson Pro',Georgia,serif;font-size:19px;line-height:1.5;margin:0;padding:0;}
+  .wrap{max-width:820px;margin:0 auto;padding:32px 28px 80px;}
+  header{border-bottom:2px solid var(--ink);padding-bottom:14px;margin-bottom:8px;}
+  header h1{font-size:30px;font-weight:600;margin:0 0 4px;}
+  header .sub{font-size:17px;color:#555;font-style:italic;}
+  .id-row{display:flex;gap:22px;margin:14px 0 0;flex-wrap:wrap;}
+  .id-row label{font-family:var(--mono);font-size:13px;color:#555;display:flex;flex-direction:column;gap:4px;}
+  .id-row input[type=text]{font-family:var(--mono);font-size:14px;border:1px solid var(--rule);border-radius:5px;padding:5px 8px;background:#fff;min-width:220px;color:var(--ink);}
+  .intro{margin:18px 0 22px;}
+  .objectives{background:var(--blue-bg);border:1px solid var(--blue-rule);border-radius:8px;padding:14px 20px;margin:0 0 26px;}
+  .objectives h2{font-size:16px;text-transform:uppercase;letter-spacing:0.06em;color:var(--blue);margin:0 0 8px;font-weight:600;}
+  .objectives ul{margin:0;padding-left:22px;} .objectives li{margin:3px 0;}
+  .formulas{background:var(--blue-bg);border:1px solid var(--blue-rule);border-radius:8px;padding:14px 20px;margin:0 0 26px;}
+  .formulas h2{font-size:16px;text-transform:uppercase;letter-spacing:0.06em;color:var(--blue);margin:0 0 8px;font-weight:600;}
+  .formulas p{margin:6px 0;}
+  .toolbar{display:flex;gap:10px;margin:0 0 28px;}
+  .toolbar button{font-family:var(--mono);font-size:13px;cursor:pointer;background:#fff;border:1px solid var(--rule);border-radius:6px;padding:8px 14px;color:var(--ink);}
+  .toolbar button:hover{background:#f0ece3;}
+  .problem{margin:0 0 34px;}
+  .problem > h2{font-size:21px;font-weight:600;margin:0 0 4px;border-bottom:1px solid var(--rule);padding-bottom:5px;}
+  .scenario{background:var(--blue-bg);border-left:4px solid var(--blue);padding:12px 16px;margin:12px 0;border-radius:0 6px 6px 0;}
+  .calc-note{background:#fdf6e3;border:1px solid #e6d8a8;border-radius:6px;padding:10px 14px;margin:12px 0;font-size:16px;}
+  .part{margin:16px 0 6px;}
+  .part-stem{display:flex;gap:8px;align-items:baseline;}
+  .part-label{font-family:var(--mono);font-weight:500;color:var(--blue);flex:none;}
+  .part-text{flex:1;}
+  .answer-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:8px 0 4px 26px;}
+  .answer-row label{font-family:var(--mono);font-size:14px;color:#444;}
+  .answer-row input[type=text]{font-family:var(--mono);font-size:15px;border:1px solid var(--rule);border-radius:5px;padding:5px 8px;width:90px;background:#fff;}
+  .answer-row input.wide{width:150px;}
+  .answer-row input.ok{border-color:var(--green);background:var(--green-bg);}
+  .answer-row input.no{border-color:var(--red);background:#f8eded;}
+  .check-btn{font-family:var(--mono);font-size:13px;cursor:pointer;background:var(--blue);color:#fff;border:none;border-radius:5px;padding:6px 12px;}
+  .check-btn:hover{background:#1d3a60;}
+  .verdict{font-family:var(--mono);font-size:14px;margin-left:4px;} .verdict.ok{color:var(--green);} .verdict.no{color:var(--red);}
+  .text-answer{margin:8px 0 4px 26px;}
+  .text-answer label{font-family:var(--mono);font-size:13px;color:#666;display:block;margin-bottom:4px;}
+  .text-answer textarea{width:100%;min-height:70px;resize:vertical;font-family:'Crimson Pro',Georgia,serif;font-size:17px;line-height:1.4;border:1px solid var(--rule);border-radius:6px;padding:8px 10px;background:#fff;color:var(--ink);}
+  .text-answer textarea.tall{min-height:140px;}
+  .text-answer textarea:focus{border-color:var(--blue);outline:none;}
+  details{margin:8px 0 4px 26px;}
+  summary{font-family:var(--mono);font-size:13px;color:var(--green);cursor:pointer;user-select:none;width:max-content;}
+  summary:hover{text-decoration:underline;}
+  .solution{background:var(--green-bg);border-left:4px solid var(--green);padding:10px 16px;margin:8px 0 0;border-radius:0 6px 6px 0;}
+  .solution .ans{font-weight:600;color:var(--green);} .solution p{margin:6px 0;}
+  details.locked{opacity:.5;}
+  details.locked summary{cursor:not-allowed;}
+  summary.lock-flash{color:var(--red) !important;}
+  .note{font-size:16px;color:#555;font-style:italic;}
+  table{width:calc(100% - 26px);border-collapse:collapse;margin:14px 0 4px 26px;font-family:var(--mono);font-size:14px;background:#fff;}
+  .data-table{width:auto;margin:14px auto;}
+  th,td{border:1px solid var(--rule);padding:7px 9px;text-align:center;vertical-align:middle;}
+  th{background:var(--blue-bg);color:var(--blue);font-weight:500;}
+  .footer{border-top:1px solid var(--rule);margin-top:50px;padding-top:12px;font-family:var(--mono);font-size:13px;color:#888;text-align:center;}
+  @media print{.toolbar,.check-btn{display:none;}details{display:block;}details>summary{display:none;}.solution{display:block !important;}.text-answer textarea{border:1px solid #999;min-height:auto;}body{font-size:16px;}}
+</style>
+</head>
+<body>
+<div class="wrap">
 
-<div class="no-print toolbar"><button class="print-btn" onclick="window.print()">Print lab report</button><button class="clear-btn" onclick="clearData()">Clear data</button></div>
-
-<div class="lab-header">
-  <h1>Math 146 — Week 10 Lab: Linear Regression</h1>
-  <p>Work through the problems in order. Type numerical answers in the blue blanks and use the Check buttons to test each part. Written explanations are not auto-checked, so answer in complete sentences and connect your reasoning to the situation. Use Show solution if you get stuck. Your work saves automatically in this browser on the computer you are using.</p>
+<header>
+  <h1>Week 10 Lab — Linear Regression</h1>
+  <div class="sub">Math 146 &middot; Centralia College</div>
   <div class="id-row">
-    <label>Student name <input type="text" data-save="w10_name" placeholder="Your full name"></label>
-    <label>Date <input type="text" data-save="w10_date" placeholder="mm/dd/yyyy"></label>
+    <label>Student name <input type="text" id="w10_name" placeholder="Your full name"></label>
+    <label>Date <input type="text" id="w10_date" placeholder="mm/dd/yyyy"></label>
   </div>
-</div>
-<div class="card lab-goal">
-<h2>Objectives</h2>
-<p>By the end of this lab you should be able to:</p>
-<ul class="objectives">
-<li>Compute a least-squares regression line from summary statistics using \(b = r\,s_y/s_x\) and \(a = \bar{y} - b\bar{x}\).</li>
-<li>Use a regression line to make a prediction and interpret the slope in context.</li>
-<li>Compute \(r^2\) and interpret it as the proportion of variability in \(y\) explained by \(x\).</li>
-<li>Find a regression line from raw bivariate data and recognize the limits of correlation and extrapolation.</li>
-</ul>
+</header>
+
+<p class="intro">
+  Fill in the answer boxes as you work. Click <strong>Check</strong> to test a numeric
+  answer; a box turns green when it matches. For parts that ask you to explain, type your
+  reasoning in the text box, then open <strong>Show solution</strong> to compare — solutions
+  unlock once you've entered an attempt. Your work is saved in this browser until you
+  clear it.
+</p>
+
+<div class="objectives">
+  <h2>Objectives</h2>
+  <ul>
+    <li>Compute a least-squares regression line from summary statistics using \(b=r\,s_y/s_x\) and \(a=\bar{y}-b\bar{x}\).</li>
+    <li>Use a regression line to make a prediction and interpret the slope in context.</li>
+    <li>Compute \(r^2\) and interpret it as the proportion of variability in \(y\) explained by \(x\).</li>
+    <li>Find a regression line from raw bivariate data and recognize the limits of correlation and extrapolation.</li>
+  </ul>
 </div>
 
-<div class="card">
+<div class="formulas">
   <h2>Reference Formulas</h2>
-  <div class="formula-box">
-    <p>Regression slope and intercept: \[b = r\cdot\frac{s_y}{s_x} \qquad a = \bar{y} - b\bar{x} \qquad \hat{y} = a + bx\]</p>
-    <p>Residual: \(e_i = y_i - \hat{y}_i\) &ensp;·&ensp; \(r^2\) = proportion of variability in \(y\) explained by the linear relationship with \(x\).</p>
-    <p>The regression line always passes through \((\bar{x},\,\bar{y})\).</p>
-  </div>
+  <p>Regression slope and intercept: \[b=r\cdot\frac{s_y}{s_x} \qquad a=\bar{y}-b\bar{x} \qquad \hat{y}=a+bx\]</p>
+  <p>Residual: \(e_i=y_i-\hat{y}_i\) &nbsp;&middot;&nbsp; \(r^2\) = proportion of variability in \(y\) explained by the linear relationship with \(x\).</p>
+  <p>The regression line always passes through \((\bar{x},\,\bar{y})\).</p>
 </div>
 
-<!-- Problem 1 -->
-<div class="card">
+<div class="toolbar">
+  <button onclick="window.print()">Print</button>
+  <button onclick="clearData()">Clear data</button>
+</div>
+
+<!-- PROBLEM 1 -->
+<div class="problem" id="p1">
   <h2>Problem 1 — Computing the Regression Line from Summary Statistics</h2>
-  <p>A physical therapist records weeks of therapy (\(x\)) and improvement score (\(y\)) for 10 patients.</p>
-  <table style="width:auto;margin:.5rem 0;">
+  <div class="scenario">A physical therapist records weeks of therapy (\(x\)) and
+  improvement score (\(y\)) for 10 patients.
+  <table style="width:auto;">
     <thead><tr><th>\(\bar{x}\)</th><th>\(s_x\)</th><th>\(\bar{y}\)</th><th>\(s_y\)</th><th>\(r\)</th></tr></thead>
     <tbody><tr><td>6</td><td>2.5</td><td>40</td><td>12</td><td>0.85</td></tr></tbody>
   </table>
-  <hr class="part-divider">
-  <h3>(a) Compute the regression line \(\hat{y} = a + bx\)</h3>
-  <div class="step-row">
-    <span class="prompt">Slope: \(b = r \cdot s_y/s_x = 0.85 \times 12/2.5\) =</span>
-    <input class="num-input wide" id="w10_1a_b" type="number" step="any" data-save="w10_1a_b" placeholder="?">
   </div>
-  <div class="step-row">
-    <span class="prompt">Intercept: \(a = \bar{y} - b\bar{x} = 40 - b \times 6\) =</span>
-    <input class="num-input wide" id="w10_1a_a" type="number" step="any" data-save="w10_1a_a" placeholder="?">
+
+  <div class="part">
+    <div class="part-stem"><span class="part-label">(a)</span>
+      <span class="part-text">Compute the regression line \(\hat{y}=a+bx\).</span></div>
+    <div class="answer-row"><label>slope \(b=r\cdot s_y/s_x=0.85\times12/2.5=\)</label><input type="text" id="w10_1a_b" class="wide" data-ans="4.08" data-tol="0.03">
+      <label>intercept \(a=\bar{y}-b\bar{x}=40-b\times6=\)</label><input type="text" id="w10_1a_a" class="wide" data-ans="15.52" data-tol="0.05">
+      <button class="check-btn" onclick="checkNum(['w10_1a_b','w10_1a_a'],'w10_1a_v')">Check</button><span class="verdict" id="w10_1a_v"></span></div>
+    <div class="text-answer"><label>Write the equation, then interpret the slope in one sentence.</label>
+      <textarea id="w10_1a_interp" placeholder="ŷ = … + …x. For each additional week of therapy, improvement score is predicted to…"></textarea></div>
+    <details><summary>Show solution</summary><div class="solution">
+      <p><span class="ans">\(b=4.08\), \(a=15.52\); \(\hat{y}=15.52+4.08x\).</span></p>
+      <p>\(b=0.85\times12/2.5=0.85\times4.8=4.08\). \(a=40-4.08(6)=40-24.48=15.52\). Each
+      additional week of therapy predicts a 4.08-point increase in improvement score on
+      average.</p>
+    </div></details>
   </div>
-  <div class="btn-row no-print"><button class="check-btn" onclick="check1a()">Check (a)</button></div>
-  <div id="fb1a" class="feedback"></div>
-  <label class="interp-label">
-    <span>Write the equation, then interpret the slope in one sentence.</span>
-    <textarea data-save="w10_1a_interp" placeholder="ŷ = … + …x. For each additional week of therapy, improvement score is predicted to…"></textarea>
-  </label>
-  <hr class="part-divider">
-  <h3>(b) Predict the improvement score for 8 weeks of therapy</h3>
-  <div class="step-row">
-    <span class="prompt">\(\hat{y}(8) = a + b(8)\) =</span>
-    <input class="num-input wide" id="w10_1b" type="number" step="any" data-save="w10_1b" placeholder="?">
+
+  <div class="part">
+    <div class="part-stem"><span class="part-label">(b)</span>
+      <span class="part-text">Predict the improvement score for 8 weeks of therapy.</span></div>
+    <div class="answer-row"><label>\(\hat{y}(8)=a+b(8)=\)</label><input type="text" id="w10_1b" class="wide" data-ans="48.16" data-tol="0.1">
+      <button class="check-btn" onclick="checkNum(['w10_1b'],'w10_1b_v')">Check</button><span class="verdict" id="w10_1b_v"></span></div>
+    <details><summary>Show solution</summary><div class="solution">
+      <p><span class="ans">\(\hat{y}(8)=48.16\).</span></p>
+      <p>\(\hat{y}(8)=15.52+4.08(8)=48.16\).</p>
+    </div></details>
   </div>
-  <div class="btn-row no-print"><button class="check-btn" onclick="check1b()">Check (b)</button></div>
-  <div id="fb1b" class="feedback"></div>
-  <hr class="part-divider">
-  <h3>(c) Compute \(r^2\) and interpret it</h3>
-  <div class="step-row">
-    <span class="prompt">\(r^2 = (0.85)^2\) =</span>
-    <input class="num-input wide" id="w10_1c" type="number" step="any" data-save="w10_1c" placeholder="?">
+
+  <div class="part">
+    <div class="part-stem"><span class="part-label">(c)</span>
+      <span class="part-text">Compute \(r^2\) and interpret it: what percentage of
+      variability is explained, and what explains the rest?</span></div>
+    <div class="answer-row"><label>\(r^2=(0.85)^2=\)</label><input type="text" id="w10_1c" class="wide" data-ans="0.7225" data-tol="0.005">
+      <button class="check-btn" onclick="checkNum(['w10_1c'],'w10_1c_v')">Check</button><span class="verdict" id="w10_1c_v"></span></div>
+    <div class="text-answer"><label>Your interpretation.</label>
+      <textarea id="w10_1c_interp" placeholder="72.25% of the variability in improvement score is explained by… The remaining 27.75% reflects…"></textarea></div>
+    <details><summary>Show solution</summary><div class="solution">
+      <p><span class="ans">\(r^2=0.7225\) (72.25%).</span></p>
+      <p>\(r^2=0.85^2=0.7225\): 72.25% of the variability in improvement score is explained
+      by the linear relationship with weeks of therapy. The remaining 27.75% reflects
+      other factors — individual healing rates, therapy intensity, injury type — not
+      captured by this simple linear model.</p>
+    </div></details>
   </div>
-  <div class="btn-row no-print">
-    <button class="check-btn" onclick="check1c()">Check (c)</button>
-    <button class="sol-btn" onclick="toggleSol('sol-1')">Show solution</button>
+
+  <div class="part">
+    <div class="part-stem"><span class="part-label">(d)</span>
+      <span class="part-text">The residual plot shows a curved pattern. Is the linear
+      model appropriate? What might fit better?</span></div>
+    <div class="text-answer"><label>Your answer.</label>
+      <textarea id="w10_1d" placeholder="A curved residual plot suggests the linearity condition is violated…"></textarea></div>
+    <details><summary>Show solution</summary><div class="solution">
+      <p><span class="ans">A curved residual pattern means the linear model is not appropriate.</span></p>
+      <p>Residuals should look randomly scattered around zero with no pattern if a linear
+      model fits well. A curve suggests a nonlinear relationship — perhaps improvement
+      levels off over time — and a curved model (such as logarithmic or quadratic) might
+      fit better.</p>
+    </div></details>
   </div>
-  <div id="fb1c" class="feedback"></div>
-  <div class="sol-panel" id="sol-1"><div class="sol-panel-inner">
-    <p>\(b = 0.85 \times 12/2.5 = 0.85 \times 4.8 = 4.08\)</p>
-    <p>\(a = 40 - 4.08(6) = 40 - 24.48 = 15.52\)</p>
-    <p>Line: \(\hat{y} = 15.52 + 4.08x\). Slope: each additional week of therapy predicts a 4.08-point increase in improvement score on average.</p>
-    <p>\(\hat{y}(8) = 15.52 + 4.08(8) = 48.16\)</p>
-    <p>\(r^2 = 0.85^2 = 0.7225\): 72.25% of the variability in improvement score is explained by the linear relationship with weeks of therapy.</p>
-    <div class="answer-line">\(b=4.08\) · \(a=15.52\) · \(\hat{y}(8)=48.16\) · \(r^2=0.7225\)</div>
-  </div></div>
-  <label class="interp-label">
-    <span>Interpret \(r^2\): what percentage of variability is explained, and what explains the rest?</span>
-    <textarea data-save="w10_1c_interp" placeholder="72.25% of the variability in improvement score is explained by… The remaining 27.75% reflects…"></textarea>
-  </label>
-  <hr class="part-divider">
-  <h3>(d) The residual plot shows a curved pattern. What does this suggest?</h3>
-  <label class="interp-label">
-    <span>Is the linear model appropriate? What might fit better?</span>
-    <textarea data-save="w10_1d" placeholder="A curved residual plot suggests the linearity condition is violated…"></textarea>
-  </label>
 </div>
 
-<!-- Problem 2 -->
-<div class="card">
+<!-- PROBLEM 2 -->
+<div class="problem" id="p2">
   <h2>Problem 2 — Interpreting Regression in Context</h2>
-  <p>A dataset of 50 cities records average summer temperature (\(x\), °F) and annual ice cream sales per capita (\(y\), dollars). Regression line: \(\hat{y} = -120 + 4.5x\), \(r^2 = 0.61\). The warmest city in the data has \(x = 95\)°F.</p>
-  <hr class="part-divider">
-  <h3>(a) Interpret the slope in context</h3>
-  <label class="interp-label"><span>One sentence — what does 4.5 mean for a real city?</span>
-    <textarea data-save="w10_2a" placeholder="For each additional degree Fahrenheit…"></textarea></label>
-  <hr class="part-divider">
-  <h3>(b) Interpret \(r^2 = 0.61\) in context</h3>
-  <label class="interp-label"><span>What percentage of variability is explained? What explains the rest?</span>
-    <textarea data-save="w10_2b" placeholder="61% of the variability in ice cream sales is explained by…"></textarea></label>
-  <hr class="part-divider">
-  <h3>(c) Is predicting at \(x = 110\)°F appropriate?</h3>
-  <label class="interp-label"><span>Use the word <em>extrapolation</em>.</span>
-    <textarea data-save="w10_2c" placeholder="No, because x = 110°F lies outside the data range. This is called extrapolation…"></textarea></label>
-  <hr class="part-divider">
-  <h3>(d) A journalist says "Eating ice cream raises body temperature." What is wrong?</h3>
-  <label class="interp-label"><span>Name the reasoning error and identify the underlying cause.</span>
-    <textarea data-save="w10_2d" placeholder="This confuses correlation with causation…"></textarea></label>
-</div>
+  <div class="scenario">A dataset of 50 cities records average summer temperature (\(x\),
+  °F) and annual ice cream sales per capita (\(y\), dollars). Regression line:
+  \(\hat{y}=-120+4.5x\), \(r^2=0.61\). The warmest city in the data has \(x=95\)°F.</div>
 
-<!-- Problem 3 -->
-<div class="card">
-  <h2>Problem 3 — Correlation and \(r^2\)</h2>
-  <p>Three scatterplots have correlations \(r = -0.92\), \(r = 0.45\), \(r = 0.01\).</p>
-  <hr class="part-divider">
-  <h3>(a) Match each \(r\) to its description</h3>
-  <label class="interp-label"><span>Strong negative linear · weak positive linear · no linear relationship.</span>
-    <textarea data-save="w10_3a" placeholder="r = −0.92: …   r = 0.45: …   r = 0.01: …"></textarea></label>
-  <hr class="part-divider">
-  <h3>(b) Compute \(r^2\) for each</h3>
-  <div class="step-row"><span class="prompt">\((-0.92)^2\) =</span>
-    <input class="num-input wide" id="w10_3b_1" type="number" step="any" data-save="w10_3b_1" placeholder="?"></div>
-  <div class="step-row"><span class="prompt">\((0.45)^2\) =</span>
-    <input class="num-input wide" id="w10_3b_2" type="number" step="any" data-save="w10_3b_2" placeholder="?"></div>
-  <div class="step-row"><span class="prompt">\((0.01)^2\) =</span>
-    <input class="num-input wide" id="w10_3b_3" type="number" step="any" data-save="w10_3b_3" placeholder="?"></div>
-  <div class="btn-row no-print">
-    <button class="check-btn" onclick="check3b()">Check (b)</button>
-    <button class="sol-btn" onclick="toggleSol('sol-3')">Show solution</button>
+  <div class="part">
+    <div class="part-stem"><span class="part-label">(a)</span>
+      <span class="part-text">Interpret the slope in context: what does 4.5 mean for a
+      real city?</span></div>
+    <div class="text-answer"><label>Your answer.</label>
+      <textarea id="w10_2a" placeholder="For each additional degree Fahrenheit…"></textarea></div>
+    <details><summary>Show solution</summary><div class="solution">
+      <p><span class="ans">Each additional degree of average summer temperature predicts about \$4.50 more in ice cream sales per capita.</span></p>
+      <p>The slope is a rate of change: for every 1°F increase in average summer
+      temperature, predicted per-capita ice cream sales rise by \$4.50, on average.</p>
+    </div></details>
   </div>
-  <div id="fb3b" class="feedback"></div>
-  <div class="sol-panel" id="sol-3"><div class="sol-panel-inner">
-    <p>(a) \(r=-0.92\): strong negative · \(r=0.45\): weak positive · \(r=0.01\): no linear relationship</p>
-    <p>(b) \(0.8464\) (84.64%) · \(0.2025\) (20.25%) · \(0.0001\) (0.01%)</p>
-    <div class="answer-line">0.8464 · 0.2025 · 0.0001</div>
-  </div></div>
-  <hr class="part-divider">
-  <h3>(c) For \(r = 0.01\): could \(x\) and \(y\) still be strongly associated?</h3>
-  <label class="interp-label"><span>What does \(r\) measure — and what does it miss?</span>
-    <textarea data-save="w10_3c" placeholder="r measures only linear association. A strong curved relationship could still exist…"></textarea></label>
+
+  <div class="part">
+    <div class="part-stem"><span class="part-label">(b)</span>
+      <span class="part-text">Interpret \(r^2=0.61\) in context: what percentage of
+      variability is explained? What explains the rest?</span></div>
+    <div class="text-answer"><label>Your answer.</label>
+      <textarea id="w10_2b" placeholder="61% of the variability in ice cream sales is explained by…"></textarea></div>
+    <details><summary>Show solution</summary><div class="solution">
+      <p><span class="ans">61% of the variability in ice cream sales is explained by average summer temperature.</span></p>
+      <p>The remaining 39% comes from other factors — local prices, population
+      demographics, availability of ice cream shops, and so on — that aren't captured by
+      temperature alone.</p>
+    </div></details>
+  </div>
+
+  <div class="part">
+    <div class="part-stem"><span class="part-label">(c)</span>
+      <span class="part-text">Is predicting at \(x=110\)°F appropriate? Use the word
+      extrapolation.</span></div>
+    <div class="text-answer"><label>Your answer.</label>
+      <textarea id="w10_2c" placeholder="No, because x = 110°F lies outside the data range. This is called extrapolation…"></textarea></div>
+    <details><summary>Show solution</summary><div class="solution">
+      <p><span class="ans">No — this is extrapolation.</span></p>
+      <p>The warmest city in the data only reaches 95°F, so predicting at 110°F means
+      applying the line far outside the range of observed data. There's no evidence the
+      linear relationship continues to hold out there.</p>
+    </div></details>
+  </div>
+
+  <div class="part">
+    <div class="part-stem"><span class="part-label">(d)</span>
+      <span class="part-text">A journalist says "Eating ice cream raises body
+      temperature." What is wrong? Name the reasoning error and identify the underlying
+      cause.</span></div>
+    <div class="text-answer"><label>Your answer.</label>
+      <textarea id="w10_2d" placeholder="This confuses correlation with causation…"></textarea></div>
+    <details><summary>Show solution</summary><div class="solution">
+      <p><span class="ans">This confuses correlation with causation.</span></p>
+      <p>Temperature and ice cream sales move together, but that doesn't mean one causes
+      the other. The underlying cause is a lurking variable — the season — that drives
+      both hot weather and higher ice cream demand at the same time.</p>
+    </div></details>
+  </div>
 </div>
 
-<!-- Problem 4 — Raw data regression -->
-<div class="card">
+<!-- PROBLEM 3 -->
+<div class="problem" id="p3">
+  <h2>Problem 3 — Correlation and r²</h2>
+  <div class="scenario">Three scatterplots have correlations \(r=-0.92\), \(r=0.45\),
+  \(r=0.01\).</div>
+
+  <div class="part">
+    <div class="part-stem"><span class="part-label">(a)</span>
+      <span class="part-text">Match each \(r\) to its description: strong negative linear
+      &middot; weak positive linear &middot; no linear relationship.</span></div>
+    <div class="text-answer"><label>Your answer.</label>
+      <textarea id="w10_3a" placeholder="r = −0.92: …   r = 0.45: …   r = 0.01: …"></textarea></div>
+    <details><summary>Show solution</summary><div class="solution">
+      <p><span class="ans">\(r=-0.92\): strong negative. \(r=0.45\): weak positive. \(r=0.01\): no linear relationship.</span></p>
+      <p>The sign gives the direction and the magnitude (distance from 0) gives the
+      strength of the linear association.</p>
+    </div></details>
+  </div>
+
+  <div class="part">
+    <div class="part-stem"><span class="part-label">(b)</span>
+      <span class="part-text">Compute \(r^2\) for each.</span></div>
+    <div class="answer-row"><label>\((-0.92)^2=\)</label><input type="text" id="w10_3b_1" class="wide" data-ans="0.8464" data-tol="0.005">
+      <label>\((0.45)^2=\)</label><input type="text" id="w10_3b_2" class="wide" data-ans="0.2025" data-tol="0.005">
+      <label>\((0.01)^2=\)</label><input type="text" id="w10_3b_3" class="wide" data-ans="0.0001" data-tol="0.0005">
+      <button class="check-btn" onclick="checkNum(['w10_3b_1','w10_3b_2','w10_3b_3'],'w10_3b_v')">Check</button><span class="verdict" id="w10_3b_v"></span></div>
+    <details><summary>Show solution</summary><div class="solution">
+      <p><span class="ans">\(0.8464\) (84.64%), \(0.2025\) (20.25%), \(0.0001\) (0.01%).</span></p>
+      <p>Squaring \(r\) removes the sign, which is why \(r^2\) tells you the strength of
+      the relationship regardless of its direction.</p>
+    </div></details>
+  </div>
+
+  <div class="part">
+    <div class="part-stem"><span class="part-label">(c)</span>
+      <span class="part-text">For \(r=0.01\): could \(x\) and \(y\) still be strongly
+      associated? What does \(r\) measure — and what does it miss?</span></div>
+    <div class="text-answer"><label>Your answer.</label>
+      <textarea id="w10_3c" placeholder="r measures only linear association. A strong curved relationship could still exist…"></textarea></div>
+    <details><summary>Show solution</summary><div class="solution">
+      <p><span class="ans">Yes — \(r\) only measures linear association.</span></p>
+      <p>A strong curved relationship, such as a U-shape or a cycle, can produce
+      \(r\approx0\) even though \(x\) and \(y\) are tightly linked in a nonlinear way. Low
+      \(r\) rules out a strong straight-line pattern, not association in general.</p>
+    </div></details>
+  </div>
+</div>
+
+<!-- PROBLEM 4 -->
+<div class="problem" id="p4">
   <h2>Problem 4 — Regression from Raw Data</h2>
-  <p>Below is a bivariate data set. Find the regression equation for the response variable \(y\). Use your calculator's regression function (LinReg or equivalent). Round \(b\) and \(a\) to two decimal places.</p>
-  <div class="calc-note no-print">📱 This problem requires a calculator or statistical software — enter the data, run linear regression, and read off the slope and intercept.</div>
+  <div class="scenario">Below is a bivariate data set. Find the regression equation for the
+  response variable \(y\). Use your calculator's regression function (LinReg or
+  equivalent). Round \(b\) and \(a\) to two decimal places.</div>
+  <div class="calc-note">This problem requires a calculator or statistical software — enter
+  the data, run linear regression, and read off the slope and intercept.</div>
   <div style="display:flex;justify-content:center;">
-    <table class="data-table" style="width:auto;">
+    <table class="data-table">
       <thead><tr><th>\(x\)</th><th>\(y\)</th></tr></thead>
       <tbody>
         <tr><td>26.4</td><td>153.2</td></tr>
@@ -229,112 +328,92 @@ textarea{min-height:40pt;}h1{font-size:14pt;}h2{font-size:11pt;}}
       </tbody>
     </table>
   </div>
-  <hr class="part-divider">
-  <h3>(a) Slope \(b\) and intercept \(a\)</h3>
-  <div class="step-row">
-    <span class="prompt">Slope \(b\) =</span>
-    <input class="num-input wide" id="w10_4a_b" type="number" step="any" data-save="w10_4a_b" placeholder="?">
+
+  <div class="part">
+    <div class="part-stem"><span class="part-label">(a)</span>
+      <span class="part-text">Find the slope \(b\) and intercept \(a\).</span></div>
+    <div class="answer-row"><label>slope \(b=\)</label><input type="text" id="w10_4a_b" class="wide" data-ans="-2.906" data-tol="0.03">
+      <label>intercept \(a=\)</label><input type="text" id="w10_4a_a" class="wide" data-ans="238.15" data-tol="1">
+      <button class="check-btn" onclick="checkNum(['w10_4a_b','w10_4a_a'],'w10_4a_v')">Check</button><span class="verdict" id="w10_4a_v"></span></div>
+    <div class="text-answer"><label>Write the regression equation.</label>
+      <textarea id="w10_4a_eq" placeholder="ŷ = …"></textarea></div>
+    <details><summary>Show solution</summary><div class="solution">
+      <p><span class="ans">\(b\approx-2.91\), \(a\approx238.15\); \(\hat{y}=238.15-2.91x\).</span></p>
+      <p>Running linear regression on the 19 data pairs gives slope \(b\approx-2.91\) and
+      intercept \(a\approx238.15\). The strong negative \(r\approx-0.928\) means larger
+      \(x\) values are associated with substantially lower \(y\) values.</p>
+    </div></details>
   </div>
-  <div class="step-row">
-    <span class="prompt">Intercept \(a\) =</span>
-    <input class="num-input wide" id="w10_4a_a" type="number" step="any" data-save="w10_4a_a" placeholder="?">
+
+  <div class="part">
+    <div class="part-stem"><span class="part-label">(b)</span>
+      <span class="part-text">Predict \(\hat{y}\) for \(x=50\).</span></div>
+    <div class="answer-row"><label>\(\hat{y}(50)=a+b(50)=\)</label><input type="text" id="w10_4b" class="wide" data-ans="92.65" data-tol="2">
+      <button class="check-btn" onclick="checkNum(['w10_4b'],'w10_4b_v')">Check</button><span class="verdict" id="w10_4b_v"></span></div>
+    <details><summary>Show solution</summary><div class="solution">
+      <p><span class="ans">\(\hat{y}(50)\approx92.65\).</span></p>
+      <p>\(\hat{y}(50)=238.15-2.91(50)=238.15-145.50=92.65\).</p>
+    </div></details>
   </div>
-  <div class="btn-row no-print"><button class="check-btn" onclick="check4a()">Check (a)</button></div>
-  <div id="fb4a" class="feedback"></div>
-  <label class="interp-label">
-    <span>Write the regression equation.</span>
-    <textarea data-save="w10_4a_eq" placeholder="ŷ = …"></textarea>
-  </label>
-  <hr class="part-divider">
-  <h3>(b) Predict \(\hat{y}\) for \(x = 50\)</h3>
-  <div class="step-row">
-    <span class="prompt">\(\hat{y}(50) = a + b(50)\) =</span>
-    <input class="num-input wide" id="w10_4b" type="number" step="any" data-save="w10_4b" placeholder="?">
+
+  <div class="part">
+    <div class="part-stem"><span class="part-label">(c)</span>
+      <span class="part-text">Interpret the slope in context. The variables are
+      unlabeled — interpret in terms of "for each one-unit increase in \(x\)…"</span></div>
+    <div class="text-answer"><label>Your answer.</label>
+      <textarea id="w10_4c" placeholder="For each one-unit increase in x, y is predicted to decrease by approximately 2.91 units…"></textarea></div>
+    <details><summary>Show solution</summary><div class="solution">
+      <p><span class="ans">For each one-unit increase in \(x\), \(y\) is predicted to decrease by about 2.91 units.</span></p>
+      <p>Since the slope is negative, larger \(x\) values are associated with smaller
+      predicted \(y\) values, on average.</p>
+    </div></details>
   </div>
-  <div class="btn-row no-print">
-    <button class="check-btn" onclick="check4b()">Check (b)</button>
-    <button class="sol-btn" onclick="toggleSol('sol-4')">Show solution</button>
-  </div>
-  <div id="fb4b" class="feedback"></div>
-  <div class="sol-panel" id="sol-4"><div class="sol-panel-inner">
-    <p>Running linear regression on the 19 data pairs:</p>
-    <p>\(b \approx -2.91\) &ensp; \(a \approx 238.15\)</p>
-    <p>Regression equation: \(\hat{y} = 238.15 - 2.91x\)</p>
-    <p>Prediction: \(\hat{y}(50) = 238.15 - 2.91(50) = 238.15 - 145.50 = 92.65\)</p>
-    <div class="answer-line">\(\hat{y} = 238.15 - 2.91x\) · \(\hat{y}(50) \approx 92.65\)</div>
-    <p style="margin-top:.5rem;font-size:.875rem;color:var(--muted);">The strong negative \(r \approx -0.928\) means larger \(x\) values are associated with substantially lower \(y\) values.</p>
-  </div></div>
-  <hr class="part-divider">
-  <h3>(c) Interpret the slope in context</h3>
-  <label class="interp-label">
-    <span>What does the slope of approximately −2.91 mean? (The variables are unlabeled — interpret in terms of "for each one-unit increase in \(x\)…")</span>
-    <textarea data-save="w10_4c" placeholder="For each one-unit increase in x, y is predicted to decrease by approximately 2.91 units…"></textarea>
-  </label>
 </div>
 
-<!-- Problem 5 -->
-<div class="card">
+<!-- PROBLEM 5 -->
+<div class="problem" id="p5">
   <h2>Problem 5 — The Closing Thread</h2>
-  <p>Write a paragraph (4–6 sentences) tracing the central question of this course — <em>"what does one variable tell you about another?"</em> — from Chapter 1 through Chapter 10. Name at least five tools and explain how each contributes.</p>
-  <label class="interp-label">
-    <span>Include: standard deviation, correlation, regression line, \(r^2\), and at least one more.</span>
-    <textarea class="tall" data-save="w10_5" placeholder="This course begins with a single variable…"></textarea>
-  </label>
+  <div class="scenario">Write a paragraph (4–6 sentences) tracing the central question of
+  this course — "what does one variable tell you about another?" — from Chapter 1 through
+  Chapter 10. Name at least five tools and explain how each contributes.</div>
+
+  <div class="part">
+    <div class="part-stem"><span class="part-label"></span>
+      <span class="part-text">Include: standard deviation, correlation, regression line,
+      \(r^2\), and at least one more.</span></div>
+    <div class="text-answer"><label>Your paragraph.</label>
+      <textarea class="tall" id="w10_5" placeholder="This course begins with a single variable…"></textarea></div>
+    <details><summary>Show solution</summary><div class="solution">
+      <p><span class="ans">There's no single correct paragraph here — use this checklist instead.</span></p>
+      <p>A strong response should: describe standard deviation as measuring spread within
+      one variable; introduce correlation \(r\) as measuring the direction and strength of
+      a linear relationship between two variables; describe the regression line as the
+      best-fitting summary of that relationship, used for prediction; explain \(r^2\) as
+      the proportion of variability in \(y\) explained by \(x\); and mention at least one
+      more tool — such as residuals, hypothesis testing, or confidence intervals — tying
+      the course's arc together from describing one variable to relating two.</p>
+    </div></details>
+  </div>
 </div>
 
+<div class="footer">MATH&amp; 146 &middot; Centralia College &middot; Week 10 Lab</div>
 </div>
+
 <script>
-
-function clearData(){if(confirm('Clear all of your saved answers for this lab on this computer? This cannot be undone.')){document.querySelectorAll('[data-save]').forEach(el=>{try{localStorage.removeItem(el.dataset.save);}catch(e){}el.value='';el.classList&&el.classList.remove('correct','wrong');});document.querySelectorAll('.feedback').forEach(f=>{f.className='feedback';f.textContent='';});document.querySelectorAll('.sol-panel.open').forEach(s=>s.classList.remove('open'));}}
-function save(k,v){try{localStorage.setItem(k,v);}catch(e){}}
-function load(k){try{return localStorage.getItem(k)||'';}catch(e){return '';}}
-document.querySelectorAll('[data-save]').forEach(el=>{
-  el.value=load(el.dataset.save);
-  el.addEventListener('input',()=>save(el.dataset.save,el.value));
-});
-function get(id){return parseFloat(document.getElementById(id).value);}
-function near(a,b,t){return !isNaN(a)&&Math.abs(a-b)<=t;}
-function setFB(id,ok,msg){const el=document.getElementById(id);el.className='feedback '+(ok?'ok':'err');el.textContent=(ok?'✓ ':'✗ ')+msg;}
-function mark(id,ok){const el=document.getElementById(id);if(!el)return;el.classList.remove('correct','wrong');if(!isNaN(parseFloat(el.value)))el.classList.add(ok?'correct':'wrong');}
-function unlock(){/* solutions always available */}
-function toggleSol(id){document.getElementById(id).classList.toggle('open');}
-
-var p1ok={a:false,b:false,c:false};
-function tryP1(){if(p1ok.a&&p1ok.b&&p1ok.c)unlock('sol-btn-1');}
-function check1a(){
-  const b=get('w10_1a_b'),a=get('w10_1a_a');
-  const cs=[{id:'w10_1a_b',ok:near(b,4.08,.03),hint:'b=0.85×12/2.5=4.08'},{id:'w10_1a_a',ok:near(a,15.52,.05),hint:'a=40−4.08×6=15.52'}];
-  cs.forEach(c=>mark(c.id,c.ok));const f=cs.filter(c=>!c.ok);const ok=f.length===0;
-  setFB('fb1a',ok,ok?'Correct. b=4.08, a=15.52.':'Review: '+f.map(c=>c.hint).join(' · '));
-  p1ok.a=ok;tryP1();
-}
-function check1b(){const v=get('w10_1b');const ok=near(v,48.16,.1);mark('w10_1b',ok);setFB('fb1b',ok,ok?'Correct. ŷ(8)=48.16.':'15.52+4.08×8=48.16.');p1ok.b=ok;tryP1();}
-function check1c(){const v=get('w10_1c');const ok=near(v,0.7225,.005);mark('w10_1c',ok);setFB('fb1c',ok,ok?'Correct. r²=0.7225 (72.25%).':'(0.85)²=0.7225.');p1ok.c=ok;tryP1();}
-
-function check3b(){
-  const cs=[
-    {id:'w10_3b_1',ok:near(get('w10_3b_1'),0.8464,.005),hint:'(−0.92)²=0.8464'},
-    {id:'w10_3b_2',ok:near(get('w10_3b_2'),0.2025,.005),hint:'(0.45)²=0.2025'},
-    {id:'w10_3b_3',ok:near(get('w10_3b_3'),0.0001,.0005),hint:'(0.01)²=0.0001'},
-  ];
-  cs.forEach(c=>mark(c.id,c.ok));const f=cs.filter(c=>!c.ok);const ok=f.length===0;
-  setFB('fb3b',ok,ok?'Correct: 0.8464 · 0.2025 · 0.0001.':'Review: '+f.map(c=>c.hint).join(' · '));
-  if(ok)unlock('sol-btn-3');
-}
-
-var p4ok={a:false,b:false};
-function check4a(){
-  const b=get('w10_4a_b'),a=get('w10_4a_a');
-  const cs=[{id:'w10_4a_b',ok:near(b,-2.906,.03),hint:'slope b≈−2.91'},{id:'w10_4a_a',ok:near(a,238.15,1),hint:'intercept a≈238.15'}];
-  cs.forEach(c=>mark(c.id,c.ok));const f=cs.filter(c=>!c.ok);const ok=f.length===0;
-  setFB('fb4a',ok,ok?'Correct. b≈−2.91, a≈238.15.':'Review: '+f.map(c=>c.hint).join(' · '));
-  p4ok.a=ok;if(p4ok.a&&p4ok.b)unlock('sol-btn-4');
-}
-function check4b(){
-  const v=get('w10_4b');const ok=near(v,92.65,2);
-  mark('w10_4b',ok);
-  setFB('fb4b',ok,ok?'Correct. ŷ(50)≈92.65.':'238.15−2.91×50=238.15−145.50=92.65.');
-  p4ok.b=ok;if(p4ok.a&&p4ok.b)unlock('sol-btn-4');
-}
+  const STORE_KEY='math146_w10_lab';
+  function allInputs(){return Array.from(document.querySelectorAll('input[type=text], textarea'));}
+  function save(){const d={};allInputs().forEach(i=>{if(i.id)d[i.id]=i.value;});try{localStorage.setItem(STORE_KEY,JSON.stringify(d));}catch(e){}}
+  function load(){let d={};try{d=JSON.parse(localStorage.getItem(STORE_KEY)||'{}');}catch(e){}allInputs().forEach(i=>{if(i.id&&d[i.id]!=null)i.value=d[i.id];});}
+  function clearData(){if(!confirm('Clear all of your saved answers for this lab on this computer? This cannot be undone.'))return;try{localStorage.removeItem(STORE_KEY);}catch(e){}allInputs().forEach(i=>{i.value='';i.classList.remove('ok','no');});document.querySelectorAll('.verdict').forEach(v=>{v.textContent='';v.className='verdict';});updateLocks();}
+  document.addEventListener('input',e=>{if(e.target.matches('input[type=text], textarea')){save();updateLocks();}});
+  function parseNum(s){if(s==null)return NaN;s=s.trim().replace(/\s+/g,'');if(s==='')return NaN;if(/^[-+]?\d+\/\d+$/.test(s)){const[a,b]=s.split('/').map(Number);return a/b;}return Number(s);}
+  function checkNum(ids,verdictId){let allGood=true,anyBlank=false;ids.forEach(id=>{const el=document.getElementById(id);const target=parseNum(el.dataset.ans);const tol=el.dataset.tol!=null?parseFloat(el.dataset.tol):1e-9;const val=parseNum(el.value);el.classList.remove('ok','no');if(isNaN(val)){anyBlank=true;allGood=false;return;}if(Math.abs(val-target)<=tol){el.classList.add('ok');}else{el.classList.add('no');allGood=false;}});const v=document.getElementById(verdictId);if(anyBlank){v.textContent='fill in every box';v.className='verdict no';}else if(allGood){v.textContent='✓ correct';v.className='verdict ok';}else{v.textContent='✗ check again';v.className='verdict no';}}
+  function getPartInputs(el){const part=el.closest('.part');if(!part)return[];return Array.from(part.querySelectorAll('input[type=text], textarea'));}
+  function isPartAttempted(det){const inputs=getPartInputs(det);if(inputs.length===0)return true;return inputs.every(i=>i.value.trim().length>0);}
+  function updateLocks(){document.querySelectorAll('details').forEach(det=>{const summary=det.querySelector('summary');if(!summary)return;if(isPartAttempted(det)){det.classList.remove('locked');}else{det.classList.add('locked');if(det.open)det.open=false;}});}
+  document.querySelectorAll('details').forEach(det=>{const summary=det.querySelector('summary');if(!summary)return;if(!summary.dataset.orig)summary.dataset.orig=summary.textContent;summary.addEventListener('click',function(e){if(det.classList.contains('locked')){e.preventDefault();summary.textContent='Attempt the problem first!';summary.classList.add('lock-flash');clearTimeout(summary._lockTimer);summary._lockTimer=setTimeout(()=>{summary.textContent=summary.dataset.orig;summary.classList.remove('lock-flash');},1500);}});});
+  load();
+  updateLocks();
 </script>
-</body></html>
+</body>
+</html>

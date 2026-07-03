@@ -1,217 +1,316 @@
 <!DOCTYPE html>
-<html lang="en"><head>
-<meta charset="utf-8"/><meta content="width=device-width,initial-scale=1.0" name="viewport"/>
-<title>Math 146 Week 2 Lab</title>
-<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},options:{skipHtmlTags:['script','noscript','style','textarea','pre']}};</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.min.js"></script>
-<style>
-:root{--bg:#f8fafc;--panel:#fff;--text:#1f2937;--muted:#4b5563;--border:#d1d5db;--ok:#16a34a;--ok-bg:#dcfce7;--ok-border:#86efac;--err:#dc2626;--err-bg:#fef2f2;--err-border:#fca5a5;--field:#f0f9ff;--field-border:#7dd3fc;--accent:#0f766e;--locked:#9ca3af;--locked-bg:#f3f4f6;}
-*{box-sizing:border-box;}body{margin:0;font-family:Arial,Helvetica,sans-serif;font-size:15px;line-height:1.6;color:var(--text);background:var(--bg);}
-.container{max-width:860px;margin:0 auto;padding:1.5rem 1rem 4rem;}
-.lab-header{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:1.25rem 1.5rem;margin-bottom:1.25rem;}
-.lab-header h1{margin:0 0 .2rem;font-size:1.5rem;}.lab-header p{margin:0;color:var(--muted);font-size:.875rem;}
-.id-row{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-top:1rem;}
-.id-row label{display:flex;flex-direction:column;gap:.2rem;font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);}
-.id-row input{border:1px solid var(--border);border-radius:6px;padding:.4rem .6rem;font-size:1rem;font-family:inherit;width:100%;}
-.card{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:1.25rem;margin-bottom:1.25rem;}
-.card h2{margin:0 0 .75rem;font-size:1.1rem;}.card h3{margin:1rem 0 .4rem;font-size:.85rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;}
-.formula-box{background:#f9fafb;border:1px solid var(--border);border-radius:10px;padding:.85rem 1rem;margin-bottom:.75rem;overflow-x:auto;}
-.formula-box p{margin:.35rem 0;}.part-divider{border:none;border-top:1px solid var(--border);margin:.85rem 0;}
-.step-row{display:flex;align-items:center;gap:.5rem;margin:.45rem 0;flex-wrap:wrap;font-size:.95rem;}
-.step-row .prompt{flex:1 1 200px;}
-.num-input{width:90px;border:1.5px solid var(--field-border);border-radius:6px;padding:.3rem .5rem;font-size:.95rem;font-family:inherit;background:var(--field);text-align:center;}
-.num-input:focus{outline:2px solid var(--accent);border-color:var(--accent);}
-.num-input.correct{border-color:var(--ok);background:#f0fdf4;}.num-input.wrong{border-color:var(--err);background:#fef2f2;}
-.wide{width:120px;}
-.interp-label{display:block;margin-top:.75rem;}
-.interp-label span{display:block;font-size:.85rem;font-weight:700;color:var(--muted);margin-bottom:.3rem;}
-textarea{width:100%;border:1.5px solid var(--border);border-radius:8px;padding:.5rem .65rem;font-family:inherit;font-size:.9rem;min-height:65px;resize:vertical;}
-textarea:focus{outline:2px solid var(--accent);border-color:var(--accent);}
-.btn-row{display:flex;gap:.6rem;align-items:center;margin-top:.6rem;flex-wrap:wrap;}
-.check-btn{background:var(--accent);color:#fff;border:none;border-radius:7px;padding:.4rem .9rem;font-size:.875rem;font-family:inherit;cursor:pointer;}
-.check-btn:hover{background:#0d5f5a;}
-.sol-btn{background:#1e40af;color:#fff;border:1.5px solid #1e40af;border-radius:7px;padding:.4rem .9rem;font-size:.875rem;font-family:inherit;cursor:pointer;}.sol-btn:hover{background:#1e3a8a;}
-.sol-btn.unlocked{background:#1e40af;color:#fff;border-color:#1e40af;cursor:pointer;}.sol-btn.unlocked:hover{background:#1e3a8a;}
-.print-btn{background:#374151;color:#fff;border:none;border-radius:8px;padding:.55rem 1.2rem;font-size:.9rem;font-family:inherit;cursor:pointer;margin-bottom:1rem;}
-.feedback{margin-top:.4rem;padding:.4rem .7rem;border-radius:7px;font-size:.875rem;display:none;}
-.feedback.ok{background:var(--ok-bg);color:var(--ok);border:1px solid var(--ok-border);display:block;}
-.feedback.err{background:var(--err-bg);color:var(--err);border:1px solid var(--err-border);display:block;}
-.sol-panel{display:none;margin-top:.75rem;border:1px solid #bfdbfe;border-radius:10px;background:#eff6ff;}
-.sol-panel.open{display:block;}.sol-panel-inner{padding:.85rem 1rem;font-size:.9rem;}.sol-panel-inner p{margin:.4rem 0;}
-.answer-line{margin-top:.6rem;padding:.4rem .65rem;background:var(--ok-bg);border-radius:7px;border-left:4px solid var(--ok);}
-table{width:100%;border-collapse:collapse;margin:.75rem 0;background:white;}
-th,td{border:1px solid var(--border);padding:.55rem .65rem;text-align:center;vertical-align:middle;}th{background:#f3f4f6;}
-@media print{body{background:#fff;font-size:11pt;}.container{padding:0;max-width:100%;}
-.no-print,.check-btn,.print-btn,.sol-btn,.sol-panel,.feedback{display:none!important;}
-.card{border:1px solid #ccc;border-radius:6px;margin-bottom:.75rem;padding:.85rem;page-break-inside:avoid;}
-.num-input,.id-row input,textarea{border:none;border-bottom:1px solid #999;background:transparent;border-radius:0;}
-textarea{min-height:40pt;}h1{font-size:14pt;}h2{font-size:11pt;}}
-.clear-btn{background:#b91c1c;color:#fff;border:none;border-radius:8px;padding:.55rem 1.2rem;font-size:.9rem;font-family:inherit;cursor:pointer;margin-bottom:1rem;}.clear-btn:hover{background:#991b1b;}.toolbar{display:flex;gap:.6rem;flex-wrap:wrap;margin-bottom:.75rem;}.objectives{margin:.5rem 0 0;padding-left:1.25rem;}.objectives li{margin:.35rem 0;}
-</style></head><body>
-<div class="container">
-<div class="no-print toolbar"><button class="print-btn" onclick="window.print()">Print lab report</button><button class="clear-btn" onclick="clearData()">Clear data</button></div>
-<div class="lab-header">
-<h1>Math 146 — Week 2 Lab: Probability Distributions</h1>
-<p>Work through the problems in order. Type numerical answers in the blue blanks and use the Check buttons to test each part. Written explanations are not auto-checked, so answer in complete sentences and connect your reasoning to the situation. Use Show solution if you get stuck. Your work saves automatically in this browser on the computer you are using.</p>
-<div class="id-row">
-<label>Student name <input data-save="w2_name" placeholder="Your full name" type="text"/></label>
-<label>Date <input data-save="w2_date" placeholder="mm/dd/yyyy" type="text"/></label>
-</div>
-</div>
-<div class="card lab-goal">
-<h2>Objectives</h2>
-<p>By the end of this lab you should be able to:</p>
-<ul class="objectives">
-<li>Verify that a table is a valid probability distribution and compute its expected value \(E(X)\).</li>
-<li>Apply the geometric model to find \(P(X=k)\) and the mean number of trials \(\mu = 1/p\).</li>
-<li>Apply the binomial model to compute probabilities, the mean \(\mu = np\), and the standard deviation \(\sigma = \sqrt{np(1-p)}\).</li>
-<li>Interpret each computed value as a statement about the real-world situation.</li>
-</ul>
-</div>
-
-<div class="card">
-<h2>Reference Formulas</h2>
-<div class="formula-box">
-<p>\[ P(X=k) = (1-p)^{k-1}p \qquad \mu_{\text{geo}} = \frac{1}{p} \]</p>
-<p>\[ P(X=k) = \binom{n}{k}p^k(1-p)^{n-k} \qquad \mu_{\text{bin}} = np \qquad \sigma_{\text{bin}} = \sqrt{np(1-p)} \]</p>
-<p>\[ \binom{n}{k} = \frac{n!}{k!(n-k)!} \qquad E(X) = \sum x \cdot P(X=x) \]</p>
-</div>
-</div>
-<!-- P1 -->
-<div class="card">
-<h2>Problem 1 — Probability Distribution and Expected Value</h2>
-<p>A simple game uses a spinner with four possible outcomes. The spinner lands on 1 with probability 0.10, on 2 with probability 0.30, on 3 with probability 0.40, and on 4 with probability 0.20. Treat the spinner value as the random variable \(X\), then check that the probabilities form a valid distribution and compute the long-run average outcome.</p>
-<hr class="part-divider"/>
-<h3>(a &amp; b) Complete the table and verify the sum equals 1</h3>
-<table>
-<thead><tr><th>\(x\)</th><th>1</th><th>2</th><th>3</th><th>4</th><th>Sum</th></tr></thead>
-<tbody><tr><td>\(P(X=x)\)</td>
-<td>0.10</td>
-<td><input class="num-input" data-save="w2_1_p2" id="w2_1_p2" placeholder="?" step="any" type="number"/></td>
-<td>0.40</td>
-<td><input class="num-input" data-save="w2_1_p4" id="w2_1_p4" placeholder="?" step="any" type="number"/></td>
-<td><input class="num-input" data-save="w2_1_sum" id="w2_1_sum" placeholder="?" step="any" type="number"/></td>
-</tr></tbody>
-</table>
-<div class="btn-row no-print"><button class="check-btn" onclick="check1ab()">Check (a &amp; b)</button></div>
-<div class="feedback" id="fb1ab"></div>
-<hr class="part-divider"/>
-<h3>(c) Sketch the probability histogram</h3>
-<label class="interp-label"><span>Describe or sketch: what are the bar heights, and what do the axes represent?</span><textarea data-save="w2_1c" placeholder="The x-axis shows…, the y-axis shows…, the bars have heights…"></textarea></label>
-<hr class="part-divider"/>
-<h3>(d) Compute \(\mu = E(X)\)</h3>
-<div class="step-row"><span class="prompt">\(E(X) = \sum x \cdot P(X=x)\) =</span><input class="num-input wide" data-save="w2_1d" id="w2_1d" placeholder="?" step="any" type="number"/></div>
-<div class="btn-row no-print">
-<button class="check-btn" onclick="check1d()">Check (d)</button>
-<button class="sol-btn" onclick="toggleSol('sol-1')">Show solution</button>
-</div>
-<div class="feedback" id="fb1d"></div>
-<div class="sol-panel" id="sol-1"><div class="sol-panel-inner">
-<p>Table: 0.10, 0.30, 0.40, 0.20; sum = 1.00 ✓</p>
-<p>\(E(X)=1(0.10)+2(0.30)+3(0.40)+4(0.20)=0.10+0.60+1.20+0.80\)</p>
-<div class="answer-line">\(E(X) = 2.70\)</div>
-</div></div>
-</div>
-<!-- P2 -->
-<div class="card">
-<h2>Problem 2 — Geometric Distribution</h2>
-<p>A student guesses on a sequence of multiple-choice questions. Each question has probability \(p = 0.20\) of being answered correctly, and the guesses are independent. Let \(X\) be the question number of the first correct answer. This is a geometric setting because we are counting how long it takes until the first success.</p>
-<hr class="part-divider"/>
-<h3>(a) Compute \(P(X = 3)\)</h3>
-<div class="step-row"><span class="prompt">\((1-p)^{k-1} \cdot p\) with \(k=3\):</span><input class="num-input wide" data-save="w2_2a" id="w2_2a" placeholder="?" step="any" type="number"/></div>
-<div class="btn-row no-print"><button class="check-btn" onclick="check2a()">Check (a)</button></div>
-<div class="feedback" id="fb2a"></div>
-<hr class="part-divider"/>
-<h3>(b) Compute \(\mu\). Interpret in one sentence.</h3>
-<div class="step-row"><span class="prompt">\(\mu = 1/p\) =</span><input class="num-input" data-save="w2_2b" id="w2_2b" placeholder="?" step="any" type="number"/></div>
-<div class="btn-row no-print">
-<button class="check-btn" onclick="check2b()">Check (b)</button>
-<button class="sol-btn" onclick="toggleSol('sol-2')">Show solution</button>
-</div>
-<div class="feedback" id="fb2b"></div>
-<div class="sol-panel" id="sol-2"><div class="sol-panel-inner">
-<p>(a) \(P(X=3)=(0.80)^2 \times 0.20 = 0.64 \times 0.20 = 0.128\)</p>
-<p>(b) \(\mu = 1/0.20 = 5\)</p>
-<div class="answer-line">\(P(X=3)=0.128\) · \(\mu=5\) questions on average until first correct answer</div>
-</div></div>
-<hr class="part-divider"/>
-<h3>(c) Describe the histogram shape</h3>
-<label class="interp-label"><span>Is the geometric distribution histogram symmetric, skewed left, or skewed right? Why?</span><textarea data-save="w2_2c" placeholder="The histogram is…"></textarea></label>
-</div>
-<!-- P3 -->
-<div class="card">
-<h2>Problem 3 — Binomial Distribution</h2>
-<p>A drug is effective for 70% of patients. A doctor prescribes it to 6 patients and records how many of those patients respond to the drug. Let \(X\) be the number of patients for whom the drug is effective, so \(n=6\) and \(p=0.70\). This is a binomial setting because there are a fixed number of independent trials and each trial has the same probability of success.</p>
-<hr class="part-divider"/>
-<h3>(a) Identify \(n\) and \(p\); explain the binomial conditions</h3>
-<label class="interp-label"><span>List the four binomial conditions and confirm each applies here.</span><textarea data-save="w2_3a" placeholder="n = …, p = …. This is binomial because…"></textarea></label>
-<hr class="part-divider"/>
-<h3>(b) Compute \(P(X = 6)\)</h3>
-<div class="step-row"><span class="prompt">\(\binom{6}{6}(0.70)^6(0.30)^0\) =</span><input class="num-input wide" data-save="w2_3b" id="w2_3b" placeholder="?" step="any" type="number"/></div>
-<div class="btn-row no-print"><button class="check-btn" onclick="check3b()">Check (b)</button></div>
-<div class="feedback" id="fb3b"></div>
-<hr class="part-divider"/>
-<h3>(c) Compute \(P(X = 4)\); show the combination</h3>
-<div class="step-row"><span class="prompt">\(\binom{6}{4}\) =</span><input class="num-input" data-save="w2_3c_c" id="w2_3c_c" placeholder="?" step="any" type="number"/></div>
-<div class="step-row"><span class="prompt">\(P(X=4) = \binom{6}{4}(0.70)^4(0.30)^2\) =</span><input class="num-input wide" data-save="w2_3c_p" id="w2_3c_p" placeholder="?" step="any" type="number"/></div>
-<div class="btn-row no-print"><button class="check-btn" onclick="check3c()">Check (c)</button></div>
-<div class="feedback" id="fb3c"></div>
-<hr class="part-divider"/>
-<h3>(d) Compute \(\mu\) and \(\sigma\). Interpret \(\mu\).</h3>
-<div class="step-row"><span class="prompt">\(\mu = np\) =</span><input class="num-input" data-save="w2_3d_mu" id="w2_3d_mu" placeholder="?" step="any" type="number"/></div>
-<div class="step-row"><span class="prompt">\(\sigma = \sqrt{np(1-p)}\) =</span><input class="num-input wide" data-save="w2_3d_sig" id="w2_3d_sig" placeholder="?" step="any" type="number"/></div>
-<div class="btn-row no-print">
-<button class="check-btn" onclick="check3d()">Check (d)</button>
-<button class="sol-btn" onclick="toggleSol('sol-3')">Show solution</button>
-</div>
-<div class="feedback" id="fb3d"></div>
-<div class="sol-panel" id="sol-3"><div class="sol-panel-inner">
-<p>(b) \((0.70)^6 = 0.117649 \approx 0.1176\)</p>
-<p>(c) \(\binom{6}{4}=15\). \(P(X=4)=15(0.2401)(0.09)=0.3241\)</p>
-<p>(d) \(\mu=6(0.70)=4.2\). \(\sigma=\sqrt{6(0.70)(0.30)}=\sqrt{1.26}\approx 1.12\)</p>
-<div class="answer-line">\(P(X=6)\approx 0.1176\) · \(P(X=4)\approx 0.3241\) · \(\mu=4.2\) · \(\sigma\approx 1.12\)</div>
-</div></div>
-<hr class="part-divider"/>
-<h3>(e) Describe the expected histogram shape</h3>
-<label class="interp-label"><span>Symmetric, skewed left, or skewed right? Where is the tallest bar? Why?</span><textarea data-save="w2_3e" placeholder="Since p = 0.70 &gt; 0.50, the histogram is…"></textarea></label>
-</div>
-</div>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Math 146 — Week 2 Lab: Probability Distributions</title>
 <script>
-
-function clearData(){if(confirm('Clear all of your saved answers for this lab on this computer? This cannot be undone.')){document.querySelectorAll('[data-save]').forEach(el=>{try{localStorage.removeItem(el.dataset.save);}catch(e){}el.value='';el.classList&&el.classList.remove('correct','wrong');});document.querySelectorAll('.feedback').forEach(f=>{f.className='feedback';f.textContent='';});document.querySelectorAll('.sol-panel.open').forEach(s=>s.classList.remove('open'));}}
-function save(k,v){try{localStorage.setItem(k,v);}catch(e){}}function load(k){try{return localStorage.getItem(k)||'';}catch(e){return '';}}
-document.querySelectorAll('[data-save]').forEach(el=>{el.value=load(el.dataset.save);el.addEventListener('input',()=>save(el.dataset.save,el.value));});
-function get(id){return parseFloat(document.getElementById(id).value);}
-function near(a,b,t){return !isNaN(a)&&Math.abs(a-b)<=t;}
-function setFB(id,ok,msg){const el=document.getElementById(id);el.className='feedback '+(ok?'ok':'err');el.textContent=(ok?'✓ ':'✗ ')+msg;}
-function mark(id,ok){const el=document.getElementById(id);if(!el)return;el.classList.remove('correct','wrong');if(!isNaN(parseFloat(el.value)))el.classList.add(ok?'correct':'wrong');}
-function unlock(){/* solutions always available */}
-function toggleSol(id){document.getElementById(id).classList.toggle('open');}
-var p1ok={ab:false,d:false},p2ok={a:false,b:false},p3ok={b:false,c:false,d:false};
-function tryUnlock(){}
-function check1ab(){
-  const checks=[{id:'w2_1_p2',ok:near(get('w2_1_p2'),0.30,.005),hint:'P(X=2)=0.30'},{id:'w2_1_p4',ok:near(get('w2_1_p4'),0.20,.005),hint:'P(X=4)=0.20'},{id:'w2_1_sum',ok:near(get('w2_1_sum'),1.00,.005),hint:'sum=1.00'}];
-  checks.forEach(c=>mark(c.id,c.ok));const failed=checks.filter(c=>!c.ok);const ok=failed.length===0;
-  setFB('fb1ab',ok,ok?'Table correct and sums to 1.':'Review: '+failed.map(c=>c.hint).join(' · '));
-  p1ok.ab=ok;if(p1ok.ab&&p1ok.d)unlock('sol-btn-1');
-}
-function check1d(){const v=get('w2_1d');const ok=near(v,2.70,.02);mark('w2_1d',ok);setFB('fb1d',ok,ok?'Correct. E(X) = 2.70.':'E(X)=1(0.10)+2(0.30)+3(0.40)+4(0.20)=2.70.');p1ok.d=ok;if(p1ok.ab&&p1ok.d)unlock('sol-btn-1');}
-function check2a(){const v=get('w2_2a');const ok=near(v,0.128,.002);mark('w2_2a',ok);setFB('fb2a',ok,ok?'Correct. P(X=3) = 0.128.':'(0.80)²×0.20 = 0.64×0.20 = 0.128.');p2ok.a=ok;if(p2ok.a&&p2ok.b)unlock('sol-btn-2');}
-function check2b(){const v=get('w2_2b');const ok=near(v,5,.01);mark('w2_2b',ok);setFB('fb2b',ok,ok?'Correct. μ = 5.':'μ = 1/p = 1/0.20 = 5.');p2ok.b=ok;if(p2ok.a&&p2ok.b)unlock('sol-btn-2');}
-function check3b(){const v=get('w2_3b');const ok=near(v,0.1176,.002);mark('w2_3b',ok);setFB('fb3b',ok,ok?'Correct. P(X=6) ≈ 0.1176.':'(0.70)⁶ ≈ 0.117649 ≈ 0.1176.');p3ok.b=ok;if(p3ok.b&&p3ok.c&&p3ok.d)unlock('sol-btn-3');}
-function check3c(){
-  const cc=get('w2_3c_c'),cp=get('w2_3c_p');
-  const checks=[{id:'w2_3c_c',ok:near(cc,15,.01),hint:'C(6,4)=15'},{id:'w2_3c_p',ok:near(cp,0.3241,.005),hint:'P(X=4)≈0.3241'}];
-  checks.forEach(c=>mark(c.id,c.ok));const failed=checks.filter(c=>!c.ok);const ok=failed.length===0;
-  setFB('fb3c',ok,ok?'Correct. C(6,4)=15, P(X=4)≈0.3241.':'Review: '+failed.map(c=>c.hint).join(' · '));
-  p3ok.c=ok;if(p3ok.b&&p3ok.c&&p3ok.d)unlock('sol-btn-3');
-}
-function check3d(){
-  const mu=get('w2_3d_mu'),sig=get('w2_3d_sig');
-  const checks=[{id:'w2_3d_mu',ok:near(mu,4.2,.05),hint:'μ=np=4.2'},{id:'w2_3d_sig',ok:near(sig,1.12,.03),hint:'σ=√(1.26)≈1.12'}];
-  checks.forEach(c=>mark(c.id,c.ok));const failed=checks.filter(c=>!c.ok);const ok=failed.length===0;
-  setFB('fb3d',ok,ok?'Correct. μ=4.2, σ≈1.12.':'Review: '+failed.map(c=>c.hint).join(' · '));
-  p3ok.d=ok;if(p3ok.b&&p3ok.c&&p3ok.d)unlock('sol-btn-3');
-}
+  window.MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] }, svg: { fontCache: 'global' } };
 </script>
-</body></html>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.min.js" id="MathJax-script" async></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=DM+Mono:wght@400;500&display=swap');
+  :root{--ink:#1c1c1c;--paper:#fcfbf8;--rule:#d8d3c8;--blue:#2a4d7a;--blue-bg:#eef2f8;--blue-rule:#bcccdf;--green:#1f6b46;--green-bg:#edf5ef;--green-rule:#b7d6c2;--amber:#9a6a00;--red:#9a2a2a;--mono:'DM Mono',monospace;}
+  *{box-sizing:border-box;}
+  body{background:var(--paper);color:var(--ink);font-family:'Crimson Pro',Georgia,serif;font-size:19px;line-height:1.5;margin:0;padding:0;}
+  .wrap{max-width:820px;margin:0 auto;padding:32px 28px 80px;}
+  header{border-bottom:2px solid var(--ink);padding-bottom:14px;margin-bottom:8px;}
+  header h1{font-size:30px;font-weight:600;margin:0 0 4px;}
+  header .sub{font-size:17px;color:#555;font-style:italic;}
+  .id-row{display:flex;gap:22px;margin:14px 0 0;flex-wrap:wrap;}
+  .id-row label{font-family:var(--mono);font-size:13px;color:#555;display:flex;flex-direction:column;gap:4px;}
+  .id-row input[type=text]{font-family:var(--mono);font-size:14px;border:1px solid var(--rule);border-radius:5px;padding:5px 8px;background:#fff;min-width:220px;color:var(--ink);}
+  .intro{margin:18px 0 22px;}
+  .objectives{background:var(--blue-bg);border:1px solid var(--blue-rule);border-radius:8px;padding:14px 20px;margin:0 0 26px;}
+  .objectives h2{font-size:16px;text-transform:uppercase;letter-spacing:0.06em;color:var(--blue);margin:0 0 8px;font-weight:600;}
+  .objectives ul{margin:0;padding-left:22px;} .objectives li{margin:3px 0;}
+  .formulas{background:var(--blue-bg);border:1px solid var(--blue-rule);border-radius:8px;padding:14px 20px;margin:0 0 26px;}
+  .formulas h2{font-size:16px;text-transform:uppercase;letter-spacing:0.06em;color:var(--blue);margin:0 0 8px;font-weight:600;}
+  .formulas p{margin:6px 0;}
+  .toolbar{display:flex;gap:10px;margin:0 0 28px;}
+  .toolbar button{font-family:var(--mono);font-size:13px;cursor:pointer;background:#fff;border:1px solid var(--rule);border-radius:6px;padding:8px 14px;color:var(--ink);}
+  .toolbar button:hover{background:#f0ece3;}
+  .problem{margin:0 0 34px;}
+  .problem > h2{font-size:21px;font-weight:600;margin:0 0 4px;border-bottom:1px solid var(--rule);padding-bottom:5px;}
+  .scenario{background:var(--blue-bg);border-left:4px solid var(--blue);padding:12px 16px;margin:12px 0;border-radius:0 6px 6px 0;}
+  .part{margin:16px 0 6px;}
+  .part-stem{display:flex;gap:8px;align-items:baseline;}
+  .part-label{font-family:var(--mono);font-weight:500;color:var(--blue);flex:none;}
+  .part-text{flex:1;}
+  .answer-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:8px 0 4px 26px;}
+  .answer-row label{font-family:var(--mono);font-size:14px;color:#444;}
+  .answer-row input[type=text]{font-family:var(--mono);font-size:15px;border:1px solid var(--rule);border-radius:5px;padding:5px 8px;width:90px;background:#fff;}
+  .answer-row input.wide{width:150px;}
+  .answer-row input.ok{border-color:var(--green);background:var(--green-bg);}
+  .answer-row input.no{border-color:var(--red);background:#f8eded;}
+  .check-btn{font-family:var(--mono);font-size:13px;cursor:pointer;background:var(--blue);color:#fff;border:none;border-radius:5px;padding:6px 12px;}
+  .check-btn:hover{background:#1d3a60;}
+  .verdict{font-family:var(--mono);font-size:14px;margin-left:4px;} .verdict.ok{color:var(--green);} .verdict.no{color:var(--red);}
+  .text-answer{margin:8px 0 4px 26px;}
+  .text-answer label{font-family:var(--mono);font-size:13px;color:#666;display:block;margin-bottom:4px;}
+  .text-answer textarea{width:100%;min-height:70px;resize:vertical;font-family:'Crimson Pro',Georgia,serif;font-size:17px;line-height:1.4;border:1px solid var(--rule);border-radius:6px;padding:8px 10px;background:#fff;color:var(--ink);}
+  .text-answer textarea:focus{border-color:var(--blue);outline:none;}
+  details{margin:8px 0 4px 26px;}
+  summary{font-family:var(--mono);font-size:13px;color:var(--green);cursor:pointer;user-select:none;width:max-content;}
+  summary:hover{text-decoration:underline;}
+  .solution{background:var(--green-bg);border-left:4px solid var(--green);padding:10px 16px;margin:8px 0 0;border-radius:0 6px 6px 0;}
+  .solution .ans{font-weight:600;color:var(--green);} .solution p{margin:6px 0;}
+  details.locked{opacity:.5;}
+  details.locked summary{cursor:not-allowed;}
+  summary.lock-flash{color:var(--red) !important;}
+  .note{font-size:16px;color:#555;font-style:italic;}
+  table{width:calc(100% - 26px);border-collapse:collapse;margin:14px 0 4px 26px;font-family:var(--mono);font-size:14px;background:#fff;}
+  th,td{border:1px solid var(--rule);padding:7px 9px;text-align:center;vertical-align:middle;}
+  th{background:var(--blue-bg);color:var(--blue);font-weight:500;}
+  td input[type=text]{width:70px;margin:0;}
+  .footer{border-top:1px solid var(--rule);margin-top:50px;padding-top:12px;font-family:var(--mono);font-size:13px;color:#888;text-align:center;}
+  @media print{.toolbar,.check-btn{display:none;}details{display:block;}details>summary{display:none;}.solution{display:block !important;}.text-answer textarea{border:1px solid #999;min-height:auto;}body{font-size:16px;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>Week 2 Lab — Probability Distributions</h1>
+  <div class="sub">Math 146 &middot; Centralia College</div>
+  <div class="id-row">
+    <label>Student name <input type="text" id="w2_name" placeholder="Your full name"></label>
+    <label>Date <input type="text" id="w2_date" placeholder="mm/dd/yyyy"></label>
+  </div>
+</header>
+
+<p class="intro">
+  Fill in the answer boxes as you work. Click <strong>Check</strong> to test a numeric
+  answer; a box turns green when it matches. For parts that ask you to explain, type your
+  reasoning in the text box, then open <strong>Show solution</strong> to compare — solutions
+  unlock once you've entered an attempt. Your work is saved in this browser until you
+  clear it.
+</p>
+
+<div class="objectives">
+  <h2>Objectives</h2>
+  <ul>
+    <li>Verify that a table is a valid probability distribution and compute its expected value \(E(X)\).</li>
+    <li>Apply the geometric model to find \(P(X=k)\) and the mean number of trials \(\mu=1/p\).</li>
+    <li>Apply the binomial model to compute probabilities, the mean \(\mu=np\), and the standard deviation \(\sigma=\sqrt{np(1-p)}\).</li>
+    <li>Interpret each computed value as a statement about the real-world situation.</li>
+  </ul>
+</div>
+
+<div class="formulas">
+  <h2>Reference Formulas</h2>
+  <p>\[ P(X=k) = (1-p)^{k-1}p \qquad \mu_{\text{geo}} = \frac{1}{p} \]</p>
+  <p>\[ P(X=k) = \binom{n}{k}p^k(1-p)^{n-k} \qquad \mu_{\text{bin}} = np \qquad \sigma_{\text{bin}} = \sqrt{np(1-p)} \]</p>
+  <p>\[ \binom{n}{k} = \frac{n!}{k!(n-k)!} \qquad E(X) = \sum x \cdot P(X=x) \]</p>
+</div>
+
+<div class="toolbar">
+  <button onclick="window.print()">Print</button>
+  <button onclick="clearData()">Clear data</button>
+</div>
+
+<!-- PROBLEM 1 -->
+<div class="problem" id="p1">
+  <h2>Problem 1 — Probability Distribution and Expected Value</h2>
+  <div class="scenario">A simple game uses a spinner with four possible outcomes. The
+  spinner lands on 1 with probability 0.10, on 2 with probability 0.30, on 3 with
+  probability 0.40, and on 4 with probability 0.20. Treat the spinner value as the random
+  variable \(X\), then check that the probabilities form a valid distribution and compute
+  the long-run average outcome.</div>
+
+  <div class="part">
+    <div class="part-stem"><span class="part-label">(a &amp; b)</span>
+      <span class="part-text">Complete the table below and verify the sum equals 1.</span></div>
+    <table>
+      <thead><tr><th>\(x\)</th><th>1</th><th>2</th><th>3</th><th>4</th><th>Sum</th></tr></thead>
+      <tbody><tr><td>\(P(X=x)\)</td><td>0.10</td>
+        <td><input type="text" id="w2_1_p2" data-ans="0.30" data-tol="0.005"></td>
+        <td>0.40</td>
+        <td><input type="text" id="w2_1_p4" data-ans="0.20" data-tol="0.005"></td>
+        <td><input type="text" id="w2_1_sum" data-ans="1.00" data-tol="0.005"></td>
+      </tr></tbody>
+    </table>
+    <div class="answer-row">
+      <button class="check-btn" onclick="checkNum(['w2_1_p2','w2_1_p4','w2_1_sum'],'w2_1ab_v')">Check</button><span class="verdict" id="w2_1ab_v"></span></div>
+    <details><summary>Show solution</summary><div class="solution">
+      <p><span class="ans">\(P(X=2)=0.30\), \(P(X=4)=0.20\); the four probabilities sum to \(1.00\).</span></p>
+      <p>Every probability distribution's values must total exactly 1. Since
+      \(0.10+0.40=0.50\) is already assigned, the remaining two probabilities must sum to
+      \(0.50\) as well; here they split as \(0.30\) and \(0.20\).</p>
+    </div></details>
+  </div>
+
+  <div class="part">
+    <div class="part-stem"><span class="part-label">(c)</span>
+      <span class="part-text">Sketch the probability histogram: what are the bar heights,
+      and what do the axes represent?</span></div>
+    <div class="text-answer"><label>Describe or sketch.</label>
+      <textarea id="w2_1c" placeholder="The x-axis shows…, the y-axis shows…, the bars have heights…"></textarea></div>
+    <details><summary>Show solution</summary><div class="solution">
+      <p><span class="ans">Four bars at \(x=1,2,3,4\) with heights \(0.10,0.30,0.40,0.20\).</span></p>
+      <p>The horizontal axis lists the possible spinner values; the vertical axis is
+      probability. Each bar's height equals \(P(X=x)\), and since the values sum to 1, the
+      total bar area (each bar has width 1) is also 1.</p>
+    </div></details>
+  </div>
+
+  <div class="part">
+    <div class="part-stem"><span class="part-label">(d)</span>
+      <span class="part-text">Compute \(\mu=E(X)\).</span></div>
+    <div class="answer-row"><label>\(E(X)=\sum x\cdot P(X=x)=\)</label><input type="text" id="w2_1d" class="wide" data-ans="2.70" data-tol="0.02">
+      <button class="check-btn" onclick="checkNum(['w2_1d'],'w2_1d_v')">Check</button><span class="verdict" id="w2_1d_v"></span></div>
+    <details><summary>Show solution</summary><div class="solution">
+      <p><span class="ans">\(E(X)=2.70\).</span></p>
+      <p>\(E(X)=1(0.10)+2(0.30)+3(0.40)+4(0.20)=0.10+0.60+1.20+0.80=2.70\). On average the
+      spinner lands near 2.7, weighted toward the more likely outcomes 2 and 3.</p>
+    </div></details>
+  </div>
+</div>
+
+<!-- PROBLEM 2 -->
+<div class="problem" id="p2">
+  <h2>Problem 2 — Geometric Distribution</h2>
+  <div class="scenario">A student guesses on a sequence of multiple-choice questions. Each
+  question has probability \(p=0.20\) of being answered correctly, and the guesses are
+  independent. Let \(X\) be the question number of the first correct answer. This is a
+  geometric setting because we are counting how long it takes until the first success.</div>
+
+  <div class="part">
+    <div class="part-stem"><span class="part-label">(a)</span>
+      <span class="part-text">Compute \(P(X=3)\) using \((1-p)^{k-1}\cdot p\) with \(k=3\).</span></div>
+    <div class="answer-row"><label>\(P(X=3)=\)</label><input type="text" id="w2_2a" class="wide" data-ans="0.128" data-tol="0.002">
+      <button class="check-btn" onclick="checkNum(['w2_2a'],'w2_2a_v')">Check</button><span class="verdict" id="w2_2a_v"></span></div>
+    <details><summary>Show solution</summary><div class="solution">
+      <p><span class="ans">\(P(X=3)=0.128\).</span></p>
+      <p>\(P(X=3)=(0.80)^2\times0.20=0.64\times0.20=0.128\). Two wrong guesses must happen
+      first, then a correct one on the third try.</p>
+    </div></details>
+  </div>
+
+  <div class="part">
+    <div class="part-stem"><span class="part-label">(b)</span>
+      <span class="part-text">Compute \(\mu=1/p\) and interpret it in one sentence.</span></div>
+    <div class="answer-row"><label>\(\mu=\)</label><input type="text" id="w2_2b" data-ans="5" data-tol="0.01">
+      <button class="check-btn" onclick="checkNum(['w2_2b'],'w2_2b_v')">Check</button><span class="verdict" id="w2_2b_v"></span></div>
+    <details><summary>Show solution</summary><div class="solution">
+      <p><span class="ans">\(\mu=1/0.20=5\).</span></p>
+      <p>On average, a student guessing with a 20% success rate needs 5 questions before
+      getting the first one right.</p>
+    </div></details>
+  </div>
+
+  <div class="part">
+    <div class="part-stem"><span class="part-label">(c)</span>
+      <span class="part-text">Describe the histogram shape: symmetric, skewed left, or
+      skewed right? Why?</span></div>
+    <div class="text-answer"><label>Your answer.</label>
+      <textarea id="w2_2c" placeholder="The histogram is…"></textarea></div>
+    <details><summary>Show solution</summary><div class="solution">
+      <p><span class="ans">Skewed right, with the tallest bar at \(k=1\).</span></p>
+      <p>Geometric probabilities \((1-p)^{k-1}p\) are largest at \(k=1\) and shrink every
+      time \(k\) increases, since each extra failure multiplies by another factor of
+      \(1-p<1\). That produces a tall bar near \(k=1\) and a long thin tail stretching to
+      the right.</p>
+    </div></details>
+  </div>
+</div>
+
+<!-- PROBLEM 3 -->
+<div class="problem" id="p3">
+  <h2>Problem 3 — Binomial Distribution</h2>
+  <div class="scenario">A drug is effective for 70% of patients. A doctor prescribes it to
+  6 patients and records how many of those patients respond to the drug. Let \(X\) be the
+  number of patients for whom the drug is effective, so \(n=6\) and \(p=0.70\). This is a
+  binomial setting because there are a fixed number of independent trials and each trial
+  has the same probability of success.</div>
+
+  <div class="part">
+    <div class="part-stem"><span class="part-label">(a)</span>
+      <span class="part-text">Identify \(n\) and \(p\); list the four binomial conditions
+      and confirm each applies here.</span></div>
+    <div class="text-answer"><label>Your answer.</label>
+      <textarea id="w2_3a" placeholder="n = …, p = …. This is binomial because…"></textarea></div>
+    <details><summary>Show solution</summary><div class="solution">
+      <p><span class="ans">\(n=6\), \(p=0.70\); all four binomial conditions hold.</span></p>
+      <p>A binomial setting needs: (1) a fixed number of trials, here \(n=6\) patients;
+      (2) each trial independent, since one patient's response doesn't affect another's;
+      (3) only two outcomes per trial, effective or not; (4) the same probability of
+      success on every trial, \(p=0.70\).</p>
+    </div></details>
+  </div>
+
+  <div class="part">
+    <div class="part-stem"><span class="part-label">(b)</span>
+      <span class="part-text">Compute \(P(X=6)\).</span></div>
+    <div class="answer-row"><label>\(\binom{6}{6}(0.70)^6(0.30)^0=\)</label><input type="text" id="w2_3b" class="wide" data-ans="0.1176" data-tol="0.002">
+      <button class="check-btn" onclick="checkNum(['w2_3b'],'w2_3b_v')">Check</button><span class="verdict" id="w2_3b_v"></span></div>
+    <details><summary>Show solution</summary><div class="solution">
+      <p><span class="ans">\(P(X=6)\approx0.1176\).</span></p>
+      <p>\(\binom{6}{6}=1\), so \(P(X=6)=(0.70)^6=0.117649\approx0.1176\). All six patients
+      responding is fairly unlikely even though the drug works most of the time.</p>
+    </div></details>
+  </div>
+
+  <div class="part">
+    <div class="part-stem"><span class="part-label">(c)</span>
+      <span class="part-text">Compute \(P(X=4)\); show the combination \(\binom{6}{4}\)
+      first.</span></div>
+    <div class="answer-row"><label>\(\binom{6}{4}=\)</label><input type="text" id="w2_3c_c" data-ans="15" data-tol="0.01">
+      <label>\(P(X=4)=\)</label><input type="text" id="w2_3c_p" class="wide" data-ans="0.3241" data-tol="0.005">
+      <button class="check-btn" onclick="checkNum(['w2_3c_c','w2_3c_p'],'w2_3c_v')">Check</button><span class="verdict" id="w2_3c_v"></span></div>
+    <details><summary>Show solution</summary><div class="solution">
+      <p><span class="ans">\(\binom{6}{4}=15\); \(P(X=4)=15(0.2401)(0.09)=0.3241\).</span></p>
+      <p>Four patients responding and two not is the single most likely outcome for this
+      drug and sample size, since \(np=4.2\) is close to 4.</p>
+    </div></details>
+  </div>
+
+  <div class="part">
+    <div class="part-stem"><span class="part-label">(d)</span>
+      <span class="part-text">Compute \(\mu\) and \(\sigma\), and interpret \(\mu\).</span></div>
+    <div class="answer-row"><label>\(\mu=np=\)</label><input type="text" id="w2_3d_mu" data-ans="4.2" data-tol="0.05">
+      <label>\(\sigma=\sqrt{np(1-p)}=\)</label><input type="text" id="w2_3d_sig" class="wide" data-ans="1.12" data-tol="0.03">
+      <button class="check-btn" onclick="checkNum(['w2_3d_mu','w2_3d_sig'],'w2_3d_v')">Check</button><span class="verdict" id="w2_3d_v"></span></div>
+    <details><summary>Show solution</summary><div class="solution">
+      <p><span class="ans">\(\mu=6(0.70)=4.2\); \(\sigma=\sqrt{6(0.70)(0.30)}=\sqrt{1.26}\approx1.12\).</span></p>
+      <p>Across many groups of 6 patients, we'd expect an average of 4.2 to respond to the
+      drug, typically varying by about 1.12 patients from that average.</p>
+    </div></details>
+  </div>
+
+  <div class="part">
+    <div class="part-stem"><span class="part-label">(e)</span>
+      <span class="part-text">Describe the expected histogram shape: symmetric, skewed
+      left, or skewed right? Where is the tallest bar? Why?</span></div>
+    <div class="text-answer"><label>Your answer.</label>
+      <textarea id="w2_3e" placeholder="Since p = 0.70 &gt; 0.50, the histogram is…"></textarea></div>
+    <details><summary>Show solution</summary><div class="solution">
+      <p><span class="ans">Skewed left, with the tallest bar near \(x=4\).</span></p>
+      <p>Since \(p=0.70>0.50\), successes are more common than failures, which pulls most
+      of the outcomes toward the higher end of \(0\) through \(6\) and stretches a shorter
+      tail toward 0. The tallest bar sits at \(x=4\), closest to \(\mu=4.2\).</p>
+    </div></details>
+  </div>
+</div>
+
+<div class="footer">MATH&amp; 146 &middot; Centralia College &middot; Week 2 Lab</div>
+</div>
+
+<script>
+  const STORE_KEY='math146_w2_lab';
+  function allInputs(){return Array.from(document.querySelectorAll('input[type=text], textarea'));}
+  function save(){const d={};allInputs().forEach(i=>{if(i.id)d[i.id]=i.value;});try{localStorage.setItem(STORE_KEY,JSON.stringify(d));}catch(e){}}
+  function load(){let d={};try{d=JSON.parse(localStorage.getItem(STORE_KEY)||'{}');}catch(e){}allInputs().forEach(i=>{if(i.id&&d[i.id]!=null)i.value=d[i.id];});}
+  function clearData(){if(!confirm('Clear all of your saved answers for this lab on this computer? This cannot be undone.'))return;try{localStorage.removeItem(STORE_KEY);}catch(e){}allInputs().forEach(i=>{i.value='';i.classList.remove('ok','no');});document.querySelectorAll('.verdict').forEach(v=>{v.textContent='';v.className='verdict';});updateLocks();}
+  document.addEventListener('input',e=>{if(e.target.matches('input[type=text], textarea')){save();updateLocks();}});
+  function parseNum(s){if(s==null)return NaN;s=s.trim().replace(/\s+/g,'');if(s==='')return NaN;if(/^[-+]?\d+\/\d+$/.test(s)){const[a,b]=s.split('/').map(Number);return a/b;}return Number(s);}
+  function checkNum(ids,verdictId){let allGood=true,anyBlank=false;ids.forEach(id=>{const el=document.getElementById(id);const target=parseNum(el.dataset.ans);const tol=el.dataset.tol!=null?parseFloat(el.dataset.tol):1e-9;const val=parseNum(el.value);el.classList.remove('ok','no');if(isNaN(val)){anyBlank=true;allGood=false;return;}if(Math.abs(val-target)<=tol){el.classList.add('ok');}else{el.classList.add('no');allGood=false;}});const v=document.getElementById(verdictId);if(anyBlank){v.textContent='fill in every box';v.className='verdict no';}else if(allGood){v.textContent='✓ correct';v.className='verdict ok';}else{v.textContent='✗ check again';v.className='verdict no';}}
+  function getPartInputs(el){const part=el.closest('.part');if(!part)return[];return Array.from(part.querySelectorAll('input[type=text], textarea'));}
+  function isPartAttempted(det){const inputs=getPartInputs(det);if(inputs.length===0)return true;return inputs.every(i=>i.value.trim().length>0);}
+  function updateLocks(){document.querySelectorAll('details').forEach(det=>{const summary=det.querySelector('summary');if(!summary)return;if(isPartAttempted(det)){det.classList.remove('locked');}else{det.classList.add('locked');if(det.open)det.open=false;}});}
+  document.querySelectorAll('details').forEach(det=>{const summary=det.querySelector('summary');if(!summary)return;if(!summary.dataset.orig)summary.dataset.orig=summary.textContent;summary.addEventListener('click',function(e){if(det.classList.contains('locked')){e.preventDefault();summary.textContent='Attempt the problem first!';summary.classList.add('lock-flash');clearTimeout(summary._lockTimer);summary._lockTimer=setTimeout(()=>{summary.textContent=summary.dataset.orig;summary.classList.remove('lock-flash');},1500);}});});
+  load();
+  updateLocks();
+</script>
+</body>
+</html>

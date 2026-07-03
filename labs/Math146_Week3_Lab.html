@@ -1,229 +1,320 @@
 <!DOCTYPE html>
-<html lang="en"><head>
-<meta charset="utf-8"/><meta content="width=device-width,initial-scale=1.0" name="viewport"/>
-<title>Math 146 Week 3 Lab</title>
-<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},options:{skipHtmlTags:['script','noscript','style','textarea','pre']}};</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.min.js"></script>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Math 146 — Week 3 Lab: Continuous Distributions and z-Scores</title>
+<script>
+  window.MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] }, svg: { fontCache: 'global' } };
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.min.js" id="MathJax-script" async></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
 <style>
-:root{--bg:#f8fafc;--panel:#fff;--text:#1f2937;--muted:#4b5563;--border:#d1d5db;--ok:#16a34a;--ok-bg:#dcfce7;--ok-border:#86efac;--err:#dc2626;--err-bg:#fef2f2;--err-border:#fca5a5;--field:#f0f9ff;--field-border:#7dd3fc;--accent:#0f766e;--locked:#9ca3af;--locked-bg:#f3f4f6;--shade:#dbeafe;--shade-stroke:#2563eb;}
-*{box-sizing:border-box;}body{margin:0;font-family:Arial,Helvetica,sans-serif;font-size:15px;line-height:1.6;color:var(--text);background:var(--bg);}
-.container{max-width:860px;margin:0 auto;padding:1.5rem 1rem 4rem;}
-.lab-header{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:1.25rem 1.5rem;margin-bottom:1.25rem;}
-.lab-header h1{margin:0 0 .2rem;font-size:1.5rem;}.lab-header p{margin:0;color:var(--muted);font-size:.875rem;}
-.id-row{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-top:1rem;}
-.id-row label{display:flex;flex-direction:column;gap:.2rem;font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);}
-.id-row input{border:1px solid var(--border);border-radius:6px;padding:.4rem .6rem;font-size:1rem;font-family:inherit;width:100%;}
-.card{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:1.25rem;margin-bottom:1.25rem;}
-.card h2{margin:0 0 .75rem;font-size:1.1rem;}.card h3{margin:1rem 0 .4rem;font-size:.85rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;}
-.formula-box{background:#f9fafb;border:1px solid var(--border);border-radius:10px;padding:.85rem 1rem;margin-bottom:.75rem;overflow-x:auto;}
-.formula-box p{margin:.35rem 0;}.part-divider{border:none;border-top:1px solid var(--border);margin:.85rem 0;}
-.step-row{display:flex;align-items:center;gap:.5rem;margin:.45rem 0;flex-wrap:wrap;font-size:.95rem;}
-.step-row .prompt{flex:1 1 200px;}
-.num-input{width:90px;border:1.5px solid var(--field-border);border-radius:6px;padding:.3rem .5rem;font-size:.95rem;font-family:inherit;background:var(--field);text-align:center;}
-.num-input:focus{outline:2px solid var(--accent);border-color:var(--accent);}
-.num-input.correct{border-color:var(--ok);background:#f0fdf4;}.num-input.wrong{border-color:var(--err);background:#fef2f2;}
-.wide{width:120px;}
-.interp-label{display:block;margin-top:.75rem;}
-.interp-label span{display:block;font-size:.85rem;font-weight:700;color:var(--muted);margin-bottom:.3rem;}
-textarea{width:100%;border:1.5px solid var(--border);border-radius:8px;padding:.5rem .65rem;font-family:inherit;font-size:.9rem;min-height:65px;resize:vertical;}
-textarea:focus{outline:2px solid var(--accent);border-color:var(--accent);}
-.btn-row{display:flex;gap:.6rem;align-items:center;margin-top:.6rem;flex-wrap:wrap;}
-.check-btn{background:var(--accent);color:#fff;border:none;border-radius:7px;padding:.4rem .9rem;font-size:.875rem;font-family:inherit;cursor:pointer;}
-.check-btn:hover{background:#0d5f5a;}
-.sol-btn{background:#1e40af;color:#fff;border:1.5px solid #1e40af;border-radius:7px;padding:.4rem .9rem;font-size:.875rem;font-family:inherit;cursor:pointer;}.sol-btn:hover{background:#1e3a8a;}
-.sol-btn.unlocked{background:#1e40af;color:#fff;border-color:#1e40af;cursor:pointer;}.sol-btn.unlocked:hover{background:#1e3a8a;}
-.print-btn{background:#374151;color:#fff;border:none;border-radius:8px;padding:.55rem 1.2rem;font-size:.9rem;font-family:inherit;cursor:pointer;margin-bottom:1rem;}
-.feedback{margin-top:.4rem;padding:.4rem .7rem;border-radius:7px;font-size:.875rem;display:none;}
-.feedback.ok{background:var(--ok-bg);color:var(--ok);border:1px solid var(--ok-border);display:block;}
-.feedback.err{background:var(--err-bg);color:var(--err);border:1px solid var(--err-border);display:block;}
-.sol-panel{display:none;margin-top:.75rem;border:1px solid #bfdbfe;border-radius:10px;background:#eff6ff;}
-.sol-panel.open{display:block;}.sol-panel-inner{padding:.85rem 1rem;font-size:.9rem;}.sol-panel-inner p{margin:.4rem 0;}
-.answer-line{margin-top:.6rem;padding:.4rem .65rem;background:var(--ok-bg);border-radius:7px;border-left:4px solid var(--ok);}
-.plot-wrap{margin:.75rem 0;background:white;border:1px solid var(--border);border-radius:10px;padding:.5rem;}
-.dist-svg{display:block;width:100%;height:auto;}
-.axis{stroke:var(--text);stroke-width:1.5;fill:none;}.curve{stroke:var(--text);stroke-width:2;fill:none;}
-.shade{fill:var(--shade);stroke:var(--shade-stroke);stroke-width:1.5;}.tick{stroke:var(--text);stroke-width:1.5;}
-.dashed{stroke:var(--shade-stroke);stroke-dasharray:6 5;stroke-width:2;fill:none;}
-.label-muted{font-family:Arial,sans-serif;font-size:14px;fill:var(--muted);}
-.label-main{font-family:Arial,sans-serif;font-size:15px;font-weight:bold;fill:var(--accent);}
-@media print{body{background:#fff;font-size:11pt;}.container{padding:0;max-width:100%;}
-.no-print,.check-btn,.print-btn,.sol-btn,.sol-panel,.feedback{display:none!important;}
-.card{border:1px solid #ccc;border-radius:6px;margin-bottom:.75rem;padding:.85rem;page-break-inside:avoid;}
-.num-input,.id-row input,textarea{border:none;border-bottom:1px solid #999;background:transparent;border-radius:0;}
-textarea{min-height:40pt;}h1{font-size:14pt;}h2{font-size:11pt;}}
-.clear-btn{background:#b91c1c;color:#fff;border:none;border-radius:8px;padding:.55rem 1.2rem;font-size:.9rem;font-family:inherit;cursor:pointer;margin-bottom:1rem;}.clear-btn:hover{background:#991b1b;}.toolbar{display:flex;gap:.6rem;flex-wrap:wrap;margin-bottom:.75rem;}.objectives{margin:.5rem 0 0;padding-left:1.25rem;}.objectives li{margin:.35rem 0;}
-</style></head><body>
-<div class="container">
-<div class="no-print toolbar"><button class="print-btn" onclick="window.print()">Print lab report</button><button class="clear-btn" onclick="clearData()">Clear data</button></div>
-<div class="lab-header">
-<h1>Math 146 — Week 3 Lab: Continuous Distributions and z-Scores</h1>
-<p>Work through the problems in order. Type numerical answers in the blue blanks and use the Check buttons to test each part. Written explanations are not auto-checked, so answer in complete sentences and connect your reasoning to the situation. Use Show solution if you get stuck. Your work saves automatically in this browser on the computer you are using.</p>
-<div class="id-row">
-<label>Student name <input data-save="w3_name" placeholder="Your full name" type="text"/></label>
-<label>Date <input data-save="w3_date" placeholder="mm/dd/yyyy" type="text"/></label>
-</div>
-</div>
-<div class="card lab-goal">
-<h2>Objectives</h2>
-<p>By the end of this lab you should be able to:</p>
-<ul class="objectives">
-<li>Use a continuous uniform model and the fact that total area equals 1 to find probabilities.</li>
-<li>Apply the Empirical Rule (68–95–99.7) to a normal distribution.</li>
-<li>Convert a raw value to a \(z\)-score with \(z = (x-\mu)/\sigma\) and read probabilities from the standard normal table.</li>
-<li>Explain probability as area under a density curve in the context of each problem.</li>
-</ul>
+  @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=DM+Mono:wght@400;500&display=swap');
+  :root{--ink:#1c1c1c;--paper:#fcfbf8;--rule:#d8d3c8;--blue:#2a4d7a;--blue-bg:#eef2f8;--blue-rule:#bcccdf;--green:#1f6b46;--green-bg:#edf5ef;--green-rule:#b7d6c2;--amber:#9a6a00;--red:#9a2a2a;--mono:'DM Mono',monospace;}
+  *{box-sizing:border-box;}
+  body{background:var(--paper);color:var(--ink);font-family:'Crimson Pro',Georgia,serif;font-size:19px;line-height:1.5;margin:0;padding:0;}
+  .wrap{max-width:820px;margin:0 auto;padding:32px 28px 80px;}
+  header{border-bottom:2px solid var(--ink);padding-bottom:14px;margin-bottom:8px;}
+  header h1{font-size:30px;font-weight:600;margin:0 0 4px;}
+  header .sub{font-size:17px;color:#555;font-style:italic;}
+  .id-row{display:flex;gap:22px;margin:14px 0 0;flex-wrap:wrap;}
+  .id-row label{font-family:var(--mono);font-size:13px;color:#555;display:flex;flex-direction:column;gap:4px;}
+  .id-row input[type=text]{font-family:var(--mono);font-size:14px;border:1px solid var(--rule);border-radius:5px;padding:5px 8px;background:#fff;min-width:220px;color:var(--ink);}
+  .intro{margin:18px 0 22px;}
+  .objectives{background:var(--blue-bg);border:1px solid var(--blue-rule);border-radius:8px;padding:14px 20px;margin:0 0 26px;}
+  .objectives h2{font-size:16px;text-transform:uppercase;letter-spacing:0.06em;color:var(--blue);margin:0 0 8px;font-weight:600;}
+  .objectives ul{margin:0;padding-left:22px;} .objectives li{margin:3px 0;}
+  .formulas{background:var(--blue-bg);border:1px solid var(--blue-rule);border-radius:8px;padding:14px 20px;margin:0 0 26px;}
+  .formulas h2{font-size:16px;text-transform:uppercase;letter-spacing:0.06em;color:var(--blue);margin:0 0 8px;font-weight:600;}
+  .formulas p{margin:6px 0;}
+  .toolbar{display:flex;gap:10px;margin:0 0 28px;}
+  .toolbar button{font-family:var(--mono);font-size:13px;cursor:pointer;background:#fff;border:1px solid var(--rule);border-radius:6px;padding:8px 14px;color:var(--ink);}
+  .toolbar button:hover{background:#f0ece3;}
+  .problem{margin:0 0 34px;}
+  .problem > h2{font-size:21px;font-weight:600;margin:0 0 4px;border-bottom:1px solid var(--rule);padding-bottom:5px;}
+  .scenario{background:var(--blue-bg);border-left:4px solid var(--blue);padding:12px 16px;margin:12px 0;border-radius:0 6px 6px 0;}
+  .part{margin:16px 0 6px;}
+  .part-stem{display:flex;gap:8px;align-items:baseline;}
+  .part-label{font-family:var(--mono);font-weight:500;color:var(--blue);flex:none;}
+  .part-text{flex:1;}
+  .answer-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:8px 0 4px 26px;}
+  .answer-row label{font-family:var(--mono);font-size:14px;color:#444;}
+  .answer-row input[type=text]{font-family:var(--mono);font-size:15px;border:1px solid var(--rule);border-radius:5px;padding:5px 8px;width:90px;background:#fff;}
+  .answer-row input.wide{width:150px;}
+  .answer-row input.ok{border-color:var(--green);background:var(--green-bg);}
+  .answer-row input.no{border-color:var(--red);background:#f8eded;}
+  .check-btn{font-family:var(--mono);font-size:13px;cursor:pointer;background:var(--blue);color:#fff;border:none;border-radius:5px;padding:6px 12px;}
+  .check-btn:hover{background:#1d3a60;}
+  .verdict{font-family:var(--mono);font-size:14px;margin-left:4px;} .verdict.ok{color:var(--green);} .verdict.no{color:var(--red);}
+  .text-answer{margin:8px 0 4px 26px;}
+  .text-answer label{font-family:var(--mono);font-size:13px;color:#666;display:block;margin-bottom:4px;}
+  .text-answer textarea{width:100%;min-height:70px;resize:vertical;font-family:'Crimson Pro',Georgia,serif;font-size:17px;line-height:1.4;border:1px solid var(--rule);border-radius:6px;padding:8px 10px;background:#fff;color:var(--ink);}
+  .text-answer textarea:focus{border-color:var(--blue);outline:none;}
+  details{margin:8px 0 4px 26px;}
+  summary{font-family:var(--mono);font-size:13px;color:var(--green);cursor:pointer;user-select:none;width:max-content;}
+  summary:hover{text-decoration:underline;}
+  .solution{background:var(--green-bg);border-left:4px solid var(--green);padding:10px 16px;margin:8px 0 0;border-radius:0 6px 6px 0;}
+  .solution .ans{font-weight:600;color:var(--green);} .solution p{margin:6px 0;}
+  details.locked{opacity:.5;}
+  details.locked summary{cursor:not-allowed;}
+  summary.lock-flash{color:var(--red) !important;}
+  .note{font-size:16px;color:#555;font-style:italic;}
+  .plot-wrap{margin:10px 0 0;background:#fff;border:1px solid var(--rule);border-radius:8px;padding:8px;}
+  .dist-svg{display:block;width:100%;height:auto;}
+  .axis{stroke:var(--ink);stroke-width:1.5;fill:none;}
+  .curve{stroke:var(--ink);stroke-width:2;fill:none;}
+  .shade{fill:var(--blue-bg);stroke:var(--blue);stroke-width:1.5;}
+  .tick{stroke:var(--ink);stroke-width:1.5;}
+  .label-muted{font-family:var(--mono);font-size:13px;fill:#666;}
+  .label-main{font-family:var(--mono);font-size:14px;font-weight:600;fill:var(--green);}
+  .footer{border-top:1px solid var(--rule);margin-top:50px;padding-top:12px;font-family:var(--mono);font-size:13px;color:#888;text-align:center;}
+  @media print{.toolbar,.check-btn{display:none;}details{display:block;}details>summary{display:none;}.solution{display:block !important;}.text-answer textarea{border:1px solid #999;min-height:auto;}body{font-size:16px;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>Week 3 Lab — Continuous Distributions and z-Scores</h1>
+  <div class="sub">Math 146 &middot; Centralia College</div>
+  <div class="id-row">
+    <label>Student name <input type="text" id="w3_name" placeholder="Your full name"></label>
+    <label>Date <input type="text" id="w3_date" placeholder="mm/dd/yyyy"></label>
+  </div>
+</header>
+
+<p class="intro">
+  Fill in the answer boxes as you work. Click <strong>Check</strong> to test a numeric
+  answer; a box turns green when it matches. For parts that ask you to explain, type your
+  reasoning in the text box, then open <strong>Show solution</strong> to compare — solutions
+  unlock once you've entered an attempt. Your work is saved in this browser until you
+  clear it.
+</p>
+
+<div class="objectives">
+  <h2>Objectives</h2>
+  <ul>
+    <li>Use a continuous uniform model and the fact that total area equals 1 to find probabilities.</li>
+    <li>Apply the Empirical Rule (68–95–99.7) to a normal distribution.</li>
+    <li>Convert a raw value to a \(z\)-score with \(z=(x-\mu)/\sigma\) and read probabilities from the standard normal table.</li>
+    <li>Explain probability as area under a density curve in the context of each problem.</li>
+  </ul>
 </div>
 
-<div class="card">
-<h2>Reference Formulas</h2>
-<div class="formula-box">
-<p>\[ U(a,b): \quad \text{height}=\frac{1}{b-a}, \quad P(c\le X\le d)=\frac{d-c}{b-a}, \quad \mu=\frac{a+b}{2} \]</p>
-<p>\[ P(Z&gt;z)=1-P(Z\le z) \qquad P(a\le Z\le b)=P(Z\le b)-P(Z\le a) \]</p>
+<div class="formulas">
+  <h2>Reference Formulas</h2>
+  <p>\[ U(a,b):\quad \text{height}=\frac{1}{b-a},\quad P(c\le X\le d)=\frac{d-c}{b-a},\quad \mu=\frac{a+b}{2} \]</p>
+  <p>\[ P(Z>z)=1-P(Z\le z) \qquad P(a\le Z\le b)=P(Z\le b)-P(Z\le a) \]</p>
 </div>
+
+<div class="toolbar">
+  <button onclick="window.print()">Print</button>
+  <button onclick="clearData()">Clear data</button>
 </div>
-<!-- P1 -->
-<div class="card">
-<h2>Problem 1 — Uniform Distribution</h2>
-<p>A coffee shop fills espresso shots with amounts that vary uniformly between 1.5 and 2.5 ounces. Let \(X \sim U(1.5,\,2.5)\). In a uniform distribution, probability comes from area, so the rectangle must have total area 1.</p>
-<hr class="part-divider"/>
-<h3>(a) Height of the density curve</h3>
-<div class="step-row"><span class="prompt">\(\text{height} = 1/(b-a)\) =</span><input class="num-input" data-save="w3_1a_h" id="w3_1a_h" placeholder="?" step="any" type="number"/></div>
-<div class="step-row"><span class="prompt">Total area = height × width =</span><input class="num-input" data-save="w3_1a_area" id="w3_1a_area" placeholder="?" step="any" type="number"/></div>
-<div class="btn-row no-print"><button class="check-btn" onclick="check1a()">Check (a)</button></div>
-<div class="feedback" id="fb1a"></div>
-<hr class="part-divider"/>
-<h3>(b) Sketch the density curve</h3>
-<label class="interp-label"><span>Describe the shape, height, and axis labels in words.</span><textarea data-save="w3_1b" placeholder="The curve is a horizontal line at height… from x = … to x = …"></textarea></label>
-<hr class="part-divider"/>
-<h3>(c) Find \(P(X &lt; 2.0)\)</h3>
-<div class="step-row"><span class="prompt">\((2.0-1.5)/(2.5-1.5)\) =</span><input class="num-input" data-save="w3_1c" id="w3_1c" placeholder="?" step="any" type="number"/></div>
-<div class="btn-row no-print"><button class="check-btn" onclick="check1c()">Check (c)</button></div>
-<div class="feedback" id="fb1c"></div>
-<hr class="part-divider"/>
-<h3>(d) Find \(\mu\). Interpret in one sentence.</h3>
-<div class="step-row"><span class="prompt">\(\mu = (a+b)/2\) =</span><input class="num-input" data-save="w3_1d_mu" id="w3_1d_mu" placeholder="?" step="any" type="number"/></div>
-<div class="btn-row no-print">
-<button class="check-btn" onclick="check1d()">Check (d)</button>
-<button class="sol-btn" onclick="toggleSol('sol-1')">Show solution</button>
+
+<!-- PROBLEM 1 -->
+<div class="problem" id="p1">
+  <h2>Problem 1 — Uniform Distribution</h2>
+  <div class="scenario">A coffee shop fills espresso shots with amounts that vary uniformly
+  between 1.5 and 2.5 ounces. Let \(X\sim U(1.5,2.5)\). In a uniform distribution,
+  probability comes from area, so the rectangle must have total area 1.</div>
+
+  <div class="part">
+    <div class="part-stem"><span class="part-label">(a)</span>
+      <span class="part-text">Find the height of the density curve and the total area.</span></div>
+    <div class="answer-row"><label>height \(=1/(b-a)=\)</label><input type="text" id="w3_1a_h" data-ans="1" data-tol="0.01">
+      <label>total area \(=\)</label><input type="text" id="w3_1a_area" data-ans="1" data-tol="0.01">
+      <button class="check-btn" onclick="checkNum(['w3_1a_h','w3_1a_area'],'w3_1a_v')">Check</button><span class="verdict" id="w3_1a_v"></span></div>
+    <details><summary>Show solution</summary><div class="solution">
+      <p><span class="ans">height \(=1\), total area \(=1\).</span></p>
+      <p>height \(=1/(2.5-1.5)=1\). Total area \(=\)height\(\times\)width\(=1\times1=1\),
+      confirming this is a valid density.</p>
+    </div></details>
+  </div>
+
+  <div class="part">
+    <div class="part-stem"><span class="part-label">(b)</span>
+      <span class="part-text">Sketch the density curve: describe the shape, height, and
+      axis labels in words.</span></div>
+    <div class="text-answer"><label>Your answer.</label>
+      <textarea id="w3_1b" placeholder="The curve is a horizontal line at height… from x = … to x = …"></textarea></div>
+    <details><summary>Show solution</summary><div class="solution">
+      <p><span class="ans">A flat horizontal line at height 1, running from \(x=1.5\) to \(x=2.5\).</span></p>
+      <p>Outside that interval the height is 0. The x-axis is the shot amount in ounces;
+      the y-axis is density. The rectangle formed has area exactly 1.</p>
+    </div></details>
+  </div>
+
+  <div class="part">
+    <div class="part-stem"><span class="part-label">(c)</span>
+      <span class="part-text">Find \(P(X<2.0)\).</span></div>
+    <div class="answer-row"><label>\((2.0-1.5)/(2.5-1.5)=\)</label><input type="text" id="w3_1c" data-ans="0.5" data-tol="0.01">
+      <button class="check-btn" onclick="checkNum(['w3_1c'],'w3_1c_v')">Check</button><span class="verdict" id="w3_1c_v"></span></div>
+    <details><summary>Show solution</summary><div class="solution">
+      <p><span class="ans">\(P(X<2.0)=0.5\).</span></p>
+      <p>In a uniform distribution, probability equals the fraction of the interval's
+      width covered: \((2.0-1.5)/(2.5-1.5)=0.5/1=0.5\).</p>
+    </div></details>
+  </div>
+
+  <div class="part">
+    <div class="part-stem"><span class="part-label">(d)</span>
+      <span class="part-text">Find \(\mu\).</span></div>
+    <div class="answer-row"><label>\(\mu=(a+b)/2=\)</label><input type="text" id="w3_1d_mu" data-ans="2.0" data-tol="0.01">
+      <button class="check-btn" onclick="checkNum(['w3_1d_mu'],'w3_1d_v')">Check</button><span class="verdict" id="w3_1d_v"></span></div>
+    <details><summary>Show solution</summary><div class="solution">
+      <p><span class="ans">\(\mu=2.0\) oz.</span></p>
+      <p>For a uniform distribution the mean is the midpoint of the interval:
+      \((1.5+2.5)/2=2.0\).</p>
+    </div></details>
+  </div>
+
+  <div class="part">
+    <div class="part-stem"><span class="part-label">(e)</span>
+      <span class="part-text">Interpret \(\mu\) in one sentence, in context.</span></div>
+    <div class="text-answer"><label>Your answer.</label>
+      <textarea id="w3_1e" placeholder="On average…"></textarea></div>
+    <details><summary>Show solution</summary><div class="solution">
+      <p><span class="ans">On average, the machine pours 2.0 ounces per shot.</span></p>
+      <p>\(\mu\) describes the long-run average amount dispensed if the shop pulled many,
+      many shots — not the amount of any single shot, which still varies uniformly between
+      1.5 and 2.5 oz.</p>
+    </div></details>
+  </div>
 </div>
-<div class="feedback" id="fb1d"></div>
-<div class="sol-panel" id="sol-1"><div class="sol-panel-inner">
-<p>(a) height = 1/(2.5−1.5) = 1. Total area = 1×1 = 1 ✓</p>
-<p>(c) P(X&lt;2.0) = (2.0−1.5)/(2.5−1.5) = 0.5/1 = 0.5</p>
-<p>(d) \(\mu\) = (1.5+2.5)/2 = 2.0 oz. On average the machine pours 2.0 oz.</p>
-<div class="answer-line">height=1 · total area=1 · P(X&lt;2.0)=0.5 · \(\mu\)=2.0 oz</div>
-</div></div>
-<hr class="part-divider"/>
-<label class="interp-label"><span>Interpret \(\mu\) in one sentence in context.</span><textarea data-save="w3_1d_interp" placeholder="On average…"></textarea></label>
+
+<!-- PROBLEM 2 -->
+<div class="problem" id="p2">
+  <h2>Problem 2 — Empirical Rule</h2>
+  <div class="scenario">For the standard normal random variable \(Z\sim N(0,1)\), use the
+  Empirical Rule to estimate the requested percentages. Do not use the z-table for this
+  problem; the goal is to reason from the 68–95–99.7 pattern.</div>
+
+  <div class="part">
+    <div class="part-stem"><span class="part-label">(a)</span>
+      <span class="part-text">What percentage falls between \(z=-2\) and \(z=2\)?</span></div>
+    <div class="answer-row"><label>percentage \(=\)</label><input type="text" id="w3_2a" class="wide" data-ans="95" data-tol="0.5"><label>%</label>
+      <button class="check-btn" onclick="checkNum(['w3_2a'],'w3_2a_v')">Check</button><span class="verdict" id="w3_2a_v"></span></div>
+    <details><summary>Show solution</summary><div class="solution">
+      <p><span class="ans">95%.</span></p>
+      <p>The Empirical Rule states that about 95% of data in a normal distribution falls
+      within 2 standard deviations of the mean.</p>
+    </div></details>
+  </div>
+
+  <div class="part">
+    <div class="part-stem"><span class="part-label">(b)</span>
+      <span class="part-text">What percentage falls above \(z=1\)?</span></div>
+    <div class="answer-row"><label>percentage \(=\)</label><input type="text" id="w3_2b" class="wide" data-ans="16" data-tol="0.5"><label>%</label>
+      <button class="check-btn" onclick="checkNum(['w3_2b'],'w3_2b_v')">Check</button><span class="verdict" id="w3_2b_v"></span></div>
+    <details><summary>Show solution</summary><div class="solution">
+      <p><span class="ans">16%.</span></p>
+      <p>68% falls between \(z=-1\) and \(z=1\), leaving 32% outside. By symmetry that 32%
+      splits evenly, so 16% lies above \(z=1\).</p>
+    </div></details>
+  </div>
+
+  <div class="part">
+    <div class="part-stem"><span class="part-label">(c)</span>
+      <span class="part-text">Sketch and label the region \(P(Z>1)\): where is the shaded
+      region, and what is its probability?</span></div>
+    <div class="text-answer"><label>Your answer.</label>
+      <textarea id="w3_2c" placeholder="The shaded region is to the right of z=1 and has area…"></textarea></div>
+    <details><summary>Show solution</summary><div class="solution">
+      <p><span class="ans">The shaded region is the tail to the right of \(z=1\), with area \(0.16\).</span></p>
+      <p>Shade everything under the curve from \(z=1\) out to the right end. That tail
+      holds about 16% of the total probability, matching part (b).</p>
+    </div></details>
+  </div>
 </div>
-<!-- P2 -->
-<div class="card">
-<h2>Problem 2 — Empirical Rule</h2>
-<p>For the standard normal random variable \(Z \sim N(0,1)\), use the Empirical Rule to estimate the requested percentages. Do not use the z-table for this problem; the goal is to reason from the 68–95–99.7 pattern.</p>
-<hr class="part-divider"/>
-<h3>(a) Percentage between \(z=-2\) and \(z=2\)?</h3>
-<div class="step-row"><span class="prompt">Empirical Rule: percentage =</span><input class="num-input wide" data-save="w3_2a" id="w3_2a" placeholder="?" step="any" type="number"/> %</div>
-<div class="btn-row no-print"><button class="check-btn" onclick="check2a()">Check (a)</button></div>
-<div class="feedback" id="fb2a"></div>
-<hr class="part-divider"/>
-<h3>(b) Percentage above \(z=1\)?</h3>
-<div class="step-row"><span class="prompt">Empirical Rule: percentage above \(z=1\) =</span><input class="num-input wide" data-save="w3_2b" id="w3_2b" placeholder="?" step="any" type="number"/> %</div>
-<div class="btn-row no-print">
-<button class="check-btn" onclick="check2b()">Check (b)</button>
-<button class="sol-btn" onclick="toggleSol('sol-2')">Show solution</button>
+
+<!-- PROBLEM 3 -->
+<div class="problem" id="p3">
+  <h2>Problem 3 — z-Table Probabilities</h2>
+  <div class="scenario">Now use the z-table, which gives left-tail areas \(P(Z\le z)\), to
+  find each probability. Pay attention to whether the problem asks for a left tail, a
+  right tail, or the area between two z-scores.</div>
+
+  <div class="part">
+    <div class="part-stem"><span class="part-label">(a)</span>
+      <span class="part-text">Find \(P(Z\le1.72)\).</span></div>
+    <div class="answer-row"><label>left tail, read directly:</label><input type="text" id="w3_3a" class="wide" data-ans="0.9573" data-tol="0.002">
+      <button class="check-btn" onclick="checkNum(['w3_3a'],'w3_3a_v')">Check</button><span class="verdict" id="w3_3a_v"></span></div>
+    <details><summary>Show solution</summary><div class="solution">
+      <p><span class="ans">\(P(Z\le1.72)=0.9573\).</span></p>
+      <p>The z-table gives left-tail area directly at \(z=1.72\); no arithmetic needed.</p>
+    </div></details>
+  </div>
+
+  <div class="part">
+    <div class="part-stem"><span class="part-label">(b)</span>
+      <span class="part-text">Find \(P(Z>-0.63)\).</span></div>
+    <div class="answer-row"><label>\(1-P(Z\le-0.63)=\)</label><input type="text" id="w3_3b" class="wide" data-ans="0.7357" data-tol="0.002">
+      <button class="check-btn" onclick="checkNum(['w3_3b'],'w3_3b_v')">Check</button><span class="verdict" id="w3_3b_v"></span></div>
+    <details><summary>Show solution</summary><div class="solution">
+      <p><span class="ans">\(P(Z>-0.63)=0.7357\).</span></p>
+      <p>\(P(Z\le-0.63)=0.2643\), so \(P(Z>-0.63)=1-0.2643=0.7357\).</p>
+    </div></details>
+  </div>
+
+  <div class="part">
+    <div class="part-stem"><span class="part-label">(c)</span>
+      <span class="part-text">Find \(P(-1.20\le Z\le0.50)\).</span></div>
+    <div class="answer-row"><label>\(P(Z\le0.50)=\)</label><input type="text" id="w3_3c_hi" class="wide" data-ans="0.6915" data-tol="0.002">
+      <label>\(P(Z\le-1.20)=\)</label><input type="text" id="w3_3c_lo" class="wide" data-ans="0.1151" data-tol="0.002">
+      <label>difference \(=\)</label><input type="text" id="w3_3c_diff" class="wide" data-ans="0.5764" data-tol="0.003">
+      <button class="check-btn" onclick="checkNum(['w3_3c_hi','w3_3c_lo','w3_3c_diff'],'w3_3c_v')">Check</button><span class="verdict" id="w3_3c_v"></span></div>
+    <details id="det-w3-3c"><summary>Show solution</summary><div class="solution">
+      <p><span class="ans">\(P(-1.20\le Z\le0.50)=0.5764\).</span></p>
+      <p>\(P(Z\le0.50)=0.6915\) and \(P(Z\le-1.20)=0.1151\). Subtracting the smaller left
+      tail from the larger one leaves exactly the area between the two z-scores:
+      \(0.6915-0.1151=0.5764\).</p>
+      <div class="plot-wrap"><svg class="dist-svg" id="curve-sol" viewbox="0 0 660 260"></svg></div>
+    </div></details>
+  </div>
 </div>
-<div class="feedback" id="fb2b"></div>
-<div class="sol-panel" id="sol-2"><div class="sol-panel-inner">
-<p>(a) The Empirical Rule: 95% of data falls within 2 standard deviations.</p>
-<p>(b) 68% falls between z=−1 and z=1, so 32% falls outside. By symmetry, 16% is above z=1.</p>
-<div class="answer-line">95% between z=\(\pm\)2 · 16% above z=1</div>
-</div></div>
-<hr class="part-divider"/>
-<h3>(c) Sketch and label the region \(P(Z&gt;1)\)</h3>
-<label class="interp-label"><span>Describe the sketch: where is the shaded region, and what is its probability?</span><textarea data-save="w3_2c" placeholder="The shaded region is to the right of z=1 and has area…"></textarea></label>
+
+<div class="footer">MATH&amp; 146 &middot; Centralia College &middot; Week 3 Lab</div>
 </div>
-<!-- P3 -->
-<div class="card">
-<h2>Problem 3 — z-Table Probabilities</h2>
-<p>Now use the z-table, which gives left-tail areas \(P(Z \le z)\), to find each probability. Pay attention to whether the problem asks for a left tail, a right tail, or the area between two z-scores.</p>
-<hr class="part-divider"/>
-<h3>(a) \(P(Z \le 1.72)\)</h3>
-<div class="step-row"><span class="prompt">Left tail; read directly from table:</span><input class="num-input wide" data-save="w3_3a" id="w3_3a" placeholder="?" step="any" type="number"/></div>
-<div class="btn-row no-print"><button class="check-btn" onclick="check3a()">Check (a)</button></div>
-<div class="feedback" id="fb3a"></div>
-<hr class="part-divider"/>
-<h3>(b) \(P(Z &gt; -0.63)\)</h3>
-<div class="step-row"><span class="prompt">\(1 - P(Z \le -0.63)\) =</span><input class="num-input wide" data-save="w3_3b" id="w3_3b" placeholder="?" step="any" type="number"/></div>
-<div class="btn-row no-print"><button class="check-btn" onclick="check3b()">Check (b)</button></div>
-<div class="feedback" id="fb3b"></div>
-<hr class="part-divider"/>
-<h3>(c) \(P(-1.20 \le Z \le 0.50)\)</h3>
-<div class="step-row"><span class="prompt">\(P(Z\le 0.50)\) =</span><input class="num-input wide" data-save="w3_3c_hi" id="w3_3c_hi" placeholder="?" step="any" type="number"/></div>
-<div class="step-row"><span class="prompt">\(P(Z\le -1.20)\) =</span><input class="num-input wide" data-save="w3_3c_lo" id="w3_3c_lo" placeholder="?" step="any" type="number"/></div>
-<div class="step-row"><span class="prompt">Difference =</span><input class="num-input wide" data-save="w3_3c_diff" id="w3_3c_diff" placeholder="?" step="any" type="number"/></div>
-<div class="btn-row no-print">
-<button class="check-btn" onclick="check3c()">Check (c)</button>
-<button class="sol-btn" onclick="toggleSol('sol-3')">Show solution</button>
-</div>
-<div class="feedback" id="fb3c"></div>
-<div class="sol-panel" id="sol-3"><div class="sol-panel-inner">
-<p>(a) \(P(Z\le 1.72) = 0.9573\) (left tail, read directly)</p>
-<p>(b) \(P(Z\le -0.63)=0.2643\), so \(P(Z&gt;-0.63)=1-0.2643=0.7357\)</p>
-<p>(c) \(P(Z\le 0.50)=0.6915\), \(P(Z\le -1.20)=0.1151\), difference = 0.5764</p>
-<div class="answer-line">0.9573 · 0.7357 · 0.5764</div>
-<div class="plot-wrap"><svg class="dist-svg" id="curve-sol" viewbox="0 0 660 260"></svg></div>
-</div></div>
-</div>
-</div>
+
 <script>
-
-function clearData(){if(confirm('Clear all of your saved answers for this lab on this computer? This cannot be undone.')){document.querySelectorAll('[data-save]').forEach(el=>{try{localStorage.removeItem(el.dataset.save);}catch(e){}el.value='';el.classList&&el.classList.remove('correct','wrong');});document.querySelectorAll('.feedback').forEach(f=>{f.className='feedback';f.textContent='';});document.querySelectorAll('.sol-panel.open').forEach(s=>s.classList.remove('open'));}}
-function save(k,v){try{localStorage.setItem(k,v);}catch(e){}}function load(k){try{return localStorage.getItem(k)||'';}catch(e){return '';}}
-document.querySelectorAll('[data-save]').forEach(el=>{el.value=load(el.dataset.save);el.addEventListener('input',()=>save(el.dataset.save,el.value));});
-function get(id){return parseFloat(document.getElementById(id).value);}
-function near(a,b,t){return !isNaN(a)&&Math.abs(a-b)<=t;}
-function setFB(id,ok,msg){const el=document.getElementById(id);el.className='feedback '+(ok?'ok':'err');el.textContent=(ok?'✓ ':'✗ ')+msg;}
-function mark(id,ok){const el=document.getElementById(id);if(!el)return;el.classList.remove('correct','wrong');if(!isNaN(parseFloat(el.value)))el.classList.add(ok?'correct':'wrong');}
-function unlock(){/* solutions always available */}
-function toggleSol(id){document.getElementById(id).classList.toggle('open');if(id==='sol-3')drawCurve();}
-var p1ok={a:false,c:false,d:false},p2ok={a:false,b:false},p3ok={a:false,b:false,c:false};
-function tryP1(){if(p1ok.a&&p1ok.c&&p1ok.d)unlock('sol-btn-1');}
-function tryP2(){if(p2ok.a&&p2ok.b)unlock('sol-btn-2');}
-function tryP3(){if(p3ok.a&&p3ok.b&&p3ok.c)unlock('sol-btn-3');}
-function check1a(){const h=get('w3_1a_h'),a=get('w3_1a_area');const cs=[{id:'w3_1a_h',ok:near(h,1,.01),hint:'height=1'},{id:'w3_1a_area',ok:near(a,1,.01),hint:'area=1×1=1'}];cs.forEach(c=>mark(c.id,c.ok));const f=cs.filter(c=>!c.ok);const ok=f.length===0;setFB('fb1a',ok,ok?'Correct. Height=1, total area=1.':'Review: '+f.map(c=>c.hint).join(' · '));p1ok.a=ok;tryP1();}
-function check1c(){const v=get('w3_1c');const ok=near(v,0.5,.01);mark('w3_1c',ok);setFB('fb1c',ok,ok?'Correct. P(X<2.0)=0.5.':'(2.0−1.5)/(2.5−1.5)=0.5/1=0.5.');p1ok.c=ok;tryP1();}
-function check1d(){const v=get('w3_1d_mu');const ok=near(v,2.0,.01);mark('w3_1d_mu',ok);setFB('fb1d',ok,ok?'Correct. μ=2.0 oz.':'μ=(1.5+2.5)/2=2.0.');p1ok.d=ok;tryP1();}
-function check2a(){const v=get('w3_2a');const ok=near(v,95,.5);mark('w3_2a',ok);setFB('fb2a',ok,ok?'Correct. 95% by the Empirical Rule.':'Empirical Rule: 95% falls within ±2 standard deviations.');p2ok.a=ok;tryP2();}
-function check2b(){const v=get('w3_2b');const ok=near(v,16,.5);mark('w3_2b',ok);setFB('fb2b',ok,ok?'Correct. 16% above z=1.':'68% is between ±1. The remaining 32% splits equally: 16% in each tail.');p2ok.b=ok;tryP2();}
-function check3a(){const v=get('w3_3a');const ok=near(v,0.9573,.002);mark('w3_3a',ok);setFB('fb3a',ok,ok?'Correct. P(Z≤1.72)=0.9573.':'Read the z-table at z=1.72 → 0.9573.');p3ok.a=ok;tryP3();}
-function check3b(){const v=get('w3_3b');const ok=near(v,0.7357,.002);mark('w3_3b',ok);setFB('fb3b',ok,ok?'Correct. P(Z>−0.63)=0.7357.':'P(Z≤−0.63)=0.2643; 1−0.2643=0.7357.');p3ok.b=ok;tryP3();}
-function check3c(){
-  const hi=get('w3_3c_hi'),lo=get('w3_3c_lo'),diff=get('w3_3c_diff');
-  const cs=[{id:'w3_3c_hi',ok:near(hi,0.6915,.002),hint:'P(Z≤0.50)=0.6915'},{id:'w3_3c_lo',ok:near(lo,0.1151,.002),hint:'P(Z≤−1.20)=0.1151'},{id:'w3_3c_diff',ok:near(diff,0.5764,.003),hint:'0.6915−0.1151=0.5764'}];
-  cs.forEach(c=>mark(c.id,c.ok));const f=cs.filter(c=>!c.ok);const ok=f.length===0;
-  setFB('fb3c',ok,ok?'Correct. P(−1.20≤Z≤0.50)=0.5764.':'Review: '+f.map(c=>c.hint).join(' · '));
-  p3ok.c=ok;tryP3();
-}
-function drawCurve(){
-  const svg=d3.select('#curve-sol');if(!svg.node()||svg.selectAll('*').size()>0)return;
-  const W=660,H=260,ml=40,mr=40,mt=20,mb=50,iW=W-ml-mr,iH=H-mt-mb;
-  const zMin=-3.6,zMax=3.6,pk=Math.exp(0)*1/Math.sqrt(2*Math.PI);
-  const xs=z=>ml+(z-zMin)/(zMax-zMin)*iW,ys=p=>mt+iH-(p/(pk*1.1))*iH,bl=ys(0);
-  const phi=z=>Math.exp(-0.5*z*z)/Math.sqrt(2*Math.PI);
-  const zs=d3.range(zMin,zMax,.02);
-  svg.append('line').attr('x1',ml).attr('y1',bl).attr('x2',W-mr).attr('y2',bl).attr('class','axis');
-  const area=d3.area().x(z=>xs(z)).y0(bl).y1(z=>ys(phi(z))).curve(d3.curveBasis);
-  const shadeZs=[-1.2,...d3.range(-1.2,0.5,.02),0.5];
-  svg.append('path').datum(shadeZs).attr('d',area).attr('class','shade');
-  const line=d3.line().x(z=>xs(z)).y(z=>ys(phi(z))).curve(d3.curveBasis);
-  svg.append('path').datum(zs).attr('d',line).attr('class','curve');
-  [[-1.2,'−1.20'],[0.5,'0.50'],[0,'0'],[-2,'−2'],[2,'2']].forEach(([z,lbl])=>{
-    svg.append('line').attr('x1',xs(z)).attr('y1',bl).attr('x2',xs(z)).attr('y2',bl+6).attr('class','tick');
-    svg.append('text').attr('x',xs(z)).attr('y',bl+22).attr('text-anchor','middle').attr('class','label-muted').text(lbl);
-  });
-  svg.append('text').attr('x',xs(0)+30).attr('y',ys(phi(0))+40).attr('class','label-main').text('0.5764');
-  svg.append('text').attr('x',W/2).attr('y',H-2).attr('text-anchor','middle').attr('class','label-muted').text('z');
-}
+  const STORE_KEY='math146_w3_lab';
+  function allInputs(){return Array.from(document.querySelectorAll('input[type=text], textarea'));}
+  function save(){const d={};allInputs().forEach(i=>{if(i.id)d[i.id]=i.value;});try{localStorage.setItem(STORE_KEY,JSON.stringify(d));}catch(e){}}
+  function load(){let d={};try{d=JSON.parse(localStorage.getItem(STORE_KEY)||'{}');}catch(e){}allInputs().forEach(i=>{if(i.id&&d[i.id]!=null)i.value=d[i.id];});}
+  function clearData(){if(!confirm('Clear all of your saved answers for this lab on this computer? This cannot be undone.'))return;try{localStorage.removeItem(STORE_KEY);}catch(e){}allInputs().forEach(i=>{i.value='';i.classList.remove('ok','no');});document.querySelectorAll('.verdict').forEach(v=>{v.textContent='';v.className='verdict';});updateLocks();}
+  document.addEventListener('input',e=>{if(e.target.matches('input[type=text], textarea')){save();updateLocks();}});
+  function parseNum(s){if(s==null)return NaN;s=s.trim().replace(/\s+/g,'');if(s==='')return NaN;if(/^[-+]?\d+\/\d+$/.test(s)){const[a,b]=s.split('/').map(Number);return a/b;}return Number(s);}
+  function checkNum(ids,verdictId){let allGood=true,anyBlank=false;ids.forEach(id=>{const el=document.getElementById(id);const target=parseNum(el.dataset.ans);const tol=el.dataset.tol!=null?parseFloat(el.dataset.tol):1e-9;const val=parseNum(el.value);el.classList.remove('ok','no');if(isNaN(val)){anyBlank=true;allGood=false;return;}if(Math.abs(val-target)<=tol){el.classList.add('ok');}else{el.classList.add('no');allGood=false;}});const v=document.getElementById(verdictId);if(anyBlank){v.textContent='fill in every box';v.className='verdict no';}else if(allGood){v.textContent='✓ correct';v.className='verdict ok';}else{v.textContent='✗ check again';v.className='verdict no';}}
+  function getPartInputs(el){const part=el.closest('.part');if(!part)return[];return Array.from(part.querySelectorAll('input[type=text], textarea'));}
+  function isPartAttempted(det){const inputs=getPartInputs(det);if(inputs.length===0)return true;return inputs.every(i=>i.value.trim().length>0);}
+  function updateLocks(){document.querySelectorAll('details').forEach(det=>{const summary=det.querySelector('summary');if(!summary)return;if(isPartAttempted(det)){det.classList.remove('locked');}else{det.classList.add('locked');if(det.open)det.open=false;}});}
+  document.querySelectorAll('details').forEach(det=>{const summary=det.querySelector('summary');if(!summary)return;if(!summary.dataset.orig)summary.dataset.orig=summary.textContent;summary.addEventListener('click',function(e){if(det.classList.contains('locked')){e.preventDefault();summary.textContent='Attempt the problem first!';summary.classList.add('lock-flash');clearTimeout(summary._lockTimer);summary._lockTimer=setTimeout(()=>{summary.textContent=summary.dataset.orig;summary.classList.remove('lock-flash');},1500);}});});
+  const det3c=document.getElementById('det-w3-3c');
+  if(det3c)det3c.addEventListener('toggle',()=>{if(det3c.open)drawCurve();});
+  function drawCurve(){
+    const svg=d3.select('#curve-sol');if(!svg.node()||svg.selectAll('*').size()>0)return;
+    const W=660,H=260,ml=40,mr=40,mt=20,mb=50,iW=W-ml-mr,iH=H-mt-mb;
+    const zMin=-3.6,zMax=3.6,pk=Math.exp(0)*1/Math.sqrt(2*Math.PI);
+    const xs=z=>ml+(z-zMin)/(zMax-zMin)*iW,ys=p=>mt+iH-(p/(pk*1.1))*iH,bl=ys(0);
+    const phi=z=>Math.exp(-0.5*z*z)/Math.sqrt(2*Math.PI);
+    const zs=d3.range(zMin,zMax,.02);
+    svg.append('line').attr('x1',ml).attr('y1',bl).attr('x2',W-mr).attr('y2',bl).attr('class','axis');
+    const area=d3.area().x(z=>xs(z)).y0(bl).y1(z=>ys(phi(z))).curve(d3.curveBasis);
+    const shadeZs=[-1.2,...d3.range(-1.2,0.5,.02),0.5];
+    svg.append('path').datum(shadeZs).attr('d',area).attr('class','shade');
+    const line=d3.line().x(z=>xs(z)).y(z=>ys(phi(z))).curve(d3.curveBasis);
+    svg.append('path').datum(zs).attr('d',line).attr('class','curve');
+    [[-1.2,'−1.20'],[0.5,'0.50'],[0,'0'],[-2,'−2'],[2,'2']].forEach(([z,lbl])=>{
+      svg.append('line').attr('x1',xs(z)).attr('y1',bl).attr('x2',xs(z)).attr('y2',bl+6).attr('class','tick');
+      svg.append('text').attr('x',xs(z)).attr('y',bl+22).attr('text-anchor','middle').attr('class','label-muted').text(lbl);
+    });
+    svg.append('text').attr('x',xs(0)+30).attr('y',ys(phi(0))+40).attr('class','label-main').text('0.5764');
+    svg.append('text').attr('x',W/2).attr('y',H-2).attr('text-anchor','middle').attr('class','label-muted').text('z');
+  }
+  load();
+  updateLocks();
 </script>
-</body></html>
+</body>
+</html>
