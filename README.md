@@ -60,11 +60,9 @@ The materials are designed to support student learning through guided practice, 
 These labs apply the course concepts to authentic datasets. They emphasize the full statistical process: identifying variables, organizing data, selecting an appropriate probability model, performing calculations, and interpreting the results in context.
 
 1. [Project Sign: Discrete Distributions](https://bobovski66.github.io/IntroStatistics/labs/Math146_Project_Sign_Discrete_Lab.html)
-   [Answer Key](https://bobovski66.github.io/IntroStatistics/labs/Math146_Project_Sign_Discrete_Key.html)
    Uses historical Project Sign incident data to construct an empirical probability distribution and explore expected value, variance, binomial distributions, geometric distributions, and simulation.
 
 2. [Project Sign: Uniform and Normal Distributions](https://bobovski66.github.io/IntroStatistics/labs/Math146_Project_Sign_Continuous_Lab.html)
-   [Answer Key](https://bobovski66.github.io/IntroStatistics/labs/Math146_Project_Sign_Continuous_Key.html)
    Uses reported times and altitude estimates to explore uniform distributions, continuous probability, z-scores, normal probabilities, the empirical rule, and the limitations of mathematical models.
 
 
