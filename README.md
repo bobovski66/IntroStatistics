@@ -55,16 +55,27 @@ The materials are designed to support student learning through guided practice, 
     [Lab](https://bobovski66.github.io/IntroStatistics/labs/Math146_Week10_Lab.html)  
     Linear regression.
 
-## Applied Data Labs
+## Applied Data Labs: Project Sign
 
-These labs apply the course concepts to authentic datasets. They emphasize the full statistical process: identifying variables, organizing data, selecting an appropriate probability model, performing calculations, and interpreting the results in context.
+These labs use a single historical dataset throughout several parts of the course. Students begin by describing the distribution of recorded object counts, then apply continuous probability models, confidence intervals, hypothesis tests, two-sample inference, and linear regression. The sequence emphasizes how statistical questions become more sophisticated as new methods are introduced.
 
-1. [Project Sign: Discrete Distributions](https://bobovski66.github.io/IntroStatistics/labs/Math146_Project_Sign_Discrete_Lab.html)
-   Uses historical Project Sign incident data to construct an empirical probability distribution and explore expected value, variance, binomial distributions, geometric distributions, and simulation.
+1. [Discrete Probability Distributions](https://bobovski66.github.io/IntroStatistics/labs/Project_Sign/Math146_Project_Sign_Discrete_Lab.html)  
+   Constructs an empirical probability distribution from recorded object counts and applies expected value, variance, binomial distributions, geometric distributions, and simulation.
 
-2. [Project Sign: Uniform and Normal Distributions](https://bobovski66.github.io/IntroStatistics/labs/Math146_Project_Sign_Continuous_Lab.html)
-   Uses reported times and altitude estimates to explore uniform distributions, continuous probability, z-scores, normal probabilities, the empirical rule, and the limitations of mathematical models.
+2. [Uniform and General Normal Distributions](https://bobovski66.github.io/IntroStatistics/labs/Project_Sign/Math146_Project_Sign_Continuous_Lab.html)  
+   Uses report times and altitude estimates to study uniform distributions, continuous probability, standardization, normal probabilities, the empirical rule, and model limitations. This lab connects Chapters 3 and 4.
 
+3. [Confidence Intervals](https://bobovski66.github.io/IntroStatistics/labs/Project_Sign/Math146_Project_Sign_Confidence_Intervals_Lab.html)  
+   Uses samples from the recorded object counts to construct confidence intervals for a mean and a proportion, compare confidence levels, determine required sample size, and explore the repeated-sampling meaning of confidence.
+
+4. [One-Sample Hypothesis Tests](https://bobovski66.github.io/IntroStatistics/labs/Project_Sign/Math146_Project_Sign_Hypothesis_Testing_Lab.html)  
+   Conducts one-sample hypothesis tests for a population mean and proportion, interprets p-values, compares test decisions, and connects two-tailed tests with confidence intervals.
+
+5. [Two-Sample Inference](https://bobovski66.github.io/IntroStatistics/labs/Project_Sign/Math146_Project_Sign_Two_Sample_Inference_Lab.html)  
+   Compares earlier and later report periods using independent-sample procedures, a test and confidence interval for the difference in means, and a pooled two-proportion hypothesis test.
+
+6. [Linear Regression](https://bobovski66.github.io/IntroStatistics/labs/Project_Sign/Math146_Project_Sign_Linear_Regression_Lab.html)  
+   Uses report date and recorded object count to construct and interpret a least-squares regression line, examine correlation and explained variation, calculate predictions and residuals, and evaluate outliers and extrapolation.
 
 ## Interactive Demonstrations
 
