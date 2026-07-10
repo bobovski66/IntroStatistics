@@ -1,0 +1,395 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MATH&amp; 146 Project Sign Lab: Two-Sample Inference</title>
+
+<script>
+window.MathJax={
+ tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},
+ options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<style>
+:root{
+--bg:#f5f7fb;--paper:#fff;--ink:#202535;--muted:#667085;--line:#d7deea;
+--navy:#17345f;--blue:#2457a6;--blue2:#eaf1ff;--green:#24704a;--green2:#edf9f2;
+--amber:#8a6100;--amber2:#fff7df;--red:#a13d48;--red2:#fff0f2;
+--shadow:0 10px 28px rgba(28,39,69,.08)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif}
+header{background:linear-gradient(135deg,#1d4277,#14243f);color:#fff;padding:34px 18px 30px}
+.wrap{max-width:1080px;margin:auto}header h1{margin:0 0 7px;font-size:clamp(1.7rem,3vw,2.45rem)}
+header p{margin:4px 0;max-width:900px;color:#dce8ff}.meta{font-size:.9rem;letter-spacing:.04em}
+.toolbar{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.96);border-bottom:1px solid var(--line);backdrop-filter:blur(8px)}
+.toolbar .wrap{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;padding:10px 18px}
+.nav,.actions{display:flex;gap:8px;flex-wrap:wrap}.nav a{text-decoration:none;color:var(--blue);background:var(--blue2);border:1px solid #d5e1fb;border-radius:999px;padding:6px 10px;font-size:.9rem}
+button{border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:10px;padding:8px 12px;font-weight:650;cursor:pointer}
+button.primary{background:var(--blue);border-color:var(--blue);color:#fff}button:hover{filter:brightness(.98)}
+main.wrap{padding:22px 18px 60px}.card{background:var(--paper);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);padding:22px;margin:18px 0}
+h2{margin:0 0 10px;color:#17345f;font-size:1.38rem}h3{color:#29446f;margin:20px 0 8px;font-size:1.08rem}
+.callout{border-left:5px solid var(--blue);background:var(--blue2);border-radius:12px;padding:12px 14px;margin:14px 0}
+.warning{border-left-color:var(--amber);background:var(--amber2)}.successbox{border-left-color:var(--green);background:var(--green2)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+@media(max-width:850px){.grid2,.grid3,.grid4{grid-template-columns:1fr}}
+table{width:100%;border-collapse:collapse;margin:12px 0;background:#fff}th,td{padding:9px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+th{text-align:left;background:#fafbfe;color:var(--muted);font-size:.86rem;text-transform:uppercase;letter-spacing:.035em}
+input[type=text],input[type=number],textarea,select{width:100%;border:1px solid #c8d1df;border-radius:9px;padding:8px 10px;font:inherit;background:#fff;margin-top:5px}
+input[type=number]{text-align:right}textarea{min-height:86px;resize:vertical}.feedback{min-height:1.2em;margin-top:6px;font-size:.9rem}
+.ok{color:var(--green)}.bad{color:#b42318}.formula{background:#fbfcff;border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin:12px 0;text-align:center;font-size:1.07rem;overflow:auto}
+.mini{font-size:.9rem;color:var(--muted)}.solution{display:none;border-left:5px solid var(--green);background:var(--green2);border-radius:12px;padding:12px 14px;margin:14px 0}
+.data-box{display:flex;gap:8px;align-items:flex-start;flex-wrap:wrap}.data-box textarea{min-height:105px;flex:1 1 650px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.9rem}
+.report{white-space:pre-wrap;background:#fbfcff;border:1px solid var(--line);border-radius:14px;padding:14px;min-height:170px}
+canvas{width:100%;height:330px;border:1px solid var(--line);border-radius:14px;background:#fff}
+.choice label{font-weight:500;margin:7px 0}.choice input{width:auto;margin-right:7px}
+.scenario{display:grid;grid-template-columns:1fr 190px;gap:14px;align-items:start;border-bottom:1px solid var(--line);padding:12px 0}
+.footer-note{text-align:center;color:var(--muted);font-size:.86rem;margin:30px 0}
+@media(max-width:650px){.scenario{grid-template-columns:1fr}}
+@media print{.toolbar,.no-print,button{display:none!important}body{background:#fff;font-size:11pt}.card{box-shadow:none;border:1px solid #aaa;break-inside:avoid;margin:10px 0;padding:14px}header{background:#fff;color:#000;border-bottom:1px solid #999;padding:12px}header p{color:#333}main.wrap{padding:0}.solution{display:none!important}}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+<h1>Project Sign Lab: Two-Sample Inference</h1>
+<p>Compare an earlier and later period of Project Sign reports using two-sample procedures for means and proportions.</p>
+<p class="meta">MATH&amp; 146 · TWO-SAMPLE INFERENCE</p>
+</div></header>
+
+<div class="toolbar no-print"><div class="wrap">
+<nav class="nav">
+<a href="#start">Start</a><a href="#groups">Groups</a><a href="#means">Means</a>
+<a href="#interval">Mean CI</a><a href="#proportions">Proportions</a><a href="#compare">Compare</a><a href="#report">Finish</a>
+</nav>
+<div class="actions"><button onclick="saveAll()">Save</button><button onclick="clearAll()">Clear</button><button class="primary" onclick="generateReport()">Generate report</button></div>
+</div></div>
+
+<main class="wrap">
+<section id="start" class="card">
+<h2>Before you begin</h2>
+<p>This activity divides the 102 dated entries with exact object counts into two separate periods:</p>
+<ul>
+<li><strong>Group 1:</strong> January 16 through July 4, 1947</li>
+<li><strong>Group 2:</strong> July 5, 1947 through January 11, 1948</li>
+</ul>
+<p>The cutoff gives both groups at least 30 entries and also provides enough single-object and multiple-object reports for the two-proportion procedure.</p>
+<div class="warning callout"><strong>Interpret carefully:</strong> These are archival report entries, not random samples from all aerial events. Your conclusions apply to the stated comparison model.</div>
+
+<h3>Objectives</h3>
+<ul>
+<li>Distinguish independent samples from paired samples.</li>
+<li>Conduct a two-sample \(z\)-test comparing two means.</li>
+<li>Construct a confidence interval for \(\mu_1-\mu_2\).</li>
+<li>Conduct a two-sample \(z\)-test comparing two proportions.</li>
+<li>Explain how the numerical and categorical comparisons describe the same change differently.</li>
+</ul>
+
+<h3>Reference formulas</h3>
+<div class="formula">
+\[
+\operatorname{SE}_{\bar x_1-\bar x_2}
+=\sqrt{\frac{\sigma_1^2}{n_1}+\frac{\sigma_2^2}{n_2}},
+\qquad
+z=\frac{(\bar x_1-\bar x_2)-0}{\operatorname{SE}}
+\]
+\[
+(\bar x_1-\bar x_2)\pm z^*\operatorname{SE}
+\]
+\[
+\hat p_{\mathrm{pool}}=\frac{x_1+x_2}{n_1+n_2},
+\qquad
+z=\frac{\hat p_1-\hat p_2}
+{\sqrt{\hat p_{\mathrm{pool}}(1-\hat p_{\mathrm{pool}})
+\left(\frac1{n_1}+\frac1{n_2}\right)}}
+\]
+</div>
+<label>Your name<input type="text" data-save="student_name"></label>
+</section>
+
+<section id="groups" class="card">
+<h2>Part 1. Independent or paired?</h2>
+<div class="scenario">
+<div>The same students take a quiz before and after a review session.</div>
+<select id="pair1" data-save="pair1"><option value="">Choose</option><option value="paired">Paired</option><option value="independent">Independent</option></select>
+</div>
+<div class="scenario">
+<div>Two separate class sections take the same final examination.</div>
+<select id="pair2" data-save="pair2"><option value="">Choose</option><option value="paired">Paired</option><option value="independent">Independent</option></select>
+</div>
+<div class="scenario">
+<div>Project Sign entries from the earlier period are compared with different entries from the later period.</div>
+<select id="pair3" data-save="pair3"><option value="">Choose</option><option value="paired">Paired</option><option value="independent">Independent</option></select>
+</div>
+<p><button onclick="checkPairing()">Check Part 1</button></p><div id="pairFeedback" class="feedback"></div>
+<div id="pairSolution" class="solution">The before-and-after quiz data are paired. The two class sections and the two Project Sign periods are independent because no observation in one group is naturally matched with a specific observation in the other.</div>
+
+<h3>Data for the two periods</h3>
+<div class="grid2">
+<div>
+<strong>Group 1: through July 4</strong>
+<div class="data-box"><textarea id="data1" readonly>1,1,1,1,2,10,1,1,10,9,1,6,1,18,18,1,1,2,10,5,1,4,1,3,4,1,5,3,1,3,3</textarea><button onclick="copyText('data1','copy1')">Copy</button></div>
+<div id="copy1" class="feedback"></div>
+</div>
+<div>
+<strong>Group 2: July 5 onward</strong>
+<div class="data-box"><textarea id="data2" readonly>1,1,1,1,1,1,1,5,2,2,2,2,3,3,1,1,5,1,1,1,1,1,1,1,1,2,2,1,1,1,2,1,1,1,1,2,1,12,1,1,1,1,2,1,1,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1</textarea><button onclick="copyText('data2','copy2')">Copy</button></div>
+<div id="copy2" class="feedback"></div>
+</div>
+</div>
+<canvas id="countChart" aria-label="Object-count distributions by period"></canvas>
+<label>Describe one visible difference between the two distributions before doing inference.
+<textarea data-save="graph_observation"></textarea></label>
+</section>
+
+<section id="means" class="card">
+<h2>Part 2. Two-sample test for mean object count</h2>
+<p>Test whether the earlier period has a larger mean number of objects reported.</p>
+<div class="formula">
+\[
+H_0:\mu_1=\mu_2
+\qquad\text{versus}\qquad
+H_a:\mu_1>\mu_2
+\]
+</div>
+<p>Use \(\alpha=0.05\). For this activity, use the supplied group standard deviations as \(\sigma_1\) and \(\sigma_2\).</p>
+
+<table>
+<thead><tr><th>Group</th><th>\(n\)</th><th>Mean</th><th>Supplied \(\sigma\)</th></tr></thead>
+<tbody>
+<tr><td>1: through July 4</td><td><input type="number" id="m_n1" data-save="m_n1" step="1"></td><td><input type="number" id="m_mean1" data-save="m_mean1" step="0.001"></td><td>4.643</td></tr>
+<tr><td>2: July 5 onward</td><td><input type="number" id="m_n2" data-save="m_n2" step="1"></td><td><input type="number" id="m_mean2" data-save="m_mean2" step="0.001"></td><td>1.481</td></tr>
+</tbody>
+</table>
+
+<div class="grid4">
+<label>Difference, \(\bar x_1-\bar x_2\)<input type="number" id="m_diff" data-save="m_diff" step="0.001"></label>
+<label>Standard error<input type="number" id="m_se" data-save="m_se" step="0.001"></label>
+<label>Test statistic, \(z\)<input type="number" id="m_z" data-save="m_z" step="0.001"></label>
+<label>Right-tailed \(p\)-value<input type="number" id="m_p" data-save="m_p" step="0.0001"></label>
+</div>
+
+<p><button onclick="checkMeans()">Check mean test</button></p><div id="meansFeedback" class="feedback"></div>
+<div id="meansSolution" class="solution">
+\[
+\bar x_1-\bar x_2=2.697,
+\]
+\[
+\operatorname{SE}
+=\sqrt{\frac{4.643^2}{31}+\frac{1.481^2}{71}}
+=0.852,
+\]
+\[
+z=\frac{2.697}{0.852}=3.164,
+\qquad
+p=P(Z\ge 3.164)=0.0008.
+\]
+Since \(p<0.05\), reject \(H_0\).
+</div>
+
+<div class="choice">
+<p><strong>Decision:</strong></p>
+<label><input type="radio" name="meanDecision" value="reject">Reject \(H_0\)</label>
+<label><input type="radio" name="meanDecision" value="fail">Fail to reject \(H_0\)</label>
+</div>
+<p><button onclick="checkMeanDecision()">Check decision</button></p><div id="meanDecisionFeedback" class="feedback"></div>
+
+<label>Write the conclusion in context.
+<textarea data-save="mean_conclusion"></textarea></label>
+</section>
+
+<section id="interval" class="card">
+<h2>Part 3. Confidence interval for \(\mu_1-\mu_2\)</h2>
+<p>Use the same difference and standard error to construct a 95% confidence interval.</p>
+<div class="grid3">
+<label>Margin of error<input type="number" id="ci_me" data-save="ci_me" step="0.001"></label>
+<label>Lower endpoint<input type="number" id="ci_low" data-save="ci_low" step="0.001"></label>
+<label>Upper endpoint<input type="number" id="ci_up" data-save="ci_up" step="0.001"></label>
+</div>
+<p><button onclick="checkMeanCI()">Check interval</button></p><div id="ciFeedback" class="feedback"></div>
+<div id="ciSolution" class="solution">
+\[
+\operatorname{ME}=1.96(0.852)=1.670,
+\]
+\[
+95\%\text{ CI for }\mu_1-\mu_2=(1.026,4.367).
+\]
+The interval is entirely positive and does not contain \(0\).
+</div>
+
+<div class="choice">
+<p><strong>Does the interval contain 0?</strong></p>
+<label><input type="radio" name="zeroChoice" value="yes">Yes</label>
+<label><input type="radio" name="zeroChoice" value="no">No</label>
+</div>
+<p><button onclick="checkZero()">Check</button></p><div id="zeroFeedback" class="feedback"></div>
+<label>Interpret the confidence interval in context.
+<textarea data-save="mean_ci_interpretation"></textarea></label>
+</section>
+
+<section id="proportions" class="card">
+<h2>Part 4. Two-sample test for proportions</h2>
+<p>Call an entry a <strong>success</strong> when it reports exactly one object. Test whether the proportions differ between the two periods.</p>
+<div class="formula">
+\[
+H_0:p_1=p_2
+\qquad\text{versus}\qquad
+H_a:p_1\ne p_2
+\]
+</div>
+
+<table>
+<thead><tr><th>Group</th><th>One object</th><th>More than one</th><th>Total</th></tr></thead>
+<tbody>
+<tr><td>1: through July 4</td><td>14</td><td>17</td><td>31</td></tr>
+<tr><td>2: July 5 onward</td><td>56</td><td>15</td><td>71</td></tr>
+</tbody>
+</table>
+<p class="mini">All four counts are at least 10, so the normal approximation condition is satisfied.</p>
+
+<div class="grid4">
+<label>\(\hat p_1\)<input type="number" id="p_p1" data-save="p_p1" step="0.0001"></label>
+<label>\(\hat p_2\)<input type="number" id="p_p2" data-save="p_p2" step="0.0001"></label>
+<label>\(\hat p_1-\hat p_2\)<input type="number" id="p_diff" data-save="p_diff" step="0.0001"></label>
+<label>\(\hat p_{\mathrm{pool}}\)<input type="number" id="p_pool" data-save="p_pool" step="0.0001"></label>
+<label>Pooled standard error<input type="number" id="p_se" data-save="p_se" step="0.0001"></label>
+<label>Test statistic, \(z\)<input type="number" id="p_z" data-save="p_z" step="0.001"></label>
+<label>Two-tailed \(p\)-value<input type="number" id="p_pval" data-save="p_pval" step="0.0001"></label>
+</div>
+
+<p><button onclick="checkProportions()">Check proportion test</button></p><div id="propFeedback" class="feedback"></div>
+<div id="propSolution" class="solution">
+\[
+\hat p_1=\frac{14}{31}=0.4516,
+\qquad
+\hat p_2=\frac{56}{71}=0.7887,
+\]
+\[
+\hat p_{\mathrm{pool}}
+=\frac{14+56}{31+71}
+=0.6863,
+\]
+\[
+z=\frac{-0.3371}{0.0999}=-3.375,
+\qquad
+p=0.0007.
+\]
+Since \(p<0.05\), reject \(H_0\).
+</div>
+
+<div class="choice">
+<p><strong>Decision:</strong></p>
+<label><input type="radio" name="propDecision" value="reject">Reject \(H_0\)</label>
+<label><input type="radio" name="propDecision" value="fail">Fail to reject \(H_0\)</label>
+</div>
+<p><button onclick="checkPropDecision()">Check decision</button></p><div id="propDecisionFeedback" class="feedback"></div>
+<label>Write the conclusion in context and identify which period has the larger proportion of single-object reports.
+<textarea data-save="prop_conclusion"></textarea></label>
+</section>
+
+<section id="compare" class="card">
+<h2>Part 5. Put the two results together</h2>
+<table>
+<thead><tr><th>Comparison</th><th>Observed difference</th><th>Conclusion</th></tr></thead>
+<tbody>
+<tr><td>Mean object count</td><td>\(\bar x_1-\bar x_2=2.697\)</td><td>Earlier-period mean is larger</td></tr>
+<tr><td>Single-object proportion</td><td>\(\hat p_1-\hat p_2=-0.3371\)</td><td>Later-period proportion is larger</td></tr>
+</tbody>
+</table>
+
+<label>Explain why a larger early-period mean and a larger late-period single-object proportion are two compatible descriptions of the same change.
+<textarea data-save="comparison_explanation"></textarea></label>
+
+<div class="choice">
+<p><strong>Which statement is best supported?</strong></p>
+<label><input type="radio" name="bestStatement" value="a">Every early report involved more objects than every later report.</label>
+<label><input type="radio" name="bestStatement" value="b">The distribution of recorded object counts shifted toward smaller counts in the later period.</label>
+<label><input type="radio" name="bestStatement" value="c">The date cutoff caused the change in the reports.</label>
+</div>
+<p><button onclick="checkBestStatement()">Check</button></p><div id="bestFeedback" class="feedback"></div>
+
+<label>Statistical significance does not by itself explain why the reports changed. Name one possible source of change that these tests cannot distinguish.
+<textarea data-save="limitation"></textarea></label>
+</section>
+
+<section id="report" class="card">
+<h2>Final response</h2>
+<label>Write 6–8 sentences summarizing the two-sample mean test, the confidence interval, and the two-proportion test. Include one limitation of the comparison.
+<textarea data-save="final_response"></textarea></label>
+<p><button class="primary" onclick="generateReport()">Generate report</button> <button onclick="copyReport()">Copy report</button> <button onclick="window.print()">Print</button></p>
+<div id="reportPreview" class="report">Your report will appear here.</div>
+</section>
+
+<p class="footer-note">Project Sign Applied Data Lab · Two-Sample Inference</p>
+</main>
+
+<script>
+const A={"n1": 31, "n2": 71, "mean1": 4.161290322580645, "mean2": 1.4647887323943662, "sigma1": 4.642696478678329, "sigma2": 1.480682997290301, "diff_mean": 2.696501590186279, "se_mean": 0.8521677354508224, "z_mean": 3.1642850087016594, "p_mean_right": 0.0007773223651998951, "me_mean": 1.670248761483612, "ci_mean_l": 1.026252828702667, "ci_mean_u": 4.366750351669891, "success1": 14, "failure1": 17, "success2": 56, "failure2": 15, "phat1": 0.45161290322580644, "phat2": 0.7887323943661971, "diff_prop": -0.3371194911403907, "ppool": 0.6862745098039216, "se_prop": 0.09988813441756658, "z_prop": -3.3749703416335306, "p_prop_two": 0.0007382364633217176};
+const G1=[1, 1, 1, 1, 2, 10, 1, 1, 10, 9, 1, 6, 1, 18, 18, 1, 1, 2, 10, 5, 1, 4, 1, 3, 4, 1, 5, 3, 1, 3, 3];
+const G2=[1, 1, 1, 1, 1, 1, 1, 5, 2, 2, 2, 2, 3, 3, 1, 1, 5, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 2, 1, 1, 1, 1, 2, 1, 12, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
+
+function num(id){return parseFloat(document.getElementById(id).value)}
+function closeEnough(a,b,t){return Number.isFinite(a)&&Math.abs(a-b)<=t}
+function feedback(id,ok,msg){const e=document.getElementById(id);e.className='feedback '+(ok?'ok':'bad');e.textContent=msg}
+function show(id){document.getElementById(id).style.display='block'}
+function saveAll(){document.querySelectorAll('[data-save]').forEach(e=>localStorage.setItem(location.pathname+'::'+e.dataset.save,e.value));alert('Answers saved in this browser.')}
+function loadAll(){document.querySelectorAll('[data-save]').forEach(e=>{const v=localStorage.getItem(location.pathname+'::'+e.dataset.save);if(v!==null)e.value=v})}
+function clearAll(){if(!confirm('Clear all saved answers on this page?'))return;document.querySelectorAll('[data-save]').forEach(e=>{e.value='';localStorage.removeItem(location.pathname+'::'+e.dataset.save)});location.reload()}
+function copyText(id,fb){const box=document.getElementById(id);navigator.clipboard.writeText(box.value).then(()=>feedback(fb,true,'Copied to the clipboard.')).catch(()=>{box.focus();box.select();feedback(fb,false,'The data are selected. Press Ctrl+C or Command+C.')})}
+function copyReport(){navigator.clipboard.writeText(document.getElementById('reportPreview').textContent)}
+
+function checkPairing(){
+ const ok=document.getElementById('pair1').value==='paired'&&document.getElementById('pair2').value==='independent'&&document.getElementById('pair3').value==='independent';
+ feedback('pairFeedback',ok,ok?'Correct.':'Ask whether each observation in one group has a natural match in the other group.');if(ok)show('pairSolution')
+}
+function checkMeans(){
+ const ok=closeEnough(num('m_n1'),A.n1,.01)&&closeEnough(num('m_n2'),A.n2,.01)&&closeEnough(num('m_mean1'),A.mean1,.002)&&closeEnough(num('m_mean2'),A.mean2,.002)&&closeEnough(num('m_diff'),A.diff_mean,.002)&&closeEnough(num('m_se'),A.se_mean,.002)&&closeEnough(num('m_z'),A.z_mean,.003)&&closeEnough(num('m_p'),A.p_mean_right,.0007);
+ feedback('meansFeedback',ok,ok?'Correct. The observed mean difference is more than three standard errors above zero.':'Check both means, subtract Group 2 from Group 1, and use a right-tail area.');if(ok)show('meansSolution')
+}
+function checkMeanDecision(){const c=document.querySelector('input[name="meanDecision"]:checked');const ok=c&&c.value==='reject';feedback('meanDecisionFeedback',ok,ok?'Correct. The p-value is below 0.05.':'Compare the p-value with alpha.')}
+function checkMeanCI(){
+ const ok=closeEnough(num('ci_me'),A.me_mean,.002)&&closeEnough(num('ci_low'),A.ci_mean_l,.002)&&closeEnough(num('ci_up'),A.ci_mean_u,.002);
+ feedback('ciFeedback',ok,ok?'Correct. The entire interval is positive.':'Use 1.96 times the standard error, then add and subtract from the observed difference.');if(ok)show('ciSolution')
+}
+function checkZero(){const c=document.querySelector('input[name="zeroChoice"]:checked');const ok=c&&c.value==='no';feedback('zeroFeedback',ok,ok?'Correct. Excluding zero agrees with rejecting equal means at the 5% level.':'Compare zero with the lower and upper endpoints.')}
+function checkProportions(){
+ const ok=closeEnough(num('p_p1'),A.phat1,.0007)&&closeEnough(num('p_p2'),A.phat2,.0007)&&closeEnough(num('p_diff'),A.diff_prop,.0007)&&closeEnough(num('p_pool'),A.ppool,.0007)&&closeEnough(num('p_se'),A.se_prop,.0007)&&closeEnough(num('p_z'),A.z_prop,.003)&&closeEnough(num('p_pval'),A.p_prop_two,.0007);
+ feedback('propFeedback',ok,ok?'Correct. The single-object proportions differ strongly between the two periods.':'Compute both sample proportions, pool the successes for the null standard error, and double the tail area.');if(ok)show('propSolution')
+}
+function checkPropDecision(){const c=document.querySelector('input[name="propDecision"]:checked');const ok=c&&c.value==='reject';feedback('propDecisionFeedback',ok,ok?'Correct. The two-tailed p-value is below 0.05.':'Compare the p-value with alpha.')}
+function checkBestStatement(){const c=document.querySelector('input[name="bestStatement"]:checked');const ok=c&&c.value==='b';feedback('bestFeedback',ok,ok?'Correct. The tests support a distributional shift, not a universal statement or a causal claim.':'Choose the statement that describes the groups without claiming every case or a cause.')}
+
+function drawChart(){
+ const c=document.getElementById('countChart'),d=window.devicePixelRatio||1,w=c.clientWidth,h=330;c.width=w*d;c.height=h*d;
+ const x=c.getContext('2d');x.scale(d,d);x.clearRect(0,0,w,h);
+ const values=[1,2,3,4,5,6,9,10,12,18];
+ const f1=values.map(v=>G1.filter(q=>q===v).length/G1.length);
+ const f2=values.map(v=>G2.filter(q=>q===v).length/G2.length);
+ const L=48,R=20,T=25,B=55,iw=w-L-R,ih=h-T-B,max=Math.max(...f1,...f2)*1.15;
+ x.strokeStyle='#667085';x.beginPath();x.moveTo(L,T);x.lineTo(L,T+ih);x.lineTo(L+iw,T+ih);x.stroke();
+ for(let i=0;i<=4;i++){const y=T+ih-i*ih/4;x.strokeStyle='#e3e8f0';x.beginPath();x.moveTo(L,y);x.lineTo(L+iw,y);x.stroke();x.fillStyle='#4b5565';x.textAlign='right';x.font='12px system-ui';x.fillText((max*i/4).toFixed(2),L-6,y+4)}
+ const gap=iw/values.length,bw=gap*.32;
+ values.forEach((v,i)=>{
+   const h1=f1[i]/max*ih,h2=f2[i]/max*ih,center=L+(i+.5)*gap;
+   x.fillStyle='#2457a6';x.fillRect(center-bw-1,T+ih-h1,bw,h1);
+   x.fillStyle='#8aa8d8';x.fillRect(center+1,T+ih-h2,bw,h2);
+   x.fillStyle='#374151';x.textAlign='center';x.fillText(v,center,T+ih+19)
+ });
+ x.fillStyle='#2457a6';x.fillRect(L+8,T+8,14,10);x.fillStyle='#374151';x.textAlign='left';x.fillText('earlier',L+28,T+17);
+ x.fillStyle='#8aa8d8';x.fillRect(L+92,T+8,14,10);x.fillStyle='#374151';x.fillText('later',L+112,T+17);
+ x.textAlign='center';x.fillText('number of objects reported',L+iw/2,h-9)
+}
+function generateReport(){
+ const get=k=>document.querySelector('[data-save="'+k+'"]')?.value||'[not answered]';
+ document.getElementById('reportPreview').textContent=
+'Project Sign Two-Sample Inference Lab\\nStudent: '+get('student_name')+
+'\\n\\nInitial graph observation:\\n'+get('graph_observation')+
+'\\n\\nMean-test conclusion:\\n'+get('mean_conclusion')+
+'\\n\\nMean confidence-interval interpretation:\\n'+get('mean_ci_interpretation')+
+'\\n\\nProportion-test conclusion:\\n'+get('prop_conclusion')+
+'\\n\\nHow the results fit together:\\n'+get('comparison_explanation')+
+'\\n\\nLimitation:\\n'+get('limitation')+
+'\\n\\nFinal response:\\n'+get('final_response')
+}
+window.addEventListener('DOMContentLoaded',()=>{loadAll();drawChart()})
+</script>
+</body></html>

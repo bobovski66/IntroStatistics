@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MATH&amp; 146 Project Sign Lab: One-Sample Hypothesis Tests</title>
+
+<script>
+window.MathJax={
+ tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},
+ options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<style>
+:root{
+--bg:#f5f7fb;--paper:#fff;--ink:#202535;--muted:#667085;--line:#d7deea;
+--navy:#17345f;--blue:#2457a6;--blue2:#eaf1ff;--green:#24704a;--green2:#edf9f2;
+--amber:#8a6100;--amber2:#fff7df;--red:#a13d48;--red2:#fff0f2;
+--shadow:0 10px 28px rgba(28,39,69,.08)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif}
+header{background:linear-gradient(135deg,#1d4277,#14243f);color:#fff;padding:34px 18px 30px}
+.wrap{max-width:1060px;margin:auto}header h1{margin:0 0 7px;font-size:clamp(1.7rem,3vw,2.45rem)}
+header p{margin:4px 0;max-width:900px;color:#dce8ff}.meta{font-size:.9rem;letter-spacing:.04em}
+.toolbar{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.96);border-bottom:1px solid var(--line);backdrop-filter:blur(8px)}
+.toolbar .wrap{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;padding:10px 18px}
+.nav,.actions{display:flex;gap:8px;flex-wrap:wrap}.nav a{text-decoration:none;color:var(--blue);background:var(--blue2);border:1px solid #d5e1fb;border-radius:999px;padding:6px 10px;font-size:.9rem}
+button{border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:10px;padding:8px 12px;font-weight:650;cursor:pointer}
+button.primary{background:var(--blue);border-color:var(--blue);color:#fff}button:hover{filter:brightness(.98)}
+main.wrap{padding:22px 18px 60px}.card{background:var(--paper);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);padding:22px;margin:18px 0}
+h2{margin:0 0 10px;color:#17345f;font-size:1.38rem}h3{color:#29446f;margin:20px 0 8px;font-size:1.08rem}
+.callout{border-left:5px solid var(--blue);background:var(--blue2);border-radius:12px;padding:12px 14px;margin:14px 0}
+.warning{border-left-color:var(--amber);background:var(--amber2)}.successbox{border-left-color:var(--green);background:var(--green2)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+@media(max-width:850px){.grid2,.grid3,.grid4{grid-template-columns:1fr}}
+table{width:100%;border-collapse:collapse;margin:12px 0;background:#fff}th,td{padding:9px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+th{text-align:left;background:#fafbfe;color:var(--muted);font-size:.86rem;text-transform:uppercase;letter-spacing:.035em}
+input[type=text],input[type=number],textarea{width:100%;border:1px solid #c8d1df;border-radius:9px;padding:8px 10px;font:inherit;background:#fff;margin-top:5px}
+input[type=number]{text-align:right}textarea{min-height:86px;resize:vertical}.feedback{min-height:1.2em;margin-top:6px;font-size:.9rem}
+.ok{color:var(--green)}.bad{color:#b42318}.formula{background:#fbfcff;border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin:12px 0;text-align:center;font-size:1.07rem;overflow:auto}
+.mini{font-size:.9rem;color:var(--muted)}.solution{display:none;border-left:5px solid var(--green);background:var(--green2);border-radius:12px;padding:12px 14px;margin:14px 0}
+.data-box{display:flex;gap:8px;align-items:flex-start;flex-wrap:wrap}.data-box textarea{min-height:95px;flex:1 1 700px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.9rem}
+.report{white-space:pre-wrap;background:#fbfcff;border:1px solid var(--line);border-radius:14px;padding:14px;min-height:170px}
+canvas{width:100%;height:310px;border:1px solid var(--line);border-radius:14px;background:#fff}
+.choice label{font-weight:500;margin:7px 0}.choice input{width:auto;margin-right:7px}
+.hypothesis-grid{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:start;border-bottom:1px solid var(--line);padding:12px 0}
+.footer-note{text-align:center;color:var(--muted);font-size:.86rem;margin:30px 0}
+@media print{.toolbar,.no-print,button{display:none!important}body{background:#fff;font-size:11pt}.card{box-shadow:none;border:1px solid #aaa;break-inside:avoid;margin:10px 0;padding:14px}header{background:#fff;color:#000;border-bottom:1px solid #999;padding:12px}header p{color:#333}main.wrap{padding:0}.solution{display:none!important}}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+<h1>Project Sign Lab: One-Sample Hypothesis Tests</h1>
+<p>Use the same sample as the confidence-interval lab to test one claim about a population mean and another claim about a population proportion.</p>
+<p class="meta">MATH&amp; 146 · ONE-SAMPLE HYPOTHESIS TESTING</p>
+</div></header>
+
+<div class="toolbar no-print"><div class="wrap">
+<nav class="nav">
+<a href="#start">Start</a><a href="#hypotheses">Hypotheses</a><a href="#mean">Mean test</a>
+<a href="#proportion">Proportion test</a><a href="#simulate">p-values</a><a href="#compare">Compare</a><a href="#report">Finish</a>
+</nav>
+<div class="actions"><button onclick="saveAll()">Save</button><button onclick="clearAll()">Clear</button><button class="primary" onclick="generateReport()">Generate report</button></div>
+</div></div>
+
+<main class="wrap">
+<section id="start" class="card">
+<h2>Before you begin</h2>
+<p>This activity continues the Project Sign confidence-interval lab. The 108 exact object counts are treated as an empirical population, and you will use the same fixed sample of 36 values.</p>
+<div class="warning callout"><strong>Interpret carefully:</strong> The calculations show how hypothesis tests work under the stated empirical-population model. They do not turn the historical table into a random sample of all aerial events.</div>
+<h3>Objectives</h3>
+<ul>
+<li>Write null and alternative hypotheses and identify the test direction.</li>
+<li>Carry out a one-sample \(z\)-test for a population mean.</li>
+<li>Carry out a one-sample \(z\)-test for a population proportion.</li>
+<li>Interpret a \(p\)-value and compare it with \(\alpha\).</li>
+<li>Connect a two-tailed hypothesis test with a confidence interval.</li>
+</ul>
+<h3>Reference formulas</h3>
+<div class="formula">
+\[
+z=\frac{\bar x-\mu_0}{\sigma/\sqrt n}
+\qquad\qquad
+z=\frac{\hat p-p_0}{\sqrt{p_0(1-p_0)/n}}
+\]
+</div>
+<div class="callout">
+A \(p\)-value is the probability of obtaining a result at least as extreme as the observed result, assuming \(H_0\) is true.
+</div>
+<label>Your name<input type="text" data-save="student_name"></label>
+</section>
+
+<section id="hypotheses" class="card">
+<h2>Part 1. Hypotheses and test direction</h2>
+<p>Choose the correct test type for each alternative hypothesis.</p>
+
+<div class="hypothesis-grid">
+<div><strong>A.</strong> \(H_a:\mu<2\)</div>
+<select id="tailA" data-save="tailA"><option value="">Choose</option><option>left-tailed</option><option>right-tailed</option><option>two-tailed</option></select>
+</div>
+<div class="hypothesis-grid">
+<div><strong>B.</strong> \(H_a:p>0.50\)</div>
+<select id="tailB" data-save="tailB"><option value="">Choose</option><option>left-tailed</option><option>right-tailed</option><option>two-tailed</option></select>
+</div>
+<div class="hypothesis-grid">
+<div><strong>C.</strong> \(H_a:\mu\ne2\)</div>
+<select id="tailC" data-save="tailC"><option value="">Choose</option><option>left-tailed</option><option>right-tailed</option><option>two-tailed</option></select>
+</div>
+
+<p><button onclick="checkTails()">Check Part 1</button></p>
+<div id="tailFeedback" class="feedback"></div>
+<div id="tailSolution" class="solution">
+\(H_a:\mu<2\) is left-tailed, \(H_a:p>0.50\) is right-tailed, and \(H_a:\mu\ne2\) is two-tailed.
+</div>
+
+<label>Why must the null hypothesis contain an equality?
+<textarea data-save="null_equality"></textarea></label>
+</section>
+
+<section id="mean" class="card">
+<h2>Part 2. One-sample \(z\)-test for a mean</h2>
+<p>A claim states that the mean number of objects reported is \(2\). Test whether the mean differs from \(2\).</p>
+<div class="formula">
+\[
+H_0:\mu=2
+\qquad\text{versus}\qquad
+H_a:\mu\ne2
+\]
+</div>
+<p>Use \(\alpha=0.05\), \(n=36\), and the known empirical-population standard deviation \(\sigma=3.028\).</p>
+
+<div class="data-box"><textarea id="sampleData" readonly>2,1,1,1,1,1,5,1,1,1,10,1,3,2,1,10,1,1,1,2,1,1,2,1,1,4,1,1,1,3,1,1,1,1,2,1</textarea><button onclick="copyText('sampleData','copyFeedback')">Copy sample</button></div>
+<div id="copyFeedback" class="feedback"></div>
+
+<div class="grid4">
+<label>Sample mean, \(\bar x\)<input type="number" id="m_xbar" data-save="m_xbar" step="0.001"></label>
+<label>Standard error<input type="number" id="m_se" data-save="m_se" step="0.001"></label>
+<label>Test statistic, \(z\)<input type="number" id="m_z" data-save="m_z" step="0.001"></label>
+<label>Two-tailed \(p\)-value<input type="number" id="m_p" data-save="m_p" step="0.0001"></label>
+</div>
+
+<p><button onclick="checkMean()">Check mean test</button></p>
+<div id="meanFeedback" class="feedback"></div>
+<div id="meanSolution" class="solution">
+\[
+z=\frac{1.944-2}{3.028/\sqrt{36}}=-0.110.
+\]
+Because the test is two-tailed,
+\[
+p=2P(Z\ge|-0.110|)=0.9123.
+\]
+Since \(p>\alpha\), fail to reject \(H_0\).
+</div>
+
+<div class="choice">
+<p><strong>Decision at \(\alpha=0.05\):</strong></p>
+<label><input type="radio" name="meanDecision" value="reject">Reject \(H_0\)</label>
+<label><input type="radio" name="meanDecision" value="fail">Fail to reject \(H_0\)</label>
+</div>
+<p><button onclick="checkMeanDecision()">Check decision</button></p>
+<div id="meanDecisionFeedback" class="feedback"></div>
+
+<label>Write the conclusion in context. Do not say that \(H_0\) has been proven true.
+<textarea data-save="mean_conclusion"></textarea></label>
+
+<div class="callout successbox">
+The Week 5 confidence interval for \(\mu\) was \((0.955,2.934)\). Is the claimed value \(\mu_0=2\) inside or outside that interval?
+</div>
+<div class="choice">
+<label><input type="radio" name="ciRelation" value="inside">Inside the interval</label>
+<label><input type="radio" name="ciRelation" value="outside">Outside the interval</label>
+</div>
+<p><button onclick="checkCIRelation()">Check connection</button></p>
+<div id="ciRelationFeedback" class="feedback"></div>
+</section>
+
+<section id="proportion" class="card">
+<h2>Part 3. One-sample \(z\)-test for a proportion</h2>
+<p>Call an entry a success when it reports exactly one object. Test whether more than half of the entries in the empirical population report exactly one object.</p>
+<div class="formula">
+\[
+H_0:p=0.50
+\qquad\text{versus}\qquad
+H_a:p>0.50
+\]
+</div>
+<p>Use \(\alpha=0.05\). In the sample, 25 of the 36 entries are successes.</p>
+
+<div class="callout warning">
+For a hypothesis test about a proportion, the standard error uses the null value \(p_0\), not the sample proportion \(\hat p\).
+</div>
+
+<div class="grid4">
+<label>\(\hat p\)<input type="number" id="p_phat" data-save="p_phat" step="0.0001"></label>
+<label>\(np_0\)<input type="number" id="p_np0" data-save="p_np0" step="0.001"></label>
+<label>\(n(1-p_0)\)<input type="number" id="p_nq0" data-save="p_nq0" step="0.001"></label>
+<label>Null standard error<input type="number" id="p_se" data-save="p_se" step="0.0001"></label>
+<label>Test statistic, \(z\)<input type="number" id="p_z" data-save="p_z" step="0.001"></label>
+<label>Right-tailed \(p\)-value<input type="number" id="p_pval" data-save="p_pval" step="0.0001"></label>
+</div>
+
+<p><button onclick="checkProportion()">Check proportion test</button></p>
+<div id="propFeedback" class="feedback"></div>
+<div id="propSolution" class="solution">
+\[
+\hat p=\frac{25}{36}=0.6944,
+\qquad
+\operatorname{SE}_0=\sqrt{\frac{0.50(0.50)}{36}}=0.0833,
+\]
+\[
+z=\frac{0.6944-0.50}{0.0833}=2.333,
+\qquad
+p=P(Z\ge 2.333)=0.0098.
+\]
+Since \(p<\alpha\), reject \(H_0\).
+</div>
+
+<div class="choice">
+<p><strong>Decision at \(\alpha=0.05\):</strong></p>
+<label><input type="radio" name="propDecision" value="reject">Reject \(H_0\)</label>
+<label><input type="radio" name="propDecision" value="fail">Fail to reject \(H_0\)</label>
+</div>
+<p><button onclick="checkPropDecision()">Check decision</button></p>
+<div id="propDecisionFeedback" class="feedback"></div>
+
+<label>Write a complete conclusion in context.
+<textarea data-save="prop_conclusion"></textarea></label>
+
+<h3>Why does the test use \(p_0\) in the standard error?</h3>
+<div class="choice">
+<label><input type="radio" name="seReason" value="a">Because the test builds the sampling distribution under the assumption that \(H_0\) is true.</label>
+<label><input type="radio" name="seReason" value="b">Because \(\hat p\) is always equal to \(p_0\).</label>
+<label><input type="radio" name="seReason" value="c">Because using \(p_0\) always makes the \(p\)-value smaller.</label>
+</div>
+<p><button onclick="checkSEReason()">Check</button></p>
+<div id="seReasonFeedback" class="feedback"></div>
+</section>
+
+<section id="simulate" class="card">
+<h2>Part 4. See the \(p\)-values as tail areas</h2>
+<p>The simulation below generates 5,000 standard normal \(z\)-scores under \(H_0\). It counts the simulated values at least as extreme as the observed test statistic.</p>
+<p><button class="primary" onclick="runSimulation()">Run simulation</button></p>
+<div class="grid2">
+<div><h3>Mean test: two tails</h3><canvas id="meanCanvas"></canvas><div id="meanSimSummary" class="callout"></div></div>
+<div><h3>Proportion test: right tail</h3><canvas id="propCanvas"></canvas><div id="propSimSummary" class="callout"></div></div>
+</div>
+<label>Why is the mean-test \(p\)-value so large while the proportion-test \(p\)-value is small?
+<textarea data-save="pvalue_comparison"></textarea></label>
+</section>
+
+<section id="compare" class="card">
+<h2>Part 5. Compare the two conclusions</h2>
+<table>
+<thead><tr><th>Question</th><th>Test</th><th>Decision</th></tr></thead>
+<tbody>
+<tr><td>Does the mean differ from 2?</td><td>\(H_0:\mu=2\) vs. \(H_a:\mu\ne2\)</td><td>Fail to reject \(H_0\)</td></tr>
+<tr><td>Do more than half report exactly one object?</td><td>\(H_0:p=0.50\) vs. \(H_a:p>0.50\)</td><td>Reject \(H_0\)</td></tr>
+</tbody>
+</table>
+<label>Explain why these conclusions do not contradict one another.
+<textarea data-save="comparison_explanation"></textarea></label>
+
+<div class="choice">
+<p><strong>Which is a correct interpretation of failing to reject \(H_0\)?</strong></p>
+<label><input type="radio" name="failMeaning" value="a">The null hypothesis has been proven true.</label>
+<label><input type="radio" name="failMeaning" value="b">The sample does not provide sufficient evidence against the null hypothesis.</label>
+<label><input type="radio" name="failMeaning" value="c">The alternative hypothesis has been proven false.</label>
+</div>
+<p><button onclick="checkFailMeaning()">Check</button></p>
+<div id="failMeaningFeedback" class="feedback"></div>
+</section>
+
+<section id="report" class="card">
+<h2>Final response</h2>
+<label>Write 6–8 sentences comparing the mean test and proportion test. Include both hypotheses, both decisions, and one correct interpretation of a \(p\)-value.
+<textarea data-save="final_response"></textarea></label>
+<p><button class="primary" onclick="generateReport()">Generate report</button> <button onclick="copyReport()">Copy report</button> <button onclick="window.print()">Print</button></p>
+<div id="reportPreview" class="report">Your report will appear here.</div>
+</section>
+
+<p class="footer-note">Project Sign Applied Data Lab · One-Sample Hypothesis Tests</p>
+</main>
+
+<script>
+const A={"n": 36, "xbar": 1.9444444444444444, "sigma": 3.027806093422926, "mu0": 2.0, "se_mean": 0.504634348903821, "z_mean": -0.11009071355573538, "p_mean": 0.9123374328994882, "ci_mean_l": 0.9553611205929553, "ci_mean_u": 2.9335277682959333, "successes": 25, "failures": 11, "phat": 0.6944444444444444, "p0": 0.5, "np0": 18.0, "nq0": 18.0, "se_prop_null": 0.08333333333333333, "z_prop": 2.333333333333333, "p_prop": 0.009815328628645315, "alpha": 0.05, "mu_pop": 2.212962962962963, "p_pop": 0.7037037037037037};
+
+function num(id){return parseFloat(document.getElementById(id).value)}
+function closeEnough(a,b,t){return Number.isFinite(a)&&Math.abs(a-b)<=t}
+function feedback(id,ok,msg){const e=document.getElementById(id);e.className='feedback '+(ok?'ok':'bad');e.textContent=msg}
+function show(id){document.getElementById(id).style.display='block'}
+function saveAll(){document.querySelectorAll('[data-save]').forEach(e=>localStorage.setItem(location.pathname+'::'+e.dataset.save,e.value));alert('Answers saved in this browser.')}
+function loadAll(){document.querySelectorAll('[data-save]').forEach(e=>{const v=localStorage.getItem(location.pathname+'::'+e.dataset.save);if(v!==null)e.value=v})}
+function clearAll(){if(!confirm('Clear all saved answers on this page?'))return;document.querySelectorAll('[data-save]').forEach(e=>{e.value='';localStorage.removeItem(location.pathname+'::'+e.dataset.save)});location.reload()}
+function copyText(id,fb){const box=document.getElementById(id);navigator.clipboard.writeText(box.value).then(()=>feedback(fb,true,'Copied to the clipboard.')).catch(()=>{box.focus();box.select();feedback(fb,false,'The data are selected. Press Ctrl+C or Command+C.')})}
+function copyReport(){navigator.clipboard.writeText(document.getElementById('reportPreview').textContent)}
+
+function checkTails(){
+ const ok=document.getElementById('tailA').value==='left-tailed'&&document.getElementById('tailB').value==='right-tailed'&&document.getElementById('tailC').value==='two-tailed';
+ feedback('tailFeedback',ok,ok?'Correct.':'The inequality in the alternative hypothesis determines the tail or tails.');if(ok)show('tailSolution')
+}
+function checkMean(){
+ const ok=closeEnough(num('m_xbar'),A.xbar,.002)&&closeEnough(num('m_se'),A.se_mean,.002)&&closeEnough(num('m_z'),A.z_mean,.003)&&closeEnough(num('m_p'),A.p_mean,.0007);
+ feedback('meanFeedback',ok,ok?'Correct. This sample mean is very close to the claimed value.':'Check the standard error, the sign of z, and remember to double the tail area.');if(ok)show('meanSolution')
+}
+function checkMeanDecision(){const c=document.querySelector('input[name="meanDecision"]:checked');const ok=c&&c.value==='fail';feedback('meanDecisionFeedback',ok,ok?'Correct. The p-value is much larger than 0.05.':'Compare the p-value with alpha.')}
+function checkCIRelation(){const c=document.querySelector('input[name="ciRelation"]:checked');const ok=c&&c.value==='inside';feedback('ciRelationFeedback',ok,ok?'Correct. A two-tailed test at alpha 0.05 fails to reject values inside the 95% confidence interval.':'Compare 2 with the two endpoints.')}
+function checkProportion(){
+ const ok=closeEnough(num('p_phat'),A.phat,.0006)&&closeEnough(num('p_np0'),A.np0,.01)&&closeEnough(num('p_nq0'),A.nq0,.01)&&closeEnough(num('p_se'),A.se_prop_null,.0007)&&closeEnough(num('p_z'),A.z_prop,.003)&&closeEnough(num('p_pval'),A.p_prop,.0007);
+ feedback('propFeedback',ok,ok?'Correct. The observed proportion is more than two standard errors above 0.50.':'Use p0=0.50 in the null standard error and use the right-tail area.');if(ok)show('propSolution')
+}
+function checkPropDecision(){const c=document.querySelector('input[name="propDecision"]:checked');const ok=c&&c.value==='reject';feedback('propDecisionFeedback',ok,ok?'Correct. The p-value is smaller than 0.05.':'Compare the p-value with alpha.')}
+function checkSEReason(){const c=document.querySelector('input[name="seReason"]:checked');const ok=c&&c.value==='a';feedback('seReasonFeedback',ok,ok?'Correct. Hypothesis testing constructs the null distribution as though H0 were true.':'The standard error describes variation under the null hypothesis.')}
+function checkFailMeaning(){const c=document.querySelector('input[name="failMeaning"]:checked');const ok=c&&c.value==='b';feedback('failMeaningFeedback',ok,ok?'Correct. Failure to reject is not proof that the null is true.':'Hypothesis tests measure evidence against H0; they do not prove H0.')}
+function randn(){let u=0,v=0;while(u===0)u=Math.random();while(v===0)v=Math.random();return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v)}
+function runSimulation(){
+ const N=5000,meanVals=[],propVals=[];let meanExtreme=0,propExtreme=0;
+ for(let i=0;i<N;i++){const z1=randn(),z2=randn();meanVals.push(z1);propVals.push(z2);if(Math.abs(z1)>=Math.abs(A.z_mean))meanExtreme++;if(z2>=A.z_prop)propExtreme++}
+ drawNormalSim('meanCanvas',meanVals,-Math.abs(A.z_mean),Math.abs(A.z_mean),'two');
+ drawNormalSim('propCanvas',propVals,A.z_prop,null,'right');
+ document.getElementById('meanSimSummary').textContent='Simulated two-tailed p-value: '+(meanExtreme/N).toFixed(4)+'; theoretical p-value: '+A.p_mean.toFixed(4)+'.';
+ document.getElementById('propSimSummary').textContent='Simulated right-tailed p-value: '+(propExtreme/N).toFixed(4)+'; theoretical p-value: '+A.p_prop.toFixed(4)+'.'
+}
+function drawNormalSim(id,vals,a,b,type){
+ const c=document.getElementById(id),d=window.devicePixelRatio||1,w=c.clientWidth,h=310;c.width=w*d;c.height=h*d;
+ const x=c.getContext('2d');x.scale(d,d);x.clearRect(0,0,w,h);
+ const L=44,R=20,T=20,B=42,iw=w-L-R,ih=h-T-B,min=-4,max=4,bins=48,counts=Array(bins).fill(0);
+ vals.forEach(v=>{if(v>=min&&v<=max){let i=Math.min(bins-1,Math.floor((v-min)/(max-min)*bins));counts[i]++}});
+ const maxC=Math.max(...counts)*1.08,gap=iw/bins;
+ counts.forEach((v,i)=>{const center=min+(i+.5)*(max-min)/bins;const extreme=type==='two'?(center<=a||center>=b):center>=a;x.fillStyle=extreme?'#a13d48':'#cdd9ef';x.fillRect(L+i*gap,T+ih-v/maxC*ih,Math.max(1,gap-1),v/maxC*ih)});
+ x.strokeStyle='#667085';x.beginPath();x.moveTo(L,T+ih);x.lineTo(L+iw,T+ih);x.stroke();
+ x.font='12px system-ui';x.fillStyle='#374151';x.textAlign='center';
+ [-4,-2,0,2,4].forEach(v=>{const px=L+(v-min)/(max-min)*iw;x.fillText(v,px,T+ih+19)});
+ const lines=type==='two'?[a,b]:[a];
+ lines.forEach(v=>{const px=L+(v-min)/(max-min)*iw;x.strokeStyle='#a13d48';x.lineWidth=2;x.beginPath();x.moveTo(px,T);x.lineTo(px,T+ih);x.stroke()});
+ x.fillText('simulated z-scores under H0',L+iw/2,h-7)
+}
+function generateReport(){
+ const get=k=>document.querySelector('[data-save="'+k+'"]')?.value||'[not answered]';
+ document.getElementById('reportPreview').textContent=
+'Project Sign One-Sample Hypothesis Tests Lab\\nStudent: '+get('student_name')+
+'\\n\\nWhy H0 contains equality:\\n'+get('null_equality')+
+'\\n\\nMean-test conclusion:\\n'+get('mean_conclusion')+
+'\\n\\nProportion-test conclusion:\\n'+get('prop_conclusion')+
+'\\n\\nComparison of p-values:\\n'+get('pvalue_comparison')+
+'\\n\\nWhy the conclusions do not conflict:\\n'+get('comparison_explanation')+
+'\\n\\nFinal response:\\n'+get('final_response')
+}
+window.addEventListener('DOMContentLoaded',()=>{loadAll();runSimulation()})
+</script>
+</body></html>

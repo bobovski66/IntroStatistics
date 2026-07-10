@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MATH&amp; 146 Project Sign Lab: Confidence Intervals</title>
+
+<script>
+window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},
+options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<style>
+:root{--bg:#f5f7fb;--paper:#fff;--ink:#202535;--muted:#667085;--line:#d7deea;
+--navy:#17345f;--blue:#2457a6;--blue2:#eaf1ff;--green:#24704a;--green2:#edf9f2;
+--amber:#8a6100;--amber2:#fff7df;--red:#a13d48;--shadow:0 10px 28px rgba(28,39,69,.08)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif}
+header{background:linear-gradient(135deg,#1d4277,#14243f);color:#fff;padding:34px 18px 30px}
+.wrap{max-width:1060px;margin:auto}header h1{margin:0 0 7px;font-size:clamp(1.7rem,3vw,2.45rem)}
+header p{margin:4px 0;max-width:900px;color:#dce8ff}.meta{font-size:.9rem;letter-spacing:.04em}
+.toolbar{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.96);border-bottom:1px solid var(--line);backdrop-filter:blur(8px)}
+.toolbar .wrap{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;padding:10px 18px}
+.nav,.actions{display:flex;gap:8px;flex-wrap:wrap}.nav a{text-decoration:none;color:var(--blue);background:var(--blue2);border:1px solid #d5e1fb;border-radius:999px;padding:6px 10px;font-size:.9rem}
+button{border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:10px;padding:8px 12px;font-weight:650;cursor:pointer}
+button.primary{background:var(--blue);border-color:var(--blue);color:#fff}button:hover{filter:brightness(.98)}
+main.wrap{padding:22px 18px 60px}.card{background:var(--paper);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);padding:22px;margin:18px 0}
+h2{margin:0 0 10px;color:#17345f;font-size:1.38rem}h3{color:#29446f;margin:20px 0 8px;font-size:1.08rem}
+.callout{border-left:5px solid var(--blue);background:var(--blue2);border-radius:12px;padding:12px 14px;margin:14px 0}
+.warning{border-left-color:var(--amber);background:var(--amber2)}.successbox{border-left-color:var(--green);background:var(--green2)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+@media(max-width:850px){.grid2,.grid3,.grid4{grid-template-columns:1fr}}
+table{width:100%;border-collapse:collapse;margin:12px 0;background:#fff}th,td{padding:9px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+th{text-align:left;background:#fafbfe;color:var(--muted);font-size:.86rem;text-transform:uppercase;letter-spacing:.035em}
+input[type=text],input[type=number],textarea{width:100%;border:1px solid #c8d1df;border-radius:9px;padding:8px 10px;font:inherit;background:#fff;margin-top:5px}
+input[type=number]{text-align:right}textarea{min-height:86px;resize:vertical}.feedback{min-height:1.2em;margin-top:6px;font-size:.9rem}
+.ok{color:var(--green)}.bad{color:#b42318}.formula{background:#fbfcff;border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin:12px 0;text-align:center;font-size:1.07rem;overflow:auto}
+.mini{font-size:.9rem;color:var(--muted)}.solution{display:none;border-left:5px solid var(--green);background:var(--green2);border-radius:12px;padding:12px 14px;margin:14px 0}
+.data-box{display:flex;gap:8px;align-items:flex-start;flex-wrap:wrap}.data-box textarea{min-height:95px;flex:1 1 700px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.9rem}
+.report{white-space:pre-wrap;background:#fbfcff;border:1px solid var(--line);border-radius:14px;padding:14px;min-height:170px}
+canvas{width:100%;height:360px;border:1px solid var(--line);border-radius:14px;background:#fff}.choice label{font-weight:500;margin:7px 0}.choice input{width:auto;margin-right:7px}
+.footer-note{text-align:center;color:var(--muted);font-size:.86rem;margin:30px 0}
+@media print{.toolbar,.no-print,button{display:none!important}body{background:#fff;font-size:11pt}.card{box-shadow:none;border:1px solid #aaa;break-inside:avoid;margin:10px 0;padding:14px}header{background:#fff;color:#000;border-bottom:1px solid #999;padding:12px}header p{color:#333}main.wrap{padding:0}.solution{display:none!important}}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+<h1>Project Sign Lab: Confidence Intervals</h1>
+<p>Use a sample from the Project Sign incident table to estimate a mean and a proportion, compare confidence levels, and investigate what 95% confidence means.</p>
+<p class="meta">MATH&amp; 146 · CONFIDENCE INTERVALS</p>
+</div></header>
+
+<div class="toolbar no-print"><div class="wrap">
+<nav class="nav"><a href="#start">Start</a><a href="#mean">Mean CI</a><a href="#levels">Confidence levels</a><a href="#size">Sample size</a><a href="#proportion">Proportion CI</a><a href="#coverage">Coverage</a><a href="#report">Finish</a></nav>
+<div class="actions"><button onclick="saveAll()">Save</button><button onclick="clearAll()">Clear</button><button class="primary" onclick="generateReport()">Generate report</button></div>
+</div></div>
+
+<main class="wrap">
+<section id="start" class="card">
+<h2>Before you begin</h2>
+<p>The Project Sign table contains 108 report entries whose number of objects was recorded as one exact whole number. For this activity, treat those 108 values as an <strong>empirical population</strong>. A fixed sample of 36 values was drawn from that population with replacement.</p>
+<div class="warning callout"><strong>Interpret carefully:</strong> This setup lets you practice confidence intervals and check whether they capture a known empirical value. It does not make the archival reports a random sample of all aerial events.</div>
+<h3>Objectives</h3>
+<ul>
+<li>Construct a confidence interval for a population mean when \(\sigma\) is known.</li>
+<li>Explain how confidence level changes interval width.</li>
+<li>Find a required sample size for a target margin of error.</li>
+<li>Construct and interpret a confidence interval for a population proportion.</li>
+<li>Explain the repeated-sampling meaning of 95% confidence.</li>
+</ul>
+<h3>Reference formulas</h3>
+<div class="formula">
+\[
+\bar{x}\pm z^*\frac{\sigma}{\sqrt n}
+\qquad\qquad
+\hat p\pm z^*\sqrt{\frac{\hat p(1-\hat p)}{n}}
+\]
+\[
+n\ge\left(\frac{z^*\sigma}{\operatorname{ME}}\right)^2
+\]
+</div>
+<p class="mini">Critical values: \(90\%:z^*=1.645\), \(95\%:z^*=1.960\), \(99\%:z^*=2.576\).</p>
+<label>Your name<input type="text" data-save="student_name"></label>
+</section>
+
+<section id="mean" class="card">
+<h2>Part 1. A 95% confidence interval for a mean</h2>
+<p>Let \(X\) be the number of objects reported in one selected entry. Use the sample below.</p>
+<div class="data-box"><textarea id="sampleData" readonly>2,1,1,1,1,1,5,1,1,1,10,1,3,2,1,10,1,1,1,2,1,1,2,1,1,4,1,1,1,3,1,1,1,1,2,1</textarea><button onclick="copyText('sampleData','copyFeedback')">Copy sample</button></div>
+<div id="copyFeedback" class="feedback"></div>
+<div class="callout">For this empirical population, use the known standard deviation \[\sigma=3.028\text{ objects}.\]</div>
+<div class="grid3">
+<label>Sample size, \(n\)<input type="number" id="m_n" data-save="m_n" step="1"></label>
+<label>Sample mean, \(\bar x\)<input type="number" id="m_xbar" data-save="m_xbar" step="0.001"></label>
+<label>Standard error, \(\frac{\sigma}{\sqrt n}\)<input type="number" id="m_se" data-save="m_se" step="0.001"></label>
+<label>Critical value, \(z^*\)<input type="number" id="m_z" data-save="m_z" step="0.001"></label>
+<label>Margin of error<input type="number" id="m_me" data-save="m_me" step="0.001"></label>
+<label>Lower endpoint<input type="number" id="m_low" data-save="m_low" step="0.001"></label>
+<label>Upper endpoint<input type="number" id="m_up" data-save="m_up" step="0.001"></label>
+</div>
+<p><button onclick="checkMean()">Check Part 1</button></p><div id="meanFeedback" class="feedback"></div>
+<div id="meanSolution" class="solution">
+\[
+\bar x=1.944, \qquad \operatorname{SE}=\frac{3.028}{\sqrt{36}}=0.505,
+\qquad \operatorname{ME}=1.96(0.505)=0.989.
+\]
+The 95% confidence interval is \((0.955,\,2.934)\).
+</div>
+<label>Interpret the interval in one complete sentence. Name the confidence level, the population mean being estimated, and both endpoints.
+<textarea data-save="mean_interpretation"></textarea></label>
+<div class="callout successbox">The known empirical-population mean is \(\mu=2.213\). Determine whether your interval contains this value.</div>
+<div class="choice">
+<label><input type="radio" name="capture" value="yes">Yes, the interval contains \(\mu\).</label>
+<label><input type="radio" name="capture" value="no">No, the interval does not contain \(\mu\).</label>
+</div>
+<p><button onclick="checkCapture()">Check</button></p><div id="captureFeedback" class="feedback"></div>
+</section>
+
+<section id="levels" class="card">
+<h2>Part 2. Confidence level and interval width</h2>
+<p>Use the same sample mean, sample size, and known population standard deviation. Construct 90% and 99% confidence intervals.</p>
+<table><thead><tr><th>Level</th><th>\(z^*\)</th><th>Margin of error</th><th>Lower</th><th>Upper</th></tr></thead><tbody>
+<tr><td>90%</td><td>1.645</td><td><input type="number" id="l_me90" data-save="l_me90" step="0.001"></td><td><input type="number" id="l_low90" data-save="l_low90" step="0.001"></td><td><input type="number" id="l_up90" data-save="l_up90" step="0.001"></td></tr>
+<tr><td>99%</td><td>2.576</td><td><input type="number" id="l_me99" data-save="l_me99" step="0.001"></td><td><input type="number" id="l_low99" data-save="l_low99" step="0.001"></td><td><input type="number" id="l_up99" data-save="l_up99" step="0.001"></td></tr>
+</tbody></table>
+<p><button onclick="checkLevels()">Check Part 2</button></p><div id="levelsFeedback" class="feedback"></div>
+<div id="levelsSolution" class="solution">The 90% interval is \((1.114,2.775)\), and the 99% interval is \((0.645,3.244)\). The 99% interval is wider because it uses a larger critical value.</div>
+<label>Which interval is wider, and why?<textarea data-save="level_explanation"></textarea></label>
+</section>
+
+<section id="size" class="card">
+<h2>Part 3. Required sample size</h2>
+<p>Suppose you want a 95% confidence interval for the mean number reported with margin of error no larger than \(0.50\) object. Continue to use \(\sigma=3.028\).</p>
+<div class="formula">\[n\ge\left(\frac{1.96(3.028)}{0.50}\right)^2\]</div>
+<div class="grid3">
+<label>Value before squaring<input type="number" id="s_ratio" data-save="s_ratio" step="0.001"></label>
+<label>Squared value<input type="number" id="s_raw" data-save="s_raw" step="0.001"></label>
+<label>Required whole-number \(n\)<input type="number" id="s_n" data-save="s_n" step="1"></label>
+</div>
+<p><button onclick="checkSize()">Check Part 3</button></p><div id="sizeFeedback" class="feedback"></div>
+<div id="sizeSolution" class="solution">\[n\ge 140.873,\] so the required sample size is \(n=141\). Round up so that the margin of error does not exceed the target.</div>
+<label>Why must the final sample size be rounded up rather than down?<textarea data-save="rounding_explanation"></textarea></label>
+</section>
+
+<section id="proportion" class="card">
+<h2>Part 4. A 95% confidence interval for a proportion</h2>
+<p>Define a <strong>success</strong> as a sampled entry reporting exactly one object. Use the same sample of 36 values.</p>
+<div class="grid3">
+<label>Number of successes<input type="number" id="p_succ" data-save="p_succ" step="1"></label>
+<label>Number of failures<input type="number" id="p_fail" data-save="p_fail" step="1"></label>
+<label>Sample proportion, \(\hat p\)<input type="number" id="p_phat" data-save="p_phat" step="0.0001"></label>
+</div>
+<h3>Check the success–failure condition</h3>
+<p>The normal confidence interval is appropriate when \(n\hat p\ge10\) and \(n(1-\hat p)\ge10\).</p>
+<div class="grid4">
+<label>\(n\hat p\)<input type="number" id="p_np" data-save="p_np" step="0.001"></label>
+<label>\(n(1-\hat p)\)<input type="number" id="p_nq" data-save="p_nq" step="0.001"></label>
+<label>Standard error<input type="number" id="p_se" data-save="p_se" step="0.0001"></label>
+<label>Margin of error<input type="number" id="p_me" data-save="p_me" step="0.0001"></label>
+<label>Lower endpoint<input type="number" id="p_low" data-save="p_low" step="0.0001"></label>
+<label>Upper endpoint<input type="number" id="p_up" data-save="p_up" step="0.0001"></label>
+</div>
+<p><button onclick="checkProportion()">Check Part 4</button></p><div id="propFeedback" class="feedback"></div>
+<div id="propSolution" class="solution">
+\[
+\hat p=\frac{25}{36}=0.6944, \qquad
+\operatorname{SE}=\sqrt{\frac{\hat p(1-\hat p)}{36}}=0.0768,
+\]
+\[
+\operatorname{ME}=1.96(0.0768)=0.1505,
+\qquad 95\%\text{ CI}=(0.5440,0.8449).
+\]
+</div>
+<label>Interpret this interval as a range for the proportion of entries in the empirical population that report exactly one object.
+<textarea data-save="prop_interpretation"></textarea></label>
+<div class="callout successbox">The known empirical proportion is \[p=\frac{76}{108}=0.7037.\] Does your confidence interval contain it?</div>
+</section>
+
+<section id="coverage" class="card">
+<h2>Part 5. What does 95% confidence mean?</h2>
+<p>Click the button to draw 20 new samples of size 36 from the empirical population. The page constructs a 95% confidence interval from each sample. The vertical line marks the fixed empirical mean \(\mu=2.213\).</p>
+<p><button class="primary" onclick="runCoverage()">Generate 20 intervals</button></p>
+<canvas id="coverageCanvas" aria-label="Twenty confidence intervals"></canvas>
+<div id="coverageSummary" class="callout">Generate the intervals to begin.</div>
+<div class="choice">
+<p><strong>Which statement is correct?</strong></p>
+<label><input type="radio" name="meaning" value="a">The population mean moves from sample to sample.</label>
+<label><input type="radio" name="meaning" value="b">The intervals move from sample to sample, and about 95% of intervals made by this procedure capture the fixed population mean in the long run.</label>
+<label><input type="radio" name="meaning" value="c">Every 95% confidence interval must contain the population mean.</label>
+</div>
+<p><button onclick="checkMeaning()">Check</button></p><div id="meaningFeedback" class="feedback"></div>
+<label>Why is it possible for a correctly constructed 95% confidence interval to miss the population mean?<textarea data-save="coverage_explanation"></textarea></label>
+</section>
+
+<section id="report" class="card">
+<h2>Final response</h2>
+<label>Write 5–7 sentences summarizing what the sample estimated, how confidence level affected width, and what 95% confidence means.
+<textarea data-save="final_response"></textarea></label>
+<p><button class="primary" onclick="generateReport()">Generate report</button> <button onclick="copyReport()">Copy report</button> <button onclick="window.print()">Print</button></p>
+<div id="reportPreview" class="report">Your report will appear here.</div>
+</section>
+<p class="footer-note">Project Sign Applied Data Lab · Confidence Intervals</p>
+</main>
+
+<script>
+const A={"n": 36, "xbar": 1.9444444444444444, "sigma": 3.027806093422926, "se": 0.504634348903821, "me90": 0.8301235039467855, "me95": 0.9890833238514891, "me99": 1.2999380827762428, "ci90l": 1.114320940497659, "ci90u": 2.7745679483912298, "ci95l": 0.9553611205929553, "ci95u": 2.9335277682959333, "ci99l": 0.6445063616682016, "ci99u": 3.2443825272206874, "ratio": 11.86899988621787, "n_raw": 140.8731582990398, "n_required": 141, "successes": 25, "failures": 11, "phat": 0.6944444444444444, "se_p": 0.07677372199896759, "me_p": 0.15047649511797648, "ci_pl": 0.543967949326468, "ci_pu": 0.8449209395624209, "mu_pop": 2.212962962962963, "p_pop": 0.7037037037037037};
+const POP=[2, 2, 2, 2, 3, 3, 1, 1, 1, 5, 3, 1, 3, 3, 5, 1, 4, 1, 3, 4, 9, 1, 2, 1, 18, 1, 2, 1, 1, 1, 1, 10, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 5, 1, 1, 1, 18, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 12, 1, 1, 1, 1, 6, 1, 1, 1, 1, 2, 1, 2, 10, 2, 1, 1, 1, 1, 5, 10, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
+
+function num(id){return parseFloat(document.getElementById(id).value)}
+function closeEnough(a,b,t){return Number.isFinite(a)&&Math.abs(a-b)<=t}
+function feedback(id,ok,msg){const e=document.getElementById(id);e.className='feedback '+(ok?'ok':'bad');e.textContent=msg}
+function show(id){document.getElementById(id).style.display='block'}
+function saveAll(){document.querySelectorAll('[data-save]').forEach(e=>localStorage.setItem(location.pathname+'::'+e.dataset.save,e.value));alert('Answers saved in this browser.')}
+function loadAll(){document.querySelectorAll('[data-save]').forEach(e=>{const v=localStorage.getItem(location.pathname+'::'+e.dataset.save);if(v!==null)e.value=v})}
+function clearAll(){if(!confirm('Clear all saved answers on this page?'))return;document.querySelectorAll('[data-save]').forEach(e=>{e.value='';localStorage.removeItem(location.pathname+'::'+e.dataset.save)});location.reload()}
+function copyText(id,fb){const box=document.getElementById(id);navigator.clipboard.writeText(box.value).then(()=>feedback(fb,true,'Copied to the clipboard.')).catch(()=>{box.focus();box.select();feedback(fb,false,'The data are selected. Press Ctrl+C or Command+C.')})}
+function copyReport(){navigator.clipboard.writeText(document.getElementById('reportPreview').textContent)}
+
+function checkMean(){
+ const ok=closeEnough(num('m_n'),A.n,.01)&&closeEnough(num('m_xbar'),A.xbar,.002)&&closeEnough(num('m_se'),A.se,.002)&&closeEnough(num('m_z'),1.96,.002)&&closeEnough(num('m_me'),A.me95,.002)&&closeEnough(num('m_low'),A.ci95l,.002)&&closeEnough(num('m_up'),A.ci95u,.002);
+ feedback('meanFeedback',ok,ok?'Correct.':'Check the sample mean, standard error, margin of error, and endpoints.');if(ok)show('meanSolution')
+}
+function checkCapture(){const c=document.querySelector('input[name="capture"]:checked');const ok=c&&c.value==='yes';feedback('captureFeedback',ok,ok?'Correct. This interval captures the empirical-population mean.':'Compare the empirical mean with the two endpoints.')}
+function checkLevels(){
+ const ok=closeEnough(num('l_me90'),A.me90,.002)&&closeEnough(num('l_low90'),A.ci90l,.002)&&closeEnough(num('l_up90'),A.ci90u,.002)&&closeEnough(num('l_me99'),A.me99,.002)&&closeEnough(num('l_low99'),A.ci99l,.002)&&closeEnough(num('l_up99'),A.ci99u,.002);
+ feedback('levelsFeedback',ok,ok?'Correct. Higher confidence produces a wider interval.':'Use the same standard error and change only the critical value.');if(ok)show('levelsSolution')
+}
+function checkSize(){
+ const ok=closeEnough(num('s_ratio'),A.ratio,.003)&&closeEnough(num('s_raw'),A.n_raw,.01)&&closeEnough(num('s_n'),A.n_required,.01);
+ feedback('sizeFeedback',ok,ok?'Correct. Always round the required sample size up.':'Square the full ratio, then round up.');if(ok)show('sizeSolution')
+}
+function checkProportion(){
+ const ok=closeEnough(num('p_succ'),A.successes,.01)&&closeEnough(num('p_fail'),A.failures,.01)&&closeEnough(num('p_phat'),A.phat,.0006)&&closeEnough(num('p_np'),A.successes,.01)&&closeEnough(num('p_nq'),A.failures,.01)&&closeEnough(num('p_se'),A.se_p,.0007)&&closeEnough(num('p_me'),A.me_p,.0007)&&closeEnough(num('p_low'),A.ci_pl,.0007)&&closeEnough(num('p_up'),A.ci_pu,.0007);
+ feedback('propFeedback',ok,ok?'Correct. Both success–failure counts are at least 10.':'Count the ones, compute the failures, and use the proportion confidence-interval formula.');if(ok)show('propSolution')
+}
+function runCoverage(){
+ const intervals=[];let hits=0;
+ for(let j=0;j<20;j++){
+   let total=0;for(let i=0;i<36;i++)total+=POP[Math.floor(Math.random()*POP.length)];
+   const xb=total/36,low=xb-1.96*A.sigma/6,up=xb+1.96*A.sigma/6,hit=low<=A.mu_pop&&A.mu_pop<=up;
+   if(hit)hits++;intervals.push({low,up,xb,hit})
+ }
+ drawCoverage(intervals);
+ document.getElementById('coverageSummary').textContent=hits+' of the 20 intervals captured the empirical mean. A new run may give a different number; over many runs the capture rate approaches about 95%.'
+}
+function drawCoverage(intervals){
+ const c=document.getElementById('coverageCanvas'),d=window.devicePixelRatio||1,w=c.clientWidth,h=360;c.width=w*d;c.height=h*d;
+ const x=c.getContext('2d');x.scale(d,d);x.clearRect(0,0,w,h);
+ const L=54,R=24,T=22,B=44,iw=w-L-R,ih=h-T-B,all=intervals.flatMap(q=>[q.low,q.up,A.mu_pop]);
+ const min=Math.min(...all)-.2,max=Math.max(...all)+.2,px=v=>L+(v-min)/(max-min)*iw;
+ x.strokeStyle='#dfe4ed';x.lineWidth=1;for(let i=0;i<20;i++){const y=T+(i+.5)*ih/20;x.beginPath();x.moveTo(L,y);x.lineTo(L+iw,y);x.stroke()}
+ const mx=px(A.mu_pop);x.strokeStyle='#111827';x.setLineDash([6,5]);x.lineWidth=2;x.beginPath();x.moveTo(mx,T);x.lineTo(mx,T+ih);x.stroke();x.setLineDash([]);
+ intervals.forEach((q,i)=>{const y=T+(i+.5)*ih/20;x.strokeStyle=q.hit?'#2457a6':'#a13d48';x.lineWidth=3;x.beginPath();x.moveTo(px(q.low),y);x.lineTo(px(q.up),y);x.stroke();x.fillStyle=x.strokeStyle;x.beginPath();x.arc(px(q.xb),y,3.2,0,2*Math.PI);x.fill()});
+ x.strokeStyle='#677489';x.lineWidth=1;x.beginPath();x.moveTo(L,T+ih);x.lineTo(L+iw,T+ih);x.stroke();x.fillStyle='#374151';x.font='12px system-ui';x.textAlign='center';
+ for(let i=0;i<=5;i++){const v=min+(max-min)*i/5,p=px(v);x.beginPath();x.moveTo(p,T+ih);x.lineTo(p,T+ih+5);x.stroke();x.fillText(v.toFixed(1),p,T+ih+19)}
+ x.fillText('confidence intervals for the population mean',L+iw/2,h-7)
+}
+function checkMeaning(){const c=document.querySelector('input[name="meaning"]:checked');const ok=c&&c.value==='b';feedback('meaningFeedback',ok,ok?'Correct. The mean is fixed; the intervals vary.':'The population mean is fixed. Repeated samples produce different intervals.')}
+function generateReport(){
+ const get=k=>document.querySelector('[data-save="'+k+'"]')?.value||'[not answered]';
+ document.getElementById('reportPreview').textContent='Project Sign Confidence Intervals Lab\\nStudent: '+get('student_name')+'\\n\\nMean confidence-interval interpretation:\\n'+get('mean_interpretation')+'\\n\\nConfidence level and width:\\n'+get('level_explanation')+'\\n\\nWhy sample size is rounded up:\\n'+get('rounding_explanation')+'\\n\\nProportion confidence-interval interpretation:\\n'+get('prop_interpretation')+'\\n\\nMeaning of 95% confidence:\\n'+get('coverage_explanation')+'\\n\\nFinal response:\\n'+get('final_response')
+}
+window.addEventListener('DOMContentLoaded',()=>{loadAll();runCoverage()})
+</script>
+</body></html>

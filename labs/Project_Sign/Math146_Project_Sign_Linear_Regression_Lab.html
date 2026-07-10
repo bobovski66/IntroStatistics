@@ -1,0 +1,412 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MATH&amp; 146 Project Sign Lab: Linear Regression</title>
+<script>
+window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},
+options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<style>
+:root{--bg:#f5f7fb;--paper:#fff;--ink:#202535;--muted:#667085;--line:#d7deea;
+--navy:#17345f;--blue:#2457a6;--blue2:#eaf1ff;--green:#24704a;--green2:#edf9f2;
+--amber:#8a6100;--amber2:#fff7df;--red:#a13d48;--red2:#fff0f2;--shadow:0 10px 28px rgba(28,39,69,.08)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif}
+header{background:linear-gradient(135deg,#1d4277,#14243f);color:#fff;padding:34px 18px 30px}
+.wrap{max-width:1080px;margin:auto}header h1{margin:0 0 7px;font-size:clamp(1.7rem,3vw,2.45rem)}
+header p{margin:4px 0;max-width:900px;color:#dce8ff}.meta{font-size:.9rem;letter-spacing:.04em}
+.toolbar{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.96);border-bottom:1px solid var(--line);backdrop-filter:blur(8px)}
+.toolbar .wrap{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;padding:10px 18px}
+.nav,.actions{display:flex;gap:8px;flex-wrap:wrap}.nav a{text-decoration:none;color:var(--blue);background:var(--blue2);border:1px solid #d5e1fb;border-radius:999px;padding:6px 10px;font-size:.9rem}
+button{border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:10px;padding:8px 12px;font-weight:650;cursor:pointer}
+button.primary{background:var(--blue);border-color:var(--blue);color:#fff}
+main.wrap{padding:22px 18px 60px}.card{background:var(--paper);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);padding:22px;margin:18px 0}
+h2{margin:0 0 10px;color:#17345f;font-size:1.38rem}h3{color:#29446f;margin:20px 0 8px;font-size:1.08rem}
+.callout{border-left:5px solid var(--blue);background:var(--blue2);border-radius:12px;padding:12px 14px;margin:14px 0}
+.warning{border-left-color:var(--amber);background:var(--amber2)}.successbox{border-left-color:var(--green);background:var(--green2)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+@media(max-width:850px){.grid2,.grid3,.grid4{grid-template-columns:1fr}}
+table{width:100%;border-collapse:collapse;margin:12px 0;background:#fff}th,td{padding:9px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+th{text-align:left;background:#fafbfe;color:var(--muted);font-size:.86rem;text-transform:uppercase;letter-spacing:.035em}
+input[type=text],input[type=number],textarea,select{width:100%;border:1px solid #c8d1df;border-radius:9px;padding:8px 10px;font:inherit;background:#fff;margin-top:5px}
+input[type=number]{text-align:right}textarea{min-height:86px;resize:vertical}.feedback{min-height:1.2em;margin-top:6px;font-size:.9rem}
+.ok{color:var(--green)}.bad{color:#b42318}.formula{background:#fbfcff;border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin:12px 0;text-align:center;font-size:1.07rem;overflow:auto}
+.mini{font-size:.9rem;color:var(--muted)}.solution{display:none;border-left:5px solid var(--green);background:var(--green2);border-radius:12px;padding:12px 14px;margin:14px 0}
+.data-box{display:flex;gap:8px;align-items:flex-start;flex-wrap:wrap}.data-box textarea{min-height:150px;flex:1 1 650px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.86rem}
+.report{white-space:pre-wrap;background:#fbfcff;border:1px solid var(--line);border-radius:14px;padding:14px;min-height:170px}
+canvas{width:100%;height:360px;border:1px solid var(--line);border-radius:14px;background:#fff}
+.choice label{font-weight:500;margin:7px 0}.choice input{width:auto;margin-right:7px}.footer-note{text-align:center;color:var(--muted);font-size:.86rem;margin:30px 0}
+@media print{.toolbar,.no-print,button{display:none!important}body{background:#fff;font-size:11pt}.card{box-shadow:none;border:1px solid #aaa;break-inside:avoid;margin:10px 0;padding:14px}header{background:#fff;color:#000;border-bottom:1px solid #999;padding:12px}header p{color:#333}main.wrap{padding:0}.solution{display:none!important}}
+</style></head>
+<body>
+<header><div class="wrap"><h1>Project Sign Lab: Linear Regression</h1>
+<p>Use report date to predict the number of objects reported, then decide how much confidence the fitted line deserves.</p>
+<p class="meta">MATH&amp; 146 · LINEAR REGRESSION</p></div></header>
+
+<div class="toolbar no-print"><div class="wrap">
+<nav class="nav"><a href="#start">Start</a><a href="#scatter">Scatterplot</a><a href="#line">Regression line</a><a href="#interpret">Interpret</a><a href="#residual">Residual</a><a href="#limits">Limits</a><a href="#report">Finish</a></nav>
+<div class="actions"><button onclick="saveAll()">Save</button><button onclick="clearAll()">Clear</button><button class="primary" onclick="generateReport()">Generate report</button></div>
+</div></div>
+
+<main class="wrap">
+<section id="start" class="card">
+<h2>Before you begin</h2>
+<p>The analysis uses the 102 Project Sign entries that have both an exact calendar date and an exact whole-number object count.</p>
+<ul>
+<li>\(x=\) days since January 1, 1947</li>
+<li>\(y=\) number of objects reported</li>
+</ul>
+<div class="warning callout"><strong>Interpret carefully:</strong> A regression line describes association in these recorded entries. It does not show that time caused the reports to change.</div>
+<h3>Objectives</h3>
+<ul>
+<li>Describe direction, form, strength, and outliers in a scatterplot.</li>
+<li>Compute a least-squares regression line from summary statistics.</li>
+<li>Interpret the slope, correlation, and coefficient of determination.</li>
+<li>Make a prediction and calculate a residual.</li>
+<li>Recognize weak fit, influential observations, and extrapolation.</li>
+</ul>
+<h3>Reference formulas</h3>
+<div class="formula">
+\[
+b=r\frac{s_y}{s_x},\qquad a=\bar y-b\bar x,\qquad \hat y=a+bx
+\]
+\[
+e=y-\hat y,\qquad r^2=\text{proportion of variability in }y\text{ explained by the linear model}
+\]
+</div>
+<label>Your name<input type="text" data-save="student_name"></label>
+</section>
+
+<section id="scatter" class="card">
+<h2>Part 1. Examine the paired data</h2>
+<div class="data-box"><textarea id="pairData" readonly>x,y
+15,1
+136,1
+152,1
+160,1
+162,2
+164,10
+169,1
+172,1
+173,10
+174,9
+174,1
+174,6
+178,1
+179,18
+179,18
+179,1
+180,1
+180,2
+183,10
+184,5
+184,1
+184,4
+184,1
+184,3
+184,4
+184,1
+184,5
+184,3
+184,1
+184,3
+184,3
+186,1
+186,1
+186,1
+187,1
+187,1
+187,1
+187,1
+187,5
+188,2
+188,2
+188,2
+188,2
+188,3
+188,3
+188,1
+188,1
+189,5
+189,1
+190,1
+190,1
+190,1
+191,1
+192,1
+200,1
+203,1
+209,2
+209,2
+209,1
+214,1
+215,1
+215,2
+217,1
+217,1
+221,1
+224,1
+224,2
+225,1
+250,12
+256,1
+280,1
+284,1
+285,1
+292,2
+292,1
+305,1
+315,2
+363,1
+363,1
+363,1
+363,1
+367,1
+369,1
+371,1
+371,1
+371,1
+371,1
+371,1
+371,1
+371,1
+371,1
+371,1
+371,1
+371,1
+371,1
+371,1
+371,1
+371,1
+371,1
+371,1
+373,1
+375,1</textarea><button onclick="copyText('pairData','copyFeedback')">Copy data</button></div>
+<div id="copyFeedback" class="feedback"></div>
+<canvas id="scatterCanvas" aria-label="Scatterplot with regression line"></canvas>
+
+<div class="grid2">
+<label>Explanatory variable<select id="explanatory" data-save="explanatory"><option value="">Choose</option><option value="date">days since January 1, 1947</option><option value="count">number of objects reported</option></select></label>
+<label>Response variable<select id="response" data-save="response"><option value="">Choose</option><option value="date">days since January 1, 1947</option><option value="count">number of objects reported</option></select></label>
+</div>
+<p><button onclick="checkVariables()">Check variables</button></p><div id="variableFeedback" class="feedback"></div>
+
+<label>Describe the scatterplot’s direction, form, strength, and any noticeable outliers.
+<textarea data-save="scatter_description"></textarea></label>
+</section>
+
+<section id="line" class="card">
+<h2>Part 2. Compute the regression line</h2>
+<p>Use the summary statistics below.</p>
+<table><thead><tr><th>\(n\)</th><th>\(\bar x\)</th><th>\(s_x\)</th><th>\(\bar y\)</th><th>\(s_y\)</th><th>\(r\)</th></tr></thead>
+<tbody><tr><td>102</td><td>239.441</td><td>82.750</td><td>2.284</td><td>3.116</td><td>-0.2583</td></tr></tbody></table>
+
+<div class="grid4">
+<label>Slope, \(b=r\frac{s_y}{s_x}\)<input type="number" id="reg_b" data-save="reg_b" step="0.0001"></label>
+<label>Intercept, \(a=\bar y-b\bar x\)<input type="number" id="reg_a" data-save="reg_a" step="0.001"></label>
+<label>Correlation, \(r\)<input type="number" id="reg_r" data-save="reg_r" step="0.0001"></label>
+<label>Coefficient of determination, \(r^2\)<input type="number" id="reg_r2" data-save="reg_r2" step="0.0001"></label>
+</div>
+<p><button onclick="checkRegression()">Check Part 2</button></p><div id="regFeedback" class="feedback"></div>
+<div id="regSolution" class="solution">
+\[
+b=(-0.2583)\frac{3.116}{82.750}=-0.00973,
+\qquad
+a=2.284-(-0.00973)(239.441)=4.6132.
+\]
+Therefore,
+\[
+\hat y=4.6132 - 0.00973x.
+\]
+Also, \(r=-0.2583\) and \(r^2=0.0667\).
+</div>
+
+<label>Write the regression equation using \(\hat y\), then state whether the correlation is positive or negative and weak, moderate, or strong.
+<textarea data-save="equation_description"></textarea></label>
+</section>
+
+<section id="interpret" class="card">
+<h2>Part 3. Interpret the model</h2>
+<div class="grid3">
+<label>Predicted change per day<input type="number" id="int_day" data-save="int_day" step="0.0001"></label>
+<label>Predicted change per 30 days<input type="number" id="int_month" data-save="int_month" step="0.001"></label>
+<label>Percent of variability explained<input type="number" id="int_r2pct" data-save="int_r2pct" step="0.01"></label>
+</div>
+<p><button onclick="checkInterpretationNumbers()">Check values</button></p><div id="interpretFeedback" class="feedback"></div>
+<div id="interpretSolution" class="solution">
+The slope is \(-0.00973\) object per day, or about \(-0.292\) object per 30 days. The model explains \(6.67\%\) of the variation in recorded object count.
+</div>
+
+<label>Interpret the slope in context without claiming causation.
+<textarea data-save="slope_interpretation"></textarea></label>
+<label>Interpret \(r^2\) in context. Also state what the remaining variability represents.
+<textarea data-save="r2_interpretation"></textarea></label>
+<label>The intercept predicts \(\hat y=4.6132\) when \(x=0\), or January 1, 1947. Explain why this intercept should be interpreted cautiously.
+<textarea data-save="intercept_interpretation"></textarea></label>
+</section>
+
+<section id="residual" class="card">
+<h2>Part 4. Prediction and residual</h2>
+<p>One September 8, 1947 entry has \(x=250\) and reports \(y=12\) objects.</p>
+<div class="grid3">
+<label>Predicted count, \(\hat y\)<input type="number" id="res_pred" data-save="res_pred" step="0.001"></label>
+<label>Residual, \(e=y-\hat y\)<input type="number" id="res_value" data-save="res_value" step="0.001"></label>
+<label>Prediction at \(x=300\)<input type="number" id="pred300" data-save="pred300" step="0.001"></label>
+</div>
+<p><button onclick="checkResidual()">Check Part 4</button></p><div id="resFeedback" class="feedback"></div>
+<div id="resSolution" class="solution">
+\[
+\hat y(250)=4.6132 - 0.00973(250)=2.182,
+\]
+\[
+e=12-2.182=9.818.
+\]
+At \(x=300\), \(\hat y=1.695\).
+</div>
+<div class="choice">
+<p><strong>A positive residual means the point is:</strong></p>
+<label><input type="radio" name="resMeaning" value="above">above the regression line</label>
+<label><input type="radio" name="resMeaning" value="below">below the regression line</label>
+</div>
+<p><button onclick="checkResidualMeaning()">Check</button></p><div id="resMeaningFeedback" class="feedback"></div>
+
+<canvas id="residualCanvas" aria-label="Residual plot"></canvas>
+<label>Does the residual plot suggest that the line makes precise predictions? Explain.
+<textarea data-save="residual_plot_comment"></textarea></label>
+</section>
+
+<section id="limits" class="card">
+<h2>Part 5. Limits of the model</h2>
+<p>The observed \(x\)-values range from \(15\) to \(375\). The fitted line predicts the following at \(x=500\):</p>
+<div class="grid2">
+<label>\(\hat y(500)\)<input type="number" id="extra_pred" data-save="extra_pred" step="0.001"></label>
+<label>Day when the line reaches \(\hat y=0\)<input type="number" id="zero_day" data-save="zero_day" step="0.1"></label>
+</div>
+<p><button onclick="checkExtrapolation()">Check values</button></p><div id="extraFeedback" class="feedback"></div>
+<div id="extraSolution" class="solution">
+\[
+\hat y(500)=-0.250,
+\qquad
+0=4.6132 - 0.00973x
+\Rightarrow x\approx474.3.
+\]
+Both calculations expose the danger of extending the line beyond the observed data.
+</div>
+
+<div class="choice">
+<p><strong>Is using the line at \(x=500\) appropriate?</strong></p>
+<label><input type="radio" name="extraChoice" value="yes">Yes, because every regression line can be used for any \(x\).</label>
+<label><input type="radio" name="extraChoice" value="no">No, because this is extrapolation and it produces an impossible negative count.</label>
+</div>
+<p><button onclick="checkExtraChoice()">Check</button></p><div id="extraChoiceFeedback" class="feedback"></div>
+
+<h3>Outlier sensitivity</h3>
+<p>Two entries on June 29 report 18 objects. Removing only those two points changes the fitted line to</p>
+<div class="formula">
+\[
+\hat y=3.6546 - 0.00700x,\qquad r^2=0.0703.
+\]
+</div>
+<label>What does this comparison suggest about the influence of the two large observations and the overall strength of the trend?
+<textarea data-save="outlier_comment"></textarea></label>
+
+<div class="choice">
+<p><strong>Which conclusion is best supported?</strong></p>
+<label><input type="radio" name="bestConclusion" value="a">Date accurately predicts the count for individual reports.</label>
+<label><input type="radio" name="bestConclusion" value="b">There is a weak negative linear association, but most variation remains unexplained.</label>
+<label><input type="radio" name="bestConclusion" value="c">Later dates caused observers to report fewer objects.</label>
+</div>
+<p><button onclick="checkBestConclusion()">Check</button></p><div id="bestConclusionFeedback" class="feedback"></div>
+</section>
+
+<section id="report" class="card">
+<h2>Final response</h2>
+<label>Write 6–8 sentences summarizing the regression equation, slope, \(r\), \(r^2\), one residual, and two limitations of the model.
+<textarea data-save="final_response"></textarea></label>
+<p><button class="primary" onclick="generateReport()">Generate report</button> <button onclick="copyReport()">Copy report</button> <button onclick="window.print()">Print</button></p>
+<div id="reportPreview" class="report">Your report will appear here.</div>
+</section>
+<p class="footer-note">Project Sign Applied Data Lab · Linear Regression</p>
+</main>
+
+<script>
+const A={"n": 102, "xbar": 239.44117647058823, "sx": 82.74984054059139, "ybar": 2.284313725490196, "sy": 3.1161586246321202, "r": -0.2582855081654872, "r2": 0.06671140372830395, "b": -0.009726406826035688, "a": 4.613216018747741, "monthly_change": -0.29179220478107065, "pred250": 2.181614312238819, "res250": 9.81838568776118, "pred300": 1.6952939709370343, "pred500": -0.24998739427010275, "sse": 915.3273657375653, "sst": 980.7549019607841, "rmse": 3.0254377629321105, "zero_x": 474.2980734055935, "r_no": -0.26512817838983044, "r2_no": 0.07029295097630975, "b_no": -0.0070000127896162915, "a_no": 3.6545530778211606, "xmin": 15.0, "xmax": 375.0};
+const X=[15, 136, 152, 160, 162, 164, 169, 172, 173, 174, 174, 174, 178, 179, 179, 179, 180, 180, 183, 184, 184, 184, 184, 184, 184, 184, 184, 184, 184, 184, 184, 186, 186, 186, 187, 187, 187, 187, 187, 188, 188, 188, 188, 188, 188, 188, 188, 189, 189, 190, 190, 190, 191, 192, 200, 203, 209, 209, 209, 214, 215, 215, 217, 217, 221, 224, 224, 225, 250, 256, 280, 284, 285, 292, 292, 305, 315, 363, 363, 363, 363, 367, 369, 371, 371, 371, 371, 371, 371, 371, 371, 371, 371, 371, 371, 371, 371, 371, 371, 371, 373, 375];
+const Y=[1, 1, 1, 1, 2, 10, 1, 1, 10, 9, 1, 6, 1, 18, 18, 1, 1, 2, 10, 5, 1, 4, 1, 3, 4, 1, 5, 3, 1, 3, 3, 1, 1, 1, 1, 1, 1, 1, 5, 2, 2, 2, 2, 3, 3, 1, 1, 5, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 2, 1, 1, 1, 1, 2, 1, 12, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
+
+function num(id){return parseFloat(document.getElementById(id).value)}
+function closeEnough(a,b,t){return Number.isFinite(a)&&Math.abs(a-b)<=t}
+function feedback(id,ok,msg){const e=document.getElementById(id);e.className='feedback '+(ok?'ok':'bad');e.textContent=msg}
+function show(id){document.getElementById(id).style.display='block'}
+function saveAll(){document.querySelectorAll('[data-save]').forEach(e=>localStorage.setItem(location.pathname+'::'+e.dataset.save,e.value));alert('Answers saved in this browser.')}
+function loadAll(){document.querySelectorAll('[data-save]').forEach(e=>{const v=localStorage.getItem(location.pathname+'::'+e.dataset.save);if(v!==null)e.value=v})}
+function clearAll(){if(!confirm('Clear all saved answers on this page?'))return;document.querySelectorAll('[data-save]').forEach(e=>{e.value='';localStorage.removeItem(location.pathname+'::'+e.dataset.save)});location.reload()}
+function copyText(id,fb){const box=document.getElementById(id);navigator.clipboard.writeText(box.value).then(()=>feedback(fb,true,'Copied to the clipboard.')).catch(()=>{box.focus();box.select();feedback(fb,false,'The data are selected. Press Ctrl+C or Command+C.')})}
+function copyReport(){navigator.clipboard.writeText(document.getElementById('reportPreview').textContent)}
+
+function checkVariables(){
+ const ok=document.getElementById('explanatory').value==='date'&&document.getElementById('response').value==='count';
+ feedback('variableFeedback',ok,ok?'Correct. Date is used to predict reported count.':'The explanatory variable goes on the horizontal axis and is used to predict the response.')
+}
+function checkRegression(){
+ const ok=closeEnough(num('reg_b'),A.b,.00006)&&closeEnough(num('reg_a'),A.a,.002)&&closeEnough(num('reg_r'),A.r,.00006)&&closeEnough(num('reg_r2'),A.r2,.00006);
+ feedback('regFeedback',ok,ok?'Correct. The line has a weak negative slope.':'Use b=r(sy/sx), then a=y-bar-bx-bar, and square r for r-squared.');if(ok)show('regSolution')
+}
+function checkInterpretationNumbers(){
+ const ok=closeEnough(num('int_day'),A.b,.00006)&&closeEnough(num('int_month'),A.monthly_change,.002)&&closeEnough(num('int_r2pct'),100*A.r2,.02);
+ feedback('interpretFeedback',ok,ok?'Correct. The numerical trend is small and the explained percentage is low.':'Multiply the daily slope by 30 and convert r-squared to a percentage.');if(ok)show('interpretSolution')
+}
+function checkResidual(){
+ const ok=closeEnough(num('res_pred'),A.pred250,.002)&&closeEnough(num('res_value'),A.res250,.002)&&closeEnough(num('pred300'),A.pred300,.002);
+ feedback('resFeedback',ok,ok?'Correct. The September 8 observation is far above the fitted line.':'Substitute x into the line, then compute actual minus predicted.');if(ok)show('resSolution')
+}
+function checkResidualMeaning(){const c=document.querySelector('input[name="resMeaning"]:checked');const ok=c&&c.value==='above';feedback('resMeaningFeedback',ok,ok?'Correct. Positive residuals lie above the line.':'Residual equals actual minus predicted.')}
+function checkExtrapolation(){
+ const ok=closeEnough(num('extra_pred'),A.pred500,.002)&&closeEnough(num('zero_day'),A.zero_x,.2);
+ feedback('extraFeedback',ok,ok?'Correct. The extension eventually predicts impossible negative counts.':'Substitute x=500, and solve 0=a+bx for x.');if(ok)show('extraSolution')
+}
+function checkExtraChoice(){const c=document.querySelector('input[name="extraChoice"]:checked');const ok=c&&c.value==='no';feedback('extraChoiceFeedback',ok,ok?'Correct. This is extrapolation outside the observed range.':'Compare 500 with the observed x-range and consider whether a negative count is possible.')}
+function checkBestConclusion(){const c=document.querySelector('input[name="bestConclusion"]:checked');const ok=c&&c.value==='b';feedback('bestConclusionFeedback',ok,ok?'Correct. The line summarizes a weak trend but leaves most variation unexplained.':'Avoid claims of precise prediction or causation.')}
+
+function setupCanvas(id,h=360){
+ const c=document.getElementById(id),d=window.devicePixelRatio||1,w=c.clientWidth;c.width=w*d;c.height=h*d;
+ const ctx=c.getContext('2d');ctx.scale(d,d);ctx.clearRect(0,0,w,h);return [ctx,w,h]
+}
+function drawScatter(){
+ const [c,w,h]=setupCanvas('scatterCanvas'),L=55,R=24,T=24,B=54,iw=w-L-R,ih=h-T-B,xmin=0,xmax=400,ymin=0,ymax=19;
+ const px=v=>L+(v-xmin)/(xmax-xmin)*iw,py=v=>T+ih-(v-ymin)/(ymax-ymin)*ih;
+ c.strokeStyle='#e2e7ef';for(let yv=0;yv<=18;yv+=3){c.beginPath();c.moveTo(L,py(yv));c.lineTo(L+iw,py(yv));c.stroke()}
+ c.strokeStyle='#667085';c.beginPath();c.moveTo(L,T);c.lineTo(L,T+ih);c.lineTo(L+iw,T+ih);c.stroke();
+ c.fillStyle='rgba(36,87,166,.65)';X.forEach((v,i)=>{c.beginPath();c.arc(px(v),py(Y[i]),3.4,0,2*Math.PI);c.fill()});
+ c.strokeStyle='#a13d48';c.lineWidth=2.5;c.beginPath();c.moveTo(px(xmin),py(A.a+A.b*xmin));c.lineTo(px(xmax),py(A.a+A.b*xmax));c.stroke();
+ c.font='12px system-ui';c.fillStyle='#374151';c.textAlign='center';[0,100,200,300,400].forEach(v=>c.fillText(v,px(v),T+ih+20));
+ c.textAlign='right';[0,3,6,9,12,15,18].forEach(v=>c.fillText(v,L-7,py(v)+4));
+ c.textAlign='center';c.fillText('days since January 1, 1947',L+iw/2,h-9)
+}
+function drawResiduals(){
+ const [c,w,h]=setupCanvas('residualCanvas',330),L=55,R=24,T=24,B=54,iw=w-L-R,ih=h-T-B,xmin=0,xmax=400,ymin=-5,ymax=16;
+ const px=v=>L+(v-xmin)/(xmax-xmin)*iw,py=v=>T+ih-(v-ymin)/(ymax-ymin)*ih;
+ c.strokeStyle='#e2e7ef';[-5,0,5,10,15].forEach(v=>{c.beginPath();c.moveTo(L,py(v));c.lineTo(L+iw,py(v));c.stroke()});
+ c.strokeStyle='#a13d48';c.lineWidth=2;c.beginPath();c.moveTo(L,py(0));c.lineTo(L+iw,py(0));c.stroke();
+ c.fillStyle='rgba(36,87,166,.7)';X.forEach((v,i)=>{const e=Y[i]-(A.a+A.b*v);c.beginPath();c.arc(px(v),py(e),3.2,0,2*Math.PI);c.fill()});
+ c.strokeStyle='#667085';c.lineWidth=1;c.beginPath();c.moveTo(L,T);c.lineTo(L,T+ih);c.lineTo(L+iw,T+ih);c.stroke();
+ c.font='12px system-ui';c.fillStyle='#374151';c.textAlign='center';[0,100,200,300,400].forEach(v=>c.fillText(v,px(v),T+ih+20));
+ c.textAlign='right';[-5,0,5,10,15].forEach(v=>c.fillText(v,L-7,py(v)+4));
+ c.textAlign='center';c.fillText('days since January 1, 1947',L+iw/2,h-9)
+}
+function generateReport(){
+ const get=k=>document.querySelector('[data-save="'+k+'"]')?.value||'[not answered]';
+ document.getElementById('reportPreview').textContent=
+'Project Sign Linear Regression Lab\\nStudent: '+get('student_name')+
+'\\n\\nScatterplot description:\\n'+get('scatter_description')+
+'\\n\\nRegression equation and correlation:\\n'+get('equation_description')+
+'\\n\\nSlope interpretation:\\n'+get('slope_interpretation')+
+'\\n\\nr-squared interpretation:\\n'+get('r2_interpretation')+
+'\\n\\nIntercept interpretation:\\n'+get('intercept_interpretation')+
+'\\n\\nResidual plot:\\n'+get('residual_plot_comment')+
+'\\n\\nOutlier sensitivity:\\n'+get('outlier_comment')+
+'\\n\\nFinal response:\\n'+get('final_response')
+}
+window.addEventListener('DOMContentLoaded',()=>{loadAll();drawScatter();drawResiduals()})
+</script>
+</body></html>
