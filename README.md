@@ -55,6 +55,19 @@ The materials are designed to support student learning through guided practice, 
     [Lab](https://bobovski66.github.io/IntroStatistics/labs/Math146_Week10_Lab.html)  
     Linear regression.
 
+## Applied Data Labs
+
+These labs apply the course concepts to authentic datasets. They emphasize the full statistical process: identifying variables, organizing data, selecting an appropriate probability model, performing calculations, and interpreting the results in context.
+
+1. [Project Sign: Discrete Distributions](https://bobovski66.github.io/IntroStatistics/labs/Math146_Project_Sign_Discrete_Lab.html)
+   [Answer Key](https://bobovski66.github.io/IntroStatistics/labs/Math146_Project_Sign_Discrete_Key.html)
+   Uses historical Project Sign incident data to construct an empirical probability distribution and explore expected value, variance, binomial distributions, geometric distributions, and simulation.
+
+2. [Project Sign: Uniform and Normal Distributions](https://bobovski66.github.io/IntroStatistics/labs/Math146_Project_Sign_Continuous_Lab.html)
+   [Answer Key](https://bobovski66.github.io/IntroStatistics/labs/Math146_Project_Sign_Continuous_Key.html)
+   Uses reported times and altitude estimates to explore uniform distributions, continuous probability, z-scores, normal probabilities, the empirical rule, and the limitations of mathematical models.
+
+
 ## Interactive Demonstrations
 
 These demonstrations are stored in the `demos/` directory. The order below follows the general topic sequence of the course: populations and samples, sample statistics, discrete probability models, long-run behavior, normal distributions, the Central Limit Theorem, confidence intervals, hypothesis testing, and categorical models.
