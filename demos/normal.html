@@ -1,598 +1,859 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Normal Distribution Explorer</title>
+  <title>Normal Distribution</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
-    :root {
-      --bg: #f6f7fb;
-      --card: #ffffff;
-      --ink: #172033;
-      --muted: #5f6b7a;
-      --line: #d9deea;
-      --accent: #3157d5;
-      --accent-soft: rgba(49, 87, 213, 0.14);
-      --shade: rgba(33, 150, 136, 0.28);
-      --shade-line: #219688;
-      --warning: #a45b00;
-      --good: #1f7a4d;
-      --radius: 18px;
+    :root, [data-theme="light"] {
+      --bg: #faf7f2;
+      --panel: #ffffff;
+      --ink: #1a1815;
+      --muted: #6b6660;
+      --line: #e5dfd5;
+      --line-strong: #cbc4b5;
+      --accent: #8b2a1f;
+      --accent-soft: rgba(139, 42, 31, 0.10);
+      --curve: #2d5a80;
+      --curve-fill: rgba(45, 90, 128, 0.06);
+      --shade: #2d7a70;
+      --shade-fill: rgba(45, 122, 112, 0.22);
+      --grid: rgba(107, 102, 96, 0.15);
+      --btn-hover: #f5f0e6;
+    }
+    [data-theme="dark"] {
+      --bg: #0f0e0d;
+      --panel: #1a1815;
+      --ink: #f0ebe0;
+      --muted: #8f887f;
+      --line: #2d2a26;
+      --line-strong: #3f3a34;
+      --accent: #d97e5a;
+      --accent-soft: rgba(217, 126, 90, 0.14);
+      --curve: #7ba8d6;
+      --curve-fill: rgba(123, 168, 214, 0.08);
+      --shade: #4ec5b0;
+      --shade-fill: rgba(78, 197, 176, 0.28);
+      --grid: rgba(143, 136, 127, 0.18);
+      --btn-hover: #24211d;
     }
 
     * { box-sizing: border-box; }
 
+    html, body {
+      background: var(--bg);
+      color: var(--ink);
+      transition: background 240ms ease, color 240ms ease;
+    }
+
     body {
       margin: 0;
-      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      color: var(--ink);
-      background:
-        radial-gradient(circle at top left, rgba(49, 87, 213, 0.14), transparent 34rem),
-        linear-gradient(180deg, #ffffff 0%, var(--bg) 42%);
+      font-family: 'Crimson Pro', Georgia, 'Times New Roman', serif;
+      font-size: 18px;
+      line-height: 1.4;
       min-height: 100vh;
     }
 
     .page {
-      width: min(1180px, calc(100% - 32px));
+      max-width: 1180px;
       margin: 0 auto;
-      padding: 34px 0 44px;
+      padding: 24px 20px 40px;
     }
 
-    .hero {
-      display: grid;
-      grid-template-columns: 1.4fr 0.9fr;
-      gap: 22px;
-      align-items: stretch;
-      margin-bottom: 22px;
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      gap: 16px;
     }
-
-    .hero-card, .panel, .stat-card {
-      background: rgba(255, 255, 255, 0.9);
-      border: 1px solid rgba(217, 222, 234, 0.9);
-      border-radius: var(--radius);
-      box-shadow: 0 16px 40px rgba(28, 37, 65, 0.08);
-    }
-
-    .hero-card { padding: 28px; }
 
     h1 {
-      margin: 0 0 10px;
-      font-size: clamp(2rem, 4vw, 3.5rem);
-      letter-spacing: -0.05em;
-      line-height: 1;
-    }
-
-    .subtitle {
+      font-family: 'Crimson Pro', serif;
+      font-weight: 600;
+      font-size: 2rem;
       margin: 0;
-      color: var(--muted);
-      font-size: 1.06rem;
-      line-height: 1.55;
-      max-width: 68ch;
+      letter-spacing: -0.01em;
     }
 
-    .formula {
-      margin-top: 20px;
+    h1 .greek {
+      color: var(--muted);
+      font-style: italic;
+      font-weight: 400;
+      font-size: 0.75em;
+      margin-left: 10px;
+    }
+
+    .theme-toggle {
+      background: var(--panel);
+      border: 1px solid var(--line-strong);
+      color: var(--ink);
+      border-radius: 999px;
+      padding: 8px 16px;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.82rem;
+      cursor: pointer;
       display: inline-flex;
-      flex-wrap: wrap;
-      gap: 8px;
       align-items: center;
-      padding: 12px 14px;
-      background: #f2f5ff;
-      color: #243b91;
-      border: 1px solid #dfe5ff;
-      border-radius: 14px;
-      font-family: "Cambria Math", "Times New Roman", serif;
-      font-size: 1.1rem;
+      gap: 8px;
+      transition: background 160ms ease, border-color 160ms ease;
     }
-
-    .note-card {
-      padding: 22px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      gap: 12px;
-    }
-
-    .note-card h2 {
-      margin: 0;
-      font-size: 1.1rem;
-    }
-
-    .note-card p {
-      margin: 0;
-      color: var(--muted);
-      line-height: 1.5;
-    }
+    .theme-toggle:hover { background: var(--btn-hover); border-color: var(--accent); }
+    .theme-toggle .icon { font-size: 1rem; }
 
     .layout {
       display: grid;
-      grid-template-columns: minmax(290px, 360px) 1fr;
-      gap: 22px;
+      grid-template-columns: 320px 1fr;
+      gap: 20px;
       align-items: start;
     }
 
-    .panel { padding: 20px; }
-
-    .panel h2 {
-      margin: 0 0 14px;
-      font-size: 1.2rem;
-      letter-spacing: -0.02em;
-    }
-
-    .control {
-      padding: 14px 0;
-      border-top: 1px solid var(--line);
-    }
-
-    .control:first-of-type { border-top: none; padding-top: 0; }
-
-    label {
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-      font-weight: 700;
-      margin-bottom: 8px;
-    }
-
-    label span:last-child {
-      color: var(--accent);
-      font-variant-numeric: tabular-nums;
-    }
-
-    input[type="range"] { width: 100%; accent-color: var(--accent); }
-
-    input[type="number"] {
-      width: 100%;
-      padding: 10px 11px;
-      border-radius: 12px;
+    .chart-card {
+      background: var(--panel);
       border: 1px solid var(--line);
-      font-size: 1rem;
-      background: #fff;
-      color: var(--ink);
+      border-radius: 10px;
+      padding: 20px;
     }
-
-    .two-col {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
-
-    .buttons {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
-      margin-top: 10px;
-    }
-
-    button {
-      border: 1px solid #cfd6e8;
-      background: #fff;
-      color: #24304a;
-      border-radius: 12px;
-      padding: 10px 12px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: transform 120ms ease, background 120ms ease, border-color 120ms ease;
-    }
-
-    button:hover {
-      transform: translateY(-1px);
-      border-color: var(--accent);
-      background: #f6f8ff;
-    }
-
-    .primary {
-      background: var(--accent);
-      border-color: var(--accent);
-      color: white;
-    }
-
-    .chart-card { padding: 18px; }
 
     .chart-wrap {
-      height: 430px;
+      height: 520px;
       position: relative;
     }
 
     canvas { max-width: 100%; }
 
-    .stats {
+    .readout {
+      text-align: center;
+      margin: 18px 0 4px;
+      font-family: 'Crimson Pro', serif;
+      font-size: 1.55rem;
+      line-height: 1.4;
+    }
+    .readout .prob {
+      font-family: 'DM Mono', monospace;
+      font-weight: 500;
+      color: var(--shade);
+      font-size: 1.7rem;
+      margin-left: 4px;
+    }
+    .readout .pct {
+      font-family: 'DM Mono', monospace;
+      color: var(--muted);
+      font-size: 1rem;
+      margin-left: 8px;
+    }
+
+    .stat-row {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 12px;
-      margin-top: 14px;
+      gap: 10px;
+      margin-top: 18px;
     }
 
-    .stat-card {
-      padding: 15px;
-      box-shadow: none;
-      background: #fff;
+    .stat {
+      padding: 12px 14px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: var(--panel);
     }
-
-    .stat-card .label {
-      font-size: 0.78rem;
+    .stat .k {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--muted);
       text-transform: uppercase;
       letter-spacing: 0.08em;
-      color: var(--muted);
-      margin-bottom: 5px;
+    }
+    .stat .v {
+      font-family: 'DM Mono', monospace;
+      font-size: 1.15rem;
+      font-weight: 500;
+      margin-top: 4px;
+      color: var(--ink);
     }
 
-    .stat-card .value {
-      font-size: 1.35rem;
-      font-weight: 800;
-      font-variant-numeric: tabular-nums;
-    }
-
-    .explain {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-      margin-top: 22px;
-    }
-
-    .mini {
-      background: #fff;
+    .controls {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      background: var(--panel);
       border: 1px solid var(--line);
-      border-radius: 16px;
-      padding: 16px;
+      border-radius: 10px;
+      padding: 20px;
+      position: sticky;
+      top: 16px;
     }
 
-    .mini h3 {
-      margin: 0 0 8px;
+    .ctrl-block { display: flex; flex-direction: column; gap: 14px; }
+    .divider { height: 1px; background: var(--line); margin: 2px 0; }
+
+    .slider-row { display: flex; flex-direction: column; gap: 8px; }
+
+    .slider-label {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-family: 'Crimson Pro', serif;
+      font-size: 1.05rem;
+    }
+    .slider-label .num {
+      font-family: 'DM Mono', monospace;
+      font-size: 1.05rem;
+      font-weight: 500;
+      color: var(--accent);
+    }
+
+    input[type="range"] {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 6px;
+      background: var(--line);
+      border-radius: 3px;
+      outline: none;
+      cursor: pointer;
+    }
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 20px;
+      height: 20px;
+      background: var(--accent);
+      border-radius: 50%;
+      cursor: pointer;
+      border: none;
+    }
+    input[type="range"]::-moz-range-thumb {
+      width: 20px;
+      height: 20px;
+      background: var(--accent);
+      border-radius: 50%;
+      cursor: pointer;
+      border: none;
+    }
+
+    .section-label {
+      font-family: 'Crimson Pro', serif;
+      font-size: 0.95rem;
+      color: var(--muted);
+      font-style: italic;
+      margin-bottom: 4px;
+    }
+
+    .mode-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; }
+
+    .mode-btn {
+      padding: 9px 8px;
+      border: 1px solid var(--line-strong);
+      background: var(--panel);
+      color: var(--ink);
+      border-radius: 6px;
+      font-family: 'Crimson Pro', serif;
+      font-size: 0.98rem;
+      cursor: pointer;
+      transition: background 140ms ease, border-color 140ms ease, color 140ms ease;
+    }
+    .mode-btn:hover { background: var(--btn-hover); }
+    .mode-btn.active {
+      background: var(--accent);
+      color: #ffffff;
+      border-color: var(--accent);
+    }
+    [data-theme="dark"] .mode-btn.active { color: #0f0e0d; }
+
+    .interval-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .interval-row .field label {
+      font-family: 'Crimson Pro', serif;
+      font-size: 0.9rem;
+      color: var(--muted);
+      display: block;
+      margin-bottom: 4px;
+    }
+    .interval-row input {
+      width: 100%;
+      padding: 9px 11px;
+      border: 1px solid var(--line-strong);
+      border-radius: 6px;
+      background: var(--panel);
+      color: var(--ink);
+      font-family: 'DM Mono', monospace;
       font-size: 1rem;
     }
+    .interval-row input:focus { outline: 2px solid var(--accent-soft); outline-offset: -1px; border-color: var(--accent); }
+    .interval-row input:disabled { opacity: 0.35; cursor: not-allowed; }
 
-    .mini p {
-      margin: 0;
+    .quick-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+    .quick-btn {
+      padding: 9px 10px;
+      border: 1px solid var(--line-strong);
+      background: var(--panel);
+      color: var(--ink);
+      border-radius: 6px;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.88rem;
+      cursor: pointer;
+      transition: background 140ms ease, border-color 140ms ease;
+    }
+    .quick-btn:hover { background: var(--btn-hover); border-color: var(--accent); }
+
+    .preset-strip {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+    }
+    .preset-btn {
+      padding: 8px 10px;
+      border: 1px solid var(--line-strong);
+      background: var(--panel);
+      color: var(--ink);
+      border-radius: 6px;
+      font-family: 'Crimson Pro', serif;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: background 140ms ease, border-color 140ms ease;
+    }
+    .preset-btn:hover { background: var(--btn-hover); border-color: var(--accent); }
+
+    .hints {
+      margin-top: 24px;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.76rem;
       color: var(--muted);
-      line-height: 1.45;
-      font-size: 0.94rem;
+      text-align: center;
+      letter-spacing: 0.02em;
+    }
+    .hints kbd {
+      background: var(--panel);
+      border: 1px solid var(--line-strong);
+      border-bottom-width: 2px;
+      padding: 1px 6px;
+      border-radius: 4px;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      margin: 0 2px;
+      color: var(--ink);
     }
 
-    .pill {
-      display: inline-block;
-      padding: 4px 8px;
-      border-radius: 999px;
-      background: var(--accent-soft);
-      color: #253f9d;
-      font-size: 0.8rem;
-      font-weight: 800;
-      margin-bottom: 8px;
-    }
-
-    .footer-note {
-      margin: 22px 0 0;
-      color: var(--muted);
-      font-size: 0.93rem;
-      line-height: 1.45;
-    }
-
-    @media (max-width: 920px) {
-      .hero, .layout, .explain { grid-template-columns: 1fr; }
-      .stats { grid-template-columns: repeat(2, 1fr); }
-      .chart-wrap { height: 360px; }
-    }
-
-    @media (max-width: 540px) {
-      .stats, .two-col, .buttons { grid-template-columns: 1fr; }
-      .page { width: min(100% - 20px, 1180px); padding-top: 18px; }
-      .hero-card, .panel { padding: 16px; }
+    @media (max-width: 900px) {
+      .layout { grid-template-columns: 1fr; }
+      .controls { position: static; }
+      .chart-wrap { height: 380px; }
+      .stat-row { grid-template-columns: repeat(2, 1fr); }
+      h1 { font-size: 1.6rem; }
+      .readout { font-size: 1.25rem; }
+      .readout .prob { font-size: 1.4rem; }
     }
   </style>
 </head>
 <body>
   <main class="page">
-    <section class="hero">
-      <div class="hero-card">
-        <h1>Normal Distribution Explorer</h1>
-        <p class="subtitle">
-          Adjust the mean and standard deviation to see how a normal model moves, spreads out,
-          and assigns probability to intervals. The shaded region represents the probability between
-          the lower and upper cutoffs.
-        </p>
-        <div class="formula" aria-label="Normal density formula">
-          f(x) = 1/(σ√(2π)) · e<sup>−(x−μ)²/(2σ²)</sup>
-        </div>
-      </div>
-      <aside class="note-card hero-card">
-        <h2>How to read the picture</h2>
-        <p><strong>The curve is density, not probability.</strong> Probability comes from area under the curve.</p>
-        <p><strong>μ</strong> shifts the center. <strong>σ</strong> controls spread. Larger σ means a wider, flatter curve.</p>
-      </aside>
-    </section>
+    <header>
+      <h1>Normal Distribution<span class="greek">N(μ, σ²)</span></h1>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle light and dark theme">
+        <span class="icon" id="themeIcon">☾</span>
+        <span id="themeText">Dark</span>
+      </button>
+    </header>
 
     <section class="layout">
-      <aside class="panel">
-        <h2>Controls</h2>
-
-        <div class="control">
-          <label for="mean"><span>Mean μ</span><span id="meanValue">0.00</span></label>
-          <input type="range" id="mean" min="-10" max="10" step="0.1" value="0" />
+      <aside class="controls">
+        <div class="ctrl-block">
+          <div class="slider-row">
+            <div class="slider-label"><span>Mean μ</span><span class="num" id="meanNum">0.00</span></div>
+            <input type="range" id="mean" min="-10" max="10" step="0.1" value="0" />
+          </div>
+          <div class="slider-row">
+            <div class="slider-label"><span>Std dev σ</span><span class="num" id="sdNum">1.00</span></div>
+            <input type="range" id="sd" min="0.2" max="5" step="0.1" value="1" />
+          </div>
         </div>
 
-        <div class="control">
-          <label for="stddev"><span>Standard deviation σ</span><span id="stddevValue">1.00</span></label>
-          <input type="range" id="stddev" min="0.2" max="5" step="0.1" value="1" />
-        </div>
+        <div class="divider"></div>
 
-        <div class="control">
-          <label><span>Probability interval</span><span id="intervalLabel">[-1.00, 1.00]</span></label>
-          <div class="two-col">
-            <div>
-              <label for="lower" style="font-weight:600; font-size:.9rem;"><span>Lower</span></label>
-              <input type="number" id="lower" step="0.1" value="-1" />
-            </div>
-            <div>
-              <label for="upper" style="font-weight:600; font-size:.9rem;"><span>Upper</span></label>
-              <input type="number" id="upper" step="0.1" value="1" />
+        <div class="ctrl-block">
+          <div>
+            <div class="section-label">Region</div>
+            <div class="mode-row" role="tablist">
+              <button class="mode-btn active" data-mode="between" role="tab">Between</button>
+              <button class="mode-btn" data-mode="less" role="tab">Less than</button>
+              <button class="mode-btn" data-mode="greater" role="tab">Greater than</button>
+              <button class="mode-btn" data-mode="outside" role="tab">Outside</button>
             </div>
           </div>
-          <div class="buttons">
-            <button type="button" data-sigma="1">Shade ±1σ</button>
-            <button type="button" data-sigma="2">Shade ±2σ</button>
-            <button type="button" data-sigma="3">Shade ±3σ</button>
-            <button type="button" class="primary" id="resetBtn">Reset</button>
+          <div>
+            <div class="section-label">Cutoffs</div>
+            <div class="interval-row">
+              <div class="field">
+                <label for="lower">Lower a</label>
+                <input type="number" id="lower" step="0.1" value="-1" />
+              </div>
+              <div class="field">
+                <label for="upper">Upper b</label>
+                <input type="number" id="upper" step="0.1" value="1" />
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="section-label">Quick shading (μ ± kσ)</div>
+            <div class="quick-row">
+              <button class="quick-btn" data-sigma="1">±1σ</button>
+              <button class="quick-btn" data-sigma="2">±2σ</button>
+              <button class="quick-btn" data-sigma="3">±3σ</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="ctrl-block">
+          <div class="section-label">Context</div>
+          <div class="preset-strip">
+            <button class="preset-btn" data-preset="standard">Standard normal</button>
+            <button class="preset-btn" data-preset="iq">IQ (100, 15)</button>
+            <button class="preset-btn" data-preset="sat">SAT (500, 100)</button>
+            <button class="preset-btn" data-preset="height">Height (69, 3)</button>
           </div>
         </div>
       </aside>
 
-      <section class="panel chart-card">
-        <div class="chart-wrap">
-          <canvas id="normalChart"></canvas>
+      <section class="chart-card">
+        <div class="chart-wrap"><canvas id="chart"></canvas></div>
+
+        <div class="readout" aria-live="polite">
+          <span id="readoutExpr">P(−1.00 ≤ X ≤ 1.00)</span>
+          =
+          <span class="prob" id="readoutProb">0.6827</span>
+          <span class="pct" id="readoutPct">(68.27%)</span>
         </div>
 
-        <div class="stats" aria-live="polite">
-          <div class="stat-card">
-            <div class="label">Area shaded</div>
-            <div class="value" id="probValue">0.6827</div>
-          </div>
-          <div class="stat-card">
-            <div class="label">Percent shaded</div>
-            <div class="value" id="percentValue">68.27%</div>
-          </div>
-          <div class="stat-card">
-            <div class="label">Lower z-score</div>
-            <div class="value" id="lowerZ">-1.00</div>
-          </div>
-          <div class="stat-card">
-            <div class="label">Upper z-score</div>
-            <div class="value" id="upperZ">1.00</div>
-          </div>
+        <div class="stat-row">
+          <div class="stat"><div class="k">Mean μ</div><div class="v" id="statMean">0.00</div></div>
+          <div class="stat"><div class="k">Std dev σ</div><div class="v" id="statSd">1.00</div></div>
+          <div class="stat"><div class="k">Lower z</div><div class="v" id="statZLow">−1.00</div></div>
+          <div class="stat"><div class="k">Upper z</div><div class="v" id="statZHigh">+1.00</div></div>
         </div>
       </section>
     </section>
 
-    <section class="explain">
-      <article class="mini">
-        <span class="pill">Center</span>
-        <h3>Changing μ moves the model</h3>
-        <p>The mean is the balance point of the curve. Moving μ left or right changes the typical value but does not change the overall shape.</p>
-      </article>
-      <article class="mini">
-        <span class="pill">Spread</span>
-        <h3>Changing σ changes variability</h3>
-        <p>A smaller σ concentrates observations near the mean. A larger σ spreads them out and lowers the peak.</p>
-      </article>
-      <article class="mini">
-        <span class="pill">Area</span>
-        <h3>Probability is area</h3>
-        <p>The total area under the curve is 1. The shaded area estimates the chance that a randomly chosen value falls in the selected interval.</p>
-      </article>
-    </section>
-
-    <p class="footer-note">
-      Teaching tip: after students use the ±1σ, ±2σ, and ±3σ buttons, ask them to connect the observed percentages to the empirical rule: about 68%, 95%, and 99.7%.
-    </p>
+    <div class="hints">
+      <kbd>1</kbd><kbd>2</kbd><kbd>3</kbd> shade ±kσ &nbsp;·&nbsp;
+      <kbd>B</kbd><kbd>L</kbd><kbd>G</kbd><kbd>O</kbd> region &nbsp;·&nbsp;
+      <kbd>R</kbd> reset &nbsp;·&nbsp;
+      <kbd>D</kbd> theme
+    </div>
   </main>
 
   <script>
-    const meanSlider = document.getElementById("mean");
-    const sdSlider = document.getElementById("stddev");
-    const lowerInput = document.getElementById("lower");
-    const upperInput = document.getElementById("upper");
+    // ---------- element refs ----------
+    const meanSlider = document.getElementById('mean');
+    const sdSlider = document.getElementById('sd');
+    const lowerInput = document.getElementById('lower');
+    const upperInput = document.getElementById('upper');
+    const meanNum = document.getElementById('meanNum');
+    const sdNum = document.getElementById('sdNum');
+    const statMean = document.getElementById('statMean');
+    const statSd = document.getElementById('statSd');
+    const statZLow = document.getElementById('statZLow');
+    const statZHigh = document.getElementById('statZHigh');
+    const readoutExpr = document.getElementById('readoutExpr');
+    const readoutProb = document.getElementById('readoutProb');
+    const readoutPct = document.getElementById('readoutPct');
 
-    const meanValue = document.getElementById("meanValue");
-    const sdValue = document.getElementById("stddevValue");
-    const intervalLabel = document.getElementById("intervalLabel");
-    const probValue = document.getElementById("probValue");
-    const percentValue = document.getElementById("percentValue");
-    const lowerZ = document.getElementById("lowerZ");
-    const upperZ = document.getElementById("upperZ");
+    let currentMode = 'between';
+    let currentDecimals = 2;
 
+    // ---------- math ----------
     function gaussian(x, mean, sd) {
       return (1 / (sd * Math.sqrt(2 * Math.PI))) * Math.exp(-((x - mean) ** 2) / (2 * sd ** 2));
     }
 
-    // Abramowitz-Stegun approximation for the standard normal CDF.
+    // Abramowitz-Stegun approximation
     function normalCDF(z) {
       const sign = z < 0 ? -1 : 1;
       const x = Math.abs(z) / Math.sqrt(2);
       const t = 1 / (1 + 0.3275911 * x);
-      const a1 = 0.254829592;
-      const a2 = -0.284496736;
-      const a3 = 1.421413741;
-      const a4 = -1.453152027;
-      const a5 = 1.061405429;
+      const a1 = 0.254829592, a2 = -0.284496736, a3 = 1.421413741, a4 = -1.453152027, a5 = 1.061405429;
       const erf = 1 - (((((a5 * t + a4) * t) + a3) * t + a2) * t + a1) * t * Math.exp(-x * x);
       return 0.5 * (1 + sign * erf);
     }
 
-    function domain(mean, sd, lower, upper) {
-      const min = Math.min(mean - 4 * sd, lower - sd, -10);
-      const max = Math.max(mean + 4 * sd, upper + sd, 10);
+    // ---------- theme + chart colors ----------
+    function css(name) { return getComputedStyle(document.body).getPropertyValue(name).trim(); }
+    function colors() {
+      return {
+        curve: css('--curve'),
+        curveFill: css('--curve-fill'),
+        shade: css('--shade'),
+        shadeFill: css('--shade-fill'),
+        grid: css('--grid'),
+        ink: css('--ink'),
+        muted: css('--muted'),
+      };
+    }
+
+    function setTheme(t) {
+      document.documentElement.setAttribute('data-theme', t);
+      document.getElementById('themeIcon').textContent = t === 'dark' ? '☼' : '☾';
+      document.getElementById('themeText').textContent = t === 'dark' ? 'Light' : 'Dark';
+      try { localStorage.setItem('normal-explorer-theme', t); } catch (e) {}
+      if (window.chart) {
+        refreshChartColors();
+        updateReadoutProbColor();
+      }
+    }
+
+    function updateReadoutProbColor() {
+      readoutProb.style.color = css('--shade');
+    }
+
+    document.getElementById('themeToggle').addEventListener('click', () => {
+      const cur = document.documentElement.getAttribute('data-theme') || 'light';
+      setTheme(cur === 'light' ? 'dark' : 'light');
+    });
+
+    // initial theme
+    try {
+      const saved = localStorage.getItem('normal-explorer-theme');
+      if (saved === 'dark' || saved === 'light') setTheme(saved);
+    } catch (e) {}
+
+    // ---------- domain + data ----------
+    function domain(mean, sd, mode, lo, hi) {
+      let min = mean - 4 * sd;
+      let max = mean + 4 * sd;
+      const pad = 0.5 * sd;
+      // include cutoff points that are relevant to the mode
+      if (mode === 'between' || mode === 'outside' || mode === 'greater') {
+        if (Number.isFinite(lo)) { min = Math.min(min, lo - pad); max = Math.max(max, lo + pad); }
+      }
+      if (mode === 'between' || mode === 'outside' || mode === 'less') {
+        if (Number.isFinite(hi)) { min = Math.min(min, hi - pad); max = Math.max(max, hi + pad); }
+      }
       return { min, max };
     }
 
-    function generateData(mean, sd, lower, upper) {
-      const { min, max } = domain(mean, sd, lower, upper);
-      const step = (max - min) / 360;
-      const curve = [];
-      const shaded = [];
-
-      for (let i = 0; i <= 360; i++) {
+    function generateData(mean, sd, mode, lo, hi) {
+      const { min, max } = domain(mean, sd, mode, lo, hi);
+      const N = 420;
+      const step = (max - min) / N;
+      const curve = new Array(N + 1);
+      const shaded = new Array(N + 1);
+      for (let i = 0; i <= N; i++) {
         const x = min + i * step;
         const y = gaussian(x, mean, sd);
-        curve.push({ x, y });
-        shaded.push({ x, y: x >= lower && x <= upper ? y : null });
+        curve[i] = { x, y };
+        let inShade = false;
+        if (mode === 'between') inShade = x >= lo && x <= hi;
+        else if (mode === 'less') inShade = x <= hi;
+        else if (mode === 'greater') inShade = x >= lo;
+        else if (mode === 'outside') inShade = x <= lo || x >= hi;
+        shaded[i] = { x, y: inShade ? y : null };
       }
       return { curve, shaded, min, max };
     }
 
+    function computeProbability(mean, sd, mode, lo, hi) {
+      const zLo = (lo - mean) / sd;
+      const zHi = (hi - mean) / sd;
+      if (mode === 'between') return normalCDF(zHi) - normalCDF(zLo);
+      if (mode === 'less') return normalCDF(zHi);
+      if (mode === 'greater') return 1 - normalCDF(zLo);
+      if (mode === 'outside') return normalCDF(zLo) + (1 - normalCDF(zHi));
+      return 0;
+    }
+
+    function orderedBounds() {
+      let lo = Number(lowerInput.value);
+      let hi = Number(upperInput.value);
+      if (!Number.isFinite(lo)) lo = 0;
+      if (!Number.isFinite(hi)) hi = 0;
+      // only enforce ordering when both matter
+      if ((currentMode === 'between' || currentMode === 'outside') && lo > hi) [lo, hi] = [hi, lo];
+      return { lo, hi };
+    }
+
+    function fmt(v, d = currentDecimals) {
+      const sign = v < 0 ? '−' : '';
+      return sign + Math.abs(v).toFixed(d);
+    }
+    function fmtSigned(v, d = 2) {
+      if (v >= 0) return '+' + v.toFixed(d);
+      return '−' + Math.abs(v).toFixed(d);
+    }
+
+    function formatExpression(mode, lo, hi) {
+      const a = fmt(lo);
+      const b = fmt(hi);
+      if (mode === 'between')  return `P(${a} ≤ X ≤ ${b})`;
+      if (mode === 'less')     return `P(X ≤ ${b})`;
+      if (mode === 'greater')  return `P(X ≥ ${a})`;
+      if (mode === 'outside')  return `P(X ≤ ${a} or X ≥ ${b})`;
+      return '';
+    }
+
+    // ---------- guide line plugin ----------
     const guideLinePlugin = {
-      id: "guideLinePlugin",
+      id: 'guides',
       afterDatasetsDraw(chart) {
         const { ctx, scales } = chart;
         const mean = Number(meanSlider.value);
         const sd = Number(sdSlider.value);
         const yTop = scales.y.top;
         const yBottom = scales.y.bottom;
-
+        const inkColor = css('--ink');
+        const mutedColor = css('--muted');
         const guides = [
-          { x: mean, label: "μ", width: 2 },
-          { x: mean - sd, label: "−1σ", width: 1 },
-          { x: mean + sd, label: "+1σ", width: 1 },
-          { x: mean - 2 * sd, label: "−2σ", width: 1 },
-          { x: mean + 2 * sd, label: "+2σ", width: 1 }
+          { x: mean - 2 * sd, label: '−2σ', primary: false },
+          { x: mean - sd,     label: '−1σ', primary: false },
+          { x: mean,          label: 'μ',   primary: true },
+          { x: mean + sd,     label: '+1σ', primary: false },
+          { x: mean + 2 * sd, label: '+2σ', primary: false },
         ];
 
         ctx.save();
+        // draw all lines first
         guides.forEach(g => {
           const px = scales.x.getPixelForValue(g.x);
           if (px < scales.x.left || px > scales.x.right) return;
           ctx.beginPath();
-          ctx.setLineDash(g.label === "μ" ? [] : [5, 5]);
-          ctx.lineWidth = g.width;
-          ctx.strokeStyle = g.label === "μ" ? "#172033" : "#9aa4b8";
-          ctx.moveTo(px, yTop + 8);
+          ctx.setLineDash(g.primary ? [] : [3, 5]);
+          ctx.lineWidth = g.primary ? 1.6 : 1;
+          ctx.strokeStyle = g.primary ? inkColor : mutedColor;
+          ctx.moveTo(px, yTop + 4);
           ctx.lineTo(px, yBottom);
           ctx.stroke();
-          ctx.setLineDash([]);
-          ctx.fillStyle = g.label === "μ" ? "#172033" : "#69758a";
-          ctx.font = "700 12px system-ui";
-          ctx.textAlign = "center";
-          ctx.fillText(g.label, px, yTop + 15);
+        });
+        ctx.setLineDash([]);
+
+        // draw labels with collision avoidance (μ always wins)
+        const positioned = guides
+          .map(g => ({ ...g, px: scales.x.getPixelForValue(g.x) }))
+          .filter(g => g.px >= scales.x.left && g.px <= scales.x.right);
+
+        const shown = [];
+        // always show μ first
+        const muItem = positioned.find(g => g.primary);
+        if (muItem) shown.push(muItem);
+        // then σ labels if they don't collide with anything shown
+        positioned.filter(g => !g.primary).forEach(g => {
+          const clash = shown.some(s => Math.abs(s.px - g.px) < 34);
+          if (!clash) shown.push(g);
+        });
+
+        shown.forEach(g => {
+          ctx.fillStyle = g.primary ? inkColor : mutedColor;
+          ctx.font = g.primary ? '600 13px "DM Mono", monospace' : '500 12px "DM Mono", monospace';
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'top';
+          ctx.fillText(g.label, g.px, yTop - 2);
         });
         ctx.restore();
       }
     };
 
-    const ctx = document.getElementById("normalChart").getContext("2d");
-    const initial = generateData(0, 1, -1, 1);
+    // ---------- chart ----------
+    const ctx = document.getElementById('chart').getContext('2d');
+    const initial = generateData(0, 1, 'between', -1, 1);
 
     const chart = new Chart(ctx, {
-      type: "line",
+      type: 'line',
       data: {
         datasets: [
           {
-            label: "Shaded probability",
+            label: 'Shaded probability',
             data: initial.shaded,
             parsing: false,
-            borderColor: "#219688",
-            backgroundColor: "rgba(33, 150, 136, 0.28)",
-            fill: "origin",
+            borderColor: css('--shade'),
+            backgroundColor: css('--shade-fill'),
+            fill: 'origin',
             pointRadius: 0,
             tension: 0.25,
-            spanGaps: false
+            spanGaps: false,
+            borderWidth: 2,
           },
           {
-            label: "Normal density curve",
+            label: 'Normal density f(x)',
             data: initial.curve,
             parsing: false,
-            borderColor: "#3157d5",
-            borderWidth: 3,
-            backgroundColor: "rgba(49, 87, 213, 0.08)",
+            borderColor: css('--curve'),
+            borderWidth: 2.5,
+            backgroundColor: css('--curve-fill'),
             pointRadius: 0,
-            tension: 0.25
+            tension: 0.25,
           }
         ]
       },
       options: {
         responsive: true,
         maintainAspectRatio: false,
-        animation: { duration: 180 },
+        animation: { duration: 160 },
+        interaction: { intersect: false, mode: 'nearest', axis: 'x' },
         plugins: {
-          legend: { position: "bottom", labels: { usePointStyle: true, boxWidth: 8 } },
+          legend: { display: false },
           tooltip: {
             callbacks: {
-              label: context => `density ≈ ${context.parsed.y.toFixed(4)}`
+              label: c => `f(x) ≈ ${c.parsed.y.toFixed(4)}`,
+              title: c => `x = ${Number(c[0].parsed.x).toFixed(2)}`
             }
           }
         },
         scales: {
           x: {
-            type: "linear",
-            title: { display: true, text: "x-value" },
-            grid: { color: "rgba(154, 164, 184, 0.18)" }
+            type: 'linear',
+            title: { display: true, text: 'x', color: css('--ink'), font: { family: 'Crimson Pro', size: 15, style: 'italic' } },
+            grid: { color: css('--grid') },
+            ticks: { color: css('--muted'), font: { family: 'DM Mono', size: 12 } }
           },
           y: {
             beginAtZero: true,
-            title: { display: true, text: "Probability density" },
-            grid: { color: "rgba(154, 164, 184, 0.18)" }
+            title: { display: true, text: 'density  f(x)', color: css('--ink'), font: { family: 'Crimson Pro', size: 14, style: 'italic' } },
+            grid: { color: css('--grid') },
+            ticks: { color: css('--muted'), font: { family: 'DM Mono', size: 11 } }
           }
         }
       },
       plugins: [guideLinePlugin]
     });
+    window.chart = chart;
 
-    function orderedBounds() {
-      let lower = Number(lowerInput.value);
-      let upper = Number(upperInput.value);
-      if (!Number.isFinite(lower)) lower = -1;
-      if (!Number.isFinite(upper)) upper = 1;
-      if (lower > upper) [lower, upper] = [upper, lower];
-      return { lower, upper };
+    function refreshChartColors() {
+      const c = colors();
+      chart.data.datasets[0].borderColor = c.shade;
+      chart.data.datasets[0].backgroundColor = c.shadeFill;
+      chart.data.datasets[1].borderColor = c.curve;
+      chart.data.datasets[1].backgroundColor = c.curveFill;
+      chart.options.scales.x.grid.color = c.grid;
+      chart.options.scales.y.grid.color = c.grid;
+      chart.options.scales.x.ticks.color = c.muted;
+      chart.options.scales.y.ticks.color = c.muted;
+      chart.options.scales.x.title.color = c.ink;
+      chart.options.scales.y.title.color = c.ink;
+      chart.update('none');
     }
 
-    function updateChart() {
+    // ---------- update loop ----------
+    function updateAll() {
       const mean = Number(meanSlider.value);
       const sd = Number(sdSlider.value);
-      const { lower, upper } = orderedBounds();
-      const zLow = (lower - mean) / sd;
-      const zHigh = (upper - mean) / sd;
-      const probability = normalCDF(zHigh) - normalCDF(zLow);
-      const newData = generateData(mean, sd, lower, upper);
+      const { lo, hi } = orderedBounds();
 
-      meanValue.textContent = mean.toFixed(2);
-      sdValue.textContent = sd.toFixed(2);
-      intervalLabel.textContent = `[${lower.toFixed(2)}, ${upper.toFixed(2)}]`;
-      probValue.textContent = probability.toFixed(4);
-      percentValue.textContent = `${(100 * probability).toFixed(2)}%`;
-      lowerZ.textContent = zLow.toFixed(2);
-      upperZ.textContent = zHigh.toFixed(2);
+      const zLo = (lo - mean) / sd;
+      const zHi = (hi - mean) / sd;
+      const p = computeProbability(mean, sd, currentMode, lo, hi);
+      const data = generateData(mean, sd, currentMode, lo, hi);
 
-      chart.data.datasets[0].data = newData.shaded;
-      chart.data.datasets[1].data = newData.curve;
-      chart.options.scales.x.min = newData.min;
-      chart.options.scales.x.max = newData.max;
+      // labels
+      meanNum.textContent = mean.toFixed(currentDecimals);
+      sdNum.textContent = sd.toFixed(currentDecimals);
+      statMean.textContent = fmt(mean);
+      statSd.textContent = sd.toFixed(currentDecimals);
+      statZLow.textContent = (currentMode === 'less') ? '—' : fmtSigned(zLo);
+      statZHigh.textContent = (currentMode === 'greater') ? '—' : fmtSigned(zHi);
+
+      // readout
+      readoutExpr.textContent = formatExpression(currentMode, lo, hi);
+      readoutProb.textContent = p.toFixed(4);
+      readoutPct.textContent = `(${(100 * p).toFixed(2)}%)`;
+
+      // chart
+      chart.data.datasets[0].data = data.shaded;
+      chart.data.datasets[1].data = data.curve;
+      chart.options.scales.x.min = data.min;
+      chart.options.scales.x.max = data.max;
       chart.update();
     }
 
-    document.querySelectorAll("[data-sigma]").forEach(button => {
-      button.addEventListener("click", () => {
-        const k = Number(button.dataset.sigma);
+    // ---------- mode switching ----------
+    function applyMode(mode) {
+      currentMode = mode;
+      document.querySelectorAll('.mode-btn').forEach(b => {
+        b.classList.toggle('active', b.dataset.mode === mode);
+      });
+      lowerInput.disabled = (mode === 'less');
+      upperInput.disabled = (mode === 'greater');
+      updateAll();
+    }
+
+    document.querySelectorAll('.mode-btn').forEach(btn => {
+      btn.addEventListener('click', () => applyMode(btn.dataset.mode));
+    });
+
+    // ---------- quick-shade buttons ----------
+    document.querySelectorAll('.quick-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const k = Number(btn.dataset.sigma);
         const mean = Number(meanSlider.value);
         const sd = Number(sdSlider.value);
-        lowerInput.value = (mean - k * sd).toFixed(2);
-        upperInput.value = (mean + k * sd).toFixed(2);
-        updateChart();
+        lowerInput.value = (mean - k * sd).toFixed(currentDecimals);
+        upperInput.value = (mean + k * sd).toFixed(currentDecimals);
+        updateAll();
       });
     });
 
-    document.getElementById("resetBtn").addEventListener("click", () => {
-      meanSlider.value = 0;
-      sdSlider.value = 1;
-      lowerInput.value = -1;
-      upperInput.value = 1;
-      updateChart();
+    // ---------- presets ----------
+    const presets = {
+      standard: { mean: 0,   sd: 1,   mMin: -10, mMax: 10,  mStep: 0.1, sMin: 0.2, sMax: 5,   sStep: 0.1, lo: -1,  hi: 1,   iStep: 0.1, decimals: 2 },
+      iq:       { mean: 100, sd: 15,  mMin: 60,  mMax: 140, mStep: 1,   sMin: 5,   sMax: 30,  sStep: 1,   lo: 85,  hi: 115, iStep: 1,   decimals: 0 },
+      sat:      { mean: 500, sd: 100, mMin: 200, mMax: 800, mStep: 10,  sMin: 50,  sMax: 200, sStep: 10,  lo: 400, hi: 600, iStep: 10,  decimals: 0 },
+      height:   { mean: 69,  sd: 3,   mMin: 60,  mMax: 78,  mStep: 0.5, sMin: 1,   sMax: 6,   sStep: 0.1, lo: 66,  hi: 72,  iStep: 0.5, decimals: 1 },
+    };
+
+    function loadPreset(name) {
+      const p = presets[name] || presets.standard;
+      currentDecimals = p.decimals;
+
+      meanSlider.min = p.mMin; meanSlider.max = p.mMax; meanSlider.step = p.mStep;
+      meanSlider.value = p.mean;
+      sdSlider.min = p.sMin; sdSlider.max = p.sMax; sdSlider.step = p.sStep;
+      sdSlider.value = p.sd;
+
+      lowerInput.value = p.lo; upperInput.value = p.hi;
+      lowerInput.step = p.iStep; upperInput.step = p.iStep;
+
+      applyMode('between');
+    }
+
+    document.querySelectorAll('.preset-btn').forEach(btn => {
+      btn.addEventListener('click', () => loadPreset(btn.dataset.preset));
     });
 
-    [meanSlider, sdSlider, lowerInput, upperInput].forEach(input => {
-      input.addEventListener("input", updateChart);
-      input.addEventListener("change", updateChart);
+    // ---------- sliders / inputs ----------
+    [meanSlider, sdSlider, lowerInput, upperInput].forEach(el => {
+      el.addEventListener('input', updateAll);
+      el.addEventListener('change', updateAll);
     });
 
-    updateChart();
+    // ---------- keyboard shortcuts ----------
+    document.addEventListener('keydown', (e) => {
+      const tag = e.target.tagName;
+      if (tag === 'INPUT' || tag === 'TEXTAREA') return;
+      const key = e.key.toLowerCase();
+      if (key === '1' || key === '2' || key === '3') {
+        const k = Number(key);
+        const mean = Number(meanSlider.value);
+        const sd = Number(sdSlider.value);
+        lowerInput.value = (mean - k * sd).toFixed(currentDecimals);
+        upperInput.value = (mean + k * sd).toFixed(currentDecimals);
+        updateAll();
+        e.preventDefault();
+      } else if (key === 'r') {
+        loadPreset('standard');
+        e.preventDefault();
+      } else if (key === 'd') {
+        document.getElementById('themeToggle').click();
+        e.preventDefault();
+      } else if (key === 'b') { applyMode('between'); e.preventDefault(); }
+      else if (key === 'l') { applyMode('less'); e.preventDefault(); }
+      else if (key === 'g') { applyMode('greater'); e.preventDefault(); }
+      else if (key === 'o') { applyMode('outside'); e.preventDefault(); }
+    });
+
+    // ---------- go ----------
+    updateReadoutProbColor();
+    updateAll();
   </script>
 </body>
 </html>
