@@ -1,336 +1,468 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Central Limit Theorem: The Averaging Machine</title>
   <style>
-    :root {
+    :root, [data-theme="dark"] {
       --bg: #10131f;
-      --panel: #181d2f;
-      --panel2: #202844;
+      --bg-solid: #0c0f1a;
+      --bg-grad-a: rgba(125,211,252,0.18);
+      --bg-grad-b: rgba(192,132,252,0.18);
+      --panel-a: rgba(255,255,255,0.07);
+      --panel-b: rgba(255,255,255,0.035);
+      --panel-border: rgba(255,255,255,0.12);
       --text: #f4f7ff;
       --muted: #b8c2df;
       --accent: #7dd3fc;
+      --accent-text: #07111f;
       --accent2: #c084fc;
+      --accent2-text: #12071f;
       --accent3: #facc15;
+      --accent3-text: #171000;
       --good: #86efac;
       --danger: #fb7185;
-      --grid: rgba(255,255,255,0.08);
-      --line: rgba(255,255,255,0.18);
-      --shadow: 0 18px 50px rgba(0,0,0,0.35);
-      --radius: 22px;
+      --canvas-bg: rgba(0,0,0,0.15);
+      --canvas-border: rgba(255,255,255,0.08);
+      --input-bg: #202844;
+      --input-border: rgba(255,255,255,0.16);
+      --stat-bg: rgba(255,255,255,0.055);
+      --stat-border: rgba(255,255,255,0.10);
+      --pill-bg: rgba(255,255,255,0.045);
+      --pill-border: rgba(255,255,255,0.14);
+      --ghost-border: rgba(255,255,255,0.18);
+      --shadow: 0 14px 40px rgba(0,0,0,0.35);
+      --modal-scrim: rgba(3,7,18,0.72);
+      --formula-bg: rgba(0,0,0,0.22);
+      /* chart palette */
+      --chart-text: #f4f7ff;
+      --chart-muted: #b8c2df;
+      --chart-grid: rgba(255,255,255,0.09);
+      --chart-axis: rgba(255,255,255,0.35);
+      --chart-cyan: #7dd3fc;
+      --chart-purple: #c084fc;
+      --chart-yellow: #facc15;
+      --chart-green: #86efac;
+      --chart-red: #fb7185;
+    }
+
+    [data-theme="light"] {
+      --bg: #eef2f9;
+      --bg-solid: #e5ebf4;
+      --bg-grad-a: rgba(3,105,161,0.10);
+      --bg-grad-b: rgba(124,58,237,0.09);
+      --panel-a: rgba(255,255,255,0.92);
+      --panel-b: rgba(255,255,255,0.72);
+      --panel-border: rgba(15,23,42,0.10);
+      --text: #0f172a;
+      --muted: #475569;
+      --accent: #0284c7;
+      --accent-text: #ffffff;
+      --accent2: #7c3aed;
+      --accent2-text: #ffffff;
+      --accent3: #d97706;
+      --accent3-text: #ffffff;
+      --good: #16a34a;
+      --danger: #dc2626;
+      --canvas-bg: #ffffff;
+      --canvas-border: rgba(15,23,42,0.10);
+      --input-bg: #ffffff;
+      --input-border: rgba(15,23,42,0.15);
+      --stat-bg: rgba(255,255,255,0.85);
+      --stat-border: rgba(15,23,42,0.08);
+      --pill-bg: rgba(255,255,255,0.75);
+      --pill-border: rgba(15,23,42,0.10);
+      --ghost-border: rgba(15,23,42,0.20);
+      --shadow: 0 8px 22px rgba(15,23,42,0.06);
+      --modal-scrim: rgba(15,23,42,0.35);
+      --formula-bg: rgba(15,23,42,0.04);
+      /* chart palette (dark tones for readability on white) */
+      --chart-text: #0f172a;
+      --chart-muted: #475569;
+      --chart-grid: rgba(15,23,42,0.08);
+      --chart-axis: rgba(15,23,42,0.40);
+      --chart-cyan: #0369a1;
+      --chart-purple: #6d28d9;
+      --chart-yellow: #b45309;
+      --chart-green: #15803d;
+      --chart-red: #b91c1c;
     }
 
     * { box-sizing: border-box; }
-
+    html, body { height: 100%; }
     body {
       margin: 0;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background:
-        radial-gradient(circle at top left, rgba(125,211,252,0.18), transparent 32rem),
-        radial-gradient(circle at top right, rgba(192,132,252,0.18), transparent 32rem),
-        var(--bg);
       color: var(--text);
-      min-height: 100vh;
-    }
-
-    header {
-      padding: 30px 24px 18px;
-      max-width: 1250px;
-      margin: 0 auto;
-    }
-
-    h1 {
-      font-size: clamp(2rem, 5vw, 4rem);
-      line-height: 1;
-      margin: 0 0 12px;
-      letter-spacing: -0.05em;
-    }
-
-    .subtitle {
-      font-size: clamp(1rem, 2vw, 1.25rem);
-      color: var(--muted);
-      max-width: 850px;
-      line-height: 1.5;
-      margin: 0;
-    }
-
-    .page {
-      max-width: 1250px;
-      margin: 0 auto;
-      padding: 0 24px 40px;
-      display: grid;
-      gap: 18px;
-    }
-
-    .controls {
-      display: grid;
-      grid-template-columns: repeat(12, 1fr);
-      gap: 16px;
-      align-items: stretch;
-    }
-
-    .card {
-      background: linear-gradient(180deg, rgba(255,255,255,0.07), rgba(255,255,255,0.035));
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
+      background:
+        radial-gradient(circle at top left, var(--bg-grad-a), transparent 32rem),
+        radial-gradient(circle at top right, var(--bg-grad-b), transparent 32rem),
+        var(--bg);
+      background-attachment: fixed;
       overflow: hidden;
     }
 
-    .control-card {
-      grid-column: span 4;
-      padding: 18px;
-      min-height: 148px;
+    .app {
+      height: 100vh;
+      max-width: 1500px;
+      margin: 0 auto;
+      padding: 14px 20px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      min-height: 0;
     }
 
-    .button-card {
-      grid-column: span 4;
-      padding: 18px;
-      min-height: 148px;
+    /* ---- header ---- */
+    header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 20px;
+    }
+    .titles h1 {
+      margin: 0;
+      font-size: clamp(1.7rem, 3vw, 2.4rem);
+      line-height: 1;
+      letter-spacing: -0.045em;
+    }
+    .titles .subtitle {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 0.98rem;
+      line-height: 1.35;
+      max-width: 820px;
+    }
+    .topbar-actions {
+      display: flex;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+    .icon-btn {
+      width: 40px;
+      height: 40px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+      border: 1px solid var(--ghost-border);
+      background: var(--panel-a);
+      color: var(--text);
+      cursor: pointer;
+      font-size: 1.1rem;
+      font-weight: 700;
+      transition: filter 0.15s ease, transform 0.08s ease;
+      padding: 0;
+    }
+    .icon-btn:hover { filter: brightness(1.12); }
+    .icon-btn:active { transform: translateY(1px); }
+
+    /* ---- card ---- */
+    .card {
+      background: linear-gradient(180deg, var(--panel-a), var(--panel-b));
+      border: 1px solid var(--panel-border);
+      border-radius: 16px;
+      box-shadow: var(--shadow);
     }
 
-    .card-title {
-      font-size: 0.9rem;
+    /* ---- controls ---- */
+    .control-strip {
+      display: grid;
+      grid-template-columns: minmax(240px, 1.6fr) minmax(150px, 1fr) minmax(150px, 1fr) auto;
+      gap: 10px;
+      padding: 10px 12px;
+      align-items: center;
+    }
+    .ctrl {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      min-width: 0;
+    }
+    .ctrl-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 8px;
+    }
+    .ctrl-label {
       color: var(--muted);
       text-transform: uppercase;
       letter-spacing: 0.08em;
-      margin-bottom: 10px;
+      font-size: 0.7rem;
+      font-weight: 700;
     }
-
-    select, input[type="range"], button {
-      width: 100%;
-    }
-
-    select {
-      background: var(--panel2);
+    .ctrl-value {
+      font-weight: 800;
+      font-size: 0.95rem;
+      letter-spacing: -0.02em;
       color: var(--text);
-      border: 1px solid rgba(255,255,255,0.16);
-      padding: 12px 13px;
-      border-radius: 14px;
-      font-size: 1rem;
+    }
+    select {
+      width: 100%;
+      background: var(--input-bg);
+      color: var(--text);
+      border: 1px solid var(--input-border);
+      border-radius: 10px;
+      padding: 8px 10px;
+      font-size: 0.92rem;
       outline: none;
     }
-
     input[type="range"] {
+      width: 100%;
       accent-color: var(--accent);
-      margin: 14px 0 8px;
+      margin: 3px 0 0;
     }
-
-    .value-row {
+    .ctrl-buttons {
       display: flex;
-      justify-content: space-between;
-      gap: 10px;
-      color: var(--muted);
-      font-size: 0.96rem;
+      gap: 6px;
     }
-
-    .big-value {
-      font-size: 1.8rem;
-      font-weight: 800;
-      color: var(--text);
-      letter-spacing: -0.04em;
-    }
-
-    .button-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
-
     button {
       border: 0;
-      border-radius: 15px;
-      padding: 13px 14px;
+      border-radius: 10px;
+      padding: 9px 14px;
       font-weight: 800;
-      color: #07111f;
+      font-size: 0.88rem;
       cursor: pointer;
+      color: var(--accent-text);
       background: var(--accent);
       transition: transform 0.08s ease, filter 0.15s ease;
-      font-size: 0.96rem;
+      white-space: nowrap;
     }
-
     button:hover { filter: brightness(1.08); }
     button:active { transform: translateY(1px) scale(0.99); }
-    button.secondary { background: var(--accent2); color: #12071f; }
-    button.warning { background: var(--accent3); color: #171000; }
+    button.secondary { background: var(--accent2); color: var(--accent2-text); }
+    button.warning { background: var(--accent3); color: var(--accent3-text); }
     button.ghost {
       background: transparent;
       color: var(--text);
-      border: 1px solid rgba(255,255,255,0.18);
+      border: 1px solid var(--ghost-border);
     }
 
-    .stats-grid {
+    /* ---- stat strip ---- */
+    .stat-strip {
       display: grid;
       grid-template-columns: repeat(5, 1fr);
-      gap: 12px;
+      gap: 10px;
+      padding: 10px 12px;
+      align-items: center;
     }
-
     .stat {
-      padding: 14px 16px;
-      background: rgba(255,255,255,0.055);
-      border: 1px solid rgba(255,255,255,0.10);
-      border-radius: 18px;
-      min-height: 86px;
+      background: var(--stat-bg);
+      border: 1px solid var(--stat-border);
+      border-radius: 12px;
+      padding: 8px 12px;
+      min-width: 0;
     }
-
     .stat-label {
       color: var(--muted);
-      font-size: 0.78rem;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
-      margin-bottom: 8px;
+      letter-spacing: 0.07em;
+      font-size: 0.68rem;
+      font-weight: 700;
+      display: block;
+      margin-bottom: 2px;
     }
-
     .stat-value {
-      font-size: 1.35rem;
-      font-weight: 850;
-      letter-spacing: -0.04em;
-    }
-
-    .charts {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-    }
-
-    .chart-card {
-      padding: 16px;
-      min-height: 380px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .chart-head {
-      display: flex;
-      align-items: start;
-      justify-content: space-between;
-      gap: 12px;
-    }
-
-    .chart-title {
       font-size: 1.1rem;
-      font-weight: 850;
-      letter-spacing: -0.02em;
-      margin: 0;
-    }
-
-    .chart-note {
-      color: var(--muted);
-      font-size: 0.88rem;
-      line-height: 1.35;
-      margin: 3px 0 0;
-    }
-
-    canvas {
-      width: 100%;
-      height: 280px;
-      background: rgba(0,0,0,0.15);
-      border-radius: 16px;
-      border: 1px solid rgba(255,255,255,0.08);
-    }
-
-    .explain {
-      padding: 20px;
-      display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
-      gap: 20px;
-      align-items: start;
-    }
-
-    .explain h2 {
-      margin: 0 0 8px;
-      font-size: 1.35rem;
+      font-weight: 800;
       letter-spacing: -0.03em;
     }
 
-    .explain p, .explain li {
-      color: var(--muted);
-      line-height: 1.55;
-      font-size: 1rem;
+    /* ---- charts ---- */
+    .charts {
+      flex: 1;
+      min-height: 0;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
     }
-
-    .formula {
-      background: rgba(0,0,0,0.18);
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 18px;
-      padding: 18px;
-      font-size: clamp(1.4rem, 4vw, 2.5rem);
-      text-align: center;
+    .chart-card {
+      padding: 10px 12px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      min-width: 0;
+      min-height: 0;
+    }
+    .chart-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 10px;
+    }
+    .chart-title {
+      margin: 0;
+      font-size: 0.95rem;
       font-weight: 850;
-      letter-spacing: -0.05em;
-      color: var(--good);
-      margin-bottom: 12px;
+      letter-spacing: -0.01em;
     }
-
-    .mini {
+    .chart-title .step-num {
       color: var(--muted);
-      font-size: 0.92rem;
-      line-height: 1.45;
+      font-weight: 700;
+      margin-right: 4px;
     }
-
+    .chart-note {
+      color: var(--muted);
+      font-size: 0.78rem;
+      line-height: 1.3;
+      margin: 0;
+    }
+    .chart-legend {
+      display: flex;
+      gap: 5px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
     .pill {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      border: 1px solid rgba(255,255,255,0.14);
+      gap: 5px;
+      border: 1px solid var(--pill-border);
       border-radius: 999px;
-      padding: 6px 9px;
+      padding: 3px 8px;
       color: var(--muted);
-      font-size: 0.8rem;
+      font-size: 0.72rem;
       white-space: nowrap;
-      background: rgba(255,255,255,0.045);
+      background: var(--pill-bg);
     }
-
-    .legend {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      justify-content: flex-end;
-    }
-
     .dot {
-      width: 10px;
-      height: 10px;
+      width: 8px;
+      height: 8px;
       border-radius: 50%;
       display: inline-block;
     }
+    .cyan { background: var(--chart-cyan); }
+    .purple { background: var(--chart-purple); }
+    .yellow { background: var(--chart-yellow); }
+    .green { background: var(--chart-green); }
 
-    .cyan { background: var(--accent); }
-    .purple { background: var(--accent2); }
-    .yellow { background: var(--accent3); }
-    .green { background: var(--good); }
-
-    @media (max-width: 1000px) {
-      .control-card, .button-card { grid-column: span 6; }
-      .charts { grid-template-columns: 1fr; }
-      .stats-grid { grid-template-columns: repeat(2, 1fr); }
-      .explain { grid-template-columns: 1fr; }
+    .canvas-wrap {
+      flex: 1;
+      min-height: 0;
+      background: var(--canvas-bg);
+      border-radius: 10px;
+      border: 1px solid var(--canvas-border);
+      overflow: hidden;
+    }
+    canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
     }
 
-    @media (max-width: 650px) {
-      header, .page { padding-left: 14px; padding-right: 14px; }
-      .control-card, .button-card { grid-column: span 12; }
-      .stats-grid { grid-template-columns: 1fr; }
-      .button-grid { grid-template-columns: 1fr; }
-      canvas { height: 240px; }
+    /* ---- modal ---- */
+    .modal {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+    }
+    .modal[hidden] { display: none; }
+    .modal-scrim {
+      position: absolute;
+      inset: 0;
+      background: var(--modal-scrim);
+      backdrop-filter: blur(4px);
+    }
+    .modal-panel {
+      position: relative;
+      max-width: 720px;
+      width: min(720px, calc(100vw - 40px));
+      max-height: calc(100vh - 60px);
+      overflow: auto;
+      background: linear-gradient(180deg, var(--panel-a), var(--panel-b));
+      border: 1px solid var(--panel-border);
+      border-radius: 18px;
+      padding: 26px 28px 24px;
+      box-shadow: var(--shadow);
+      color: var(--text);
+    }
+    [data-theme="light"] .modal-panel { background: #ffffff; }
+    .modal-close {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--ghost-border);
+      font-size: 1.2rem;
+      padding: 0;
+    }
+    .modal-panel h2 {
+      margin: 0 0 10px;
+      font-size: 1.4rem;
+      letter-spacing: -0.03em;
+    }
+    .modal-panel p {
+      color: var(--muted);
+      line-height: 1.55;
+      margin: 0 0 12px;
+    }
+    .formula {
+      background: var(--formula-bg);
+      border: 1px solid var(--panel-border);
+      border-radius: 14px;
+      padding: 16px;
+      font-size: clamp(1.3rem, 3.5vw, 2rem);
+      text-align: center;
+      font-weight: 850;
+      letter-spacing: -0.04em;
+      color: var(--good);
+      margin: 14px 0 12px;
+    }
+    .mini {
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.5;
+    }
+
+    /* ---- responsive ---- */
+    @media (max-width: 1100px) {
+      body { overflow: auto; }
+      .app { height: auto; min-height: 100vh; }
+      .control-strip { grid-template-columns: 1fr 1fr; }
+      .ctrl-buttons {
+        grid-column: 1 / -1;
+        flex-wrap: wrap;
+      }
+      .ctrl-buttons button { flex: 1 1 45%; }
+      .stat-strip { grid-template-columns: repeat(2, 1fr); }
+      .charts { grid-template-columns: 1fr; }
+      .canvas-wrap { min-height: 280px; }
+    }
+    @media (max-width: 560px) {
+      .app { padding: 12px 12px 16px; }
+      .titles h1 { font-size: 1.5rem; }
+      .titles .subtitle { font-size: 0.88rem; }
+      .stat-strip { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>The Averaging Machine</h1>
-    <p class="subtitle">
-      A Central Limit Theorem demo: choose a population, take many random samples, and watch the sample means organize themselves into a predictable bell-shaped pattern.
-    </p>
-  </header>
+  <div class="app">
+    <header>
+      <div class="titles">
+        <h1>The Averaging Machine</h1>
+        <p class="subtitle">
+          Central Limit Theorem demo: choose a population, take many random samples, and watch the sample means organize into a bell.
+        </p>
+      </div>
+      <div class="topbar-actions">
+        <button class="icon-btn" id="infoBtn" title="Theorem &amp; notes" aria-label="Show explanation">i</button>
+        <button class="icon-btn" id="themeBtn" title="Toggle light/dark" aria-label="Toggle theme">☾</button>
+      </div>
+    </header>
 
-  <main class="page">
-    <section class="controls">
-      <div class="card control-card">
-        <div class="card-title">Population shape</div>
+    <section class="card control-strip">
+      <div class="ctrl">
+        <div class="ctrl-head"><span class="ctrl-label">Population shape</span></div>
         <select id="distSelect" aria-label="Choose population distribution">
           <option value="uniform">Uniform: equally likely values</option>
           <option value="skewed">Right-skewed: many small, few large</option>
@@ -338,68 +470,52 @@
           <option value="dice">Dice rolls: 1 through 6</option>
           <option value="monster">Monster mix: strange and lumpy</option>
         </select>
-        <p class="mini">The population can look very non-normal. The CLT is about what happens to repeated sample means.</p>
       </div>
 
-      <div class="card control-card">
-        <div class="card-title">Sample size</div>
-        <div class="value-row"><span>n</span><span class="big-value" id="nValue">5</span></div>
-        <input id="nSlider" type="range" min="1" max="80" value="5" step="1" aria-label="Sample size" />
-        <div class="value-row"><span>Small samples</span><span>Large samples</span></div>
-      </div>
-
-      <div class="card control-card">
-        <div class="card-title">Speed</div>
-        <div class="value-row"><span>samples per click/run</span><span class="big-value" id="speedValue">100</span></div>
-        <input id="speedSlider" type="range" min="1" max="1000" value="100" step="1" aria-label="Samples per run" />
-        <div class="value-row"><span>Careful</span><span>Fast</span></div>
-      </div>
-
-      <div class="card button-card">
-        <div class="card-title">Run the experiment</div>
-        <div class="button-grid">
-          <button id="oneBtn">Take 1 sample</button>
-          <button class="secondary" id="manyBtn">Take many</button>
-          <button class="warning" id="autoBtn">Auto-run</button>
-          <button class="ghost" id="resetBtn">Reset</button>
+      <div class="ctrl">
+        <div class="ctrl-head">
+          <span class="ctrl-label">Sample size n</span>
+          <span class="ctrl-value" id="nValue">5</span>
         </div>
+        <input id="nSlider" type="range" min="1" max="80" value="5" step="1" aria-label="Sample size" />
       </div>
 
-      <div class="card button-card">
-        <div class="card-title">Classroom challenge</div>
-        <p class="mini">
-          Try n = 1, then n = 5, then n = 30. What changes about the histogram of sample means? Does the original population need to be bell-shaped?
-        </p>
+      <div class="ctrl">
+        <div class="ctrl-head">
+          <span class="ctrl-label">Samples per run</span>
+          <span class="ctrl-value" id="speedValue">100</span>
+        </div>
+        <input id="speedSlider" type="range" min="1" max="1000" value="100" step="1" aria-label="Samples per run" />
       </div>
 
-      <div class="card button-card">
-        <div class="card-title">What to notice</div>
-        <p class="mini">
-          The center stays near the population mean, but the spread of sample means shrinks like 1 divided by the square root of n.
-        </p>
+      <div class="ctrl-buttons">
+        <button id="oneBtn">Take 1</button>
+        <button class="secondary" id="manyBtn">Take many</button>
+        <button class="warning" id="autoBtn">Auto-run</button>
+        <button class="ghost" id="resetBtn">Reset</button>
       </div>
     </section>
 
-    <section class="stats-grid" aria-label="Summary statistics">
+    <section class="card stat-strip" aria-label="Summary statistics">
       <div class="stat">
-        <div class="stat-label">Population mean μ</div>
-        <div class="stat-value" id="popMean">—</div>
+        <span class="stat-label">Population mean μ</span>
+        <span class="stat-value" id="popMean">—</span>
       </div>
       <div class="stat">
-        <div class="stat-label">Population SD σ</div>
-        <div class="stat-value" id="popSd">—</div>
+        <span class="stat-label">Population SD σ</span>
+        <span class="stat-value" id="popSd">—</span>
       </div>
       <div class="stat">
-        <div class="stat-label">Predicted SE σ/√n</div>
-        <div class="stat-value" id="predSe">—</div>
+        <span class="stat-label">Predicted SE σ/√n</span>
+        <span class="stat-value" id="predSe">—</span>
       </div>
       <div class="stat">
-        <div class="stat-label">Observed mean of x̄</div>
-        <div class="stat-value" id="obsMean">—</div>
+        <span class="stat-label">Observed mean of x̄</span>
+        <span class="stat-value" id="obsMean">—</span>
       </div>
       <div class="stat">
-        <div class="stat-label">Observed SD of x̄</div>
-        <div class="stat-value" id="obsSd">—</div>
+        <span class="stat-label">Observed SD of x̄</span>
+        <span class="stat-value" id="obsSd">—</span>
       </div>
     </section>
 
@@ -407,60 +523,66 @@
       <div class="card chart-card">
         <div class="chart-head">
           <div>
-            <h2 class="chart-title">1. Population</h2>
-            <p class="chart-note">This is where individual values come from.</p>
+            <h2 class="chart-title"><span class="step-num">1.</span>Population</h2>
+            <p class="chart-note">Where individual values come from.</p>
           </div>
-          <div class="legend"><span class="pill"><span class="dot cyan"></span> values</span></div>
+          <div class="chart-legend">
+            <span class="pill"><span class="dot cyan"></span>values</span>
+          </div>
         </div>
-        <canvas id="popCanvas" width="640" height="420"></canvas>
+        <div class="canvas-wrap"><canvas id="popCanvas"></canvas></div>
       </div>
 
       <div class="card chart-card">
         <div class="chart-head">
           <div>
-            <h2 class="chart-title">2. Current sample</h2>
+            <h2 class="chart-title"><span class="step-num">2.</span>Current sample</h2>
             <p class="chart-note">One random sample of size n.</p>
           </div>
-          <div class="legend"><span class="pill"><span class="dot yellow"></span> sample</span></div>
+          <div class="chart-legend">
+            <span class="pill"><span class="dot yellow"></span>sample</span>
+          </div>
         </div>
-        <canvas id="sampleCanvas" width="640" height="420"></canvas>
+        <div class="canvas-wrap"><canvas id="sampleCanvas"></canvas></div>
       </div>
 
       <div class="card chart-card">
         <div class="chart-head">
           <div>
-            <h2 class="chart-title">3. Sample means</h2>
-            <p class="chart-note">Each bar records averages from repeated samples.</p>
+            <h2 class="chart-title"><span class="step-num">3.</span>Sample means</h2>
+            <p class="chart-note">Averages from repeated samples.</p>
           </div>
-          <div class="legend">
-            <span class="pill"><span class="dot purple"></span> x̄</span>
-            <span class="pill"><span class="dot green"></span> normal curve</span>
+          <div class="chart-legend">
+            <span class="pill"><span class="dot purple"></span>x̄</span>
+            <span class="pill"><span class="dot green"></span>normal</span>
           </div>
         </div>
-        <canvas id="meansCanvas" width="640" height="420"></canvas>
+        <div class="canvas-wrap"><canvas id="meansCanvas"></canvas></div>
       </div>
     </section>
+  </div>
 
-    <section class="card explain">
-      <div>
-        <h2>The Central Limit Theorem, in plain English</h2>
-        <p>
-          When we repeatedly take random samples of size n and compute the sample mean, those sample means tend to form an approximately normal distribution as n gets larger. This can happen even when the original population is not normal.
-        </p>
-        <p>
-          That is why averages are so powerful in statistics. Individual observations may be noisy, but averages become more stable and predictable.
-        </p>
-      </div>
-      <div>
-        <div class="formula">σ<sub>x̄</sub> = σ / √n</div>
-        <div class="mini">
-          The standard deviation of the sample mean is called the <strong>standard error</strong>. As n grows, the standard error gets smaller, so the sample means bunch closer to the true population mean.
-        </div>
-      </div>
-    </section>
-  </main>
+  <!-- Info modal -->
+  <div class="modal" id="infoModal" hidden role="dialog" aria-modal="true" aria-labelledby="infoTitle">
+    <div class="modal-scrim" data-close></div>
+    <div class="modal-panel">
+      <button class="modal-close" data-close aria-label="Close">×</button>
+      <h2 id="infoTitle">The Central Limit Theorem</h2>
+      <p>
+        When we repeatedly take random samples of size n and compute the sample mean, those sample means tend toward an approximately normal distribution as n grows. This holds even when the original population is not normal.
+      </p>
+      <p>
+        Individual observations may be noisy; averages become more stable and predictable.
+      </p>
+      <div class="formula">σ<sub>x̄</sub> = σ / √n</div>
+      <p class="mini">
+        The standard deviation of the sample mean is the <strong>standard error</strong>. Try n = 1, then n = 5, then n = 30, and watch how the histogram of x̄ narrows and normalizes.
+      </p>
+    </div>
+  </div>
 
   <script>
+    // ---- element handles ----
     const distSelect = document.getElementById('distSelect');
     const nSlider = document.getElementById('nSlider');
     const speedSlider = document.getElementById('speedSlider');
@@ -481,22 +603,60 @@
     const obsMeanEl = document.getElementById('obsMean');
     const obsSdEl = document.getElementById('obsSd');
 
+    const themeBtn = document.getElementById('themeBtn');
+    const infoBtn = document.getElementById('infoBtn');
+    const infoModal = document.getElementById('infoModal');
+
+    // ---- state (declared before theme init so first render can read them) ----
     let population = [];
     let currentSample = [];
     let sampleMeans = [];
     let autoTimer = null;
 
-    const COLORS = {
-      text: '#f4f7ff',
-      muted: '#b8c2df',
-      grid: 'rgba(255,255,255,0.09)',
-      axis: 'rgba(255,255,255,0.35)',
-      cyan: '#7dd3fc',
-      purple: '#c084fc',
-      yellow: '#facc15',
-      green: '#86efac',
-      red: '#fb7185'
-    };
+    // ---- theme handling ----
+    const THEME_KEY = 'clt-theme';
+    function applyTheme(t) {
+      document.documentElement.setAttribute('data-theme', t);
+      themeBtn.textContent = t === 'light' ? '☀' : '☾';
+      themeBtn.setAttribute('aria-label', t === 'light' ? 'Switch to dark theme' : 'Switch to light theme');
+      render();
+    }
+    (function initTheme() {
+      const saved = localStorage.getItem(THEME_KEY);
+      applyTheme(saved === 'light' ? 'light' : 'dark');
+    })();
+    themeBtn.addEventListener('click', () => {
+      const next = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+      localStorage.setItem(THEME_KEY, next);
+      applyTheme(next);
+    });
+
+    // ---- modal ----
+    function openModal() { infoModal.hidden = false; }
+    function closeModal() { infoModal.hidden = true; }
+    infoBtn.addEventListener('click', openModal);
+    infoModal.addEventListener('click', (e) => {
+      if (e.target.matches('[data-close]')) closeModal();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !infoModal.hidden) closeModal();
+    });
+
+    function readChartColors() {
+      const cs = getComputedStyle(document.documentElement);
+      const v = (name) => cs.getPropertyValue(name).trim();
+      return {
+        text: v('--chart-text'),
+        muted: v('--chart-muted'),
+        grid: v('--chart-grid'),
+        axis: v('--chart-axis'),
+        cyan: v('--chart-cyan'),
+        purple: v('--chart-purple'),
+        yellow: v('--chart-yellow'),
+        green: v('--chart-green'),
+        red: v('--chart-red')
+      };
+    }
 
     function randn() {
       let u = 0, v = 0;
@@ -504,10 +664,7 @@
       while (v === 0) v = Math.random();
       return Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v);
     }
-
-    function clamp(x, a, b) {
-      return Math.max(a, Math.min(b, x));
-    }
+    function clamp(x, a, b) { return Math.max(a, Math.min(b, x)); }
 
     function generatePopulation(type) {
       const data = [];
@@ -540,7 +697,6 @@
       if (!arr.length) return NaN;
       return arr.reduce((a, b) => a + b, 0) / arr.length;
     }
-
     function sd(arr) {
       if (arr.length < 2) return NaN;
       const m = mean(arr);
@@ -560,19 +716,9 @@
       sampleMeans.push(sum / n);
       if (sampleMeans.length > 20000) sampleMeans = sampleMeans.slice(-20000);
     }
-
     function sampleMany(k) {
       for (let i = 0; i < k; i++) sampleOne();
       render();
-    }
-
-    function getRange(data, fallbackMin = 0, fallbackMax = 10) {
-      if (!data.length) return [fallbackMin, fallbackMax];
-      let mn = Math.min(...data);
-      let mx = Math.max(...data);
-      if (mn === mx) { mn -= 1; mx += 1; }
-      const pad = (mx - mn) * 0.07;
-      return [mn - pad, mx + pad];
     }
 
     function histogram(data, bins, min, max) {
@@ -587,15 +733,24 @@
       return counts;
     }
 
-    function clearCanvas(ctx, w, h) {
-      ctx.clearRect(0, 0, w, h);
+    // HiDPI canvas prep
+    function prepCanvas(canvas) {
+      const rect = canvas.parentElement.getBoundingClientRect();
+      const cssW = Math.max(1, Math.floor(rect.width));
+      const cssH = Math.max(1, Math.floor(rect.height));
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = cssW * dpr;
+      canvas.height = cssH * dpr;
+      const ctx = canvas.getContext('2d');
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      return { ctx, w: cssW, h: cssH };
     }
 
-    function drawAxes(ctx, w, h, pad, min, max, yMax, xLabel) {
-      ctx.strokeStyle = COLORS.grid;
+    function drawAxes(ctx, w, h, pad, min, max, C, xLabel) {
+      ctx.strokeStyle = C.grid;
       ctx.lineWidth = 1;
-      ctx.font = '12px system-ui';
-      ctx.fillStyle = COLORS.muted;
+      ctx.font = '12px system-ui, -apple-system, sans-serif';
+      ctx.fillStyle = C.muted;
 
       for (let i = 0; i <= 4; i++) {
         const y = pad.top + (h - pad.top - pad.bottom) * i / 4;
@@ -604,8 +759,7 @@
         ctx.lineTo(w - pad.right, y);
         ctx.stroke();
       }
-
-      ctx.strokeStyle = COLORS.axis;
+      ctx.strokeStyle = C.axis;
       ctx.beginPath();
       ctx.moveTo(pad.left, h - pad.bottom);
       ctx.lineTo(w - pad.right, h - pad.bottom);
@@ -614,33 +768,30 @@
       for (let i = 0; i <= 4; i++) {
         const x = pad.left + (w - pad.left - pad.right) * i / 4;
         const val = min + (max - min) * i / 4;
-        ctx.fillText(val.toFixed(1), x - 12, h - pad.bottom + 20);
+        ctx.fillText(val.toFixed(1), x - 12, h - pad.bottom + 18);
       }
-
       if (xLabel) {
-        ctx.fillStyle = COLORS.muted;
-        ctx.fillText(xLabel, w - pad.right - 35, h - 10);
+        ctx.fillText(xLabel, w - pad.right - 20, h - 6);
       }
     }
 
     function drawHistogram(canvas, data, options = {}) {
-      const ctx = canvas.getContext('2d');
-      const w = canvas.width;
-      const h = canvas.height;
-      clearCanvas(ctx, w, h);
+      const { ctx, w, h } = prepCanvas(canvas);
+      ctx.clearRect(0, 0, w, h);
 
-      const pad = { left: 42, right: 18, top: 22, bottom: 42 };
+      const C = readChartColors();
+      const pad = { left: 38, right: 16, top: 18, bottom: 36 };
       const bins = options.bins || 34;
-      const [min, max] = options.range || getRange(data);
+      const [min, max] = options.range || [0, 10];
       const counts = histogram(data, bins, min, max);
       const yMax = Math.max(1, ...counts) * 1.12;
       const chartW = w - pad.left - pad.right;
       const chartH = h - pad.top - pad.bottom;
       const binW = chartW / bins;
 
-      drawAxes(ctx, w, h, pad, min, max, yMax, options.xLabel || '');
+      drawAxes(ctx, w, h, pad, min, max, C, options.xLabel || '');
 
-      ctx.fillStyle = options.color || COLORS.cyan;
+      ctx.fillStyle = options.color || C.cyan;
       counts.forEach((c, i) => {
         const x = pad.left + i * binW;
         const barH = (c / yMax) * chartH;
@@ -650,7 +801,7 @@
 
       if (options.meanLine !== undefined) {
         const x = pad.left + ((options.meanLine - min) / (max - min)) * chartW;
-        ctx.strokeStyle = options.meanColor || COLORS.red;
+        ctx.strokeStyle = C.red;
         ctx.lineWidth = 2;
         ctx.setLineDash([6, 5]);
         ctx.beginPath();
@@ -658,15 +809,16 @@
         ctx.lineTo(x, h - pad.bottom);
         ctx.stroke();
         ctx.setLineDash([]);
-        ctx.fillStyle = options.meanColor || COLORS.red;
-        ctx.fillText('μ', x + 5, pad.top + 14);
+        ctx.fillStyle = C.red;
+        ctx.font = '13px system-ui, -apple-system, sans-serif';
+        ctx.fillText('μ', x + 5, pad.top + 12);
       }
 
       if (options.normalOverlay && data.length > 2) {
         const mu = options.normalMu;
         const sigma = Math.max(options.normalSigma, 0.0001);
         const binWidth = (max - min) / bins;
-        ctx.strokeStyle = COLORS.green;
+        ctx.strokeStyle = C.green;
         ctx.lineWidth = 3;
         ctx.beginPath();
         for (let i = 0; i <= 240; i++) {
@@ -683,25 +835,24 @@
     }
 
     function drawSample(canvas, data) {
-      const ctx = canvas.getContext('2d');
-      const w = canvas.width;
-      const h = canvas.height;
-      clearCanvas(ctx, w, h);
-      const pad = { left: 42, right: 18, top: 22, bottom: 42 };
+      const { ctx, w, h } = prepCanvas(canvas);
+      ctx.clearRect(0, 0, w, h);
+      const C = readChartColors();
+      const pad = { left: 38, right: 16, top: 18, bottom: 36 };
       const [min, max] = [0, 10];
       const chartW = w - pad.left - pad.right;
       const chartH = h - pad.top - pad.bottom;
 
-      drawAxes(ctx, w, h, pad, min, max, 1, 'x');
+      drawAxes(ctx, w, h, pad, min, max, C, 'x');
 
       if (!data.length) {
-        ctx.fillStyle = COLORS.muted;
-        ctx.font = '17px system-ui';
-        ctx.fillText('Click “Take 1 sample” or “Take many” to begin.', pad.left + 10, h / 2);
+        ctx.fillStyle = C.muted;
+        ctx.font = '15px system-ui, -apple-system, sans-serif';
+        ctx.fillText('Click "Take 1" or "Take many" to begin.', pad.left + 10, h / 2);
         return;
       }
 
-      ctx.fillStyle = COLORS.yellow;
+      ctx.fillStyle = C.yellow;
       data.forEach((x, i) => {
         const px = pad.left + ((x - min) / (max - min)) * chartW;
         const py = pad.top + chartH * (0.12 + 0.76 * ((i % 16) / 15));
@@ -712,15 +863,15 @@
 
       const m = mean(data);
       const mx = pad.left + ((m - min) / (max - min)) * chartW;
-      ctx.strokeStyle = COLORS.green;
+      ctx.strokeStyle = C.green;
       ctx.lineWidth = 3;
       ctx.beginPath();
       ctx.moveTo(mx, pad.top);
       ctx.lineTo(mx, h - pad.bottom);
       ctx.stroke();
-      ctx.fillStyle = COLORS.green;
-      ctx.font = '14px system-ui';
-      ctx.fillText('sample mean x̄ = ' + m.toFixed(2), Math.min(mx + 8, w - 180), pad.top + 18);
+      ctx.fillStyle = C.green;
+      ctx.font = '13px system-ui, -apple-system, sans-serif';
+      ctx.fillText('x̄ = ' + m.toFixed(2), Math.min(mx + 8, w - 90), pad.top + 14);
     }
 
     function updateStats() {
@@ -741,6 +892,7 @@
     function render() {
       nValue.textContent = nSlider.value;
       speedValue.textContent = speedSlider.value;
+      const C = readChartColors();
       const mu = mean(population);
       const sigma = sd(population);
       const n = Number(nSlider.value);
@@ -749,9 +901,8 @@
       drawHistogram(popCanvas, population, {
         bins: distSelect.value === 'dice' ? 6 : 36,
         range: distSelect.value === 'dice' ? [0.5, 6.5] : [0, 10],
-        color: COLORS.cyan,
+        color: C.cyan,
         meanLine: mu,
-        meanColor: COLORS.red,
         xLabel: 'x'
       });
 
@@ -760,9 +911,8 @@
       drawHistogram(meansCanvas, sampleMeans, {
         bins: 38,
         range: distSelect.value === 'dice' ? [0.5, 6.5] : [0, 10],
-        color: COLORS.purple,
+        color: C.purple,
         meanLine: mu,
-        meanColor: COLORS.red,
         normalOverlay: sampleMeans.length > 5,
         normalMu: mu,
         normalSigma: se,
@@ -787,7 +937,7 @@
         autoBtn.classList.remove('ghost');
         autoBtn.classList.add('warning');
       } else {
-        autoBtn.textContent = 'Stop auto-run';
+        autoBtn.textContent = 'Stop';
         autoBtn.classList.remove('warning');
         autoBtn.classList.add('ghost');
         autoTimer = setInterval(() => {
@@ -807,6 +957,11 @@
     manyBtn.addEventListener('click', () => sampleMany(Number(speedSlider.value)));
     autoBtn.addEventListener('click', toggleAuto);
     resetBtn.addEventListener('click', resetExperiment);
+
+    // observe each canvas container for size changes
+    const ro = new ResizeObserver(() => render());
+    [popCanvas, sampleCanvas, meansCanvas].forEach(c => ro.observe(c.parentElement));
+    window.addEventListener('resize', () => render());
 
     resetExperiment();
   </script>
