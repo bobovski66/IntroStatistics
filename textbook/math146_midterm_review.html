@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Introduction to Statistics &mdash; Master Review, Chapters 1&ndash;4</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F8F7F2;
+  --card:#FFFFFF;
+  --ink:#22252B;
+  --faint:#6B6F78;
+  --rule:#DFDCD2;
+  --accent:#31566F;          /* stat ink blue */
+  --accent-soft:#E4EBF0;
+  --chap:#7A5C2E;            /* chapter tag gold-brown */
+  --chap-soft:#F1EADB;
+  --green:#3E6B4F;
+  --green-soft:#E4EEE7;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{font-size:17px}
+body{
+  font-family:'Crimson Pro',Georgia,serif;
+  background:var(--paper);
+  color:var(--ink);
+  line-height:1.55;
+  min-height:100vh;
+  padding-bottom:4rem;
+}
+.wrap{max-width:820px;margin:0 auto;padding:0 1.1rem}
+
+/* header */
+header{border-bottom:3px double var(--rule);padding:2.2rem 0 1.3rem;margin-bottom:1.4rem}
+.eyebrow{font-family:'DM Mono',monospace;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent)}
+h1{font-weight:700;font-size:2rem;line-height:1.15;margin:.3rem 0 .2rem}
+.sub{color:var(--faint);font-size:1.02rem;font-style:italic}
+
+/* chapter pills */
+.pills{display:flex;flex-wrap:wrap;gap:.5rem;margin:1.1rem 0 .4rem}
+.pill{
+  font-family:'DM Mono',monospace;font-size:.78rem;letter-spacing:.02em;
+  border:1.5px solid var(--accent);color:var(--accent);background:transparent;
+  border-radius:999px;padding:.32rem .85rem;cursor:pointer;transition:all .15s;
+  user-select:none;
+}
+.pill.on{background:var(--accent);color:#fff}
+.pill:focus-visible{outline:2px solid var(--chap);outline-offset:2px}
+.pillnote{font-size:.85rem;color:var(--faint);font-style:italic;margin-bottom:1rem}
+
+/* draw button row */
+.drawrow{display:flex;align-items:center;gap:1rem;margin:.6rem 0 1.4rem;flex-wrap:wrap}
+.btn{
+  font-family:'DM Mono',monospace;font-size:.85rem;letter-spacing:.03em;
+  border:none;border-radius:6px;padding:.6rem 1.2rem;cursor:pointer;transition:all .15s;
+}
+.btn:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.btn-draw{background:var(--accent);color:#fff}
+.btn-draw:hover{background:#24425a}
+.btn-ghost{background:transparent;color:var(--accent);border:1.5px solid var(--accent)}
+.btn-ghost:hover{background:var(--accent-soft)}
+.count{font-family:'DM Mono',monospace;font-size:.78rem;color:var(--faint)}
+
+/* problem card */
+.card{
+  background:var(--card);border:1px solid var(--rule);border-radius:10px;
+  padding:1.5rem 1.6rem 1.4rem;box-shadow:0 2px 10px rgba(34,37,43,.05);
+  margin-bottom:1.2rem;
+}
+.cardhead{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;margin-bottom:.8rem;flex-wrap:wrap}
+.chaptag{
+  font-family:'DM Mono',monospace;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;
+  background:var(--chap-soft);color:var(--chap);border-radius:4px;padding:.2rem .55rem;
+}
+.topic{font-style:italic;color:var(--faint);font-size:.92rem}
+.qtext{font-size:1.08rem}
+.qtext ol{margin:.5rem 0 0 1.4rem}
+.qtext li{margin:.25rem 0}
+
+/* data tables inside problems/solutions */
+table.dt{border-collapse:collapse;margin:.6rem 0;font-size:.95rem}
+table.dt th,table.dt td{
+  font-family:'DM Mono',monospace;font-size:.82rem;
+  border:1px solid var(--rule);padding:.28rem .6rem;text-align:center;
+}
+table.dt th{background:var(--accent-soft);font-weight:500}
+
+/* solution */
+.solwrap{margin-top:1.2rem;border-top:1px dashed var(--rule);padding-top:1rem}
+.sol{
+  background:var(--green-soft);border-left:4px solid var(--green);
+  border-radius:0 8px 8px 0;padding:1rem 1.2rem;font-size:1.02rem;
+  animation:reveal .25s ease-out;
+}
+@keyframes reveal{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.sol{animation:none}}
+.sol .lbl{font-family:'DM Mono',monospace;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--green);display:block;margin-bottom:.4rem}
+.sol p{margin:.35rem 0}
+.sol ol{margin:.35rem 0 .35rem 1.3rem}
+.sol li{margin:.25rem 0}
+
+/* self-grade */
+.grade{display:flex;gap:.6rem;align-items:center;margin-top:1rem;flex-wrap:wrap}
+.grade span{font-style:italic;color:var(--faint);font-size:.92rem}
+.btn-got{background:var(--green);color:#fff}
+.btn-got:hover{filter:brightness(.9)}
+.btn-miss{background:transparent;color:var(--accent);border:1.5px solid var(--accent)}
+.btn-miss:hover{background:var(--accent-soft)}
+
+/* mastery strip */
+.strip{margin-top:2rem}
+.striphead{font-family:'DM Mono',monospace;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin-bottom:.5rem}
+.cells{display:grid;grid-template-columns:repeat(4,1fr);gap:.5rem}
+.cell{background:var(--card);border:1px solid var(--rule);border-radius:8px;padding:.6rem .5rem;text-align:center}
+.cell .cname{font-family:'DM Mono',monospace;font-size:.7rem;color:var(--accent);letter-spacing:.05em}
+.cell .cscore{font-size:1.15rem;font-weight:600;margin-top:.15rem}
+.cell .cscore .hit{color:var(--green)}
+.cell .cscore .sep{color:var(--faint);font-weight:400}
+.empty{color:var(--faint);font-style:italic;text-align:center;padding:2.5rem 1rem;border:1.5px dashed var(--rule);border-radius:10px;margin-bottom:1.2rem}
+
+/* --- pure HTML/CSS math --- */
+.m{font-family:'DM Mono',monospace;font-size:.93em;white-space:nowrap}
+.fr{display:inline-flex;flex-direction:column;vertical-align:middle;text-align:center;margin:0 .12em;line-height:1.15}
+.fr .n{border-bottom:1.4px solid currentColor;padding:0 .28em .05em}
+.fr .d{padding:.05em .28em 0}
+.rt{white-space:nowrap}
+.rt .rad{border-top:1.4px solid currentColor;padding:0 .15em 0 .05em;margin-left:.05em}
+.bn{display:inline-flex;align-items:center;vertical-align:middle;margin:0 .1em}
+.bn .bs{display:inline-flex;flex-direction:column;text-align:center;line-height:1.1;padding:0 .1em}
+.bn .paren{font-size:1.7em;font-weight:300;line-height:1}
+sup,sub{font-size:.72em}
+.pm{padding:0 .08em}
+
+@media (max-width:560px){
+  html{font-size:16px}
+  .card{padding:1.2rem 1.1rem}
+  .cells{gap:.35rem}
+  .cell{padding:.45rem .25rem}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <div class="eyebrow">MATH&amp; 146 &middot; Introduction to Statistics</div>
+    <h1>Master Review: Chapters 1&ndash;4</h1>
+    <div class="sub">Draw a random problem, work it on paper (z-table in hand), then check your solution and grade yourself.</div>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="pills" id="pills" role="group" aria-label="Chapter filters"></div>
+  <div class="pillnote">Toggle chapters on or off to focus the draw. All four are on to start.</div>
+
+  <div class="drawrow">
+    <button class="btn btn-draw" id="drawBtn">Draw a problem</button>
+    <span class="count" id="deckCount"></span>
+  </div>
+
+  <div id="stage">
+    <div class="empty">No problem drawn yet. Press <em>Draw a problem</em> to begin.</div>
+  </div>
+
+  <div class="strip">
+    <div class="striphead">Session tally &mdash; got it / attempted</div>
+    <div class="cells" id="cells"></div>
+  </div>
+</main>
+
+<script>
+/* ---------- tiny math markup helpers ----------
+   fr(n,d) stacked fraction | rt(x) square root | m(x) mono span
+   bn(n,k) binomial coefficient | xb = x-bar | ph = p-hat
+------------------------------------------------- */
+const fr = (n,d)=>`<span class="fr"><span class="n">${n}</span><span class="d">${d}</span></span>`;
+const rt = x=>`<span class="rt">&radic;<span class="rad">${x}</span></span>`;
+const m = x=>`<span class="m">${x}</span>`;
+const bn = (n,k)=>`<span class="bn"><span class="paren">(</span><span class="bs"><span>${n}</span><span>${k}</span></span><span class="paren">)</span></span>`;
+const xb = "x&#772;";   // x-bar
+const ph = "p&#770;";   // p-hat
+const sxb = `&sigma;<sub>${xb}</sub>`;
+
+const CH = {
+  1:"The Main Problem",
+  2:"Discrete Distributions",
+  3:"Continuous Distributions",
+  4:"CLT &amp; Normal"
+};
+
+/* ---------------------------- PROBLEM BANK ---------------------------- */
+const BANK = [
+
+/* ============================ CHAPTER 1 ============================ */
+{ch:1, topic:"Population, sample, parameter, statistic",
+q:`A polling company calls 800 registered voters in Washington State and asks about their approval of the governor. Identify the (a) population, (b) sample, (c) parameter of interest, (d) statistic computed. Use correct notation.`,
+s:`<ol>
+<li>Population: all registered voters in Washington State.</li>
+<li>Sample: the 800 registered voters who were called.</li>
+<li>Parameter: ${m("p")}, the true proportion of all registered voters in the state who approve of the governor.</li>
+<li>Statistic: ${m(ph)}, the proportion of the 800 sampled voters who approve, computed from the survey data.</li></ol>
+<p>Greek letters for the world we cannot fully see; Roman letters for the world we measured.</p>`},
+
+{ch:1, topic:"Parameters vs. statistics",
+q:`True or False: a parameter changes every time a new sample is taken. Explain your answer.`,
+s:`<p><strong>False.</strong> A parameter is a fixed characteristic of the population, not of any particular sample; it does not change when a new sample is taken.</p>
+<p>Statistics vary from sample to sample; parameters do not. We may not know the parameter's value, but it is not moving around &mdash; our <em>estimates</em> of it are.</p>`},
+
+{ch:1, topic:"Classifying variables",
+q:`Classify each variable as categorical, discrete quantitative, or continuous quantitative:
+<ol><li>number of cars in a household</li><li>annual income</li><li>brand of coffee preferred</li><li>blood type</li><li>distance driven to campus</li><li>score on a 10-question quiz</li></ol>`,
+s:`<ol>
+<li>Discrete quantitative (countable whole numbers).</li>
+<li>Continuous quantitative (any nonnegative value along a scale).</li>
+<li>Categorical.</li>
+<li>Categorical.</li>
+<li>Continuous quantitative.</li>
+<li>Discrete quantitative (whole numbers 0 through 10).</li></ol>`},
+
+{ch:1, topic:"Summation notation",
+q:`Given ${m("x<sub>1</sub> = 4, x<sub>2</sub> = 1, x<sub>3</sub> = 6, x<sub>4</sub> = 3")}, compute:
+<ol><li>${m("&Sigma; x<sub>i</sub>")}</li><li>${m("&Sigma; x<sub>i</sub><sup>2</sup>")}</li><li>${m("(&Sigma; x<sub>i</sub>)<sup>2</sup>")}</li></ol>`,
+s:`<ol>
+<li>${m("4 + 1 + 6 + 3 = 14")}.</li>
+<li>${m("16 + 1 + 36 + 9 = 62")} (square each value, then add).</li>
+<li>${m("14<sup>2</sup> = 196")} (add first, then square).</li></ol>
+<p>Note ${m("62 &ne; 196")}: ${m("&Sigma;x<sub>i</sub><sup>2</sup>")} and ${m("(&Sigma;x<sub>i</sub>)<sup>2</sup>")} are completely different quantities. Order matters.</p>`},
+
+{ch:1, topic:"Linearity of summation",
+q:`If ${m("&Sigma;<sub>i=1</sub><sup>6</sup> x<sub>i</sub> = 42")}, what is ${m("&Sigma;<sub>i=1</sub><sup>6</sup> (x<sub>i</sub> + 3)")}? (Hint: distribute the sum.)`,
+s:`<p>Distribute: ${m("&Sigma;(x<sub>i</sub> + 3) = &Sigma;x<sub>i</sub> + &Sigma;3 = 42 + 3(6) = 42 + 18 = 60")}.</p>
+<p>Adding 3 to each of the six values adds ${m("3 &times; 6 = 18")} to the total.</p>`},
+
+{ch:1, topic:"Mean and median",
+q:`Compute the mean and median of: ${m("14, 22, 9, 31, 17, 22, 8")}.`,
+s:`<p><strong>Mean.</strong> ${m(xb + " = ")}${fr("14 + 22 + 9 + 31 + 17 + 22 + 8","7")}${m(" = ")}${fr("123","7")}${m(" &asymp; 17.57")}.</p>
+<p><strong>Median.</strong> Sorted: ${m("8, 9, 14, 17, 22, 22, 31")}. With ${m("n = 7")} (odd), the median is at position ${m("(7+1)/2 = 4")}: the 4th value is <strong>17</strong>.</p>`},
+
+{ch:1, topic:"Outliers: mean vs. median",
+q:`House prices in a neighborhood: ${m("$180k, $195k, $205k, $212k, $950k")}. Compute the mean and the median. Which is a better summary of a &ldquo;typical&rdquo; price? Why?`,
+s:`<p><strong>Mean.</strong> ${m(xb + " = ")}${fr("1742","5")}${m(" = $348.4k")}.</p>
+<p><strong>Median.</strong> Already sorted; ${m("n = 5")}, so the median is the 3rd value: ${m("$205k")}.</p>
+<p>The <strong>median</strong> is the better summary. The ${m("$950k")} value is a high outlier that pulls the mean up to ${m("$348.4k")} &mdash; far above four of the five prices. The median accurately reflects the center for a typical home.</p>`},
+
+{ch:1, topic:"Standard deviation by hand",
+q:`Compute the sample standard deviation of: ${m("10, 14, 12, 16, 13")}. Show the deviation table.`,
+s:`<p>${m("n = 5")}, ${m(xb + " = 65/5 = 13")}.</p>
+<table class="dt"><tr><th>x&#7522;</th><th>x&#7522; &minus; ${xb}</th><th>(x&#7522; &minus; ${xb})&sup2;</th></tr>
+<tr><td>10</td><td>&minus;3</td><td>9</td></tr>
+<tr><td>14</td><td>+1</td><td>1</td></tr>
+<tr><td>12</td><td>&minus;1</td><td>1</td></tr>
+<tr><td>16</td><td>+3</td><td>9</td></tr>
+<tr><td>13</td><td>0</td><td>0</td></tr>
+<tr><td>Sum</td><td>0</td><td>20</td></tr></table>
+<p>${m("s = ")}${rt(fr("20","5 &minus; 1"))}${m(" = ")}${rt("5")}${m(" &asymp; 2.24")}.</p>
+<p>The deviations sum to zero (always); the squared deviations do the measuring.</p>`},
+
+{ch:1, topic:"Interpreting standard deviation",
+q:`Two classes take the same exam. Class 1: mean 75, ${m("s = 3")}. Class 2: mean 75, ${m("s = 18")}. Describe in words what these numbers tell you about the two classes.`,
+s:`<p>Both classes have a mean of 75, so their average performance is the same.</p>
+<p>Class 1 (${m("s = 3")}) is far more consistent: nearly every student scored close to 75, with very little variation. Class 2 (${m("s = 18")}) shows much greater spread &mdash; scores ranged widely above and below 75, indicating substantial differences in individual performance.</p>`},
+
+{ch:1, topic:"Shape from mean vs. median",
+q:`For a dataset where mean ${m("= 45")} and median ${m("= 52")}, what does this tell you about the shape of the distribution?`,
+s:`<p>With mean ${m("45 &lt;")} median ${m("52")}, the mean is pulled <em>below</em> the median.</p>
+<p>This indicates a <strong>left-skewed</strong> (negatively skewed) distribution, with a long tail extending toward lower values. The mean is pulled toward the tail.</p>`},
+
+/* ============================ CHAPTER 2 ============================ */
+{ch:2, topic:"Building a probability distribution",
+q:`A bag contains 3 red, 2 blue, and 1 green marble. You draw one marble at random. Let ${m("X")} be the color (coded 1 = red, 2 = blue, 3 = green). Write the probability distribution as a table and verify that the probabilities sum to 1.`,
+s:`<table class="dt"><tr><th>x</th><th>Color</th><th>P(X = x)</th></tr>
+<tr><td>1</td><td>Red</td><td>3/6 = 1/2</td></tr>
+<tr><td>2</td><td>Blue</td><td>2/6 = 1/3</td></tr>
+<tr><td>3</td><td>Green</td><td>1/6</td></tr></table>
+<p>Verification: ${fr("1","2")}${m(" + ")}${fr("1","3")}${m(" + ")}${fr("1","6")}${m(" = ")}${fr("3 + 2 + 1","6")}${m(" = 1")}. &check;</p>`},
+
+{ch:2, topic:"Valid distribution?",
+q:`Is the following a valid probability distribution? Why or why not?
+<table class="dt"><tr><th>x</th><td>0</td><td>1</td><td>2</td><td>3</td></tr>
+<tr><th>P</th><td>0.2</td><td>0.4</td><td>0.5</td><td>&minus;0.1</td></tr></table>`,
+s:`<p><strong>Not valid.</strong> Rule 1 fails: ${m("P(X = 3) = &minus;0.1 &lt; 0")}. Probabilities cannot be negative.</p>
+<p>(Rule 2 technically holds &mdash; the entries sum to 1.0 &mdash; but the negative entry alone is sufficient grounds for rejection.)</p>`},
+
+{ch:2, topic:"Expected value: is the game fair?",
+q:`A game costs $2 to play. You roll one die: if you roll a 6, you win $10; otherwise you win nothing. Let ${m("X")} be your net gain (winnings minus cost). Build the distribution table and compute ${m("&mu;")}. Is the game fair?`,
+s:`<table class="dt"><tr><th>Outcome</th><th>x (net gain)</th><th>P(X = x)</th></tr>
+<tr><td>Roll a 6</td><td>+8</td><td>1/6</td></tr>
+<tr><td>Roll 1&ndash;5</td><td>&minus;2</td><td>5/6</td></tr></table>
+<p>${m("&mu; = 8 &middot; ")}${fr("1","6")}${m(" + (&minus;2) &middot; ")}${fr("5","6")}${m(" = ")}${fr("8 &minus; 10","6")}${m(" = &minus;")}${fr("1","3")}${m(" &asymp; &minus;$0.33")}.</p>
+<p><strong>Not fair:</strong> the player loses about 33 cents per play on average. A fair game requires ${m("&mu; = 0")}.</p>`},
+
+{ch:2, topic:"Standard deviation as risk",
+q:`Two investments: Investment A has ${m("&mu; = $500, &sigma; = $50")}. Investment B has ${m("&mu; = $500, &sigma; = $400")}. Which would you prefer and why? Is there a single correct answer?`,
+s:`<p>There is <strong>no single correct answer</strong> &mdash; this is a question about risk preference, not arithmetic.</p>
+<p>Both have the same expected return ${m("&mu; = $500")}. Investment A (${m("&sigma; = $50")}) is highly predictable: nearly all outcomes close to $500. Investment B (${m("&sigma; = $400")}) is volatile: outcomes range widely, offering much higher or much lower returns.</p>
+<p>A risk-averse investor would prefer A; a risk-tolerant investor seeking upside might prefer B. Standard deviation quantifies the tradeoff but does not dictate the choice.</p>`},
+
+{ch:2, topic:"Geometric distribution",
+q:`A manufacturing process produces defective items with probability ${m("0.08")}. Parts are inspected one at a time; let ${m("X")} be the number of parts inspected until the first defect.
+<ol><li>Compute ${m("P(X = 1)")}, ${m("P(X = 2)")}, ${m("P(X = 3)")}.</li><li>Compute ${m("&mu;")} and ${m("&sigma;")}.</li></ol>`,
+s:`<p>Geometric with ${m("p = 0.08")}, ${m("q = 0.92")}: ${m("P(X = k) = (0.92)<sup>k&minus;1</sup>(0.08)")}.</p>
+<ol>
+<li>${m("P(X=1) = 0.0800")}; ${m("P(X=2) = 0.92 &times; 0.08 = 0.0736")}; ${m("P(X=3) = (0.92)<sup>2</sup>(0.08) &asymp; 0.0677")}.</li>
+<li>${m("&mu; = ")}${fr("1","p")}${m(" = ")}${fr("1","0.08")}${m(" = 12.5")} parts; ${m("&sigma; = ")}${fr(rt("1 &minus; p"),"p")}${m(" = ")}${fr(rt("0.92"),"0.08")}${m(" &asymp; 11.99")} parts.</li></ol>
+<p>The inspector expects to check about 12.5 parts before finding a defect, with substantial variability.</p>`},
+
+{ch:2, topic:"Geometric: first success on trial k",
+q:`A student guesses randomly on a multiple-choice exam where each question has 4 choices. What is the probability the student gets the first correct answer on question number 5?`,
+s:`<p>${m("p = 1/4 = 0.25")}. First success on trial 5:</p>
+<p>${m("P(X = 5) = (0.75)<sup>4</sup> &middot; 0.25 = 0.3164 &times; 0.25 &asymp; 0.0791")}.</p>
+<p>About a 7.9% chance: four misses in a row, then a hit, multiplied because the trials are independent.</p>`},
+
+{ch:2, topic:"Binomial setting and computation",
+q:`A factory produces bolts where 5% are defective. A sample of ${m("n = 20")} bolts is drawn; let ${m("X")} be the number of defective bolts.
+<ol><li>Compute ${m("P(X = 0)")} and ${m("P(X = 1)")}.</li><li>Compute ${m("&mu;")} and ${m("&sigma;")}.</li><li>Describe the shape of the probability histogram.</li></ol>`,
+s:`<p>${m("X ~ Bin(20, 0.05)")}.</p>
+<ol>
+<li>${m("P(X=0) = (0.95)<sup>20</sup> &asymp; 0.3585")}; ${m("P(X=1) = ")}${bn("20","1")}${m("(0.05)(0.95)<sup>19</sup> &asymp; 0.3774")}.</li>
+<li>${m("&mu; = np = 20(0.05) = 1")} defective expected; ${m("&sigma; = ")}${rt("np(1 &minus; p)")}${m(" = ")}${rt("0.95")}${m(" &asymp; 0.975")}.</li>
+<li>Strongly <strong>skewed right</strong>: zero or one defective is overwhelmingly likely (together about 73.6% of the probability); bars decrease rapidly as ${m("k")} increases.</li></ol>`},
+
+{ch:2, topic:"Binomial: passing by guessing",
+q:`A multiple choice exam has 15 questions, each with 5 options. A student guesses randomly on every question.
+<ol><li>What is the expected number of correct answers?</li><li>The pass mark is 9. Is passing by guessing realistic? Justify numerically.</li></ol>`,
+s:`<ol>
+<li>${m("&mu; = np = 15(0.20) = 3")} correct answers expected.</li>
+<li>Not realistic. ${m("&sigma; = ")}${rt("15(0.20)(0.80)")}${m(" &asymp; 1.55")}, so a score of 9 is ${m("(9 &minus; 3)/1.55 &asymp; 3.9")} standard deviations above the mean &mdash; extremely rare. Numerically ${m("P(X &ge; 9) &lt; 0.001")}: less than a 0.1% chance.</li></ol>`},
+
+{ch:2, topic:"Expected value: carnival game",
+q:`A carnival game costs $3 to play. You draw one card from a standard 52-card deck. If you draw an ace, you win $20; a face card (J, Q, K), you win $8; otherwise nothing. Let ${m("X")} be your net gain. (a) Write the distribution table. (b) Compute ${m("&mu;")}. Is the game in your favor?`,
+s:`<table class="dt"><tr><th>x (net gain)</th><th>P(X = x)</th></tr>
+<tr><td>+17</td><td>1/13</td></tr>
+<tr><td>+5</td><td>3/13</td></tr>
+<tr><td>&minus;3</td><td>9/13</td></tr></table>
+<p>(Aces: 4/52 = 1/13, net ${m("20 &minus; 3 = 17")}; faces: 12/52 = 3/13, net ${m("+5")}; other: 36/52 = 9/13, net ${m("&minus;3")}.)</p>
+<p>${m("&mu; = ")}${fr("17 + 15 &minus; 27","13")}${m(" = ")}${fr("5","13")}${m(" &asymp; $0.38")}.</p>
+<p>Slightly <strong>in the player's favor</strong>: expected net gain of about 38 cents per play.</p>`},
+
+{ch:2, topic:"Geometric vs. binomial",
+q:`A quality control inspector examines circuit boards one at a time; each board has a 4% defect rate, independently. (a) What is the probability the first defective board is the 5th one inspected? (b) How many boards does the inspector expect to check before finding a defect? (c) Now the inspector checks exactly 25 boards and counts defectives &mdash; is this geometric or binomial? Explain.`,
+s:`<ol>
+<li>Geometric: ${m("P(X = 5) = (0.96)<sup>4</sup>(0.04) &asymp; 0.0340")}.</li>
+<li>${m("&mu; = 1/p = 1/0.04 = 25")} boards on average.</li>
+<li><strong>Binomial</strong>: the number of trials is fixed at ${m("n = 25")} and ${m("X")} counts how many are defective. Geometric asks <em>how long until</em> the first success; binomial asks <em>how many</em> successes in a fixed number of trials.</li></ol>`},
+
+/* ============================ CHAPTER 3 ============================ */
+{ch:3, topic:"Probability of an exact value",
+q:`Explain in your own words why ${m("P(X = 2.5) = 0")} for a continuous random variable, but ${m("P(X = 2.5)")} is perfectly meaningful for a discrete random variable.`,
+s:`<p>For a continuous variable, probability equals <em>area under the density curve</em>. A single point has no width, so the area above it is zero: ${m("P(X = 2.5) = 0")}.</p>
+<p>For a discrete variable, each individual value is assigned a probability mass directly &mdash; no area involved &mdash; so ${m("P(X = 2.5)")} is a meaningful number (though it may be zero if 2.5 isn't in the support).</p>`},
+
+{ch:3, topic:"Reasoning about a density curve",
+q:`A density curve has a triangular shape: it rises linearly from ${m("x = 0")} to ${m("x = 2")}, reaching a peak, then drops back to 0 at ${m("x = 4")}. Without computing an integral, where must the peak be? What must its height be?`,
+s:`<p>The peak is at ${m("x = 2")}, as described.</p>
+<p>Height: the triangle has base 4 (from 0 to 4), and total area must be 1:</p>
+<p>${fr("1","2")}${m("(4)(h) = 1")} &nbsp;&rArr;&nbsp; ${m("h = ")}${fr("1","2")}.</p>
+<p>The height is forced by the total-area-equals-1 rule, the same rule that governs every density curve.</p>`},
+
+{ch:3, topic:"Uniform on [0, 1]",
+q:`A random number generator produces values uniformly on ${m("[0, 1]")}. Compute:
+<ol><li>${m("P(X &lt; 0.3)")}</li><li>${m("P(0.2 &lt; X &lt; 0.8)")}</li><li>${m("P(X &gt; 0.95)")}</li></ol>`,
+s:`<p>${m("f(x) = 1")} on ${m("[0, 1]")}, so probability equals interval length.</p>
+<ol>
+<li>${m("0.3 &minus; 0 = 0.30")}.</li>
+<li>${m("0.8 &minus; 0.2 = 0.60")}.</li>
+<li>${m("1 &minus; 0.95 = 0.05")}.</li></ol>`},
+
+{ch:3, topic:"Uniform: mean, spread, probability",
+q:`For ${m("X ~ U(5, 20)")}, compute ${m("&mu;")}, ${m("&sigma;")}, and ${m("P(8 &le; X &le; 15)")}. Describe the density curve and the shaded region.`,
+s:`<p>${m("&mu; = ")}${fr("5 + 20","2")}${m(" = 12.5")}.</p>
+<p>${m("&sigma; = ")}${fr("20 &minus; 5",rt("12"))}${m(" = ")}${fr("15",rt("12"))}${m(" &asymp; 4.33")}.</p>
+<p>${m("P(8 &le; X &le; 15) = ")}${fr("15 &minus; 8","20 &minus; 5")}${m(" = ")}${fr("7","15")}${m(" &asymp; 0.467")}.</p>
+<p>The density is a flat rectangle of height ${fr("1","15")} on ${m("[5, 20]")}; the shaded region is the strip from ${m("x = 8")} to ${m("x = 15")}.</p>`},
+
+{ch:3, topic:"Uniform: complement",
+q:`A flight's departure time is uniformly distributed between 0 and 30 minutes late. What is the probability it departs more than 20 minutes late? What is the expected delay?`,
+s:`<p>${m("X ~ U(0, 30)")}.</p>
+<p>${m("P(X &gt; 20) = ")}${fr("30 &minus; 20","30")}${m(" = ")}${fr("1","3")}${m(" &asymp; 0.333")}.</p>
+<p>Expected delay: ${m("&mu; = ")}${fr("0 + 30","2")}${m(" = 15")} minutes.</p>`},
+
+{ch:3, topic:"The Empirical Rule",
+q:`For ${m("Z ~ N(0, 1)")}, use the Empirical Rule to estimate (no table needed):
+<ol><li>${m("P(&minus;1 &le; Z &le; 1)")}</li><li>${m("P(Z &gt; 2)")}</li><li>${m("P(&minus;3 &le; Z &le; 0)")}</li></ol>`,
+s:`<ol>
+<li>${m("&asymp; 0.68")} (68% of area within ${m("&plusmn;1&sigma;")}).</li>
+<li>5% lies outside ${m("&plusmn;2&sigma;")}, split equally between the tails: ${m("P(Z &gt; 2) &asymp; 0.05/2 = 0.025")}.</li>
+<li>By symmetry, ${m("[&minus;3, 0]")} holds half of the 99.7% within ${m("&plusmn;3&sigma;")}: ${m("&asymp; 0.997/2 &asymp; 0.4985")}.</li></ol>`},
+
+{ch:3, topic:"Reading the z-table",
+q:`Using a z-table, find (draw the curve and shade the region for each):
+<ol><li>${m("P(Z &le; 0.54)")}</li><li>${m("P(Z &le; &minus;1.32)")}</li><li>${m("P(Z &gt; 2.10)")}</li><li>${m("P(&minus;0.75 &le; Z &le; 1.50)")}</li></ol>`,
+s:`<ol>
+<li>Row 0.5, column 0.04: ${m("0.7054")}. (Above 0.5, since 0.54 is right of center. &check;)</li>
+<li>By symmetry ${m("= 1 &minus; P(Z &le; 1.32) = 1 &minus; 0.9066 = 0.0934")}.</li>
+<li>${m("1 &minus; P(Z &le; 2.10) = 1 &minus; 0.9821 = 0.0179")}.</li>
+<li>${m("P(Z &le; 1.50) &minus; P(Z &le; &minus;0.75) = 0.9332 &minus; 0.2266 = 0.7066")}.</li></ol>
+<p>Always sketch first: the picture tells you whether to use the table value directly, subtract from 1, or subtract two entries.</p>`},
+
+{ch:3, topic:"Working backwards from a probability",
+q:`Find the z-value such that: (a) 10% of the distribution is below it; (b) 5% of the distribution is above it.`,
+s:`<ol>
+<li>${m("P(Z &le; z*) = 0.10")}: searching the table body, the closest entry is 0.1003 at ${m("z* &asymp; &minus;1.28")}.</li>
+<li>${m("P(Z &gt; z*) = 0.05")} means ${m("P(Z &le; z*) = 0.95")}: the table gives 0.9495 at 1.64 and 0.9505 at 1.65, so ${m("z* &asymp; 1.645")}.</li></ol>`},
+
+{ch:3, topic:"Why 1.96 matters",
+q:`By symmetry, ${m("P(Z &le; &minus;1.96) = P(Z &ge; 1.96)")}. Look up both values and confirm they are equal. What is ${m("P(&minus;1.96 &le; Z &le; 1.96)")}? Why is the value 1.96 important?`,
+s:`<p>${m("P(Z &le; 1.96) = 0.9750")}, so ${m("P(Z &le; &minus;1.96) = 1 &minus; 0.9750 = 0.0250 = P(Z &ge; 1.96)")}. &check;</p>
+<p>${m("P(&minus;1.96 &le; Z &le; 1.96) = 0.9750 &minus; 0.0250 = 0.9500")}.</p>
+<p>${m("z = 1.96")} marks the boundary of the central 95% of the standard normal &mdash; the critical value for a 95% confidence interval and a two-tailed test at the 5% significance level. It appears in nearly every inference procedure from Chapter 5 on.</p>`},
+
+{ch:3, topic:"Uniform: full analysis",
+q:`A coffee machine dispenses a uniformly distributed amount between 7 and 9 ounces per cup.
+<ol><li>Write the density function. What is the height of the uniform curve?</li><li>Find ${m("P(7.5 &le; X &le; 8.5)")} as a rectangle area.</li><li>Find ${m("&mu;")} and ${m("&sigma;")}.</li><li>What is ${m("P(X &gt; 8.8)")}?</li></ol>`,
+s:`<ol>
+<li>${m("f(x) = ")}${fr("1","9 &minus; 7")}${m(" = 0.5")} for ${m("7 &le; x &le; 9")}, zero otherwise: a flat rectangle of height 0.5.</li>
+<li>${fr("8.5 &minus; 7.5","2")}${m(" = 0.50")} &mdash; a rectangle of width 1, height 1/2.</li>
+<li>${m("&mu; = 8")} oz; ${m("&sigma; = ")}${fr("2",rt("12"))}${m(" = ")}${fr("1",rt("3"))}${m(" &asymp; 0.577")} oz.</li>
+<li>${fr("9 &minus; 8.8","2")}${m(" = 0.10")}.</li></ol>`},
+
+/* ============================ CHAPTER 4 ============================ */
+{ch:4, topic:"z-scores: IQ",
+q:`IQ scores follow ${m("N(100, 15)")}. Find (sketch a curve for each):
+<ol><li>${m("P(X &le; 115)")}</li><li>${m("P(X &gt; 85)")}</li><li>${m("P(85 &le; X &le; 115)")}</li></ol>`,
+s:`<ol>
+<li>${m("z = ")}${fr("115 &minus; 100","15")}${m(" = 1.00")}, so ${m("P = P(Z &le; 1.00) = 0.8413")}.</li>
+<li>${m("z = &minus;1.00")}: ${m("P(Z &gt; &minus;1.00) = 1 &minus; 0.1587 = 0.8413")} &mdash; equal to (a) by symmetry.</li>
+<li>${m("0.8413 &minus; 0.1587 = 0.6826")} &mdash; precisely the Empirical Rule: about 68% within ${m("&plusmn;1&sigma;")}.</li></ol>`},
+
+{ch:4, topic:"z-scores: quality control",
+q:`The weight of a certain brand of cereal box follows ${m("N(20.1, 0.4)")} oz.
+<ol><li>What fraction of boxes weigh less than 20 oz?</li><li>A box is underweight if it contains less than 19.5 oz. What fraction are underweight?</li></ol>`,
+s:`<ol>
+<li>${m("z = ")}${fr("20 &minus; 20.1","0.4")}${m(" = &minus;0.25")}: ${m("P(Z &le; &minus;0.25) = 1 &minus; 0.5987 = 0.4013")}. About 40.1%.</li>
+<li>${m("z = ")}${fr("19.5 &minus; 20.1","0.4")}${m(" = &minus;1.50")}: ${m("P(Z &le; &minus;1.50) = 0.0668")}. About 6.7% underweight.</li></ol>`},
+
+{ch:4, topic:"Working backwards to x",
+q:`For ${m("X ~ N(50, 10)")}: find the value ${m("x")} such that ${m("P(X &le; x) = 0.75")}.`,
+s:`<p><strong>Step 1.</strong> Find ${m("z*")} with ${m("P(Z &le; z*) = 0.75")}: the closest table entry is 0.7486 at ${m("z* = 0.67")}.</p>
+<p><strong>Step 2.</strong> Convert back: ${m("x = &mu; + z*&sigma; = 50 + (0.67)(10) = 56.7")}.</p>
+<p>Finding ${m("z*")} is not the final answer &mdash; always convert back to the original scale with ${m("x = &mu; + z*&sigma;")}.</p>`},
+
+{ch:4, topic:"Standard error pattern",
+q:`Heights follow ${m("N(67, 3)")}. For samples of size ${m("n")}, compute ${sxb} when ${m("n = 4, 16, 25, 100")}. What pattern do you notice?`,
+s:`<p>${sxb}${m(" = 3/")}${rt("n")}:</p>
+<table class="dt"><tr><th>n</th><td>4</td><td>16</td><td>25</td><td>100</td></tr>
+<tr><th>${sxb}</th><td>1.500</td><td>0.750</td><td>0.600</td><td>0.300</td></tr></table>
+<p>Each time ${m("n")} is multiplied by 4, ${sxb} is cut in half: the standard error is proportional to ${m("1/")}${rt("n")}. Larger samples give more precise estimates, but with diminishing returns.</p>`},
+
+{ch:4, topic:"Choosing n for a target precision",
+q:`A population has ${m("&mu; = 50, &sigma; = 20")}. How large must ${m("n")} be so that ${sxb}${m(" &lt; 2")}?`,
+s:`<p>${fr("20",rt("n"))}${m(" &lt; 2")} &nbsp;&rArr;&nbsp; ${rt("n")}${m(" &gt; 10")} &nbsp;&rArr;&nbsp; ${m("n &gt; 100")}.</p>
+<p>The minimum sample size is ${m("n = 101")}.</p>`},
+
+{ch:4, topic:"Sampling distribution of the mean",
+q:`The lifetime of a certain battery follows a distribution with ${m("&mu; = 500")} hours and ${m("&sigma; = 40")} hours. For a sample of ${m("n = 64")} batteries:
+<ol><li>State the sampling distribution of ${m(xb)} (mean and standard error).</li><li>${m("P(" + xb + " &le; 495)")}</li><li>${m("P(496 &le; " + xb + " &le; 504)")}</li></ol>`,
+s:`<ol>
+<li>${m(xb + " ~ N(500, 40/")}${rt("64")}${m(") = N(500, 5)")}: mean 500 hr, standard error 5 hr.</li>
+<li>${m("z = ")}${fr("495 &minus; 500","5")}${m(" = &minus;1.00")}: ${m("P = 0.1587")}.</li>
+<li>${m("z = &plusmn;0.80")}: ${m("P = 0.7881 &minus; 0.2119 = 0.5762")}.</li></ol>`},
+
+{ch:4, topic:"Effect of sample size",
+q:`A population has ${m("&mu; = 100, &sigma; = 25")}. Describe what happens to ${m("&mu;<sub>" + xb + "</sub>")} and ${sxb} when the sample size increases from ${m("n = 25")} to ${m("n = 100")}.`,
+s:`<p>${m("&mu;<sub>" + xb + "</sub>")} is <strong>unchanged</strong>: the sampling distribution stays centered at 100 regardless of ${m("n")}.</p>
+<p>${sxb} <strong>decreases</strong>: from ${m("25/")}${rt("25")}${m(" = 5")} to ${m("25/")}${rt("100")}${m(" = 2.5")} &mdash; cut in half because the sample size quadrupled. The sampling distribution becomes narrower and more tightly centered around the true mean.</p>`},
+
+{ch:4, topic:"CLT with a skewed population",
+q:`A skewed-right distribution has ${m("&mu; = 20, &sigma; = 8")}. Samples of ${m("n = 40")} are taken. Can we use the normal distribution to compute probabilities about ${m(xb)}? Justify, then compute ${m("P(" + xb + " &le; 19)")}.`,
+s:`<p><strong>Yes.</strong> Although the population is skewed, ${m("n = 40 &ge; 30")}, so the Central Limit Theorem guarantees ${m(xb)} is approximately normal:</p>
+<p>${m(xb + " &asymp; N(20, 8/")}${rt("40")}${m(") = N(20, 1.265)")}.</p>
+<p>${m("z = ")}${fr("19 &minus; 20","1.265")}${m(" &asymp; &minus;0.79")}: ${m("P(Z &le; &minus;0.79) = 1 &minus; 0.7852 = 0.2148")}.</p>
+<p>About 21.5% of samples of size 40 will have a mean at or below 19.</p>`},
+
+{ch:4, topic:"CLT misconception",
+q:`Two students argue: &ldquo;If I take a sample of 100 people from a skewed population, the data in my sample will be approximately normally distributed.&rdquo; Is this correct? Explain clearly, using the CLT.`,
+s:`<p><strong>Incorrect.</strong> The CLT applies to <em>sample means</em>, not to individual data values.</p>
+<p>A sample of 100 people from a skewed population will still contain skewed data &mdash; the individuals do not become normal just because the sample is large. What the CLT guarantees is that the distribution of ${m(xb)}, computed across many different samples of size 100, is approximately normal. The raw data in any single sample retain the shape of the original population.</p>`},
+
+{ch:4, topic:"Full normal + CLT analysis",
+q:`Newborn birth weights in a certain hospital follow ${m("N(7.5, 1.1)")} pounds.
+<ol><li>What fraction of newborns weigh less than 6 pounds?</li><li>The heaviest 5% weigh more than how many pounds?</li><li>For samples of ${m("n = 36")}, find ${m("P(" + xb + " &gt; 7.8)")}.</li></ol>`,
+s:`<ol>
+<li>${m("z = ")}${fr("6 &minus; 7.5","1.1")}${m(" &asymp; &minus;1.36")}: ${m("P = 1 &minus; 0.9131 = 0.0869")}, about 8.7%.</li>
+<li>${m("P(Z &le; z*) = 0.95")} gives ${m("z* = 1.645")}: ${m("x = 7.5 + 1.645(1.1) &asymp; 9.31")} lbs.</li>
+<li>${sxb}${m(" = 1.1/6 &asymp; 0.1833")}: ${m("z = ")}${fr("7.8 &minus; 7.5","0.1833")}${m(" &asymp; 1.64")}, so ${m("P = 1 &minus; 0.9495 = 0.0505")} &mdash; only about 5% of samples of 36 would average above 7.8 lbs.</li></ol>`},
+
+{ch:4, topic:"Sample means vs. individuals",
+q:`The math SAT follows approximately ${m("N(530, 115)")}. Explain why ${m("P(" + xb + " &gt; 535)")} for a sample of ${m("n = 50")} is smaller than ${m("P(X &gt; 535)")} for one student. What does this say about using sample means to make decisions?`,
+s:`<p>Sample means are far less variable than individuals. For a single score, ${m("&sigma; = 115")}: a score of 535 is only ${m("5/115 &asymp; 0.04")} standard deviations above the mean &mdash; very common. For ${m(xb)} with ${m("n = 50")}, the standard error is ${m("115/")}${rt("50")}${m(" &asymp; 16.3")}: the same 5-point gap is ${m("&asymp; 0.31")} standard errors, further into the tail.</p>
+<p>For large ${m("n")} the sampling distribution clusters tightly around 530, so even small departures become surprising. A single outlier can look unusual by chance; a sample mean of 50 students that is unusually high is much harder to explain away as coincidence &mdash; which is why inference is built on means.</p>`},
+];
+
+/* ---------------------------- APP LOGIC ---------------------------- */
+const activeCh = new Set([1,2,3,4]);
+let deck = [];
+let current = null;
+const tally = {1:{hit:0,tried:0},2:{hit:0,tried:0},3:{hit:0,tried:0},4:{hit:0,tried:0}};
+
+const pillsEl = document.getElementById('pills');
+const stage = document.getElementById('stage');
+const drawBtn = document.getElementById('drawBtn');
+const deckCount = document.getElementById('deckCount');
+const cellsEl = document.getElementById('cells');
+
+function renderPills(){
+  pillsEl.innerHTML = '';
+  for(const c of [1,2,3,4]){
+    const b = document.createElement('button');
+    b.className = 'pill' + (activeCh.has(c) ? ' on' : '');
+    b.setAttribute('aria-pressed', activeCh.has(c));
+    b.innerHTML = `Ch ${c} &middot; ${CH[c]}`;
+    b.onclick = ()=>{
+      if(activeCh.has(c)){
+        if(activeCh.size === 1) return;       // keep at least one chapter live
+        activeCh.delete(c);
+      } else activeCh.add(c);
+      rebuildDeck();
+      renderPills();
+    };
+    pillsEl.appendChild(b);
+  }
+}
+
+function rebuildDeck(){
+  deck = BANK.map((p,i)=>i).filter(i=>activeCh.has(BANK[i].ch));
+  for(let i=deck.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [deck[i],deck[j]] = [deck[j],deck[i]];
+  }
+  updateCount();
+}
+
+function updateCount(){
+  const total = BANK.filter(p=>activeCh.has(p.ch)).length;
+  deckCount.textContent = `${deck.length} of ${total} remaining in this cycle`;
+}
+
+function draw(){
+  if(deck.length === 0) rebuildDeck();      // reshuffle when the cycle is exhausted
+  current = deck.pop();
+  updateCount();
+  renderProblem();
+}
+
+function renderProblem(){
+  const p = BANK[current];
+  stage.innerHTML = `
+  <div class="card">
+    <div class="cardhead">
+      <span class="chaptag">Ch ${p.ch} &middot; ${CH[p.ch]}</span>
+      <span class="topic">${p.topic}</span>
+    </div>
+    <div class="qtext">${p.q}</div>
+    <div class="solwrap">
+      <button class="btn btn-ghost" id="showSol">Show solution</button>
+      <div id="solBox"></div>
+    </div>
+  </div>`;
+  document.getElementById('showSol').onclick = ()=>{
+    document.getElementById('showSol').style.display = 'none';
+    document.getElementById('solBox').innerHTML = `
+      <div class="sol"><span class="lbl">Solution</span>${p.s}</div>
+      <div class="grade">
+        <span>How did it go?</span>
+        <button class="btn btn-got" id="gGot">Got it</button>
+        <button class="btn btn-miss" id="gMiss">Missed it</button>
+      </div>`;
+    document.getElementById('gGot').onclick = ()=>grade(true);
+    document.getElementById('gMiss').onclick = ()=>grade(false);
+  };
+}
+
+function grade(hit){
+  const ch = BANK[current].ch;
+  tally[ch].tried++;
+  if(hit) tally[ch].hit++;
+  renderCells();
+  draw();
+}
+
+function renderCells(){
+  cellsEl.innerHTML = '';
+  for(const c of [1,2,3,4]){
+    const t = tally[c];
+    const d = document.createElement('div');
+    d.className = 'cell';
+    d.innerHTML = `<div class="cname">Ch ${c}</div>
+      <div class="cscore"><span class="hit">${t.hit}</span><span class="sep"> / ${t.tried}</span></div>`;
+    cellsEl.appendChild(d);
+  }
+}
+
+drawBtn.onclick = draw;
+renderPills();
+rebuildDeck();
+renderCells();
+</script>
+</body>
+</html>
