@@ -1,5 +1,7 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>MATH&amp; 146 Week 2 Lab: From Reports to Discrete Distributions</title>
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>MATH&amp; 146 — Project Sign Case File 1: Discrete Distributions</title>
 <script>
 window.MathJax = {
   tex: {
@@ -11,7 +13,7 @@ window.MathJax = {
   }
 };
 </script>
-<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 <style>
 :root{--bg:#f5f7fb;--paper:#fff;--ink:#202535;--muted:#667085;--line:#d7deea;
 --navy:#17345f;--blue:#2457a6;--blue2:#eaf1ff;--green:#24704a;--green2:#edf9f2;
@@ -46,143 +48,231 @@ summary{cursor:pointer;font-weight:700;color:var(--blue)}.scroll{max-height:360p
 canvas{width:100%;height:320px;border:1px solid var(--line);border-radius:14px;background:#fff}
 .footer-note{text-align:center;color:var(--muted);font-size:.86rem;margin:30px 0}.source a{color:var(--blue)}
 @media print{.toolbar,.no-print,button{display:none!important}body{background:#fff;font-size:11pt}.card{box-shadow:none;border:1px solid #aaa;break-inside:avoid;margin:10px 0;padding:14px}header{background:#fff;color:#000;border-bottom:1px solid #999;padding:12px}header p{color:#333}main.wrap{padding:0}.solution{display:none!important}}
+
+/* ---------- Project Sign case-file context ---------- */
+.case-brief{
+  background:linear-gradient(145deg,#f2ecdc,#fbf8ef);
+  border:1px solid #d8cdb5;
+  border-radius:16px;
+  padding:20px;
+  margin:0 0 22px;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.45);
+}
+.case-kicker{
+  display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;
+  font:700 .76rem/1.2 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  letter-spacing:.09em;text-transform:uppercase;color:#685b42;margin-bottom:10px
+}
+.case-lede{font-family:Georgia,"Times New Roman",serif;font-size:1.08rem;line-height:1.58;margin:0;color:#2c2a25}
+.case-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:16px 0}
+.case-panel{background:rgba(255,255,255,.58);border:1px solid #ded5c4;border-radius:12px;padding:13px 14px}
+.case-panel h3{margin:0 0 6px;color:#3e4e62;font-size:1rem}
+.case-panel p{margin:0}
+.evidence-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:15px 0}
+.evidence-item{background:#fff;border:1px solid #d8cdb5;border-radius:10px;padding:10px;text-align:center}
+.evidence-item strong{display:block;font:750 1.15rem/1.1 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#17345f}
+.evidence-item span{display:block;margin-top:4px;font-size:.78rem;color:#655f54}
+.case-note{border-left:5px solid #8a6100;background:#fff7df;border-radius:10px;padding:11px 13px;margin-top:13px}
+.case-log{border:1px solid #d8cdb5!important;background:rgba(255,255,255,.62)!important;margin:14px 0 0!important}
+.case-log summary{color:#17345f!important}
+.case-log ul{margin-bottom:4px}
+.case-links{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.case-links a,.case-nav-link{
+  display:inline-block;text-decoration:none;color:#17345f;background:#fff;
+  border:1px solid #c9d4e4;border-radius:999px;padding:7px 11px;font-size:.88rem;font-weight:700
+}
+.case-links a:hover,.case-nav-link:hover{background:#eef4ff}
+.section-thread{margin:8px 0 16px;padding:10px 12px;border-left:4px solid #8ba7c9;background:#f5f8fc;border-radius:0 10px 10px 0;color:#35465c}
+.case-pagination{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:22px 0}
+.case-pagination a{text-decoration:none;color:#2457a6;font-weight:700}
+@media(max-width:780px){
+  .case-grid{grid-template-columns:1fr}
+  .evidence-strip{grid-template-columns:repeat(2,1fr)}
+}
+@media print{
+  .case-brief{background:#fff;box-shadow:none}
+  .case-links,.case-pagination{display:none!important}
+  .section-thread{background:#fff}
+}
+
+/* ---------- primary-source scans ---------- */
+.source-dossier{background:#f8f4e9;border:1px solid #d8cdb5;border-radius:16px;padding:18px 19px;margin:18px 0}
+.source-dossier h2{margin-top:0}.source-dossier h3{margin-top:14px;color:#3e4e62}
+.source-meta{font:700 .76rem/1.35 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;letter-spacing:.06em;text-transform:uppercase;color:#6d6049;margin-bottom:8px}
+.source-scan-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:14px 0}
+.source-scan-grid.compact{grid-template-columns:repeat(3,minmax(0,1fr))}
+.scan-card{display:block;color:inherit;text-decoration:none;background:#fff;border:1px solid #d5c9b5;border-radius:13px;overflow:hidden;box-shadow:0 5px 16px rgba(37,42,52,.08)}
+.scan-card:hover{transform:translateY(-1px);box-shadow:0 8px 20px rgba(37,42,52,.12)}
+.scan-card figure{margin:0}.scan-card img{display:block;width:100%;aspect-ratio:616/824;object-fit:cover;object-position:top;background:#e8e0d2}
+.scan-card figcaption{padding:10px 11px;font-size:.86rem;line-height:1.4;color:#4e5561}
+.scan-card figcaption strong{display:block;color:#17345f;margin-bottom:2px}
+.source-actions{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+.source-actions a{display:inline-block;text-decoration:none;color:#17345f;background:#fff;border:1px solid #c9d4e4;border-radius:999px;padding:7px 11px;font-size:.88rem;font-weight:700}
+.source-actions a:hover{background:#eef4ff}
+.coding-note{border-left:5px solid #8a6100;background:#fff7df;border-radius:10px;padding:12px 14px;margin:14px 0}
+.source-ledger{width:100%;border-collapse:collapse;margin:12px 0;background:#fff}
+.source-ledger th,.source-ledger td{border-bottom:1px solid #ddd4c5;padding:9px 8px;text-align:left;vertical-align:top}
+.source-ledger th{background:#f5f0e6;color:#655f54;font-size:.78rem;text-transform:uppercase;letter-spacing:.04em}
+.scan-group{border:1px solid #d8cdb5!important;background:#fffdf7!important;margin:12px 0!important}
+.scan-group summary{color:#17345f!important}
+.scan-group .source-scan-grid{margin-bottom:4px}
+.source-page-note{font-size:.88rem;color:#60656d}
+@media(max-width:780px){.source-scan-grid,.source-scan-grid.compact{grid-template-columns:1fr}}
+@media print{.source-dossier{background:#fff}.source-actions{display:none!important}.scan-card{box-shadow:none;break-inside:avoid}}
 </style></head><body>
-<header><div class="wrap"><h1>MATH&amp; 146 Week 2 Lab: From Reports to Discrete Distributions</h1><p>Build an empirical probability distribution from newly released 1948 Project Sign incident data, then use the same dataset to construct binomial and geometric models.</p>
-<p class="meta">MATH&amp; 146 · WEEK 2: DISCRETE DISTRIBUTIONS · PROJECT SIGN DATA</p></div></header>
-<div class="toolbar no-print"><div class="wrap"><nav class="nav"><a href="#intro">Start</a><a href="#empirical">Empirical PMF</a><a href="#expectation">Expected value</a><a href="#models">Models</a><a href="#simulate">Simulation</a><a href="#report">Report</a></nav>
+<header><div class="wrap"><h1>Project Sign Case File 1: Discrete Distributions</h1><p>Begin with the incident table. Reconstruct the distribution of recorded object counts, then compare it with binomial and geometric models.</p>
+<p class="meta">MATH&amp; 146 · PROJECT SIGN · CASE FILE 1 OF 6 · DISCRETE DISTRIBUTIONS</p></div></header>
+<div class="toolbar no-print"><div class="wrap"><nav class="nav"><a href="Math146_Project_Sign_Case_File.html">Case overview</a><a href="#intro">Start</a><a href="#empirical">Empirical PMF</a><a href="#expectation">Expected value</a><a href="#models">Models</a><a href="#simulate">Simulation</a><a href="#report">Report</a></nav>
 <div class="actions"><button onclick="saveAll()">Save</button><button onclick="clearAll()">Clear</button><button class="primary" onclick="generateReport()">Generate report</button></div></div></div>
 <main class="wrap">
-<section id="intro" class="card">
-<h2>Before you begin</h2>
-<p>The Project Sign progress report was cleared for release on July 10, 2026. Its incident table contains 121 report entries from 1947–1948. For this activity, each row counts as one report entry. Several rows may still describe related observations.</p>
+<section class="card" id="intro">
+<div class="case-brief">
+<div class="case-kicker"><span>Classroom scenario · statistical review unit</span><span>Case file 1 of 6</span></div>
+<p class="case-lede">You are working from the 23 April 1948 Project SIGN progress report. Its first enclosure is a multi-part table of reports available through 1 February 1948. Your task is to audit the recorded variables statistically, not to decide what the reported objects were.</p>
+<div class="case-grid">
+<div class="case-panel"><h3>Question under review</h3><p>What patterns appear when one report entry is selected from the archive, and how do those empirical patterns differ from mathematical trial models?</p></div>
+<div class="case-panel"><h3>Evidence used in this file</h3><p>The full incident table contains 121 report entries from 1947–1948. The object-count analysis uses the 108 entries whose <code>num_sighted</code> field is one exact whole number. A second classification uses all 121 entries and marks 16 as air-based.</p></div>
+</div>
+<div class="evidence-strip"><div class="evidence-item"><strong>121</strong><span>report entries</span></div><div class="evidence-item"><strong>108</strong><span>exact object counts</span></div><div class="evidence-item"><strong>16</strong><span>air-based entries</span></div><div class="evidence-item"><strong>1947–48</strong><span>report dates</span></div></div>
+<div class="case-panel"><h3>Current assignment</h3><p>Build the empirical probability mass function for object counts. Then define a different success variable—whether an entry was observed from the air—and use it to distinguish a binomial count from a geometric waiting time.</p></div>
+<details class="case-log"><summary>Investigation log: what has already been established</summary><p>This is the first case file. From Chapter 1, you already know how frequencies, relative frequencies, means, standard deviations, and distribution shape summarize a dataset. Here those same ideas are recast as probability statements.</p></details>
+<div class="case-note"><strong>Statistical boundary:</strong> The rows were not produced by a random sample of all aerial events. Conclusions in these labs describe the archival table, a stated empirical-population exercise, or an explicitly defined mathematical model. They do not estimate the frequency or nature of aerial phenomena in the world.</div>
+<div class="case-links"><a href="Math146_Project_Sign_Case_File.html">Open the full case overview</a><a href="https://bobovski66.github.io/IntroStatistics/textbook/Math146_Ch1.pdf" rel="noopener" target="_blank">Chapter 1: Samples and summaries</a><a href="https://bobovski66.github.io/IntroStatistics/textbook/Math146_Ch2.pdf" rel="noopener" target="_blank">Chapter 2: Discrete probability</a></div>
+</div>
+<div class="source-dossier">
+<div class="source-meta">Primary-source checkpoint · 1948 report</div>
+<h2>See the evidence behind this lab</h2>
+<p>The memo’s own object-count summary is shown on page 2. The labs use a separate row-level transcription of pages 3–7 so that students can see exactly which entries are retained, excluded, or recoded.</p>
+<div class="source-scan-grid"><a class="scan-card" href="source/pages/page-02.jpg" rel="noopener" target="_blank"><figure><img alt="Scanned page 2 of the 1948 Project SIGN progress report" loading="lazy" src="source/pages/page-02.jpg"/><figcaption><strong>Page 2 — briefing summary</strong>The source authors grouped objects per sighting into four broad categories.</figcaption></figure></a><a class="scan-card" href="source/pages/page-03.jpg" rel="noopener" target="_blank"><figure><img alt="Scanned page 3 of the 1948 Project SIGN progress report" loading="lazy" src="source/pages/page-03.jpg"/><figcaption><strong>Page 3 — first incident-table page</strong>The row-level table begins with incident number, date, hour, location, number sighted, and observed-from setting.</figcaption></figure></a></div>
+<div class="source-actions"><a href="source/Project_Sign_Progress_Report_1948.pdf" rel="noopener" target="_blank">Open complete report</a><a href="Math146_Project_Sign_Case_File.html#table-pages">Open table guide</a></div>
+<details class="scan-group"><summary>Browse pages 3–7 of the original count table</summary><p class="source-page-note">The course transcription keeps the visible table rows, including lettered subentries, before applying the exact-count rule.</p><div class="source-scan-grid compact"><a class="scan-card" href="source/pages/page-03.jpg" rel="noopener" target="_blank"><figure><img alt="Scanned page 3 of the 1948 Project SIGN progress report" loading="lazy" src="source/pages/page-03.jpg"/><figcaption><strong>Page 3</strong>The course transcription keeps the visible table rows, including lettered subentries, before applying the exact-count rule.</figcaption></figure></a><a class="scan-card" href="source/pages/page-04.jpg" rel="noopener" target="_blank"><figure><img alt="Scanned page 4 of the 1948 Project SIGN progress report" loading="lazy" src="source/pages/page-04.jpg"/><figcaption><strong>Page 4</strong>Continue through this section of the original table.</figcaption></figure></a><a class="scan-card" href="source/pages/page-05.jpg" rel="noopener" target="_blank"><figure><img alt="Scanned page 5 of the 1948 Project SIGN progress report" loading="lazy" src="source/pages/page-05.jpg"/><figcaption><strong>Page 5</strong>Continue through this section of the original table.</figcaption></figure></a><a class="scan-card" href="source/pages/page-06.jpg" rel="noopener" target="_blank"><figure><img alt="Scanned page 6 of the 1948 Project SIGN progress report" loading="lazy" src="source/pages/page-06.jpg"/><figcaption><strong>Page 6</strong>Continue through this section of the original table.</figcaption></figure></a><a class="scan-card" href="source/pages/page-07.jpg" rel="noopener" target="_blank"><figure><img alt="Scanned page 7 of the 1948 Project SIGN progress report" loading="lazy" src="source/pages/page-07.jpg"/><figcaption><strong>Page 7</strong>Continue through this section of the original table.</figcaption></figure></a></div></details>
+<div class="coding-note"><strong>Coding note:</strong> Values such as “several,” “20–30,” “5 groups each containing 35–60,” and “not stated” remain part of the archive but are not treated as exact integer counts. The 108-value PMF is therefore a course-defined exact-count subset, not a table printed in the 1948 memo.</div>
+</div>
+
+<h2>Data notes</h2>
+<p>The course transcription treats each visible incident-table row as one report entry. Several rows may describe related observations, and the source also contains ranges, verbal quantities, and missing values.</p>
 <div class="callout"><strong>Focus:</strong> You will turn recorded frequencies into an empirical probability distribution and then compare it with binomial and geometric models.</div>
 <div class="warning callout"><strong>Interpret carefully:</strong> These reports were not collected through random sampling. Your probabilities describe random selection from this table or from the stated mathematical model. They do not measure how often aerial phenomena occur.</div>
-<label>Your name <input type="text" data-save="student_name"></label>
-<p class="source mini">Official release source: <a href="https://www.war.gov/ufo/" target="_blank" rel="noopener">PURSUE Release 04, July 10, 2026</a>.</p>
+<label>Your name <input data-save="student_name" type="text"/></label>
+<p class="source mini">Primary source used in this lab: <a href="source/Project_Sign_Progress_Report_1948.pdf" rel="noopener" target="_blank">Project SIGN Progress Report, 23 April 1948</a></p>
 <details><summary>View the original values of num_sighted</summary><p class="mini">The exact-integer analysis uses only entries written as a single whole number. Ranges and verbal answers remain visible here but are excluded from Part 1.</p>
 <div class="scroll"><table><thead><tr><th>Incident</th><th>Date</th><th>Location</th><th>num_sighted</th></tr></thead><tbody>
-<tr><td>1</td><td>8 Jul 47</td><td>Muroc Air Field, Muroc, Calif.</td><td>2</td></tr><tr><td>1a</td><td>8 Jul 47</td><td>Muroc Air Field, Muroc, Calif.</td><td>2</td></tr><tr><td>1b</td><td>8 Jul 47</td><td>Muroc Air Field, Muroc, Calif.</td><td>2</td></tr><tr><td>1c</td><td>8 Jul 47</td><td>Muroc Air Field, Muroc, Calif.</td><td>2</td></tr><tr><td>1d</td><td>8 Jul 47</td><td>Muroc Air Field, Muroc, Calif.</td><td>3</td></tr><tr><td>1e</td><td>8 Jul 47</td><td>Muroc Air Field, Muroc, Calif.</td><td>3</td></tr><tr><td>2</td><td>8 Jul 47</td><td>Muroc Air Field, Muroc, Calif.</td><td>1</td></tr><tr><td>3</td><td>7 Jul 47</td><td>Muroc Air Field, Muroc, Calif.</td><td>1</td></tr><tr><td>4</td><td>8 Jul 47</td><td>Area #3, Rogers Dry Lake, Muroc Air Field, Muroc, Calif.</td><td>1</td></tr><tr><td>5</td><td>4 Jul 47</td><td>Portland, Oregon</td><td>5</td></tr><tr><td>6</td><td>4 Jul 47</td><td>Milwaukee, Oregon</td><td>3</td></tr><tr><td>7</td><td>4 Jul 47</td><td>Portland, Oregon</td><td>1</td></tr><tr><td>8</td><td>4 Jul 47</td><td>Portland, Oregon</td><td>3</td></tr><tr><td>8a</td><td>4 Jul 47</td><td>Portland, Oregon</td><td>3</td></tr><tr><td>9</td><td>4 Jul 47</td><td>Portland, Oregon</td><td>undetermined</td></tr><tr><td>10</td><td>4 Jul 47</td><td>Boise, Idaho</td><td>5</td></tr><tr><td>11</td><td>4 Jul 47</td><td>Seattle, Washington</td><td>1</td></tr><tr><td>12</td><td>4 Jul 47</td><td>Vancouver, Washington</td><td>20-30</td></tr><tr><td>13</td><td>4 Jul 47</td><td>Portland, Oregon</td><td>4</td></tr><tr><td>14</td><td>4 Jul 47</td><td>Portland, Oregon</td><td>1</td></tr><tr><td>15</td><td>4 Jul 47</td><td>Portland, Oregon</td><td>3</td></tr><tr><td>16</td><td>4 Jul 47</td><td>Mount Jefferson near Redmon, Oregon</td><td>4</td></tr><tr><td>17</td><td>24 Jun 47</td><td>Mt. Rainier, Washington</td><td>9</td></tr><tr><td>18</td><td>Not stated</td><td>Toronto, Canada</td><td>1</td></tr><tr><td>19</td><td>20 Oct 47</td><td>Dayton, Ohio</td><td>2</td></tr><tr><td>20</td><td>20 Oct 47</td><td>Xenia, Ohio</td><td>1</td></tr><tr><td>21</td><td>29 Jun 47</td><td>Des Moines, Iowa</td><td>18</td></tr><tr><td>22</td><td>21 Jun 47</td><td>Spokane, Washington</td><td>several</td></tr><tr><td>23</td><td>30 Jun 47</td><td>Boise, Idaho</td><td>1</td></tr><tr><td>24</td><td>12 Jun 47</td><td>Weiser, Idaho</td><td>2</td></tr><tr><td>25</td><td>4 Jul 47</td><td>West Trenton, N. J.</td><td>1</td></tr><tr><td>26</td><td>10 Jul 47</td><td>Harmon Field, Newfoundland</td><td>1</td></tr><tr><td>27</td><td>10 Jul 47</td><td>Harmon Field, Newfoundland</td><td>1</td></tr><tr><td>28</td><td>24 Jun 47</td><td>Idaho</td><td>1</td></tr><tr><td>29</td><td>23 Jun 47</td><td>Bakersfield, Calif.</td><td>10</td></tr><tr><td>30</td><td>7 Jan 48</td><td>Lockbourne AB, Columbus, Ohio</td><td>1</td></tr><tr><td>30a</td><td>7 Jan 48</td><td>Lockbourne AB, Columbus, Ohio</td><td>1</td></tr><tr><td>30b</td><td>7 Jan 48</td><td>Lockbourne AB, Columbus, Ohio</td><td>1</td></tr><tr><td>30c</td><td>7 Jan 48</td><td>Lockbourne AB, Columbus, Ohio</td><td>1</td></tr><tr><td>31</td><td>mid-December 1946</td><td>Northern Arizona</td><td>1</td></tr><tr><td>32</td><td>Not stated</td><td>Columbus, Ohio</td><td>1</td></tr><tr><td>33</td><td>7 Jan 48</td><td>Godman Field, Ky. (south of)</td><td>1</td></tr><tr><td>33a</td><td>7 Jan 48</td><td>Godman Field, Ky.</td><td>1</td></tr><tr><td>33b</td><td>7 Jan 48</td><td>Godman Field, Ky.</td><td>1</td></tr><tr><td>33c</td><td>7 Jan 48</td><td>210 degrees from Godman Field, Ky.</td><td>1</td></tr><tr><td>33d</td><td>7 Jan 48</td><td>Godman Field, Ky.</td><td>1</td></tr><tr><td>33e</td><td>7 Jan 48</td><td>Godman Field, Ky.</td><td>1</td></tr><tr><td>33f</td><td>7 Jan 48</td><td>Godman Field, Ky.</td><td>1</td></tr><tr><td>33g</td><td>7 Jan 48</td><td>Madisonville, Ky.</td><td>1</td></tr><tr><td>34</td><td>13 Oct 47</td><td>14 miles north of Dauphin, Manitoba, Canada</td><td>1</td></tr><tr><td>35</td><td>12 Nov 47</td><td>Ticonderoga at sea (40 miles south of Cape Blanco, 20 miles off shore)</td><td>2</td></tr><tr><td>36</td><td>Not stated</td><td>Boise, Idaho</td><td>1</td></tr><tr><td>37</td><td>12 Oct 47</td><td>Cave Creek, Arizona</td><td>1</td></tr><tr><td>38</td><td>10 Jun 47</td><td>Budapest, Hungary</td><td>1</td></tr><tr><td>39</td><td>9 Jul 47</td><td>Grand Falls, Newfoundland</td><td>5</td></tr><tr><td>40</td><td>7 Jul 47</td><td>Phoenix, Arizona</td><td>1</td></tr><tr><td>41</td><td>11 Jul 47</td><td>Elendorf Field, Alaska</td><td>1</td></tr><tr><td>42</td><td>12 Jul 47</td><td>Elendorf Field, Alaska</td><td>1</td></tr><tr><td>43</td><td>29 Jun 47</td><td>Clarion, Iowa</td><td>18</td></tr><tr><td>44</td><td>28 Jun 47</td><td>Rockfield, Wisconsin</td><td>7-10</td></tr><tr><td>45</td><td>28 Jun 47</td><td>Illinois</td><td>7-10</td></tr><tr><td>46</td><td>22 Jun 47</td><td>Greenfield, Mass.</td><td>1</td></tr><tr><td>47</td><td>6 Jul 47</td><td>Fairfield-Suisun Air Base, Calif.</td><td>1</td></tr><tr><td>48</td><td>7 Jan 48</td><td>Wilmington, Ohio</td><td>1</td></tr><tr><td>48a</td><td>7 Jan 48</td><td>Wilmington, Ohio</td><td>1</td></tr><tr><td>48b</td><td>7 Jan 48</td><td>Wilmington, Ohio</td><td>1</td></tr><tr><td>48c</td><td>7 Jan 48</td><td>Wilmington, Ohio</td><td>1</td></tr><tr><td>48d</td><td>7 Jan 48</td><td>Wilmington, Ohio</td><td>1</td></tr><tr><td>49</td><td>9 Jan 48</td><td>Danville, Kentucky</td><td>1</td></tr><tr><td>50</td><td>10 Jan 48</td><td>Wildwood, New Jersey</td><td>One at this date, previously 1 each 27 Dec, 3 Jan, all at 2000 o&#x27;clock</td></tr><tr><td>51</td><td>3 Sept 47</td><td>Oswego, Oregon</td><td>12-15</td></tr><tr><td>52</td><td>29 Jul 47</td><td>Hamilton Field, California</td><td>2</td></tr><tr><td>52a</td><td>29 Jul 47</td><td>Hamilton Field, California</td><td>2</td></tr><tr><td>53</td><td>28 Jun 47</td><td>Lake Mead, Oregon</td><td>5-6</td></tr><tr><td>54</td><td>16 Jan 47</td><td>North Sea (50 miles from the Dutch Coast)</td><td>1</td></tr><tr><td>55</td><td>23 Jul 47</td><td>Harmon Field, Newfoundland</td><td>1</td></tr><tr><td>56</td><td>6 Jul 47</td><td>Birmingham, Alabama</td><td>7-10</td></tr><tr><td>57</td><td>20 Jul 47</td><td>Aboard the Burgeo (at sea one hr. from Sydney, Australia)</td><td>1</td></tr><tr><td>58</td><td>4 Aug 47</td><td>Bethel, Alaska</td><td>1</td></tr><tr><td>59</td><td>14 Sept 47</td><td>Necker Island</td><td>1</td></tr><tr><td>60</td><td>10 Jul 47</td><td>Cordroy, Canada</td><td>1</td></tr><tr><td>61</td><td>8 Sept 47</td><td>Salt Lake City, Utah</td><td>12</td></tr><tr><td>62</td><td>8 Sept 47</td><td>Salt Lake City, Utah</td><td>5 groups each containing 35-60 objects</td></tr><tr><td>63</td><td>29 Jul 47</td><td>Canyon Ferry, Montana</td><td>1</td></tr><tr><td>64</td><td>19 Aug 47</td><td>Twin Falls, Idaho</td><td>Approx. 55</td></tr><tr><td>65</td><td>2 Jun 47</td><td>Rehoboth Beach, Deleware</td><td>1</td></tr><tr><td>66</td><td>10 Aug 47</td><td>Silver Springs, Ohio</td><td>1</td></tr><tr><td>67</td><td>14 Aug 47</td><td>Placerville, California</td><td>1</td></tr><tr><td>68</td><td>24 Jun 47</td><td>Cascade Mountains, Portland, Oregon</td><td>6</td></tr><tr><td>69</td><td>6 Aug 47</td><td>Philadelphia, Pa.</td><td>1</td></tr><tr><td>70</td><td>6 Aug 47</td><td>Philadelphia, Pa.</td><td>1</td></tr><tr><td>71</td><td>8 Oct 47</td><td>Las Vegas, Nevada</td><td>1</td></tr><tr><td>72</td><td>Not stated</td><td>Fort Richardson, Alaska</td><td>1</td></tr><tr><td>73</td><td>4 Aug 47</td><td>Boston (10 miles NW) Mass.</td><td>2</td></tr><tr><td>74</td><td>24 Jun 47</td><td>Mt. Adams, Washington</td><td>Not stated</td></tr><tr><td>75</td><td>13 Aug 47</td><td>Smoke River Canyon, Idaho</td><td>1</td></tr><tr><td>76</td><td>13 Aug 47</td><td>Salmon Dam, Idaho</td><td>2</td></tr><tr><td>77</td><td>3 July 47</td><td>South Brookville, Maine</td><td>10</td></tr><tr><td>78</td><td>30 Jun 47</td><td>Grand Canyon, Arizona</td><td>2</td></tr><tr><td>79</td><td>Apr 47</td><td>Richmond, Virginia</td><td>1, others on other occasions</td></tr><tr><td>80</td><td>7 Jul 47</td><td>Arlington, Virginia</td><td>1</td></tr><tr><td>81</td><td>7 Jul 47</td><td>Hickam Field, Hawaii</td><td>1</td></tr><tr><td>82</td><td>17 May 47</td><td>Oklahoma City, Oklahoma</td><td>1</td></tr><tr><td>83</td><td>9 Jul 47</td><td>Boise (Between Boise and Meridian) Idaho</td><td>1</td></tr><tr><td>84</td><td>7 Jul 47</td><td>Lakeland, Florida</td><td>5</td></tr><tr><td>85</td><td>14 Jun 47</td><td>Portland, Oregon</td><td>10</td></tr><tr><td>86</td><td>6 July 47</td><td>Hollywood, California</td><td>1</td></tr><tr><td>87</td><td>Not stated</td><td>Habberbishopshiem (20 miles north) Germany</td><td>1</td></tr><tr><td>88</td><td>3 Aug 47</td><td>Hackensack, N. J.</td><td>1</td></tr><tr><td>89</td><td>6 Jul 47</td><td>Kansas City (100 miles west), Kansas</td><td>1</td></tr><tr><td>90</td><td>29 Jun 47</td><td>Las Cruces, New Mexico</td><td>1</td></tr><tr><td>91</td><td>28 Jun 47</td><td>Maxwell Field, Alabama</td><td>1</td></tr><tr><td>92</td><td>19 Jun 47</td><td>Colorado Springs, Colorado</td><td>1</td></tr><tr><td>93</td><td>11 Jan 48</td><td>Hartford, Connecticut</td><td>1</td></tr><tr><td>94</td><td>30 Dec 47</td><td>Between Great Falls, Montana and Fairfield, California</td><td>1</td></tr><tr><td>95</td><td>30 Dec 47</td><td>Rosedale, California</td><td>1</td></tr><tr><td>96</td><td>30 Dec 47</td><td>Lovelock (30 miles west), Nevada</td><td>1</td></tr><tr><td>97</td><td>30 Dec 47</td><td>Between Medford and Mt. Chasta, Oregon</td><td>1</td></tr><tr><td>98</td><td>2 Nov 47</td><td>Houston, Texas</td><td>1</td></tr><tr><td>99</td><td>3 Jan 48</td><td>Vassa, Finland</td><td>1</td></tr><tr><td>100</td><td>5 Jan 48</td><td>Pretarsaari, Finland</td><td>1</td></tr>
+<tr><td>1</td><td>8 Jul 47</td><td>Muroc Air Field, Muroc, Calif.</td><td>2</td></tr><tr><td>1a</td><td>8 Jul 47</td><td>Muroc Air Field, Muroc, Calif.</td><td>2</td></tr><tr><td>1b</td><td>8 Jul 47</td><td>Muroc Air Field, Muroc, Calif.</td><td>2</td></tr><tr><td>1c</td><td>8 Jul 47</td><td>Muroc Air Field, Muroc, Calif.</td><td>2</td></tr><tr><td>1d</td><td>8 Jul 47</td><td>Muroc Air Field, Muroc, Calif.</td><td>3</td></tr><tr><td>1e</td><td>8 Jul 47</td><td>Muroc Air Field, Muroc, Calif.</td><td>3</td></tr><tr><td>2</td><td>8 Jul 47</td><td>Muroc Air Field, Muroc, Calif.</td><td>1</td></tr><tr><td>3</td><td>7 Jul 47</td><td>Muroc Air Field, Muroc, Calif.</td><td>1</td></tr><tr><td>4</td><td>8 Jul 47</td><td>Area #3, Rogers Dry Lake, Muroc Air Field, Muroc, Calif.</td><td>1</td></tr><tr><td>5</td><td>4 Jul 47</td><td>Portland, Oregon</td><td>5</td></tr><tr><td>6</td><td>4 Jul 47</td><td>Milwaukee, Oregon</td><td>3</td></tr><tr><td>7</td><td>4 Jul 47</td><td>Portland, Oregon</td><td>1</td></tr><tr><td>8</td><td>4 Jul 47</td><td>Portland, Oregon</td><td>3</td></tr><tr><td>8a</td><td>4 Jul 47</td><td>Portland, Oregon</td><td>3</td></tr><tr><td>9</td><td>4 Jul 47</td><td>Portland, Oregon</td><td>undetermined</td></tr><tr><td>10</td><td>4 Jul 47</td><td>Boise, Idaho</td><td>5</td></tr><tr><td>11</td><td>4 Jul 47</td><td>Seattle, Washington</td><td>1</td></tr><tr><td>12</td><td>4 Jul 47</td><td>Vancouver, Washington</td><td>20-30</td></tr><tr><td>13</td><td>4 Jul 47</td><td>Portland, Oregon</td><td>4</td></tr><tr><td>14</td><td>4 Jul 47</td><td>Portland, Oregon</td><td>1</td></tr><tr><td>15</td><td>4 Jul 47</td><td>Portland, Oregon</td><td>3</td></tr><tr><td>16</td><td>4 Jul 47</td><td>Mount Jefferson near Redmon, Oregon</td><td>4</td></tr><tr><td>17</td><td>24 Jun 47</td><td>Mt. Rainier, Washington</td><td>9</td></tr><tr><td>18</td><td>Not stated</td><td>Toronto, Canada</td><td>1</td></tr><tr><td>19</td><td>20 Oct 47</td><td>Dayton, Ohio</td><td>2</td></tr><tr><td>20</td><td>20 Oct 47</td><td>Xenia, Ohio</td><td>1</td></tr><tr><td>21</td><td>29 Jun 47</td><td>Des Moines, Iowa</td><td>18</td></tr><tr><td>22</td><td>21 Jun 47</td><td>Spokane, Washington</td><td>several</td></tr><tr><td>23</td><td>30 Jun 47</td><td>Boise, Idaho</td><td>1</td></tr><tr><td>24</td><td>12 Jun 47</td><td>Weiser, Idaho</td><td>2</td></tr><tr><td>25</td><td>4 Jul 47</td><td>West Trenton, N. J.</td><td>1</td></tr><tr><td>26</td><td>10 Jul 47</td><td>Harmon Field, Newfoundland</td><td>1</td></tr><tr><td>27</td><td>10 Jul 47</td><td>Harmon Field, Newfoundland</td><td>1</td></tr><tr><td>28</td><td>24 Jun 47</td><td>Idaho</td><td>1</td></tr><tr><td>29</td><td>23 Jun 47</td><td>Bakersfield, Calif.</td><td>10</td></tr><tr><td>30</td><td>7 Jan 48</td><td>Lockbourne AB, Columbus, Ohio</td><td>1</td></tr><tr><td>30a</td><td>7 Jan 48</td><td>Lockbourne AB, Columbus, Ohio</td><td>1</td></tr><tr><td>30b</td><td>7 Jan 48</td><td>Lockbourne AB, Columbus, Ohio</td><td>1</td></tr><tr><td>30c</td><td>7 Jan 48</td><td>Lockbourne AB, Columbus, Ohio</td><td>1</td></tr><tr><td>31</td><td>mid-December 1946</td><td>Northern Arizona</td><td>1</td></tr><tr><td>32</td><td>Not stated</td><td>Columbus, Ohio</td><td>1</td></tr><tr><td>33</td><td>7 Jan 48</td><td>Godman Field, Ky. (south of)</td><td>1</td></tr><tr><td>33a</td><td>7 Jan 48</td><td>Godman Field, Ky.</td><td>1</td></tr><tr><td>33b</td><td>7 Jan 48</td><td>Godman Field, Ky.</td><td>1</td></tr><tr><td>33c</td><td>7 Jan 48</td><td>210 degrees from Godman Field, Ky.</td><td>1</td></tr><tr><td>33d</td><td>7 Jan 48</td><td>Godman Field, Ky.</td><td>1</td></tr><tr><td>33e</td><td>7 Jan 48</td><td>Godman Field, Ky.</td><td>1</td></tr><tr><td>33f</td><td>7 Jan 48</td><td>Godman Field, Ky.</td><td>1</td></tr><tr><td>33g</td><td>7 Jan 48</td><td>Madisonville, Ky.</td><td>1</td></tr><tr><td>34</td><td>13 Oct 47</td><td>14 miles north of Dauphin, Manitoba, Canada</td><td>1</td></tr><tr><td>35</td><td>12 Nov 47</td><td>Ticonderoga at sea (40 miles south of Cape Blanco, 20 miles off shore)</td><td>2</td></tr><tr><td>36</td><td>Not stated</td><td>Boise, Idaho</td><td>1</td></tr><tr><td>37</td><td>12 Oct 47</td><td>Cave Creek, Arizona</td><td>1</td></tr><tr><td>38</td><td>10 Jun 47</td><td>Budapest, Hungary</td><td>1</td></tr><tr><td>39</td><td>9 Jul 47</td><td>Grand Falls, Newfoundland</td><td>5</td></tr><tr><td>40</td><td>7 Jul 47</td><td>Phoenix, Arizona</td><td>1</td></tr><tr><td>41</td><td>11 Jul 47</td><td>Elendorf Field, Alaska</td><td>1</td></tr><tr><td>42</td><td>12 Jul 47</td><td>Elendorf Field, Alaska</td><td>1</td></tr><tr><td>43</td><td>29 Jun 47</td><td>Clarion, Iowa</td><td>18</td></tr><tr><td>44</td><td>28 Jun 47</td><td>Rockfield, Wisconsin</td><td>7-10</td></tr><tr><td>45</td><td>28 Jun 47</td><td>Illinois</td><td>7-10</td></tr><tr><td>46</td><td>22 Jun 47</td><td>Greenfield, Mass.</td><td>1</td></tr><tr><td>47</td><td>6 Jul 47</td><td>Fairfield-Suisun Air Base, Calif.</td><td>1</td></tr><tr><td>48</td><td>7 Jan 48</td><td>Wilmington, Ohio</td><td>1</td></tr><tr><td>48a</td><td>7 Jan 48</td><td>Wilmington, Ohio</td><td>1</td></tr><tr><td>48b</td><td>7 Jan 48</td><td>Wilmington, Ohio</td><td>1</td></tr><tr><td>48c</td><td>7 Jan 48</td><td>Wilmington, Ohio</td><td>1</td></tr><tr><td>48d</td><td>7 Jan 48</td><td>Wilmington, Ohio</td><td>1</td></tr><tr><td>49</td><td>9 Jan 48</td><td>Danville, Kentucky</td><td>1</td></tr><tr><td>50</td><td>10 Jan 48</td><td>Wildwood, New Jersey</td><td>One at this date, previously 1 each 27 Dec, 3 Jan, all at 2000 o'clock</td></tr><tr><td>51</td><td>3 Sept 47</td><td>Oswego, Oregon</td><td>12-15</td></tr><tr><td>52</td><td>29 Jul 47</td><td>Hamilton Field, California</td><td>2</td></tr><tr><td>52a</td><td>29 Jul 47</td><td>Hamilton Field, California</td><td>2</td></tr><tr><td>53</td><td>28 Jun 47</td><td>Lake Mead, Oregon</td><td>5-6</td></tr><tr><td>54</td><td>16 Jan 47</td><td>North Sea (50 miles from the Dutch Coast)</td><td>1</td></tr><tr><td>55</td><td>23 Jul 47</td><td>Harmon Field, Newfoundland</td><td>1</td></tr><tr><td>56</td><td>6 Jul 47</td><td>Birmingham, Alabama</td><td>7-10</td></tr><tr><td>57</td><td>20 Jul 47</td><td>Aboard the Burgeo (at sea one hr. from Sydney, Australia)</td><td>1</td></tr><tr><td>58</td><td>4 Aug 47</td><td>Bethel, Alaska</td><td>1</td></tr><tr><td>59</td><td>14 Sept 47</td><td>Necker Island</td><td>1</td></tr><tr><td>60</td><td>10 Jul 47</td><td>Cordroy, Canada</td><td>1</td></tr><tr><td>61</td><td>8 Sept 47</td><td>Salt Lake City, Utah</td><td>12</td></tr><tr><td>62</td><td>8 Sept 47</td><td>Salt Lake City, Utah</td><td>5 groups each containing 35-60 objects</td></tr><tr><td>63</td><td>29 Jul 47</td><td>Canyon Ferry, Montana</td><td>1</td></tr><tr><td>64</td><td>19 Aug 47</td><td>Twin Falls, Idaho</td><td>Approx. 55</td></tr><tr><td>65</td><td>2 Jun 47</td><td>Rehoboth Beach, Deleware</td><td>1</td></tr><tr><td>66</td><td>10 Aug 47</td><td>Silver Springs, Ohio</td><td>1</td></tr><tr><td>67</td><td>14 Aug 47</td><td>Placerville, California</td><td>1</td></tr><tr><td>68</td><td>24 Jun 47</td><td>Cascade Mountains, Portland, Oregon</td><td>6</td></tr><tr><td>69</td><td>6 Aug 47</td><td>Philadelphia, Pa.</td><td>1</td></tr><tr><td>70</td><td>6 Aug 47</td><td>Philadelphia, Pa.</td><td>1</td></tr><tr><td>71</td><td>8 Oct 47</td><td>Las Vegas, Nevada</td><td>1</td></tr><tr><td>72</td><td>Not stated</td><td>Fort Richardson, Alaska</td><td>1</td></tr><tr><td>73</td><td>4 Aug 47</td><td>Boston (10 miles NW) Mass.</td><td>2</td></tr><tr><td>74</td><td>24 Jun 47</td><td>Mt. Adams, Washington</td><td>Not stated</td></tr><tr><td>75</td><td>13 Aug 47</td><td>Smoke River Canyon, Idaho</td><td>1</td></tr><tr><td>76</td><td>13 Aug 47</td><td>Salmon Dam, Idaho</td><td>2</td></tr><tr><td>77</td><td>3 July 47</td><td>South Brookville, Maine</td><td>10</td></tr><tr><td>78</td><td>30 Jun 47</td><td>Grand Canyon, Arizona</td><td>2</td></tr><tr><td>79</td><td>Apr 47</td><td>Richmond, Virginia</td><td>1, others on other occasions</td></tr><tr><td>80</td><td>7 Jul 47</td><td>Arlington, Virginia</td><td>1</td></tr><tr><td>81</td><td>7 Jul 47</td><td>Hickam Field, Hawaii</td><td>1</td></tr><tr><td>82</td><td>17 May 47</td><td>Oklahoma City, Oklahoma</td><td>1</td></tr><tr><td>83</td><td>9 Jul 47</td><td>Boise (Between Boise and Meridian) Idaho</td><td>1</td></tr><tr><td>84</td><td>7 Jul 47</td><td>Lakeland, Florida</td><td>5</td></tr><tr><td>85</td><td>14 Jun 47</td><td>Portland, Oregon</td><td>10</td></tr><tr><td>86</td><td>6 July 47</td><td>Hollywood, California</td><td>1</td></tr><tr><td>87</td><td>Not stated</td><td>Habberbishopshiem (20 miles north) Germany</td><td>1</td></tr><tr><td>88</td><td>3 Aug 47</td><td>Hackensack, N. J.</td><td>1</td></tr><tr><td>89</td><td>6 Jul 47</td><td>Kansas City (100 miles west), Kansas</td><td>1</td></tr><tr><td>90</td><td>29 Jun 47</td><td>Las Cruces, New Mexico</td><td>1</td></tr><tr><td>91</td><td>28 Jun 47</td><td>Maxwell Field, Alabama</td><td>1</td></tr><tr><td>92</td><td>19 Jun 47</td><td>Colorado Springs, Colorado</td><td>1</td></tr><tr><td>93</td><td>11 Jan 48</td><td>Hartford, Connecticut</td><td>1</td></tr><tr><td>94</td><td>30 Dec 47</td><td>Between Great Falls, Montana and Fairfield, California</td><td>1</td></tr><tr><td>95</td><td>30 Dec 47</td><td>Rosedale, California</td><td>1</td></tr><tr><td>96</td><td>30 Dec 47</td><td>Lovelock (30 miles west), Nevada</td><td>1</td></tr><tr><td>97</td><td>30 Dec 47</td><td>Between Medford and Mt. Chasta, Oregon</td><td>1</td></tr><tr><td>98</td><td>2 Nov 47</td><td>Houston, Texas</td><td>1</td></tr><tr><td>99</td><td>3 Jan 48</td><td>Vassa, Finland</td><td>1</td></tr><tr><td>100</td><td>5 Jan 48</td><td>Pretarsaari, Finland</td><td>1</td></tr>
 </tbody></table></div></details>
 </section>
-
-<section id="empirical" class="card">
-<h2>Part 1. Construct an empirical probability mass function</h2>
+<section class="card" id="empirical">
+<h2>Part 1. Construct an empirical probability mass function</h2><p class="section-thread">The raw table is reduced to one random variable: \(X=\) recorded object count in one selected exact-count entry. A probability mass function is the relative-frequency table written as a model.</p>
 <p>Define <span class="kbd">X</span> to be the number of objects reported in a randomly selected entry, restricted to entries whose <span class="kbd">num_sighted</span> value is a single exact integer. There are <strong>108</strong> usable entries.</p>
 <div class="formula">\[p(x)=P(X=x)=\frac{\text{frequency at }x}{108}\]</div>
 <p>Complete the frequency and probability columns. Round probabilities to four decimal places.</p>
 <div class="callout">
 <strong>Copy-ready data:</strong> These are the 108 exact integer values used in this section. Paste the list into a spreadsheet, graphing calculator, or statistics program.
 <div style="display:flex;gap:8px;align-items:flex-start;margin-top:10px;flex-wrap:wrap">
-<textarea id="countData" readonly style="min-height:120px;flex:1 1 700px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace">2,2,2,2,3,3,1,1,1,5,3,1,3,3,5,1,4,1,3,4,9,1,2,1,18,1,2,1,1,1,1,10,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,1,1,1,5,1,1,1,18,1,1,1,1,1,1,1,1,2,2,1,1,1,1,1,1,12,1,1,1,1,6,1,1,1,1,2,1,2,10,2,1,1,1,1,5,10,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1</textarea>
-<button type="button" onclick="copyCountData()">Copy data</button>
+<textarea id="countData" readonly="" style="min-height:120px;flex:1 1 700px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace">2,2,2,2,3,3,1,1,1,5,3,1,3,3,5,1,4,1,3,4,9,1,2,1,18,1,2,1,1,1,1,10,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,1,1,1,5,1,1,1,18,1,1,1,1,1,1,1,1,2,2,1,1,1,1,1,1,12,1,1,1,1,6,1,1,1,1,2,1,2,10,2,1,1,1,1,5,10,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1</textarea>
+<button onclick="copyCountData()" type="button">Copy data</button>
 </div>
-<div id="copyDataFeedback" class="feedback"></div>
+<div class="feedback" id="copyDataFeedback"></div>
 </div>
-
 <table><thead><tr><th class="num">x</th><th>Frequency</th><th>p(x)</th></tr></thead><tbody><tr><td class="num">1</td>
-<td><input class="small" type="number" id="f_1" data-save="f_1" step="1"></td>
-<td><input class="small" type="number" id="p_1" data-save="p_1" step="0.0001"></td></tr>
+<td><input class="small" data-save="f_1" id="f_1" step="1" type="number"/></td>
+<td><input class="small" data-save="p_1" id="p_1" step="0.0001" type="number"/></td></tr>
 <tr><td class="num">2</td>
-<td><input class="small" type="number" id="f_2" data-save="f_2" step="1"></td>
-<td><input class="small" type="number" id="p_2" data-save="p_2" step="0.0001"></td></tr>
+<td><input class="small" data-save="f_2" id="f_2" step="1" type="number"/></td>
+<td><input class="small" data-save="p_2" id="p_2" step="0.0001" type="number"/></td></tr>
 <tr><td class="num">3</td>
-<td><input class="small" type="number" id="f_3" data-save="f_3" step="1"></td>
-<td><input class="small" type="number" id="p_3" data-save="p_3" step="0.0001"></td></tr>
+<td><input class="small" data-save="f_3" id="f_3" step="1" type="number"/></td>
+<td><input class="small" data-save="p_3" id="p_3" step="0.0001" type="number"/></td></tr>
 <tr><td class="num">4</td>
-<td><input class="small" type="number" id="f_4" data-save="f_4" step="1"></td>
-<td><input class="small" type="number" id="p_4" data-save="p_4" step="0.0001"></td></tr>
+<td><input class="small" data-save="f_4" id="f_4" step="1" type="number"/></td>
+<td><input class="small" data-save="p_4" id="p_4" step="0.0001" type="number"/></td></tr>
 <tr><td class="num">5</td>
-<td><input class="small" type="number" id="f_5" data-save="f_5" step="1"></td>
-<td><input class="small" type="number" id="p_5" data-save="p_5" step="0.0001"></td></tr>
+<td><input class="small" data-save="f_5" id="f_5" step="1" type="number"/></td>
+<td><input class="small" data-save="p_5" id="p_5" step="0.0001" type="number"/></td></tr>
 <tr><td class="num">6</td>
-<td><input class="small" type="number" id="f_6" data-save="f_6" step="1"></td>
-<td><input class="small" type="number" id="p_6" data-save="p_6" step="0.0001"></td></tr>
+<td><input class="small" data-save="f_6" id="f_6" step="1" type="number"/></td>
+<td><input class="small" data-save="p_6" id="p_6" step="0.0001" type="number"/></td></tr>
 <tr><td class="num">9</td>
-<td><input class="small" type="number" id="f_9" data-save="f_9" step="1"></td>
-<td><input class="small" type="number" id="p_9" data-save="p_9" step="0.0001"></td></tr>
+<td><input class="small" data-save="f_9" id="f_9" step="1" type="number"/></td>
+<td><input class="small" data-save="p_9" id="p_9" step="0.0001" type="number"/></td></tr>
 <tr><td class="num">10</td>
-<td><input class="small" type="number" id="f_10" data-save="f_10" step="1"></td>
-<td><input class="small" type="number" id="p_10" data-save="p_10" step="0.0001"></td></tr>
+<td><input class="small" data-save="f_10" id="f_10" step="1" type="number"/></td>
+<td><input class="small" data-save="p_10" id="p_10" step="0.0001" type="number"/></td></tr>
 <tr><td class="num">12</td>
-<td><input class="small" type="number" id="f_12" data-save="f_12" step="1"></td>
-<td><input class="small" type="number" id="p_12" data-save="p_12" step="0.0001"></td></tr>
+<td><input class="small" data-save="f_12" id="f_12" step="1" type="number"/></td>
+<td><input class="small" data-save="p_12" id="p_12" step="0.0001" type="number"/></td></tr>
 <tr><td class="num">18</td>
-<td><input class="small" type="number" id="f_18" data-save="f_18" step="1"></td>
-<td><input class="small" type="number" id="p_18" data-save="p_18" step="0.0001"></td></tr></tbody></table>
-<label>Sum of all probabilities, \(\sum_x p(x)\) <input class="small" type="number" id="pmf_sum" data-save="pmf_sum" step="0.0001"></label>
-<p><button onclick="checkPMF()">Check the PMF</button></p><div id="pmfFeedback" class="feedback"></div>
-<p id="sol_pmf_lock" class="locked">The worked PMF unlocks after the table is correct.</p>
-<div id="sol_pmf" class="solution"><strong>Worked distribution:</strong> \(p(1)=0.7037,\ p(2)=0.1111,\ p(3)=0.0556,\ p(4)=0.0185,\ p(5)=0.0370,\ p(6)=0.0093,\ p(9)=0.0093,\ p(10)=0.0278,\ p(12)=0.0093,\ p(18)=0.0185.\) The probabilities sum to \(1\).</div>
-<h3>Interpret the graph</h3><canvas id="pmfChart" aria-label="Probability histogram"></canvas>
+<td><input class="small" data-save="f_18" id="f_18" step="1" type="number"/></td>
+<td><input class="small" data-save="p_18" id="p_18" step="0.0001" type="number"/></td></tr></tbody></table>
+<label>Sum of all probabilities, \(\sum_x p(x)\) <input class="small" data-save="pmf_sum" id="pmf_sum" step="0.0001" type="number"/></label>
+<p><button onclick="checkPMF()">Check the PMF</button></p><div class="feedback" id="pmfFeedback"></div>
+<p class="locked" id="sol_pmf_lock">The worked PMF unlocks after the table is correct.</p>
+<div class="solution" id="sol_pmf"><strong>Worked distribution:</strong> \(p(1)=0.7037,\ p(2)=0.1111,\ p(3)=0.0556,\ p(4)=0.0185,\ p(5)=0.0370,\ p(6)=0.0093,\ p(9)=0.0093,\ p(10)=0.0278,\ p(12)=0.0093,\ p(18)=0.0185.\) The probabilities sum to \(1\).</div>
+<h3>Interpret the graph</h3><canvas aria-label="Probability histogram" id="pmfChart"></canvas>
 <label>Describe the shape of this probability distribution. Explain what the tallest bar means in context.<textarea data-save="q_pmf_shape"></textarea></label>
 </section>
-
-<section id="expectation" class="card">
-<h2>Part 2. Probabilities, expected value, and variance</h2>
+<section class="card" id="expectation">
+<h2>Part 2. Probabilities, expected value, and variance</h2><p class="section-thread">Once the probability mass function has been built, weighted sums describe its center and spread. The expected value is the same numerical operation as a population mean, but it is now interpreted as a long-run average under random selection.</p>
 <div class="grid3">
-<label>\(P(X=1)\)<input type="number" id="p1" data-save="p1" step="0.0001"></label>
-<label>\(P(X\le 2)\)<input type="number" id="ple2" data-save="ple2" step="0.0001"></label>
-<label>\(P(X\ge 5)\)<input type="number" id="pge5" data-save="pge5" step="0.0001"></label>
+<label>\(P(X=1)\)<input data-save="p1" id="p1" step="0.0001" type="number"/></label>
+<label>\(P(X\le 2)\)<input data-save="ple2" id="ple2" step="0.0001" type="number"/></label>
+<label>\(P(X\ge 5)\)<input data-save="pge5" id="pge5" step="0.0001" type="number"/></label>
 </div>
 <div class="formula">\[E(X)=\sum_x x\,p(x),\qquad E(X^2)=\sum_x x^2p(x),\qquad \operatorname{Var}(X)=E(X^2)-[E(X)]^2\]</div>
 <div class="grid2">
-<label>\(E(X)\)<input type="number" id="EX" data-save="EX" step="0.001"></label>
-<label>\(E(X^2)\)<input type="number" id="EX2" data-save="EX2" step="0.001"></label>
-<label>\(\operatorname{Var}(X)\)<input type="number" id="varX" data-save="varX" step="0.001"></label>
-<label>\(\operatorname{SD}(X)\)<input type="number" id="sdX" data-save="sdX" step="0.001"></label>
+<label>\(E(X)\)<input data-save="EX" id="EX" step="0.001" type="number"/></label>
+<label>\(E(X^2)\)<input data-save="EX2" id="EX2" step="0.001" type="number"/></label>
+<label>\(\operatorname{Var}(X)\)<input data-save="varX" id="varX" step="0.001" type="number"/></label>
+<label>\(\operatorname{SD}(X)\)<input data-save="sdX" id="sdX" step="0.001" type="number"/></label>
 </div>
-<p><button onclick="checkExpectation()">Check Part 2</button></p><div id="expFeedback" class="feedback"></div>
-<p id="sol_exp_lock" class="locked">The worked calculations unlock after the numerical answers are correct.</p>
-<div id="sol_exp" class="solution"><strong>Results:</strong> \(E(X)=2.213,\ E(X^2)=14.065,\ \operatorname{Var}(X)=9.168,\) and \(\operatorname{SD}(X)=3.028.\) The expected value is the long-run average from repeated random selections among these 108 entries. It does not need to be a possible individual count.</div>
+<p><button onclick="checkExpectation()">Check Part 2</button></p><div class="feedback" id="expFeedback"></div>
+<p class="locked" id="sol_exp_lock">The worked calculations unlock after the numerical answers are correct.</p>
+<div class="solution" id="sol_exp"><strong>Results:</strong> \(E(X)=2.213,\ E(X^2)=14.065,\ \operatorname{Var}(X)=9.168,\) and \(\operatorname{SD}(X)=3.028.\) The expected value is the long-run average from repeated random selections among these 108 entries. It does not need to be a possible individual count.</div>
 <label>Last week, this same average was called a mean. Explain why it is now called an expected value.<textarea data-save="q_mean_expected"></textarea></label>
 </section>
-
-<section id="models" class="card">
-<h2>Part 3. Binomial and geometric models</h2>
+<section class="card" id="models">
+<h2>Part 3. Binomial and geometric models</h2><p class="section-thread">The variable is changed deliberately. Instead of counting reported objects, each entry is classified as air-based or not. This produces repeated success/failure trials and makes binomial and geometric questions possible.</p>
 <p>Call a selection a <em>success</em> when <span class="kbd">observed_from = Air</span>. The table contains 16 air-based entries among 121 total entries.</p>
-<label>Empirical success probability, \(p=\frac{16}{121}\)<input class="small" type="number" id="pair" data-save="pair" step="0.0001"></label>
+<label>Empirical success probability, \(p=\frac{16}{121}\)<input class="small" data-save="pair" id="pair" step="0.0001" type="number"/></label>
 <h3>Binomial model</h3>
 <p>Imagine selecting 10 entries independently <strong>with replacement</strong>. Let \(Y\) be the number selected that were observed from the air. Model \(Y\) with \(Y\sim\operatorname{Binomial}(n=10,p=0.1322)\).</p>
 <div class="formula">\[P(Y=k)=\binom{10}{k}p^k(1-p)^{10-k}\]</div>
 <div class="grid3">
-<label>\(P(Y=0)\)<input type="number" id="bin0" data-save="bin0" step="0.0001"></label>
-<label>\(P(Y=1)\)<input type="number" id="bin1" data-save="bin1" step="0.0001"></label>
-<label>\(P(Y\ge 2)\)<input type="number" id="binge2" data-save="binge2" step="0.0001"></label>
-<label>Mean, \(np\)<input type="number" id="binmean" data-save="binmean" step="0.001"></label>
-<label>Standard deviation, \(\sqrt{np(1-p)}\)<input type="number" id="binsd" data-save="binsd" step="0.001"></label>
+<label>\(P(Y=0)\)<input data-save="bin0" id="bin0" step="0.0001" type="number"/></label>
+<label>\(P(Y=1)\)<input data-save="bin1" id="bin1" step="0.0001" type="number"/></label>
+<label>\(P(Y\ge 2)\)<input data-save="binge2" id="binge2" step="0.0001" type="number"/></label>
+<label>Mean, \(np\)<input data-save="binmean" id="binmean" step="0.001" type="number"/></label>
+<label>Standard deviation, \(\sqrt{np(1-p)}\)<input data-save="binsd" id="binsd" step="0.001" type="number"/></label>
 </div>
 <h3>Geometric model</h3>
 <p>Let \(G\) be the number of selections required to obtain the first air-based report.</p>
-<div class="formula">\[P(G=k)=(1-p)^{k-1}p,\qquad P(G>k)=(1-p)^k\]</div>
+<div class="formula">\[P(G=k)=(1-p)^{k-1}p,\qquad P(G&gt;k)=(1-p)^k\]</div>
 <div class="grid2">
-<label>\(P(G=1)\)<input type="number" id="geo1" data-save="geo1" step="0.0001"></label>
-<label>\(P(G=5)\)<input type="number" id="geo5" data-save="geo5" step="0.0001"></label>
-<label>\(P(G>5)\)<input type="number" id="geogt5" data-save="geogt5" step="0.0001"></label>
-<label>\(E(G)=\frac{1}{p}\)<input type="number" id="geomean" data-save="geomean" step="0.001"></label>
+<label>\(P(G=1)\)<input data-save="geo1" id="geo1" step="0.0001" type="number"/></label>
+<label>\(P(G=5)\)<input data-save="geo5" id="geo5" step="0.0001" type="number"/></label>
+<label>\(P(G&gt;5)\)<input data-save="geogt5" id="geogt5" step="0.0001" type="number"/></label>
+<label>\(E(G)=\frac{1}{p}\)<input data-save="geomean" id="geomean" step="0.001" type="number"/></label>
 </div>
-<p><button onclick="checkModels()">Check Part 3</button></p><div id="modelFeedback" class="feedback"></div>
-<p id="sol_models_lock" class="locked">The model answers unlock after the numerical answers are correct.</p>
-<div id="sol_models" class="solution"><strong>Binomial:</strong> \(P(Y=0)=0.2421,\ P(Y=1)=0.3690,\ P(Y\ge2)=0.3889,\ \mu=1.322,\ \sigma=1.071.\)<br><strong>Geometric:</strong> \(P(G=1)=0.1322,\ P(G=5)=0.0750,\ P(G>5)=0.4921,\ E(G)=7.562\) selections.</div>
+<p><button onclick="checkModels()">Check Part 3</button></p><div class="feedback" id="modelFeedback"></div>
+<p class="locked" id="sol_models_lock">The model answers unlock after the numerical answers are correct.</p>
+<div class="solution" id="sol_models"><strong>Binomial:</strong> \(P(Y=0)=0.2421,\ P(Y=1)=0.3690,\ P(Y\ge2)=0.3889,\ \mu=1.322,\ \sigma=1.071.\)<br/><strong>Geometric:</strong> \(P(G=1)=0.1322,\ P(G=5)=0.0750,\ P(G&gt;5)=0.4921,\ E(G)=7.562\) selections.</div>
 <label>Why is selection with replacement important for the binomial and geometric assumptions?<textarea data-save="q_replacement"></textarea></label>
 <label>Explain the difference between “number of successes in 10 trials” and “number of trials until the first success.”<textarea data-save="q_bin_geo"></textarea></label>
 </section>
-
-<section id="simulate" class="card">
-<h2>Part 4. Simulate the two models</h2>
-<div class="grid2"><label>Number of repetitions<select id="simN"><option>100</option><option selected>1000</option><option>10000</option></select></label>
+<section class="card" id="simulate">
+<h2>Part 4. Simulate the two models</h2><p class="section-thread">Simulation is used as a model check. As the number of repetitions grows, simulated averages should settle near the theoretical expected values, although individual runs continue to vary.</p>
+<div class="grid2"><label>Number of repetitions<select id="simN"><option>100</option><option selected="">1000</option><option>10000</option></select></label>
 <div><button onclick="runSimulation()">Run simulation</button></div></div>
 <div class="grid2"><div><h3>Simulated \(\operatorname{Binomial}(10,p)\)</h3><canvas id="binChart"></canvas></div><div><h3>Simulated geometric waiting times</h3><canvas id="geoChart"></canvas></div></div>
-<p id="simSummary" class="callout">Run the simulation and compare its average with the theoretical expected values.</p>
+<p class="callout" id="simSummary">Run the simulation and compare its average with the theoretical expected values.</p>
 <label>What changes when the number of repetitions increases? What stays approximately the same?<textarea data-save="q_sim"></textarea></label>
 </section>
-
-<section id="report" class="card">
+<section class="card" id="report">
 <h2>Final synthesis</h2>
 <label>Write 6–8 sentences distinguishing the empirical distribution of \(X\) from the binomial and geometric models. Include one limitation of treating the report entries as independent trials.<textarea data-save="q_final"></textarea></label>
 <p><button class="primary" onclick="generateReport()">Generate printable report</button> <button onclick="copyReport()">Copy report</button> <button onclick="window.print()">Print</button></p>
-<div id="reportPreview" class="report">Your report will appear here.</div>
+<div class="report" id="reportPreview">Your report will appear here.</div>
 </section>
-<p class="footer-note">Project Sign Week 2 Lab · calculations derived from project_sign_1948_incidents.csv</p>
+<div class="case-pagination no-print"><a href="Math146_Project_Sign_Case_File.html">Case overview</a><a href="Math146_Project_Sign_Continuous_Lab.html">Case File 2 →</a></div><p class="footer-note">Project Sign Week 2 Lab · calculations derived from project_sign_1948_incidents.csv</p>
 </main><script>
 
 function val(id){return parseFloat(document.getElementById(id).value)}

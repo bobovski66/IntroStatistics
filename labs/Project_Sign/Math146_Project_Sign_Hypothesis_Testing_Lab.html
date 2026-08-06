@@ -1,16 +1,16 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="en">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>MATH&amp; 146 Project Sign Lab: One-Sample Hypothesis Tests</title>
-
+<meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>MATH&amp; 146 — Project Sign Case File 4: One-Sample Hypothesis Tests</title>
 <script>
 window.MathJax={
  tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},
  options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}
 };
 </script>
-<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 <style>
 :root{
 --bg:#f5f7fb;--paper:#fff;--ink:#202535;--muted:#667085;--line:#d7deea;
@@ -46,26 +46,118 @@ canvas{width:100%;height:310px;border:1px solid var(--line);border-radius:14px;b
 .hypothesis-grid{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:start;border-bottom:1px solid var(--line);padding:12px 0}
 .footer-note{text-align:center;color:var(--muted);font-size:.86rem;margin:30px 0}
 @media print{.toolbar,.no-print,button{display:none!important}body{background:#fff;font-size:11pt}.card{box-shadow:none;border:1px solid #aaa;break-inside:avoid;margin:10px 0;padding:14px}header{background:#fff;color:#000;border-bottom:1px solid #999;padding:12px}header p{color:#333}main.wrap{padding:0}.solution{display:none!important}}
+
+/* ---------- Project Sign case-file context ---------- */
+.case-brief{
+  background:linear-gradient(145deg,#f2ecdc,#fbf8ef);
+  border:1px solid #d8cdb5;
+  border-radius:16px;
+  padding:20px;
+  margin:0 0 22px;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.45);
+}
+.case-kicker{
+  display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;
+  font:700 .76rem/1.2 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  letter-spacing:.09em;text-transform:uppercase;color:#685b42;margin-bottom:10px
+}
+.case-lede{font-family:Georgia,"Times New Roman",serif;font-size:1.08rem;line-height:1.58;margin:0;color:#2c2a25}
+.case-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:16px 0}
+.case-panel{background:rgba(255,255,255,.58);border:1px solid #ded5c4;border-radius:12px;padding:13px 14px}
+.case-panel h3{margin:0 0 6px;color:#3e4e62;font-size:1rem}
+.case-panel p{margin:0}
+.evidence-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:15px 0}
+.evidence-item{background:#fff;border:1px solid #d8cdb5;border-radius:10px;padding:10px;text-align:center}
+.evidence-item strong{display:block;font:750 1.15rem/1.1 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#17345f}
+.evidence-item span{display:block;margin-top:4px;font-size:.78rem;color:#655f54}
+.case-note{border-left:5px solid #8a6100;background:#fff7df;border-radius:10px;padding:11px 13px;margin-top:13px}
+.case-log{border:1px solid #d8cdb5!important;background:rgba(255,255,255,.62)!important;margin:14px 0 0!important}
+.case-log summary{color:#17345f!important}
+.case-log ul{margin-bottom:4px}
+.case-links{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.case-links a,.case-nav-link{
+  display:inline-block;text-decoration:none;color:#17345f;background:#fff;
+  border:1px solid #c9d4e4;border-radius:999px;padding:7px 11px;font-size:.88rem;font-weight:700
+}
+.case-links a:hover,.case-nav-link:hover{background:#eef4ff}
+.section-thread{margin:8px 0 16px;padding:10px 12px;border-left:4px solid #8ba7c9;background:#f5f8fc;border-radius:0 10px 10px 0;color:#35465c}
+.case-pagination{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:22px 0}
+.case-pagination a{text-decoration:none;color:#2457a6;font-weight:700}
+@media(max-width:780px){
+  .case-grid{grid-template-columns:1fr}
+  .evidence-strip{grid-template-columns:repeat(2,1fr)}
+}
+@media print{
+  .case-brief{background:#fff;box-shadow:none}
+  .case-links,.case-pagination{display:none!important}
+  .section-thread{background:#fff}
+}
+
+/* ---------- primary-source scans ---------- */
+.source-dossier{background:#f8f4e9;border:1px solid #d8cdb5;border-radius:16px;padding:18px 19px;margin:18px 0}
+.source-dossier h2{margin-top:0}.source-dossier h3{margin-top:14px;color:#3e4e62}
+.source-meta{font:700 .76rem/1.35 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;letter-spacing:.06em;text-transform:uppercase;color:#6d6049;margin-bottom:8px}
+.source-scan-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:14px 0}
+.source-scan-grid.compact{grid-template-columns:repeat(3,minmax(0,1fr))}
+.scan-card{display:block;color:inherit;text-decoration:none;background:#fff;border:1px solid #d5c9b5;border-radius:13px;overflow:hidden;box-shadow:0 5px 16px rgba(37,42,52,.08)}
+.scan-card:hover{transform:translateY(-1px);box-shadow:0 8px 20px rgba(37,42,52,.12)}
+.scan-card figure{margin:0}.scan-card img{display:block;width:100%;aspect-ratio:616/824;object-fit:cover;object-position:top;background:#e8e0d2}
+.scan-card figcaption{padding:10px 11px;font-size:.86rem;line-height:1.4;color:#4e5561}
+.scan-card figcaption strong{display:block;color:#17345f;margin-bottom:2px}
+.source-actions{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+.source-actions a{display:inline-block;text-decoration:none;color:#17345f;background:#fff;border:1px solid #c9d4e4;border-radius:999px;padding:7px 11px;font-size:.88rem;font-weight:700}
+.source-actions a:hover{background:#eef4ff}
+.coding-note{border-left:5px solid #8a6100;background:#fff7df;border-radius:10px;padding:12px 14px;margin:14px 0}
+.source-ledger{width:100%;border-collapse:collapse;margin:12px 0;background:#fff}
+.source-ledger th,.source-ledger td{border-bottom:1px solid #ddd4c5;padding:9px 8px;text-align:left;vertical-align:top}
+.source-ledger th{background:#f5f0e6;color:#655f54;font-size:.78rem;text-transform:uppercase;letter-spacing:.04em}
+.scan-group{border:1px solid #d8cdb5!important;background:#fffdf7!important;margin:12px 0!important}
+.scan-group summary{color:#17345f!important}
+.scan-group .source-scan-grid{margin-bottom:4px}
+.source-page-note{font-size:.88rem;color:#60656d}
+@media(max-width:780px){.source-scan-grid,.source-scan-grid.compact{grid-template-columns:1fr}}
+@media print{.source-dossier{background:#fff}.source-actions{display:none!important}.scan-card{box-shadow:none;break-inside:avoid}}
 </style>
 </head>
 <body>
 <header><div class="wrap">
-<h1>Project Sign Lab: One-Sample Hypothesis Tests</h1>
-<p>Use the same sample as the confidence-interval lab to test one claim about a population mean and another claim about a population proportion.</p>
-<p class="meta">MATH&amp; 146 · ONE-SAMPLE HYPOTHESIS TESTING</p>
+<h1>Project Sign Case File 4: One-Sample Hypothesis Tests</h1>
+<p>Use the same sample to evaluate two claims: one about the average object count and one about the proportion of single-object entries.</p>
+<p class="meta">MATH&amp; 146 · PROJECT SIGN · CASE FILE 4 OF 6 · ONE-SAMPLE TESTS</p>
 </div></header>
-
 <div class="toolbar no-print"><div class="wrap">
-<nav class="nav">
+<nav class="nav"><a href="Math146_Project_Sign_Case_File.html">Case overview</a>
 <a href="#start">Start</a><a href="#hypotheses">Hypotheses</a><a href="#mean">Mean test</a>
 <a href="#proportion">Proportion test</a><a href="#simulate">p-values</a><a href="#compare">Compare</a><a href="#report">Finish</a>
 </nav>
 <div class="actions"><button onclick="saveAll()">Save</button><button onclick="clearAll()">Clear</button><button class="primary" onclick="generateReport()">Generate report</button></div>
 </div></div>
-
 <main class="wrap">
-<section id="start" class="card">
-<h2>Before you begin</h2>
+<section class="card" id="start">
+<div class="case-brief">
+<div class="case-kicker"><span>Classroom scenario · statistical review unit</span><span>Case file 4 of 6</span></div>
+<p class="case-lede">You are working from the 23 April 1948 Project SIGN progress report. Its first enclosure is a multi-part table of reports available through 1 February 1948. Your task is to audit the recorded variables statistically, not to decide what the reported objects were.</p>
+<div class="case-grid">
+<div class="case-panel"><h3>Question under review</h3><p>Does the sample provide evidence against a proposed population mean or proportion?</p></div>
+<div class="case-panel"><h3>Evidence used in this file</h3><p>The same fixed sample of 36 exact object counts from Case File 3 is used. Its mean is \(1.944\), and 25 of the 36 entries report exactly one object, giving \(\hat p=0.6944\).</p></div>
+</div>
+<div class="evidence-strip"><div class="evidence-item"><strong>36</strong><span>same sample</span></div><div class="evidence-item"><strong>1.944</strong><span>sample mean</span></div><div class="evidence-item"><strong>25</strong><span>single-object entries</span></div><div class="evidence-item"><strong>0.05</strong><span>significance level</span></div></div>
+<div class="case-panel"><h3>Current assignment</h3><p>Translate verbal claims into null and alternative hypotheses. Test \(H_0:\mu=2\) against a two-sided alternative and \(H_0:p=0.50\) against a right-sided alternative. Then connect each decision to its tail area and to the earlier confidence interval.</p></div>
+<details class="case-log"><summary>Investigation log: what has already been established</summary><p>The 95% confidence interval for the mean was approximately \((0.955,2.934)\), and the 95% interval for the single-object proportion was approximately \((0.544,0.845)\). Both intervals contained the known empirical values from the full 108-count table.</p></details>
+<div class="case-note"><strong>Statistical boundary:</strong> The rows were not produced by a random sample of all aerial events. Conclusions in these labs describe the archival table, a stated empirical-population exercise, or an explicitly defined mathematical model. They do not estimate the frequency or nature of aerial phenomena in the world.</div>
+<div class="case-links"><a href="Math146_Project_Sign_Case_File.html">Open the full case overview</a><a href="https://bobovski66.github.io/IntroStatistics/textbook/Math146_Ch6.pdf" rel="noopener" target="_blank">Chapter 6: Hypothesis testing</a></div>
+</div>
+<div class="source-dossier">
+<div class="source-meta">Primary-source checkpoint · 1948 report</div>
+<h2>See the evidence behind this lab</h2>
+<p>The null values in this lab are proposed numerical benchmarks. They are tested against a sample drawn from the coded empirical population constructed from the source table.</p>
+<div class="source-scan-grid"><a class="scan-card" href="source/pages/page-02.jpg" rel="noopener" target="_blank"><figure><img alt="Scanned page 2 of the 1948 Project SIGN progress report" loading="lazy" src="source/pages/page-02.jpg"/><figcaption><strong>Page 2 — source summary</strong>The memo reports its own grouped summary of objects per sighting.</figcaption></figure></a><a class="scan-card" href="source/pages/page-03.jpg" rel="noopener" target="_blank"><figure><img alt="Scanned page 3 of the 1948 Project SIGN progress report" loading="lazy" src="source/pages/page-03.jpg"/><figcaption><strong>Page 3 — source rows</strong>The one-sample tests use the same 108-entry exact-count transcription and fixed sample introduced in the interval lab.</figcaption></figure></a></div>
+<div class="source-actions"><a href="source/Project_Sign_Progress_Report_1948.pdf" rel="noopener" target="_blank">Open complete report</a><a href="Math146_Project_Sign_Case_File.html#table-pages">Open table guide</a></div>
+<details class="scan-group"><summary>Browse the row-level source table</summary><p class="source-page-note">The hypotheses concern parameters of the course-defined empirical population, not claims made by the authors of the 1948 report.</p><div class="source-scan-grid compact"><a class="scan-card" href="source/pages/page-03.jpg" rel="noopener" target="_blank"><figure><img alt="Scanned page 3 of the 1948 Project SIGN progress report" loading="lazy" src="source/pages/page-03.jpg"/><figcaption><strong>Page 3</strong>The hypotheses concern parameters of the course-defined empirical population, not claims made by the authors of the 1948 report.</figcaption></figure></a><a class="scan-card" href="source/pages/page-04.jpg" rel="noopener" target="_blank"><figure><img alt="Scanned page 4 of the 1948 Project SIGN progress report" loading="lazy" src="source/pages/page-04.jpg"/><figcaption><strong>Page 4</strong>Continue through this section of the original table.</figcaption></figure></a><a class="scan-card" href="source/pages/page-05.jpg" rel="noopener" target="_blank"><figure><img alt="Scanned page 5 of the 1948 Project SIGN progress report" loading="lazy" src="source/pages/page-05.jpg"/><figcaption><strong>Page 5</strong>Continue through this section of the original table.</figcaption></figure></a><a class="scan-card" href="source/pages/page-06.jpg" rel="noopener" target="_blank"><figure><img alt="Scanned page 6 of the 1948 Project SIGN progress report" loading="lazy" src="source/pages/page-06.jpg"/><figcaption><strong>Page 6</strong>Continue through this section of the original table.</figcaption></figure></a><a class="scan-card" href="source/pages/page-07.jpg" rel="noopener" target="_blank"><figure><img alt="Scanned page 7 of the 1948 Project SIGN progress report" loading="lazy" src="source/pages/page-07.jpg"/><figcaption><strong>Page 7</strong>Continue through this section of the original table.</figcaption></figure></a></div></details>
+<div class="coding-note"><strong>Coding note:</strong> A small p-value would describe incompatibility between the sample result and a stated null model. It would not identify the reported objects or validate the historical interpretations in the memo.</div>
+</div>
+
+<h2>Statistical briefing</h2>
 <p>This activity continues the Project Sign confidence-interval lab. The 108 exact object counts are treated as an empirical population, and you will use the same fixed sample of 36 values.</p>
 <div class="warning callout"><strong>Interpret carefully:</strong> The calculations show how hypothesis tests work under the stated empirical-population model. They do not turn the historical table into a random sample of all aerial events.</div>
 <h3>Objectives</h3>
@@ -87,38 +179,33 @@ z=\frac{\hat p-p_0}{\sqrt{p_0(1-p_0)/n}}
 <div class="callout">
 A \(p\)-value is the probability of obtaining a result at least as extreme as the observed result, assuming \(H_0\) is true.
 </div>
-<label>Your name<input type="text" data-save="student_name"></label>
+<label>Your name<input data-save="student_name" type="text"/></label>
 </section>
-
-<section id="hypotheses" class="card">
-<h2>Part 1. Hypotheses and test direction</h2>
+<section class="card" id="hypotheses">
+<h2>Part 1. Hypotheses and test direction</h2><p class="section-thread">A test begins with a claim and a direction before any arithmetic is performed. The alternative hypothesis determines which tail or tails count as more extreme.</p>
 <p>Choose the correct test type for each alternative hypothesis.</p>
-
 <div class="hypothesis-grid">
-<div><strong>A.</strong> \(H_a:\mu<2\)</div>
-<select id="tailA" data-save="tailA"><option value="">Choose</option><option>left-tailed</option><option>right-tailed</option><option>two-tailed</option></select>
+<div><strong>A.</strong> \(H_a:\mu&lt;2\)</div>
+<select data-save="tailA" id="tailA"><option value="">Choose</option><option>left-tailed</option><option>right-tailed</option><option>two-tailed</option></select>
 </div>
 <div class="hypothesis-grid">
-<div><strong>B.</strong> \(H_a:p>0.50\)</div>
-<select id="tailB" data-save="tailB"><option value="">Choose</option><option>left-tailed</option><option>right-tailed</option><option>two-tailed</option></select>
+<div><strong>B.</strong> \(H_a:p&gt;0.50\)</div>
+<select data-save="tailB" id="tailB"><option value="">Choose</option><option>left-tailed</option><option>right-tailed</option><option>two-tailed</option></select>
 </div>
 <div class="hypothesis-grid">
 <div><strong>C.</strong> \(H_a:\mu\ne2\)</div>
-<select id="tailC" data-save="tailC"><option value="">Choose</option><option>left-tailed</option><option>right-tailed</option><option>two-tailed</option></select>
+<select data-save="tailC" id="tailC"><option value="">Choose</option><option>left-tailed</option><option>right-tailed</option><option>two-tailed</option></select>
 </div>
-
 <p><button onclick="checkTails()">Check Part 1</button></p>
-<div id="tailFeedback" class="feedback"></div>
-<div id="tailSolution" class="solution">
-\(H_a:\mu<2\) is left-tailed, \(H_a:p>0.50\) is right-tailed, and \(H_a:\mu\ne2\) is two-tailed.
+<div class="feedback" id="tailFeedback"></div>
+<div class="solution" id="tailSolution">
+\(H_a:\mu&lt;2\) is left-tailed, \(H_a:p&gt;0.50\) is right-tailed, and \(H_a:\mu\ne2\) is two-tailed.
 </div>
-
 <label>Why must the null hypothesis contain an equality?
 <textarea data-save="null_equality"></textarea></label>
 </section>
-
-<section id="mean" class="card">
-<h2>Part 2. One-sample \(z\)-test for a mean</h2>
+<section class="card" id="mean">
+<h2>Part 2. One-sample \(z\)-test for a mean</h2><p class="section-thread">The mean test asks whether the observed sample mean is unusually far from \(2\) when \(H_0:\mu=2\) is treated as the reference model.</p>
 <p>A claim states that the mean number of objects reported is \(2\). Test whether the mean differs from \(2\).</p>
 <div class="formula">
 \[
@@ -128,20 +215,17 @@ H_a:\mu\ne2
 \]
 </div>
 <p>Use \(\alpha=0.05\), \(n=36\), and the known empirical-population standard deviation \(\sigma=3.028\).</p>
-
-<div class="data-box"><textarea id="sampleData" readonly>2,1,1,1,1,1,5,1,1,1,10,1,3,2,1,10,1,1,1,2,1,1,2,1,1,4,1,1,1,3,1,1,1,1,2,1</textarea><button onclick="copyText('sampleData','copyFeedback')">Copy sample</button></div>
-<div id="copyFeedback" class="feedback"></div>
-
+<div class="data-box"><textarea id="sampleData" readonly="">2,1,1,1,1,1,5,1,1,1,10,1,3,2,1,10,1,1,1,2,1,1,2,1,1,4,1,1,1,3,1,1,1,1,2,1</textarea><button onclick="copyText('sampleData','copyFeedback')">Copy sample</button></div>
+<div class="feedback" id="copyFeedback"></div>
 <div class="grid4">
-<label>Sample mean, \(\bar x\)<input type="number" id="m_xbar" data-save="m_xbar" step="0.001"></label>
-<label>Standard error<input type="number" id="m_se" data-save="m_se" step="0.001"></label>
-<label>Test statistic, \(z\)<input type="number" id="m_z" data-save="m_z" step="0.001"></label>
-<label>Two-tailed \(p\)-value<input type="number" id="m_p" data-save="m_p" step="0.0001"></label>
+<label>Sample mean, \(\bar x\)<input data-save="m_xbar" id="m_xbar" step="0.001" type="number"/></label>
+<label>Standard error<input data-save="m_se" id="m_se" step="0.001" type="number"/></label>
+<label>Test statistic, \(z\)<input data-save="m_z" id="m_z" step="0.001" type="number"/></label>
+<label>Two-tailed \(p\)-value<input data-save="m_p" id="m_p" step="0.0001" type="number"/></label>
 </div>
-
 <p><button onclick="checkMean()">Check mean test</button></p>
-<div id="meanFeedback" class="feedback"></div>
-<div id="meanSolution" class="solution">
+<div class="feedback" id="meanFeedback"></div>
+<div class="solution" id="meanSolution">
 \[
 z=\frac{1.944-2}{3.028/\sqrt{36}}=-0.110.
 \]
@@ -149,59 +233,52 @@ Because the test is two-tailed,
 \[
 p=2P(Z\ge|-0.110|)=0.9123.
 \]
-Since \(p>\alpha\), fail to reject \(H_0\).
+Since \(p&gt;\alpha\), fail to reject \(H_0\).
 </div>
-
 <div class="choice">
 <p><strong>Decision at \(\alpha=0.05\):</strong></p>
-<label><input type="radio" name="meanDecision" value="reject">Reject \(H_0\)</label>
-<label><input type="radio" name="meanDecision" value="fail">Fail to reject \(H_0\)</label>
+<label><input name="meanDecision" type="radio" value="reject"/>Reject \(H_0\)</label>
+<label><input name="meanDecision" type="radio" value="fail"/>Fail to reject \(H_0\)</label>
 </div>
 <p><button onclick="checkMeanDecision()">Check decision</button></p>
-<div id="meanDecisionFeedback" class="feedback"></div>
-
+<div class="feedback" id="meanDecisionFeedback"></div>
 <label>Write the conclusion in context. Do not say that \(H_0\) has been proven true.
 <textarea data-save="mean_conclusion"></textarea></label>
-
 <div class="callout successbox">
 The Week 5 confidence interval for \(\mu\) was \((0.955,2.934)\). Is the claimed value \(\mu_0=2\) inside or outside that interval?
 </div>
 <div class="choice">
-<label><input type="radio" name="ciRelation" value="inside">Inside the interval</label>
-<label><input type="radio" name="ciRelation" value="outside">Outside the interval</label>
+<label><input name="ciRelation" type="radio" value="inside"/>Inside the interval</label>
+<label><input name="ciRelation" type="radio" value="outside"/>Outside the interval</label>
 </div>
 <p><button onclick="checkCIRelation()">Check connection</button></p>
-<div id="ciRelationFeedback" class="feedback"></div>
+<div class="feedback" id="ciRelationFeedback"></div>
 </section>
-
-<section id="proportion" class="card">
-<h2>Part 3. One-sample \(z\)-test for a proportion</h2>
+<section class="card" id="proportion">
+<h2>Part 3. One-sample \(z\)-test for a proportion</h2><p class="section-thread">The same records answer a different question after they are recoded as single-object or not. A different parameter can produce a different statistical conclusion without contradiction.</p>
 <p>Call an entry a success when it reports exactly one object. Test whether more than half of the entries in the empirical population report exactly one object.</p>
 <div class="formula">
 \[
 H_0:p=0.50
 \qquad\text{versus}\qquad
-H_a:p>0.50
+H_a:p&gt;0.50
 \]
 </div>
 <p>Use \(\alpha=0.05\). In the sample, 25 of the 36 entries are successes.</p>
-
 <div class="callout warning">
 For a hypothesis test about a proportion, the standard error uses the null value \(p_0\), not the sample proportion \(\hat p\).
 </div>
-
 <div class="grid4">
-<label>\(\hat p\)<input type="number" id="p_phat" data-save="p_phat" step="0.0001"></label>
-<label>\(np_0\)<input type="number" id="p_np0" data-save="p_np0" step="0.001"></label>
-<label>\(n(1-p_0)\)<input type="number" id="p_nq0" data-save="p_nq0" step="0.001"></label>
-<label>Null standard error<input type="number" id="p_se" data-save="p_se" step="0.0001"></label>
-<label>Test statistic, \(z\)<input type="number" id="p_z" data-save="p_z" step="0.001"></label>
-<label>Right-tailed \(p\)-value<input type="number" id="p_pval" data-save="p_pval" step="0.0001"></label>
+<label>\(\hat p\)<input data-save="p_phat" id="p_phat" step="0.0001" type="number"/></label>
+<label>\(np_0\)<input data-save="p_np0" id="p_np0" step="0.001" type="number"/></label>
+<label>\(n(1-p_0)\)<input data-save="p_nq0" id="p_nq0" step="0.001" type="number"/></label>
+<label>Null standard error<input data-save="p_se" id="p_se" step="0.0001" type="number"/></label>
+<label>Test statistic, \(z\)<input data-save="p_z" id="p_z" step="0.001" type="number"/></label>
+<label>Right-tailed \(p\)-value<input data-save="p_pval" id="p_pval" step="0.0001" type="number"/></label>
 </div>
-
 <p><button onclick="checkProportion()">Check proportion test</button></p>
-<div id="propFeedback" class="feedback"></div>
-<div id="propSolution" class="solution">
+<div class="feedback" id="propFeedback"></div>
+<div class="solution" id="propSolution">
 \[
 \hat p=\frac{25}{36}=0.6944,
 \qquad
@@ -212,75 +289,66 @@ z=\frac{0.6944-0.50}{0.0833}=2.333,
 \qquad
 p=P(Z\ge 2.333)=0.0098.
 \]
-Since \(p<\alpha\), reject \(H_0\).
+Since \(p&lt;\alpha\), reject \(H_0\).
 </div>
-
 <div class="choice">
 <p><strong>Decision at \(\alpha=0.05\):</strong></p>
-<label><input type="radio" name="propDecision" value="reject">Reject \(H_0\)</label>
-<label><input type="radio" name="propDecision" value="fail">Fail to reject \(H_0\)</label>
+<label><input name="propDecision" type="radio" value="reject"/>Reject \(H_0\)</label>
+<label><input name="propDecision" type="radio" value="fail"/>Fail to reject \(H_0\)</label>
 </div>
 <p><button onclick="checkPropDecision()">Check decision</button></p>
-<div id="propDecisionFeedback" class="feedback"></div>
-
+<div class="feedback" id="propDecisionFeedback"></div>
 <label>Write a complete conclusion in context.
 <textarea data-save="prop_conclusion"></textarea></label>
-
 <h3>Why does the test use \(p_0\) in the standard error?</h3>
 <div class="choice">
-<label><input type="radio" name="seReason" value="a">Because the test builds the sampling distribution under the assumption that \(H_0\) is true.</label>
-<label><input type="radio" name="seReason" value="b">Because \(\hat p\) is always equal to \(p_0\).</label>
-<label><input type="radio" name="seReason" value="c">Because using \(p_0\) always makes the \(p\)-value smaller.</label>
+<label><input name="seReason" type="radio" value="a"/>Because the test builds the sampling distribution under the assumption that \(H_0\) is true.</label>
+<label><input name="seReason" type="radio" value="b"/>Because \(\hat p\) is always equal to \(p_0\).</label>
+<label><input name="seReason" type="radio" value="c"/>Because using \(p_0\) always makes the \(p\)-value smaller.</label>
 </div>
 <p><button onclick="checkSEReason()">Check</button></p>
-<div id="seReasonFeedback" class="feedback"></div>
+<div class="feedback" id="seReasonFeedback"></div>
 </section>
-
-<section id="simulate" class="card">
-<h2>Part 4. See the \(p\)-values as tail areas</h2>
+<section class="card" id="simulate">
+<h2>Part 4. See the \(p\)-values as tail areas</h2><p class="section-thread">The p-value is an area under the null distribution. Drawing the tail regions makes “at least as extreme” visible rather than leaving it as a calculator output.</p>
 <p>The simulation below generates 5,000 standard normal \(z\)-scores under \(H_0\). It counts the simulated values at least as extreme as the observed test statistic.</p>
 <p><button class="primary" onclick="runSimulation()">Run simulation</button></p>
 <div class="grid2">
-<div><h3>Mean test: two tails</h3><canvas id="meanCanvas"></canvas><div id="meanSimSummary" class="callout"></div></div>
-<div><h3>Proportion test: right tail</h3><canvas id="propCanvas"></canvas><div id="propSimSummary" class="callout"></div></div>
+<div><h3>Mean test: two tails</h3><canvas id="meanCanvas"></canvas><div class="callout" id="meanSimSummary"></div></div>
+<div><h3>Proportion test: right tail</h3><canvas id="propCanvas"></canvas><div class="callout" id="propSimSummary"></div></div>
 </div>
 <label>Why is the mean-test \(p\)-value so large while the proportion-test \(p\)-value is small?
 <textarea data-save="pvalue_comparison"></textarea></label>
 </section>
-
-<section id="compare" class="card">
-<h2>Part 5. Compare the two conclusions</h2>
+<section class="card" id="compare">
+<h2>Part 5. Compare the two conclusions</h2><p class="section-thread">A failure to reject is not proof of the null hypothesis. It means that the observed statistic was not sufficiently unusual under the stated null model.</p>
 <table>
 <thead><tr><th>Question</th><th>Test</th><th>Decision</th></tr></thead>
 <tbody>
 <tr><td>Does the mean differ from 2?</td><td>\(H_0:\mu=2\) vs. \(H_a:\mu\ne2\)</td><td>Fail to reject \(H_0\)</td></tr>
-<tr><td>Do more than half report exactly one object?</td><td>\(H_0:p=0.50\) vs. \(H_a:p>0.50\)</td><td>Reject \(H_0\)</td></tr>
+<tr><td>Do more than half report exactly one object?</td><td>\(H_0:p=0.50\) vs. \(H_a:p&gt;0.50\)</td><td>Reject \(H_0\)</td></tr>
 </tbody>
 </table>
 <label>Explain why these conclusions do not contradict one another.
 <textarea data-save="comparison_explanation"></textarea></label>
-
 <div class="choice">
 <p><strong>Which is a correct interpretation of failing to reject \(H_0\)?</strong></p>
-<label><input type="radio" name="failMeaning" value="a">The null hypothesis has been proven true.</label>
-<label><input type="radio" name="failMeaning" value="b">The sample does not provide sufficient evidence against the null hypothesis.</label>
-<label><input type="radio" name="failMeaning" value="c">The alternative hypothesis has been proven false.</label>
+<label><input name="failMeaning" type="radio" value="a"/>The null hypothesis has been proven true.</label>
+<label><input name="failMeaning" type="radio" value="b"/>The sample does not provide sufficient evidence against the null hypothesis.</label>
+<label><input name="failMeaning" type="radio" value="c"/>The alternative hypothesis has been proven false.</label>
 </div>
 <p><button onclick="checkFailMeaning()">Check</button></p>
-<div id="failMeaningFeedback" class="feedback"></div>
+<div class="feedback" id="failMeaningFeedback"></div>
 </section>
-
-<section id="report" class="card">
+<section class="card" id="report">
 <h2>Final response</h2>
 <label>Write 6–8 sentences comparing the mean test and proportion test. Include both hypotheses, both decisions, and one correct interpretation of a \(p\)-value.
 <textarea data-save="final_response"></textarea></label>
 <p><button class="primary" onclick="generateReport()">Generate report</button> <button onclick="copyReport()">Copy report</button> <button onclick="window.print()">Print</button></p>
-<div id="reportPreview" class="report">Your report will appear here.</div>
+<div class="report" id="reportPreview">Your report will appear here.</div>
 </section>
-
-<p class="footer-note">Project Sign Applied Data Lab · One-Sample Hypothesis Tests</p>
+<div class="case-pagination no-print"><a href="Math146_Project_Sign_Confidence_Intervals_Lab.html">← Case File 3</a><a href="Math146_Project_Sign_Two_Sample_Inference_Lab.html">Case File 5 →</a></div><p class="footer-note">Project Sign Applied Data Lab · One-Sample Hypothesis Tests</p>
 </main>
-
 <script>
 const A={"n": 36, "xbar": 1.9444444444444444, "sigma": 3.027806093422926, "mu0": 2.0, "se_mean": 0.504634348903821, "z_mean": -0.11009071355573538, "p_mean": 0.9123374328994882, "ci_mean_l": 0.9553611205929553, "ci_mean_u": 2.9335277682959333, "successes": 25, "failures": 11, "phat": 0.6944444444444444, "p0": 0.5, "np0": 18.0, "nq0": 18.0, "se_prop_null": 0.08333333333333333, "z_prop": 2.333333333333333, "p_prop": 0.009815328628645315, "alpha": 0.05, "mu_pop": 2.212962962962963, "p_pop": 0.7037037037037037};
 
