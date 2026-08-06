@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MATH& 146 — Project Sign Statistical Case File</title>
+<style>
+:root{
+  --bg:#ece8df;--paper:#fffdf7;--ink:#23262d;--muted:#656a73;--line:#d3c9b7;
+  --navy:#18375f;--blue:#285da8;--pale:#eef4ff;--amber:#8a6100;--amber-bg:#fff7df;
+  --green:#24704a;--green-bg:#edf9f2;--shadow:0 12px 32px rgba(35,40,52,.10);
+}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.58 system-ui,-apple-system,"Segoe UI",sans-serif}
+header{background:linear-gradient(135deg,#1d4277,#14243f);color:white;padding:40px 18px 34px}
+.wrap{max-width:1080px;margin:auto}
+header h1{font-family:Georgia,"Times New Roman",serif;margin:0 0 8px;font-size:clamp(2rem,4vw,3rem)}
+header p{max-width:850px;color:#dce8ff;margin:5px 0}.meta{font:700 .78rem/1.3 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;letter-spacing:.1em;text-transform:uppercase}
+.toolbar{position:sticky;top:0;z-index:10;background:rgba(255,253,247,.96);border-bottom:1px solid var(--line);backdrop-filter:blur(8px)}
+.toolbar .wrap{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap;padding:10px 18px}
+nav{display:flex;gap:8px;flex-wrap:wrap}
+nav a,.course-link{text-decoration:none;color:var(--blue);background:var(--pale);border:1px solid #d6e2f6;border-radius:999px;padding:6px 10px;font-weight:700;font-size:.88rem}
+main{padding:24px 18px 64px}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);padding:23px;margin:18px 0}
+h2{font-family:Georgia,"Times New Roman",serif;color:var(--navy);font-size:1.55rem;margin:0 0 12px}
+h3{color:#344e72;margin:18px 0 7px}
+.brief{background:linear-gradient(145deg,#f2ecdc,#fffdf7);border-color:#cfc2a9}
+.kicker{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font:700 .77rem/1.2 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;letter-spacing:.09em;text-transform:uppercase;color:#685b42;margin-bottom:12px}
+.lede{font-family:Georgia,"Times New Roman",serif;font-size:1.16rem;max-width:850px}
+.callout{border-left:5px solid var(--blue);background:var(--pale);padding:12px 14px;border-radius:11px;margin:14px 0}
+.warning{border-left-color:var(--amber);background:var(--amber-bg)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.stat-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:9px;margin-top:18px}
+.stat{background:white;border:1px solid var(--line);border-radius:12px;padding:12px;text-align:center}
+.stat strong{display:block;color:var(--navy);font:750 1.25rem/1.1 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+.stat span{display:block;color:var(--muted);font-size:.78rem;margin-top:5px}
+table{width:100%;border-collapse:collapse;margin:12px 0;background:white}
+th,td{border-bottom:1px solid #ded8cc;padding:10px 9px;text-align:left;vertical-align:top}
+th{font-size:.78rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);background:#f8f5ee}
+.case-list{display:grid;gap:13px}
+.case-file{display:grid;grid-template-columns:76px 1fr auto;gap:15px;align-items:center;border:1px solid var(--line);border-radius:15px;padding:15px;background:white}
+.case-number{font:800 1.5rem/1 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:var(--navy);text-align:center}
+.case-number span{display:block;font-size:.67rem;letter-spacing:.08em;color:var(--muted);margin-top:5px}
+.case-file h3{margin:0 0 4px}.case-file p{margin:0;color:#4e5561}
+.case-file a{text-decoration:none;background:var(--blue);color:white;border-radius:10px;padding:9px 12px;font-weight:750;white-space:nowrap}
+.ledger{display:grid;grid-template-columns:repeat(2,1fr);gap:13px}
+.ledger article{border:1px solid var(--line);border-radius:14px;padding:14px;background:#fff}
+.ledger h3{margin-top:0}
+.code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:#f2f0e9;border:1px solid #ddd5c6;border-radius:5px;padding:1px 5px}
+footer{text-align:center;color:var(--muted);font-size:.86rem;margin-top:28px}
+@media(max-width:850px){.stat-grid{grid-template-columns:repeat(2,1fr)}.grid2,.ledger{grid-template-columns:1fr}.case-file{grid-template-columns:60px 1fr}.case-file a{grid-column:1/-1;text-align:center}}
+@media print{.toolbar{display:none}.card{box-shadow:none;break-inside:avoid}body{background:white}header{background:white;color:black;border-bottom:1px solid #999}header p{color:#333}}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+<p class="meta">MATH& 146 · APPLIED DATA INVESTIGATION</p>
+<h1>Project Sign: Statistical Case File</h1>
+<p>Use one historical incident table across several parts of the course. Each case file asks a different statistical question and makes a different subset of the archive visible.</p>
+</div></header>
+
+<div class="toolbar"><div class="wrap">
+<nav><a href="#briefing">Briefing</a><a href="#data">Data map</a><a href="#files">Case files</a><a href="#ledger">Investigation ledger</a><a href="#limits">Limits</a></nav>
+<a class="course-link" href="https://bobovski66.github.io/IntroStatistics/" target="_blank" rel="noopener">Course home</a>
+</div></div>
+
+<main class="wrap">
+<section id="briefing" class="card brief">
+<div class="kicker"><span>Classroom scenario</span><span>Status: archive open</span></div>
+<h2>Briefing</h2>
+<p class="lede">A digitized government progress report has arrived in the course archive. Your statistical review team has been asked to examine the incident table before anyone draws a dramatic conclusion from it.</p>
+<p>The file is historically interesting, but the statistical assignment is narrower. You will not determine what the reported objects were. You will determine how recorded counts, times, altitudes, dates, and categories can be summarized and modeled—and where the evidence stops.</p>
+<div class="stat-grid">
+<div class="stat"><strong>121</strong><span>report entries</span></div>
+<div class="stat"><strong>108</strong><span>exact object counts</span></div>
+<div class="stat"><strong>102</strong><span>exact dated counts</span></div>
+<div class="stat"><strong>78</strong><span>exact report times</span></div>
+<div class="stat"><strong>56</strong><span>altitude estimates</span></div>
+</div>
+<div class="callout warning"><strong>Standing instruction:</strong> Treat each number according to the model stated in the current lab. These rows were not randomly sampled from all aerial events, and several rows may describe related observations. Statistical significance does not establish historical cause or physical explanation.</div>
+</section>
+
+<section id="data" class="card">
+<h2>Data map</h2>
+<p>The sample size changes from one case file to another because different questions require different fields. Missing, verbal, ranged, or ambiguous values are retained in the archive but are excluded when a calculation requires an exact numeric value.</p>
+<table>
+<thead><tr><th>Subset</th><th>Size</th><th>Used for</th><th>Why rows are excluded</th></tr></thead>
+<tbody>
+<tr><td>Full incident table</td><td>121</td><td>Report-level categories such as <span class="code">observed_from</span></td><td>No exclusion when the needed category is present.</td></tr>
+<tr><td>Exact object counts</td><td>108</td><td>PMF, expected value, variance, confidence intervals, one-sample tests</td><td>Ranges and verbal values such as “several” are not single whole-number counts.</td></tr>
+<tr><td>Exact dated object counts</td><td>102</td><td>Earlier/later comparison and regression</td><td>Both an exact calendar date and an exact whole-number count are required.</td></tr>
+<tr><td>Exact report times</td><td>78</td><td>Uniform time-of-day model</td><td>Approximate, missing, or non-clock times are omitted.</td></tr>
+<tr><td>Numeric altitude estimates</td><td>56</td><td>z-scores and a general normal model</td><td>Nonnumeric descriptions are omitted; ranges are represented by midpoints and units are converted to feet.</td></tr>
+</tbody>
+</table>
+<div class="grid2">
+<div><h3>Important variables</h3><ul>
+<li><span class="code">num_sighted</span>: recorded number of objects</li>
+<li>date and time: when the report was recorded to have occurred</li>
+<li>altitude: numeric estimate after stated conversions</li>
+<li><span class="code">observed_from</span>: report setting, including air-based entries</li>
+</ul></div>
+<div><h3>Unit of analysis</h3><p>In these activities, one table row is usually treated as one report entry. That convention is useful for computation, but it does not guarantee that every row represents an independent physical event.</p></div>
+</div>
+</section>
+
+<section id="files" class="card">
+<h2>Case files</h2>
+<div class="case-list">
+<article class="case-file"><div class="case-number">01<span>DISCRETE</span></div><div><h3>Recorded counts and chance models</h3><p>Construct an empirical PMF, expected value, and variance; then compare binomial and geometric questions.</p></div><a href="Math146_Project_Sign_Discrete_Lab.html">Open file</a></article>
+<article class="case-file"><div class="case-number">02<span>CONTINUOUS</span></div><div><h3>Time, altitude, and model fit</h3><p>Compare report times with a uniform baseline and altitude estimates with a normal model.</p></div><a href="Math146_Project_Sign_Continuous_Lab.html">Open file</a></article>
+<article class="case-file"><div class="case-number">03<span>INTERVALS</span></div><div><h3>Estimating from a sample</h3><p>Estimate a mean and proportion and investigate the repeated-sampling meaning of confidence.</p></div><a href="Math146_Project_Sign_Confidence_Intervals_Lab.html">Open file</a></article>
+<article class="case-file"><div class="case-number">04<span>TESTS</span></div><div><h3>Evaluating claims</h3><p>Test one claim about the mean and another about the proportion of single-object entries.</p></div><a href="Math146_Project_Sign_Hypothesis_Testing_Lab.html">Open file</a></article>
+<article class="case-file"><div class="case-number">05<span>TWO SAMPLE</span></div><div><h3>Earlier versus later reports</h3><p>Compare two periods using differences in means and differences in proportions.</p></div><a href="Math146_Project_Sign_Two_Sample_Inference_Lab.html">Open file</a></article>
+<article class="case-file"><div class="case-number">06<span>REGRESSION</span></div><div><h3>Date as a predictor</h3><p>Fit a least-squares line and examine correlation, residuals, outliers, and extrapolation.</p></div><a href="Math146_Project_Sign_Linear_Regression_Lab.html">Open file</a></article>
+</div>
+</section>
+
+<section id="ledger" class="card">
+<h2>Investigation ledger</h2>
+<p>These are the principal numerical findings carried forward from one case file to the next. They describe the course dataset under the stated conventions.</p>
+<div class="ledger">
+<article><h3>Object-count distribution</h3><p>Among 108 exact counts, \(P(X=1)=0.7037\). The empirical mean is \(2.213\) objects and the population standard deviation is \(3.028\) objects. The distribution has a long right tail.</p></article>
+<article><h3>Time and altitude models</h3><p>The 78 exact times fall into six-hour blocks with counts \(4,16,35,23\), rather than the uniform prediction of \(19.5\) per block. The fitted altitude normal model assigns probability to impossible negative values, so its limitations must be acknowledged.</p></article>
+<article><h3>Sample estimates</h3><p>A fixed sample of 36 counts has \(\bar x=1.944\) and \(\hat p=0.6944\). Its 95% intervals contain the known empirical mean \(2.213\) and proportion \(0.7037\).</p></article>
+<article><h3>One-sample decisions</h3><p>The mean test against \(H_0:\mu=2\) gives \(p\approx0.9123\), so \(H_0\) is not rejected. The right-tailed proportion test against \(H_0:p=0.50\) gives \(p\approx0.0098\), so the null is rejected at \(\alpha=0.05\).</p></article>
+<article><h3>Earlier and later periods</h3><p>The earlier mean is \(4.161\) and the later mean is \(1.465\). Single-object proportions are \(0.4516\) earlier and \(0.7887\) later. Both procedures describe a shift toward smaller recorded counts in the later period.</p></article>
+<article><h3>Linear trend</h3><p>The fitted line is approximately \(\hat y=4.613-0.00973x\), with \(r=-0.258\) and \(r^2=0.0667\). Date has a weak negative linear association with count and explains only about 6.7% of its variation.</p></article>
+</div>
+</section>
+
+<section id="limits" class="card">
+<h2>How to read the evidence</h2>
+<div class="grid2">
+<div><h3>What the calculations can do</h3><ul>
+<li>Describe patterns in the recorded table.</li>
+<li>Compare stated mathematical models with observed summaries.</li>
+<li>Demonstrate sampling distributions, intervals, tests, and regression.</li>
+<li>Identify shifts, outliers, and model failures.</li>
+</ul></div>
+<div><h3>What the calculations cannot do</h3><ul>
+<li>Show how often aerial phenomena occur in the world.</li>
+<li>Establish that table entries are independent events.</li>
+<li>Determine the cause or identity of a reported object.</li>
+<li>Turn association or statistical significance into causation.</li>
+</ul></div>
+</div>
+<p class="callout"><strong>Working rule:</strong> A statistical conclusion should always name the data, the model, and the limits of the inference.</p>
+<p><a class="course-link" href="https://www.war.gov/ufo/" target="_blank" rel="noopener">Source page cited in the original lab</a></p>
+</section>
+
+<footer>MATH& 146 · Project Sign Applied Data Investigation</footer>
+</main>
+<script>
+window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</body></html>

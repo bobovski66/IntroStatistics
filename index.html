@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MATH& 146 — Introductory Statistics Course</title>
+<style>
+:root{
+  color-scheme:light;
+  --bg:#eef1f3; --panel:#fbfaf6; --card:#fffdf8; --card-2:#f4f1e9;
+  --ink:#182532; --muted:#5f6b73; --line:#d5d7d3; --nav:#183149;
+  --nav-2:#24465f; --accent:#2e6386; --accent-soft:#dfeaf1;
+  --good:#2f7151; --good-soft:#e5f1e9; --warn:#8a6519; --warn-soft:#f7edcf;
+  --bad:#9b493b; --bad-soft:#f6e5e1; --shadow:0 10px 28px rgba(25,38,48,.08);
+  --focus:#4a86b0; --grade:#6d4a86;
+}
+html[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#111820; --panel:#17222c; --card:#1d2933; --card-2:#24333e;
+  --ink:#edf2f4; --muted:#aebbc3; --line:#3b4b56; --nav:#0d1720;
+  --nav-2:#192c3a; --accent:#83b7d7; --accent-soft:#243d4d;
+  --good:#8fd0aa; --good-soft:#203c2e; --warn:#e0c275; --warn-soft:#43391e;
+  --bad:#eda594; --bad-soft:#462d2b; --shadow:0 12px 30px rgba(0,0,0,.25);
+  --focus:#9bcae8; --grade:#c7a6df;
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+a{color:var(--accent)}
+.app{display:grid;grid-template-columns:260px minmax(0,1fr);min-height:100vh}
+.sidebar{position:sticky;top:0;height:100vh;background:var(--nav);color:#eaf2f7;padding:22px 16px;overflow:auto}
+.brand{padding:4px 8px 22px;border-bottom:1px solid rgba(255,255,255,.14)}
+.brand .eyebrow{font-size:.74rem;letter-spacing:.11em;text-transform:uppercase;color:#a9c0d1}
+.brand h1{font-size:1.25rem;margin:6px 0 5px}
+.brand p{font-size:.84rem;color:#bed0dc;margin:0}
+.side-nav{display:grid;gap:7px;margin:20px 0}
+.side-nav button{display:flex;gap:10px;align-items:center;width:100%;border:0;border-radius:10px;padding:11px 12px;background:transparent;color:#dce8ef;text-align:left;font-weight:650}
+.side-nav button:hover,.side-nav button.active{background:rgba(255,255,255,.1);color:#fff}
+.sidebar-progress{margin-top:22px;padding:14px;border-radius:12px;background:rgba(255,255,255,.07)}
+.sidebar-progress .value{font-size:1.55rem;font-weight:800}
+.sidebar-progress small{color:#bdd0dc}
+.progress-track{height:8px;border-radius:99px;background:rgba(255,255,255,.13);overflow:hidden;margin:9px 0}
+.progress-fill{height:100%;width:0;background:#86bedc;border-radius:99px;transition:width .25s}
+.sidebar-actions{display:grid;gap:8px;margin-top:14px}
+.sidebar-actions button{border:1px solid rgba(255,255,255,.18);background:transparent;color:#e5eff4;border-radius:9px;padding:8px}
+.main{min-width:0}
+.topbar{position:sticky;top:0;z-index:20;display:flex;justify-content:space-between;align-items:center;gap:14px;padding:14px 24px;background:color-mix(in srgb,var(--panel) 94%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.student-box{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.student-box label{font-size:.82rem;color:var(--muted)}
+.student-box input{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:8px;padding:7px 9px;min-width:190px}
+.top-actions{display:flex;gap:8px}
+.icon-btn{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:9px;padding:8px 10px}
+.content{max-width:1180px;margin:0 auto;padding:28px 30px 80px}
+.view{display:none}.view.active{display:block}
+.page-head{margin-bottom:24px}
+.page-head .eyebrow{font-size:.78rem;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);font-weight:800}
+.page-head h2{font-size:clamp(1.8rem,3vw,2.55rem);margin:6px 0 8px}
+.page-head p{max-width:78ch;color:var(--muted);font-size:1.03rem}
+.dashboard-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:22px}
+.metric{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;box-shadow:var(--shadow)}
+.metric .label{font-size:.78rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:750}
+.metric .big{font-size:2rem;font-weight:850;margin:5px 0 2px}
+.metric .sub{font-size:.85rem;color:var(--muted)}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;box-shadow:var(--shadow);margin:16px 0}
+.panel h3{margin:0 0 8px}
+.two-col{display:grid;grid-template-columns:1.2fr .8fr;gap:16px}
+.next-card{display:flex;justify-content:space-between;gap:15px;align-items:center;background:var(--accent-soft);border:1px solid color-mix(in srgb,var(--accent) 30%,var(--line));padding:16px;border-radius:14px}
+.primary-btn,.secondary-btn,.danger-btn{border-radius:10px;padding:9px 13px;font-weight:750}
+.primary-btn{border:1px solid var(--accent);background:var(--accent);color:#fff}
+.secondary-btn{border:1px solid var(--line);background:var(--card);color:var(--ink)}
+.danger-btn{border:1px solid var(--bad);background:transparent;color:var(--bad)}
+.module-card{background:var(--card);border:1px solid var(--line);border-radius:18px;margin:15px 0;overflow:hidden;box-shadow:var(--shadow)}
+.module-head{display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:center;padding:18px 20px;background:var(--card)}
+.week-number{width:52px;height:52px;border-radius:15px;background:var(--nav);color:#fff;display:grid;place-items:center;font-size:1.2rem;font-weight:850}
+.module-head h3{margin:0 0 4px}.module-head p{margin:0;color:var(--muted);font-size:.92rem}
+.week-score{text-align:right}.week-score strong{display:block;font-size:1.25rem}.week-score span{font-size:.78rem;color:var(--muted)}
+.module-body{border-top:1px solid var(--line)}
+.resource-row{display:grid;grid-template-columns:145px 1fr auto;gap:14px;align-items:start;padding:15px 20px;border-bottom:1px solid var(--line)}
+.resource-row:last-child{border-bottom:0}
+.resource-kind{font-size:.77rem;text-transform:uppercase;letter-spacing:.07em;font-weight:800;color:var(--accent);padding-top:4px}
+.resource-links{display:grid;gap:8px}
+.resource-link{display:flex;gap:8px;align-items:flex-start}
+.resource-link a{font-weight:720;text-decoration:none}.resource-link a:hover{text-decoration:underline}
+.resource-link small{display:block;color:var(--muted);margin-top:2px}
+.completion-label{display:flex;gap:8px;align-items:center;white-space:nowrap;font-size:.84rem;color:var(--muted);padding:4px 0}
+.completion-label input{width:18px;height:18px;accent-color:var(--good)}
+.quiz-actions{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.badge{display:inline-flex;align-items:center;border-radius:999px;padding:4px 9px;font-size:.78rem;font-weight:800;background:var(--card-2);color:var(--muted);border:1px solid var(--line)}
+.badge.good{background:var(--good-soft);color:var(--good);border-color:color-mix(in srgb,var(--good) 35%,var(--line))}
+.badge.warn{background:var(--warn-soft);color:var(--warn);border-color:color-mix(in srgb,var(--warn) 35%,var(--line))}
+.exam-break{background:linear-gradient(135deg,var(--grade),color-mix(in srgb,var(--grade) 55%,var(--nav)));color:#fff;border-radius:18px;padding:21px;margin:22px 0;display:flex;justify-content:space-between;gap:16px;align-items:center;box-shadow:var(--shadow)}
+.exam-break h3{margin:0 0 5px}.exam-break p{margin:0;color:#f0eaf4}
+.grade-table-wrap{overflow:auto;border:1px solid var(--line);border-radius:14px}
+table{width:100%;border-collapse:collapse;background:var(--card)}
+th,td{padding:11px 10px;border-bottom:1px solid var(--line);text-align:center;white-space:nowrap}
+th{font-size:.75rem;text-transform:uppercase;letter-spacing:.04em;background:var(--card-2);color:var(--muted)}
+td:first-child,th:first-child{text-align:left}
+tr:last-child td{border-bottom:0}
+.grade-letter{color:var(--grade);font-weight:850}
+.grade-note{font-size:.86rem;color:var(--muted);margin-top:10px}
+.assessment-shell{max-width:880px;margin:0 auto}
+.assessment-top{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;margin-bottom:16px}
+.assessment-progress{min-width:145px;text-align:right}
+.question-card{background:var(--card);border:1px solid var(--line);border-radius:15px;padding:18px;margin:12px 0;box-shadow:var(--shadow)}
+.question-card.mastered{border-color:color-mix(in srgb,var(--good) 55%,var(--line));background:color-mix(in srgb,var(--good-soft) 45%,var(--card))}
+.question-number{font-size:.77rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:800}
+.question-prompt{font-size:1.02rem;font-weight:680;margin:7px 0 12px}
+.options{display:grid;gap:8px}
+.option{display:flex;gap:9px;align-items:flex-start;border:1px solid var(--line);border-radius:10px;padding:10px;background:var(--card-2)}
+.option input{margin-top:3px;accent-color:var(--accent)}
+.numeric-input{max-width:280px;border:1px solid var(--line);background:var(--card-2);color:var(--ink);border-radius:9px;padding:9px 10px}
+.feedback{min-height:1.25em;margin-top:9px;font-size:.9rem}
+.feedback.good{color:var(--good)}.feedback.bad{color:var(--bad)}.feedback.warn{color:var(--warn)}
+.assessment-footer{position:sticky;bottom:12px;display:flex;justify-content:space-between;gap:10px;align-items:center;background:color-mix(in srgb,var(--panel) 94%,transparent);backdrop-filter:blur(10px);border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin-top:18px;box-shadow:var(--shadow)}
+.info-list{margin:8px 0 0;padding-left:20px;color:var(--muted)}
+.notice{border-left:5px solid var(--accent);background:var(--accent-soft);padding:12px 14px;border-radius:10px;margin:14px 0}
+.notice.warn{border-left-color:var(--warn);background:var(--warn-soft)}
+.sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+@media(max-width:980px){
+ .app{grid-template-columns:1fr}.sidebar{position:static;height:auto}.side-nav{grid-template-columns:repeat(4,1fr)}
+ .sidebar-progress{display:none}.dashboard-grid{grid-template-columns:repeat(2,1fr)}.two-col{grid-template-columns:1fr}
+}
+@media(max-width:700px){
+ .content{padding:20px 14px 60px}.topbar{padding:11px 14px;align-items:flex-start}.student-box{display:grid}
+ .side-nav{grid-template-columns:repeat(2,1fr)}.dashboard-grid{grid-template-columns:1fr}
+ .module-head{grid-template-columns:auto 1fr}.week-score{grid-column:2;text-align:left}
+ .resource-row{grid-template-columns:1fr}.resource-kind{padding-top:0}.completion-label{justify-self:start}
+ .exam-break{align-items:flex-start;flex-direction:column}.assessment-top{flex-direction:column}.assessment-progress{text-align:left}
+}
+@media print{
+ .sidebar,.topbar,.no-print{display:none!important}.app{display:block}.content{max-width:none;padding:0}.view{display:none!important}
+ #gradesView{display:block!important}.panel,.metric{box-shadow:none}
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="eyebrow">Centralia College</div>
+      <h1>MATH&amp; 146</h1>
+      <p>Introductory Statistics</p>
+    </div>
+    <nav class="side-nav" aria-label="Course navigation">
+      <button class="active" data-view="dashboardView">⌂ Dashboard</button>
+      <button data-view="modulesView">▤ Modules</button>
+      <button data-view="gradesView">▦ Grades</button>
+      <button data-view="helpView">? Course Help</button>
+    </nav>
+    <div class="sidebar-progress">
+      <small>Course completion</small>
+      <div class="value" id="sideCompletion">0%</div>
+      <div class="progress-track"><div class="progress-fill" id="sideProgressFill"></div></div>
+      <small id="sideMastery">0 assessments mastered</small>
+    </div>
+    <div class="sidebar-actions">
+      <button id="exportBtn">Export progress</button>
+      <button id="importBtn">Import progress</button>
+      <input type="file" id="importFile" accept="application/json" class="sr-only">
+    </div>
+  </aside>
+  <main class="main">
+    <header class="topbar">
+      <div class="student-box">
+        <label for="studentName">Student name</label>
+        <input id="studentName" type="text" placeholder="Enter your name">
+      </div>
+      <div class="top-actions">
+        <button class="icon-btn" id="themeBtn" aria-label="Toggle light and dark theme">☾ Theme</button>
+      </div>
+    </header>
+    <div class="content">
+      <section id="dashboardView" class="view active">
+        <div class="page-head">
+          <div class="eyebrow">Course home</div>
+          <h2>Welcome to Introductory Statistics</h2>
+          <p>Work through each week in order. Open the course materials, then mark each category complete after the work has been finished. Quizzes use mastery checking: a missed answer remains open, a correct answer is saved, and you may try as often as needed.</p>
+        </div>
+        <div class="dashboard-grid">
+          <div class="metric"><div class="label">Current grade</div><div class="big" id="dashGrade">—</div><div class="sub" id="dashLetter">No work started</div></div>
+          <div class="metric"><div class="label">Completion</div><div class="big" id="dashCompletion">0%</div><div class="sub" id="dashCompletedCount">0 of 0 items</div></div>
+          <div class="metric"><div class="label">Quiz mastery</div><div class="big" id="dashQuizzes">0/10</div><div class="sub">Weekly quizzes completed</div></div>
+          <div class="metric"><div class="label">Assessment questions</div><div class="big" id="dashQuestions">0%</div><div class="sub">Correct and locked</div></div>
+        </div>
+        <div class="two-col">
+          <div class="panel">
+            <h3>Continue your work</h3>
+            <div id="nextAction" class="next-card"></div>
+          </div>
+          <div class="panel">
+            <h3>How grading works</h3>
+            <ul class="info-list">
+              <li>Weekly module average: 60% of the course grade.</li>
+              <li>Midterm: 15%.</li>
+              <li>Final: 25%.</li>
+              <li>Within a week, the six categories carry equal weight.</li>
+              <li>The current grade uses work that has been started; future untouched weeks are not counted yet.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="panel">
+          <h3>Course sequence</h3>
+          <p class="grade-note">The course moves from describing samples, through probability and sampling, into estimation, testing, categorical models, applied inference, and regression.</p>
+          <div id="dashboardWeeks"></div>
+        </div>
+      </section>
+
+      <section id="modulesView" class="view">
+        <div class="page-head">
+          <div class="eyebrow">Ten-week course</div>
+          <h2>Modules</h2>
+          <p>Each module is divided into Readings, Demos, Python Lab, Weekly Lab, Project Lab, and Weekly Quiz. Open links in a new tab so this course page remains available.</p>
+        </div>
+        <div id="modulesContainer"></div>
+      </section>
+
+      <section id="gradesView" class="view">
+        <div class="page-head">
+          <div class="eyebrow">Saved in this browser</div>
+          <h2>Grades</h2>
+          <p>The gradebook updates whenever a task is checked or an assessment answer is mastered. Export progress before changing devices or clearing browser data.</p>
+        </div>
+        <div class="dashboard-grid">
+          <div class="metric"><div class="label">Current percentage</div><div class="big" id="gradeOverall">—</div><div class="sub" id="gradeOverallNote">No work started</div></div>
+          <div class="metric"><div class="label">Letter grade</div><div class="big grade-letter" id="gradeLetter">—</div><div class="sub">Plus/minus scale</div></div>
+          <div class="metric"><div class="label">Weekly average</div><div class="big" id="gradeWeekly">—</div><div class="sub">Started weeks only</div></div>
+          <div class="metric"><div class="label">Course completion</div><div class="big" id="gradeCompletion">0%</div><div class="sub">All assigned items</div></div>
+        </div>
+        <div class="panel">
+          <h3>Weekly gradebook</h3>
+          <div class="grade-table-wrap">
+            <table>
+              <thead><tr><th>Week</th><th>Reading</th><th>Demos</th><th>Python Lab</th><th>Weekly Lab</th><th>Project Lab</th><th>Quiz</th><th>Week Grade</th></tr></thead>
+              <tbody id="gradeRows"></tbody>
+            </table>
+          </div>
+        </div>
+        <div class="panel">
+          <h3>Major assessments</h3>
+          <div class="grade-table-wrap">
+            <table>
+              <thead><tr><th>Assessment</th><th>Questions mastered</th><th>Score</th><th>Status</th></tr></thead>
+              <tbody id="examRows"></tbody>
+            </table>
+          </div>
+          <p class="grade-note">A quiz or exam score is the percentage of questions currently mastered. It reaches 100% when every answer has been corrected.</p>
+          <div class="no-print" style="margin-top:12px"><button class="secondary-btn" onclick="window.print()">Print gradebook</button></div>
+        </div>
+      </section>
+
+      <section id="helpView" class="view">
+        <div class="page-head">
+          <div class="eyebrow">Using this course page</div>
+          <h2>Course Help</h2>
+        </div>
+        <div class="panel">
+          <h3>Completing weekly work</h3>
+          <p>Open the linked reading, demos, Python lab, and other labs in new tabs. Return here and check “Mark complete” after the work has been finished. The checkboxes are a personal record; the page cannot inspect activity in another tab.</p>
+          <h3>Assessment feedback</h3>
+          <p>Press <em>Check my current answers</em>. Correct questions become locked and are saved. An incorrect response receives a small hint but not the answer. Decimal answers are accepted within a gentle tolerance, so harmless rounding differences will not block progress.</p>
+          <h3>Saving progress</h3>
+          <p>Progress is stored in this browser using local storage. Use Export Progress to create a backup file. Use Import Progress to restore that file on another device or browser.</p>
+          <div class="notice warn"><strong>Privacy and limitations:</strong> This static page does not send grades to an instructor or server. A printed or exported grade report can be submitted separately if required.</div>
+          <button class="danger-btn no-print" id="resetBtn">Reset all course progress</button>
+        </div>
+      </section>
+
+      <section id="assessmentView" class="view">
+        <div class="assessment-shell">
+          <div class="assessment-top">
+            <div>
+              <button class="secondary-btn no-print" id="assessmentBack">← Back to modules</button>
+              <div class="page-head" style="margin-top:16px;margin-bottom:0">
+                <div class="eyebrow">Mastery assessment</div>
+                <h2 id="assessmentTitle"></h2>
+                <p id="assessmentSubtitle"></p>
+              </div>
+            </div>
+            <div class="assessment-progress">
+              <strong id="assessmentScore">0%</strong>
+              <div class="progress-track" style="background:var(--card-2)"><div class="progress-fill" id="assessmentProgressFill" style="background:var(--good)"></div></div>
+              <small id="assessmentCount">0 of 0 correct</small>
+            </div>
+          </div>
+          <div class="notice">You may check as often as needed. Correct questions lock in; missed questions remain editable. No correct answer is shown after a miss.</div>
+          <div id="questionsContainer"></div>
+          <div class="assessment-footer no-print">
+            <span id="assessmentFooterText">Enter what you know, then check your current answers.</span>
+            <button class="primary-btn" id="checkAssessmentBtn">Check my current answers</button>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+</div>
+<script>
+const WEEKS = [{"week":1,"title":"Samples, Variables, and Descriptive Statistics","summary":"Begin with the population–sample distinction, classify variables, and describe a sample with tables, graphs, and numerical summaries.","reading":[{"title":"Chapter 1 — The Main Problem of Statistics","url":"https://bobovski66.github.io/IntroStatistics/textbook/Math146_Ch1.pdf","note":"Populations, samples, variables, frequency tables, mean, median, variance, and standard deviation."}],"demos":[{"title":"Histogram and Sample Statistics Tool","url":"https://bobovski66.github.io/IntroStatistics/demos/Sample_Statistics.html"}],"weekly_lab":{"title":"Week 1 Lab — Populations, Samples, and Descriptive Statistics","url":"https://bobovski66.github.io/IntroStatistics/labs/Math146_Week1_Lab.html"},"project_lab":{"title":"Project Sign Case File — Evidence Orientation","url":"Project_Sign/Math146_Project_Sign_Case_File.html","note":"Meet the archival source and learn how the analysis subsets are constructed."},"quiz":"week1","python_lab":[{"title":"Python for Statistics — Module 1: Python Foundations","url":"https://bobovski66.github.io/IntroStatistics/PythonStats/python_for_statistics.html","note":"Values, variables, lists, categorical data, indexing, slicing, and loops."},{"title":"Python for Statistics — Module 2: Describing a Sample","url":"https://bobovski66.github.io/IntroStatistics/PythonStats/python_for_statistics.html","note":"Mean, median, deviations, sample variance, frequency tables, and histograms."}]},{"week":2,"title":"Discrete Probability Distributions","summary":"Translate possible outcomes into probability distributions, then work with expected value, geometric models, and binomial models.","reading":[{"title":"Chapter 2 — Discrete Probability Distributions","url":"https://bobovski66.github.io/IntroStatistics/textbook/Math146_Ch2.pdf","note":"PMFs, expected value, variance, geometric and binomial distributions."}],"demos":[{"title":"Binomial vs. Geometric — Same Sample Space","url":"https://bobovski66.github.io/IntroStatistics/demos/binomial_vs_geometric.html"},{"title":"The Settling Average — Law of Large Numbers","url":"https://bobovski66.github.io/IntroStatistics/demos/law_of_large_numbers_running_average.html"}],"weekly_lab":{"title":"Week 2 Lab — Probability Distributions","url":"https://bobovski66.github.io/IntroStatistics/labs/Math146_Week2_Lab.html"},"project_lab":{"title":"Project Sign — From Reports to Discrete Distributions","url":"Project_Sign/Math146_Project_Sign_Discrete_Lab.html"},"quiz":"week2","python_lab":[{"title":"Python for Statistics — Module 3: Discrete Probability Distributions","url":"https://bobovski66.github.io/IntroStatistics/PythonStats/python_for_statistics.html","note":"Probability tables, expected value, variance, geometric and binomial models, and simulation."}]},{"week":3,"title":"Continuous Distributions and z-Scores","summary":"Interpret continuous probability as area, work with uniform models, and standardize observations with z-scores.","reading":[{"title":"Chapter 3 — Continuous Probability Models","url":"https://bobovski66.github.io/IntroStatistics/textbook/Math146_Ch3.pdf","note":"Uniform distributions, normal curves, empirical rule, and z-scores."}],"demos":[{"title":"Normal Distribution Explorer","url":"https://bobovski66.github.io/IntroStatistics/demos/normal.html"}],"weekly_lab":{"title":"Week 3 Lab — Continuous Distributions and z-Scores","url":"https://bobovski66.github.io/IntroStatistics/labs/Math146_Week3_Lab.html"},"project_lab":{"title":"Project Sign — Uniform and General Normal Models","url":"Project_Sign/Math146_Project_Sign_Continuous_Lab.html"},"quiz":"week3","python_lab":[{"title":"Python for Statistics — Module 4: Continuous Models and z-Scores","url":"https://bobovski66.github.io/IntroStatistics/PythonStats/python_for_statistics.html","note":"Uniform and normal probabilities, standardization, and shaded distribution graphs."}]},{"week":4,"title":"Normal Models, Sampling, and the CLT","summary":"Distinguish individual observations from sample means and use the Central Limit Theorem to model sampling variation.","reading":[{"title":"Chapter 4 — Sampling Distributions and the CLT","url":"https://bobovski66.github.io/IntroStatistics/textbook/Math146_Ch4.pdf","note":"Sampling distributions, standard error, and normal approximations for sample means."}],"demos":[{"title":"Galton Board — Binomial to Normal","url":"https://bobovski66.github.io/IntroStatistics/demos/galton_board.html"},{"title":"Central Limit Theorem Averaging Machine","url":"https://bobovski66.github.io/IntroStatistics/demos/central_limit_theorem_averaging_machine.html"}],"weekly_lab":{"title":"Week 4 Lab — Normal Distribution and the CLT","url":"https://bobovski66.github.io/IntroStatistics/labs/Math146_Week4_Lab.html"},"project_lab":{"title":"Project Sign — Finish the Continuous-Model Audit","url":"Project_Sign/Math146_Project_Sign_Continuous_Lab.html","note":"Return to the model-check sections after learning the CLT."},"quiz":"week4","python_lab":[{"title":"Python for Statistics — Module 5: Sampling and the Central Limit Theorem","url":"https://bobovski66.github.io/IntroStatistics/PythonStats/python_for_statistics.html","note":"Sampling distributions, standard error, and a CLT simulation from skewed data."}]},{"week":5,"title":"Confidence Intervals","summary":"Estimate unknown means and proportions with intervals and interpret confidence through repeated sampling.","reading":[{"title":"Chapter 5 — Confidence Intervals","url":"https://bobovski66.github.io/IntroStatistics/textbook/Math146_Ch5.pdf","note":"Intervals for means and proportions, margin of error, and sample size."}],"demos":[{"title":"Confidence Intervals — A Field Demo","url":"https://bobovski66.github.io/IntroStatistics/demos/ci_demo.html"}],"weekly_lab":{"title":"Week 5 Lab — Confidence Intervals","url":"https://bobovski66.github.io/IntroStatistics/labs/Math146_Week5_Lab.html"},"project_lab":{"title":"Project Sign — Confidence Intervals","url":"Project_Sign/Math146_Project_Sign_Confidence_Intervals_Lab.html"},"quiz":"week5","python_lab":[{"title":"Python for Statistics — Module 6: Confidence Intervals","url":"https://bobovski66.github.io/IntroStatistics/PythonStats/python_for_statistics.html","note":"Intervals for means and proportions, sample size, and repeated-sampling coverage."}]},{"week":6,"title":"One-Sample Hypothesis Tests","summary":"Test a claim about one population mean or proportion by comparing the observed statistic with its null sampling distribution.","reading":[{"title":"Chapter 6 — Hypothesis Testing: One Sample","url":"https://bobovski66.github.io/IntroStatistics/textbook/Math146_Ch6.pdf","note":"Null and alternative hypotheses, p-values, test direction, and one-sample z-procedures."}],"demos":[{"title":"z-Test and Confidence Interval Explorer","url":"https://bobovski66.github.io/IntroStatistics/demos/ztest_ci_demo.html"}],"weekly_lab":{"title":"Week 6 Lab — Hypothesis Testing","url":"https://bobovski66.github.io/IntroStatistics/labs/Math146_Week6_Lab.html"},"project_lab":{"title":"Project Sign — One-Sample Hypothesis Tests","url":"Project_Sign/Math146_Project_Sign_Hypothesis_Testing_Lab.html"},"quiz":"week6","python_lab":[{"title":"Python for Statistics — Module 7: Hypothesis Tests","url":"https://bobovski66.github.io/IntroStatistics/PythonStats/python_for_statistics.html","note":"Test statistics, p-values, decisions, and null-distribution graphs."}]},{"week":7,"title":"Two-Sample Inference","summary":"Compare two populations, first identifying whether the observations are independent or paired.","reading":[{"title":"Chapter 7 — Two-Sample Inference","url":"https://bobovski66.github.io/IntroStatistics/textbook/Math146_Ch7.pdf","note":"Differences of means and proportions, standard errors, intervals, and tests."}],"demos":[],"weekly_lab":{"title":"Week 7 Lab — Two-Sample Inference","url":"https://bobovski66.github.io/IntroStatistics/labs/Math146_Week7_Lab.html"},"project_lab":{"title":"Project Sign — Earlier and Later Reporting Periods","url":"Project_Sign/Math146_Project_Sign_Two_Sample_Inference_Lab.html"},"quiz":"week7","python_lab":[{"title":"Python for Statistics — Module 8: Two-Sample Inference","url":"https://bobovski66.github.io/IntroStatistics/PythonStats/python_for_statistics.html","note":"Independent samples, differences of means, pooled proportions, and null distributions."}]},{"week":8,"title":"Categorical Models and Chi-Squared Tests","summary":"Compare observed category counts with expected counts and measure their weighted distance using chi-squared statistics.","reading":[{"title":"Chapter 8 — Chi-Squared Tests","url":"https://bobovski66.github.io/IntroStatistics/textbook/Math146_Ch8.pdf","note":"Goodness-of-fit, expected counts, independence, residuals, and degrees of freedom."}],"demos":[{"title":"Geometry of Categorical Models","url":"https://bobovski66.github.io/IntroStatistics/demos/geometry_of_categorical_models.html"}],"weekly_lab":{"title":"Week 8 Lab — Chi-Squared Tests","url":"https://bobovski66.github.io/IntroStatistics/labs/Math146_Week8_Lab.html"},"project_lab":{"title":"Project Sign — Case Ledger and Source Audit","url":"Project_Sign/Math146_Project_Sign_Case_File.html","note":"Review which variables are categorical and which questions the existing analyses do not answer."},"quiz":"week8","python_lab":[{"title":"Python for Statistics — Module 9: Categorical Models","url":"https://bobovski66.github.io/IntroStatistics/PythonStats/python_for_statistics.html","note":"Expected counts, chi-squared contributions, degrees of freedom, and residual heatmaps."}]},{"week":9,"title":"Applied Inference: The Q1 2026 Fireball Data","summary":"Use the same event data to compare means and proportions, then examine how skewness, outliers, and threshold choices change the conclusion.","reading":[{"title":"Chapter 7 Review — Two-Sample Inference","url":"https://bobovski66.github.io/IntroStatistics/textbook/Math146_Ch7.pdf"},{"title":"AMS Q1 2026 Fireball Analysis","url":"https://amsmeteors.org/ams-q1-2026-fireball-analysis.html","note":"Read the public analysis that supplies the context for the investigation."}],"demos":[{"title":"Histogram and Sample Statistics Tool","url":"https://bobovski66.github.io/IntroStatistics/demos/Sample_Statistics.html"}],"weekly_lab":{"title":"Week 9 Lab — Fireball Reports and Two-Sample Inference","url":"https://bobovski66.github.io/IntroStatistics/labs/Math146_Week9_Lab.html"},"project_lab":{"title":"Q1 2026 Fireball Statistical Case Files","url":"Fireball_Case_Files/Math146_Fireball_Q1_2026_Case_File.html","note":"Evidence intake, witness counts, threshold signals, March escalation, radiant concentrations, and inference."},"quiz":"week9","python_lab":[{"title":"Python for Statistics — Module 8 Review: Fireball Two-Sample Inference","url":"https://bobovski66.github.io/IntroStatistics/PythonStats/python_for_statistics.html","note":"Return to the two-sample tools while comparing the Q1 2026 fireball data with the baseline."}]},{"week":10,"title":"Linear Regression","summary":"Model a linear association, interpret slope and correlation, make predictions, and use residuals to judge the fit.","reading":[{"title":"Chapter 10 — Linear Regression","url":"https://bobovski66.github.io/IntroStatistics/textbook/Math146_Ch10.pdf","note":"Scatterplots, correlation, least squares, residuals, and explained variation."}],"demos":[{"title":"Regression Calculator","url":"https://bobovski66.github.io/IntroStatistics/demos/Regression_Calculator.html"}],"weekly_lab":{"title":"Week 10 Lab — Linear Regression","url":"https://bobovski66.github.io/IntroStatistics/labs/Math146_Week10_Lab.html"},"project_lab":{"title":"Project Sign — Linear Regression Audit","url":"Project_Sign/Math146_Project_Sign_Linear_Regression_Lab.html"},"quiz":"week10","python_lab":[{"title":"Python for Statistics — Module 10: Linear Regression","url":"https://bobovski66.github.io/IntroStatistics/PythonStats/python_for_statistics.html","note":"Scatterplots, correlation, least-squares fitting, predictions, residuals, SSE, and r-squared."}]}];
+const ASSESSMENTS = {"week1": {"title": "Week 1 Quiz — Describing a Sample", "subtitle": "Five questions. Correct items are saved and locked; anything else stays open for another try.", "questions": [{"id": "w1q1", "type": "mc", "prompt": "A college wants the average commute time of all enrolled students and surveys 80 students. What is the sample?", "options": ["All enrolled students", "The 80 surveyed students", "The average commute time", "Every college student in the state"], "answer": "The 80 surveyed students", "hint": "The sample is the group actually observed.", "success": "Correct."}, {"id": "w1q2", "type": "mc", "prompt": "Which variable is categorical?", "options": ["Number of credits", "Height in centimeters", "Primary mode of transportation", "Minutes spent studying"], "answer": "Primary mode of transportation", "hint": "A categorical variable places observations into named groups.", "success": "Correct."}, {"id": "w1q3", "type": "num", "prompt": "Find the mean of 4, 6, 8, and 12.", "answer": 7.5, "tolerance": 0.01, "hint": "Add the four values and divide by 4.", "success": "Correct — the total is 30, so the mean is 7.5.", "placeholder": "Enter a number"}, {"id": "w1q4", "type": "num", "prompt": "Find the sample standard deviation of 2, 4, and 6. Round to two decimals.", "answer": 2.0, "tolerance": 0.03, "hint": "Use deviations from the mean and divide the squared-deviation sum by n − 1 before taking the square root.", "success": "Correct.", "placeholder": "Enter a number"}, {"id": "w1q5", "type": "num", "prompt": "Eight of 20 observations fall in one category. Enter the relative frequency as a decimal.", "answer": 0.4, "tolerance": 0.005, "hint": "Relative frequency is frequency divided by the total.", "success": "Correct.", "placeholder": "Enter a number"}]}, "week2": {"title": "Week 2 Quiz — Discrete Probability", "subtitle": "Work with probability tables, expected value, and the geometric and binomial models.", "questions": [{"id": "w2q1", "type": "num", "prompt": "A probability table has probabilities 0.15, 0.25, 0.35, and p. Find p.", "answer": 0.25, "tolerance": 0.005, "hint": "All probabilities in a complete distribution must add to 1.", "success": "Correct.", "placeholder": "Enter a number"}, {"id": "w2q2", "type": "num", "prompt": "X takes values 0, 1, and 2 with probabilities 0.20, 0.50, and 0.30. Find E(X).", "answer": 1.1, "tolerance": 0.01, "hint": "Multiply each outcome by its probability, then add.", "success": "Correct.", "placeholder": "Enter a number"}, {"id": "w2q3", "type": "num", "prompt": "For a geometric model with p = 0.20, find P(first success occurs on trial 4).", "answer": 0.1024, "tolerance": 0.001, "hint": "The first three trials must fail and the fourth must succeed.", "success": "Correct.", "placeholder": "Enter a number"}, {"id": "w2q4", "type": "num", "prompt": "For X ~ Binomial(5, 0.30), find P(X = 2). Round to four decimals.", "answer": 0.3087, "tolerance": 0.001, "hint": "Use C(5,2)(0.30)^2(0.70)^3.", "success": "Correct.", "placeholder": "Enter a number"}, {"id": "w2q5", "type": "num", "prompt": "For X ~ Binomial(12, 0.40), find the mean.", "answer": 4.8, "tolerance": 0.01, "hint": "The binomial mean is np.", "success": "Correct.", "placeholder": "Enter a number"}]}, "week3": {"title": "Week 3 Quiz — Continuous Models and z-Scores", "subtitle": "Remember that continuous probability is area over an interval.", "questions": [{"id": "w3q1", "type": "num", "prompt": "If X is uniform on [0,20], find P(4 ≤ X ≤ 10).", "answer": 0.3, "tolerance": 0.005, "hint": "Divide the desired interval length by the total interval length.", "success": "Correct.", "placeholder": "Enter a number"}, {"id": "w3q2", "type": "mc", "prompt": "For a continuous random variable, what is P(X = 12) at one exact point?", "options": ["0", "0.5", "1", "It depends on the mean"], "answer": "0", "hint": "An interval can have area, but a single point has zero width.", "success": "Correct."}, {"id": "w3q3", "type": "num", "prompt": "An observation is x = 85 from a distribution with μ = 70 and σ = 10. Find its z-score.", "answer": 1.5, "tolerance": 0.01, "hint": "Subtract the mean, then divide by the standard deviation.", "success": "Correct.", "placeholder": "Enter a number"}, {"id": "w3q4", "type": "num", "prompt": "Find P(Z ≤ 1.00) for a standard normal variable. Use four decimals.", "answer": 0.8413, "tolerance": 0.001, "hint": "Use the left-tail area associated with z = 1.00.", "success": "Correct.", "placeholder": "Enter a number"}, {"id": "w3q5", "type": "num", "prompt": "Find P(−2 ≤ Z ≤ 2). Use four decimals.", "answer": 0.9545, "tolerance": 0.0015, "hint": "Subtract the left-tail area below −2 from the left-tail area below 2.", "success": "Correct.", "placeholder": "Enter a number"}]}, "week4": {"title": "Week 4 Quiz — Sampling Distributions and the CLT", "subtitle": "The sample mean has its own center and spread.", "questions": [{"id": "w4q1", "type": "num", "prompt": "A population has σ = 12. For samples of size n = 36, find the standard error of x̄.", "answer": 2.0, "tolerance": 0.02, "hint": "Use σ/√n.", "success": "Correct.", "placeholder": "Enter a number"}, {"id": "w4q2", "type": "mc", "prompt": "If the population mean is μ = 100, what is the mean of the sampling distribution of x̄?", "options": ["36", "100", "100/36", "It cannot be determined"], "answer": "100", "hint": "The sampling distribution of x̄ is centered at μ.", "success": "Correct."}, {"id": "w4q3", "type": "num", "prompt": "With μ = 100, σ = 12, and n = 36, find the z-score of x̄ = 104.", "answer": 2.0, "tolerance": 0.02, "hint": "Standardize the sample mean using the standard error, not σ.", "success": "Correct.", "placeholder": "Enter a number"}, {"id": "w4q4", "type": "num", "prompt": "Using the previous model, find P(x̄ > 104). Use four decimals.", "answer": 0.0228, "tolerance": 0.001, "hint": "This is the right-tail area beyond z = 2.", "success": "Correct.", "placeholder": "Enter a number"}, {"id": "w4q5", "type": "mc", "prompt": "If the sample size is multiplied by 4, what happens to the standard error?", "options": ["It doubles", "It is cut in half", "It is divided by 4", "It does not change"], "answer": "It is cut in half", "hint": "Standard error depends on 1/√n.", "success": "Correct."}]}, "week5": {"title": "Week 5 Quiz — Confidence Intervals", "subtitle": "Build intervals from a point estimate and a margin of error.", "questions": [{"id": "w5q1", "type": "num", "prompt": "For x̄ = 50, σ = 8, n = 64, and z* = 1.96, find the margin of error.", "answer": 1.96, "tolerance": 0.02, "hint": "Compute z*σ/√n.", "success": "Correct.", "placeholder": "Enter a number"}, {"id": "w5q2", "type": "num", "prompt": "Using the previous values, find the lower endpoint of the 95% confidence interval.", "answer": 48.04, "tolerance": 0.03, "hint": "Subtract the margin of error from the sample mean.", "success": "Correct.", "placeholder": "Enter a number"}, {"id": "w5q3", "type": "num", "prompt": "For σ = 10, z* = 1.96, and desired margin of error 2, find the required sample size. Round up.", "answer": 97, "tolerance": 0.1, "hint": "Square z*σ/ME, then round up to the next whole number.", "success": "Correct.", "placeholder": "Enter a number"}, {"id": "w5q4", "type": "num", "prompt": "For p̂ = 0.60 and n = 100, find the 95% margin of error for a proportion. Use four decimals.", "answer": 0.096, "tolerance": 0.002, "hint": "Use 1.96√[p̂(1−p̂)/n].", "success": "Correct.", "placeholder": "Enter a number"}, {"id": "w5q5", "type": "mc", "prompt": "Which statement correctly interprets a 95% confidence procedure?", "options": ["There is a 95% chance that this fixed interval contains μ.", "About 95% of intervals made by this procedure capture the fixed parameter in repeated sampling.", "Every sample mean lies within 95% of μ.", "The population parameter changes from sample to sample."], "answer": "About 95% of intervals made by this procedure capture the fixed parameter in repeated sampling.", "hint": "The parameter is fixed; the interval is the random object.", "success": "Correct."}]}, "week6": {"title": "Week 6 Quiz — One-Sample Hypothesis Tests", "subtitle": "State the direction, measure distance in standard errors, and interpret the p-value.", "questions": [{"id": "w6q1", "type": "mc", "prompt": "The alternative hypothesis is Hₐ: μ < 8. Which test direction is used?", "options": ["Left-tailed", "Right-tailed", "Two-tailed", "No tail"], "answer": "Left-tailed", "hint": "The inequality in Hₐ determines the tail.", "success": "Correct."}, {"id": "w6q2", "type": "num", "prompt": "A machine claims μ₀ = 8.00 oz. A sample has x̄ = 7.82, σ = 0.50, and n = 36. Find z.", "answer": -2.16, "tolerance": 0.03, "hint": "Compute (x̄−μ₀)/(σ/√n), keeping the sign.", "success": "Correct.", "placeholder": "Enter a number"}, {"id": "w6q3", "type": "num", "prompt": "For the left-tailed test with z = −2.16, find the p-value. Use four decimals.", "answer": 0.0154, "tolerance": 0.001, "hint": "Use the area to the left of −2.16.", "success": "Correct.", "placeholder": "Enter a number"}, {"id": "w6q4", "type": "mc", "prompt": "At α = 0.05 and p = 0.0154, what is the decision?", "options": ["Reject H₀", "Fail to reject H₀", "Accept H₀ as true", "Increase α after seeing the result"], "answer": "Reject H₀", "hint": "Compare the p-value with α.", "success": "Correct."}, {"id": "w6q5", "type": "num", "prompt": "For p̂ = 0.62, p₀ = 0.50, and n = 100, find the one-proportion z-statistic.", "answer": 2.4, "tolerance": 0.03, "hint": "For a test, the standard error is computed using p₀.", "success": "Correct.", "placeholder": "Enter a number"}]}, "week7": {"title": "Week 7 Quiz — Comparing Two Groups", "subtitle": "Identify the design before selecting the two-sample procedure.", "questions": [{"id": "w7q1", "type": "mc", "prompt": "The same 30 students take a test before and after tutoring. The observations are:", "options": ["Independent", "Paired", "Categorical", "A census"], "answer": "Paired", "hint": "Each after-score is naturally matched to the same student's before-score.", "success": "Correct."}, {"id": "w7q2", "type": "num", "prompt": "Group 1 has x̄₁ = 72 and Group 2 has x̄₂ = 68. Find x̄₁ − x̄₂.", "answer": 4, "tolerance": 0.01, "hint": "Keep the subtraction order stated in the question.", "success": "Correct.", "placeholder": "Enter a number"}, {"id": "w7q3", "type": "num", "prompt": "If s₁ = 10, n₁ = 100, s₂ = 8, and n₂ = 64, find SE(x̄₁−x̄₂).", "answer": 1.4142135623730951, "tolerance": 0.02, "hint": "Compute √(s₁²/n₁ + s₂²/n₂).", "success": "Correct.", "placeholder": "Enter a number"}, {"id": "w7q4", "type": "num", "prompt": "Using a difference of 4 and SE = √2, find the z-statistic for H₀: μ₁−μ₂ = 0.", "answer": 2.82842712474619, "tolerance": 0.03, "hint": "Divide the observed difference by its standard error.", "success": "Correct.", "placeholder": "Enter a number"}, {"id": "w7q5", "type": "num", "prompt": "Two samples have 60 successes out of 100 and 45 successes out of 100. Find the pooled proportion.", "answer": 0.525, "tolerance": 0.005, "hint": "Pool the successes and sample sizes before dividing.", "success": "Correct.", "placeholder": "Enter a number"}]}, "week8": {"title": "Week 8 Quiz — Chi-Squared Models", "subtitle": "Expected counts define the model; chi-squared measures weighted discrepancy.", "questions": [{"id": "w8q1", "type": "num", "prompt": "A model assigns probability 0.25 to a category in a sample of 120. Find the expected count.", "answer": 30, "tolerance": 0.01, "hint": "Expected count is n times the model probability.", "success": "Correct.", "placeholder": "Enter a number"}, {"id": "w8q2", "type": "num", "prompt": "For O = 36 and E = 30, find this cell's chi-squared contribution (O−E)²/E.", "answer": 1.2, "tolerance": 0.02, "hint": "Square the difference before dividing by E.", "success": "Correct.", "placeholder": "Enter a number"}, {"id": "w8q3", "type": "num", "prompt": "A goodness-of-fit test has 5 categories and no parameters estimated from the data. Find df.", "answer": 4, "tolerance": 0.01, "hint": "For this model, df = k − 1.", "success": "Correct.", "placeholder": "Enter a number"}, {"id": "w8q4", "type": "num", "prompt": "For a 3 × 4 contingency table, find the degrees of freedom.", "answer": 6, "tolerance": 0.01, "hint": "Use (rows−1)(columns−1).", "success": "Correct.", "placeholder": "Enter a number"}, {"id": "w8q5", "type": "mc", "prompt": "A small chi-squared p-value means:", "options": ["Observed counts are unusually far from the expected model.", "The expected counts are proven exactly correct.", "Every category has the same count.", "The sample size must be too small."], "answer": "Observed counts are unusually far from the expected model.", "hint": "The p-value is computed under the expected model.", "success": "Correct."}]}, "week9": {"title": "Week 9 Quiz — Fireball Evidence", "subtitle": "Use the actual Q1 trajectory dataset and think carefully about what each statistic records.", "questions": [{"id": "w9q1", "type": "num", "prompt": "The trajectory dataset contains 194 baseline events and 67 events from 2026. How many events are there altogether?", "answer": 261, "tolerance": 0.01, "hint": "Add the two group sizes.", "success": "Correct.", "placeholder": "Enter a number"}, {"id": "w9q2", "type": "num", "prompt": "What is the median reports_count for the 2026 group?", "answer": 59, "tolerance": 0.01, "hint": "Use the middle value after sorting the 67 counts.", "success": "Correct.", "placeholder": "Enter a number"}, {"id": "w9q3", "type": "num", "prompt": "The 2026 mean is about 125.269 and the baseline mean is about 83.572. Find 2026 minus baseline.", "answer": 41.6965, "tolerance": 0.05, "hint": "Subtract in the order requested.", "success": "Correct.", "placeholder": "Enter a number"}, {"id": "w9q4", "type": "num", "prompt": "At the threshold reports_count ≥ 50, 40 of 67 events qualify in 2026. Find p̂₂₀₂₆.", "answer": 0.5970149253731343, "tolerance": 0.003, "hint": "Divide the qualifying count by the 2026 sample size.", "success": "Correct.", "placeholder": "Enter a number"}, {"id": "w9q5", "type": "num", "prompt": "The two-sided p-value for the ≥50 proportion comparison is about:", "answer": 0.04293, "tolerance": 0.003, "hint": "The result is just below 0.05; enter the decimal p-value.", "success": "Correct.", "placeholder": "Enter a number"}]}, "week10": {"title": "Week 10 Quiz — Linear Regression", "subtitle": "Translate summary statistics into a fitted line, prediction, and residual.", "questions": [{"id": "w10q1", "type": "num", "prompt": "Suppose r = 0.80, sₓ = 5, and sᵧ = 10. Find the regression slope b.", "answer": 1.6, "tolerance": 0.02, "hint": "Use b = r(sᵧ/sₓ).", "success": "Correct.", "placeholder": "Enter a number"}, {"id": "w10q2", "type": "num", "prompt": "If x̄ = 20, ȳ = 50, and b = 1.6, find the intercept a.", "answer": 18, "tolerance": 0.03, "hint": "Use a = ȳ − b x̄.", "success": "Correct.", "placeholder": "Enter a number"}, {"id": "w10q3", "type": "num", "prompt": "Using ŷ = 18 + 1.6x, predict y when x = 25.", "answer": 58, "tolerance": 0.03, "hint": "Substitute x = 25 into the fitted line.", "success": "Correct.", "placeholder": "Enter a number"}, {"id": "w10q4", "type": "num", "prompt": "If the observed value at x = 25 is y = 60 and the prediction is 58, find the residual.", "answer": 2, "tolerance": 0.02, "hint": "Residual is observed minus predicted.", "success": "Correct.", "placeholder": "Enter a number"}, {"id": "w10q5", "type": "mc", "prompt": "If r² = 0.64, which interpretation is correct?", "options": ["64% of the variability in y is explained by the linear model with x.", "64% of observations lie exactly on the line.", "The slope is 0.64.", "The correlation is necessarily −0.80."], "answer": "64% of the variability in y is explained by the linear model with x.", "hint": "r² describes the proportion of variation explained by the fitted linear model.", "success": "Correct."}]}, "midterm": {"title": "Midterm — Weeks 1–5", "subtitle": "Mastery assessment covering descriptive statistics, probability, normal models, the CLT, and confidence intervals.", "questions": [{"id": "mq1", "type": "mc", "prompt": "A researcher wants the mean age of all students at a college and measures 120 students. The population is:", "options": ["The 120 measured students", "All students at the college", "The sample mean", "All college students everywhere"], "answer": "All students at the college", "hint": "The population is the complete group the study is about.", "success": "Correct."}, {"id": "mq2", "type": "num", "prompt": "Find the mean of 5, 7, 8, and 12.", "answer": 8, "tolerance": 0.01, "hint": "Add the values and divide by 4.", "success": "Correct.", "placeholder": "Enter a number"}, {"id": "mq3", "type": "num", "prompt": "Find the sample standard deviation of 5, 7, and 9.", "answer": 2, "tolerance": 0.03, "hint": "The mean is 7; divide the squared-deviation sum by n−1.", "success": "Correct.", "placeholder": "Enter a number"}, {"id": "mq4", "type": "num", "prompt": "Find the expected value of a fair six-sided die.", "answer": 3.5, "tolerance": 0.01, "hint": "Average the six equally likely outcomes.", "success": "Correct.", "placeholder": "Enter a number"}, {"id": "mq5", "type": "num", "prompt": "For X ~ Binomial(4, 0.50), find P(X = 2).", "answer": 0.375, "tolerance": 0.002, "hint": "Use C(4,2)(0.5)^4.", "success": "Correct.", "placeholder": "Enter a number"}, {"id": "mq6", "type": "num", "prompt": "For a geometric model with p = 0.25, find P(first success on trial 3).", "answer": 0.140625, "tolerance": 0.002, "hint": "Two failures are followed by one success.", "success": "Correct.", "placeholder": "Enter a number"}, {"id": "mq7", "type": "num", "prompt": "If X is uniform on [0,8], find P(2 ≤ X ≤ 5).", "answer": 0.375, "tolerance": 0.005, "hint": "Compare the desired interval length with the total length.", "success": "Correct.", "placeholder": "Enter a number"}, {"id": "mq8", "type": "num", "prompt": "An observation is 1.25 standard deviations above the mean. Enter its z-score.", "answer": 1.25, "tolerance": 0.01, "hint": "The statement already gives the standardized distance and direction.", "success": "Correct.", "placeholder": "Enter a number"}, {"id": "mq9", "type": "num", "prompt": "For σ = 15 and n = 25, find the standard error of x̄.", "answer": 3, "tolerance": 0.02, "hint": "Use σ/√n.", "success": "Correct.", "placeholder": "Enter a number"}, {"id": "mq10", "type": "num", "prompt": "For a standard normal variable, find P(Z > 1.00). Use four decimals.", "answer": 0.1587, "tolerance": 0.001, "hint": "Subtract the left-tail area at 1.00 from 1.", "success": "Correct.", "placeholder": "Enter a number"}, {"id": "mq11", "type": "num", "prompt": "For σ = 12, n = 36, and z* = 1.96, find the margin of error.", "answer": 3.92, "tolerance": 0.03, "hint": "Compute z*σ/√n.", "success": "Correct.", "placeholder": "Enter a number"}, {"id": "mq12", "type": "num", "prompt": "For σ = 10, z* = 1.96, and desired margin of error 2, find the required n. Round up.", "answer": 97, "tolerance": 0.1, "hint": "Square z*σ/ME, then round up.", "success": "Correct.", "placeholder": "Enter a number"}]}, "final": {"title": "Final Examination — Comprehensive", "subtitle": "A comprehensive mastery check. Correct questions remain saved, and missed questions can be retried without limit.", "questions": [{"id": "fq1", "type": "mc", "prompt": "Which symbol normally represents a population mean?", "options": ["x̄", "μ", "s", "p̂"], "answer": "μ", "hint": "Greek letters are used for population parameters.", "success": "Correct."}, {"id": "fq2", "type": "num", "prompt": "Find P(Z ≤ 1.96). Use four decimals.", "answer": 0.975, "tolerance": 0.001, "hint": "Use the standard normal left-tail area.", "success": "Correct.", "placeholder": "Enter a number"}, {"id": "fq3", "type": "mc", "prompt": "Which statement best describes the Central Limit Theorem?", "options": ["Individual data always become normal as n grows.", "The distribution of sample means becomes approximately normal as sample size grows under suitable conditions.", "Every sample mean equals μ.", "Standard error grows with n."], "answer": "The distribution of sample means becomes approximately normal as sample size grows under suitable conditions.", "hint": "The theorem concerns repeated sample means, not the shape of individual observations.", "success": "Correct."}, {"id": "fq4", "type": "mc", "prompt": "Which interpretation of a 95% confidence interval procedure is correct?", "options": ["The fixed parameter has a 95% chance of moving into the interval.", "In repeated sampling, about 95% of intervals built by the procedure capture the fixed parameter.", "95% of the data must lie in the interval.", "Every interval contains the parameter."], "answer": "In repeated sampling, about 95% of intervals built by the procedure capture the fixed parameter.", "hint": "The interval changes from sample to sample while the parameter is fixed.", "success": "Correct."}, {"id": "fq5", "type": "mc", "prompt": "If Hₐ: μ ≠ μ₀, the test is:", "options": ["Left-tailed", "Right-tailed", "Two-tailed", "A proportion test"], "answer": "Two-tailed", "hint": "The not-equal alternative counts unusual results in both directions.", "success": "Correct."}, {"id": "fq6", "type": "num", "prompt": "For x̄ = 105, μ₀ = 100, σ = 20, and n = 100, find z.", "answer": 2.5, "tolerance": 0.03, "hint": "Use (x̄−μ₀)/(σ/√n).", "success": "Correct.", "placeholder": "Enter a number"}, {"id": "fq7", "type": "num", "prompt": "For a two-tailed z-test with |z| = 2.00, find the p-value. Use four decimals.", "answer": 0.0455, "tolerance": 0.0015, "hint": "Double the standard-normal tail beyond 2.", "success": "Correct.", "placeholder": "Enter a number"}, {"id": "fq8", "type": "mc", "prompt": "At α = 0.05 and p = 0.0455, the decision is:", "options": ["Reject H₀", "Fail to reject H₀", "Prove H₀ true", "Change to a one-tailed test"], "answer": "Reject H₀", "hint": "The p-value is less than α.", "success": "Correct."}, {"id": "fq9", "type": "num", "prompt": "If s₁ = 10, n₁ = 100, s₂ = 8, and n₂ = 64, find SE(x̄₁−x̄₂).", "answer": 1.4142135623730951, "tolerance": 0.02, "hint": "Add the two variance-over-size terms and take a square root.", "success": "Correct.", "placeholder": "Enter a number"}, {"id": "fq10", "type": "num", "prompt": "Sample 1 has 65 successes out of 100 and Sample 2 has 45 successes out of 100. Find the pooled proportion.", "answer": 0.55, "tolerance": 0.005, "hint": "Pool successes and totals.", "success": "Correct.", "placeholder": "Enter a number"}, {"id": "fq11", "type": "num", "prompt": "In a contingency table, a row total is 80, a column total is 60, and the grand total is 200. Find the expected count in their cell.", "answer": 24, "tolerance": 0.02, "hint": "Multiply the row and column totals, then divide by the grand total.", "success": "Correct.", "placeholder": "Enter a number"}, {"id": "fq12", "type": "num", "prompt": "For O = 30 and E = 24, find the chi-squared contribution.", "answer": 1.5, "tolerance": 0.03, "hint": "Compute (O−E)²/E.", "success": "Correct.", "placeholder": "Enter a number"}, {"id": "fq13", "type": "num", "prompt": "Suppose r = 0.80, sₓ = 5, and sᵧ = 10. Find the regression slope.", "answer": 1.6, "tolerance": 0.02, "hint": "Use r(sᵧ/sₓ).", "success": "Correct.", "placeholder": "Enter a number"}, {"id": "fq14", "type": "num", "prompt": "For the line ŷ = 18 + 1.6x, find the predicted value when x = 25.", "answer": 58, "tolerance": 0.03, "hint": "Substitute x into the fitted equation.", "success": "Correct.", "placeholder": "Enter a number"}, {"id": "fq15", "type": "mc", "prompt": "Which measure is usually less sensitive to one extremely large observation?", "options": ["The mean", "The median", "The standard deviation", "The range"], "answer": "The median", "hint": "The median depends on order rather than the magnitude of the extreme value.", "success": "Correct."}, {"id": "fq16", "type": "mc", "prompt": "If r² = 0.64, then:", "options": ["64% of the variability in y is explained by the fitted linear model.", "64% of points lie on the line.", "The slope is 0.64.", "The correlation must be +0.64."], "answer": "64% of the variability in y is explained by the fitted linear model.", "hint": "r² is an explained-variation proportion.", "success": "Correct."}, {"id": "fq17", "type": "mc", "prompt": "A 95% confidence interval for μ₁−μ₂ contains 0. The corresponding two-sided test at α = 0.05 will:", "options": ["Reject equality", "Fail to reject equality", "Prove the means equal", "Always be one-tailed"], "answer": "Fail to reject equality", "hint": "A zero difference is among the plausible values in the interval.", "success": "Correct."}, {"id": "fq18", "type": "mc", "prompt": "The Q1 2026 fireball reports_count data are strongly right-skewed. Which statement is most careful?", "options": ["The mean and median must give identical summaries.", "A single extreme count can influence the mean and standard deviation far more than the median.", "Skewness makes every calculation invalid.", "The largest event should automatically be deleted."], "answer": "A single extreme count can influence the mean and standard deviation far more than the median.", "hint": "An extreme observation may be real while still having strong leverage on some summaries.", "success": "Correct."}]}};
+const STORAGE_KEY = 'math146_lms_state_v1';
+
+const defaultState = {
+  studentName:'',
+  theme:'light',
+  tasks:{},
+  assessments:{},
+  lastView:'dashboardView'
+};
+
+let state = loadState();
+let activeAssessment = null;
+
+function loadState(){
+  try{
+    const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
+    return Object.assign({}, defaultState, saved || {}, {
+      tasks:Object.assign({}, defaultState.tasks, saved?.tasks || {}),
+      assessments:Object.assign({}, defaultState.assessments, saved?.assessments || {})
+    });
+  }catch(e){ return structuredClone(defaultState); }
+}
+function saveState(){
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+}
+function ensureAssessment(id){
+  if(!state.assessments[id]){
+    state.assessments[id]={answers:{},mastered:[],checks:0,lastScore:0};
+  }
+  return state.assessments[id];
+}
+function taskKey(week,kind){ return `w${week}_${kind}`; }
+function taskDone(week,kind){ return !!state.tasks[taskKey(week,kind)]; }
+function assessmentStats(id){
+  const a=ASSESSMENTS[id], s=ensureAssessment(id);
+  const mastered=new Set(s.mastered || []);
+  const total=a.questions.length, correct=mastered.size;
+  return {correct,total,score:total?100*correct/total:0,complete:correct===total,checks:s.checks||0};
+}
+function isWeekStarted(week){
+  const w=WEEKS.find(x=>x.week===week);
+  return ['reading','demos','python','weekly','project'].some(k=>taskDone(week,k)) ||
+    assessmentStats(w.quiz).correct>0 ||
+    Object.keys(ensureAssessment(w.quiz).answers||{}).length>0;
+}
+function weekScore(week){
+  const w=WEEKS.find(x=>x.week===week);
+  const vals=[
+    taskDone(week,'reading')?100:0,
+    taskDone(week,'demos')?100:0,
+    taskDone(week,'python')?100:0,
+    taskDone(week,'weekly')?100:0,
+    taskDone(week,'project')?100:0,
+    assessmentStats(w.quiz).score
+  ];
+  return vals.reduce((a,b)=>a+b,0)/vals.length;
+}
+function pct(n){ return `${Math.round(n)}%`; }
+function letterGrade(n){
+  if(!Number.isFinite(n))return '—';
+  if(n>=93)return 'A'; if(n>=90)return 'A−'; if(n>=87)return 'B+';
+  if(n>=83)return 'B'; if(n>=80)return 'B−'; if(n>=77)return 'C+';
+  if(n>=73)return 'C'; if(n>=70)return 'C−'; if(n>=67)return 'D+';
+  if(n>=60)return 'D'; return 'F';
+}
+function overallGrade(){
+  const started=WEEKS.filter(w=>isWeekStarted(w.week));
+  const weekly = started.length ? started.reduce((s,w)=>s+weekScore(w.week),0)/started.length : null;
+  const mid=assessmentStats('midterm'), fin=assessmentStats('final');
+  let weighted=0, weight=0;
+  if(weekly!==null){weighted+=weekly*60;weight+=60;}
+  if(mid.correct>0 || Object.keys(ensureAssessment('midterm').answers||{}).length){weighted+=mid.score*15;weight+=15;}
+  if(fin.correct>0 || Object.keys(ensureAssessment('final').answers||{}).length){weighted+=fin.score*25;weight+=25;}
+  return {overall:weight?weighted/weight:null,weekly,started:started.length};
+}
+function completionStats(){
+  const taskTotal=WEEKS.length*5;
+  const taskDoneCount=Object.values(state.tasks).filter(Boolean).length;
+  const assessIds=[...WEEKS.map(w=>w.quiz),'midterm','final'];
+  const masteredAssess=assessIds.filter(id=>assessmentStats(id).complete).length;
+  const total=taskTotal+assessIds.length;
+  const done=taskDoneCount+masteredAssess;
+  const questionTotal=assessIds.reduce((s,id)=>s+assessmentStats(id).total,0);
+  const questionDone=assessIds.reduce((s,id)=>s+assessmentStats(id).correct,0);
+  return {taskTotal,taskDoneCount,masteredAssess,total,done,pct:100*done/total,questionTotal,questionDone,questionPct:100*questionDone/questionTotal};
+}
+function showView(id){
+  document.querySelectorAll('.view').forEach(v=>v.classList.toggle('active',v.id===id));
+  document.querySelectorAll('.side-nav button').forEach(b=>b.classList.toggle('active',b.dataset.view===id));
+  if(id!=='assessmentView'){state.lastView=id;saveState();}
+  if(id==='gradesView')renderGrades();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function resourceHtml(items){
+  if(!items || !items.length)return '<div class="resource-empty">No separate resource is assigned in this category this week.</div>';
+  return items.map(r=>`<div class="resource-link"><span aria-hidden="true">↗</span><div><a href="${r.url}" target="_blank" rel="noopener">${r.title}</a>${r.note?`<small>${r.note}</small>`:''}</div></div>`).join('');
+}
+function completionHtml(week,kind){
+  const checked=taskDone(week,kind)?'checked':'';
+  return `<label class="completion-label"><input type="checkbox" data-task-week="${week}" data-task-kind="${kind}" ${checked}> Mark complete</label>`;
+}
+function renderModules(){
+  const c=document.getElementById('modulesContainer');
+  let html='';
+  WEEKS.forEach(w=>{
+    const qs=assessmentStats(w.quiz);
+    html+=`<article class="module-card" id="week-${w.week}">
+      <div class="module-head">
+        <div class="week-number">${w.week}</div>
+        <div><h3>Week ${w.week}: ${w.title}</h3><p>${w.summary}</p></div>
+        <div class="week-score"><strong>${pct(weekScore(w.week))}</strong><span>week grade</span></div>
+      </div>
+      <div class="module-body">
+        <div class="resource-row"><div class="resource-kind">Readings</div><div class="resource-links">${resourceHtml(w.reading)}</div>${completionHtml(w.week,'reading')}</div>
+        <div class="resource-row"><div class="resource-kind">Demos</div><div class="resource-links">${resourceHtml(w.demos)}</div>${completionHtml(w.week,'demos')}</div>
+        <div class="resource-row"><div class="resource-kind">Python Lab</div><div class="resource-links">${resourceHtml(w.python_lab)}</div>${completionHtml(w.week,'python')}</div>
+        <div class="resource-row"><div class="resource-kind">Weekly Lab</div><div class="resource-links">${resourceHtml([w.weekly_lab])}</div>${completionHtml(w.week,'weekly')}</div>
+        <div class="resource-row"><div class="resource-kind">Project Lab</div><div class="resource-links">${resourceHtml([w.project_lab])}</div>${completionHtml(w.week,'project')}</div>
+        <div class="resource-row"><div class="resource-kind">Weekly Quiz</div>
+          <div><strong>${ASSESSMENTS[w.quiz].title}</strong><small style="display:block;color:var(--muted);margin-top:3px">Master each question before the quiz is marked complete.</small></div>
+          <div class="quiz-actions"><span class="badge ${qs.complete?'good':qs.correct?'warn':''}">${Math.round(qs.score)}%</span><button class="primary-btn" data-open-assessment="${w.quiz}">${qs.correct?'Continue quiz':'Open quiz'}</button></div>
+        </div>
+      </div>
+    </article>`;
+    if(w.week===5){
+      const ms=assessmentStats('midterm');
+      html+=`<section class="exam-break"><div><h3>Midterm Examination</h3><p>Weeks 1–5 · ${ms.correct} of ${ms.total} questions mastered</p></div><div class="quiz-actions"><span class="badge">${Math.round(ms.score)}%</span><button class="secondary-btn" data-open-assessment="midterm">Open midterm</button></div></section>`;
+    }
+  });
+  const fs=assessmentStats('final');
+  html+=`<section class="exam-break"><div><h3>Final Examination</h3><p>Comprehensive · ${fs.correct} of ${fs.total} questions mastered</p></div><div class="quiz-actions"><span class="badge">${Math.round(fs.score)}%</span><button class="secondary-btn" data-open-assessment="final">Open final</button></div></section>`;
+  c.innerHTML=html;
+  c.querySelectorAll('[data-task-week]').forEach(cb=>cb.addEventListener('change',()=>{
+    state.tasks[taskKey(Number(cb.dataset.taskWeek),cb.dataset.taskKind)]=cb.checked;
+    saveState();refreshAll();
+  }));
+  c.querySelectorAll('[data-open-assessment]').forEach(b=>b.addEventListener('click',()=>openAssessment(b.dataset.openAssessment)));
+}
+function renderDashboardWeeks(){
+  const wrap=document.getElementById('dashboardWeeks');
+  wrap.innerHTML=WEEKS.map(w=>{
+    const s=weekScore(w.week);
+    const done=['reading','demos','python','weekly','project'].filter(k=>taskDone(w.week,k)).length+(assessmentStats(w.quiz).complete?1:0);
+    return `<div style="display:grid;grid-template-columns:72px 1fr 90px;gap:12px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)">
+      <strong>Week ${w.week}</strong><span>${w.title}<small style="display:block;color:var(--muted)">${done}/6 categories complete</small></span>
+      <button class="secondary-btn" data-jump-week="${w.week}">${Math.round(s)}%</button>
+    </div>`;
+  }).join('');
+  wrap.querySelectorAll('[data-jump-week]').forEach(b=>b.addEventListener('click',()=>{
+    showView('modulesView');
+    setTimeout(()=>document.getElementById(`week-${b.dataset.jumpWeek}`)?.scrollIntoView({behavior:'smooth',block:'start'}),50);
+  }));
+}
+function nextAction(){
+  for(const w of WEEKS){
+    const kinds=[['reading','Read the chapter'],['demos','Use the demos'],['python','Complete the Python lab'],['weekly','Complete the weekly lab'],['project','Complete the project lab']];
+    for(const [kind,label] of kinds){
+      if(!taskDone(w.week,kind))return {week:w.week,title:`Week ${w.week}: ${label}`,detail:w.title,action:'Open module',weekJump:w.week};
+    }
+    if(!assessmentStats(w.quiz).complete)return {week:w.week,title:`Week ${w.week}: Finish the mastery quiz`,detail:`${assessmentStats(w.quiz).correct} of ${assessmentStats(w.quiz).total} questions mastered`,assessment:w.quiz,action:'Open quiz'};
+  }
+  if(!assessmentStats('midterm').complete)return {title:'Complete the midterm',detail:'Weeks 1–5 mastery assessment',assessment:'midterm',action:'Open midterm'};
+  if(!assessmentStats('final').complete)return {title:'Complete the final examination',detail:'Comprehensive mastery assessment',assessment:'final',action:'Open final'};
+  return {title:'Course complete',detail:'Every assigned category and assessment has been mastered.',action:'View grades',view:'gradesView'};
+}
+function renderDashboard(){
+  const g=overallGrade(), c=completionStats();
+  document.getElementById('dashGrade').textContent=g.overall===null?'—':pct(g.overall);
+  document.getElementById('dashLetter').textContent=g.overall===null?'No work started':`${letterGrade(g.overall)} · ${g.started} week${g.started===1?'':'s'} started`;
+  document.getElementById('dashCompletion').textContent=pct(c.pct);
+  document.getElementById('dashCompletedCount').textContent=`${c.done} of ${c.total} course items`;
+  const quizDone=WEEKS.filter(w=>assessmentStats(w.quiz).complete).length;
+  document.getElementById('dashQuizzes').textContent=`${quizDone}/10`;
+  document.getElementById('dashQuestions').textContent=pct(c.questionPct);
+  const n=nextAction();
+  document.getElementById('nextAction').innerHTML=`<div><strong>${n.title}</strong><small style="display:block;color:var(--muted);margin-top:4px">${n.detail}</small></div><button class="primary-btn" id="nextActionBtn">${n.action}</button>`;
+  document.getElementById('nextActionBtn').onclick=()=>{
+    if(n.assessment)openAssessment(n.assessment);
+    else if(n.weekJump){showView('modulesView');setTimeout(()=>document.getElementById(`week-${n.weekJump}`)?.scrollIntoView({behavior:'smooth'}),50);}
+    else if(n.view)showView(n.view);
+  };
+  renderDashboardWeeks();
+}
+function renderGrades(){
+  const g=overallGrade(), c=completionStats();
+  document.getElementById('gradeOverall').textContent=g.overall===null?'—':pct(g.overall);
+  document.getElementById('gradeOverallNote').textContent=g.overall===null?'No work started':`${g.started} started week${g.started===1?'':'s'} plus attempted major assessments`;
+  document.getElementById('gradeLetter').textContent=g.overall===null?'—':letterGrade(g.overall);
+  document.getElementById('gradeWeekly').textContent=g.weekly===null?'—':pct(g.weekly);
+  document.getElementById('gradeCompletion').textContent=pct(c.pct);
+  document.getElementById('gradeRows').innerHTML=WEEKS.map(w=>{
+    const q=assessmentStats(w.quiz), ws=weekScore(w.week);
+    const mark=k=>taskDone(w.week,k)?'<span class="badge good">Done</span>':'<span class="badge">—</span>';
+    return `<tr><td>Week ${w.week}<small style="display:block;color:var(--muted)">${w.title}</small></td>
+      <td>${mark('reading')}</td><td>${mark('demos')}</td><td>${mark('python')}</td><td>${mark('weekly')}</td><td>${mark('project')}</td>
+      <td>${Math.round(q.score)}%</td><td><strong>${Math.round(ws)}%</strong></td></tr>`;
+  }).join('');
+  document.getElementById('examRows').innerHTML=['midterm','final'].map(id=>{
+    const s=assessmentStats(id);
+    return `<tr><td>${ASSESSMENTS[id].title}</td><td>${s.correct} / ${s.total}</td><td>${Math.round(s.score)}%</td><td>${s.complete?'<span class="badge good">Mastered</span>':s.correct?'<span class="badge warn">In progress</span>':'<span class="badge">Not started</span>'}</td></tr>`;
+  }).join('');
+}
+function refreshSidebar(){
+  const c=completionStats();
+  document.getElementById('sideCompletion').textContent=pct(c.pct);
+  document.getElementById('sideProgressFill').style.width=`${c.pct}%`;
+  document.getElementById('sideMastery').textContent=`${c.masteredAssess} assessments mastered`;
+}
+function refreshAll(){
+  renderModules();renderDashboard();renderGrades();refreshSidebar();
+}
+function openAssessment(id){
+  activeAssessment=id;
+  const a=ASSESSMENTS[id], s=ensureAssessment(id);
+  document.getElementById('assessmentTitle').textContent=a.title;
+  document.getElementById('assessmentSubtitle').textContent=a.subtitle;
+  const container=document.getElementById('questionsContainer');
+  container.innerHTML=a.questions.map((q,i)=>{
+    const mastered=(s.mastered||[]).includes(q.id);
+    const ans=s.answers?.[q.id] ?? '';
+    let input='';
+    if(q.type==='mc'){
+      input=`<div class="options">${q.options.map(opt=>`<label class="option"><input type="radio" name="${q.id}" value="${escapeAttr(opt)}" ${ans===opt?'checked':''} ${mastered?'disabled':''}><span>${opt}</span></label>`).join('')}</div>`;
+    }else{
+      input=`<input class="numeric-input" type="text" inputmode="decimal" data-num-q="${q.id}" value="${escapeAttr(String(ans))}" placeholder="${q.placeholder||'Enter a number'}" ${mastered?'disabled':''}>`;
+    }
+    return `<article class="question-card ${mastered?'mastered':''}" data-question="${q.id}">
+      <div class="question-number">Question ${i+1} of ${a.questions.length}</div>
+      <div class="question-prompt">${q.prompt}</div>
+      ${input}
+      <div class="feedback ${mastered?'good':''}" id="fb-${q.id}">${mastered?q.success:''}</div>
+    </article>`;
+  }).join('');
+  container.querySelectorAll('input').forEach(inp=>inp.addEventListener('change',saveAssessmentInputs));
+  container.querySelectorAll('[data-num-q]').forEach(inp=>inp.addEventListener('input',saveAssessmentInputs));
+  updateAssessmentHeader();
+  showView('assessmentView');
+}
+function escapeAttr(s){return s.replaceAll('&','&amp;').replaceAll('"','&quot;').replaceAll('<','&lt;').replaceAll('>','&gt;');}
+function saveAssessmentInputs(){
+  if(!activeAssessment)return;
+  const s=ensureAssessment(activeAssessment), a=ASSESSMENTS[activeAssessment];
+  a.questions.forEach(q=>{
+    if((s.mastered||[]).includes(q.id))return;
+    if(q.type==='mc'){
+      const checked=document.querySelector(`input[name="${q.id}"]:checked`);
+      if(checked)s.answers[q.id]=checked.value;
+    }else{
+      const inp=document.querySelector(`[data-num-q="${q.id}"]`);
+      if(inp)s.answers[q.id]=inp.value;
+    }
+  });
+  saveState();
+}
+function normalizeNumber(value){
+  if(value===null||value===undefined)return NaN;
+  let s=String(value).trim().replaceAll(',','');
+  if(s.endsWith('%'))s=String(parseFloat(s)/100);
+  return Number(s);
+}
+function isCorrect(q,value){
+  if(q.type==='mc')return value===q.answer;
+  const x=normalizeNumber(value);
+  if(!Number.isFinite(x))return false;
+  const tol=q.tolerance ?? 0.001;
+  return Math.abs(x-q.answer)<=tol || Math.abs(x-q.answer)<=tol*Math.max(1,Math.abs(q.answer));
+}
+function checkAssessment(){
+  if(!activeAssessment)return;
+  saveAssessmentInputs();
+  const a=ASSESSMENTS[activeAssessment], s=ensureAssessment(activeAssessment);
+  const mastered=new Set(s.mastered||[]);
+  let newCorrect=0, attempted=0;
+  a.questions.forEach(q=>{
+    if(mastered.has(q.id))return;
+    const value=s.answers?.[q.id];
+    const fb=document.getElementById(`fb-${q.id}`);
+    const card=document.querySelector(`[data-question="${q.id}"]`);
+    if(value===undefined || String(value).trim()===''){
+      fb.className='feedback warn';fb.textContent='Give this one a try before checking it.';
+      return;
+    }
+    attempted++;
+    if(isCorrect(q,value)){
+      mastered.add(q.id);newCorrect++;
+      fb.className='feedback good';fb.textContent=q.success;
+      card.classList.add('mastered');
+      card.querySelectorAll('input').forEach(i=>i.disabled=true);
+    }else{
+      fb.className='feedback bad';fb.textContent=`Not quite yet. ${q.hint}`;
+    }
+  });
+  s.mastered=[...mastered];s.checks=(s.checks||0)+1;s.lastScore=100*mastered.size/a.questions.length;
+  saveState();updateAssessmentHeader();refreshAll();
+  const stats=assessmentStats(activeAssessment);
+  const foot=document.getElementById('assessmentFooterText');
+  if(stats.complete)foot.textContent='Assessment mastered. Every question is correct and saved.';
+  else if(newCorrect)foot.textContent=`${newCorrect} new question${newCorrect===1?'':'s'} mastered. Keep working on the questions that remain open.`;
+  else if(attempted)foot.textContent='No new questions were mastered this check. Use the hints, adjust the open answers, and try again.';
+  else foot.textContent='Enter at least one answer before checking.';
+}
+function updateAssessmentHeader(){
+  if(!activeAssessment)return;
+  const s=assessmentStats(activeAssessment);
+  document.getElementById('assessmentScore').textContent=pct(s.score);
+  document.getElementById('assessmentCount').textContent=`${s.correct} of ${s.total} correct`;
+  document.getElementById('assessmentProgressFill').style.width=`${s.score}%`;
+  document.getElementById('checkAssessmentBtn').textContent=s.complete?'Assessment mastered':'Check my current answers';
+  document.getElementById('checkAssessmentBtn').disabled=s.complete;
+}
+function exportProgress(){
+  const payload={course:'MATH 146 Introductory Statistics',exportedAt:new Date().toISOString(),state};
+  const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);
+  const name=(state.studentName||'student').trim().replace(/[^a-z0-9]+/gi,'_');
+  a.download=`Math146_progress_${name}.json`;a.click();URL.revokeObjectURL(a.href);
+}
+function importProgress(file){
+  const reader=new FileReader();
+  reader.onload=()=>{
+    try{
+      const parsed=JSON.parse(reader.result);
+      const imported=parsed.state||parsed;
+      if(!imported.tasks||!imported.assessments)throw new Error('Not a course progress file');
+      state=Object.assign({},defaultState,imported);
+      saveState();applyTheme();document.getElementById('studentName').value=state.studentName||'';refreshAll();
+      alert('Progress imported.');
+    }catch(e){alert('That file could not be imported as MATH 146 progress.');}
+  };
+  reader.readAsText(file);
+}
+function applyTheme(){
+  document.documentElement.dataset.theme=state.theme||'light';
+  document.getElementById('themeBtn').textContent=state.theme==='dark'?'☀ Theme':'☾ Theme';
+}
+document.querySelectorAll('.side-nav button').forEach(b=>b.addEventListener('click',()=>showView(b.dataset.view)));
+document.getElementById('studentName').value=state.studentName||'';
+document.getElementById('studentName').addEventListener('input',e=>{state.studentName=e.target.value;saveState();});
+document.getElementById('themeBtn').addEventListener('click',()=>{state.theme=state.theme==='dark'?'light':'dark';saveState();applyTheme();});
+document.getElementById('assessmentBack').addEventListener('click',()=>showView('modulesView'));
+document.getElementById('checkAssessmentBtn').addEventListener('click',checkAssessment);
+document.getElementById('exportBtn').addEventListener('click',exportProgress);
+document.getElementById('importBtn').addEventListener('click',()=>document.getElementById('importFile').click());
+document.getElementById('importFile').addEventListener('change',e=>{if(e.target.files[0])importProgress(e.target.files[0]);e.target.value='';});
+document.getElementById('resetBtn').addEventListener('click',()=>{
+  if(confirm('Reset every checkbox, assessment answer, score, and saved name on this device?')){
+    state=structuredClone(defaultState);saveState();location.reload();
+  }
+});
+applyTheme();refreshAll();showView(state.lastView||'dashboardView');
+</script>
+</body>
+</html>
