@@ -1,13 +1,14 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Math 146 — Week 3 Lab: Continuous Distributions and z-Scores</title>
 <script>
   window.MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] }, svg: { fontCache: 'global' } };
 </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.min.js" id="MathJax-script" async></script>
+<script async="" id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=DM+Mono:wght@400;500&display=swap');
@@ -71,215 +72,267 @@
   .footer{border-top:1px solid var(--rule);margin-top:50px;padding-top:12px;font-family:var(--mono);font-size:13px;color:#888;text-align:center;}
   @media print{.toolbar,.check-btn{display:none;}details{display:block;}details>summary{display:none;}.solution{display:block !important;}.text-answer textarea{border:1px solid #999;min-height:auto;}body{font-size:16px;}}
 </style>
-</head>
+<style>
+/* ---- Math 146 unified student experience ---- */
+:root{--student-shadow:0 8px 24px rgba(35,45,60,.08);--student-soft:#f7f8fa;--student-muted:#667085;--student-danger:#8b3030;}
+html{scroll-behavior:smooth;}
+body{overflow-x:hidden;}
+.wrap{width:min(100%, 900px);}
+header{padding-top:6px;}
+header h1{line-height:1.12;}
+.student-start{background:#fff;border:1px solid var(--rule);border-radius:10px;padding:18px 20px;margin:18px 0 18px;box-shadow:var(--student-shadow);}
+.student-start h2{font-size:18px;margin:0 0 8px;color:var(--blue);}
+.student-start p{margin:6px 0;}
+.student-start .workflow{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0 10px;}
+.student-start .step{background:var(--blue-bg);border:1px solid var(--blue-rule);border-radius:8px;padding:11px 12px;font-size:16px;line-height:1.35;}
+.student-start .step strong{display:block;font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:var(--blue);margin-bottom:3px;}
+.student-start .privacy{font-size:15px;color:#555;margin-top:10px;}
+.objectives{box-shadow:0 2px 10px rgba(35,45,60,.04);}
+.toolbar.student-toolbar{position:sticky;top:0;z-index:30;background:rgba(252,251,248,.97);backdrop-filter:blur(8px);border:1px solid var(--rule);border-radius:10px;padding:10px 12px;margin:0 0 28px;box-shadow:0 7px 18px rgba(40,40,40,.08);display:block;}
+.toolbar-main{display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
+.toolbar button{min-height:38px;}
+.toolbar button.primary-action{background:var(--blue);border-color:var(--blue);color:white;font-weight:500;}
+.toolbar button.primary-action:hover{background:#1d3a60;}
+.toolbar button.danger-soft{margin-left:auto;color:var(--student-danger);border-color:#d9bcbc;}
+.status-row{display:flex;align-items:center;gap:10px;margin-top:9px;font-family:var(--mono);font-size:12px;color:#5e6470;}
+.status-row .save-dot{width:8px;height:8px;border-radius:50%;background:var(--green);display:inline-block;flex:none;}
+.progress-track{height:6px;background:#e7e3da;border-radius:999px;overflow:hidden;flex:1;min-width:100px;}
+.progress-fill{height:100%;width:0;background:var(--green);transition:width .2s ease;}
+.problem-nav{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px;padding-top:8px;border-top:1px solid var(--rule);}
+.problem-nav a{font-family:var(--mono);font-size:11px;color:var(--blue);text-decoration:none;border:1px solid var(--blue-rule);background:var(--blue-bg);padding:4px 8px;border-radius:999px;}
+.problem-nav a:hover{text-decoration:underline;}
+.problem{scroll-margin-top:150px;background:rgba(255,255,255,.32);padding:2px 0 1px;}
+.problem-goal{font-size:16px;color:#555;margin:7px 0 12px;padding:8px 11px;border-left:3px solid var(--green);background:var(--green-bg);border-radius:0 6px 6px 0;}
+.problem-goal strong{color:var(--green);}
+input[type=text],textarea{transition:border-color .15s ease, box-shadow .15s ease, background .15s ease;}
+input[type=text]:focus,textarea:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px rgba(42,77,122,.12);}
+.check-btn{min-height:34px;}
+details{margin-left:26px;}
+details summary{line-height:1.35;}
+.completion-panel{background:#fff;border:1px solid var(--green-rule);border-radius:10px;padding:16px 18px;margin:34px 0 0;box-shadow:var(--student-shadow);}
+.completion-panel h2{font-size:18px;color:var(--green);margin:0 0 8px;}
+.completion-panel p{margin:5px 0;}
+.completion-panel .finish-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;}
+.completion-panel button{font-family:var(--mono);font-size:13px;cursor:pointer;border-radius:6px;padding:8px 12px;}
+.export-note{font-family:var(--mono);font-size:12px;color:#666;margin-top:8px;}
+@media(max-width:680px){
+  body{font-size:18px;}.wrap{padding-left:16px;padding-right:16px;}
+  header h1{font-size:27px;}.student-start .workflow{grid-template-columns:1fr;}
+  .toolbar.student-toolbar{top:0;border-radius:0;margin-left:-16px;margin-right:-16px;padding-left:16px;padding-right:16px;}
+  .toolbar button.danger-soft{margin-left:0;}
+  .answer-row,.text-answer{margin-left:0;}.part-stem{align-items:flex-start;}
+  details{margin-left:0;} table{font-size:16px;display:block;overflow-x:auto;max-width:100%;}
+}
+@media print{
+  .student-toolbar,.completion-panel .finish-actions,.export-note{display:none!important;}
+  .student-start{box-shadow:none;border:1px solid #bbb;}
+  .problem-goal{background:#fff;border:1px solid #bbb;border-left:3px solid #555;}
+  .wrap{max-width:none;padding:0 8mm;}
+  .problem{break-inside:auto;}
+  textarea{min-height:52px;}
+}
+</style></head>
 <body>
 <div class="wrap">
-
 <header>
-  <h1>Week 3 Lab — Continuous Distributions and z-Scores</h1>
-  <div class="sub">Math 146 &middot; Centralia College</div>
-  <div class="id-row">
-    <label>Student name <input type="text" id="w3_name" placeholder="Your full name"></label>
-    <label>Date <input type="text" id="w3_date" placeholder="mm/dd/yyyy"></label>
-  </div>
+<h1>Week 3 Lab — Continuous Distributions and z-Scores</h1>
+<div class="sub">Math 146 · Centralia College</div>
+<div class="id-row">
+<label>Student name <input id="w3_name" placeholder="Your full name" type="text"/></label>
+<label>Date <input id="w3_date" placeholder="mm/dd/yyyy" type="text"/></label>
+</div>
 </header>
-
-<p class="intro">
-  Fill in the answer boxes as you work. Click <strong>Check</strong> to test a numeric
-  answer; a box turns green when it matches. For parts that ask you to explain, type your
-  reasoning in the text box, then open <strong>Show solution</strong> to compare — solutions
-  unlock once you've entered an attempt. Your work is saved in this browser until you
-  clear it.
-</p>
-
+<section aria-labelledby="how-title" class="student-start">
+<h2 id="how-title">How to complete this lab</h2>
+<p>Work through the problems in order. Your goal is not just to get a number, but to connect each calculation to the statistical idea it represents.</p>
+<div class="workflow">
+<div class="step"><strong>1 · Work</strong>Enter your calculation or explanation directly in the page.</div>
+<div class="step"><strong>2 · Check</strong>Use <em>Check</em> for numerical answers. For written work, make an attempt before opening the comparison solution.</div>
+<div class="step"><strong>3 · Save</strong>Your answers save automatically on this device. Before you leave, download a filled HTML copy or print/save a PDF.</div>
+</div>
+<p class="privacy">Nothing is submitted automatically. A filled HTML copy is the best choice if you want to reopen the lab later with your answers still in place.</p>
+</section>
 <div class="objectives">
-  <h2>Objectives</h2>
-  <ul>
-    <li>Use a continuous uniform model and the fact that total area equals 1 to find probabilities.</li>
-    <li>Apply the Empirical Rule (68–95–99.7) to a normal distribution.</li>
-    <li>Convert a raw value to a \(z\)-score with \(z=(x-\mu)/\sigma\) and read probabilities from the standard normal table.</li>
-    <li>Explain probability as area under a density curve in the context of each problem.</li>
-  </ul>
+<h2>What you’ll practice</h2>
+<ul>
+<li>Use a continuous uniform model and the fact that total area equals 1 to find probabilities.</li>
+<li>Apply the Empirical Rule (68–95–99.7) to a normal distribution.</li>
+<li>Convert a raw value to a \(z\)-score with \(z=(x-\mu)/\sigma\) and read probabilities from the standard normal table.</li>
+<li>Explain probability as area under a density curve in the context of each problem.</li>
+</ul>
 </div>
-
 <div class="formulas">
-  <h2>Reference Formulas</h2>
-  <p>\[ U(a,b):\quad \text{height}=\frac{1}{b-a},\quad P(c\le X\le d)=\frac{d-c}{b-a},\quad \mu=\frac{a+b}{2} \]</p>
-  <p>\[ P(Z>z)=1-P(Z\le z) \qquad P(a\le Z\le b)=P(Z\le b)-P(Z\le a) \]</p>
+<h2>Reference Formulas</h2>
+<p>\[ U(a,b):\quad \text{height}=\frac{1}{b-a},\quad P(c\le X\le d)=\frac{d-c}{b-a},\quad \mu=\frac{a+b}{2} \]</p>
+<p>\[ P(Z&gt;z)=1-P(Z\le z) \qquad P(a\le Z\le b)=P(Z\le b)-P(Z\le a) \]</p>
 </div>
-
-<div class="toolbar">
-  <button onclick="window.print()">Print</button>
-  <button onclick="clearData()">Clear data</button>
+<div aria-label="Lab controls" class="toolbar student-toolbar no-print">
+<div class="toolbar-main">
+<button class="primary-action" onclick="saveFilledHTML()" type="button">Save filled HTML</button>
+<button onclick="window.print()" type="button">Print / Save PDF</button>
+<button class="danger-soft" onclick="clearData()" type="button">Clear answers</button>
 </div>
-
+<div class="status-row"><span aria-hidden="true" class="save-dot"></span><span>Saved automatically on this device</span><div aria-hidden="true" class="progress-track"><div class="progress-fill" id="studentProgressFill"></div></div><span aria-live="polite" id="studentProgressText"></span></div>
+<nav aria-label="Jump to a problem" class="problem-nav"><a href="#p1">Problem 1</a><a href="#p2">Problem 2</a><a href="#p3">Problem 3</a></nav>
+</div>
 <!-- PROBLEM 1 -->
 <div class="problem" id="p1">
-  <h2>Problem 1 — Uniform Distribution</h2>
-  <div class="scenario">A coffee shop fills espresso shots with amounts that vary uniformly
+<h2>Problem 1 — Uniform Distribution</h2><p class="problem-goal"><strong>Goal:</strong> Use area in a uniform density model to calculate probabilities.</p>
+<div class="scenario">A coffee shop fills espresso shots with amounts that vary uniformly
   between 1.5 and 2.5 ounces. Let \(X\sim U(1.5,2.5)\). In a uniform distribution,
   probability comes from area, so the rectangle must have total area 1.</div>
-
-  <div class="part">
-    <div class="part-stem"><span class="part-label">(a)</span>
-      <span class="part-text">Find the height of the density curve and the total area.</span></div>
-    <div class="answer-row"><label>height \(=1/(b-a)=\)</label><input type="text" id="w3_1a_h" data-ans="1" data-tol="0.01">
-      <label>total area \(=\)</label><input type="text" id="w3_1a_area" data-ans="1" data-tol="0.01">
-      <button class="check-btn" onclick="checkNum(['w3_1a_h','w3_1a_area'],'w3_1a_v')">Check</button><span class="verdict" id="w3_1a_v"></span></div>
-    <details><summary>Show solution</summary><div class="solution">
-      <p><span class="ans">height \(=1\), total area \(=1\).</span></p>
-      <p>height \(=1/(2.5-1.5)=1\). Total area \(=\)height\(\times\)width\(=1\times1=1\),
+<div class="part">
+<div class="part-stem"><span class="part-label">(a)</span>
+<span class="part-text">Find the height of the density curve and the total area.</span></div>
+<div class="answer-row"><label>height \(=1/(b-a)=\)</label><input data-ans="1" data-tol="0.01" id="w3_1a_h" type="text"/>
+<label>total area \(=\)</label><input data-ans="1" data-tol="0.01" id="w3_1a_area" type="text"/>
+<button class="check-btn" onclick="checkNum(['w3_1a_h','w3_1a_area'],'w3_1a_v')">Check</button><span class="verdict" id="w3_1a_v"></span></div>
+<details><summary>Show solution</summary><div class="solution">
+<p><span class="ans">height \(=1\), total area \(=1\).</span></p>
+<p>height \(=1/(2.5-1.5)=1\). Total area \(=\)height\(\times\)width\(=1\times1=1\),
       confirming this is a valid density.</p>
-    </div></details>
-  </div>
-
-  <div class="part">
-    <div class="part-stem"><span class="part-label">(b)</span>
-      <span class="part-text">Sketch the density curve: describe the shape, height, and
+</div></details>
+</div>
+<div class="part">
+<div class="part-stem"><span class="part-label">(b)</span>
+<span class="part-text">Sketch the density curve: describe the shape, height, and
       axis labels in words.</span></div>
-    <div class="text-answer"><label>Your answer.</label>
-      <textarea id="w3_1b" placeholder="The curve is a horizontal line at height… from x = … to x = …"></textarea></div>
-    <details><summary>Show solution</summary><div class="solution">
-      <p><span class="ans">A flat horizontal line at height 1, running from \(x=1.5\) to \(x=2.5\).</span></p>
-      <p>Outside that interval the height is 0. The x-axis is the shot amount in ounces;
+<div class="text-answer"><label>Your answer.</label>
+<textarea id="w3_1b" placeholder="The curve is a horizontal line at height… from x = … to x = …"></textarea></div>
+<details><summary>Show solution</summary><div class="solution">
+<p><span class="ans">A flat horizontal line at height 1, running from \(x=1.5\) to \(x=2.5\).</span></p>
+<p>Outside that interval the height is 0. The x-axis is the shot amount in ounces;
       the y-axis is density. The rectangle formed has area exactly 1.</p>
-    </div></details>
-  </div>
-
-  <div class="part">
-    <div class="part-stem"><span class="part-label">(c)</span>
-      <span class="part-text">Find \(P(X<2.0)\).</span></div>
-    <div class="answer-row"><label>\((2.0-1.5)/(2.5-1.5)=\)</label><input type="text" id="w3_1c" data-ans="0.5" data-tol="0.01">
-      <button class="check-btn" onclick="checkNum(['w3_1c'],'w3_1c_v')">Check</button><span class="verdict" id="w3_1c_v"></span></div>
-    <details><summary>Show solution</summary><div class="solution">
-      <p><span class="ans">\(P(X<2.0)=0.5\).</span></p>
-      <p>In a uniform distribution, probability equals the fraction of the interval's
+</div></details>
+</div>
+<div class="part">
+<div class="part-stem"><span class="part-label">(c)</span>
+<span class="part-text">Find \(P(X&lt;2.0)\).</span></div>
+<div class="answer-row"><label>\((2.0-1.5)/(2.5-1.5)=\)</label><input data-ans="0.5" data-tol="0.01" id="w3_1c" type="text"/>
+<button class="check-btn" onclick="checkNum(['w3_1c'],'w3_1c_v')">Check</button><span class="verdict" id="w3_1c_v"></span></div>
+<details><summary>Show solution</summary><div class="solution">
+<p><span class="ans">\(P(X&lt;2.0)=0.5\).</span></p>
+<p>In a uniform distribution, probability equals the fraction of the interval's
       width covered: \((2.0-1.5)/(2.5-1.5)=0.5/1=0.5\).</p>
-    </div></details>
-  </div>
-
-  <div class="part">
-    <div class="part-stem"><span class="part-label">(d)</span>
-      <span class="part-text">Find \(\mu\).</span></div>
-    <div class="answer-row"><label>\(\mu=(a+b)/2=\)</label><input type="text" id="w3_1d_mu" data-ans="2.0" data-tol="0.01">
-      <button class="check-btn" onclick="checkNum(['w3_1d_mu'],'w3_1d_v')">Check</button><span class="verdict" id="w3_1d_v"></span></div>
-    <details><summary>Show solution</summary><div class="solution">
-      <p><span class="ans">\(\mu=2.0\) oz.</span></p>
-      <p>For a uniform distribution the mean is the midpoint of the interval:
+</div></details>
+</div>
+<div class="part">
+<div class="part-stem"><span class="part-label">(d)</span>
+<span class="part-text">Find \(\mu\).</span></div>
+<div class="answer-row"><label>\(\mu=(a+b)/2=\)</label><input data-ans="2.0" data-tol="0.01" id="w3_1d_mu" type="text"/>
+<button class="check-btn" onclick="checkNum(['w3_1d_mu'],'w3_1d_v')">Check</button><span class="verdict" id="w3_1d_v"></span></div>
+<details><summary>Show solution</summary><div class="solution">
+<p><span class="ans">\(\mu=2.0\) oz.</span></p>
+<p>For a uniform distribution the mean is the midpoint of the interval:
       \((1.5+2.5)/2=2.0\).</p>
-    </div></details>
-  </div>
-
-  <div class="part">
-    <div class="part-stem"><span class="part-label">(e)</span>
-      <span class="part-text">Interpret \(\mu\) in one sentence, in context.</span></div>
-    <div class="text-answer"><label>Your answer.</label>
-      <textarea id="w3_1e" placeholder="On average…"></textarea></div>
-    <details><summary>Show solution</summary><div class="solution">
-      <p><span class="ans">On average, the machine pours 2.0 ounces per shot.</span></p>
-      <p>\(\mu\) describes the long-run average amount dispensed if the shop pulled many,
+</div></details>
+</div>
+<div class="part">
+<div class="part-stem"><span class="part-label">(e)</span>
+<span class="part-text">Interpret \(\mu\) in one sentence, in context.</span></div>
+<div class="text-answer"><label>Your answer.</label>
+<textarea id="w3_1e" placeholder="On average…"></textarea></div>
+<details><summary>Show solution</summary><div class="solution">
+<p><span class="ans">On average, the machine pours 2.0 ounces per shot.</span></p>
+<p>\(\mu\) describes the long-run average amount dispensed if the shop pulled many,
       many shots — not the amount of any single shot, which still varies uniformly between
       1.5 and 2.5 oz.</p>
-    </div></details>
-  </div>
+</div></details>
 </div>
-
+</div>
 <!-- PROBLEM 2 -->
 <div class="problem" id="p2">
-  <h2>Problem 2 — Empirical Rule</h2>
-  <div class="scenario">For the standard normal random variable \(Z\sim N(0,1)\), use the
+<h2>Problem 2 — Empirical Rule</h2><p class="problem-goal"><strong>Goal:</strong> Use the Empirical Rule to connect distance from the mean with normal probabilities.</p>
+<div class="scenario">For the standard normal random variable \(Z\sim N(0,1)\), use the
   Empirical Rule to estimate the requested percentages. Do not use the z-table for this
   problem; the goal is to reason from the 68–95–99.7 pattern.</div>
-
-  <div class="part">
-    <div class="part-stem"><span class="part-label">(a)</span>
-      <span class="part-text">What percentage falls between \(z=-2\) and \(z=2\)?</span></div>
-    <div class="answer-row"><label>percentage \(=\)</label><input type="text" id="w3_2a" class="wide" data-ans="95" data-tol="0.5"><label>%</label>
-      <button class="check-btn" onclick="checkNum(['w3_2a'],'w3_2a_v')">Check</button><span class="verdict" id="w3_2a_v"></span></div>
-    <details><summary>Show solution</summary><div class="solution">
-      <p><span class="ans">95%.</span></p>
-      <p>The Empirical Rule states that about 95% of data in a normal distribution falls
+<div class="part">
+<div class="part-stem"><span class="part-label">(a)</span>
+<span class="part-text">What percentage falls between \(z=-2\) and \(z=2\)?</span></div>
+<div class="answer-row"><label>percentage \(=\)</label><input class="wide" data-ans="95" data-tol="0.5" id="w3_2a" type="text"/><label>%</label>
+<button class="check-btn" onclick="checkNum(['w3_2a'],'w3_2a_v')">Check</button><span class="verdict" id="w3_2a_v"></span></div>
+<details><summary>Show solution</summary><div class="solution">
+<p><span class="ans">95%.</span></p>
+<p>The Empirical Rule states that about 95% of data in a normal distribution falls
       within 2 standard deviations of the mean.</p>
-    </div></details>
-  </div>
-
-  <div class="part">
-    <div class="part-stem"><span class="part-label">(b)</span>
-      <span class="part-text">What percentage falls above \(z=1\)?</span></div>
-    <div class="answer-row"><label>percentage \(=\)</label><input type="text" id="w3_2b" class="wide" data-ans="16" data-tol="0.5"><label>%</label>
-      <button class="check-btn" onclick="checkNum(['w3_2b'],'w3_2b_v')">Check</button><span class="verdict" id="w3_2b_v"></span></div>
-    <details><summary>Show solution</summary><div class="solution">
-      <p><span class="ans">16%.</span></p>
-      <p>68% falls between \(z=-1\) and \(z=1\), leaving 32% outside. By symmetry that 32%
-      splits evenly, so 16% lies above \(z=1\).</p>
-    </div></details>
-  </div>
-
-  <div class="part">
-    <div class="part-stem"><span class="part-label">(c)</span>
-      <span class="part-text">Sketch and label the region \(P(Z>1)\): where is the shaded
-      region, and what is its probability?</span></div>
-    <div class="text-answer"><label>Your answer.</label>
-      <textarea id="w3_2c" placeholder="The shaded region is to the right of z=1 and has area…"></textarea></div>
-    <details><summary>Show solution</summary><div class="solution">
-      <p><span class="ans">The shaded region is the tail to the right of \(z=1\), with area \(0.16\).</span></p>
-      <p>Shade everything under the curve from \(z=1\) out to the right end. That tail
-      holds about 16% of the total probability, matching part (b).</p>
-    </div></details>
-  </div>
+</div></details>
 </div>
-
+<div class="part">
+<div class="part-stem"><span class="part-label">(b)</span>
+<span class="part-text">What percentage falls above \(z=1\)?</span></div>
+<div class="answer-row"><label>percentage \(=\)</label><input class="wide" data-ans="16" data-tol="0.5" id="w3_2b" type="text"/><label>%</label>
+<button class="check-btn" onclick="checkNum(['w3_2b'],'w3_2b_v')">Check</button><span class="verdict" id="w3_2b_v"></span></div>
+<details><summary>Show solution</summary><div class="solution">
+<p><span class="ans">16%.</span></p>
+<p>68% falls between \(z=-1\) and \(z=1\), leaving 32% outside. By symmetry that 32%
+      splits evenly, so 16% lies above \(z=1\).</p>
+</div></details>
+</div>
+<div class="part">
+<div class="part-stem"><span class="part-label">(c)</span>
+<span class="part-text">Sketch and label the region \(P(Z&gt;1)\): where is the shaded
+      region, and what is its probability?</span></div>
+<div class="text-answer"><label>Your answer.</label>
+<textarea id="w3_2c" placeholder="The shaded region is to the right of z=1 and has area…"></textarea></div>
+<details><summary>Show solution</summary><div class="solution">
+<p><span class="ans">The shaded region is the tail to the right of \(z=1\), with area \(0.16\).</span></p>
+<p>Shade everything under the curve from \(z=1\) out to the right end. That tail
+      holds about 16% of the total probability, matching part (b).</p>
+</div></details>
+</div>
+</div>
 <!-- PROBLEM 3 -->
 <div class="problem" id="p3">
-  <h2>Problem 3 — z-Table Probabilities</h2>
-  <div class="scenario">Now use the z-table, which gives left-tail areas \(P(Z\le z)\), to
+<h2>Problem 3 — z-Table Probabilities</h2><p class="problem-goal"><strong>Goal:</strong> Standardize values with z-scores and read probabilities from the standard normal distribution.</p>
+<div class="scenario">Now use the z-table, which gives left-tail areas \(P(Z\le z)\), to
   find each probability. Pay attention to whether the problem asks for a left tail, a
   right tail, or the area between two z-scores.</div>
-
-  <div class="part">
-    <div class="part-stem"><span class="part-label">(a)</span>
-      <span class="part-text">Find \(P(Z\le1.72)\).</span></div>
-    <div class="answer-row"><label>left tail, read directly:</label><input type="text" id="w3_3a" class="wide" data-ans="0.9573" data-tol="0.002">
-      <button class="check-btn" onclick="checkNum(['w3_3a'],'w3_3a_v')">Check</button><span class="verdict" id="w3_3a_v"></span></div>
-    <details><summary>Show solution</summary><div class="solution">
-      <p><span class="ans">\(P(Z\le1.72)=0.9573\).</span></p>
-      <p>The z-table gives left-tail area directly at \(z=1.72\); no arithmetic needed.</p>
-    </div></details>
-  </div>
-
-  <div class="part">
-    <div class="part-stem"><span class="part-label">(b)</span>
-      <span class="part-text">Find \(P(Z>-0.63)\).</span></div>
-    <div class="answer-row"><label>\(1-P(Z\le-0.63)=\)</label><input type="text" id="w3_3b" class="wide" data-ans="0.7357" data-tol="0.002">
-      <button class="check-btn" onclick="checkNum(['w3_3b'],'w3_3b_v')">Check</button><span class="verdict" id="w3_3b_v"></span></div>
-    <details><summary>Show solution</summary><div class="solution">
-      <p><span class="ans">\(P(Z>-0.63)=0.7357\).</span></p>
-      <p>\(P(Z\le-0.63)=0.2643\), so \(P(Z>-0.63)=1-0.2643=0.7357\).</p>
-    </div></details>
-  </div>
-
-  <div class="part">
-    <div class="part-stem"><span class="part-label">(c)</span>
-      <span class="part-text">Find \(P(-1.20\le Z\le0.50)\).</span></div>
-    <div class="answer-row"><label>\(P(Z\le0.50)=\)</label><input type="text" id="w3_3c_hi" class="wide" data-ans="0.6915" data-tol="0.002">
-      <label>\(P(Z\le-1.20)=\)</label><input type="text" id="w3_3c_lo" class="wide" data-ans="0.1151" data-tol="0.002">
-      <label>difference \(=\)</label><input type="text" id="w3_3c_diff" class="wide" data-ans="0.5764" data-tol="0.003">
-      <button class="check-btn" onclick="checkNum(['w3_3c_hi','w3_3c_lo','w3_3c_diff'],'w3_3c_v')">Check</button><span class="verdict" id="w3_3c_v"></span></div>
-    <details id="det-w3-3c"><summary>Show solution</summary><div class="solution">
-      <p><span class="ans">\(P(-1.20\le Z\le0.50)=0.5764\).</span></p>
-      <p>\(P(Z\le0.50)=0.6915\) and \(P(Z\le-1.20)=0.1151\). Subtracting the smaller left
+<div class="part">
+<div class="part-stem"><span class="part-label">(a)</span>
+<span class="part-text">Find \(P(Z\le1.72)\).</span></div>
+<div class="answer-row"><label>left tail, read directly:</label><input class="wide" data-ans="0.9573" data-tol="0.002" id="w3_3a" type="text"/>
+<button class="check-btn" onclick="checkNum(['w3_3a'],'w3_3a_v')">Check</button><span class="verdict" id="w3_3a_v"></span></div>
+<details><summary>Show solution</summary><div class="solution">
+<p><span class="ans">\(P(Z\le1.72)=0.9573\).</span></p>
+<p>The z-table gives left-tail area directly at \(z=1.72\); no arithmetic needed.</p>
+</div></details>
+</div>
+<div class="part">
+<div class="part-stem"><span class="part-label">(b)</span>
+<span class="part-text">Find \(P(Z&gt;-0.63)\).</span></div>
+<div class="answer-row"><label>\(1-P(Z\le-0.63)=\)</label><input class="wide" data-ans="0.7357" data-tol="0.002" id="w3_3b" type="text"/>
+<button class="check-btn" onclick="checkNum(['w3_3b'],'w3_3b_v')">Check</button><span class="verdict" id="w3_3b_v"></span></div>
+<details><summary>Show solution</summary><div class="solution">
+<p><span class="ans">\(P(Z&gt;-0.63)=0.7357\).</span></p>
+<p>\(P(Z\le-0.63)=0.2643\), so \(P(Z&gt;-0.63)=1-0.2643=0.7357\).</p>
+</div></details>
+</div>
+<div class="part">
+<div class="part-stem"><span class="part-label">(c)</span>
+<span class="part-text">Find \(P(-1.20\le Z\le0.50)\).</span></div>
+<div class="answer-row"><label>\(P(Z\le0.50)=\)</label><input class="wide" data-ans="0.6915" data-tol="0.002" id="w3_3c_hi" type="text"/>
+<label>\(P(Z\le-1.20)=\)</label><input class="wide" data-ans="0.1151" data-tol="0.002" id="w3_3c_lo" type="text"/>
+<label>difference \(=\)</label><input class="wide" data-ans="0.5764" data-tol="0.003" id="w3_3c_diff" type="text"/>
+<button class="check-btn" onclick="checkNum(['w3_3c_hi','w3_3c_lo','w3_3c_diff'],'w3_3c_v')">Check</button><span class="verdict" id="w3_3c_v"></span></div>
+<details id="det-w3-3c"><summary>Show solution</summary><div class="solution">
+<p><span class="ans">\(P(-1.20\le Z\le0.50)=0.5764\).</span></p>
+<p>\(P(Z\le0.50)=0.6915\) and \(P(Z\le-1.20)=0.1151\). Subtracting the smaller left
       tail from the larger one leaves exactly the area between the two z-scores:
       \(0.6915-0.1151=0.5764\).</p>
-      <div class="plot-wrap"><svg class="dist-svg" id="curve-sol" viewbox="0 0 660 260"></svg></div>
-    </div></details>
-  </div>
+<div class="plot-wrap"><svg class="dist-svg" id="curve-sol" viewbox="0 0 660 260"></svg></div>
+</div></details>
 </div>
-
-<div class="footer">MATH&amp; 146 &middot; Centralia College &middot; Week 3 Lab</div>
 </div>
-
+<div class="footer">MATH&amp; 146 · Centralia College · Week 3 Lab</div>
+<section aria-labelledby="finish-title" class="completion-panel">
+<h2 id="finish-title">Before you finish</h2>
+<p>Check that your name and date are filled in, every requested explanation is complete, and numerical answers have been checked where a Check button is provided.</p>
+<p>Your browser copy is useful while you work, but it stays on this device. Save a filled HTML copy if you want a portable version that can be reopened, uploaded, or submitted later.</p>
+<div class="finish-actions"><button class="primary-action" onclick="saveFilledHTML()" type="button">Save filled HTML</button><button onclick="window.print()" type="button">Print / Save PDF</button></div>
+<div aria-live="polite" class="export-note" id="exportStatus"></div>
+</section></div>
 <script>
-  const STORE_KEY='math146_w3_lab';
+  const STORE_KEY='math146_w3_lab'+(document.documentElement.dataset.instanceId?('_'+document.documentElement.dataset.instanceId):'');
   function allInputs(){return Array.from(document.querySelectorAll('input[type=text], textarea'));}
   function save(){const d={};allInputs().forEach(i=>{if(i.id)d[i.id]=i.value;});try{localStorage.setItem(STORE_KEY,JSON.stringify(d));}catch(e){}}
   function load(){let d={};try{d=JSON.parse(localStorage.getItem(STORE_KEY)||'{}');}catch(e){}allInputs().forEach(i=>{if(i.id&&d[i.id]!=null)i.value=d[i.id];});}
@@ -316,5 +369,63 @@
   load();
   updateLocks();
 </script>
-</body>
+<script>
+(function(){
+  const WEEK = 3;
+  function responseControls(){
+    return Array.from(document.querySelectorAll('input[type="text"], textarea, select')).filter(el=>{
+      if(el.readOnly || el.disabled) return false;
+      return !/_name$|_date$/.test(el.id||'');
+    });
+  }
+  function updateStudentProgress(){
+    const controls=responseControls();
+    const done=controls.filter(el=>String(el.value||'').trim()!=='').length;
+    const total=controls.length;
+    const pct=total?Math.round(100*done/total):0;
+    const text=document.getElementById('studentProgressText');
+    const fill=document.getElementById('studentProgressFill');
+    if(text) text.textContent=`${done} of ${total} response boxes started (${pct}%)`;
+    if(fill) fill.style.width=pct+'%';
+  }
+  function setCloneValues(clone){
+    const liveControls=Array.from(document.querySelectorAll('input, textarea, select'));
+    const clonedControls=Array.from(clone.querySelectorAll('input, textarea, select'));
+    liveControls.forEach((el,i)=>{
+      const c=clonedControls[i]; if(!c) return;
+      if(el.tagName==='TEXTAREA'){c.textContent=el.value;}
+      else if(el.tagName==='SELECT'){
+        Array.from(c.options).forEach((o,j)=>{if(j===el.selectedIndex)o.setAttribute('selected','selected');else o.removeAttribute('selected');});
+      } else if(el.type==='checkbox'||el.type==='radio'){
+        if(el.checked)c.setAttribute('checked','checked');else c.removeAttribute('checked');
+      } else {c.setAttribute('value',el.value);}
+      c.className=el.className;
+    });
+    const liveDetails=Array.from(document.querySelectorAll('details'));
+    const clonedDetails=Array.from(clone.querySelectorAll('details'));
+    liveDetails.forEach((el,i)=>{if(!clonedDetails[i])return;if(el.open)clonedDetails[i].setAttribute('open','');else clonedDetails[i].removeAttribute('open');});
+  }
+  window.saveFilledHTML=function(){
+    try{ if(typeof save==='function') save(); }catch(e){}
+    const clone=document.documentElement.cloneNode(true);
+    setCloneValues(clone);
+    clone.setAttribute('data-filled-copy','true');
+    clone.setAttribute('data-saved-at',new Date().toISOString());
+    if(!clone.dataset.instanceId) clone.dataset.instanceId=Date.now().toString(36);
+    const base=(document.title||`Math146 Week ${WEEK} Lab`).replace(/[^a-z0-9]+/gi,'_').replace(/^_+|_+$/g,'');
+    const nameEl=document.querySelector('input[id$="_name"]');
+    const student=(nameEl&&nameEl.value.trim())?('_'+nameEl.value.trim().replace(/[^a-z0-9]+/gi,'_')):'';
+    const html='<!DOCTYPE html>\n'+clone.outerHTML;
+    const blob=new Blob([html],{type:'text/html;charset=utf-8'});
+    const a=document.createElement('a');
+    a.href=URL.createObjectURL(blob);a.download=base+student+'_FILLED.html';
+    document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+    const note=document.getElementById('exportStatus');
+    if(note) note.textContent='Filled HTML saved. This copy contains the answers currently on the page.';
+  };
+  document.addEventListener('input',updateStudentProgress);
+  document.addEventListener('change',updateStudentProgress);
+  updateStudentProgress();
+})();
+</script></body>
 </html>

@@ -1,13 +1,14 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Math 146 — Week 6 Lab: Hypothesis Testing</title>
 <script>
   window.MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] }, svg: { fontCache: 'global' } };
 </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.min.js" id="MathJax-script" async></script>
+<script async="" id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.min.js"></script>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=DM+Mono:wght@400;500&display=swap');
   :root{--ink:#1c1c1c;--paper:#fcfbf8;--rule:#d8d3c8;--blue:#2a4d7a;--blue-bg:#eef2f8;--blue-rule:#bcccdf;--green:#1f6b46;--green-bg:#edf5ef;--green-rule:#b7d6c2;--amber:#9a6a00;--red:#9a2a2a;--mono:'DM Mono',monospace;}
@@ -66,275 +67,323 @@
   .footer{border-top:1px solid var(--rule);margin-top:50px;padding-top:12px;font-family:var(--mono);font-size:13px;color:#888;text-align:center;}
   @media print{.toolbar,.check-btn{display:none;}details{display:block;}details>summary{display:none;}.solution{display:block !important;}.text-answer textarea{border:1px solid #999;min-height:auto;}body{font-size:16px;}}
 </style>
-</head>
+<style>
+/* ---- Math 146 unified student experience ---- */
+:root{--student-shadow:0 8px 24px rgba(35,45,60,.08);--student-soft:#f7f8fa;--student-muted:#667085;--student-danger:#8b3030;}
+html{scroll-behavior:smooth;}
+body{overflow-x:hidden;}
+.wrap{width:min(100%, 900px);}
+header{padding-top:6px;}
+header h1{line-height:1.12;}
+.student-start{background:#fff;border:1px solid var(--rule);border-radius:10px;padding:18px 20px;margin:18px 0 18px;box-shadow:var(--student-shadow);}
+.student-start h2{font-size:18px;margin:0 0 8px;color:var(--blue);}
+.student-start p{margin:6px 0;}
+.student-start .workflow{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0 10px;}
+.student-start .step{background:var(--blue-bg);border:1px solid var(--blue-rule);border-radius:8px;padding:11px 12px;font-size:16px;line-height:1.35;}
+.student-start .step strong{display:block;font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:var(--blue);margin-bottom:3px;}
+.student-start .privacy{font-size:15px;color:#555;margin-top:10px;}
+.objectives{box-shadow:0 2px 10px rgba(35,45,60,.04);}
+.toolbar.student-toolbar{position:sticky;top:0;z-index:30;background:rgba(252,251,248,.97);backdrop-filter:blur(8px);border:1px solid var(--rule);border-radius:10px;padding:10px 12px;margin:0 0 28px;box-shadow:0 7px 18px rgba(40,40,40,.08);display:block;}
+.toolbar-main{display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
+.toolbar button{min-height:38px;}
+.toolbar button.primary-action{background:var(--blue);border-color:var(--blue);color:white;font-weight:500;}
+.toolbar button.primary-action:hover{background:#1d3a60;}
+.toolbar button.danger-soft{margin-left:auto;color:var(--student-danger);border-color:#d9bcbc;}
+.status-row{display:flex;align-items:center;gap:10px;margin-top:9px;font-family:var(--mono);font-size:12px;color:#5e6470;}
+.status-row .save-dot{width:8px;height:8px;border-radius:50%;background:var(--green);display:inline-block;flex:none;}
+.progress-track{height:6px;background:#e7e3da;border-radius:999px;overflow:hidden;flex:1;min-width:100px;}
+.progress-fill{height:100%;width:0;background:var(--green);transition:width .2s ease;}
+.problem-nav{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px;padding-top:8px;border-top:1px solid var(--rule);}
+.problem-nav a{font-family:var(--mono);font-size:11px;color:var(--blue);text-decoration:none;border:1px solid var(--blue-rule);background:var(--blue-bg);padding:4px 8px;border-radius:999px;}
+.problem-nav a:hover{text-decoration:underline;}
+.problem{scroll-margin-top:150px;background:rgba(255,255,255,.32);padding:2px 0 1px;}
+.problem-goal{font-size:16px;color:#555;margin:7px 0 12px;padding:8px 11px;border-left:3px solid var(--green);background:var(--green-bg);border-radius:0 6px 6px 0;}
+.problem-goal strong{color:var(--green);}
+input[type=text],textarea{transition:border-color .15s ease, box-shadow .15s ease, background .15s ease;}
+input[type=text]:focus,textarea:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px rgba(42,77,122,.12);}
+.check-btn{min-height:34px;}
+details{margin-left:26px;}
+details summary{line-height:1.35;}
+.completion-panel{background:#fff;border:1px solid var(--green-rule);border-radius:10px;padding:16px 18px;margin:34px 0 0;box-shadow:var(--student-shadow);}
+.completion-panel h2{font-size:18px;color:var(--green);margin:0 0 8px;}
+.completion-panel p{margin:5px 0;}
+.completion-panel .finish-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;}
+.completion-panel button{font-family:var(--mono);font-size:13px;cursor:pointer;border-radius:6px;padding:8px 12px;}
+.export-note{font-family:var(--mono);font-size:12px;color:#666;margin-top:8px;}
+@media(max-width:680px){
+  body{font-size:18px;}.wrap{padding-left:16px;padding-right:16px;}
+  header h1{font-size:27px;}.student-start .workflow{grid-template-columns:1fr;}
+  .toolbar.student-toolbar{top:0;border-radius:0;margin-left:-16px;margin-right:-16px;padding-left:16px;padding-right:16px;}
+  .toolbar button.danger-soft{margin-left:0;}
+  .answer-row,.text-answer{margin-left:0;}.part-stem{align-items:flex-start;}
+  details{margin-left:0;} table{font-size:16px;display:block;overflow-x:auto;max-width:100%;}
+}
+@media print{
+  .student-toolbar,.completion-panel .finish-actions,.export-note{display:none!important;}
+  .student-start{box-shadow:none;border:1px solid #bbb;}
+  .problem-goal{background:#fff;border:1px solid #bbb;border-left:3px solid #555;}
+  .wrap{max-width:none;padding:0 8mm;}
+  .problem{break-inside:auto;}
+  textarea{min-height:52px;}
+}
+</style></head>
 <body>
 <div class="wrap">
-
 <header>
-  <h1>Week 6 Lab — Hypothesis Testing</h1>
-  <div class="sub">Math 146 &middot; Centralia College</div>
-  <div class="id-row">
-    <label>Student name <input type="text" id="w6_name" placeholder="Your full name"></label>
-    <label>Date <input type="text" id="w6_date" placeholder="mm/dd/yyyy"></label>
-  </div>
+<h1>Week 6 Lab — Hypothesis Testing</h1>
+<div class="sub">Math 146 · Centralia College</div>
+<div class="id-row">
+<label>Student name <input id="w6_name" placeholder="Your full name" type="text"/></label>
+<label>Date <input id="w6_date" placeholder="mm/dd/yyyy" type="text"/></label>
+</div>
 </header>
-
-<p class="intro">
-  Fill in the answer boxes as you work. Click <strong>Check</strong> to test a numeric
-  answer; a box turns green when it matches. For parts that ask you to explain, type your
-  reasoning in the text box, then open <strong>Show solution</strong> to compare — solutions
-  unlock once you've entered an attempt. Your work is saved in this browser until you
-  clear it.
-</p>
-
+<section aria-labelledby="how-title" class="student-start">
+<h2 id="how-title">How to complete this lab</h2>
+<p>Work through the problems in order. Your goal is not just to get a number, but to connect each calculation to the statistical idea it represents.</p>
+<div class="workflow">
+<div class="step"><strong>1 · Work</strong>Enter your calculation or explanation directly in the page.</div>
+<div class="step"><strong>2 · Check</strong>Use <em>Check</em> for numerical answers. For written work, make an attempt before opening the comparison solution.</div>
+<div class="step"><strong>3 · Save</strong>Your answers save automatically on this device. Before you leave, download a filled HTML copy or print/save a PDF.</div>
+</div>
+<p class="privacy">Nothing is submitted automatically. A filled HTML copy is the best choice if you want to reopen the lab later with your answers still in place.</p>
+</section>
 <div class="objectives">
-  <h2>Objectives</h2>
-  <ul>
-    <li>Write null and alternative hypotheses and classify a test as left-, right-, or two-tailed.</li>
-    <li>Carry out a one-sample \(z\)-test for a population mean and reach a decision.</li>
-    <li>Interpret a \(p\)-value and compare it to a significance level \(\alpha\).</li>
-    <li>Carry out a one-sample \(z\)-test for a population proportion.</li>
-  </ul>
+<h2>What you’ll practice</h2>
+<ul>
+<li>Write null and alternative hypotheses and classify a test as left-, right-, or two-tailed.</li>
+<li>Carry out a one-sample \(z\)-test for a population mean and reach a decision.</li>
+<li>Interpret a \(p\)-value and compare it to a significance level \(\alpha\).</li>
+<li>Carry out a one-sample \(z\)-test for a population proportion.</li>
+</ul>
 </div>
-
 <div class="formulas">
-  <h2>Reference Formulas</h2>
-  <p>Test statistic for a mean: \[\displaystyle z=\frac{\bar{x}-\mu_0}{\sigma/\sqrt{n}}\]</p>
-  <p>Test statistic for a proportion: \[\displaystyle z=\frac{\hat{p}-p_0}{\sqrt{p_0(1-p_0)/n}}\]</p>
-  <p>Left-tailed \(p\)-value: \(P(Z\le z)\) &nbsp; Right-tailed: \(1-P(Z\le z)\) &nbsp; Two-tailed: \(2(1-P(Z\le|z|))\)</p>
+<h2>Reference Formulas</h2>
+<p>Test statistic for a mean: \[\displaystyle z=\frac{\bar{x}-\mu_0}{\sigma/\sqrt{n}}\]</p>
+<p>Test statistic for a proportion: \[\displaystyle z=\frac{\hat{p}-p_0}{\sqrt{p_0(1-p_0)/n}}\]</p>
+<p>Left-tailed \(p\)-value: \(P(Z\le z)\)   Right-tailed: \(1-P(Z\le z)\)   Two-tailed: \(2(1-P(Z\le|z|))\)</p>
 </div>
-
-<div class="toolbar">
-  <button onclick="window.print()">Print</button>
-  <button onclick="clearData()">Clear data</button>
+<div aria-label="Lab controls" class="toolbar student-toolbar no-print">
+<div class="toolbar-main">
+<button class="primary-action" onclick="saveFilledHTML()" type="button">Save filled HTML</button>
+<button onclick="window.print()" type="button">Print / Save PDF</button>
+<button class="danger-soft" onclick="clearData()" type="button">Clear answers</button>
 </div>
-
+<div class="status-row"><span aria-hidden="true" class="save-dot"></span><span>Saved automatically on this device</span><div aria-hidden="true" class="progress-track"><div class="progress-fill" id="studentProgressFill"></div></div><span aria-live="polite" id="studentProgressText"></span></div>
+<nav aria-label="Jump to a problem" class="problem-nav"><a href="#p1">Problem 1</a><a href="#p2">Problem 2</a><a href="#p3">Problem 3</a><a href="#p4">Problem 4</a></nav>
+</div>
 <!-- PROBLEM 1 -->
 <div class="problem" id="p1">
-  <h2>Problem 1 — Writing Hypotheses</h2>
-  <div class="scenario">For each situation, write the null and alternative hypotheses and
+<h2>Problem 1 — Writing Hypotheses</h2><p class="problem-goal"><strong>Goal:</strong> Translate a research claim into null and alternative hypotheses and identify the test direction.</p>
+<div class="scenario">For each situation, write the null and alternative hypotheses and
   identify whether the test is left-tailed, right-tailed, or two-tailed. Pay close
   attention to the wording of the claim: phrases such as less, higher, and changed
   determine the direction of \(H_a\).</div>
-
-  <div class="part">
-    <div class="part-stem"><span class="part-label">(a)</span>
-      <span class="part-text">Cereal boxes are labeled as containing 18 oz on average. A
+<div class="part">
+<div class="part-stem"><span class="part-label">(a)</span>
+<span class="part-text">Cereal boxes are labeled as containing 18 oz on average. A
       consumer group suspects the true mean fill amount is less than 18 oz. State
       \(H_0\), \(H_a\), and the test type.</span></div>
-    <div class="text-answer"><label>Your answer.</label>
-      <textarea id="w6_1a" placeholder="H₀: μ = …    Hₐ: μ …    Test type: …"></textarea></div>
-    <details><summary>Show solution</summary><div class="solution">
-      <p><span class="ans">\(H_0:\mu=18\), \(H_a:\mu<18\); left-tailed.</span></p>
-      <p>"Less than" points the alternative hypothesis toward smaller values, which makes
+<div class="text-answer"><label>Your answer.</label>
+<textarea id="w6_1a" placeholder="H₀: μ = …    Hₐ: μ …    Test type: …"></textarea></div>
+<details><summary>Show solution</summary><div class="solution">
+<p><span class="ans">\(H_0:\mu=18\), \(H_a:\mu&lt;18\); left-tailed.</span></p>
+<p>"Less than" points the alternative hypothesis toward smaller values, which makes
       the rejection region sit in the left tail.</p>
-    </div></details>
-  </div>
-
-  <div class="part">
-    <div class="part-stem"><span class="part-label">(b)</span>
-      <span class="part-text">A school reports that the average commute time is 24
+</div></details>
+</div>
+<div class="part">
+<div class="part-stem"><span class="part-label">(b)</span>
+<span class="part-text">A school reports that the average commute time is 24
       minutes. A researcher wants to know whether the true mean commute time has changed.
       State \(H_0\), \(H_a\), and the test type.</span></div>
-    <div class="text-answer"><label>Your answer.</label>
-      <textarea id="w6_1b" placeholder="H₀: μ = …    Hₐ: μ …    Test type: …"></textarea></div>
-    <details><summary>Show solution</summary><div class="solution">
-      <p><span class="ans">\(H_0:\mu=24\), \(H_a:\mu\ne24\); two-tailed.</span></p>
-      <p>"Changed" allows the true mean to differ in either direction, so both tails count
+<div class="text-answer"><label>Your answer.</label>
+<textarea id="w6_1b" placeholder="H₀: μ = …    Hₐ: μ …    Test type: …"></textarea></div>
+<details><summary>Show solution</summary><div class="solution">
+<p><span class="ans">\(H_0:\mu=24\), \(H_a:\mu\ne24\); two-tailed.</span></p>
+<p>"Changed" allows the true mean to differ in either direction, so both tails count
       as evidence against \(H_0\).</p>
-    </div></details>
-  </div>
-
-  <div class="part">
-    <div class="part-stem"><span class="part-label">(c)</span>
-      <span class="part-text">A website reports that 70% of users finish registration. A
+</div></details>
+</div>
+<div class="part">
+<div class="part-stem"><span class="part-label">(c)</span>
+<span class="part-text">A website reports that 70% of users finish registration. A
       manager believes the true completion proportion is higher than 70%. State \(H_0\),
       \(H_a\), and the test type.</span></div>
-    <div class="text-answer"><label>Your answer.</label>
-      <textarea id="w6_1c" placeholder="H₀: p = …    Hₐ: p …    Test type: …"></textarea></div>
-    <details><summary>Show solution</summary><div class="solution">
-      <p><span class="ans">\(H_0:p=0.70\), \(H_a:p>0.70\); right-tailed.</span></p>
-      <p>"Higher than" points the alternative toward larger values, putting the rejection
+<div class="text-answer"><label>Your answer.</label>
+<textarea id="w6_1c" placeholder="H₀: p = …    Hₐ: p …    Test type: …"></textarea></div>
+<details><summary>Show solution</summary><div class="solution">
+<p><span class="ans">\(H_0:p=0.70\), \(H_a:p&gt;0.70\); right-tailed.</span></p>
+<p>"Higher than" points the alternative toward larger values, putting the rejection
       region in the right tail.</p>
-    </div></details>
-  </div>
+</div></details>
 </div>
-
+</div>
 <!-- PROBLEM 2 -->
 <div class="problem" id="p2">
-  <h2>Problem 2 — One-Sample z-Test for a Population Mean</h2>
-  <div class="scenario">A filling machine is supposed to put 20.0 ounces of product into
+<h2>Problem 2 — One-Sample z-Test for a Population Mean</h2><p class="problem-goal"><strong>Goal:</strong> Carry out a one-sample z-test for a population mean from start to finish.</p>
+<div class="scenario">A filling machine is supposed to put 20.0 ounces of product into
   each container. A quality-control sample of \(n=49\) containers has mean fill amount
   \(\bar{x}=19.7\) ounces. Assume the population standard deviation is known to be
   \(\sigma=0.8\) ounces. Test whether the machine is underfilling containers.
-  Use \(H_0:\mu=20.0\) and \(H_a:\mu<20.0\). Test at significance level \(\alpha=0.05\).</div>
-
-  <div class="part">
-    <div class="part-stem"><span class="part-label">(a)</span>
-      <span class="part-text">Find the test statistic \(z\).</span></div>
-    <div class="answer-row"><label>SE \(=\sigma/\sqrt{n}=\)</label><input type="text" id="w6_2a_se" class="wide" data-ans="0.1143" data-tol="0.003">
-      <label>\(z=(\bar{x}-\mu_0)/\text{SE}=\)</label><input type="text" id="w6_2a_z" class="wide" data-ans="-2.63" data-tol="0.04">
-      <button class="check-btn" onclick="checkNum(['w6_2a_se','w6_2a_z'],'w6_2a_v')">Check</button><span class="verdict" id="w6_2a_v"></span></div>
-    <details><summary>Show solution</summary><div class="solution">
-      <p><span class="ans">\(z\approx-2.63\).</span></p>
-      <p>\(\text{SE}=0.8/7\approx0.1143\). \(z=(19.7-20.0)/0.1143\approx-2.63\).</p>
-    </div></details>
-  </div>
-
-  <div class="part">
-    <div class="part-stem"><span class="part-label">(b)</span>
-      <span class="part-text">Find the \(p\)-value (left-tailed).</span></div>
-    <div class="answer-row"><label>\(P(Z\le-2.63)=\)</label><input type="text" id="w6_2b" class="wide" data-ans="0.0043" data-tol="0.001">
-      <button class="check-btn" onclick="checkNum(['w6_2b'],'w6_2b_v')">Check</button><span class="verdict" id="w6_2b_v"></span></div>
-    <details><summary>Show solution</summary><div class="solution">
-      <p><span class="ans">\(p\)-value \(\approx0.0043\).</span></p>
-      <p>Reading the z-table's left tail at \(z=-2.63\) gives \(0.0043\).</p>
-    </div></details>
-  </div>
-
-  <div class="part">
-    <div class="part-stem"><span class="part-label">(c)</span>
-      <span class="part-text">State your decision at \(\alpha=0.05\): compare the
-      \(p\)-value to \(\alpha\).</span></div>
-    <div class="text-answer"><label>Your answer.</label>
-      <textarea id="w6_2c" placeholder="Since p-value = … &lt; / &gt; 0.05, we reject / fail to reject H₀."></textarea></div>
-    <details><summary>Show solution</summary><div class="solution">
-      <p class="reject">Reject \(H_0\): \(p=0.0043<\alpha=0.05\).</p>
-      <p>Because the \(p\)-value is smaller than \(\alpha\), the observed sample mean would
-      be very unlikely if \(H_0\) were true, so we reject \(H_0\).</p>
-    </div></details>
-  </div>
-
-  <div class="part">
-    <div class="part-stem"><span class="part-label">(d)</span>
-      <span class="part-text">Write a complete conclusion sentence in context, naming the
-      variable, the direction, and the significance level.</span></div>
-    <div class="text-answer"><label>Your answer.</label>
-      <textarea id="w6_2d" placeholder="There is sufficient / insufficient evidence at α=0.05 to conclude that…"></textarea></div>
-    <details><summary>Show solution</summary><div class="solution">
-      <p><span class="ans">The machine is underfilling.</span></p>
-      <p>There is sufficient evidence at \(\alpha=0.05\) that the true mean fill is less
-      than 20.0 oz.</p>
-    </div></details>
-  </div>
+  Use \(H_0:\mu=20.0\) and \(H_a:\mu&lt;20.0\). Test at significance level \(\alpha=0.05\).</div>
+<div class="part">
+<div class="part-stem"><span class="part-label">(a)</span>
+<span class="part-text">Find the test statistic \(z\).</span></div>
+<div class="answer-row"><label>SE \(=\sigma/\sqrt{n}=\)</label><input class="wide" data-ans="0.1143" data-tol="0.003" id="w6_2a_se" type="text"/>
+<label>\(z=(\bar{x}-\mu_0)/\text{SE}=\)</label><input class="wide" data-ans="-2.63" data-tol="0.04" id="w6_2a_z" type="text"/>
+<button class="check-btn" onclick="checkNum(['w6_2a_se','w6_2a_z'],'w6_2a_v')">Check</button><span class="verdict" id="w6_2a_v"></span></div>
+<details><summary>Show solution</summary><div class="solution">
+<p><span class="ans">\(z\approx-2.63\).</span></p>
+<p>\(\text{SE}=0.8/7\approx0.1143\). \(z=(19.7-20.0)/0.1143\approx-2.63\).</p>
+</div></details>
 </div>
-
+<div class="part">
+<div class="part-stem"><span class="part-label">(b)</span>
+<span class="part-text">Find the \(p\)-value (left-tailed).</span></div>
+<div class="answer-row"><label>\(P(Z\le-2.63)=\)</label><input class="wide" data-ans="0.0043" data-tol="0.001" id="w6_2b" type="text"/>
+<button class="check-btn" onclick="checkNum(['w6_2b'],'w6_2b_v')">Check</button><span class="verdict" id="w6_2b_v"></span></div>
+<details><summary>Show solution</summary><div class="solution">
+<p><span class="ans">\(p\)-value \(\approx0.0043\).</span></p>
+<p>Reading the z-table's left tail at \(z=-2.63\) gives \(0.0043\).</p>
+</div></details>
+</div>
+<div class="part">
+<div class="part-stem"><span class="part-label">(c)</span>
+<span class="part-text">State your decision at \(\alpha=0.05\): compare the
+      \(p\)-value to \(\alpha\).</span></div>
+<div class="text-answer"><label>Your answer.</label>
+<textarea id="w6_2c" placeholder="Since p-value = … &lt; / &gt; 0.05, we reject / fail to reject H₀."></textarea></div>
+<details><summary>Show solution</summary><div class="solution">
+<p class="reject">Reject \(H_0\): \(p=0.0043&lt;\alpha=0.05\).</p>
+<p>Because the \(p\)-value is smaller than \(\alpha\), the observed sample mean would
+      be very unlikely if \(H_0\) were true, so we reject \(H_0\).</p>
+</div></details>
+</div>
+<div class="part">
+<div class="part-stem"><span class="part-label">(d)</span>
+<span class="part-text">Write a complete conclusion sentence in context, naming the
+      variable, the direction, and the significance level.</span></div>
+<div class="text-answer"><label>Your answer.</label>
+<textarea id="w6_2d" placeholder="There is sufficient / insufficient evidence at α=0.05 to conclude that…"></textarea></div>
+<details><summary>Show solution</summary><div class="solution">
+<p><span class="ans">The machine is underfilling.</span></p>
+<p>There is sufficient evidence at \(\alpha=0.05\) that the true mean fill is less
+      than 20.0 oz.</p>
+</div></details>
+</div>
+</div>
 <!-- PROBLEM 3 -->
 <div class="problem" id="p3">
-  <h2>Problem 3 — Interpreting a p-Value</h2>
-  <div class="scenario">A test statistic is reported as \(z=1.84\). Use this same z-score
+<h2>Problem 3 — Interpreting a p-Value</h2><p class="problem-goal"><strong>Goal:</strong> Interpret a p-value as evidence relative to a null hypothesis.</p>
+<div class="scenario">A test statistic is reported as \(z=1.84\). Use this same z-score
   to compare how the p-value changes depending on whether the alternative hypothesis is
   right-tailed or two-tailed.</div>
-
-  <div class="part">
-    <div class="part-stem"><span class="part-label">(a)</span>
-      <span class="part-text">Find the \(p\)-value for a right-tailed test.</span></div>
-    <div class="answer-row"><label>\(1-P(Z\le1.84)=\)</label><input type="text" id="w6_3a" class="wide" data-ans="0.0329" data-tol="0.002">
-      <button class="check-btn" onclick="checkNum(['w6_3a'],'w6_3a_v')">Check</button><span class="verdict" id="w6_3a_v"></span></div>
-    <details><summary>Show solution</summary><div class="solution">
-      <p><span class="ans">\(p=0.0329\).</span></p>
-      <p>\(P(Z\le1.84)=0.9671\), so the right-tailed \(p\)-value is \(1-0.9671=0.0329\).</p>
-    </div></details>
-  </div>
-
-  <div class="part">
-    <div class="part-stem"><span class="part-label">(b)</span>
-      <span class="part-text">Find the \(p\)-value for a two-tailed test.</span></div>
-    <div class="answer-row"><label>\(2(1-P(Z\le1.84))=\)</label><input type="text" id="w6_3b" class="wide" data-ans="0.0658" data-tol="0.002">
-      <button class="check-btn" onclick="checkNum(['w6_3b'],'w6_3b_v')">Check</button><span class="verdict" id="w6_3b_v"></span></div>
-    <details><summary>Show solution</summary><div class="solution">
-      <p><span class="ans">\(p=0.0658\).</span></p>
-      <p>A two-tailed \(p\)-value doubles the one-tailed area: \(2\times0.0329=0.0658\).</p>
-    </div></details>
-  </div>
-
-  <div class="part">
-    <div class="part-stem"><span class="part-label">(c)</span>
-      <span class="part-text">State the decision for each test at \(\alpha=0.05\), and
+<div class="part">
+<div class="part-stem"><span class="part-label">(a)</span>
+<span class="part-text">Find the \(p\)-value for a right-tailed test.</span></div>
+<div class="answer-row"><label>\(1-P(Z\le1.84)=\)</label><input class="wide" data-ans="0.0329" data-tol="0.002" id="w6_3a" type="text"/>
+<button class="check-btn" onclick="checkNum(['w6_3a'],'w6_3a_v')">Check</button><span class="verdict" id="w6_3a_v"></span></div>
+<details><summary>Show solution</summary><div class="solution">
+<p><span class="ans">\(p=0.0329\).</span></p>
+<p>\(P(Z\le1.84)=0.9671\), so the right-tailed \(p\)-value is \(1-0.9671=0.0329\).</p>
+</div></details>
+</div>
+<div class="part">
+<div class="part-stem"><span class="part-label">(b)</span>
+<span class="part-text">Find the \(p\)-value for a two-tailed test.</span></div>
+<div class="answer-row"><label>\(2(1-P(Z\le1.84))=\)</label><input class="wide" data-ans="0.0658" data-tol="0.002" id="w6_3b" type="text"/>
+<button class="check-btn" onclick="checkNum(['w6_3b'],'w6_3b_v')">Check</button><span class="verdict" id="w6_3b_v"></span></div>
+<details><summary>Show solution</summary><div class="solution">
+<p><span class="ans">\(p=0.0658\).</span></p>
+<p>A two-tailed \(p\)-value doubles the one-tailed area: \(2\times0.0329=0.0658\).</p>
+</div></details>
+</div>
+<div class="part">
+<div class="part-stem"><span class="part-label">(c)</span>
+<span class="part-text">State the decision for each test at \(\alpha=0.05\), and
       explain why the same \(z\) gives different conclusions.</span></div>
-    <div class="text-answer"><label>Your answer.</label>
-      <textarea id="w6_3c" placeholder="Right-tailed: … Two-tailed: … This happens because…"></textarea></div>
-    <details><summary>Show solution</summary><div class="solution">
-      <table>
-        <thead><tr><th>Test</th><th>\(p\)-value</th><th>Decision</th></tr></thead>
-        <tbody>
-          <tr><td>Right-tailed</td><td>0.0329</td><td>Reject \(H_0\) (\(0.0329<0.05\))</td></tr>
-          <tr><td>Two-tailed</td><td>0.0658</td><td>Fail to reject (\(0.0658>0.05\))</td></tr>
-        </tbody>
-      </table>
-      <p>A two-tailed test spreads the same rejection probability across both tails, so
+<div class="text-answer"><label>Your answer.</label>
+<textarea id="w6_3c" placeholder="Right-tailed: … Two-tailed: … This happens because…"></textarea></div>
+<details><summary>Show solution</summary><div class="solution">
+<table>
+<thead><tr><th>Test</th><th>\(p\)-value</th><th>Decision</th></tr></thead>
+<tbody>
+<tr><td>Right-tailed</td><td>0.0329</td><td>Reject \(H_0\) (\(0.0329&lt;0.05\))</td></tr>
+<tr><td>Two-tailed</td><td>0.0658</td><td>Fail to reject (\(0.0658&gt;0.05\))</td></tr>
+</tbody>
+</table>
+<p>A two-tailed test spreads the same rejection probability across both tails, so
       each individual tail holds less area. The same \(z=1.84\) is extreme enough to
       reject in a one-directional test but not extreme enough once the test has to
       account for deviations in either direction.</p>
-    </div></details>
-  </div>
+</div></details>
 </div>
-
+</div>
 <!-- PROBLEM 4 -->
 <div class="problem" id="p4">
-  <h2>Problem 4 — One-Sample z-Test for a Population Proportion</h2>
-  <div class="scenario">A company claims that 65% of its customers renew their
+<h2>Problem 4 — One-Sample z-Test for a Population Proportion</h2><p class="problem-goal"><strong>Goal:</strong> Carry out a one-sample z-test for a population proportion.</p>
+<div class="scenario">A company claims that 65% of its customers renew their
   subscription. In a random sample of \(n=200\) customers, 118 renew. Test whether the
   true renewal proportion is less than the company claims.
-  Use \(H_0:p=0.65\) and \(H_a:p<0.65\). Test at significance level \(\alpha=0.05\).</div>
-
-  <div class="part">
-    <div class="part-stem"><span class="part-label">(a)</span>
-      <span class="part-text">Find the sample proportion \(\hat{p}\).</span></div>
-    <div class="answer-row"><label>\(\hat{p}=118/200=\)</label><input type="text" id="w6_4a" data-ans="0.59" data-tol="0.005">
-      <button class="check-btn" onclick="checkNum(['w6_4a'],'w6_4a_v')">Check</button><span class="verdict" id="w6_4a_v"></span></div>
-    <details><summary>Show solution</summary><div class="solution">
-      <p><span class="ans">\(\hat{p}=0.59\).</span></p>
-      <p>\(118/200=0.59\).</p>
-    </div></details>
-  </div>
-
-  <div class="part">
-    <div class="part-stem"><span class="part-label">(b)</span>
-      <span class="part-text">Find the test statistic \(z\).</span></div>
-    <div class="answer-row"><label>SE \(=\sqrt{p_0(1-p_0)/n}=\)</label><input type="text" id="w6_4b_se" class="wide" data-ans="0.0337" data-tol="0.003">
-      <label>\(z=(\hat{p}-p_0)/\text{SE}=\)</label><input type="text" id="w6_4b_z" class="wide" data-ans="-1.78" data-tol="0.04">
-      <button class="check-btn" onclick="checkNum(['w6_4b_se','w6_4b_z'],'w6_4b_v')">Check</button><span class="verdict" id="w6_4b_v"></span></div>
-    <details><summary>Show solution</summary><div class="solution">
-      <p><span class="ans">\(z\approx-1.78\).</span></p>
-      <p>\(\text{SE}=\sqrt{0.65\times0.35/200}\approx0.0337\).
+  Use \(H_0:p=0.65\) and \(H_a:p&lt;0.65\). Test at significance level \(\alpha=0.05\).</div>
+<div class="part">
+<div class="part-stem"><span class="part-label">(a)</span>
+<span class="part-text">Find the sample proportion \(\hat{p}\).</span></div>
+<div class="answer-row"><label>\(\hat{p}=118/200=\)</label><input data-ans="0.59" data-tol="0.005" id="w6_4a" type="text"/>
+<button class="check-btn" onclick="checkNum(['w6_4a'],'w6_4a_v')">Check</button><span class="verdict" id="w6_4a_v"></span></div>
+<details><summary>Show solution</summary><div class="solution">
+<p><span class="ans">\(\hat{p}=0.59\).</span></p>
+<p>\(118/200=0.59\).</p>
+</div></details>
+</div>
+<div class="part">
+<div class="part-stem"><span class="part-label">(b)</span>
+<span class="part-text">Find the test statistic \(z\).</span></div>
+<div class="answer-row"><label>SE \(=\sqrt{p_0(1-p_0)/n}=\)</label><input class="wide" data-ans="0.0337" data-tol="0.003" id="w6_4b_se" type="text"/>
+<label>\(z=(\hat{p}-p_0)/\text{SE}=\)</label><input class="wide" data-ans="-1.78" data-tol="0.04" id="w6_4b_z" type="text"/>
+<button class="check-btn" onclick="checkNum(['w6_4b_se','w6_4b_z'],'w6_4b_v')">Check</button><span class="verdict" id="w6_4b_v"></span></div>
+<details><summary>Show solution</summary><div class="solution">
+<p><span class="ans">\(z\approx-1.78\).</span></p>
+<p>\(\text{SE}=\sqrt{0.65\times0.35/200}\approx0.0337\).
       \(z=(0.59-0.65)/0.0337\approx-1.78\).</p>
-    </div></details>
-  </div>
-
-  <div class="part">
-    <div class="part-stem"><span class="part-label">(c)</span>
-      <span class="part-text">Find the \(p\)-value.</span></div>
-    <div class="answer-row"><label>\(P(Z\le-1.78)=\)</label><input type="text" id="w6_4c" class="wide" data-ans="0.0375" data-tol="0.002">
-      <button class="check-btn" onclick="checkNum(['w6_4c'],'w6_4c_v')">Check</button><span class="verdict" id="w6_4c_v"></span></div>
-    <details><summary>Show solution</summary><div class="solution">
-      <p><span class="ans">\(p\)-value \(\approx0.0375\).</span></p>
-      <p>Reading the z-table's left tail at \(z=-1.78\) gives \(0.0375\).</p>
-    </div></details>
-  </div>
-
-  <div class="part">
-    <div class="part-stem"><span class="part-label">(d)</span>
-      <span class="part-text">State the decision and write a complete conclusion sentence
+</div></details>
+</div>
+<div class="part">
+<div class="part-stem"><span class="part-label">(c)</span>
+<span class="part-text">Find the \(p\)-value.</span></div>
+<div class="answer-row"><label>\(P(Z\le-1.78)=\)</label><input class="wide" data-ans="0.0375" data-tol="0.002" id="w6_4c" type="text"/>
+<button class="check-btn" onclick="checkNum(['w6_4c'],'w6_4c_v')">Check</button><span class="verdict" id="w6_4c_v"></span></div>
+<details><summary>Show solution</summary><div class="solution">
+<p><span class="ans">\(p\)-value \(\approx0.0375\).</span></p>
+<p>Reading the z-table's left tail at \(z=-1.78\) gives \(0.0375\).</p>
+</div></details>
+</div>
+<div class="part">
+<div class="part-stem"><span class="part-label">(d)</span>
+<span class="part-text">State the decision and write a complete conclusion sentence
       in context.</span></div>
-    <div class="text-answer"><label>Your answer.</label>
-      <textarea id="w6_4d" placeholder="Since p-value = … &lt; 0.05, we … There is sufficient evidence to conclude that…"></textarea></div>
-    <details><summary>Show solution</summary><div class="solution">
-      <p>\(\hat{p}=0.59\). \(\text{SE}=\sqrt{0.65\times0.35/200}\approx0.0337\).
+<div class="text-answer"><label>Your answer.</label>
+<textarea id="w6_4d" placeholder="Since p-value = … &lt; 0.05, we … There is sufficient evidence to conclude that…"></textarea></div>
+<details><summary>Show solution</summary><div class="solution">
+<p>\(\hat{p}=0.59\). \(\text{SE}=\sqrt{0.65\times0.35/200}\approx0.0337\).
       \(z=(0.59-0.65)/0.0337\approx-1.78\), giving \(p\)-value \(\approx0.0375\). Since
-      \(0.0375<0.05\):</p>
-      <p class="reject">Reject \(H_0\).</p>
-      <p>There is sufficient evidence at \(\alpha=0.05\) that the true renewal proportion
+      \(0.0375&lt;0.05\):</p>
+<p class="reject">Reject \(H_0\).</p>
+<p>There is sufficient evidence at \(\alpha=0.05\) that the true renewal proportion
       is less than 65%.</p>
-    </div></details>
-  </div>
+</div></details>
 </div>
-
-<div class="footer">MATH&amp; 146 &middot; Centralia College &middot; Week 6 Lab</div>
 </div>
-
+<div class="footer">MATH&amp; 146 · Centralia College · Week 6 Lab</div>
+<section aria-labelledby="finish-title" class="completion-panel">
+<h2 id="finish-title">Before you finish</h2>
+<p>Check that your name and date are filled in, every requested explanation is complete, and numerical answers have been checked where a Check button is provided.</p>
+<p>Your browser copy is useful while you work, but it stays on this device. Save a filled HTML copy if you want a portable version that can be reopened, uploaded, or submitted later.</p>
+<div class="finish-actions"><button class="primary-action" onclick="saveFilledHTML()" type="button">Save filled HTML</button><button onclick="window.print()" type="button">Print / Save PDF</button></div>
+<div aria-live="polite" class="export-note" id="exportStatus"></div>
+</section></div>
 <script>
-  const STORE_KEY='math146_w6_lab';
+  const STORE_KEY='math146_w6_lab'+(document.documentElement.dataset.instanceId?('_'+document.documentElement.dataset.instanceId):'');
   function allInputs(){return Array.from(document.querySelectorAll('input[type=text], textarea'));}
   function save(){const d={};allInputs().forEach(i=>{if(i.id)d[i.id]=i.value;});try{localStorage.setItem(STORE_KEY,JSON.stringify(d));}catch(e){}}
   function load(){let d={};try{d=JSON.parse(localStorage.getItem(STORE_KEY)||'{}');}catch(e){}allInputs().forEach(i=>{if(i.id&&d[i.id]!=null)i.value=d[i.id];});}
@@ -349,5 +398,63 @@
   load();
   updateLocks();
 </script>
-</body>
+<script>
+(function(){
+  const WEEK = 6;
+  function responseControls(){
+    return Array.from(document.querySelectorAll('input[type="text"], textarea, select')).filter(el=>{
+      if(el.readOnly || el.disabled) return false;
+      return !/_name$|_date$/.test(el.id||'');
+    });
+  }
+  function updateStudentProgress(){
+    const controls=responseControls();
+    const done=controls.filter(el=>String(el.value||'').trim()!=='').length;
+    const total=controls.length;
+    const pct=total?Math.round(100*done/total):0;
+    const text=document.getElementById('studentProgressText');
+    const fill=document.getElementById('studentProgressFill');
+    if(text) text.textContent=`${done} of ${total} response boxes started (${pct}%)`;
+    if(fill) fill.style.width=pct+'%';
+  }
+  function setCloneValues(clone){
+    const liveControls=Array.from(document.querySelectorAll('input, textarea, select'));
+    const clonedControls=Array.from(clone.querySelectorAll('input, textarea, select'));
+    liveControls.forEach((el,i)=>{
+      const c=clonedControls[i]; if(!c) return;
+      if(el.tagName==='TEXTAREA'){c.textContent=el.value;}
+      else if(el.tagName==='SELECT'){
+        Array.from(c.options).forEach((o,j)=>{if(j===el.selectedIndex)o.setAttribute('selected','selected');else o.removeAttribute('selected');});
+      } else if(el.type==='checkbox'||el.type==='radio'){
+        if(el.checked)c.setAttribute('checked','checked');else c.removeAttribute('checked');
+      } else {c.setAttribute('value',el.value);}
+      c.className=el.className;
+    });
+    const liveDetails=Array.from(document.querySelectorAll('details'));
+    const clonedDetails=Array.from(clone.querySelectorAll('details'));
+    liveDetails.forEach((el,i)=>{if(!clonedDetails[i])return;if(el.open)clonedDetails[i].setAttribute('open','');else clonedDetails[i].removeAttribute('open');});
+  }
+  window.saveFilledHTML=function(){
+    try{ if(typeof save==='function') save(); }catch(e){}
+    const clone=document.documentElement.cloneNode(true);
+    setCloneValues(clone);
+    clone.setAttribute('data-filled-copy','true');
+    clone.setAttribute('data-saved-at',new Date().toISOString());
+    if(!clone.dataset.instanceId) clone.dataset.instanceId=Date.now().toString(36);
+    const base=(document.title||`Math146 Week ${WEEK} Lab`).replace(/[^a-z0-9]+/gi,'_').replace(/^_+|_+$/g,'');
+    const nameEl=document.querySelector('input[id$="_name"]');
+    const student=(nameEl&&nameEl.value.trim())?('_'+nameEl.value.trim().replace(/[^a-z0-9]+/gi,'_')):'';
+    const html='<!DOCTYPE html>\n'+clone.outerHTML;
+    const blob=new Blob([html],{type:'text/html;charset=utf-8'});
+    const a=document.createElement('a');
+    a.href=URL.createObjectURL(blob);a.download=base+student+'_FILLED.html';
+    document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+    const note=document.getElementById('exportStatus');
+    if(note) note.textContent='Filled HTML saved. This copy contains the answers currently on the page.';
+  };
+  document.addEventListener('input',updateStudentProgress);
+  document.addEventListener('change',updateStudentProgress);
+  updateStudentProgress();
+})();
+</script></body>
 </html>

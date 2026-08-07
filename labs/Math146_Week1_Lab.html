@@ -1,13 +1,14 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Math 146 — Week 1 Lab: Populations, Samples, and Descriptive Statistics</title>
 <script>
   window.MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] }, svg: { fontCache: 'global' } };
 </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.min.js" id="MathJax-script" async></script>
+<script async="" id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.min.js"></script>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=DM+Mono:wght@400;500&display=swap');
   :root{--ink:#1c1c1c;--paper:#fcfbf8;--rule:#d8d3c8;--blue:#2a4d7a;--blue-bg:#eef2f8;--blue-rule:#bcccdf;--green:#1f6b46;--green-bg:#edf5ef;--green-rule:#b7d6c2;--amber:#9a6a00;--red:#9a2a2a;--mono:'DM Mono',monospace;}
@@ -63,216 +64,269 @@
   .footer{border-top:1px solid var(--rule);margin-top:50px;padding-top:12px;font-family:var(--mono);font-size:13px;color:#888;text-align:center;}
   @media print{.toolbar,.check-btn{display:none;}details{display:block;}details>summary{display:none;}.solution{display:block !important;}.text-answer textarea{border:1px solid #999;min-height:auto;}body{font-size:16px;}}
 </style>
-</head>
+<style>
+/* ---- Math 146 unified student experience ---- */
+:root{--student-shadow:0 8px 24px rgba(35,45,60,.08);--student-soft:#f7f8fa;--student-muted:#667085;--student-danger:#8b3030;}
+html{scroll-behavior:smooth;}
+body{overflow-x:hidden;}
+.wrap{width:min(100%, 900px);}
+header{padding-top:6px;}
+header h1{line-height:1.12;}
+.student-start{background:#fff;border:1px solid var(--rule);border-radius:10px;padding:18px 20px;margin:18px 0 18px;box-shadow:var(--student-shadow);}
+.student-start h2{font-size:18px;margin:0 0 8px;color:var(--blue);}
+.student-start p{margin:6px 0;}
+.student-start .workflow{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0 10px;}
+.student-start .step{background:var(--blue-bg);border:1px solid var(--blue-rule);border-radius:8px;padding:11px 12px;font-size:16px;line-height:1.35;}
+.student-start .step strong{display:block;font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:var(--blue);margin-bottom:3px;}
+.student-start .privacy{font-size:15px;color:#555;margin-top:10px;}
+.objectives{box-shadow:0 2px 10px rgba(35,45,60,.04);}
+.toolbar.student-toolbar{position:sticky;top:0;z-index:30;background:rgba(252,251,248,.97);backdrop-filter:blur(8px);border:1px solid var(--rule);border-radius:10px;padding:10px 12px;margin:0 0 28px;box-shadow:0 7px 18px rgba(40,40,40,.08);display:block;}
+.toolbar-main{display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
+.toolbar button{min-height:38px;}
+.toolbar button.primary-action{background:var(--blue);border-color:var(--blue);color:white;font-weight:500;}
+.toolbar button.primary-action:hover{background:#1d3a60;}
+.toolbar button.danger-soft{margin-left:auto;color:var(--student-danger);border-color:#d9bcbc;}
+.status-row{display:flex;align-items:center;gap:10px;margin-top:9px;font-family:var(--mono);font-size:12px;color:#5e6470;}
+.status-row .save-dot{width:8px;height:8px;border-radius:50%;background:var(--green);display:inline-block;flex:none;}
+.progress-track{height:6px;background:#e7e3da;border-radius:999px;overflow:hidden;flex:1;min-width:100px;}
+.progress-fill{height:100%;width:0;background:var(--green);transition:width .2s ease;}
+.problem-nav{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px;padding-top:8px;border-top:1px solid var(--rule);}
+.problem-nav a{font-family:var(--mono);font-size:11px;color:var(--blue);text-decoration:none;border:1px solid var(--blue-rule);background:var(--blue-bg);padding:4px 8px;border-radius:999px;}
+.problem-nav a:hover{text-decoration:underline;}
+.problem{scroll-margin-top:150px;background:rgba(255,255,255,.32);padding:2px 0 1px;}
+.problem-goal{font-size:16px;color:#555;margin:7px 0 12px;padding:8px 11px;border-left:3px solid var(--green);background:var(--green-bg);border-radius:0 6px 6px 0;}
+.problem-goal strong{color:var(--green);}
+input[type=text],textarea{transition:border-color .15s ease, box-shadow .15s ease, background .15s ease;}
+input[type=text]:focus,textarea:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px rgba(42,77,122,.12);}
+.check-btn{min-height:34px;}
+details{margin-left:26px;}
+details summary{line-height:1.35;}
+.completion-panel{background:#fff;border:1px solid var(--green-rule);border-radius:10px;padding:16px 18px;margin:34px 0 0;box-shadow:var(--student-shadow);}
+.completion-panel h2{font-size:18px;color:var(--green);margin:0 0 8px;}
+.completion-panel p{margin:5px 0;}
+.completion-panel .finish-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;}
+.completion-panel button{font-family:var(--mono);font-size:13px;cursor:pointer;border-radius:6px;padding:8px 12px;}
+.export-note{font-family:var(--mono);font-size:12px;color:#666;margin-top:8px;}
+@media(max-width:680px){
+  body{font-size:18px;}.wrap{padding-left:16px;padding-right:16px;}
+  header h1{font-size:27px;}.student-start .workflow{grid-template-columns:1fr;}
+  .toolbar.student-toolbar{top:0;border-radius:0;margin-left:-16px;margin-right:-16px;padding-left:16px;padding-right:16px;}
+  .toolbar button.danger-soft{margin-left:0;}
+  .answer-row,.text-answer{margin-left:0;}.part-stem{align-items:flex-start;}
+  details{margin-left:0;} table{font-size:16px;display:block;overflow-x:auto;max-width:100%;}
+}
+@media print{
+  .student-toolbar,.completion-panel .finish-actions,.export-note{display:none!important;}
+  .student-start{box-shadow:none;border:1px solid #bbb;}
+  .problem-goal{background:#fff;border:1px solid #bbb;border-left:3px solid #555;}
+  .wrap{max-width:none;padding:0 8mm;}
+  .problem{break-inside:auto;}
+  textarea{min-height:52px;}
+}
+</style></head>
 <body>
 <div class="wrap">
-
 <header>
-  <h1>Week 1 Lab — Populations, Samples, and Descriptive Statistics</h1>
-  <div class="sub">Math 146 &middot; Centralia College</div>
-  <div class="id-row">
-    <label>Student name <input type="text" id="w1_name" placeholder="Your full name"></label>
-    <label>Date <input type="text" id="w1_date" placeholder="mm/dd/yyyy"></label>
-  </div>
+<h1>Week 1 Lab — Populations, Samples, and Descriptive Statistics</h1>
+<div class="sub">Math 146 · Centralia College</div>
+<div class="id-row">
+<label>Student name <input id="w1_name" placeholder="Your full name" type="text"/></label>
+<label>Date <input id="w1_date" placeholder="mm/dd/yyyy" type="text"/></label>
+</div>
 </header>
-
-<p class="intro">
-  Fill in the answer boxes as you work. Click <strong>Check</strong> to test a numeric
-  answer; a box turns green when it matches. For parts that ask you to explain, type your
-  reasoning in the text box, then open <strong>Show solution</strong> to compare — solutions
-  unlock once you've entered an attempt. Your work is saved in this browser until you
-  clear it.
-</p>
-
+<section aria-labelledby="how-title" class="student-start">
+<h2 id="how-title">How to complete this lab</h2>
+<p>Work through the problems in order. Your goal is not just to get a number, but to connect each calculation to the statistical idea it represents.</p>
+<div class="workflow">
+<div class="step"><strong>1 · Work</strong>Enter your calculation or explanation directly in the page.</div>
+<div class="step"><strong>2 · Check</strong>Use <em>Check</em> for numerical answers. For written work, make an attempt before opening the comparison solution.</div>
+<div class="step"><strong>3 · Save</strong>Your answers save automatically on this device. Before you leave, download a filled HTML copy or print/save a PDF.</div>
+</div>
+<p class="privacy">Nothing is submitted automatically. A filled HTML copy is the best choice if you want to reopen the lab later with your answers still in place.</p>
+</section>
 <div class="objectives">
-  <h2>Objectives</h2>
-  <ul>
-    <li>Distinguish a population from a sample and match each to the correct symbol (\(\mu\) vs. \(\bar{x}\), \(\sigma\) vs. \(s\)).</li>
-    <li>Evaluate summation expressions such as \(\sum x_i\) and \(\sum x_i^2\) for a small data set.</li>
-    <li>Build a frequency and relative-frequency table and read percentages from it.</li>
-    <li>Compute a sample mean and sample standard deviation by hand, and predict how an outlier changes each.</li>
-  </ul>
+<h2>What you’ll practice</h2>
+<ul>
+<li>Distinguish a population from a sample and match each to the correct symbol (\(\mu\) vs. \(\bar{x}\), \(\sigma\) vs. \(s\)).</li>
+<li>Evaluate summation expressions such as \(\sum x_i\) and \(\sum x_i^2\) for a small data set.</li>
+<li>Build a frequency and relative-frequency table and read percentages from it.</li>
+<li>Compute a sample mean and sample standard deviation by hand, and predict how an outlier changes each.</li>
+</ul>
 </div>
-
-<div class="toolbar">
-  <button onclick="window.print()">Print</button>
-  <button onclick="clearData()">Clear data</button>
+<div aria-label="Lab controls" class="toolbar student-toolbar no-print">
+<div class="toolbar-main">
+<button class="primary-action" onclick="saveFilledHTML()" type="button">Save filled HTML</button>
+<button onclick="window.print()" type="button">Print / Save PDF</button>
+<button class="danger-soft" onclick="clearData()" type="button">Clear answers</button>
 </div>
-
+<div class="status-row"><span aria-hidden="true" class="save-dot"></span><span>Saved automatically on this device</span><div aria-hidden="true" class="progress-track"><div class="progress-fill" id="studentProgressFill"></div></div><span aria-live="polite" id="studentProgressText"></span></div>
+<nav aria-label="Jump to a problem" class="problem-nav"><a href="#p1">Problem 1</a><a href="#p2">Problem 2</a><a href="#p3">Problem 3</a></nav>
+</div>
 <!-- PROBLEM 1 -->
 <div class="problem" id="p1">
-  <h2>Problem 1 — Population, Sample, and Notation</h2>
-  <div class="scenario">A county health department wants to learn about sleep habits among
+<h2>Problem 1 — Population, Sample, and Notation</h2><p class="problem-goal"><strong>Goal:</strong> Identify the population, the sample, and the notation that belongs to each.</p>
+<div class="scenario">A county health department wants to learn about sleep habits among
   adults in the county. They randomly select 120 adults, record how many hours each person
   slept last night, and find that this sample has an average of 6.8 hours. Use this
   situation to distinguish the group being studied from the smaller group actually
   measured.</div>
-
-  <div class="part">
-    <div class="part-stem"><span class="part-label">(a)</span>
-      <span class="part-text">Identify the population.</span></div>
-    <div class="text-answer"><label>Write one sentence.</label>
-      <textarea id="w1_1a" placeholder="The population is…"></textarea></div>
-    <details><summary>Show solution</summary><div class="solution">
-      <p><span class="ans">The population is all adults in the county.</span></p>
-      <p>The population is the entire group the health department wants to learn about,
+<div class="part">
+<div class="part-stem"><span class="part-label">(a)</span>
+<span class="part-text">Identify the population.</span></div>
+<div class="text-answer"><label>Write one sentence.</label>
+<textarea id="w1_1a" placeholder="The population is…"></textarea></div>
+<details><summary>Show solution</summary><div class="solution">
+<p><span class="ans">The population is all adults in the county.</span></p>
+<p>The population is the entire group the health department wants to learn about,
       whether or not every member was actually measured.</p>
-    </div></details>
-  </div>
-
-  <div class="part">
-    <div class="part-stem"><span class="part-label">(b)</span>
-      <span class="part-text">Identify the sample.</span></div>
-    <div class="text-answer"><label>Write one sentence.</label>
-      <textarea id="w1_1b" placeholder="The sample is…"></textarea></div>
-    <details><summary>Show solution</summary><div class="solution">
-      <p><span class="ans">The sample is the 120 adults who were randomly selected and measured.</span></p>
-      <p>The sample is the subset actually observed; it is used to estimate facts about
-      the population.</p>
-    </div></details>
-  </div>
-
-  <div class="part">
-    <div class="part-stem"><span class="part-label">(c)</span>
-      <span class="part-text">Which symbol, \(\mu\) or \(\bar{x}\), represents 6.8 hours? Explain.</span></div>
-    <div class="text-answer"><label>Name the symbol and explain why.</label>
-      <textarea id="w1_1c" placeholder="The symbol is … because…"></textarea></div>
-    <details><summary>Show solution</summary><div class="solution">
-      <p><span class="ans">\(\bar{x}\), the sample mean.</span></p>
-      <p>6.8 hours was computed from the sample of 120 adults, not from every adult in the
-      county, so it is a statistic (\(\bar{x}\)) rather than a parameter (\(\mu\)).</p>
-    </div></details>
-  </div>
-
-  <div class="part">
-    <div class="part-stem"><span class="part-label">(d)</span>
-      <span class="part-text">Which Greek letter represents the unknown true average?</span></div>
-    <div class="text-answer"><label>Name it and state what it represents.</label>
-      <textarea id="w1_1d" placeholder="The symbol is…"></textarea></div>
-    <details><summary>Show solution</summary><div class="solution">
-      <p><span class="ans">\(\mu\), the population mean.</span></p>
-      <p>\(\mu\) is the true average sleep time across every adult in the county. It is
-      unknown and unobservable directly; \(\bar{x}\) is our best estimate of it.</p>
-    </div></details>
-  </div>
+</div></details>
 </div>
-
+<div class="part">
+<div class="part-stem"><span class="part-label">(b)</span>
+<span class="part-text">Identify the sample.</span></div>
+<div class="text-answer"><label>Write one sentence.</label>
+<textarea id="w1_1b" placeholder="The sample is…"></textarea></div>
+<details><summary>Show solution</summary><div class="solution">
+<p><span class="ans">The sample is the 120 adults who were randomly selected and measured.</span></p>
+<p>The sample is the subset actually observed; it is used to estimate facts about
+      the population.</p>
+</div></details>
+</div>
+<div class="part">
+<div class="part-stem"><span class="part-label">(c)</span>
+<span class="part-text">Which symbol, \(\mu\) or \(\bar{x}\), represents 6.8 hours? Explain.</span></div>
+<div class="text-answer"><label>Name the symbol and explain why.</label>
+<textarea id="w1_1c" placeholder="The symbol is … because…"></textarea></div>
+<details><summary>Show solution</summary><div class="solution">
+<p><span class="ans">\(\bar{x}\), the sample mean.</span></p>
+<p>6.8 hours was computed from the sample of 120 adults, not from every adult in the
+      county, so it is a statistic (\(\bar{x}\)) rather than a parameter (\(\mu\)).</p>
+</div></details>
+</div>
+<div class="part">
+<div class="part-stem"><span class="part-label">(d)</span>
+<span class="part-text">Which Greek letter represents the unknown true average?</span></div>
+<div class="text-answer"><label>Name it and state what it represents.</label>
+<textarea id="w1_1d" placeholder="The symbol is…"></textarea></div>
+<details><summary>Show solution</summary><div class="solution">
+<p><span class="ans">\(\mu\), the population mean.</span></p>
+<p>\(\mu\) is the true average sleep time across every adult in the county. It is
+      unknown and unobservable directly; \(\bar{x}\) is our best estimate of it.</p>
+</div></details>
+</div>
+</div>
 <!-- PROBLEM 2 -->
 <div class="problem" id="p2">
-  <h2>Problem 2 — Summation Notation and Frequency</h2>
-  <div class="scenario">Ten students report the number of cups of coffee they drank
+<h2>Problem 2 — Summation Notation and Frequency</h2><p class="problem-goal"><strong>Goal:</strong> Translate a small dataset into summations, frequencies, relative frequencies, and percentages.</p>
+<div class="scenario">Ten students report the number of cups of coffee they drank
   yesterday: <strong>0, 1, 2, 1, 3, 0, 2, 1, 0, 2</strong>. Use this small dataset to
   practice summation notation and to organize the values into a frequency table.</div>
-
-  <div class="part">
-    <div class="part-stem"><span class="part-label">(a)</span>
-      <span class="part-text">Compute \(\displaystyle\sum_{i=1}^{10} x_i\) (add all ten values).</span></div>
-    <div class="answer-row"><label>\(\sum x_i=\)</label><input type="text" id="w1_2a" data-ans="12" data-tol="0.01">
-      <button class="check-btn" onclick="checkNum(['w1_2a'],'w1_2a_v')">Check</button><span class="verdict" id="w1_2a_v"></span></div>
-  </div>
-
-  <div class="part">
-    <div class="part-stem"><span class="part-label">(b)</span>
-      <span class="part-text">Compute \(\displaystyle\sum_{i=1}^{10} x_i^2\) (square each value first, then add).</span></div>
-    <div class="answer-row"><label>\(\sum x_i^2=\)</label><input type="text" id="w1_2b" data-ans="24" data-tol="0.01">
-      <button class="check-btn" onclick="checkNum(['w1_2b'],'w1_2b_v')">Check</button><span class="verdict" id="w1_2b_v"></span></div>
-  </div>
-
-  <div class="part">
-    <div class="part-stem"><span class="part-label">(c)</span>
-      <span class="part-text">Complete the frequency table.</span></div>
-    <table>
-      <thead><tr><th>Cups</th><th>Frequency</th><th>Relative frequency</th></tr></thead>
-      <tbody>
-        <tr><td>0</td><td><input type="text" id="w1_2c_f0" data-ans="3" data-tol="0.01"></td><td><input type="text" id="w1_2c_r0" data-ans="0.30" data-tol="0.005"></td></tr>
-        <tr><td>1</td><td><input type="text" id="w1_2c_f1" data-ans="3" data-tol="0.01"></td><td><input type="text" id="w1_2c_r1" data-ans="0.30" data-tol="0.005"></td></tr>
-        <tr><td>2</td><td><input type="text" id="w1_2c_f2" data-ans="3" data-tol="0.01"></td><td><input type="text" id="w1_2c_r2" data-ans="0.30" data-tol="0.005"></td></tr>
-        <tr><td>3</td><td><input type="text" id="w1_2c_f3" data-ans="1" data-tol="0.01"></td><td><input type="text" id="w1_2c_r3" data-ans="0.10" data-tol="0.005"></td></tr>
-        <tr><td><strong>Total</strong></td><td><input type="text" id="w1_2c_ft" data-ans="10" data-tol="0.01"></td><td><input type="text" id="w1_2c_rt" data-ans="1.00" data-tol="0.01"></td></tr>
-      </tbody>
-    </table>
-    <div class="answer-row">
-      <button class="check-btn" onclick="checkNum(['w1_2c_f0','w1_2c_r0','w1_2c_f1','w1_2c_r1','w1_2c_f2','w1_2c_r2','w1_2c_f3','w1_2c_r3','w1_2c_ft','w1_2c_rt'],'w1_2c_v')">Check</button><span class="verdict" id="w1_2c_v"></span></div>
-  </div>
-
-  <div class="part">
-    <div class="part-stem"><span class="part-label">(d)</span>
-      <span class="part-text">What percentage of students drank at least one cup?</span></div>
-    <div class="answer-row"><label>percentage</label><input type="text" id="w1_2d" data-ans="70" data-tol="0.5"><label>%</label>
-      <button class="check-btn" onclick="checkNum(['w1_2d'],'w1_2d_v')">Check</button><span class="verdict" id="w1_2d_v"></span></div>
-    <details><summary>Show solution</summary><div class="solution">
-      <p><span class="ans">\(\sum x_i=12\), \(\sum x_i^2=24\), frequencies 3/3/3/1, and 70% drank at least one cup.</span></p>
-      <p>\(\sum x_i = 0+1+2+1+3+0+2+1+0+2=12\), and squaring first gives
+<div class="part">
+<div class="part-stem"><span class="part-label">(a)</span>
+<span class="part-text">Compute \(\displaystyle\sum_{i=1}^{10} x_i\) (add all ten values).</span></div>
+<div class="answer-row"><label>\(\sum x_i=\)</label><input data-ans="12" data-tol="0.01" id="w1_2a" type="text"/>
+<button class="check-btn" onclick="checkNum(['w1_2a'],'w1_2a_v')">Check</button><span class="verdict" id="w1_2a_v"></span></div>
+</div>
+<div class="part">
+<div class="part-stem"><span class="part-label">(b)</span>
+<span class="part-text">Compute \(\displaystyle\sum_{i=1}^{10} x_i^2\) (square each value first, then add).</span></div>
+<div class="answer-row"><label>\(\sum x_i^2=\)</label><input data-ans="24" data-tol="0.01" id="w1_2b" type="text"/>
+<button class="check-btn" onclick="checkNum(['w1_2b'],'w1_2b_v')">Check</button><span class="verdict" id="w1_2b_v"></span></div>
+</div>
+<div class="part">
+<div class="part-stem"><span class="part-label">(c)</span>
+<span class="part-text">Complete the frequency table.</span></div>
+<table>
+<thead><tr><th>Cups</th><th>Frequency</th><th>Relative frequency</th></tr></thead>
+<tbody>
+<tr><td>0</td><td><input data-ans="3" data-tol="0.01" id="w1_2c_f0" type="text"/></td><td><input data-ans="0.30" data-tol="0.005" id="w1_2c_r0" type="text"/></td></tr>
+<tr><td>1</td><td><input data-ans="3" data-tol="0.01" id="w1_2c_f1" type="text"/></td><td><input data-ans="0.30" data-tol="0.005" id="w1_2c_r1" type="text"/></td></tr>
+<tr><td>2</td><td><input data-ans="3" data-tol="0.01" id="w1_2c_f2" type="text"/></td><td><input data-ans="0.30" data-tol="0.005" id="w1_2c_r2" type="text"/></td></tr>
+<tr><td>3</td><td><input data-ans="1" data-tol="0.01" id="w1_2c_f3" type="text"/></td><td><input data-ans="0.10" data-tol="0.005" id="w1_2c_r3" type="text"/></td></tr>
+<tr><td><strong>Total</strong></td><td><input data-ans="10" data-tol="0.01" id="w1_2c_ft" type="text"/></td><td><input data-ans="1.00" data-tol="0.01" id="w1_2c_rt" type="text"/></td></tr>
+</tbody>
+</table>
+<div class="answer-row">
+<button class="check-btn" onclick="checkNum(['w1_2c_f0','w1_2c_r0','w1_2c_f1','w1_2c_r1','w1_2c_f2','w1_2c_r2','w1_2c_f3','w1_2c_r3','w1_2c_ft','w1_2c_rt'],'w1_2c_v')">Check</button><span class="verdict" id="w1_2c_v"></span></div>
+</div>
+<div class="part">
+<div class="part-stem"><span class="part-label">(d)</span>
+<span class="part-text">What percentage of students drank at least one cup?</span></div>
+<div class="answer-row"><label>percentage</label><input data-ans="70" data-tol="0.5" id="w1_2d" type="text"/><label>%</label>
+<button class="check-btn" onclick="checkNum(['w1_2d'],'w1_2d_v')">Check</button><span class="verdict" id="w1_2d_v"></span></div>
+<details><summary>Show solution</summary><div class="solution">
+<p><span class="ans">\(\sum x_i=12\), \(\sum x_i^2=24\), frequencies 3/3/3/1, and 70% drank at least one cup.</span></p>
+<p>\(\sum x_i = 0+1+2+1+3+0+2+1+0+2=12\), and squaring first gives
       \(\sum x_i^2=0+1+4+1+9+0+4+1+0+4=24\). Cups \(0,1,2,3\) occur \(3,3,3,1\) times out
       of 10, so the relative frequencies are \(0.30,0.30,0.30,0.10\), summing to 1.00.
       Seven of the ten students drank at least one cup (everyone except the three who
       drank 0), so \(7/10=70\%\).</p>
-    </div></details>
-  </div>
+</div></details>
 </div>
-
+</div>
 <!-- PROBLEM 3 -->
 <div class="problem" id="p3">
-  <h2>Problem 3 — Mean and Standard Deviation</h2>
-  <div class="scenario">Five friends report how many text messages they sent yesterday:
+<h2>Problem 3 — Mean and Standard Deviation</h2><p class="problem-goal"><strong>Goal:</strong> Compute and interpret the sample mean and sample standard deviation, including the effect of an outlier.</p>
+<div class="scenario">Five friends report how many text messages they sent yesterday:
   <strong>12, 25, 8, 31, 14</strong>. Use these values to compute the sample mean and
   sample standard deviation, then think about how an extreme value would affect both
   statistics.</div>
-
-  <div class="part">
-    <div class="part-stem"><span class="part-label">(a)</span>
-      <span class="part-text">Compute the sample mean \(\bar{x}\).</span></div>
-    <div class="answer-row"><label>sum</label><input type="text" id="w1_3a_sum" data-ans="90" data-tol="0.01">
-      <label>\(\bar{x}=\)sum\(/n\)</label><input type="text" id="w1_3a_xbar" data-ans="18" data-tol="0.01">
-      <button class="check-btn" onclick="checkNum(['w1_3a_sum','w1_3a_xbar'],'w1_3a_v')">Check</button><span class="verdict" id="w1_3a_v"></span></div>
-  </div>
-
-  <div class="part">
-    <div class="part-stem"><span class="part-label">(b)</span>
-      <span class="part-text">Complete the deviation table and compute the sample standard
+<div class="part">
+<div class="part-stem"><span class="part-label">(a)</span>
+<span class="part-text">Compute the sample mean \(\bar{x}\).</span></div>
+<div class="answer-row"><label>sum</label><input data-ans="90" data-tol="0.01" id="w1_3a_sum" type="text"/>
+<label>\(\bar{x}=\)sum\(/n\)</label><input data-ans="18" data-tol="0.01" id="w1_3a_xbar" type="text"/>
+<button class="check-btn" onclick="checkNum(['w1_3a_sum','w1_3a_xbar'],'w1_3a_v')">Check</button><span class="verdict" id="w1_3a_v"></span></div>
+</div>
+<div class="part">
+<div class="part-stem"><span class="part-label">(b)</span>
+<span class="part-text">Complete the deviation table and compute the sample standard
       deviation \(s\).</span></div>
-    <table>
-      <thead><tr><th>\(x_i\)</th><th>\(x_i-\bar{x}\)</th><th>\((x_i-\bar{x})^2\)</th></tr></thead>
-      <tbody>
-        <tr><td>12</td><td><input type="text" id="w1_3b_d1" data-ans="-6" data-tol="0.01"></td><td><input type="text" id="w1_3b_sq1" data-ans="36" data-tol="0.01"></td></tr>
-        <tr><td>25</td><td><input type="text" id="w1_3b_d2" data-ans="7" data-tol="0.01"></td><td><input type="text" id="w1_3b_sq2" data-ans="49" data-tol="0.01"></td></tr>
-        <tr><td>8</td><td><input type="text" id="w1_3b_d3" data-ans="-10" data-tol="0.01"></td><td><input type="text" id="w1_3b_sq3" data-ans="100" data-tol="0.01"></td></tr>
-        <tr><td>31</td><td><input type="text" id="w1_3b_d4" data-ans="13" data-tol="0.01"></td><td><input type="text" id="w1_3b_sq4" data-ans="169" data-tol="0.01"></td></tr>
-        <tr><td>14</td><td><input type="text" id="w1_3b_d5" data-ans="-4" data-tol="0.01"></td><td><input type="text" id="w1_3b_sq5" data-ans="16" data-tol="0.01"></td></tr>
-        <tr><td><strong>Sum</strong></td><td><input type="text" id="w1_3b_dsum" data-ans="0" data-tol="0.01"></td><td><input type="text" id="w1_3b_sqsum" data-ans="370" data-tol="0.1"></td></tr>
-      </tbody>
-    </table>
-    <div class="answer-row"><label>\(s=\sqrt{\sum(x_i-\bar{x})^2/(n-1)}=\)</label><input type="text" id="w1_3b_s" class="wide" data-ans="9.62" data-tol="0.05">
-      <button class="check-btn" onclick="checkNum(['w1_3b_d1','w1_3b_sq1','w1_3b_d2','w1_3b_sq2','w1_3b_d3','w1_3b_sq3','w1_3b_d4','w1_3b_sq4','w1_3b_d5','w1_3b_sq5','w1_3b_dsum','w1_3b_sqsum','w1_3b_s'],'w1_3b_v')">Check</button><span class="verdict" id="w1_3b_v"></span></div>
-    <details><summary>Show solution</summary><div class="solution">
-      <p><span class="ans">\(\bar{x}=90/5=18\); deviations \(-6,7,-10,13,-4\) (sum \(0\)); squared deviations \(36,49,100,169,16\) (sum \(370\)); \(s=\sqrt{370/4}=\sqrt{92.5}\approx9.62\).</span></p>
-      <p>The deviations always sum to zero — that is a built-in check. Dividing the sum
+<table>
+<thead><tr><th>\(x_i\)</th><th>\(x_i-\bar{x}\)</th><th>\((x_i-\bar{x})^2\)</th></tr></thead>
+<tbody>
+<tr><td>12</td><td><input data-ans="-6" data-tol="0.01" id="w1_3b_d1" type="text"/></td><td><input data-ans="36" data-tol="0.01" id="w1_3b_sq1" type="text"/></td></tr>
+<tr><td>25</td><td><input data-ans="7" data-tol="0.01" id="w1_3b_d2" type="text"/></td><td><input data-ans="49" data-tol="0.01" id="w1_3b_sq2" type="text"/></td></tr>
+<tr><td>8</td><td><input data-ans="-10" data-tol="0.01" id="w1_3b_d3" type="text"/></td><td><input data-ans="100" data-tol="0.01" id="w1_3b_sq3" type="text"/></td></tr>
+<tr><td>31</td><td><input data-ans="13" data-tol="0.01" id="w1_3b_d4" type="text"/></td><td><input data-ans="169" data-tol="0.01" id="w1_3b_sq4" type="text"/></td></tr>
+<tr><td>14</td><td><input data-ans="-4" data-tol="0.01" id="w1_3b_d5" type="text"/></td><td><input data-ans="16" data-tol="0.01" id="w1_3b_sq5" type="text"/></td></tr>
+<tr><td><strong>Sum</strong></td><td><input data-ans="0" data-tol="0.01" id="w1_3b_dsum" type="text"/></td><td><input data-ans="370" data-tol="0.1" id="w1_3b_sqsum" type="text"/></td></tr>
+</tbody>
+</table>
+<div class="answer-row"><label>\(s=\sqrt{\sum(x_i-\bar{x})^2/(n-1)}=\)</label><input class="wide" data-ans="9.62" data-tol="0.05" id="w1_3b_s" type="text"/>
+<button class="check-btn" onclick="checkNum(['w1_3b_d1','w1_3b_sq1','w1_3b_d2','w1_3b_sq2','w1_3b_d3','w1_3b_sq3','w1_3b_d4','w1_3b_sq4','w1_3b_d5','w1_3b_sq5','w1_3b_dsum','w1_3b_sqsum','w1_3b_s'],'w1_3b_v')">Check</button><span class="verdict" id="w1_3b_v"></span></div>
+<details><summary>Show solution</summary><div class="solution">
+<p><span class="ans">\(\bar{x}=90/5=18\); deviations \(-6,7,-10,13,-4\) (sum \(0\)); squared deviations \(36,49,100,169,16\) (sum \(370\)); \(s=\sqrt{370/4}=\sqrt{92.5}\approx9.62\).</span></p>
+<p>The deviations always sum to zero — that is a built-in check. Dividing the sum
       of squared deviations by \(n-1=4\) and taking the square root gives the sample
       standard deviation, \(s\approx9.62\).</p>
-    </div></details>
-  </div>
-
-  <div class="part">
-    <div class="part-stem"><span class="part-label">(c)</span>
-      <span class="part-text">A sixth friend sent 500 messages. Without computing, what
+</div></details>
+</div>
+<div class="part">
+<div class="part-stem"><span class="part-label">(c)</span>
+<span class="part-text">A sixth friend sent 500 messages. Without computing, what
       happens to \(\bar{x}\) and \(s\)?</span></div>
-    <div class="text-answer"><label>Explain both changes in one or two sentences.</label>
-      <textarea id="w1_3c" placeholder="Adding 500 will…"></textarea></div>
-    <details><summary>Show solution</summary><div class="solution">
-      <p><span class="ans">Both \(\bar{x}\) and \(s\) increase sharply.</span></p>
-      <p>500 is far above the other five values, so it pulls the mean upward substantially.
+<div class="text-answer"><label>Explain both changes in one or two sentences.</label>
+<textarea id="w1_3c" placeholder="Adding 500 will…"></textarea></div>
+<details><summary>Show solution</summary><div class="solution">
+<p><span class="ans">Both \(\bar{x}\) and \(s\) increase sharply.</span></p>
+<p>500 is far above the other five values, so it pulls the mean upward substantially.
       It also sits very far from the new mean, so its squared deviation dominates the sum,
       making \(s\) much larger too. A single extreme value can distort both statistics —
       this is why the mean and standard deviation are called non-resistant measures.</p>
-    </div></details>
-  </div>
+</div></details>
 </div>
-
-<div class="footer">MATH&amp; 146 &middot; Centralia College &middot; Week 1 Lab</div>
 </div>
-
+<div class="footer">MATH&amp; 146 · Centralia College · Week 1 Lab</div>
+<section aria-labelledby="finish-title" class="completion-panel">
+<h2 id="finish-title">Before you finish</h2>
+<p>Check that your name and date are filled in, every requested explanation is complete, and numerical answers have been checked where a Check button is provided.</p>
+<p>Your browser copy is useful while you work, but it stays on this device. Save a filled HTML copy if you want a portable version that can be reopened, uploaded, or submitted later.</p>
+<div class="finish-actions"><button class="primary-action" onclick="saveFilledHTML()" type="button">Save filled HTML</button><button onclick="window.print()" type="button">Print / Save PDF</button></div>
+<div aria-live="polite" class="export-note" id="exportStatus"></div>
+</section></div>
 <script>
-  const STORE_KEY='math146_w1_lab';
+  const STORE_KEY='math146_w1_lab'+(document.documentElement.dataset.instanceId?('_'+document.documentElement.dataset.instanceId):'');
   function allInputs(){return Array.from(document.querySelectorAll('input[type=text], textarea'));}
   function save(){const d={};allInputs().forEach(i=>{if(i.id)d[i.id]=i.value;});try{localStorage.setItem(STORE_KEY,JSON.stringify(d));}catch(e){}}
   function load(){let d={};try{d=JSON.parse(localStorage.getItem(STORE_KEY)||'{}');}catch(e){}allInputs().forEach(i=>{if(i.id&&d[i.id]!=null)i.value=d[i.id];});}
@@ -287,5 +341,63 @@
   load();
   updateLocks();
 </script>
-</body>
+<script>
+(function(){
+  const WEEK = 1;
+  function responseControls(){
+    return Array.from(document.querySelectorAll('input[type="text"], textarea, select')).filter(el=>{
+      if(el.readOnly || el.disabled) return false;
+      return !/_name$|_date$/.test(el.id||'');
+    });
+  }
+  function updateStudentProgress(){
+    const controls=responseControls();
+    const done=controls.filter(el=>String(el.value||'').trim()!=='').length;
+    const total=controls.length;
+    const pct=total?Math.round(100*done/total):0;
+    const text=document.getElementById('studentProgressText');
+    const fill=document.getElementById('studentProgressFill');
+    if(text) text.textContent=`${done} of ${total} response boxes started (${pct}%)`;
+    if(fill) fill.style.width=pct+'%';
+  }
+  function setCloneValues(clone){
+    const liveControls=Array.from(document.querySelectorAll('input, textarea, select'));
+    const clonedControls=Array.from(clone.querySelectorAll('input, textarea, select'));
+    liveControls.forEach((el,i)=>{
+      const c=clonedControls[i]; if(!c) return;
+      if(el.tagName==='TEXTAREA'){c.textContent=el.value;}
+      else if(el.tagName==='SELECT'){
+        Array.from(c.options).forEach((o,j)=>{if(j===el.selectedIndex)o.setAttribute('selected','selected');else o.removeAttribute('selected');});
+      } else if(el.type==='checkbox'||el.type==='radio'){
+        if(el.checked)c.setAttribute('checked','checked');else c.removeAttribute('checked');
+      } else {c.setAttribute('value',el.value);}
+      c.className=el.className;
+    });
+    const liveDetails=Array.from(document.querySelectorAll('details'));
+    const clonedDetails=Array.from(clone.querySelectorAll('details'));
+    liveDetails.forEach((el,i)=>{if(!clonedDetails[i])return;if(el.open)clonedDetails[i].setAttribute('open','');else clonedDetails[i].removeAttribute('open');});
+  }
+  window.saveFilledHTML=function(){
+    try{ if(typeof save==='function') save(); }catch(e){}
+    const clone=document.documentElement.cloneNode(true);
+    setCloneValues(clone);
+    clone.setAttribute('data-filled-copy','true');
+    clone.setAttribute('data-saved-at',new Date().toISOString());
+    if(!clone.dataset.instanceId) clone.dataset.instanceId=Date.now().toString(36);
+    const base=(document.title||`Math146 Week ${WEEK} Lab`).replace(/[^a-z0-9]+/gi,'_').replace(/^_+|_+$/g,'');
+    const nameEl=document.querySelector('input[id$="_name"]');
+    const student=(nameEl&&nameEl.value.trim())?('_'+nameEl.value.trim().replace(/[^a-z0-9]+/gi,'_')):'';
+    const html='<!DOCTYPE html>\n'+clone.outerHTML;
+    const blob=new Blob([html],{type:'text/html;charset=utf-8'});
+    const a=document.createElement('a');
+    a.href=URL.createObjectURL(blob);a.download=base+student+'_FILLED.html';
+    document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+    const note=document.getElementById('exportStatus');
+    if(note) note.textContent='Filled HTML saved. This copy contains the answers currently on the page.';
+  };
+  document.addEventListener('input',updateStudentProgress);
+  document.addEventListener('change',updateStudentProgress);
+  updateStudentProgress();
+})();
+</script></body>
 </html>

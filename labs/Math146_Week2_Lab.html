@@ -1,13 +1,14 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Math 146 — Week 2 Lab: Probability Distributions</title>
 <script>
   window.MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] }, svg: { fontCache: 'global' } };
 </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.min.js" id="MathJax-script" async></script>
+<script async="" id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.min.js"></script>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=DM+Mono:wght@400;500&display=swap');
   :root{--ink:#1c1c1c;--paper:#fcfbf8;--rule:#d8d3c8;--blue:#2a4d7a;--blue-bg:#eef2f8;--blue-rule:#bcccdf;--green:#1f6b46;--green-bg:#edf5ef;--green-rule:#b7d6c2;--amber:#9a6a00;--red:#9a2a2a;--mono:'DM Mono',monospace;}
@@ -66,238 +67,290 @@
   .footer{border-top:1px solid var(--rule);margin-top:50px;padding-top:12px;font-family:var(--mono);font-size:13px;color:#888;text-align:center;}
   @media print{.toolbar,.check-btn{display:none;}details{display:block;}details>summary{display:none;}.solution{display:block !important;}.text-answer textarea{border:1px solid #999;min-height:auto;}body{font-size:16px;}}
 </style>
-</head>
+<style>
+/* ---- Math 146 unified student experience ---- */
+:root{--student-shadow:0 8px 24px rgba(35,45,60,.08);--student-soft:#f7f8fa;--student-muted:#667085;--student-danger:#8b3030;}
+html{scroll-behavior:smooth;}
+body{overflow-x:hidden;}
+.wrap{width:min(100%, 900px);}
+header{padding-top:6px;}
+header h1{line-height:1.12;}
+.student-start{background:#fff;border:1px solid var(--rule);border-radius:10px;padding:18px 20px;margin:18px 0 18px;box-shadow:var(--student-shadow);}
+.student-start h2{font-size:18px;margin:0 0 8px;color:var(--blue);}
+.student-start p{margin:6px 0;}
+.student-start .workflow{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0 10px;}
+.student-start .step{background:var(--blue-bg);border:1px solid var(--blue-rule);border-radius:8px;padding:11px 12px;font-size:16px;line-height:1.35;}
+.student-start .step strong{display:block;font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:var(--blue);margin-bottom:3px;}
+.student-start .privacy{font-size:15px;color:#555;margin-top:10px;}
+.objectives{box-shadow:0 2px 10px rgba(35,45,60,.04);}
+.toolbar.student-toolbar{position:sticky;top:0;z-index:30;background:rgba(252,251,248,.97);backdrop-filter:blur(8px);border:1px solid var(--rule);border-radius:10px;padding:10px 12px;margin:0 0 28px;box-shadow:0 7px 18px rgba(40,40,40,.08);display:block;}
+.toolbar-main{display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
+.toolbar button{min-height:38px;}
+.toolbar button.primary-action{background:var(--blue);border-color:var(--blue);color:white;font-weight:500;}
+.toolbar button.primary-action:hover{background:#1d3a60;}
+.toolbar button.danger-soft{margin-left:auto;color:var(--student-danger);border-color:#d9bcbc;}
+.status-row{display:flex;align-items:center;gap:10px;margin-top:9px;font-family:var(--mono);font-size:12px;color:#5e6470;}
+.status-row .save-dot{width:8px;height:8px;border-radius:50%;background:var(--green);display:inline-block;flex:none;}
+.progress-track{height:6px;background:#e7e3da;border-radius:999px;overflow:hidden;flex:1;min-width:100px;}
+.progress-fill{height:100%;width:0;background:var(--green);transition:width .2s ease;}
+.problem-nav{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px;padding-top:8px;border-top:1px solid var(--rule);}
+.problem-nav a{font-family:var(--mono);font-size:11px;color:var(--blue);text-decoration:none;border:1px solid var(--blue-rule);background:var(--blue-bg);padding:4px 8px;border-radius:999px;}
+.problem-nav a:hover{text-decoration:underline;}
+.problem{scroll-margin-top:150px;background:rgba(255,255,255,.32);padding:2px 0 1px;}
+.problem-goal{font-size:16px;color:#555;margin:7px 0 12px;padding:8px 11px;border-left:3px solid var(--green);background:var(--green-bg);border-radius:0 6px 6px 0;}
+.problem-goal strong{color:var(--green);}
+input[type=text],textarea{transition:border-color .15s ease, box-shadow .15s ease, background .15s ease;}
+input[type=text]:focus,textarea:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px rgba(42,77,122,.12);}
+.check-btn{min-height:34px;}
+details{margin-left:26px;}
+details summary{line-height:1.35;}
+.completion-panel{background:#fff;border:1px solid var(--green-rule);border-radius:10px;padding:16px 18px;margin:34px 0 0;box-shadow:var(--student-shadow);}
+.completion-panel h2{font-size:18px;color:var(--green);margin:0 0 8px;}
+.completion-panel p{margin:5px 0;}
+.completion-panel .finish-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;}
+.completion-panel button{font-family:var(--mono);font-size:13px;cursor:pointer;border-radius:6px;padding:8px 12px;}
+.export-note{font-family:var(--mono);font-size:12px;color:#666;margin-top:8px;}
+@media(max-width:680px){
+  body{font-size:18px;}.wrap{padding-left:16px;padding-right:16px;}
+  header h1{font-size:27px;}.student-start .workflow{grid-template-columns:1fr;}
+  .toolbar.student-toolbar{top:0;border-radius:0;margin-left:-16px;margin-right:-16px;padding-left:16px;padding-right:16px;}
+  .toolbar button.danger-soft{margin-left:0;}
+  .answer-row,.text-answer{margin-left:0;}.part-stem{align-items:flex-start;}
+  details{margin-left:0;} table{font-size:16px;display:block;overflow-x:auto;max-width:100%;}
+}
+@media print{
+  .student-toolbar,.completion-panel .finish-actions,.export-note{display:none!important;}
+  .student-start{box-shadow:none;border:1px solid #bbb;}
+  .problem-goal{background:#fff;border:1px solid #bbb;border-left:3px solid #555;}
+  .wrap{max-width:none;padding:0 8mm;}
+  .problem{break-inside:auto;}
+  textarea{min-height:52px;}
+}
+</style></head>
 <body>
 <div class="wrap">
-
 <header>
-  <h1>Week 2 Lab — Probability Distributions</h1>
-  <div class="sub">Math 146 &middot; Centralia College</div>
-  <div class="id-row">
-    <label>Student name <input type="text" id="w2_name" placeholder="Your full name"></label>
-    <label>Date <input type="text" id="w2_date" placeholder="mm/dd/yyyy"></label>
-  </div>
+<h1>Week 2 Lab — Probability Distributions</h1>
+<div class="sub">Math 146 · Centralia College</div>
+<div class="id-row">
+<label>Student name <input id="w2_name" placeholder="Your full name" type="text"/></label>
+<label>Date <input id="w2_date" placeholder="mm/dd/yyyy" type="text"/></label>
+</div>
 </header>
-
-<p class="intro">
-  Fill in the answer boxes as you work. Click <strong>Check</strong> to test a numeric
-  answer; a box turns green when it matches. For parts that ask you to explain, type your
-  reasoning in the text box, then open <strong>Show solution</strong> to compare — solutions
-  unlock once you've entered an attempt. Your work is saved in this browser until you
-  clear it.
-</p>
-
+<section aria-labelledby="how-title" class="student-start">
+<h2 id="how-title">How to complete this lab</h2>
+<p>Work through the problems in order. Your goal is not just to get a number, but to connect each calculation to the statistical idea it represents.</p>
+<div class="workflow">
+<div class="step"><strong>1 · Work</strong>Enter your calculation or explanation directly in the page.</div>
+<div class="step"><strong>2 · Check</strong>Use <em>Check</em> for numerical answers. For written work, make an attempt before opening the comparison solution.</div>
+<div class="step"><strong>3 · Save</strong>Your answers save automatically on this device. Before you leave, download a filled HTML copy or print/save a PDF.</div>
+</div>
+<p class="privacy">Nothing is submitted automatically. A filled HTML copy is the best choice if you want to reopen the lab later with your answers still in place.</p>
+</section>
 <div class="objectives">
-  <h2>Objectives</h2>
-  <ul>
-    <li>Verify that a table is a valid probability distribution and compute its expected value \(E(X)\).</li>
-    <li>Apply the geometric model to find \(P(X=k)\) and the mean number of trials \(\mu=1/p\).</li>
-    <li>Apply the binomial model to compute probabilities, the mean \(\mu=np\), and the standard deviation \(\sigma=\sqrt{np(1-p)}\).</li>
-    <li>Interpret each computed value as a statement about the real-world situation.</li>
-  </ul>
+<h2>What you’ll practice</h2>
+<ul>
+<li>Verify that a table is a valid probability distribution and compute its expected value \(E(X)\).</li>
+<li>Apply the geometric model to find \(P(X=k)\) and the mean number of trials \(\mu=1/p\).</li>
+<li>Apply the binomial model to compute probabilities, the mean \(\mu=np\), and the standard deviation \(\sigma=\sqrt{np(1-p)}\).</li>
+<li>Interpret each computed value as a statement about the real-world situation.</li>
+</ul>
 </div>
-
 <div class="formulas">
-  <h2>Reference Formulas</h2>
-  <p>\[ P(X=k) = (1-p)^{k-1}p \qquad \mu_{\text{geo}} = \frac{1}{p} \]</p>
-  <p>\[ P(X=k) = \binom{n}{k}p^k(1-p)^{n-k} \qquad \mu_{\text{bin}} = np \qquad \sigma_{\text{bin}} = \sqrt{np(1-p)} \]</p>
-  <p>\[ \binom{n}{k} = \frac{n!}{k!(n-k)!} \qquad E(X) = \sum x \cdot P(X=x) \]</p>
+<h2>Reference Formulas</h2>
+<p>\[ P(X=k) = (1-p)^{k-1}p \qquad \mu_{\text{geo}} = \frac{1}{p} \]</p>
+<p>\[ P(X=k) = \binom{n}{k}p^k(1-p)^{n-k} \qquad \mu_{\text{bin}} = np \qquad \sigma_{\text{bin}} = \sqrt{np(1-p)} \]</p>
+<p>\[ \binom{n}{k} = \frac{n!}{k!(n-k)!} \qquad E(X) = \sum x \cdot P(X=x) \]</p>
 </div>
-
-<div class="toolbar">
-  <button onclick="window.print()">Print</button>
-  <button onclick="clearData()">Clear data</button>
+<div aria-label="Lab controls" class="toolbar student-toolbar no-print">
+<div class="toolbar-main">
+<button class="primary-action" onclick="saveFilledHTML()" type="button">Save filled HTML</button>
+<button onclick="window.print()" type="button">Print / Save PDF</button>
+<button class="danger-soft" onclick="clearData()" type="button">Clear answers</button>
 </div>
-
+<div class="status-row"><span aria-hidden="true" class="save-dot"></span><span>Saved automatically on this device</span><div aria-hidden="true" class="progress-track"><div class="progress-fill" id="studentProgressFill"></div></div><span aria-live="polite" id="studentProgressText"></span></div>
+<nav aria-label="Jump to a problem" class="problem-nav"><a href="#p1">Problem 1</a><a href="#p2">Problem 2</a><a href="#p3">Problem 3</a></nav>
+</div>
 <!-- PROBLEM 1 -->
 <div class="problem" id="p1">
-  <h2>Problem 1 — Probability Distribution and Expected Value</h2>
-  <div class="scenario">A simple game uses a spinner with four possible outcomes. The
+<h2>Problem 1 — Probability Distribution and Expected Value</h2><p class="problem-goal"><strong>Goal:</strong> Check a discrete probability model and use it to compute an expected value.</p>
+<div class="scenario">A simple game uses a spinner with four possible outcomes. The
   spinner lands on 1 with probability 0.10, on 2 with probability 0.30, on 3 with
   probability 0.40, and on 4 with probability 0.20. Treat the spinner value as the random
   variable \(X\), then check that the probabilities form a valid distribution and compute
   the long-run average outcome.</div>
-
-  <div class="part">
-    <div class="part-stem"><span class="part-label">(a &amp; b)</span>
-      <span class="part-text">Complete the table below and verify the sum equals 1.</span></div>
-    <table>
-      <thead><tr><th>\(x\)</th><th>1</th><th>2</th><th>3</th><th>4</th><th>Sum</th></tr></thead>
-      <tbody><tr><td>\(P(X=x)\)</td><td>0.10</td>
-        <td><input type="text" id="w2_1_p2" data-ans="0.30" data-tol="0.005"></td>
-        <td>0.40</td>
-        <td><input type="text" id="w2_1_p4" data-ans="0.20" data-tol="0.005"></td>
-        <td><input type="text" id="w2_1_sum" data-ans="1.00" data-tol="0.005"></td>
-      </tr></tbody>
-    </table>
-    <div class="answer-row">
-      <button class="check-btn" onclick="checkNum(['w2_1_p2','w2_1_p4','w2_1_sum'],'w2_1ab_v')">Check</button><span class="verdict" id="w2_1ab_v"></span></div>
-    <details><summary>Show solution</summary><div class="solution">
-      <p><span class="ans">\(P(X=2)=0.30\), \(P(X=4)=0.20\); the four probabilities sum to \(1.00\).</span></p>
-      <p>Every probability distribution's values must total exactly 1. Since
+<div class="part">
+<div class="part-stem"><span class="part-label">(a &amp; b)</span>
+<span class="part-text">Complete the table below and verify the sum equals 1.</span></div>
+<table>
+<thead><tr><th>\(x\)</th><th>1</th><th>2</th><th>3</th><th>4</th><th>Sum</th></tr></thead>
+<tbody><tr><td>\(P(X=x)\)</td><td>0.10</td>
+<td><input data-ans="0.30" data-tol="0.005" id="w2_1_p2" type="text"/></td>
+<td>0.40</td>
+<td><input data-ans="0.20" data-tol="0.005" id="w2_1_p4" type="text"/></td>
+<td><input data-ans="1.00" data-tol="0.005" id="w2_1_sum" type="text"/></td>
+</tr></tbody>
+</table>
+<div class="answer-row">
+<button class="check-btn" onclick="checkNum(['w2_1_p2','w2_1_p4','w2_1_sum'],'w2_1ab_v')">Check</button><span class="verdict" id="w2_1ab_v"></span></div>
+<details><summary>Show solution</summary><div class="solution">
+<p><span class="ans">\(P(X=2)=0.30\), \(P(X=4)=0.20\); the four probabilities sum to \(1.00\).</span></p>
+<p>Every probability distribution's values must total exactly 1. Since
       \(0.10+0.40=0.50\) is already assigned, the remaining two probabilities must sum to
       \(0.50\) as well; here they split as \(0.30\) and \(0.20\).</p>
-    </div></details>
-  </div>
-
-  <div class="part">
-    <div class="part-stem"><span class="part-label">(c)</span>
-      <span class="part-text">Sketch the probability histogram: what are the bar heights,
+</div></details>
+</div>
+<div class="part">
+<div class="part-stem"><span class="part-label">(c)</span>
+<span class="part-text">Sketch the probability histogram: what are the bar heights,
       and what do the axes represent?</span></div>
-    <div class="text-answer"><label>Describe or sketch.</label>
-      <textarea id="w2_1c" placeholder="The x-axis shows…, the y-axis shows…, the bars have heights…"></textarea></div>
-    <details><summary>Show solution</summary><div class="solution">
-      <p><span class="ans">Four bars at \(x=1,2,3,4\) with heights \(0.10,0.30,0.40,0.20\).</span></p>
-      <p>The horizontal axis lists the possible spinner values; the vertical axis is
+<div class="text-answer"><label>Describe or sketch.</label>
+<textarea id="w2_1c" placeholder="The x-axis shows…, the y-axis shows…, the bars have heights…"></textarea></div>
+<details><summary>Show solution</summary><div class="solution">
+<p><span class="ans">Four bars at \(x=1,2,3,4\) with heights \(0.10,0.30,0.40,0.20\).</span></p>
+<p>The horizontal axis lists the possible spinner values; the vertical axis is
       probability. Each bar's height equals \(P(X=x)\), and since the values sum to 1, the
       total bar area (each bar has width 1) is also 1.</p>
-    </div></details>
-  </div>
-
-  <div class="part">
-    <div class="part-stem"><span class="part-label">(d)</span>
-      <span class="part-text">Compute \(\mu=E(X)\).</span></div>
-    <div class="answer-row"><label>\(E(X)=\sum x\cdot P(X=x)=\)</label><input type="text" id="w2_1d" class="wide" data-ans="2.70" data-tol="0.02">
-      <button class="check-btn" onclick="checkNum(['w2_1d'],'w2_1d_v')">Check</button><span class="verdict" id="w2_1d_v"></span></div>
-    <details><summary>Show solution</summary><div class="solution">
-      <p><span class="ans">\(E(X)=2.70\).</span></p>
-      <p>\(E(X)=1(0.10)+2(0.30)+3(0.40)+4(0.20)=0.10+0.60+1.20+0.80=2.70\). On average the
-      spinner lands near 2.7, weighted toward the more likely outcomes 2 and 3.</p>
-    </div></details>
-  </div>
+</div></details>
 </div>
-
+<div class="part">
+<div class="part-stem"><span class="part-label">(d)</span>
+<span class="part-text">Compute \(\mu=E(X)\).</span></div>
+<div class="answer-row"><label>\(E(X)=\sum x\cdot P(X=x)=\)</label><input class="wide" data-ans="2.70" data-tol="0.02" id="w2_1d" type="text"/>
+<button class="check-btn" onclick="checkNum(['w2_1d'],'w2_1d_v')">Check</button><span class="verdict" id="w2_1d_v"></span></div>
+<details><summary>Show solution</summary><div class="solution">
+<p><span class="ans">\(E(X)=2.70\).</span></p>
+<p>\(E(X)=1(0.10)+2(0.30)+3(0.40)+4(0.20)=0.10+0.60+1.20+0.80=2.70\). On average the
+      spinner lands near 2.7, weighted toward the more likely outcomes 2 and 3.</p>
+</div></details>
+</div>
+</div>
 <!-- PROBLEM 2 -->
 <div class="problem" id="p2">
-  <h2>Problem 2 — Geometric Distribution</h2>
-  <div class="scenario">A student guesses on a sequence of multiple-choice questions. Each
+<h2>Problem 2 — Geometric Distribution</h2><p class="problem-goal"><strong>Goal:</strong> Recognize a geometric setting and compute probabilities and its expected waiting time.</p>
+<div class="scenario">A student guesses on a sequence of multiple-choice questions. Each
   question has probability \(p=0.20\) of being answered correctly, and the guesses are
   independent. Let \(X\) be the question number of the first correct answer. This is a
   geometric setting because we are counting how long it takes until the first success.</div>
-
-  <div class="part">
-    <div class="part-stem"><span class="part-label">(a)</span>
-      <span class="part-text">Compute \(P(X=3)\) using \((1-p)^{k-1}\cdot p\) with \(k=3\).</span></div>
-    <div class="answer-row"><label>\(P(X=3)=\)</label><input type="text" id="w2_2a" class="wide" data-ans="0.128" data-tol="0.002">
-      <button class="check-btn" onclick="checkNum(['w2_2a'],'w2_2a_v')">Check</button><span class="verdict" id="w2_2a_v"></span></div>
-    <details><summary>Show solution</summary><div class="solution">
-      <p><span class="ans">\(P(X=3)=0.128\).</span></p>
-      <p>\(P(X=3)=(0.80)^2\times0.20=0.64\times0.20=0.128\). Two wrong guesses must happen
+<div class="part">
+<div class="part-stem"><span class="part-label">(a)</span>
+<span class="part-text">Compute \(P(X=3)\) using \((1-p)^{k-1}\cdot p\) with \(k=3\).</span></div>
+<div class="answer-row"><label>\(P(X=3)=\)</label><input class="wide" data-ans="0.128" data-tol="0.002" id="w2_2a" type="text"/>
+<button class="check-btn" onclick="checkNum(['w2_2a'],'w2_2a_v')">Check</button><span class="verdict" id="w2_2a_v"></span></div>
+<details><summary>Show solution</summary><div class="solution">
+<p><span class="ans">\(P(X=3)=0.128\).</span></p>
+<p>\(P(X=3)=(0.80)^2\times0.20=0.64\times0.20=0.128\). Two wrong guesses must happen
       first, then a correct one on the third try.</p>
-    </div></details>
-  </div>
-
-  <div class="part">
-    <div class="part-stem"><span class="part-label">(b)</span>
-      <span class="part-text">Compute \(\mu=1/p\) and interpret it in one sentence.</span></div>
-    <div class="answer-row"><label>\(\mu=\)</label><input type="text" id="w2_2b" data-ans="5" data-tol="0.01">
-      <button class="check-btn" onclick="checkNum(['w2_2b'],'w2_2b_v')">Check</button><span class="verdict" id="w2_2b_v"></span></div>
-    <details><summary>Show solution</summary><div class="solution">
-      <p><span class="ans">\(\mu=1/0.20=5\).</span></p>
-      <p>On average, a student guessing with a 20% success rate needs 5 questions before
-      getting the first one right.</p>
-    </div></details>
-  </div>
-
-  <div class="part">
-    <div class="part-stem"><span class="part-label">(c)</span>
-      <span class="part-text">Describe the histogram shape: symmetric, skewed left, or
-      skewed right? Why?</span></div>
-    <div class="text-answer"><label>Your answer.</label>
-      <textarea id="w2_2c" placeholder="The histogram is…"></textarea></div>
-    <details><summary>Show solution</summary><div class="solution">
-      <p><span class="ans">Skewed right, with the tallest bar at \(k=1\).</span></p>
-      <p>Geometric probabilities \((1-p)^{k-1}p\) are largest at \(k=1\) and shrink every
-      time \(k\) increases, since each extra failure multiplies by another factor of
-      \(1-p<1\). That produces a tall bar near \(k=1\) and a long thin tail stretching to
-      the right.</p>
-    </div></details>
-  </div>
+</div></details>
 </div>
-
+<div class="part">
+<div class="part-stem"><span class="part-label">(b)</span>
+<span class="part-text">Compute \(\mu=1/p\) and interpret it in one sentence.</span></div>
+<div class="answer-row"><label>\(\mu=\)</label><input data-ans="5" data-tol="0.01" id="w2_2b" type="text"/>
+<button class="check-btn" onclick="checkNum(['w2_2b'],'w2_2b_v')">Check</button><span class="verdict" id="w2_2b_v"></span></div>
+<details><summary>Show solution</summary><div class="solution">
+<p><span class="ans">\(\mu=1/0.20=5\).</span></p>
+<p>On average, a student guessing with a 20% success rate needs 5 questions before
+      getting the first one right.</p>
+</div></details>
+</div>
+<div class="part">
+<div class="part-stem"><span class="part-label">(c)</span>
+<span class="part-text">Describe the histogram shape: symmetric, skewed left, or
+      skewed right? Why?</span></div>
+<div class="text-answer"><label>Your answer.</label>
+<textarea id="w2_2c" placeholder="The histogram is…"></textarea></div>
+<details><summary>Show solution</summary><div class="solution">
+<p><span class="ans">Skewed right, with the tallest bar at \(k=1\).</span></p>
+<p>Geometric probabilities \((1-p)^{k-1}p\) are largest at \(k=1\) and shrink every
+      time \(k\) increases, since each extra failure multiplies by another factor of
+      \(1-p&lt;1\). That produces a tall bar near \(k=1\) and a long thin tail stretching to
+      the right.</p>
+</div></details>
+</div>
+</div>
 <!-- PROBLEM 3 -->
 <div class="problem" id="p3">
-  <h2>Problem 3 — Binomial Distribution</h2>
-  <div class="scenario">A drug is effective for 70% of patients. A doctor prescribes it to
+<h2>Problem 3 — Binomial Distribution</h2><p class="problem-goal"><strong>Goal:</strong> Recognize a binomial setting and compute probabilities, mean, and standard deviation.</p>
+<div class="scenario">A drug is effective for 70% of patients. A doctor prescribes it to
   6 patients and records how many of those patients respond to the drug. Let \(X\) be the
   number of patients for whom the drug is effective, so \(n=6\) and \(p=0.70\). This is a
   binomial setting because there are a fixed number of independent trials and each trial
   has the same probability of success.</div>
-
-  <div class="part">
-    <div class="part-stem"><span class="part-label">(a)</span>
-      <span class="part-text">Identify \(n\) and \(p\); list the four binomial conditions
+<div class="part">
+<div class="part-stem"><span class="part-label">(a)</span>
+<span class="part-text">Identify \(n\) and \(p\); list the four binomial conditions
       and confirm each applies here.</span></div>
-    <div class="text-answer"><label>Your answer.</label>
-      <textarea id="w2_3a" placeholder="n = …, p = …. This is binomial because…"></textarea></div>
-    <details><summary>Show solution</summary><div class="solution">
-      <p><span class="ans">\(n=6\), \(p=0.70\); all four binomial conditions hold.</span></p>
-      <p>A binomial setting needs: (1) a fixed number of trials, here \(n=6\) patients;
+<div class="text-answer"><label>Your answer.</label>
+<textarea id="w2_3a" placeholder="n = …, p = …. This is binomial because…"></textarea></div>
+<details><summary>Show solution</summary><div class="solution">
+<p><span class="ans">\(n=6\), \(p=0.70\); all four binomial conditions hold.</span></p>
+<p>A binomial setting needs: (1) a fixed number of trials, here \(n=6\) patients;
       (2) each trial independent, since one patient's response doesn't affect another's;
       (3) only two outcomes per trial, effective or not; (4) the same probability of
       success on every trial, \(p=0.70\).</p>
-    </div></details>
-  </div>
-
-  <div class="part">
-    <div class="part-stem"><span class="part-label">(b)</span>
-      <span class="part-text">Compute \(P(X=6)\).</span></div>
-    <div class="answer-row"><label>\(\binom{6}{6}(0.70)^6(0.30)^0=\)</label><input type="text" id="w2_3b" class="wide" data-ans="0.1176" data-tol="0.002">
-      <button class="check-btn" onclick="checkNum(['w2_3b'],'w2_3b_v')">Check</button><span class="verdict" id="w2_3b_v"></span></div>
-    <details><summary>Show solution</summary><div class="solution">
-      <p><span class="ans">\(P(X=6)\approx0.1176\).</span></p>
-      <p>\(\binom{6}{6}=1\), so \(P(X=6)=(0.70)^6=0.117649\approx0.1176\). All six patients
+</div></details>
+</div>
+<div class="part">
+<div class="part-stem"><span class="part-label">(b)</span>
+<span class="part-text">Compute \(P(X=6)\).</span></div>
+<div class="answer-row"><label>\(\binom{6}{6}(0.70)^6(0.30)^0=\)</label><input class="wide" data-ans="0.1176" data-tol="0.002" id="w2_3b" type="text"/>
+<button class="check-btn" onclick="checkNum(['w2_3b'],'w2_3b_v')">Check</button><span class="verdict" id="w2_3b_v"></span></div>
+<details><summary>Show solution</summary><div class="solution">
+<p><span class="ans">\(P(X=6)\approx0.1176\).</span></p>
+<p>\(\binom{6}{6}=1\), so \(P(X=6)=(0.70)^6=0.117649\approx0.1176\). All six patients
       responding is fairly unlikely even though the drug works most of the time.</p>
-    </div></details>
-  </div>
-
-  <div class="part">
-    <div class="part-stem"><span class="part-label">(c)</span>
-      <span class="part-text">Compute \(P(X=4)\); show the combination \(\binom{6}{4}\)
+</div></details>
+</div>
+<div class="part">
+<div class="part-stem"><span class="part-label">(c)</span>
+<span class="part-text">Compute \(P(X=4)\); show the combination \(\binom{6}{4}\)
       first.</span></div>
-    <div class="answer-row"><label>\(\binom{6}{4}=\)</label><input type="text" id="w2_3c_c" data-ans="15" data-tol="0.01">
-      <label>\(P(X=4)=\)</label><input type="text" id="w2_3c_p" class="wide" data-ans="0.3241" data-tol="0.005">
-      <button class="check-btn" onclick="checkNum(['w2_3c_c','w2_3c_p'],'w2_3c_v')">Check</button><span class="verdict" id="w2_3c_v"></span></div>
-    <details><summary>Show solution</summary><div class="solution">
-      <p><span class="ans">\(\binom{6}{4}=15\); \(P(X=4)=15(0.2401)(0.09)=0.3241\).</span></p>
-      <p>Four patients responding and two not is the single most likely outcome for this
+<div class="answer-row"><label>\(\binom{6}{4}=\)</label><input data-ans="15" data-tol="0.01" id="w2_3c_c" type="text"/>
+<label>\(P(X=4)=\)</label><input class="wide" data-ans="0.3241" data-tol="0.005" id="w2_3c_p" type="text"/>
+<button class="check-btn" onclick="checkNum(['w2_3c_c','w2_3c_p'],'w2_3c_v')">Check</button><span class="verdict" id="w2_3c_v"></span></div>
+<details><summary>Show solution</summary><div class="solution">
+<p><span class="ans">\(\binom{6}{4}=15\); \(P(X=4)=15(0.2401)(0.09)=0.3241\).</span></p>
+<p>Four patients responding and two not is the single most likely outcome for this
       drug and sample size, since \(np=4.2\) is close to 4.</p>
-    </div></details>
-  </div>
-
-  <div class="part">
-    <div class="part-stem"><span class="part-label">(d)</span>
-      <span class="part-text">Compute \(\mu\) and \(\sigma\), and interpret \(\mu\).</span></div>
-    <div class="answer-row"><label>\(\mu=np=\)</label><input type="text" id="w2_3d_mu" data-ans="4.2" data-tol="0.05">
-      <label>\(\sigma=\sqrt{np(1-p)}=\)</label><input type="text" id="w2_3d_sig" class="wide" data-ans="1.12" data-tol="0.03">
-      <button class="check-btn" onclick="checkNum(['w2_3d_mu','w2_3d_sig'],'w2_3d_v')">Check</button><span class="verdict" id="w2_3d_v"></span></div>
-    <details><summary>Show solution</summary><div class="solution">
-      <p><span class="ans">\(\mu=6(0.70)=4.2\); \(\sigma=\sqrt{6(0.70)(0.30)}=\sqrt{1.26}\approx1.12\).</span></p>
-      <p>Across many groups of 6 patients, we'd expect an average of 4.2 to respond to the
+</div></details>
+</div>
+<div class="part">
+<div class="part-stem"><span class="part-label">(d)</span>
+<span class="part-text">Compute \(\mu\) and \(\sigma\), and interpret \(\mu\).</span></div>
+<div class="answer-row"><label>\(\mu=np=\)</label><input data-ans="4.2" data-tol="0.05" id="w2_3d_mu" type="text"/>
+<label>\(\sigma=\sqrt{np(1-p)}=\)</label><input class="wide" data-ans="1.12" data-tol="0.03" id="w2_3d_sig" type="text"/>
+<button class="check-btn" onclick="checkNum(['w2_3d_mu','w2_3d_sig'],'w2_3d_v')">Check</button><span class="verdict" id="w2_3d_v"></span></div>
+<details><summary>Show solution</summary><div class="solution">
+<p><span class="ans">\(\mu=6(0.70)=4.2\); \(\sigma=\sqrt{6(0.70)(0.30)}=\sqrt{1.26}\approx1.12\).</span></p>
+<p>Across many groups of 6 patients, we'd expect an average of 4.2 to respond to the
       drug, typically varying by about 1.12 patients from that average.</p>
-    </div></details>
-  </div>
-
-  <div class="part">
-    <div class="part-stem"><span class="part-label">(e)</span>
-      <span class="part-text">Describe the expected histogram shape: symmetric, skewed
+</div></details>
+</div>
+<div class="part">
+<div class="part-stem"><span class="part-label">(e)</span>
+<span class="part-text">Describe the expected histogram shape: symmetric, skewed
       left, or skewed right? Where is the tallest bar? Why?</span></div>
-    <div class="text-answer"><label>Your answer.</label>
-      <textarea id="w2_3e" placeholder="Since p = 0.70 &gt; 0.50, the histogram is…"></textarea></div>
-    <details><summary>Show solution</summary><div class="solution">
-      <p><span class="ans">Skewed left, with the tallest bar near \(x=4\).</span></p>
-      <p>Since \(p=0.70>0.50\), successes are more common than failures, which pulls most
+<div class="text-answer"><label>Your answer.</label>
+<textarea id="w2_3e" placeholder="Since p = 0.70 &gt; 0.50, the histogram is…"></textarea></div>
+<details><summary>Show solution</summary><div class="solution">
+<p><span class="ans">Skewed left, with the tallest bar near \(x=4\).</span></p>
+<p>Since \(p=0.70&gt;0.50\), successes are more common than failures, which pulls most
       of the outcomes toward the higher end of \(0\) through \(6\) and stretches a shorter
       tail toward 0. The tallest bar sits at \(x=4\), closest to \(\mu=4.2\).</p>
-    </div></details>
-  </div>
+</div></details>
 </div>
-
-<div class="footer">MATH&amp; 146 &middot; Centralia College &middot; Week 2 Lab</div>
 </div>
-
+<div class="footer">MATH&amp; 146 · Centralia College · Week 2 Lab</div>
+<section aria-labelledby="finish-title" class="completion-panel">
+<h2 id="finish-title">Before you finish</h2>
+<p>Check that your name and date are filled in, every requested explanation is complete, and numerical answers have been checked where a Check button is provided.</p>
+<p>Your browser copy is useful while you work, but it stays on this device. Save a filled HTML copy if you want a portable version that can be reopened, uploaded, or submitted later.</p>
+<div class="finish-actions"><button class="primary-action" onclick="saveFilledHTML()" type="button">Save filled HTML</button><button onclick="window.print()" type="button">Print / Save PDF</button></div>
+<div aria-live="polite" class="export-note" id="exportStatus"></div>
+</section></div>
 <script>
-  const STORE_KEY='math146_w2_lab';
+  const STORE_KEY='math146_w2_lab'+(document.documentElement.dataset.instanceId?('_'+document.documentElement.dataset.instanceId):'');
   function allInputs(){return Array.from(document.querySelectorAll('input[type=text], textarea'));}
   function save(){const d={};allInputs().forEach(i=>{if(i.id)d[i.id]=i.value;});try{localStorage.setItem(STORE_KEY,JSON.stringify(d));}catch(e){}}
   function load(){let d={};try{d=JSON.parse(localStorage.getItem(STORE_KEY)||'{}');}catch(e){}allInputs().forEach(i=>{if(i.id&&d[i.id]!=null)i.value=d[i.id];});}
@@ -312,5 +365,63 @@
   load();
   updateLocks();
 </script>
-</body>
+<script>
+(function(){
+  const WEEK = 2;
+  function responseControls(){
+    return Array.from(document.querySelectorAll('input[type="text"], textarea, select')).filter(el=>{
+      if(el.readOnly || el.disabled) return false;
+      return !/_name$|_date$/.test(el.id||'');
+    });
+  }
+  function updateStudentProgress(){
+    const controls=responseControls();
+    const done=controls.filter(el=>String(el.value||'').trim()!=='').length;
+    const total=controls.length;
+    const pct=total?Math.round(100*done/total):0;
+    const text=document.getElementById('studentProgressText');
+    const fill=document.getElementById('studentProgressFill');
+    if(text) text.textContent=`${done} of ${total} response boxes started (${pct}%)`;
+    if(fill) fill.style.width=pct+'%';
+  }
+  function setCloneValues(clone){
+    const liveControls=Array.from(document.querySelectorAll('input, textarea, select'));
+    const clonedControls=Array.from(clone.querySelectorAll('input, textarea, select'));
+    liveControls.forEach((el,i)=>{
+      const c=clonedControls[i]; if(!c) return;
+      if(el.tagName==='TEXTAREA'){c.textContent=el.value;}
+      else if(el.tagName==='SELECT'){
+        Array.from(c.options).forEach((o,j)=>{if(j===el.selectedIndex)o.setAttribute('selected','selected');else o.removeAttribute('selected');});
+      } else if(el.type==='checkbox'||el.type==='radio'){
+        if(el.checked)c.setAttribute('checked','checked');else c.removeAttribute('checked');
+      } else {c.setAttribute('value',el.value);}
+      c.className=el.className;
+    });
+    const liveDetails=Array.from(document.querySelectorAll('details'));
+    const clonedDetails=Array.from(clone.querySelectorAll('details'));
+    liveDetails.forEach((el,i)=>{if(!clonedDetails[i])return;if(el.open)clonedDetails[i].setAttribute('open','');else clonedDetails[i].removeAttribute('open');});
+  }
+  window.saveFilledHTML=function(){
+    try{ if(typeof save==='function') save(); }catch(e){}
+    const clone=document.documentElement.cloneNode(true);
+    setCloneValues(clone);
+    clone.setAttribute('data-filled-copy','true');
+    clone.setAttribute('data-saved-at',new Date().toISOString());
+    if(!clone.dataset.instanceId) clone.dataset.instanceId=Date.now().toString(36);
+    const base=(document.title||`Math146 Week ${WEEK} Lab`).replace(/[^a-z0-9]+/gi,'_').replace(/^_+|_+$/g,'');
+    const nameEl=document.querySelector('input[id$="_name"]');
+    const student=(nameEl&&nameEl.value.trim())?('_'+nameEl.value.trim().replace(/[^a-z0-9]+/gi,'_')):'';
+    const html='<!DOCTYPE html>\n'+clone.outerHTML;
+    const blob=new Blob([html],{type:'text/html;charset=utf-8'});
+    const a=document.createElement('a');
+    a.href=URL.createObjectURL(blob);a.download=base+student+'_FILLED.html';
+    document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+    const note=document.getElementById('exportStatus');
+    if(note) note.textContent='Filled HTML saved. This copy contains the answers currently on the page.';
+  };
+  document.addEventListener('input',updateStudentProgress);
+  document.addEventListener('change',updateStudentProgress);
+  updateStudentProgress();
+})();
+</script></body>
 </html>

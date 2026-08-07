@@ -1,13 +1,14 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Math 146 — Week 7 Lab: Two-Sample Inference</title>
 <script>
   window.MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] }, svg: { fontCache: 'global' } };
 </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.min.js" id="MathJax-script" async></script>
+<script async="" id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.min.js"></script>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=DM+Mono:wght@400;500&display=swap');
   :root{--ink:#1c1c1c;--paper:#fcfbf8;--rule:#d8d3c8;--blue:#2a4d7a;--blue-bg:#eef2f8;--blue-rule:#bcccdf;--green:#1f6b46;--green-bg:#edf5ef;--green-rule:#b7d6c2;--amber:#9a6a00;--red:#9a2a2a;--mono:'DM Mono',monospace;}
@@ -64,284 +65,331 @@
   .footer{border-top:1px solid var(--rule);margin-top:50px;padding-top:12px;font-family:var(--mono);font-size:13px;color:#888;text-align:center;}
   @media print{.toolbar,.check-btn{display:none;}details{display:block;}details>summary{display:none;}.solution{display:block !important;}.text-answer textarea{border:1px solid #999;min-height:auto;}body{font-size:16px;}}
 </style>
-</head>
+<style>
+/* ---- Math 146 unified student experience ---- */
+:root{--student-shadow:0 8px 24px rgba(35,45,60,.08);--student-soft:#f7f8fa;--student-muted:#667085;--student-danger:#8b3030;}
+html{scroll-behavior:smooth;}
+body{overflow-x:hidden;}
+.wrap{width:min(100%, 900px);}
+header{padding-top:6px;}
+header h1{line-height:1.12;}
+.student-start{background:#fff;border:1px solid var(--rule);border-radius:10px;padding:18px 20px;margin:18px 0 18px;box-shadow:var(--student-shadow);}
+.student-start h2{font-size:18px;margin:0 0 8px;color:var(--blue);}
+.student-start p{margin:6px 0;}
+.student-start .workflow{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0 10px;}
+.student-start .step{background:var(--blue-bg);border:1px solid var(--blue-rule);border-radius:8px;padding:11px 12px;font-size:16px;line-height:1.35;}
+.student-start .step strong{display:block;font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:var(--blue);margin-bottom:3px;}
+.student-start .privacy{font-size:15px;color:#555;margin-top:10px;}
+.objectives{box-shadow:0 2px 10px rgba(35,45,60,.04);}
+.toolbar.student-toolbar{position:sticky;top:0;z-index:30;background:rgba(252,251,248,.97);backdrop-filter:blur(8px);border:1px solid var(--rule);border-radius:10px;padding:10px 12px;margin:0 0 28px;box-shadow:0 7px 18px rgba(40,40,40,.08);display:block;}
+.toolbar-main{display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
+.toolbar button{min-height:38px;}
+.toolbar button.primary-action{background:var(--blue);border-color:var(--blue);color:white;font-weight:500;}
+.toolbar button.primary-action:hover{background:#1d3a60;}
+.toolbar button.danger-soft{margin-left:auto;color:var(--student-danger);border-color:#d9bcbc;}
+.status-row{display:flex;align-items:center;gap:10px;margin-top:9px;font-family:var(--mono);font-size:12px;color:#5e6470;}
+.status-row .save-dot{width:8px;height:8px;border-radius:50%;background:var(--green);display:inline-block;flex:none;}
+.progress-track{height:6px;background:#e7e3da;border-radius:999px;overflow:hidden;flex:1;min-width:100px;}
+.progress-fill{height:100%;width:0;background:var(--green);transition:width .2s ease;}
+.problem-nav{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px;padding-top:8px;border-top:1px solid var(--rule);}
+.problem-nav a{font-family:var(--mono);font-size:11px;color:var(--blue);text-decoration:none;border:1px solid var(--blue-rule);background:var(--blue-bg);padding:4px 8px;border-radius:999px;}
+.problem-nav a:hover{text-decoration:underline;}
+.problem{scroll-margin-top:150px;background:rgba(255,255,255,.32);padding:2px 0 1px;}
+.problem-goal{font-size:16px;color:#555;margin:7px 0 12px;padding:8px 11px;border-left:3px solid var(--green);background:var(--green-bg);border-radius:0 6px 6px 0;}
+.problem-goal strong{color:var(--green);}
+input[type=text],textarea{transition:border-color .15s ease, box-shadow .15s ease, background .15s ease;}
+input[type=text]:focus,textarea:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px rgba(42,77,122,.12);}
+.check-btn{min-height:34px;}
+details{margin-left:26px;}
+details summary{line-height:1.35;}
+.completion-panel{background:#fff;border:1px solid var(--green-rule);border-radius:10px;padding:16px 18px;margin:34px 0 0;box-shadow:var(--student-shadow);}
+.completion-panel h2{font-size:18px;color:var(--green);margin:0 0 8px;}
+.completion-panel p{margin:5px 0;}
+.completion-panel .finish-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;}
+.completion-panel button{font-family:var(--mono);font-size:13px;cursor:pointer;border-radius:6px;padding:8px 12px;}
+.export-note{font-family:var(--mono);font-size:12px;color:#666;margin-top:8px;}
+@media(max-width:680px){
+  body{font-size:18px;}.wrap{padding-left:16px;padding-right:16px;}
+  header h1{font-size:27px;}.student-start .workflow{grid-template-columns:1fr;}
+  .toolbar.student-toolbar{top:0;border-radius:0;margin-left:-16px;margin-right:-16px;padding-left:16px;padding-right:16px;}
+  .toolbar button.danger-soft{margin-left:0;}
+  .answer-row,.text-answer{margin-left:0;}.part-stem{align-items:flex-start;}
+  details{margin-left:0;} table{font-size:16px;display:block;overflow-x:auto;max-width:100%;}
+}
+@media print{
+  .student-toolbar,.completion-panel .finish-actions,.export-note{display:none!important;}
+  .student-start{box-shadow:none;border:1px solid #bbb;}
+  .problem-goal{background:#fff;border:1px solid #bbb;border-left:3px solid #555;}
+  .wrap{max-width:none;padding:0 8mm;}
+  .problem{break-inside:auto;}
+  textarea{min-height:52px;}
+}
+</style></head>
 <body>
 <div class="wrap">
-
 <header>
-  <h1>Week 7 Lab — Two-Sample Inference</h1>
-  <div class="sub">Math 146 &middot; Centralia College</div>
-  <div class="id-row">
-    <label>Student name <input type="text" id="w7_name" placeholder="Your full name"></label>
-    <label>Date <input type="text" id="w7_date" placeholder="mm/dd/yyyy"></label>
-  </div>
+<h1>Week 7 Lab — Two-Sample Inference</h1>
+<div class="sub">Math 146 · Centralia College</div>
+<div class="id-row">
+<label>Student name <input id="w7_name" placeholder="Your full name" type="text"/></label>
+<label>Date <input id="w7_date" placeholder="mm/dd/yyyy" type="text"/></label>
+</div>
 </header>
-
-<p class="intro">
-  Fill in the answer boxes as you work. Click <strong>Check</strong> to test a numeric
-  answer; a box turns green when it matches. For parts that ask you to explain, type your
-  reasoning in the text box, then open <strong>Show solution</strong> to compare — solutions
-  unlock once you've entered an attempt. Your work is saved in this browser until you
-  clear it.
-</p>
-
+<section aria-labelledby="how-title" class="student-start">
+<h2 id="how-title">How to complete this lab</h2>
+<p>Work through the problems in order. Your goal is not just to get a number, but to connect each calculation to the statistical idea it represents.</p>
+<div class="workflow">
+<div class="step"><strong>1 · Work</strong>Enter your calculation or explanation directly in the page.</div>
+<div class="step"><strong>2 · Check</strong>Use <em>Check</em> for numerical answers. For written work, make an attempt before opening the comparison solution.</div>
+<div class="step"><strong>3 · Save</strong>Your answers save automatically on this device. Before you leave, download a filled HTML copy or print/save a PDF.</div>
+</div>
+<p class="privacy">Nothing is submitted automatically. A filled HTML copy is the best choice if you want to reopen the lab later with your answers still in place.</p>
+</section>
 <div class="objectives">
-  <h2>Objectives</h2>
-  <ul>
-    <li>Decide whether two samples are independent or paired.</li>
-    <li>Carry out a two-sample \(z\)-test comparing two population means.</li>
-    <li>Construct a confidence interval for the difference of two means, \(\mu_1-\mu_2\).</li>
-    <li>Carry out a two-sample \(z\)-test comparing two population proportions.</li>
-  </ul>
+<h2>What you’ll practice</h2>
+<ul>
+<li>Decide whether two samples are independent or paired.</li>
+<li>Carry out a two-sample \(z\)-test comparing two population means.</li>
+<li>Construct a confidence interval for the difference of two means, \(\mu_1-\mu_2\).</li>
+<li>Carry out a two-sample \(z\)-test comparing two population proportions.</li>
+</ul>
 </div>
-
 <div class="formulas">
-  <h2>Reference Formulas</h2>
-  <p>\[\text{SE}_{\bar{x}_1-\bar{x}_2}=\sqrt{\frac{\sigma_1^2}{n_1}+\frac{\sigma_2^2}{n_2}} \qquad z=\frac{(\bar{x}_1-\bar{x}_2)-0}{\text{SE}} \qquad \text{CI: }(\bar{x}_1-\bar{x}_2)\pm z^*\,\text{SE}\]</p>
-  <p>\[\hat{p}_{\text{pool}}=\frac{x_1+x_2}{n_1+n_2} \qquad z=\frac{\hat{p}_1-\hat{p}_2}{\sqrt{\hat{p}_{\text{pool}}(1-\hat{p}_{\text{pool}})(1/n_1+1/n_2)}}\]</p>
+<h2>Reference Formulas</h2>
+<p>\[\text{SE}_{\bar{x}_1-\bar{x}_2}=\sqrt{\frac{\sigma_1^2}{n_1}+\frac{\sigma_2^2}{n_2}} \qquad z=\frac{(\bar{x}_1-\bar{x}_2)-0}{\text{SE}} \qquad \text{CI: }(\bar{x}_1-\bar{x}_2)\pm z^*\,\text{SE}\]</p>
+<p>\[\hat{p}_{\text{pool}}=\frac{x_1+x_2}{n_1+n_2} \qquad z=\frac{\hat{p}_1-\hat{p}_2}{\sqrt{\hat{p}_{\text{pool}}(1-\hat{p}_{\text{pool}})(1/n_1+1/n_2)}}\]</p>
 </div>
-
-<div class="toolbar">
-  <button onclick="window.print()">Print</button>
-  <button onclick="clearData()">Clear data</button>
+<div aria-label="Lab controls" class="toolbar student-toolbar no-print">
+<div class="toolbar-main">
+<button class="primary-action" onclick="saveFilledHTML()" type="button">Save filled HTML</button>
+<button onclick="window.print()" type="button">Print / Save PDF</button>
+<button class="danger-soft" onclick="clearData()" type="button">Clear answers</button>
 </div>
-
+<div class="status-row"><span aria-hidden="true" class="save-dot"></span><span>Saved automatically on this device</span><div aria-hidden="true" class="progress-track"><div class="progress-fill" id="studentProgressFill"></div></div><span aria-live="polite" id="studentProgressText"></span></div>
+<nav aria-label="Jump to a problem" class="problem-nav"><a href="#p1">Problem 1</a><a href="#p2">Problem 2</a><a href="#p3">Problem 3</a><a href="#p4">Problem 4</a></nav>
+</div>
 <!-- PROBLEM 1 -->
 <div class="problem" id="p1">
-  <h2>Problem 1 — Independent or Paired?</h2>
-  <div class="scenario">Before choosing a two-sample method, decide whether the two sets of
+<h2>Problem 1 — Independent or Paired?</h2><p class="problem-goal"><strong>Goal:</strong> Decide whether a two-sample situation uses independent or paired data.</p>
+<div class="scenario">Before choosing a two-sample method, decide whether the two sets of
   data are independent or paired. Independent samples come from separate groups. Paired
   data come from matched measurements, such as before-and-after measurements on the same
   people.</div>
-
-  <div class="part">
-    <div class="part-stem"><span class="part-label">(a)</span>
-      <span class="part-text">The same 30 students take a short quiz before and after a
+<div class="part">
+<div class="part-stem"><span class="part-label">(a)</span>
+<span class="part-text">The same 30 students take a short quiz before and after a
       review session. Paired or independent?</span></div>
-    <div class="text-answer"><label>Your answer.</label>
-      <textarea id="w7_1a" placeholder="These data are…"></textarea></div>
-    <details><summary>Show solution</summary><div class="solution">
-      <p><span class="ans">Paired.</span></p>
-      <p>The same 30 students are measured twice, so each before-score is matched to that
+<div class="text-answer"><label>Your answer.</label>
+<textarea id="w7_1a" placeholder="These data are…"></textarea></div>
+<details><summary>Show solution</summary><div class="solution">
+<p><span class="ans">Paired.</span></p>
+<p>The same 30 students are measured twice, so each before-score is matched to that
       same student's after-score.</p>
-    </div></details>
-  </div>
-
-  <div class="part">
-    <div class="part-stem"><span class="part-label">(b)</span>
-      <span class="part-text">Two separate class sections use different textbooks and
-      their quiz scores are compared. Paired or independent?</span></div>
-    <div class="text-answer"><label>Your answer.</label>
-      <textarea id="w7_1b" placeholder="These data are…"></textarea></div>
-    <details><summary>Show solution</summary><div class="solution">
-      <p><span class="ans">Independent.</span></p>
-      <p>The two sections are made up of different students, so there's no natural
-      pairing between a score in one section and a score in the other.</p>
-    </div></details>
-  </div>
-
-  <div class="part">
-    <div class="part-stem"><span class="part-label">(c)</span>
-      <span class="part-text">Each patient has blood pressure measured before and after
-      taking a medication. Paired or independent?</span></div>
-    <div class="text-answer"><label>Your answer.</label>
-      <textarea id="w7_1c" placeholder="These data are…"></textarea></div>
-    <details><summary>Show solution</summary><div class="solution">
-      <p><span class="ans">Paired.</span></p>
-      <p>Each patient contributes both a before- and an after-measurement, so the two
-      values are naturally linked by patient.</p>
-    </div></details>
-  </div>
-
-  <div class="part">
-    <div class="part-stem"><span class="part-label">(d)</span>
-      <span class="part-text">Ballot measure support is surveyed in two different cities.
-      Paired or independent?</span></div>
-    <div class="text-answer"><label>Your answer.</label>
-      <textarea id="w7_1d" placeholder="These data are…"></textarea></div>
-    <details><summary>Show solution</summary><div class="solution">
-      <p><span class="ans">Independent.</span></p>
-      <p>The two cities are separate populations of respondents with no shared
-      individuals, so the samples don't pair up.</p>
-    </div></details>
-  </div>
+</div></details>
 </div>
-
+<div class="part">
+<div class="part-stem"><span class="part-label">(b)</span>
+<span class="part-text">Two separate class sections use different textbooks and
+      their quiz scores are compared. Paired or independent?</span></div>
+<div class="text-answer"><label>Your answer.</label>
+<textarea id="w7_1b" placeholder="These data are…"></textarea></div>
+<details><summary>Show solution</summary><div class="solution">
+<p><span class="ans">Independent.</span></p>
+<p>The two sections are made up of different students, so there's no natural
+      pairing between a score in one section and a score in the other.</p>
+</div></details>
+</div>
+<div class="part">
+<div class="part-stem"><span class="part-label">(c)</span>
+<span class="part-text">Each patient has blood pressure measured before and after
+      taking a medication. Paired or independent?</span></div>
+<div class="text-answer"><label>Your answer.</label>
+<textarea id="w7_1c" placeholder="These data are…"></textarea></div>
+<details><summary>Show solution</summary><div class="solution">
+<p><span class="ans">Paired.</span></p>
+<p>Each patient contributes both a before- and an after-measurement, so the two
+      values are naturally linked by patient.</p>
+</div></details>
+</div>
+<div class="part">
+<div class="part-stem"><span class="part-label">(d)</span>
+<span class="part-text">Ballot measure support is surveyed in two different cities.
+      Paired or independent?</span></div>
+<div class="text-answer"><label>Your answer.</label>
+<textarea id="w7_1d" placeholder="These data are…"></textarea></div>
+<details><summary>Show solution</summary><div class="solution">
+<p><span class="ans">Independent.</span></p>
+<p>The two cities are separate populations of respondents with no shared
+      individuals, so the samples don't pair up.</p>
+</div></details>
+</div>
+</div>
 <!-- PROBLEM 2 -->
 <div class="problem" id="p2">
-  <h2>Problem 2 — Two-Sample z-Test for Means</h2>
-  <div class="scenario">A website team compares the average time, in seconds, that users
+<h2>Problem 2 — Two-Sample z-Test for Means</h2><p class="problem-goal"><strong>Goal:</strong> Compare two population means with a two-sample z-test.</p>
+<div class="scenario">A website team compares the average time, in seconds, that users
   spend on two page layouts. For Layout 1, \(n_1=40\), \(\bar{x}_1=58.2\), and
   \(\sigma_1=8.0\). For Layout 2, \(n_2=45\), \(\bar{x}_2=54.6\), and \(\sigma_2=7.5\). Test
   whether users spend more time on Layout 1 than on Layout 2.
-  Use \(H_0:\mu_1=\mu_2\) and \(H_a:\mu_1>\mu_2\). Test at significance level \(\alpha=0.05\).</div>
-
-  <div class="part">
-    <div class="part-stem"><span class="part-label">(a)</span>
-      <span class="part-text">Find the standard error.</span></div>
-    <div class="answer-row"><label>\(\sigma_1^2/n_1=\)</label><input type="text" id="w7_2a_t1" data-ans="1.6" data-tol="0.05">
-      <label>\(\sigma_2^2/n_2=\)</label><input type="text" id="w7_2a_t2" data-ans="1.25" data-tol="0.05">
-      <label>SE\(=\sqrt{\text{sum}}=\)</label><input type="text" id="w7_2a_se" class="wide" data-ans="1.688" data-tol="0.02">
-      <button class="check-btn" onclick="checkNum(['w7_2a_t1','w7_2a_t2','w7_2a_se'],'w7_2a_v')">Check</button><span class="verdict" id="w7_2a_v"></span></div>
-    <details><summary>Show solution</summary><div class="solution">
-      <p><span class="ans">SE \(\approx1.688\).</span></p>
-      <p>\(\sigma_1^2/n_1=64/40=1.6\), \(\sigma_2^2/n_2=56.25/45=1.25\).
+  Use \(H_0:\mu_1=\mu_2\) and \(H_a:\mu_1&gt;\mu_2\). Test at significance level \(\alpha=0.05\).</div>
+<div class="part">
+<div class="part-stem"><span class="part-label">(a)</span>
+<span class="part-text">Find the standard error.</span></div>
+<div class="answer-row"><label>\(\sigma_1^2/n_1=\)</label><input data-ans="1.6" data-tol="0.05" id="w7_2a_t1" type="text"/>
+<label>\(\sigma_2^2/n_2=\)</label><input data-ans="1.25" data-tol="0.05" id="w7_2a_t2" type="text"/>
+<label>SE\(=\sqrt{\text{sum}}=\)</label><input class="wide" data-ans="1.688" data-tol="0.02" id="w7_2a_se" type="text"/>
+<button class="check-btn" onclick="checkNum(['w7_2a_t1','w7_2a_t2','w7_2a_se'],'w7_2a_v')">Check</button><span class="verdict" id="w7_2a_v"></span></div>
+<details><summary>Show solution</summary><div class="solution">
+<p><span class="ans">SE \(\approx1.688\).</span></p>
+<p>\(\sigma_1^2/n_1=64/40=1.6\), \(\sigma_2^2/n_2=56.25/45=1.25\).
       \(\text{SE}=\sqrt{2.85}\approx1.688\).</p>
-    </div></details>
-  </div>
-
-  <div class="part">
-    <div class="part-stem"><span class="part-label">(b)</span>
-      <span class="part-text">Find the test statistic \(z\).</span></div>
-    <div class="answer-row"><label>\(z=(\bar{x}_1-\bar{x}_2)/\text{SE}=\)</label><input type="text" id="w7_2b" class="wide" data-ans="2.13" data-tol="0.04">
-      <button class="check-btn" onclick="checkNum(['w7_2b'],'w7_2b_v')">Check</button><span class="verdict" id="w7_2b_v"></span></div>
-    <details><summary>Show solution</summary><div class="solution">
-      <p><span class="ans">\(z\approx2.13\).</span></p>
-      <p>\(z=3.6/1.688\approx2.13\).</p>
-    </div></details>
-  </div>
-
-  <div class="part">
-    <div class="part-stem"><span class="part-label">(c)</span>
-      <span class="part-text">Find the \(p\)-value (right-tailed).</span></div>
-    <div class="answer-row"><label>\(1-P(Z\le2.13)=\)</label><input type="text" id="w7_2c" class="wide" data-ans="0.0166" data-tol="0.003">
-      <button class="check-btn" onclick="checkNum(['w7_2c'],'w7_2c_v')">Check</button><span class="verdict" id="w7_2c_v"></span></div>
-    <details><summary>Show solution</summary><div class="solution">
-      <p><span class="ans">\(p\approx0.0166\).</span></p>
-      <p>\(1-P(Z\le2.13)=1-0.9834=0.0166\).</p>
-    </div></details>
-  </div>
-
-  <div class="part">
-    <div class="part-stem"><span class="part-label">(d)</span>
-      <span class="part-text">Compare the \(p\)-value to \(\alpha\) and write a complete
-      conclusion in context.</span></div>
-    <div class="text-answer"><label>Your answer.</label>
-      <textarea id="w7_2d" placeholder="Since p-value = … &lt; 0.05, we … There is sufficient evidence to conclude that…"></textarea></div>
-    <details><summary>Show solution</summary><div class="solution">
-      <p>SE\(\approx1.688\), \(z\approx2.13\), \(p\)-value\(=1-0.9834=0.0166<0.05\).</p>
-      <p class="reject">Reject \(H_0\).</p>
-      <p>Layout 1 has a greater average time on page: there is sufficient evidence at
-      \(\alpha=0.05\) that users spend more time on Layout 1 than on Layout 2.</p>
-    </div></details>
-  </div>
+</div></details>
 </div>
-
+<div class="part">
+<div class="part-stem"><span class="part-label">(b)</span>
+<span class="part-text">Find the test statistic \(z\).</span></div>
+<div class="answer-row"><label>\(z=(\bar{x}_1-\bar{x}_2)/\text{SE}=\)</label><input class="wide" data-ans="2.13" data-tol="0.04" id="w7_2b" type="text"/>
+<button class="check-btn" onclick="checkNum(['w7_2b'],'w7_2b_v')">Check</button><span class="verdict" id="w7_2b_v"></span></div>
+<details><summary>Show solution</summary><div class="solution">
+<p><span class="ans">\(z\approx2.13\).</span></p>
+<p>\(z=3.6/1.688\approx2.13\).</p>
+</div></details>
+</div>
+<div class="part">
+<div class="part-stem"><span class="part-label">(c)</span>
+<span class="part-text">Find the \(p\)-value (right-tailed).</span></div>
+<div class="answer-row"><label>\(1-P(Z\le2.13)=\)</label><input class="wide" data-ans="0.0166" data-tol="0.003" id="w7_2c" type="text"/>
+<button class="check-btn" onclick="checkNum(['w7_2c'],'w7_2c_v')">Check</button><span class="verdict" id="w7_2c_v"></span></div>
+<details><summary>Show solution</summary><div class="solution">
+<p><span class="ans">\(p\approx0.0166\).</span></p>
+<p>\(1-P(Z\le2.13)=1-0.9834=0.0166\).</p>
+</div></details>
+</div>
+<div class="part">
+<div class="part-stem"><span class="part-label">(d)</span>
+<span class="part-text">Compare the \(p\)-value to \(\alpha\) and write a complete
+      conclusion in context.</span></div>
+<div class="text-answer"><label>Your answer.</label>
+<textarea id="w7_2d" placeholder="Since p-value = … &lt; 0.05, we … There is sufficient evidence to conclude that…"></textarea></div>
+<details><summary>Show solution</summary><div class="solution">
+<p>SE\(\approx1.688\), \(z\approx2.13\), \(p\)-value\(=1-0.9834=0.0166&lt;0.05\).</p>
+<p class="reject">Reject \(H_0\).</p>
+<p>Layout 1 has a greater average time on page: there is sufficient evidence at
+      \(\alpha=0.05\) that users spend more time on Layout 1 than on Layout 2.</p>
+</div></details>
+</div>
+</div>
 <!-- PROBLEM 3 -->
 <div class="problem" id="p3">
-  <h2>Problem 3 — Confidence Interval for \(\mu_1-\mu_2\)</h2>
-  <div class="scenario">Using the same layout data from Problem 2, construct a 95%
+<h2>Problem 3 — Confidence Interval for \(\mu_1-\mu_2\)</h2><p class="problem-goal"><strong>Goal:</strong> Estimate a difference of population means with a confidence interval.</p>
+<div class="scenario">Using the same layout data from Problem 2, construct a 95%
   confidence interval for \(\mu_1-\mu_2\). The interval estimates how much longer, on
   average, users spend on Layout 1 compared with Layout 2.</div>
-
-  <div class="part">
-    <div class="part-stem"><span class="part-label">(a)</span>
-      <span class="part-text">Find the margin of error.</span></div>
-    <div class="answer-row"><label>ME\(=z^*\times\text{SE}=1.96\times1.688=\)</label><input type="text" id="w7_3a" class="wide" data-ans="3.308" data-tol="0.02">
-      <button class="check-btn" onclick="checkNum(['w7_3a'],'w7_3a_v')">Check</button><span class="verdict" id="w7_3a_v"></span></div>
-    <details><summary>Show solution</summary><div class="solution">
-      <p><span class="ans">ME \(\approx3.31\).</span></p>
-      <p>\(1.96\times1.688\approx3.308\).</p>
-    </div></details>
-  </div>
-
-  <div class="part">
-    <div class="part-stem"><span class="part-label">(b)</span>
-      <span class="part-text">Construct the confidence interval.</span></div>
-    <div class="answer-row"><label>\((\bar{x}_1-\bar{x}_2)\pm\text{ME}=3.6\pm\text{ME}\): lower \(=\)</label><input type="text" id="w7_3b_lo" data-ans="0.29" data-tol="0.05">
-      <label>upper \(=\)</label><input type="text" id="w7_3b_hi" data-ans="6.91" data-tol="0.05">
-      <button class="check-btn" onclick="checkNum(['w7_3b_lo','w7_3b_hi'],'w7_3b_v')">Check</button><span class="verdict" id="w7_3b_v"></span></div>
-    <details><summary>Show solution</summary><div class="solution">
-      <p><span class="ans">95% CI: \((0.29,\,6.91)\) seconds.</span></p>
-      <p>ME\(=1.96\times1.688\approx3.308\), so the interval is \(3.6\pm3.31=(0.29,6.91)\).</p>
-    </div></details>
-  </div>
-
-  <div class="part">
-    <div class="part-stem"><span class="part-label">(c)</span>
-      <span class="part-text">Does the interval contain 0? State whether 0 is in the
-      interval and what that implies about \(\mu_1-\mu_2\).</span></div>
-    <div class="text-answer"><label>Your answer.</label>
-      <textarea id="w7_3c" placeholder="The interval (0.29, 6.91) does / does not contain 0. This tells us…"></textarea></div>
-    <details><summary>Show solution</summary><div class="solution">
-      <p><span class="ans">The interval \((0.29,6.91)\) does not contain 0.</span></p>
-      <p>Since 0 is excluded, and the whole interval is positive, this is consistent with
-      \(\mu_1>\mu_2\): Layout 1's true mean time on page is plausibly greater than Layout
-      2's.</p>
-    </div></details>
-  </div>
+<div class="part">
+<div class="part-stem"><span class="part-label">(a)</span>
+<span class="part-text">Find the margin of error.</span></div>
+<div class="answer-row"><label>ME\(=z^*\times\text{SE}=1.96\times1.688=\)</label><input class="wide" data-ans="3.308" data-tol="0.02" id="w7_3a" type="text"/>
+<button class="check-btn" onclick="checkNum(['w7_3a'],'w7_3a_v')">Check</button><span class="verdict" id="w7_3a_v"></span></div>
+<details><summary>Show solution</summary><div class="solution">
+<p><span class="ans">ME \(\approx3.31\).</span></p>
+<p>\(1.96\times1.688\approx3.308\).</p>
+</div></details>
 </div>
-
+<div class="part">
+<div class="part-stem"><span class="part-label">(b)</span>
+<span class="part-text">Construct the confidence interval.</span></div>
+<div class="answer-row"><label>\((\bar{x}_1-\bar{x}_2)\pm\text{ME}=3.6\pm\text{ME}\): lower \(=\)</label><input data-ans="0.29" data-tol="0.05" id="w7_3b_lo" type="text"/>
+<label>upper \(=\)</label><input data-ans="6.91" data-tol="0.05" id="w7_3b_hi" type="text"/>
+<button class="check-btn" onclick="checkNum(['w7_3b_lo','w7_3b_hi'],'w7_3b_v')">Check</button><span class="verdict" id="w7_3b_v"></span></div>
+<details><summary>Show solution</summary><div class="solution">
+<p><span class="ans">95% CI: \((0.29,\,6.91)\) seconds.</span></p>
+<p>ME\(=1.96\times1.688\approx3.308\), so the interval is \(3.6\pm3.31=(0.29,6.91)\).</p>
+</div></details>
+</div>
+<div class="part">
+<div class="part-stem"><span class="part-label">(c)</span>
+<span class="part-text">Does the interval contain 0? State whether 0 is in the
+      interval and what that implies about \(\mu_1-\mu_2\).</span></div>
+<div class="text-answer"><label>Your answer.</label>
+<textarea id="w7_3c" placeholder="The interval (0.29, 6.91) does / does not contain 0. This tells us…"></textarea></div>
+<details><summary>Show solution</summary><div class="solution">
+<p><span class="ans">The interval \((0.29,6.91)\) does not contain 0.</span></p>
+<p>Since 0 is excluded, and the whole interval is positive, this is consistent with
+      \(\mu_1&gt;\mu_2\): Layout 1's true mean time on page is plausibly greater than Layout
+      2's.</p>
+</div></details>
+</div>
+</div>
 <!-- PROBLEM 4 -->
 <div class="problem" id="p4">
-  <h2>Problem 4 — Two-Sample z-Test for Proportions</h2>
-  <div class="scenario">A school compares participation in an after-school program for two
+<h2>Problem 4 — Two-Sample z-Test for Proportions</h2><p class="problem-goal"><strong>Goal:</strong> Compare two population proportions with a two-sample z-test.</p>
+<div class="scenario">A school compares participation in an after-school program for two
   grade levels. In Grade 11, 84 of 150 students participate. In Grade 12, 63 of 140
   students participate. Test whether the participation proportions differ between the two
   grades. Use \(H_0:p_1=p_2\) and \(H_a:p_1\ne p_2\). Test at significance level
   \(\alpha=0.05\).</div>
-
-  <div class="part">
-    <div class="part-stem"><span class="part-label">(a)</span>
-      <span class="part-text">Find the sample proportions.</span></div>
-    <div class="answer-row"><label>\(\hat{p}_1=84/150=\)</label><input type="text" id="w7_4a_p1" data-ans="0.56" data-tol="0.005">
-      <label>\(\hat{p}_2=63/140=\)</label><input type="text" id="w7_4a_p2" data-ans="0.45" data-tol="0.005">
-      <button class="check-btn" onclick="checkNum(['w7_4a_p1','w7_4a_p2'],'w7_4a_v')">Check</button><span class="verdict" id="w7_4a_v"></span></div>
-    <details><summary>Show solution</summary><div class="solution">
-      <p><span class="ans">\(\hat{p}_1=0.56\), \(\hat{p}_2=0.45\).</span></p>
-      <p>\(84/150=0.56\) and \(63/140=0.45\).</p>
-    </div></details>
-  </div>
-
-  <div class="part">
-    <div class="part-stem"><span class="part-label">(b)</span>
-      <span class="part-text">Find the pooled proportion.</span></div>
-    <div class="answer-row"><label>\(\hat{p}_{\text{pool}}=(84+63)/(150+140)=\)</label><input type="text" id="w7_4b" class="wide" data-ans="0.5069" data-tol="0.003">
-      <button class="check-btn" onclick="checkNum(['w7_4b'],'w7_4b_v')">Check</button><span class="verdict" id="w7_4b_v"></span></div>
-    <details><summary>Show solution</summary><div class="solution">
-      <p><span class="ans">\(\hat{p}_{\text{pool}}\approx0.5069\).</span></p>
-      <p>\(147/290\approx0.5069\). Pooling combines both samples into one estimate of the
+<div class="part">
+<div class="part-stem"><span class="part-label">(a)</span>
+<span class="part-text">Find the sample proportions.</span></div>
+<div class="answer-row"><label>\(\hat{p}_1=84/150=\)</label><input data-ans="0.56" data-tol="0.005" id="w7_4a_p1" type="text"/>
+<label>\(\hat{p}_2=63/140=\)</label><input data-ans="0.45" data-tol="0.005" id="w7_4a_p2" type="text"/>
+<button class="check-btn" onclick="checkNum(['w7_4a_p1','w7_4a_p2'],'w7_4a_v')">Check</button><span class="verdict" id="w7_4a_v"></span></div>
+<details><summary>Show solution</summary><div class="solution">
+<p><span class="ans">\(\hat{p}_1=0.56\), \(\hat{p}_2=0.45\).</span></p>
+<p>\(84/150=0.56\) and \(63/140=0.45\).</p>
+</div></details>
+</div>
+<div class="part">
+<div class="part-stem"><span class="part-label">(b)</span>
+<span class="part-text">Find the pooled proportion.</span></div>
+<div class="answer-row"><label>\(\hat{p}_{\text{pool}}=(84+63)/(150+140)=\)</label><input class="wide" data-ans="0.5069" data-tol="0.003" id="w7_4b" type="text"/>
+<button class="check-btn" onclick="checkNum(['w7_4b'],'w7_4b_v')">Check</button><span class="verdict" id="w7_4b_v"></span></div>
+<details><summary>Show solution</summary><div class="solution">
+<p><span class="ans">\(\hat{p}_{\text{pool}}\approx0.5069\).</span></p>
+<p>\(147/290\approx0.5069\). Pooling combines both samples into one estimate of the
       shared proportion assumed under \(H_0\).</p>
-    </div></details>
-  </div>
-
-  <div class="part">
-    <div class="part-stem"><span class="part-label">(c)</span>
-      <span class="part-text">Find the test statistic \(z\).</span></div>
-    <div class="answer-row"><label>SE\(=\sqrt{\hat{p}_{\text{pool}}(1-\hat{p}_{\text{pool}})(1/150+1/140)}=\)</label><input type="text" id="w7_4c_se" class="wide" data-ans="0.05876" data-tol="0.003">
-      <label>\(z=(\hat{p}_1-\hat{p}_2)/\text{SE}=\)</label><input type="text" id="w7_4c_z" class="wide" data-ans="1.87" data-tol="0.04">
-      <button class="check-btn" onclick="checkNum(['w7_4c_se','w7_4c_z'],'w7_4c_v')">Check</button><span class="verdict" id="w7_4c_v"></span></div>
-    <details><summary>Show solution</summary><div class="solution">
-      <p><span class="ans">\(z\approx1.87\).</span></p>
-      <p>SE\(\approx\sqrt{0.2500\times0.01381}\approx0.05876\).
+</div></details>
+</div>
+<div class="part">
+<div class="part-stem"><span class="part-label">(c)</span>
+<span class="part-text">Find the test statistic \(z\).</span></div>
+<div class="answer-row"><label>SE\(=\sqrt{\hat{p}_{\text{pool}}(1-\hat{p}_{\text{pool}})(1/150+1/140)}=\)</label><input class="wide" data-ans="0.05876" data-tol="0.003" id="w7_4c_se" type="text"/>
+<label>\(z=(\hat{p}_1-\hat{p}_2)/\text{SE}=\)</label><input class="wide" data-ans="1.87" data-tol="0.04" id="w7_4c_z" type="text"/>
+<button class="check-btn" onclick="checkNum(['w7_4c_se','w7_4c_z'],'w7_4c_v')">Check</button><span class="verdict" id="w7_4c_v"></span></div>
+<details><summary>Show solution</summary><div class="solution">
+<p><span class="ans">\(z\approx1.87\).</span></p>
+<p>SE\(\approx\sqrt{0.2500\times0.01381}\approx0.05876\).
       \(z=0.11/0.05876\approx1.87\).</p>
-    </div></details>
-  </div>
-
-  <div class="part">
-    <div class="part-stem"><span class="part-label">(d)</span>
-      <span class="part-text">Find the \(p\)-value, then write the decision and a complete
+</div></details>
+</div>
+<div class="part">
+<div class="part-stem"><span class="part-label">(d)</span>
+<span class="part-text">Find the \(p\)-value, then write the decision and a complete
       conclusion in context.</span></div>
-    <div class="answer-row"><label>\(p\)-value \(=2(1-P(Z\le1.87))=\)</label><input type="text" id="w7_4d_pv" class="wide" data-ans="0.0614" data-tol="0.003">
-      <button class="check-btn" onclick="checkNum(['w7_4d_pv'],'w7_4d_v')">Check</button><span class="verdict" id="w7_4d_v"></span></div>
-    <div class="text-answer"><label>Your answer.</label>
-      <textarea id="w7_4d_conc" placeholder="Since p-value = … &gt; 0.05, we … There is insufficient/sufficient evidence that…"></textarea></div>
-    <details><summary>Show solution</summary><div class="solution">
-      <p>\(\hat{p}_1=0.56\), \(\hat{p}_2=0.45\), \(\hat{p}_{\text{pool}}=147/290\approx0.5069\).
+<div class="answer-row"><label>\(p\)-value \(=2(1-P(Z\le1.87))=\)</label><input class="wide" data-ans="0.0614" data-tol="0.003" id="w7_4d_pv" type="text"/>
+<button class="check-btn" onclick="checkNum(['w7_4d_pv'],'w7_4d_v')">Check</button><span class="verdict" id="w7_4d_v"></span></div>
+<div class="text-answer"><label>Your answer.</label>
+<textarea id="w7_4d_conc" placeholder="Since p-value = … &gt; 0.05, we … There is insufficient/sufficient evidence that…"></textarea></div>
+<details><summary>Show solution</summary><div class="solution">
+<p>\(\hat{p}_1=0.56\), \(\hat{p}_2=0.45\), \(\hat{p}_{\text{pool}}=147/290\approx0.5069\).
       SE\(\approx\sqrt{0.2500\times0.01381}\approx0.05876\). \(z=0.11/0.05876\approx1.87\).
-      \(p\)-value\(=2(1-0.9693)=0.0614>0.05\).</p>
-      <p class="ftreject">Fail to reject \(H_0\).</p>
-      <p>There is insufficient evidence at \(\alpha=0.05\) that participation rates differ
+      \(p\)-value\(=2(1-0.9693)=0.0614&gt;0.05\).</p>
+<p class="ftreject">Fail to reject \(H_0\).</p>
+<p>There is insufficient evidence at \(\alpha=0.05\) that participation rates differ
       between Grade 11 and Grade 12.</p>
-    </div></details>
-  </div>
+</div></details>
 </div>
-
-<div class="footer">MATH&amp; 146 &middot; Centralia College &middot; Week 7 Lab</div>
 </div>
-
+<div class="footer">MATH&amp; 146 · Centralia College · Week 7 Lab</div>
+<section aria-labelledby="finish-title" class="completion-panel">
+<h2 id="finish-title">Before you finish</h2>
+<p>Check that your name and date are filled in, every requested explanation is complete, and numerical answers have been checked where a Check button is provided.</p>
+<p>Your browser copy is useful while you work, but it stays on this device. Save a filled HTML copy if you want a portable version that can be reopened, uploaded, or submitted later.</p>
+<div class="finish-actions"><button class="primary-action" onclick="saveFilledHTML()" type="button">Save filled HTML</button><button onclick="window.print()" type="button">Print / Save PDF</button></div>
+<div aria-live="polite" class="export-note" id="exportStatus"></div>
+</section></div>
 <script>
-  const STORE_KEY='math146_w7_lab';
+  const STORE_KEY='math146_w7_lab'+(document.documentElement.dataset.instanceId?('_'+document.documentElement.dataset.instanceId):'');
   function allInputs(){return Array.from(document.querySelectorAll('input[type=text], textarea'));}
   function save(){const d={};allInputs().forEach(i=>{if(i.id)d[i.id]=i.value;});try{localStorage.setItem(STORE_KEY,JSON.stringify(d));}catch(e){}}
   function load(){let d={};try{d=JSON.parse(localStorage.getItem(STORE_KEY)||'{}');}catch(e){}allInputs().forEach(i=>{if(i.id&&d[i.id]!=null)i.value=d[i.id];});}
@@ -356,5 +404,63 @@
   load();
   updateLocks();
 </script>
-</body>
+<script>
+(function(){
+  const WEEK = 7;
+  function responseControls(){
+    return Array.from(document.querySelectorAll('input[type="text"], textarea, select')).filter(el=>{
+      if(el.readOnly || el.disabled) return false;
+      return !/_name$|_date$/.test(el.id||'');
+    });
+  }
+  function updateStudentProgress(){
+    const controls=responseControls();
+    const done=controls.filter(el=>String(el.value||'').trim()!=='').length;
+    const total=controls.length;
+    const pct=total?Math.round(100*done/total):0;
+    const text=document.getElementById('studentProgressText');
+    const fill=document.getElementById('studentProgressFill');
+    if(text) text.textContent=`${done} of ${total} response boxes started (${pct}%)`;
+    if(fill) fill.style.width=pct+'%';
+  }
+  function setCloneValues(clone){
+    const liveControls=Array.from(document.querySelectorAll('input, textarea, select'));
+    const clonedControls=Array.from(clone.querySelectorAll('input, textarea, select'));
+    liveControls.forEach((el,i)=>{
+      const c=clonedControls[i]; if(!c) return;
+      if(el.tagName==='TEXTAREA'){c.textContent=el.value;}
+      else if(el.tagName==='SELECT'){
+        Array.from(c.options).forEach((o,j)=>{if(j===el.selectedIndex)o.setAttribute('selected','selected');else o.removeAttribute('selected');});
+      } else if(el.type==='checkbox'||el.type==='radio'){
+        if(el.checked)c.setAttribute('checked','checked');else c.removeAttribute('checked');
+      } else {c.setAttribute('value',el.value);}
+      c.className=el.className;
+    });
+    const liveDetails=Array.from(document.querySelectorAll('details'));
+    const clonedDetails=Array.from(clone.querySelectorAll('details'));
+    liveDetails.forEach((el,i)=>{if(!clonedDetails[i])return;if(el.open)clonedDetails[i].setAttribute('open','');else clonedDetails[i].removeAttribute('open');});
+  }
+  window.saveFilledHTML=function(){
+    try{ if(typeof save==='function') save(); }catch(e){}
+    const clone=document.documentElement.cloneNode(true);
+    setCloneValues(clone);
+    clone.setAttribute('data-filled-copy','true');
+    clone.setAttribute('data-saved-at',new Date().toISOString());
+    if(!clone.dataset.instanceId) clone.dataset.instanceId=Date.now().toString(36);
+    const base=(document.title||`Math146 Week ${WEEK} Lab`).replace(/[^a-z0-9]+/gi,'_').replace(/^_+|_+$/g,'');
+    const nameEl=document.querySelector('input[id$="_name"]');
+    const student=(nameEl&&nameEl.value.trim())?('_'+nameEl.value.trim().replace(/[^a-z0-9]+/gi,'_')):'';
+    const html='<!DOCTYPE html>\n'+clone.outerHTML;
+    const blob=new Blob([html],{type:'text/html;charset=utf-8'});
+    const a=document.createElement('a');
+    a.href=URL.createObjectURL(blob);a.download=base+student+'_FILLED.html';
+    document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+    const note=document.getElementById('exportStatus');
+    if(note) note.textContent='Filled HTML saved. This copy contains the answers currently on the page.';
+  };
+  document.addEventListener('input',updateStudentProgress);
+  document.addEventListener('change',updateStudentProgress);
+  updateStudentProgress();
+})();
+</script></body>
 </html>
