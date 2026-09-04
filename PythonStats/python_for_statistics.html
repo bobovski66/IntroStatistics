@@ -75,6 +75,7 @@ code{font-family:var(--mono);font-size:.85em} .shell{display:grid;grid-template-
 .runtime-status{margin-top:20px;padding-top:15px;border-top:1px solid var(--sidebar-line);font:12px var(--mono);color:var(--sidebar-muted)}
 .dot{display:inline-block;width:8px;height:8px;margin-right:6px;border-radius:50%;background:#d6a33d} .runtime-status.ready .dot{background:#57b787} .runtime-status.error .dot{background:#d66b59}
 .course-link{display:inline-block;margin-top:12px;color:var(--sidebar-muted);font:12px var(--mono)} .course-link:hover{color:#fff}
+.reset-progress-btn{display:block;width:100%;margin-top:14px;padding:9px 11px;border:1px solid var(--sidebar-line);border-radius:6px;background:transparent;color:var(--sidebar-muted);cursor:pointer;font:12px var(--mono);text-align:left}.reset-progress-btn:hover{background:var(--sidebar-hover);color:#fff;border-color:var(--sidebar-muted)}
 main{width:min(1040px,100%);padding:40px 54px 95px} .site-head{margin-bottom:30px;padding-bottom:24px;border-bottom:1px solid var(--border)}
 .site-head .eyebrow,.module-head .eyebrow{font:13px var(--mono);letter-spacing:.05em;text-transform:uppercase;color:var(--accent)}
 .site-head h1{margin:6px 0 8px;font-size:43px;line-height:1.08;color:var(--heading)} .site-head p{max-width:78ch;margin:0;color:var(--text-soft);font-size:20px}
@@ -90,6 +91,7 @@ main{width:min(1040px,100%);padding:40px 54px 95px} .site-head{margin-bottom:30p
 .orientation-card p{margin:0;color:var(--text-soft);font-size:15.5px;line-height:1.42}
 .module-path{margin:13px 0 0;padding:12px 15px;border-left:4px solid var(--accent);background:var(--surface-warm);color:var(--text-soft);font-size:16px}
 .module-path strong{color:var(--heading)}
+.course-guide{margin:-8px 0 13px}.course-path{margin:0 0 40px}
 .text-anchor{display:inline-flex;align-items:center;margin:2px 0 11px;padding:4px 8px;border:1px solid var(--border);border-radius:999px;background:var(--surface-muted);color:var(--text-soft);font:11.5px var(--mono);letter-spacing:.01em}
 .module-meta{display:grid;grid-template-columns:1fr 180px;gap:25px;margin-top:19px;padding-top:17px;border-top:1px solid var(--border)}
 .meta-label{display:block;margin-bottom:5px;font:11px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--accent)} .module-meta ul{display:flex;flex-wrap:wrap;gap:6px 16px;margin:0;padding:0;list-style:none;color:var(--text-soft);font-size:15px}
@@ -188,10 +190,17 @@ textarea.code-input{display:block;width:100%;min-height:145px;margin:14px 0 0;pa
 <nav class="lesson-subnav" aria-label="Lessons in Linear Regression"><a href="#regression-scatter" data-lesson-link="regression-scatter"><span class="nav-check">○</span><span>1. Begin with the paired observations</span></a><a href="#regression-correlation" data-lesson-link="regression-correlation"><span class="nav-check">○</span><span>2. Average products of standardized values</span></a><a href="#regression-line-summary" data-lesson-link="regression-line-summary"><span class="nav-check">○</span><span>3. Construct the line from summary statistics</span></a><a href="#regression-prediction" data-lesson-link="regression-prediction"><span class="nav-check">○</span><span>4. Compute a prediction and its residual</span></a><a href="#regression-extrapolation" data-lesson-link="regression-extrapolation"><span class="nav-check">○</span><span>5. Check whether a prediction leaves the data range</span></a><a href="#regression-least-squares" data-lesson-link="regression-least-squares"><span class="nav-check">○</span><span>6. Let Python minimize squared residuals</span></a><a href="#regression-full-plot" data-lesson-link="regression-full-plot"><span class="nav-check">○</span><span>7. Draw the line, residuals, and explained variation</span></a></nav>
 </div></div>
   <div class="runtime-status" id="runtimeStatus"><span class="dot"></span><span id="runtimeStatusText">loading Python runtime…</span></div>
+  <button class="reset-progress-btn" id="resetProgressBtn" type="button">Reset all progress</button>
   <a class="course-link" href="https://bobovski66.github.io/IntroStatistics/">← course home</a>
 </aside>
 <main>
-  <header class="site-head"><div class="eyebrow">MATH&amp; 146 · Introductory Statistics</div><h1>Python Activities for Statistics</h1><p>Use these modules alongside the textbook and weekly labs. Read the statistical setup, complete the missing code, run each cell, and check the result.</p></header>
+  <header class="site-head"><div class="eyebrow">MATH&amp; 146 · Introductory Statistics</div><h1>Python Activities for Statistics</h1><p>Use these modules alongside the textbook and weekly labs. The goal is not to memorize Python syntax. The goal is to recognize a statistical idea, see how its mathematics becomes an algorithm, and then express that algorithm in code.</p></header>
+  <div class="module-orientation course-guide" aria-label="How to use these activities">
+    <div class="orientation-card"><span class="orientation-label">1 · Read the statistics</span><p>Identify the quantity being computed: a mean, probability, standard error, test statistic, residual, or other statistical object.</p></div>
+    <div class="orientation-card"><span class="orientation-label">2 · Read the bridge</span><p>The bridge translates the formula or statistical rule into the exact operations Python will perform. Look for patterns you have already used.</p></div>
+    <div class="orientation-card"><span class="orientation-label">3 · Complete the code</span><p>Fill only the missing pieces, run the cell, and compare the output with what the mathematics led you to expect. Use the hint when the translation is unclear.</p></div>
+  </div>
+  <div class="module-path course-path"><strong>A useful habit:</strong> before you run a cell, say in words what each line is supposed to calculate. Python should confirm your statistical reasoning, not replace it.</div>
   <article class="module active" id="module-1" data-module-id="module-1">
   <header class="module-head">
     <div class="module-head-top">
@@ -215,7 +224,8 @@ textarea.code-input{display:block;width:100%;min-height:145px;margin:14px 0 0;pa
   <h3>Begin with one observation</h3>
   <div class="text-anchor">Text reference: Chapter 1 §1.2 — quantitative data</div>
   <p class="lesson-copy">A variable gives a name to a value. In Python, the equals sign is used for assignment: the value on the right is stored under the name on the left.</p>
-  <div class="cell" data-cell-id="first-value">
+    <div class="bridge"><div class="bridge-title">Observation → code</div><p>A measured value such as \(x=7\) becomes the Python assignment <code>hours_slept = 7</code>. The name tells us what the number means; <code>print(hours_slept)</code> simply asks Python to show the stored value.</p></div>
+<div class="cell" data-cell-id="first-value">
     <div class="cell-head"><span class="cell-label">cell 1 — assign and print</span><span class="cell-state">not checked</span></div>
     <div class="task"><p>Store <code>7</code> in the variable <code>hours_slept</code>, then print it.</p><button class="text-button hint-toggle" type="button">need a hint?</button></div>
     <div class="hint">Replace the blank with the number <code>7</code>. Quotation marks are not used because sleep hours are quantitative data.</div>
@@ -236,7 +246,8 @@ print(hours_slept)</div>
   <h3>A dataset is a collection</h3>
   <div class="text-anchor">Text reference: Chapter 1 §§1.1–1.2 — observed sample data</div>
   <p class="lesson-copy">A Python <code>list</code> places observations in square brackets and separates them with commas. Order is preserved, and repeated values remain repeated—just as they do in raw data.</p>
-  <div class="cell" data-cell-id="make-list">
+    <div class="bridge"><div class="bridge-title">Sample → code</div><p>A sample \(x_1,\ldots,x_n\) becomes a Python list: one entry for each observed value, in order. Square brackets mark the collection, and commas separate observations without averaging or otherwise changing them.</p></div>
+<div class="cell" data-cell-id="make-list">
     <div class="cell-head"><span class="cell-label">cell 2 — create a quantitative list</span><span class="cell-state">not checked</span></div>
     <div class="task"><p>Complete the list of five sleep observations: 6, 7, 8, 6, 5.</p><button class="text-button hint-toggle" type="button">need a hint?</button></div>
     <div class="hint">The values are written inside the brackets and separated by commas.</div>
@@ -257,6 +268,7 @@ print(sleep_hours)</div>
   <div class="text-anchor">Text reference: Chapter 1 §1.2 — categorical data</div>
   <p class="lesson-copy">Categorical observations are usually stored as strings. A string is enclosed in quotation marks; arithmetic is not intended to be performed on it.</p>
   <div class="callout">A number used as a label is still categorical. Statistical type is determined by meaning, not merely by Python syntax.</div>
+  <div class="bridge"><div class="bridge-title">Categories → code</div><p>The statistical data are category labels rather than quantities, so Python stores each label as a quoted string. The surrounding list still plays the same role as before: it holds one recorded observation per entry.</p></div>
 <div class="cell" data-cell-id="categorical-list">
     <div class="cell-head"><span class="cell-label">cell 3 — create a categorical list</span><span class="cell-state">not checked</span></div>
     <div class="task"><p>Complete the list of commute modes: car, bus, walk, car, bike.</p><button class="text-button hint-toggle" type="button">need a hint?</button></div>
@@ -278,6 +290,7 @@ print(commute_mode)</div>
   <div class="text-anchor">Text reference: Chapter 1 §1.3 — the indexed value \(x_i\)</div>
   <p class="lesson-copy">Python starts counting positions at zero. Thus <code>sleep_hours[0]</code> is the first observation. A slice such as <code>sleep_hours[:3]</code> takes positions 0, 1, and 2.</p>
   <div class="callout">The position of a value is not the value itself. An index is an address.</div>
+  <div class="bridge"><div class="bridge-title">Index notation → code</div><p>Statistics writes observations as \(x_1,x_2,\ldots\), but Python begins counting positions at 0. Thus the mathematical first observation \(x_1\) is <code>sleep_hours[0]</code>; <code>sleep_hours[:3]</code> collects the first three positions.</p></div>
 <div class="cell" data-cell-id="index-list">
     <div class="cell-head"><span class="cell-label">cell 4 — index and slice</span><span class="cell-state">not checked</span></div>
     <div class="task"><p>Select the first observation and then the first three observations.</p><button class="text-button hint-toggle" type="button">need a hint?</button></div>
@@ -302,7 +315,8 @@ first_three = sleep_hours[:3]</div>
   <h3>Compute a sum and a count</h3>
   <div class="text-anchor">Text reference: Chapter 1 §1.3 — \(\sum x_i\) and sample size \(n\)</div>
   <p class="lesson-copy">The function <code>sum(data)</code> adds quantitative observations. The function <code>len(data)</code> returns the number of observations. These will become the numerator and denominator of the sample mean.</p>
-  <div class="cell" data-cell-id="sum-count">
+    <div class="bridge"><div class="bridge-title">Summation and sample size → code</div><p>The two ingredients of \(\bar x=\frac{1}{n}\sum x_i\) are already Python operations: <code>sum(sleep_hours)</code> computes \(\sum x_i\), and <code>len(sleep_hours)</code> computes \(n\). The next module will divide these two quantities.</p></div>
+<div class="cell" data-cell-id="sum-count">
     <div class="cell-head"><span class="cell-label">cell 5 — sum and count</span><span class="cell-state">not checked</span></div>
     <div class="task"><p>Compute the total and the number of observations.</p><button class="text-button hint-toggle" type="button">need a hint?</button></div>
     <div class="hint">Call <code>sum()</code> and <code>len()</code> with <code>sleep_hours</code> inside the parentheses.</div>
@@ -326,7 +340,7 @@ n = len(sleep_hours)</div>
   <h3>A loop is a computational sigma</h3>
   <div class="text-anchor">Text reference: Chapter 1 §1.3 — summation as repeated action</div>
   <p class="lesson-copy">A <code>for</code> loop visits each observation in turn. The repeated addition is the algorithm represented compactly by summation notation and carried out internally by <code>sum()</code>.</p>
-  <div class="bridge"><div class="bridge-title">Mathematics → algorithm</div><p>The expression \(\sum_{i=1}^{n}x_i\) is carried out by starting at zero, visiting each \(x_i\), and adding it to a running total.</p></div>
+  <div class="bridge"><div class="bridge-title">Sigma notation → repeated addition</div><p>The expression \(\sum_{i=1}^{n}x_i\) becomes the same two-step algorithm every time: begin with a total of 0, then add each \(x_i\) to that total. The <code>for</code> loop makes the repetition visible; later, <code>sum()</code> and NumPy will hide the loop but perform the same kind of accumulation.</p></div>
 <div class="cell" data-cell-id="sigma-loop">
     <div class="cell-head"><span class="cell-label">cell 6 — build the sum one term at a time</span><span class="cell-state">not checked</span></div>
     <div class="task"><p>Add each value to <code>running_total</code>.</p><button class="text-button hint-toggle" type="button">need a hint?</button></div>
@@ -370,7 +384,7 @@ print(running_total)</textarea>
   <h3>Translate the formula directly</h3>
   <div class="text-anchor">Text reference: Chapter 1 §1.5.1 — sample mean \(\bar x\)</div>
   <p class="lesson-copy">The code has the same structure as the mathematical definition. The name <code>mean_hours</code> plays the role of \(\bar{x}\).</p>
-  <div class="bridge"><div class="bridge-title">Mathematics → code</div><p>The expression \(\sum x_i\) becomes <code>sum(sleep_hours)</code>, while \(n\) becomes <code>len(sleep_hours)</code>.</p></div>
+  <div class="bridge"><div class="bridge-title">Mean formula → code</div><p>In \(\bar x=\frac{\sum x_i}{n}\), the numerator becomes <code>sum(sleep_hours)</code> and the denominator becomes <code>len(sleep_hours)</code>. The line <code>mean_hours = total_hours / n</code> is therefore the sample-mean formula written one operation at a time.</p></div>
 <div class="cell" data-cell-id="mean-plain">
     <div class="cell-head"><span class="cell-label">cell 7 — mean in plain Python</span><span class="cell-state">not checked</span></div>
     <div class="task"><p>Divide the total by the count.</p><button class="text-button hint-toggle" type="button">need a hint?</button></div>
@@ -394,7 +408,8 @@ print(mean_hours)</textarea>
   <h3>Arithmetic can act on every observation</h3>
   <div class="text-anchor">Text reference: Chapter 1 §1.6.1 — deviations from the mean</div>
   <p class="lesson-copy">A NumPy array resembles a list, but vectorized arithmetic is supported. When the mean is subtracted from the array, every deviation \(x_i-\bar{x}\) is computed at once.</p>
-  <div class="cell" data-cell-id="numpy-array">
+    <div class="bridge"><div class="bridge-title">Many deviations → one array expression</div><p>Mathematically, we want every deviation \(x_i-\bar x\). With a NumPy array, <code>scores - mean_score</code> applies that subtraction to every \(x_i\) at once. This is the array version of repeating the same operation in a loop.</p></div>
+<div class="cell" data-cell-id="numpy-array">
     <div class="cell-head"><span class="cell-label">cell 8 — vectorized deviations</span><span class="cell-state">not checked</span></div>
     <div class="task"><p>Convert the list to a NumPy array, compute its mean, and subtract that mean from the whole array.</p><button class="text-button hint-toggle" type="button">need a hint?</button></div>
     <div class="hint">Use <code>np.array(...)</code>, then <code>scores.mean()</code>, then <code>scores - mean_score</code>.</div>
@@ -423,7 +438,8 @@ deviations = scores - mean_score</div>
   <h3>The data are sorted before the middle is found</h3>
   <div class="text-anchor">Text reference: Chapter 1 §1.5.2 — median</div>
   <p class="lesson-copy">The median is defined through ordered position. Python can expose the ordering with <code>sorted()</code>, while NumPy can perform the final median calculation.</p>
-  <div class="cell" data-cell-id="sort-median">
+    <div class="bridge"><div class="bridge-title">Order → position</div><p><code>sorted(data)</code> performs the ordering that the median definition assumes. <code>np.median(data)</code> then locates the middle position of that order; it is not using the mean formula \(\bar x=\sum x_i/n\).</p></div>
+<div class="cell" data-cell-id="sort-median">
     <div class="cell-head"><span class="cell-label">cell 9 — sort and find the median</span><span class="cell-state">not checked</span></div>
     <div class="task"><p>Sort the data and compute the median.</p><button class="text-button hint-toggle" type="button">need a hint?</button></div>
     <div class="hint">Use <code>sorted(data)</code> and <code>np.median(data)</code>.</div>
@@ -448,7 +464,8 @@ median_value = np.median(data)</div>
   <h3>Let an outlier enter the room</h3>
   <div class="text-anchor">Text reference: Chapter 1 §1.5.3 — mean, median, and outliers</div>
   <p class="lesson-copy">Every observation participates in the mean, so an extreme value can pull it strongly. The median is determined by ordered position and is therefore more resistant.</p>
-  <div class="cell" data-cell-id="median-outlier">
+    <div class="bridge"><div class="bridge-title">Definition → behavior</div><p>The mean recomputes \(\sum x_i/n\), so an extreme value enters the arithmetic directly. The median is determined by ordered position, so the same extreme value can move far away without necessarily moving the middle position very much. The two NumPy calls let you compare those definitions on the same data.</p></div>
+<div class="cell" data-cell-id="median-outlier">
     <div class="cell-head"><span class="cell-label">cell 10 — compare two measures of center</span><span class="cell-state">not checked</span></div>
     <div class="task"><p>Compute the mean and median of the salary data, including the owner’s salary.</p><button class="text-button hint-toggle" type="button">need a hint?</button></div>
     <div class="hint">NumPy supplies both <code>np.mean(salaries)</code> and <code>np.median(salaries)</code>.</div>
@@ -475,7 +492,7 @@ salary_median = np.median(salaries)</div>
   <h3>Make the denominator visible</h3>
   <div class="text-anchor">Text reference: Chapter 1 §1.6.2 — sample standard deviation \(s\)</div>
   <p class="lesson-copy">For a sample, the variance is obtained by dividing the sum of squared deviations by \(n-1\). In NumPy, the argument <code>ddof=1</code> is used to request that denominator.</p>
-  <div class="bridge"><div class="bridge-title">The important software detail</div><p>The default <code>np.std(data)</code> uses denominator \(n\). For the sample standard deviation used in this course, <code>np.std(data, ddof=1)</code> is written.</p></div>
+  <div class="bridge"><div class="bridge-title">Sample standard deviation → code</div><p>The formula \(s=\sqrt{\frac{\sum (x_i-\bar x)^2}{n-1}}\) becomes: create <code>deviations</code>, square them with <code>**2</code>, add them with <code>.sum()</code>, divide by <code>n - 1</code>, then take <code>np.sqrt</code>. NumPy writes the same denominator choice as <code>np.std(data, ddof=1)</code>.</p></div>
 <div class="cell" data-cell-id="sample-sd">
     <div class="cell-head"><span class="cell-label">cell 11 — variance and standard deviation</span><span class="cell-state">not checked</span></div>
     <div class="task"><p>Complete the hand-built sample variance and compare its square root with NumPy’s sample standard deviation.</p><button class="text-button hint-toggle" type="button">need a hint?</button></div>
@@ -510,7 +527,8 @@ sample_sd_numpy = np.std(values, ddof=1)</div>
   <h3>Move from one variable to a data table</h3>
   <div class="text-anchor">Text reference: Chapter 1 §1.4 — frequency and relative frequency</div>
   <p class="lesson-copy">A pandas <code>DataFrame</code> stores cases in rows and variables in columns. When one column is selected, numerical summaries and frequency tables can be computed from it.</p>
-  <div class="cell" data-cell-id="pandas-table">
+    <div class="bridge"><div class="bridge-title">Variable → column</div><p>A DataFrame stores each measured variable in a named column. <code>df["sleep_hours"]</code> selects that variable; <code>.mean()</code> summarizes its center, while <code>.value_counts()</code> performs the same counting that a frequency table requires.</p></div>
+<div class="cell" data-cell-id="pandas-table">
     <div class="cell-head"><span class="cell-label">cell 12 — column summaries and relative frequency</span><span class="cell-state">not checked</span></div>
     <div class="task"><p>Compute the mean sleep time, a frequency table, and a relative-frequency table.</p><button class="text-button hint-toggle" type="button">need a hint?</button></div>
     <div class="hint">Select the column with <code>df["sleep_hours"]</code>. Use <code>.value_counts().sort_index()</code>; add <code>normalize=True</code> for relative frequencies.</div>
@@ -544,7 +562,8 @@ relative_frequency = df[&quot;sleep_hours&quot;].value_counts(normalize=True).so
   <h3>Turn the frequency table into a histogram</h3>
   <div class="text-anchor">Text reference: Chapter 1 §§1.4.1 and 1.7 — histogram and shape</div>
   <p class="lesson-copy">The same distribution can be represented numerically or visually. Bin edges are placed halfway between the discrete sleep-hour values so that one bar is centered at each observed hour.</p>
-  <div class="cell" data-cell-id="sleep-histogram">
+    <div class="bridge"><div class="bridge-title">Intervals → bars</div><p>A histogram partitions the number line into bins and counts how many observations fall in each interval. <code>bin_edges</code> specifies those boundaries, and <code>ax.hist(df["sleep_hours"], bins=bin_edges)</code> performs the counting and draws one bar per interval.</p></div>
+<div class="cell" data-cell-id="sleep-histogram">
     <div class="cell-head"><span class="cell-label">cell 13 — draw a frequency histogram</span><span class="cell-state">not checked</span></div>
     <div class="task"><p>Complete the bin edges and select the sleep-hours column. The graph will be displayed below the output.</p><button class="text-button hint-toggle" type="button">need a hint?</button></div>
     <div class="hint">The values run from 5 through 9, so the edges begin at <code>4.5</code> and stop at <code>10.5</code>. Select <code>df["sleep_hours"]</code>.</div>
@@ -597,7 +616,8 @@ ax.hist(df[&quot;sleep_hours&quot;], bins=bin_edges, edgecolor=&quot;black&quot;
   <h3>Place outcomes beside their probabilities</h3>
   <div class="text-anchor">Text reference: Chapter 2 §2.1 — \(P(X=x)\) as a distribution</div>
   <p class="lesson-copy">For a discrete random variable, each possible value \(x\) is paired with a probability \(P(X=x)\). Every probability must be nonnegative, and the probabilities must sum to 1.</p>
-  <div class="cell" data-cell-id="probability-table">
+    <div class="bridge"><div class="bridge-title">Distribution → parallel arrays</div><p>The values \(x_i\) and probabilities \(p_i\) are stored in matching positions of two arrays. Entry 0 of <code>outcomes</code> is paired with entry 0 of <code>probabilities</code>, and <code>probabilities.sum()</code> checks the distribution rule \(\sum p_i=1\).</p></div>
+<div class="cell" data-cell-id="probability-table">
     <div class="cell-head"><span class="cell-label">cell 14 — construct and check a distribution</span><span class="cell-state">not checked</span></div>
     <div class="task"><p>Complete the outcome array and probability array, then verify the total probability.</p><button class="text-button hint-toggle" type="button">need a hint?</button></div>
     <div class="hint">The outcomes are <code>0, 1, 2, 3</code>. Their probabilities are <code>0.10, 0.20, 0.40, 0.30</code>.</div>
@@ -629,7 +649,7 @@ probability_total = probabilities.sum()</div>
   <h3>Compute a probability-weighted mean</h3>
   <div class="text-anchor">Text reference: Chapter 2 §2.2.1 — expected value \(E(X)\)</div>
   <p class="lesson-copy">The expected value is a population mean. Each possible value is weighted by its probability, so more likely values contribute more strongly.</p>
-  <div class="bridge"><div class="bridge-title">Formula → array calculation</div><p>The formula \(\mu=E(X)=\sum_x xP(X=x)\) becomes elementwise multiplication followed by a sum.</p></div>
+  <div class="bridge"><div class="bridge-title">Expected value → multiply, then sum</div><p>The formula \(E(X)=\sum x_iP(X=x_i)\) pairs each outcome with its probability. <code>outcomes * probabilities</code> forms all products \(x_i p_i\) at once, and <code>np.sum(weighted_values)</code> performs the final sigma.</p></div>
 <div class="cell" data-cell-id="expected-value">
     <div class="cell-head"><span class="cell-label">cell 15 — expected value from a distribution</span><span class="cell-state">not checked</span></div>
     <div class="task"><p>Multiply each outcome by its probability and add the products.</p><button class="text-button hint-toggle" type="button">need a hint?</button></div>
@@ -657,7 +677,8 @@ mu = np.sum(weighted_values)</div>
   <h3>Weight the squared deviations</h3>
   <div class="text-anchor">Text reference: Chapter 2 §2.2.2 — probability-weighted variance</div>
   <p class="lesson-copy">For a probability distribution, squared deviations are weighted by probability rather than divided by \(n-1\). The result is the population variance \(\sigma^2\).</p>
-  <div class="cell" data-cell-id="distribution-variance">
+    <div class="bridge"><div class="bridge-title">Variance formula → array arithmetic</div><p>The formula \(\sigma^2=\sum (x_i-\mu)^2p_i\) becomes three array operations in the same order: subtract <code>mu</code>, square with <code>**2</code>, multiply by <code>probabilities</code>, then use <code>.sum()</code>. The final <code>np.sqrt</code> changes variance into standard deviation.</p></div>
+<div class="cell" data-cell-id="distribution-variance">
     <div class="cell-head"><span class="cell-label">cell 16 — variance and standard deviation of a distribution</span><span class="cell-state">not checked</span></div>
     <div class="task"><p>Compute the weighted squared deviations, then take the square root.</p><button class="text-button hint-toggle" type="button">need a hint?</button></div>
     <div class="hint">Use <code>(outcomes - mu) ** 2 * probabilities</code>, sum the result, and apply <code>np.sqrt()</code>.</div>
@@ -687,7 +708,7 @@ sigma = np.sqrt(variance)</div>
   <h3>Wait for the first success</h3>
   <div class="text-anchor">Text reference: Chapter 2 §2.3 — trials until the first success</div>
   <p class="lesson-copy">A geometric random variable counts trials until the first success. For the first success to occur on trial \(k\), failures must occur on the first \(k-1\) trials and a success must occur on trial \(k\).</p>
-  <div class="bridge"><div class="bridge-title">Geometric probability</div><p>\(P(X=k)=(1-p)^{k-1}p\). The exponent counts the failures that must precede the first success.</p></div>
+  <div class="bridge"><div class="bridge-title">Geometric formula → code</div><p>For \(P(X=k)=(1-p)^{k-1}p\), the code first names \(q=1-p\), then writes the formula directly as <code>q ** (k - 1) * p</code>. The exponent counts the failures that must occur before the first success.</p></div>
 <div class="cell" data-cell-id="geometric-probability">
     <div class="cell-head"><span class="cell-label">cell 17 — first success on the third trial</span><span class="cell-state">not checked</span></div>
     <div class="task"><p>For a free-throw probability of 0.60, compute the probability that the first made shot occurs on attempt 3.</p><button class="text-button hint-toggle" type="button">need a hint?</button></div>
@@ -712,7 +733,7 @@ probability = q ** (k - 1) * p</div>
   <h3>Count successes in a fixed number of trials</h3>
   <div class="text-anchor">Text reference: Chapter 2 §§2.4.1–2.4.3 — successes in fixed trials</div>
   <p class="lesson-copy">A binomial random variable counts successes in \(n\) independent trials with constant success probability \(p\). The combination \(\binom{n}{k}\) counts the arrangements of the successes.</p>
-  <div class="bridge"><div class="bridge-title">Binomial probability</div><p>\(P(X=k)=\binom{n}{k}p^k(1-p)^{n-k}\). In Python, \(\binom{n}{k}\) is computed by <code>math.comb(n, k)</code>.</p></div>
+  <div class="bridge"><div class="bridge-title">Binomial formula → code</div><p>In \(P(X=k)=\binom nk p^k(1-p)^{n-k}\), <code>math.comb(n, k)</code> computes \(\binom nk\), <code>p ** k</code> computes \(p^k\), and <code>(1 - p) ** (n - k)</code> computes the failure factor. Multiplying the three pieces reproduces the formula.</p></div>
 <div class="cell" data-cell-id="binomial-exact">
     <div class="cell-head"><span class="cell-label">cell 18 — exactly seven correct</span><span class="cell-state">not checked</span></div>
     <div class="task"><p>For ten true/false guesses, compute the probability of exactly seven correct answers.</p><button class="text-button hint-toggle" type="button">need a hint?</button></div>
@@ -741,7 +762,8 @@ probability = arrangements * p ** k * (1 - p) ** (n - k)</div>
   <h3>Add several binomial bars</h3>
   <div class="text-anchor">Text reference: Chapter 2 §2.4.3 — adding mutually exclusive binomial outcomes</div>
   <p class="lesson-copy">A cumulative probability is obtained by adding the probabilities of all outcomes included in the event. “At least 7” includes 7, 8, 9, and 10 successes.</p>
-  <div class="cell" data-cell-id="binomial-cumulative">
+    <div class="bridge"><div class="bridge-title">Sigma notation → loop again</div><p>The probability \(P(X\ge 7)=\sum_{k=7}^{10}P(X=k)\) is another summation. Just as in Module 1, the loop is a computational sigma: each pass computes one binomial term and adds it to the running total.</p></div>
+<div class="cell" data-cell-id="binomial-cumulative">
     <div class="cell-head"><span class="cell-label">cell 19 — probability of passing by guessing</span><span class="cell-state">not checked</span></div>
     <div class="task"><p>Use a loop to add the probabilities from 7 through 10 correct answers.</p><button class="text-button hint-toggle" type="button">need a hint?</button></div>
     <div class="hint">Use <code>range(7, n + 1)</code>. Inside the loop, add the binomial probability for the current <code>k</code>.</div>
@@ -772,7 +794,8 @@ print(probability_at_least_7)</textarea>
   <h3>Watch a running average settle</h3>
   <div class="text-anchor">Text reference: Chapter 2 §2.2 and the course running-average demonstration</div>
   <p class="lesson-copy">A theoretical expected value can be compared with repeated simulated outcomes. The running mean changes substantially at first and then tends to stabilize as more trials are included.</p>
-  <div class="cell" data-cell-id="simulation-lln">
+    <div class="bridge"><div class="bridge-title">Running mean → cumulative sum</div><p>After \(m\) simulated rolls, the running mean is \(\bar X_m=(X_1+\cdots+X_m)/m\). <code>np.cumsum(rolls)</code> builds all numerators at once, and division by <code>trial_numbers</code> supplies the corresponding \(m\) values. The plot shows whether those means settle near the theoretical mean.</p></div>
+<div class="cell" data-cell-id="simulation-lln">
     <div class="cell-head"><span class="cell-label">cell 20 — simulate 10,000 die rolls</span><span class="cell-state">not checked</span></div>
     <div class="task"><p>Compute the running mean with a cumulative sum, compute the final simulated mean, and draw the theoretical mean at 3.5.</p><button class="text-button hint-toggle" type="button">need a hint?</button></div>
     <div class="hint">Use <code>np.cumsum(rolls)</code>, <code>rolls.mean()</code>, and <code>ax.axhline(3.5, ...)</code>.</div>
@@ -828,7 +851,7 @@ ax.axhline(3.5, linestyle=&quot;--&quot;, label=&quot;theoretical mean&quot;)</d
   <h3>Make total area equal one</h3>
   <div class="text-anchor">Text reference: Chapter 3 §§3.1–3.2 — density and total area 1</div>
   <p class="lesson-copy">A continuous probability is represented by area rather than by the height at a single point. For a uniform model, a rectangle is used, and its height is forced by the requirement that the total area be 1.</p>
-  <div class="bridge"><div class="bridge-title">Geometry → probability</div><p>For a density curve, probability is area. The rectangle has width \(b-a\), so its height must be \(1/(b-a)\).</p></div>
+  <div class="bridge"><div class="bridge-title">Density area → code</div><p>A uniform density is a rectangle of width \(b-a\) and height \(h\). Since total probability is area 1, \((b-a)h=1\), so <code>density_height = 1 / width</code>. Multiplying <code>density_height * width</code> checks that the total area is 1.</p></div>
   <div class="cell" data-cell-id="uniform-density">
     <div class="cell-head"><span class="cell-label">cell 21 — height of a uniform density</span><span class="cell-state">not checked</span></div>
     <div class="task"><p>For \(X\sim U(1.5,2.5)\), compute the width, the density height, and the total area.</p><button class="text-button hint-toggle" type="button">need a hint?</button></div>
@@ -856,7 +879,8 @@ total_area = density_height * width</div>
   <h3>Measure the part of the rectangle that is used</h3>
   <div class="text-anchor">Text reference: Chapter 3 §3.2 — uniform probability as an area ratio</div>
   <p class="lesson-copy">Because the density is constant, the probability of an interval is the fraction of the total width occupied by that interval. Endpoints themselves contribute no area in a continuous model.</p>
-  <div class="cell" data-cell-id="uniform-probability">
+    <div class="bridge"><div class="bridge-title">Area → length ratio</div><p>For a uniform density, the height is constant, so probability is proportional to horizontal length. The code computes \(P(1.8\le X\le2.2)=\frac{2.2-1.8}{2.5-1.5}\): favorable width divided by total width.</p></div>
+<div class="cell" data-cell-id="uniform-probability">
     <div class="cell-head"><span class="cell-label">cell 22 — uniform probability from interval width</span><span class="cell-state">not checked</span></div>
     <div class="task"><p>For the same espresso-shot model, compute \(P(1.8\le X\le2.2)\).</p><button class="text-button hint-toggle" type="button">need a hint?</button></div>
     <div class="hint">The favorable width is <code>upper - lower</code>. Divide it by <code>b - a</code>.</div>
@@ -883,7 +907,8 @@ probability = favorable_width / total_width</div>
   <h3>Shade probability as area</h3>
   <div class="text-anchor">Text reference: Chapter 3 §§3.1–3.2 — the interval is the probability</div>
   <p class="lesson-copy">The calculation can now be drawn. The full rectangle represents probability 1, while the shaded portion represents the event under consideration.</p>
-  <div class="cell" data-cell-id="uniform-graph">
+    <div class="bridge"><div class="bridge-title">Inequality → shaded region</div><p>The constant density height is \(1/(b-a)\). The Boolean expression <code>(x &gt;= lower) &amp; (x &lt;= upper)</code> is the code version of the condition \(lower\le x\le upper\); <code>fill_between</code> shades exactly the points satisfying it.</p></div>
+<div class="cell" data-cell-id="uniform-graph">
     <div class="cell-head"><span class="cell-label">cell 23 — draw and shade a uniform density</span><span class="cell-state">not checked</span></div>
     <div class="task"><p>Complete the density height and shade the interval from 1.8 to 2.2 ounces.</p><button class="text-button hint-toggle" type="button">need a hint?</button></div>
     <div class="hint">Use <code>1 / (b - a)</code> for the height. The Boolean condition selecting the interval uses <code>(x &gt;= lower) &amp; (x &lt;= upper)</code>.</div>
@@ -922,7 +947,7 @@ where=(x &gt;= lower) &amp; (x &lt;= upper)</div>
   <h3>Express a value in standard-deviation units</h3>
   <div class="text-anchor">Text reference: Week 3 z-score objective; bridge to Chapter 4 §4.2</div>
   <p class="lesson-copy">A raw value is standardized by subtracting the mean and dividing by the standard deviation. The resulting \(z\)-score records both direction and distance from the center.</p>
-  <div class="bridge"><div class="bridge-title">Interpretation</div><p>A z-score of 1 means that the observation is one standard deviation above the mean.</p></div>
+  <div class="bridge"><div class="bridge-title">z-score formula → code</div><p>The formula \(z=\frac{x-\mu}{\sigma}\) becomes <code>(x - mu) / sigma</code>: subtract the center, then divide by the standard deviation. The resulting number is measured in standard-deviation units, so \(z=1\) means one standard deviation above the mean.</p></div>
   <div class="cell" data-cell-id="standardize-value">
     <div class="cell-head"><span class="cell-label">cell 24 — compute a z-score</span><span class="cell-state">not checked</span></div>
     <div class="task"><p>Adult heights are modeled with mean 67 inches and standard deviation 3 inches. Find the z-score of 70 inches.</p><button class="text-button hint-toggle" type="button">need a hint?</button></div>
@@ -945,7 +970,8 @@ print(z)</textarea>
   <h3>Ask for area to the left</h3>
   <div class="text-anchor">Text reference: Chapter 3 §3.4.1 — cumulative area \(P(Z\le z)\)</div>
   <p class="lesson-copy">The standard normal table reports left-tail areas. Python’s <code>NormalDist</code> object performs the same operation through its cumulative distribution function, <code>.cdf()</code>.</p>
-  <div class="cell" data-cell-id="normal-left-tail">
+    <div class="bridge"><div class="bridge-title">CDF → accumulated area</div><p><code>normal.cdf(z)</code> computes \(P(Z\le z)\), the area accumulated to the left. A right-tail probability uses the complement rule, so \(P(Z&gt;z)=1-\text{CDF}(z)\).</p></div>
+<div class="cell" data-cell-id="normal-left-tail">
     <div class="cell-head"><span class="cell-label">cell 25 — compute left and right tails</span><span class="cell-state">not checked</span></div>
     <div class="task"><p>Compute \(P(Z\le1.72)\) and \(P(Z&gt;-0.63)\).</p><button class="text-button hint-toggle" type="button">need a hint?</button></div>
     <div class="hint">A right tail is the complement of a left tail: <code>1 - normal.cdf(z)</code>.</div>
@@ -969,7 +995,8 @@ right_tail = 1 - normal.cdf(-0.63)</div>
   <h3>Subtract one accumulated area from another</h3>
   <div class="text-anchor">Text reference: Chapter 3 §3.4.4 — upper left area minus lower left area</div>
   <p class="lesson-copy">The area between two values is isolated by subtracting the smaller left-tail area from the larger left-tail area.</p>
-  <div class="cell" data-cell-id="normal-between">
+    <div class="bridge"><div class="bridge-title">Between probability → subtract CDFs</div><p>Because the CDF accumulates area from the far left, \(P(a\le Z\le b)=F(b)-F(a)\). The code names those two accumulated areas <code>upper_cdf</code> and <code>lower_cdf</code>, then subtracts them in that order.</p></div>
+<div class="cell" data-cell-id="normal-between">
     <div class="cell-head"><span class="cell-label">cell 26 — subtract two cumulative probabilities</span><span class="cell-state">not checked</span></div>
     <div class="task"><p>Compute \(P(-1.20\le Z\le0.50)\).</p><button class="text-button hint-toggle" type="button">need a hint?</button></div>
     <div class="hint">Compute both left-tail areas first, then subtract <code>lower_cdf</code> from <code>upper_cdf</code>.</div>
@@ -997,7 +1024,8 @@ probability = upper_cdf - lower_cdf</div>
   <h3>Draw the subtraction that was computed</h3>
   <div class="text-anchor">Text reference: Chapter 3 §3.4 — draw and shade before computing</div>
   <p class="lesson-copy">The same probability can be seen geometrically. The curve is a density; the shaded region is the numerical difference between the two cumulative areas.</p>
-  <div class="cell" data-cell-id="standard-normal-graph">
+    <div class="bridge"><div class="bridge-title">Formula and interval → picture</div><p>The expression <code>np.exp(-z**2 / 2) / np.sqrt(2*np.pi)</code> is the standard normal density \(\phi(z)\). The Boolean condition between <code>lower_z</code> and <code>upper_z</code> marks exactly the interval whose probability you computed in the previous lesson.</p></div>
+<div class="cell" data-cell-id="standard-normal-graph">
     <div class="cell-head"><span class="cell-label">cell 27 — shade an interval under the normal curve</span><span class="cell-state">not checked</span></div>
     <div class="task"><p>Finish the standard normal density and shade the region from \(z=-1.20\) to \(z=0.50\).</p><button class="text-button hint-toggle" type="button">need a hint?</button></div>
     <div class="hint">The standard normal density is <code>np.exp(-z ** 2 / 2) / np.sqrt(2 * np.pi)</code>.</div>
@@ -1056,7 +1084,8 @@ where=(z &gt;= lower_z) &amp; (z &lt;= upper_z)</div>
   <h3>Let the distribution carry its own units</h3>
   <div class="text-anchor">Text reference: Chapter 4 §§4.1–4.2 — a normal model in original units</div>
   <p class="lesson-copy">A normal model with mean \(\mu\) and standard deviation \(\sigma\) may be represented directly. Standardization still occurs mathematically, but the software can return the probability in the original measurement units.</p>
-  <div class="cell" data-cell-id="general-normal-probability">
+    <div class="bridge"><div class="bridge-title">Normal model → direct CDF</div><p>Earlier you standardized by hand and then used the standard normal CDF. <code>NormalDist(mu=mu, sigma=sigma)</code> stores \(\mu\) and \(\sigma\) in the model, so <code>model.cdf(x)</code> performs that same standardization-and-area calculation internally.</p></div>
+<div class="cell" data-cell-id="general-normal-probability">
     <div class="cell-head"><span class="cell-label">cell 28 — probability below a raw value</span><span class="cell-state">not checked</span></div>
     <div class="task"><p>For \(X\sim N(67,3)\), compute the z-score of 70 and \(P(X\le70)\).</p><button class="text-button hint-toggle" type="button">need a hint?</button></div>
     <div class="hint">Use the z-score formula, then create <code>NormalDist(mu, sigma)</code> and call <code>.cdf(x)</code>.</div>
@@ -1084,7 +1113,8 @@ probability = model.cdf(x)</div>
   <h3>Use the original scale without losing the area logic</h3>
   <div class="text-anchor">Text reference: Chapter 4 §4.2 — two endpoints, two z-scores</div>
   <p class="lesson-copy">The lower and upper values are converted internally to their corresponding standardized positions. As before, one cumulative area is subtracted from the other.</p>
-  <div class="cell" data-cell-id="general-normal-between">
+    <div class="bridge"><div class="bridge-title">Same CDF subtraction, original units</div><p>The pattern from Module 4 has not changed: \(P(a\le X\le b)=F(b)-F(a)\). The only difference is that <code>model</code> already knows the original mean and standard deviation, so <code>lower</code> and <code>upper</code> stay in bottle-fill units.</p></div>
+<div class="cell" data-cell-id="general-normal-between">
     <div class="cell-head"><span class="cell-label">cell 29 — acceptable bottle fills</span><span class="cell-state">not checked</span></div>
     <div class="task"><p>Bottle fills follow \(X\sim N(16.0,0.3)\). Compute \(P(15.8\le X\le16.4)\).</p><button class="text-button hint-toggle" type="button">need a hint?</button></div>
     <div class="hint">Evaluate the CDF at the upper value and at the lower value, then subtract.</div>
@@ -1115,7 +1145,8 @@ probability = upper_area - lower_area</div>
   <div class="text-anchor">Text reference: Chapter 4 §4.3.1 — the sampling distribution of \(\bar X\)</div>
   <p class="lesson-copy">A sampling distribution is formed by imagining that the same sampling procedure is repeated and the statistic is recalculated each time. The mean of the sample-mean distribution is the population mean.</p>
   <div class="callout">The observations vary from sample to sample, and the sample means vary as well. Unbiasedness means that this variation is centered at the population mean.</div>
-  <div class="cell" data-cell-id="sampling-distribution-center">
+    <div class="bridge"><div class="bridge-title">Expectation → assignment</div><p>For random samples from a population with mean \(\mu\), the sampling distribution satisfies \(E(\bar X)=\mu\). The line <code>sampling_mean = population_mean</code> is not a numerical trick; it records that theorem directly.</p></div>
+<div class="cell" data-cell-id="sampling-distribution-center">
     <div class="cell-head"><span class="cell-label">cell 30 — center of the sample-mean distribution</span><span class="cell-state">not checked</span></div>
     <div class="task"><p>For a population with \(\mu=50\), assign the mean of the sampling distribution of \(\bar X\).</p><button class="text-button hint-toggle" type="button">need a hint?</button></div>
     <div class="hint">Repeated sampling changes the spread, but it does not move the center.</div>
@@ -1135,7 +1166,7 @@ print(sampling_mean)</textarea>
   <h3>Quantify the spread of sample means</h3>
   <div class="text-anchor">Text reference: Chapter 4 §4.3 — \(\sigma_{\bar X}=\sigma/\sqrt n\)</div>
   <p class="lesson-copy">Sample means vary less than individual observations. Their standard deviation is called the standard error and is obtained by dividing \(\sigma\) by \(\sqrt n\).</p>
-  <div class="bridge"><div class="bridge-title">Individual spread → sampling spread</div><p>The factor \(1/\sqrt n\) is the compression produced by averaging. Increasing sample size narrows the sampling distribution.</p></div>
+  <div class="bridge"><div class="bridge-title">Standard error formula → code</div><p>The spread of sample means is \(\sigma_{\bar X}=\sigma/\sqrt n\). NumPy writes the square root as <code>np.sqrt(n)</code>, so the formula becomes <code>sigma / np.sqrt(n)</code>. The factor \(1/\sqrt n\) is the compression produced by averaging.</p></div>
   <div class="cell" data-cell-id="standard-error">
     <div class="cell-head"><span class="cell-label">cell 31 — compute the standard error</span><span class="cell-state">not checked</span></div>
     <div class="task"><p>For \(\sigma=20\) and \(n=25\), compute the standard error.</p><button class="text-button hint-toggle" type="button">need a hint?</button></div>
@@ -1159,7 +1190,8 @@ print(standard_error)</textarea>
   <h3>Standardize with the standard error</h3>
   <div class="text-anchor">Text reference: Chapter 4 §4.5 — distance measured in standard errors</div>
   <p class="lesson-copy">A sample mean is compared with the population mean in units of standard error rather than population standard deviation.</p>
-  <div class="cell" data-cell-id="clt-zscore">
+    <div class="bridge"><div class="bridge-title">Sampling-distribution formula → code</div><p>\(z=\dfrac{\bar x-\mu}{\sigma/\sqrt n}\) has the same shape as every earlier z-score. Only the denominator has changed: \(\sigma\) has been replaced by the standard error \(\sigma/\sqrt n\).</p></div>
+<div class="cell" data-cell-id="clt-zscore">
     <div class="cell-head"><span class="cell-label">cell 32 — standardize a sample mean</span><span class="cell-state">not checked</span></div>
     <div class="task"><p>Battery lifetimes have \(\mu=500\), \(\sigma=40\), and \(n=64\). Find the z-score of \(\bar x=495\).</p><button class="text-button hint-toggle" type="button">need a hint?</button></div>
     <div class="hint">First compute <code>standard_error</code>, then use it in the denominator of the z-score.</div>
@@ -1187,7 +1219,8 @@ z = (xbar - mu) / standard_error</div>
   <h3>Turn the sample-mean z-score into a probability</h3>
   <div class="text-anchor">Text reference: Chapter 4 §4.5 — probability about a sample mean</div>
   <p class="lesson-copy">For a sufficiently large random sample, the distribution of \(\bar X\) is approximately normal with mean \(\mu\) and standard error \(\sigma/\sqrt n\).</p>
-  <div class="cell" data-cell-id="clt-probability">
+    <div class="bridge"><div class="bridge-title">Sampling distribution → normal model</div><p>The random quantity is now \(\bar X\), whose center is \(\mu\) and whose spread is the standard error. Therefore <code>NormalDist(mu=mu, sigma=standard_error)</code> represents the sampling distribution, and <code>.cdf(xbar)</code> asks for \(P(\bar X\le\bar x)\).</p></div>
+<div class="cell" data-cell-id="clt-probability">
     <div class="cell-head"><span class="cell-label">cell 33 — probability for a sample mean</span><span class="cell-state">not checked</span></div>
     <div class="task"><p>Compute \(P(\bar X\le495)\) for the battery example.</p><button class="text-button hint-toggle" type="button">need a hint?</button></div>
     <div class="hint">Create a normal distribution centered at <code>mu</code> with standard deviation <code>standard_error</code>.</div>
@@ -1216,7 +1249,8 @@ probability = sampling_model.cdf(xbar)</div>
   <h3>Average a skewed population many times</h3>
   <div class="text-anchor">Text reference: Chapter 4 §4.4 — the Central Limit Theorem</div>
   <p class="lesson-copy">The exponential distribution is strongly right-skewed, but means of samples of size 30 form a distribution that is much more nearly normal. Its spread should be close to \(\sigma/\sqrt n\).</p>
-  <div class="cell" data-cell-id="clt-simulation">
+    <div class="bridge"><div class="bridge-title">Rows → repeated samples</div><p>The simulated data are arranged so that each row is one sample of size \(n\). Thus <code>samples.mean(axis=1)</code> takes one mean per row and creates the simulated sampling distribution. Its standard deviation estimates the theoretical \(\sigma/\sqrt n\).</p></div>
+<div class="cell" data-cell-id="clt-simulation">
     <div class="cell-head"><span class="cell-label">cell 34 — simulate a sampling distribution</span><span class="cell-state">not checked</span></div>
     <div class="task"><p>Generate 4,000 samples of size 30, compute one mean from each row, and compare the simulated standard error with the theoretical value.</p><button class="text-button hint-toggle" type="button">need a hint?</button></div>
     <div class="hint">Use <code>.mean(axis=1)</code> to average each sample and <code>.std(ddof=0)</code> across the resulting sample means.</div>
@@ -1278,7 +1312,7 @@ theoretical_se = sigma / np.sqrt(n)</div>
   <h3>Build the interval from estimate and margin of error</h3>
   <div class="text-anchor">Text reference: Chapter 5 §5.3 — confidence interval for a mean</div>
   <p class="lesson-copy">A confidence interval is centered at the sample estimate. The margin of error combines the critical value with the standard error, and the two endpoints are then produced symmetrically.</p>
-  <div class="bridge"><div class="bridge-title">Estimate ± uncertainty</div><p>The interval has the form \(\bar x\pm z^*\sigma/\sqrt n\). The estimate supplies the center; the sampling model supplies the uncertainty.</p></div>
+  <div class="bridge"><div class="bridge-title">Confidence interval formula → code</div><p>The interval \(\bar x\pm z^*\sigma/\sqrt n\) is built in three named pieces: <code>se = sigma / np.sqrt(n)</code>, <code>margin_error = z_star * se</code>, and then <code>xbar - margin_error</code> and <code>xbar + margin_error</code> for the two endpoints.</p></div>
   <div class="cell" data-cell-id="ci-mean-known">
     <div class="cell-head"><span class="cell-label">cell 35 — 95% interval for a population mean</span><span class="cell-state">not checked</span></div>
     <div class="task"><p>For \(\bar x=6.8\), \(\sigma=1.5\), \(n=36\), and \(z^*=1.96\), compute the 95% confidence interval.</p><button class="text-button hint-toggle" type="button">need a hint?</button></div>
@@ -1312,7 +1346,8 @@ upper = xbar + margin_error</div>
   <h3>Pay for greater confidence with a wider interval</h3>
   <div class="text-anchor">Text reference: Chapter 5 §§5.2–5.3 — confidence versus precision</div>
   <p class="lesson-copy">The same sample and standard error may be used at several confidence levels. A larger critical value produces a larger margin of error and therefore a wider interval.</p>
-  <div class="cell" data-cell-id="ci-confidence-width">
+    <div class="bridge"><div class="bridge-title">Interval width → twice the margin</div><p>A two-sided interval is \(\bar x\pm z^*SE\), so its total width is \(2z^*SE\). The sample and standard error stay fixed here; increasing confidence changes only <code>z_star</code>, which changes the margin and therefore the width.</p></div>
+<div class="cell" data-cell-id="ci-confidence-width">
     <div class="cell-head"><span class="cell-label">cell 36 — compare 90% and 99% intervals</span><span class="cell-state">not checked</span></div>
     <div class="task"><p>For \(\bar x=12.4\), \(\sigma=1.2\), and \(n=64\), compute the widths of the 90% and 99% intervals.</p><button class="text-button hint-toggle" type="button">need a hint?</button></div>
     <div class="hint">An interval’s full width is twice its margin of error.</div>
@@ -1350,7 +1385,8 @@ width99 = 2 * me99</div>
   <div class="text-anchor">Text reference: Chapter 5 §5.3 — required sample size and rounding upward</div>
   <p class="lesson-copy">The sample-size calculation is solved from the desired margin of error. Because a fractional person or observation cannot be sampled, and because the target must not be exceeded, the result is rounded up.</p>
   <div class="callout">Rounding down would permit a margin of error larger than the stated target. The upward rounding is part of the statistical requirement, not merely a formatting choice.</div>
-  <div class="cell" data-cell-id="ci-sample-size">
+    <div class="bridge"><div class="bridge-title">Solve the margin formula → code</div><p>Starting from \(E=z^*\sigma/\sqrt n\), solving for sample size gives \(n=(z^*\sigma/E)^2\). The code computes that real-number requirement first, then <code>math.ceil</code> rounds upward because a smaller integer would miss the requested margin of error.</p></div>
+<div class="cell" data-cell-id="ci-sample-size">
     <div class="cell-head"><span class="cell-label">cell 37 — minimum sample size for a mean</span><span class="cell-state">not checked</span></div>
     <div class="task"><p>Find the minimum sample size needed for \(\sigma=10\), 95% confidence, and a target margin of error of 2 minutes.</p><button class="text-button hint-toggle" type="button">need a hint?</button></div>
     <div class="hint">Use <code>math.ceil()</code> after squaring the ratio.</div>
@@ -1377,7 +1413,8 @@ required_n = math.ceil(raw_n)</div>
   <h3>Estimate a probability from counts</h3>
   <div class="text-anchor">Text reference: Chapter 5 §5.4.1 — \(\hat p\) and the success–failure condition</div>
   <p class="lesson-copy">For binary categorical data, the sample proportion is the number of successes divided by the sample size. The success–failure condition is checked before a normal-based interval is used.</p>
-  <div class="cell" data-cell-id="ci-proportion-conditions">
+    <div class="bridge"><div class="bridge-title">Counts → estimated proportion</div><p>The sample proportion is \(\hat p=x/n\), so <code>successes / n</code> is the formula itself. The success and failure counts are \(n\hat p\) and \(n(1-\hat p)\); these are the quantities used to check whether the normal approximation has enough observations in both categories.</p></div>
+<div class="cell" data-cell-id="ci-proportion-conditions">
     <div class="cell-head"><span class="cell-label">cell 38 — sample proportion and conditions</span><span class="cell-state">not checked</span></div>
     <div class="task"><p>In a survey of 250 adults, 145 report checking the forecast daily. Compute \(\hat p\), the success count, and the failure count.</p><button class="text-button hint-toggle" type="button">need a hint?</button></div>
     <div class="hint">The success count is already 145. The failure count is <code>n - successes</code>.</div>
@@ -1406,7 +1443,8 @@ failure_count = n * (1 - phat)</div>
   <h3>Let the estimated proportion determine its standard error</h3>
   <div class="text-anchor">Text reference: Chapter 5 §5.4 — confidence interval for a proportion</div>
   <p class="lesson-copy">The standard error for a sample proportion depends on \(\hat p\) itself. Once it has been computed, the interval is again estimate plus or minus margin of error.</p>
-  <div class="cell" data-cell-id="ci-proportion">
+    <div class="bridge"><div class="bridge-title">Same interval skeleton, new standard error</div><p>The confidence-interval pattern is still estimate \(\pm\) critical value \(\times\) standard error. For a proportion, the estimate is \(\hat p\) and the estimated standard error is \(\sqrt{\hat p(1-\hat p)/n}\); the endpoint code is otherwise the same pattern used for a mean.</p></div>
+<div class="cell" data-cell-id="ci-proportion">
     <div class="cell-head"><span class="cell-label">cell 39 — 95% interval for a population proportion</span><span class="cell-state">not checked</span></div>
     <div class="task"><p>Construct the 95% confidence interval for the forecast-checking proportion.</p><button class="text-button hint-toggle" type="button">need a hint?</button></div>
     <div class="hint">Use <code>np.sqrt(phat * (1 - phat) / n)</code> for the standard error.</div>
@@ -1437,7 +1475,7 @@ upper = phat + margin_error</div>
   <h3>Watch intervals capture a fixed parameter</h3>
   <div class="text-anchor">Text reference: Chapter 5 §5.2 — the repeated-sampling meaning of confidence</div>
   <p class="lesson-copy">The population mean is fixed; the interval changes from sample to sample. In repeated sampling, approximately 95% of intervals constructed by this method should contain the fixed mean.</p>
-  <div class="bridge"><div class="bridge-title">A subtle point</div><p>It is not the parameter that has a 95% chance of lying in a finished interval. The long-run 95% property belongs to the method used before the sample is drawn.</p></div>
+  <div class="bridge"><div class="bridge-title">Coverage condition → Boolean array</div><p>Each simulated interval has endpoints <code>lower</code> and <code>upper</code>. The expression <code>(lower &lt;= mu) &amp; (mu &lt;= upper)</code> asks, for every interval at once, whether it captured the fixed parameter \(\mu\); <code>captures.mean()</code> turns the resulting True/False values into a capture proportion. The 95% property belongs to this repeated procedure, not to a completed interval.</p></div>
   <div class="cell" data-cell-id="ci-repeated-sampling">
     <div class="cell-head"><span class="cell-label">cell 40 — simulate 100 confidence intervals</span><span class="cell-state">not checked</span></div>
     <div class="task"><p>Generate 100 samples, construct a 95% interval from each sample mean, compute the capture rate, and graph the first 40 intervals.</p><button class="text-button hint-toggle" type="button">need a hint?</button></div>
@@ -1507,7 +1545,8 @@ coverage = captures.mean()</div>
   <div class="text-anchor">Text reference: Chapter 6 §6.1 — null and alternative hypotheses</div>
   <p class="lesson-copy">The null hypothesis contains the equality being tested. The alternative records the direction in which evidence is sought, so its inequality determines which tail or tails count as unusual.</p>
   
-  <div class="cell" data-cell-id="hypothesis-direction">
+    <div class="bridge"><div class="bridge-title">Words → symbols → tail</div><p>The phrase “the true mean is less than 18” becomes \(H_a:\mu&lt;18\), so evidence lies in the left tail. The Python strings record the two hypotheses, while <code>test_tail = "left"</code> records which probability region the alternative tells us to use.</p></div>
+<div class="cell" data-cell-id="hypothesis-direction">
     <div class="cell-head"><span class="cell-label">cell 41 — hypotheses and test direction</span><span class="cell-state">not checked</span></div>
     <div class="task"><p>A cereal box is labeled as containing 18 ounces on average. A consumer group suspects the true mean is less than 18 ounces. Complete the hypotheses and test direction.</p><button class="text-button hint-toggle" type="button">need a hint?</button></div>
     <div class="hint">Store the mathematical statements as strings. The word <em>less</em> points to the left tail.</div>
@@ -1533,7 +1572,7 @@ test_tail = "left"</div>
   <h3>Measure the sample mean from the null claim</h3>
   <div class="text-anchor">Text reference: Chapter 6 §6.3 — one-sample z-test for a mean</div>
   <p class="lesson-copy">Under the null hypothesis, the claimed mean becomes the center of the sampling distribution. The test statistic reports how many standard errors the observed sample mean lies from that center.</p>
-  <div class="bridge"><div class="bridge-title">Observed minus expected</div><p>The numerator is \(\bar x-\mu_0\). The denominator is the ordinary sampling variation expected when \(H_0\) is true.</p></div>
+  <div class="bridge"><div class="bridge-title">One-sample test statistic → code</div><p>The test statistic \(z=\frac{\bar x-\mu_0}{\sigma/\sqrt n}\) is built in the same order as the formula: first <code>standard_error = sigma / np.sqrt(n)</code>, then <code>z = (xbar - mu0) / standard_error</code>. The numerator is observed minus the null-expected center.</p></div>
   <div class="cell" data-cell-id="one-sample-mean-z">
     <div class="cell-head"><span class="cell-label">cell 42 — one-sample z statistic</span><span class="cell-state">not checked</span></div>
     <div class="task"><p>A filling machine should dispense 20.0 ounces. A sample of 49 containers has \(\bar x=19.7\) and the known population standard deviation is \(\sigma=0.8\). Compute the standard error and z-statistic.</p><button class="text-button hint-toggle" type="button">need a hint?</button></div>
@@ -1563,7 +1602,8 @@ z = (xbar - mu0) / standard_error</div>
   <div class="text-anchor">Text reference: Chapter 6 §6.2 — p-values for left-, right-, and two-tailed tests</div>
   <p class="lesson-copy">A z-score does not determine a p-value until the alternative hypothesis is known. The direction of the alternative tells us which normal-curve area is counted as at least as extreme.</p>
   
-  <div class="cell" data-cell-id="pvalue-by-tail">
+    <div class="bridge"><div class="bridge-title">Alternative hypothesis → area rule</div><p>The z-score is the same in all three calculations; only the alternative changes which outcomes count as at least as extreme. Left-tailed uses <code>cdf(z)</code>, right-tailed uses <code>1 - cdf(z)</code>, and two-tailed doubles the smaller symmetric tail through <code>abs(z)</code>.</p></div>
+<div class="cell" data-cell-id="pvalue-by-tail">
     <div class="cell-head"><span class="cell-label">cell 43 — tail areas from one z-score</span><span class="cell-state">not checked</span></div>
     <div class="task"><p>For \(z=-1.88\), compute the left-tailed, right-tailed, and two-tailed p-values.</p><button class="text-button hint-toggle" type="button">need a hint?</button></div>
     <div class="hint">Use the cumulative distribution function for the left tail. A two-tailed p-value doubles the smaller tail beyond \(|z|\).</div>
@@ -1593,7 +1633,8 @@ two_p = 2 * normal.cdf(-abs(z))</div>
   <div class="text-anchor">Text reference: Chapter 6 §6.2.2 — significance level and decision rule</div>
   <p class="lesson-copy">The significance level is chosen before the data are judged. The decision is made by comparing the p-value with that threshold; a small p-value leads to rejection of the null hypothesis.</p>
   
-  <div class="cell" data-cell-id="test-decision">
+    <div class="bridge"><div class="bridge-title">Decision rule → Boolean expression</div><p>The statistical rule “reject \(H_0\) when \(p\le\alpha\)” becomes the Boolean expression <code>p_value &lt;= alpha</code>. Python returns <code>True</code> or <code>False</code>; the mathematical decision rule determines what that Boolean means.</p></div>
+<div class="cell" data-cell-id="test-decision">
     <div class="cell-head"><span class="cell-label">cell 44 — p-value and decision</span><span class="cell-state">not checked</span></div>
     <div class="task"><p>Use the filling-machine z-statistic from the preceding setup. Compute its left-tailed p-value and decide whether to reject \(H_0\) at \(\alpha=0.05\).</p><button class="text-button hint-toggle" type="button">need a hint?</button></div>
     <div class="hint">A Boolean comparison such as <code>p_value <= alpha</code> records the decision without changing the p-value itself.</div>
@@ -1620,7 +1661,8 @@ reject_null = p_value &lt;= alpha</div>
   <div class="text-anchor">Text reference: Chapter 6 §6.4 — one-sample z-test for a proportion</div>
   <p class="lesson-copy">A proportion test is built under the assumption that the null value \(p_0\) is true. Therefore \(p_0\), rather than \(\hat p\), is used in the standard error of the null distribution.</p>
   <div class="callout">For a confidence interval, the estimated proportion \(\hat p\) was used in the standard error. For a hypothesis test, the null value \(p_0\) is used because the sampling distribution is being built under \(H_0\).</div>
-  <div class="cell" data-cell-id="one-proportion-z">
+    <div class="bridge"><div class="bridge-title">Null model → standard error</div><p>For a hypothesis test, the denominator is built from the null claim \(p_0\), not from the observed \(\hat p\): \(SE_0=\sqrt{p_0(1-p_0)/n}\). Then the familiar pattern returns: observed minus expected, \((\hat p-p_0)\), divided by that null standard error.</p></div>
+<div class="cell" data-cell-id="one-proportion-z">
     <div class="cell-head"><span class="cell-label">cell 45 — one-proportion z-test</span><span class="cell-state">not checked</span></div>
     <div class="task"><p>A seed company claims an 85% germination rate. Of 200 planted seeds, 158 germinate. Compute \(\hat p\), the null standard error, z, and the left-tailed p-value.</p><button class="text-button hint-toggle" type="button">need a hint?</button></div>
     <div class="hint">The observed proportion is <code>x / n</code>. The null standard error is <code>sqrt(p0 * (1-p0) / n)</code>.</div>
@@ -1655,7 +1697,8 @@ p_value = NormalDist().cdf(z)</div>
   <div class="text-anchor">Text reference: Chapter 6 §6.5 — connection between two-tailed tests and confidence intervals</div>
   <p class="lesson-copy">A two-tailed test at level \(\alpha\) and a \((1-\alpha)\) confidence interval ask the same compatibility question. A claimed value outside the interval is rejected; a value inside is not rejected.</p>
   
-  <div class="cell" data-cell-id="ci-test-connection">
+    <div class="bridge"><div class="bridge-title">Interval membership → test decision</div><p>For a two-tailed level-\(\alpha\) test, the null value is rejected exactly when it falls outside the matching \((1-\alpha)\) confidence interval. The chained comparison <code>lower &lt;= mu0 &lt;= upper</code> asks the compatibility question directly.</p></div>
+<div class="cell" data-cell-id="ci-test-connection">
     <div class="cell-head"><span class="cell-label">cell 46 — confidence interval and test decision</span><span class="cell-state">not checked</span></div>
     <div class="task"><p>A district sample has \(\bar x=511\), \(\sigma=80\), and \(n=64\). Construct the 95% confidence interval and check whether the claim \(\mu_0=500\) lies inside it.</p><button class="text-button hint-toggle" type="button">need a hint?</button></div>
     <div class="hint">Compute the interval endpoints, then use a chained comparison to test membership.</div>
@@ -1691,7 +1734,8 @@ reject_two_tailed = not claim_inside</div>
   <div class="text-anchor">Text reference: Chapter 6 §6.2 — the p-value as normal-curve area</div>
   <p class="lesson-copy">For a two-tailed test, outcomes at least as far from zero as the observed \(|z|\) are counted in both directions. The graph displays exactly the area used in the numerical p-value.</p>
   
-  <div class="cell" data-cell-id="hypothesis-plot">
+    <div class="bridge"><div class="bridge-title">Two tails → absolute distance</div><p>A two-tailed p-value counts null outcomes at least as far from 0 as the observed z-score in either direction. That is the condition \(|Z|\ge|z_{obs}|\), which is why the calculation uses <code>abs(observed_z)</code> and the graph shades symmetric tails.</p></div>
+<div class="cell" data-cell-id="hypothesis-plot">
     <div class="cell-head"><span class="cell-label">cell 47 — two-tailed p-value graph</span><span class="cell-state">not checked</span></div>
     <div class="task"><p>For an observed test statistic \(z=2.16\), compute the two-tailed p-value and shade both tails beyond \(-2.16\) and \(2.16\).</p><button class="text-button hint-toggle" type="button">need a hint?</button></div>
     <div class="hint">Create the normal density, then use two <code>fill_between</code> calls with Boolean masks.</div>
@@ -1748,7 +1792,8 @@ print(&quot;p-value =&quot;, p_value)</textarea>
   <div class="text-anchor">Text reference: Chapter 7 §7.1 — independent and paired samples</div>
   <p class="lesson-copy">Two samples are independent when the observations come from separate groups. They are paired when each value in one sample corresponds naturally to one value in the other, such as measurements made on the same person twice.</p>
   
-  <div class="cell" data-cell-id="sample-design">
+    <div class="bridge"><div class="bridge-title">Study design → data relationship</div><p>“Paired” and “independent” describe how observations are related before any test statistic is computed. The dictionary simply records that classification for each study; choosing the correct relationship is what determines which inferential formula should be used later.</p></div>
+<div class="cell" data-cell-id="sample-design">
     <div class="cell-head"><span class="cell-label">cell 48 — independent or paired</span><span class="cell-state">not checked</span></div>
     <div class="task"><p>Record the design for three studies: before-and-after quiz scores for the same students, scores from two separate class sections, and survey responses from two different cities.</p><button class="text-button hint-toggle" type="button">need a hint?</button></div>
     <div class="hint">Use the exact strings <code>"paired"</code> and <code>"independent"</code>.</div>
@@ -1775,7 +1820,7 @@ for study, design in study_designs.items():
   <h3>Combine variation from two samples</h3>
   <div class="text-anchor">Text reference: Chapter 7 §7.2 — sampling distribution of \(\bar x_1-\bar x_2\)</div>
   <p class="lesson-copy">Each sample mean varies from sample to sample. For independent groups, the variances of the two sample means are added before the square root is taken.</p>
-  <div class="bridge"><div class="bridge-title">The null center is zero</div><p>When \(H_0:\mu_1=\mu_2\), the expected population difference \(\mu_1-\mu_2\) is 0. The observed difference is measured from that center.</p></div>
+  <div class="bridge"><div class="bridge-title">Two sampling variances → one standard error</div><p>For independent samples, \(\operatorname{Var}(\bar X_1-\bar X_2)=\sigma_1^2/n_1+\sigma_2^2/n_2\). The code adds those two variance terms inside <code>np.sqrt(...)</code>. Under \(H_0:\mu_1=\mu_2\), the expected difference is 0, so this standard error will be the denominator for measuring the observed difference from 0.</p></div>
   <div class="cell" data-cell-id="two-mean-se">
     <div class="cell-head"><span class="cell-label">cell 49 — standard error of a difference</span><span class="cell-state">not checked</span></div>
     <div class="task"><p>Teaching Method 1 has \(n_1=35\), \(\bar x_1=81.4\), and \(\sigma_1=9.2\). Method 2 has \(n_2=40\), \(\bar x_2=76.8\), and \(\sigma_2=11.0\). Compute the observed difference and its standard error.</p><button class="text-button hint-toggle" type="button">need a hint?</button></div>
@@ -1803,7 +1848,8 @@ standard_error = np.sqrt(sigma1**2 / n1 + sigma2**2 / n2)</div>
   <div class="text-anchor">Text reference: Chapter 7 §7.3 — two-sample z-test for means</div>
   <p class="lesson-copy">The two-sample test statistic has the same structure as every earlier z-score: observed minus expected, divided by standard error. Here the observed quantity is \(\bar x_1-\bar x_2\), and the expected value under the null is zero.</p>
   
-  <div class="cell" data-cell-id="two-mean-test">
+    <div class="bridge"><div class="bridge-title">Same statistic, new standard error</div><p>The numerator is still observed minus expected: \((\bar x_1-\bar x_2)-0\). What changed from the one-sample test is only the denominator, built in the previous cell from both sampling variances. The p-value and <code>p_value &lt;= alpha</code> decision then use the same patterns as Module 7.</p></div>
+<div class="cell" data-cell-id="two-mean-test">
     <div class="cell-head"><span class="cell-label">cell 50 — two-sample mean test</span><span class="cell-state">not checked</span></div>
     <div class="task"><p>Using the teaching-method summaries, compute the two-tailed z-statistic, p-value, and decision at \(\alpha=0.05\).</p><button class="text-button hint-toggle" type="button">need a hint?</button></div>
     <div class="hint">Use <code>2 * (1 - cdf(abs(z)))</code> for the two-tailed p-value.</div>
@@ -1837,7 +1883,8 @@ reject_null = p_value &lt;= alpha</div>
   <div class="text-anchor">Text reference: Chapter 7 §7.4 — confidence interval for \(\mu_1-\mu_2\)</div>
   <p class="lesson-copy">The point estimate is the difference between the two sample means. The confidence interval describes plausible values for the population difference and reveals whether zero remains plausible.</p>
   
-  <div class="cell" data-cell-id="two-mean-ci">
+    <div class="bridge"><div class="bridge-title">Difference estimate → familiar interval</div><p>Treat \(\bar x_1-\bar x_2\) as the point estimate. The interval is the same estimate \(\pm\) critical-value-times-standard-error pattern from Module 6, now centered at the observed difference. Checking whether 0 lies inside asks whether “no population difference” remains plausible.</p></div>
+<div class="cell" data-cell-id="two-mean-ci">
     <div class="cell-head"><span class="cell-label">cell 51 — confidence interval for two means</span><span class="cell-state">not checked</span></div>
     <div class="task"><p>Construct the 95% confidence interval for \(\mu_1-\mu_2\) using the same teaching-method data. Determine whether zero is inside the interval.</p><button class="text-button hint-toggle" type="button">need a hint?</button></div>
     <div class="hint">Center the interval at <code>observed_difference</code> and use the same standard error as the hypothesis test.</div>
@@ -1871,7 +1918,8 @@ zero_inside = lower &lt;= 0 &lt;= upper</div>
   <div class="text-anchor">Text reference: Chapter 7 §7.5 — pooled proportion</div>
   <p class="lesson-copy">Under \(H_0:p_1=p_2\), both samples are treated as coming from one common success probability. The pooled estimate combines all successes and all observations before the test standard error is constructed.</p>
   
-  <div class="cell" data-cell-id="two-proportion-pool">
+    <div class="bridge"><div class="bridge-title">Null equality → pooled estimate</div><p>Under \(H_0:p_1=p_2\), both groups are assumed to share one common success probability. The best null estimate therefore combines all successes and all observations: <code>(x1 + x2) / (n1 + n2)</code>. Pooling is used for the test because the null hypothesis claims one shared \(p\).</p></div>
+<div class="cell" data-cell-id="two-proportion-pool">
     <div class="cell-head"><span class="cell-label">cell 52 — pooled proportion and standard error</span><span class="cell-state">not checked</span></div>
     <div class="task"><p>Group 1 has 75 successes among 120 observations. Group 2 has 54 successes among 110 observations. Compute \(\hat p_1\), \(\hat p_2\), the pooled proportion, and the null standard error.</p><button class="text-button hint-toggle" type="button">need a hint?</button></div>
     <div class="hint">Pool by adding the success counts in the numerator and sample sizes in the denominator.</div>
@@ -1905,7 +1953,8 @@ pooled = (x1 + x2) / (n1 + n2)</div>
   <div class="text-anchor">Text reference: Chapter 7 §7.5 — test for \(p_1-p_2\)</div>
   <p class="lesson-copy">The observed statistic is \(\hat p_1-\hat p_2\). Under the null hypothesis, the expected difference is zero and the pooled standard error describes its ordinary sampling variation.</p>
   
-  <div class="cell" data-cell-id="two-proportion-test">
+    <div class="bridge"><div class="bridge-title">Observed difference → null-standardized difference</div><p>The observed statistic is \(\hat p_1-\hat p_2\); under the null, the expected difference is 0. Divide that difference by the pooled null standard error, then use the same two-tailed area formula and the same <code>p_value &lt;= alpha</code> decision rule used earlier.</p></div>
+<div class="cell" data-cell-id="two-proportion-test">
     <div class="cell-head"><span class="cell-label">cell 53 — two-proportion z-test</span><span class="cell-state">not checked</span></div>
     <div class="task"><p>Complete the two-tailed test for the two groups from the preceding exercise and decide at \(\alpha=0.05\).</p><button class="text-button hint-toggle" type="button">need a hint?</button></div>
     <div class="hint">Subtract the sample proportions, divide by the pooled standard error, and double the upper-tail area beyond \(|z|\).</div>
@@ -1943,7 +1992,8 @@ reject_null = p_value &lt;= alpha</div>
   <div class="text-anchor">Text reference: Chapter 7 §§7.2–7.3 — differences centered at zero under \(H_0\)</div>
   <p class="lesson-copy">When equal population means are assumed, the null distribution of \(\bar x_1-\bar x_2\) is centered at zero. The observed difference is converted to a z-score, and the two tails beyond equally extreme differences form the p-value.</p>
   
-  <div class="cell" data-cell-id="two-sample-plot">
+    <div class="bridge"><div class="bridge-title">Difference scale → z scale</div><p>The null distribution of \(\bar X_1-\bar X_2\) is centered at 0. Dividing the observed difference by its standard error produces the z-coordinate of that observation, so the shaded tails on the standard normal curve represent differences at least as extreme as the one observed.</p></div>
+<div class="cell" data-cell-id="two-sample-plot">
     <div class="cell-head"><span class="cell-label">cell 54 — null distribution for a difference</span><span class="cell-state">not checked</span></div>
     <div class="task"><p>Draw the two-tailed null distribution for the teaching-method comparison and shade outcomes at least as extreme as the observed difference.</p><button class="text-button hint-toggle" type="button">need a hint?</button></div>
     <div class="hint">It is easiest to graph the standardized null distribution and shade beyond \(-|z|\) and \(|z|\).</div>
@@ -2003,7 +2053,8 @@ print(&quot;p-value =&quot;, p_value)</textarea>
   <div class="text-anchor">Text reference: Chapter 8 §8.4 — expected counts \(E_i=np_i\)</div>
   <p class="lesson-copy">A categorical null hypothesis gives probabilities, while the data arrive as counts. Multiplying each null probability by the sample size puts the model and the observations on the same count scale.</p>
   
-  <div class="cell" data-cell-id="gof-expected-counts">
+    <div class="bridge"><div class="bridge-title">Null probabilities → expected counts</div><p>For each category, the null model predicts \(E_i=np_i\). The array expression <code>total * null_probabilities</code> performs all of those multiplications at once, producing one expected count in the same position as each observed count.</p></div>
+<div class="cell" data-cell-id="gof-expected-counts">
     <div class="cell-head"><span class="cell-label">cell 55 — goodness-of-fit expected counts</span><span class="cell-state">not checked</span></div>
     <div class="task"><p>A survey of 160 students records event preferences \([54,50,34,22]\). Under \(H_0\), the four choices are equally popular. Compute the expected counts.</p><button class="text-button hint-toggle" type="button">need a hint?</button></div>
     <div class="hint">Create an array containing four probabilities of 0.25, then multiply by the total count.</div>
@@ -2030,7 +2081,7 @@ expected = total * null_probabilities</div>
   <h3>Measure each category’s mismatch</h3>
   <div class="text-anchor">Text reference: Chapter 8 §§8.1.7 and 8.4 — \(\chi^2=\sum (O-E)^2/E\)</div>
   <p class="lesson-copy">Each category contributes a nonnegative amount to the total mismatch. Squaring removes the direction of the difference, while division by the expected count puts discrepancies on a comparable scale.</p>
-  <div class="bridge"><div class="bridge-title">Degrees of freedom</div><p>Once the total count is fixed, the final category count is determined by the others. For \(k\) categories, only \(k-1\) counts can vary freely.</p></div>
+  <div class="bridge"><div class="bridge-title">Cell mismatch → sum</div><p>Each category contributes \((O_i-E_i)^2/E_i\). NumPy performs that formula entry by entry with <code>(observed - expected)**2 / expected</code>, then <code>contributions.sum()</code> adds the pieces to obtain \(\chi^2\). With \(k\) categories and a fixed total, the code uses <code>len(observed) - 1</code> for \(df=k-1\).</p></div>
   <div class="cell" data-cell-id="chi-square-contributions">
     <div class="cell-head"><span class="cell-label">cell 56 — chi-squared contributions</span><span class="cell-state">not checked</span></div>
     <div class="task"><p>Using the campus-event counts, compute every contribution \((O-E)^2/E\), the total \(\chi^2\), and the goodness-of-fit degrees of freedom.</p><button class="text-button hint-toggle" type="button">need a hint?</button></div>
@@ -2061,7 +2112,8 @@ degrees_of_freedom = len(observed) - 1</div>
   <div class="text-anchor">Text reference: Chapter 8 §§8.2–8.4 — chi-squared p-values</div>
   <p class="lesson-copy">A chi-squared statistic cannot be negative, and only unusually large mismatch counts against the null hypothesis. The p-value is therefore always the area to the right of the observed statistic.</p>
   
-  <div class="cell" data-cell-id="chi-square-pvalue">
+    <div class="bridge"><div class="bridge-title">Right-tail probability → survival function</div><p>A chi-squared test treats larger values as stronger mismatch, so the p-value is \(P(\Chi^2_{df}\ge\chi^2_{obs})\). SciPy’s <code>chi2.sf(value, df)</code> is the survival function, which directly computes that right-tail area.</p></div>
+<div class="cell" data-cell-id="chi-square-pvalue">
     <div class="cell-head"><span class="cell-label">cell 57 — chi-squared p-value</span><span class="cell-state">not checked</span></div>
     <div class="task"><p>Use SciPy to compute the right-tail p-value for \(\chi^2=16.4\) with \(df=3\), then decide at \(\alpha=0.05\).</p><button class="text-button hint-toggle" type="button">need a hint?</button></div>
     <div class="hint">The survival function <code>chi2.sf(value, df)</code> gives the area to the right.</div>
@@ -2089,7 +2141,8 @@ reject_null = p_value &lt;= alpha</div>
   <div class="text-anchor">Text reference: Chapter 8 §8.5 — expected counts for a contingency table</div>
   <p class="lesson-copy">If two categorical variables are independent, each row should have the same column proportions as the whole table. Expected counts are obtained from the row totals, column totals, and grand total.</p>
   
-  <div class="cell" data-cell-id="independence-expected">
+    <div class="bridge"><div class="bridge-title">Margin totals → expected table</div><p>Under independence, each expected cell is \(E_{ij}=\frac{(\text{row }i\text{ total})(\text{column }j\text{ total})}{\text{grand total}}\). <code>np.outer(row_totals, column_totals)</code> creates every row-total times column-total combination at once; dividing by the grand total completes the formula cell by cell.</p></div>
+<div class="cell" data-cell-id="independence-expected">
     <div class="cell-head"><span class="cell-label">cell 58 — expected contingency table</span><span class="cell-state">not checked</span></div>
     <div class="task"><p>The rows record tutoring attendance (none, occasional, regular), and the columns record course outcome (passed, did not pass). Compute the row totals, column totals, grand total, and expected table.</p><button class="text-button hint-toggle" type="button">need a hint?</button></div>
     <div class="hint">The outer product of row totals and column totals creates every row-total times column-total combination. Divide by the grand total.</div>
@@ -2125,7 +2178,8 @@ expected = np.outer(row_totals, column_totals) / grand_total</div>
   <div class="text-anchor">Text reference: Chapter 8 §8.5 — chi-squared test of independence</div>
   <p class="lesson-copy">The same mismatch calculation is applied to every cell of the observed and expected tables. The degrees of freedom are determined by the number of independently variable row and column directions.</p>
   
-  <div class="cell" data-cell-id="independence-test">
+    <div class="bridge"><div class="bridge-title">Table sum → single number</div><p><code>((observed - expected)**2 / expected).sum()</code> adds one \((O-E)^2/E\) term per cell of the table, exactly as the Module 1 summation added one value per observation. The repeated addition is now hidden inside array arithmetic instead of a <code>for</code> loop.</p></div>
+<div class="cell" data-cell-id="independence-test">
     <div class="cell-head"><span class="cell-label">cell 59 — chi-squared test of independence</span><span class="cell-state">not checked</span></div>
     <div class="task"><p>Complete the chi-squared test for the tutoring and course-outcome table. Compute \(\chi^2\), \(df=(r-1)(c-1)\), the p-value, and the decision.</p><button class="text-button hint-toggle" type="button">need a hint?</button></div>
     <div class="hint">Use <code>observed.shape</code> to obtain the number of rows and columns.</div>
@@ -2164,7 +2218,8 @@ p_value = chi2.sf(chi_square, degrees_of_freedom)</div>
   <div class="text-anchor">Text reference: Chapter 8 §8.5 — observed versus expected cells</div>
   <p class="lesson-copy">A significant test says that some association exists, but it does not identify the cells responsible. Standardized residuals preserve direction: positive values indicate more observations than expected, and negative values indicate fewer.</p>
   
-  <div class="cell" data-cell-id="standardized-residuals">
+    <div class="bridge"><div class="bridge-title">Cell-by-cell z-like distances → array</div><p>Each residual \((O-E)/\sqrt E\) measures one table cell in expected-count units. NumPy applies that formula to every cell simultaneously. <code>np.abs(...).argmax()</code> finds the largest magnitude, and <code>np.unravel_index</code> converts that location back into its row and column.</p></div>
+<div class="cell" data-cell-id="standardized-residuals">
     <div class="cell-head"><span class="cell-label">cell 60 — standardized residuals</span><span class="cell-state">not checked</span></div>
     <div class="task"><p>Compute \((O-E)/\sqrt E\) for every cell. Find the row and column position with the largest absolute standardized residual.</p><button class="text-button hint-toggle" type="button">need a hint?</button></div>
     <div class="hint">Use <code>np.abs(residuals).argmax()</code>, then convert the flat position with <code>np.unravel_index</code>.</div>
@@ -2202,7 +2257,8 @@ largest_cell = np.unravel_index(
   <div class="text-anchor">Text reference: Chapter 8 §§8.1 and 8.5 — geometry of observed and expected categorical models</div>
   <p class="lesson-copy">The residual table can be pictured directly. Cells above expectation have positive residuals, cells below expectation have negative residuals, and magnitude records how strongly each cell departs from the independent model.</p>
   
-  <div class="cell" data-cell-id="chi-square-heatmap">
+    <div class="bridge"><div class="bridge-title">Residual table → visual grid</div><p>The residual array already has one number for each table cell. <code>imshow(residuals)</code> maps that rectangular array to a grid, while the nested row-and-column loop places the numerical residual back into each corresponding cell. The picture is therefore a visualization of the same array, not a new calculation.</p></div>
+<div class="cell" data-cell-id="chi-square-heatmap">
     <div class="cell-head"><span class="cell-label">cell 61 — standardized-residual heatmap</span><span class="cell-state">not checked</span></div>
     <div class="task"><p>Draw a heatmap of the standardized residuals for the tutoring table and label each cell with its residual.</p><button class="text-button hint-toggle" type="button">need a hint?</button></div>
     <div class="hint">Use <code>ax.imshow</code> for the rectangular array, then place text at each row and column position.</div>
@@ -2265,7 +2321,8 @@ print(&quot;largest absolute residual =&quot;, np.abs(residuals).max())</textare
   <div class="text-anchor">Text reference: Chapter 10 §10.1 — scatterplots and association</div>
   <p class="lesson-copy">Regression begins with two quantitative measurements taken on the same observational units. A scatterplot is examined before numerical summaries are trusted so that direction, form, strength, and outliers can be seen.</p>
   
-  <div class="cell" data-cell-id="regression-scatter">
+    <div class="bridge"><div class="bridge-title">Paired observations → points</div><p>Each observation is a pair \((x_i,y_i)\). Passing the two matching arrays to <code>ax.scatter(x, y)</code> plots point \(i\) at horizontal coordinate \(x_i\) and vertical coordinate \(y_i\), preserving the pairing that regression requires.</p></div>
+<div class="cell" data-cell-id="regression-scatter">
     <div class="cell-head"><span class="cell-label">cell 62 — scatterplot of paired data</span><span class="cell-state">not checked</span></div>
     <div class="task"><p>Plot hours studied \(x\) against exam score \(y\) for the eight observations. Label the explanatory and response axes.</p><button class="text-button hint-toggle" type="button">need a hint?</button></div>
     <div class="hint">Use <code>ax.scatter(x, y)</code>. Each position in <code>x</code> must remain paired with the value in the same position of <code>y</code>.</div>
@@ -2295,7 +2352,8 @@ print(&quot;number of pairs =&quot;, len(x))</textarea>
   <div class="text-anchor">Text reference: Chapter 10 §10.2 — Pearson correlation coefficient</div>
   <p class="lesson-copy">Correlation measures whether standardized x-values and standardized y-values tend to have the same sign. Positive products move \(r\) upward; negative products move it downward.</p>
   
-  <div class="cell" data-cell-id="regression-correlation">
+    <div class="bridge"><div class="bridge-title">Standardize → multiply → average</div><p>Correlation can be computed from standardized pairs: \(r=\frac{1}{n-1}\sum z_{x,i}z_{y,i}\). The code creates the two z-score arrays, multiplies corresponding entries with <code>zx * zy</code>, then sums and divides by \(n-1\). This is the Module 1 summation pattern applied to paired standardized data.</p></div>
+<div class="cell" data-cell-id="regression-correlation">
     <div class="cell-head"><span class="cell-label">cell 63 — correlation from z-score products</span><span class="cell-state">not checked</span></div>
     <div class="task"><p>Compute the sample correlation from standardized values, then compare it with <code>np.corrcoef</code>.</p><button class="text-button hint-toggle" type="button">need a hint?</button></div>
     <div class="hint">Use sample standard deviations with <code>ddof=1</code>. The average of the products uses denominator \(n-1\).</div>
@@ -2326,7 +2384,7 @@ r_by_hand = products.sum() / (len(x) - 1)</div>
   <h3>Construct the line from summary statistics</h3>
   <div class="text-anchor">Text reference: Chapter 10 §10.3 — \(b=r(s_y/s_x)\) and \(a=\bar y-b\bar x\)</div>
   <p class="lesson-copy">The slope combines the direction and strength of the association with the units of the two variables. The intercept is then chosen so that the regression line passes through \((\bar x,\bar y)\).</p>
-  <div class="bridge"><div class="bridge-title">Units return in the slope</div><p>Correlation is unitless. Multiplying by \(s_y/s_x\) turns it into response units per explanatory-variable unit.</p></div>
+  <div class="bridge"><div class="bridge-title">Summary statistics → regression line</div><p>The least-squares slope is \(b_1=r\,s_y/s_x\), so the code is <code>slope = r * (sy / sx)</code>. Because the regression line passes through \((\bar x,\bar y)\), solving \(\bar y=b_0+b_1\bar x\) gives <code>intercept = ybar - slope * xbar</code>. The factor \(s_y/s_x\) restores response-per-explanatory-variable units to the unitless correlation.</p></div>
   <div class="cell" data-cell-id="regression-line-summary">
     <div class="cell-head"><span class="cell-label">cell 64 — slope and intercept from summaries</span><span class="cell-state">not checked</span></div>
     <div class="task"><p>For \(\bar x=6\), \(s_x=2.5\), \(\bar y=40\), \(s_y=12\), and \(r=0.85\), compute the least-squares slope and intercept.</p><button class="text-button hint-toggle" type="button">need a hint?</button></div>
@@ -2356,7 +2414,8 @@ intercept = ybar - slope * xbar</div>
   <div class="text-anchor">Text reference: Chapter 10 §10.3 — predictions and residuals</div>
   <p class="lesson-copy">The fitted line supplies a predicted response \(\hat y\). The residual \(e=y-\hat y\) is the signed vertical gap from the observed point to the line.</p>
   
-  <div class="cell" data-cell-id="regression-prediction">
+    <div class="bridge"><div class="bridge-title">Line → prediction → residual</div><p>The regression equation \(\hat y=b_0+b_1x\) becomes <code>intercept + slope * x_value</code>. A residual is observed minus predicted, \(e=y-\hat y\), so <code>observed_y - predicted_y</code> measures the vertical error left after the line makes its prediction.</p></div>
+<div class="cell" data-cell-id="regression-prediction">
     <div class="cell-head"><span class="cell-label">cell 65 — prediction and residual</span><span class="cell-state">not checked</span></div>
     <div class="task"><p>Using \(\hat y=15.52+4.08x\), predict the improvement score at \(x=8\) weeks. If the observed score is 46, compute the residual.</p><button class="text-button hint-toggle" type="button">need a hint?</button></div>
     <div class="hint">Prediction uses the line. Residual is observed minus predicted, not predicted minus observed.</div>
@@ -2384,7 +2443,8 @@ residual = observed_y - predicted_y</div>
   <div class="text-anchor">Text reference: Chapter 10 §§10.3 and 10.5 — extrapolation and model limits</div>
   <p class="lesson-copy">A regression equation can always produce a number, but the number is not automatically trustworthy. Prediction beyond the observed x-range is extrapolation and requires assumptions not checked by the data.</p>
   <div class="callout">Computing a prediction and justifying a prediction are different tasks. The code can evaluate the formula outside the data range; the study design and scatterplot determine whether doing so is defensible.</div>
-  <div class="cell" data-cell-id="regression-extrapolation">
+    <div class="bridge"><div class="bridge-title">Domain question → Boolean check</div><p>Extrapolation is not a new regression formula; it asks whether the requested \(x\) lies outside the observed range. The expression <code>new_x &lt; observed_x_min or new_x &gt; observed_x_max</code> translates “outside the interval” directly into a True/False check.</p></div>
+<div class="cell" data-cell-id="regression-extrapolation">
     <div class="cell-head"><span class="cell-label">cell 66 — extrapolation check</span><span class="cell-state">not checked</span></div>
     <div class="task"><p>The therapy data contain x-values from 2 through 10 weeks. Compute the line’s prediction at 14 weeks and use a Boolean expression to identify extrapolation.</p><button class="text-button hint-toggle" type="button">need a hint?</button></div>
     <div class="hint">A value is outside the observed range when it is smaller than the minimum or larger than the maximum.</div>
@@ -2411,7 +2471,8 @@ print(&quot;extrapolation =&quot;, is_extrapolation)</textarea>
   <div class="text-anchor">Text reference: Chapter 10 §10.3.1 — minimizing the sum of squared residuals</div>
   <p class="lesson-copy">The least-squares line is selected because no other line has a smaller sum of squared vertical errors for the observed data. NumPy can fit the line, but the residual calculation shows what is being minimized.</p>
   
-  <div class="cell" data-cell-id="regression-least-squares">
+    <div class="bridge"><div class="bridge-title">Optimization → fitted coefficients</div><p>Least squares chooses \(b_0,b_1\) to minimize \(\sum (y_i-\hat y_i)^2\). <code>np.polyfit(x, y, 1)</code> performs that optimization for a line; the following array operations reconstruct predictions, residuals, and the sum of squared errors so you can see what was minimized.</p></div>
+<div class="cell" data-cell-id="regression-least-squares">
     <div class="cell-head"><span class="cell-label">cell 67 — least-squares fit and SSE</span><span class="cell-state">not checked</span></div>
     <div class="task"><p>Fit a line to the eight study observations with <code>np.polyfit</code>. Compute its residuals and SSE, then compare it with a parallel line shifted upward by 1 unit.</p><button class="text-button hint-toggle" type="button">need a hint?</button></div>
     <div class="hint"><code>np.polyfit(x, y, 1)</code> returns slope first and intercept second.</div>
@@ -2445,7 +2506,8 @@ residuals = y - predicted</div>
   <div class="text-anchor">Text reference: Chapter 10 §§10.3–10.5 — fitted line, \(r^2\), and residual analysis</div>
   <p class="lesson-copy">A fitted line summarizes the linear pattern, while the residuals preserve what the line misses. The coefficient of determination \(r^2\) records the fraction of response variation accounted for by the linear relationship.</p>
   
-  <div class="cell" data-cell-id="regression-full-plot">
+    <div class="bridge"><div class="bridge-title">Numerical fit → geometric picture</div><p>The fitted line gives \(\hat y_i\) at each observed \(x_i\), and each vertical segment from \(\hat y_i\) to \(y_i\) is the residual \(e_i\). The plot therefore displays the same errors used by least squares, while <code>r**2</code> reports the proportion of variation summarized by the linear relationship.</p></div>
+<div class="cell" data-cell-id="regression-full-plot">
     <div class="cell-head"><span class="cell-label">cell 68 — regression line and residuals</span><span class="cell-state">not checked</span></div>
     <div class="task"><p>Fit the study data, compute \(r^2\), draw the scatterplot and regression line, and add a vertical residual segment for every observation.</p><button class="text-button hint-toggle" type="button">need a hint?</button></div>
     <div class="hint">Use <code>ax.vlines(x, predicted, y)</code> to draw the signed vertical gaps between the line and the points.</div>
@@ -2511,6 +2573,19 @@ ax.vlines(x, predicted, y, linestyles="dotted", alpha=0.7)</div>
 
   const STORAGE_KEY = 'math146-python-modules-v3';
   const OLD_STORAGE_KEY = 'math146-python-walkthrough-v2';
+  const resetProgressBtn = document.getElementById('resetProgressBtn');
+  if(resetProgressBtn){
+    resetProgressBtn.addEventListener('click', () => {
+      const confirmed = window.confirm('Reset all Python activity progress? This will clear completed exercises and your saved code.');
+      if(!confirmed) return;
+      try{
+        localStorage.removeItem(STORAGE_KEY);
+        localStorage.removeItem(OLD_STORAGE_KEY);
+      }catch(error){}
+      history.replaceState(null, '', window.location.pathname + window.location.search);
+      window.location.reload();
+    });
+  }
   const cells = Array.from(document.querySelectorAll('.cell'));
   const modules = Array.from(document.querySelectorAll('.module'));
   const originals = {};
