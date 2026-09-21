@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Week 9 Discussion — One Fireball Dataset, Two Stories</title>
+<style>
+:root{--bg:#eef1f3;--card:#fffdf8;--ink:#182532;--muted:#5f6b73;--line:#d5d7d3;--nav:#183149;--nav2:#24465f;--accent:#2e6386;--soft:#dfeaf1;--shadow:0 12px 30px rgba(25,38,48,.10)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.6}a{color:var(--accent)}
+header{background:linear-gradient(135deg,var(--nav),var(--nav2));color:white;padding:24px 28px}header a{color:#c9e3f2;text-decoration:none;font-weight:750}header h1{margin:10px 0 4px;font-size:clamp(1.75rem,4vw,2.65rem)}header p{margin:0;color:#d8e5ec;max-width:88ch}
+main{max-width:980px;margin:auto;padding:24px 20px 70px}.panel{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;box-shadow:var(--shadow);margin:16px 0}
+.kicker{text-transform:uppercase;letter-spacing:.11em;color:var(--accent);font-weight:850;font-size:.78rem}h2{margin:.15rem 0 .6rem;color:var(--nav2)}h3{color:var(--nav2);margin-top:0}
+.data{font:700 1.03rem/1.7 ui-monospace,SFMono-Regular,Consolas,monospace;background:var(--soft);border:1px solid #c8dce8;border-radius:12px;padding:12px 14px;margin:14px 0;overflow:auto}
+.data-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px;margin:14px 0}.data-grid>div{border:1px solid var(--line);border-radius:12px;background:#f7fafb;padding:12px}
+.tasks li{margin:.72rem 0}.small{color:var(--muted);font-size:.93rem}.reply{border-left:5px solid var(--accent);background:var(--soft);padding:13px 15px;border-radius:10px}
+table.mini{border-collapse:collapse;width:100%;background:#fff;margin:14px 0}table.mini th,table.mini td{border:1px solid var(--line);padding:9px;text-align:center}
+code{background:var(--soft);padding:.08rem .28rem;border-radius:5px}button{border:0;border-radius:10px;padding:9px 13px;font-weight:800;cursor:pointer;background:var(--accent);color:white}
+@media print{header{background:white;color:black;padding:0 0 12px}header a{display:none}header p{color:#444}.panel{box-shadow:none;break-inside:avoid}button{display:none}body{background:white}}
+</style>
+<script>window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]],processEscapes:true},options:{skipHtmlTags:["script","noscript","style","textarea","pre","code"]}};</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</head>
+<body>
+<header><a href="../index.html">← MATH&amp; 146 course</a><h1>Week 9 Discussion — One Fireball Dataset, Two Stories</h1><p>Use the Q1 2026 case to separate statistical significance, practical meaning, and the variable actually measured.</p></header>
+<main>
+
+<section class="panel"><div class="kicker">How this discussion works</div><h2>Solve, present, then respond</h2>
+<p>Work the problem below before reading classmates’ solutions. In your initial post, show enough statistical work that another student can follow your method, then state the result in the language of the situation. Post your solution in the class discussion board; this page itself does not submit responses.</p>
+<p class="small">A clear table, calculation, labeled graph, calculator output, or photo of neatly organized handwritten work is fine when appropriate. The goal is statistical communication, not extra prose.</p></section>
+<section class="panel"><div class="kicker">Case file</div><h2>The problem</h2>
+<p>This discussion uses the same Q1 2026 fireball case studied in the module. The trajectory dataset contains <strong>194 baseline events</strong> and <strong>67 events from 2026</strong>. For <code>reports_count</code>, the baseline mean is about <strong>83.572</strong> reports per event and the 2026 mean is about <strong>125.269</strong>.</p>
+<p>At the threshold <code>reports_count ≥ 50</code>, <strong>40 of the 67</strong> 2026 events qualify. The two-sided comparison used in the case file gives a p-value of about <strong>0.0429</strong>. The report counts are strongly right-skewed.</p>
+<p>Your task is to decide what these numbers actually support—and what tempting headlines go beyond them.</p></section>
+<section class="panel"><div class="kicker">Initial post</div><h2>What to include</h2><ol class="tasks"><li>Compute the difference in mean reports_count, 2026 minus baseline.</li><li>Explain why strong right-skew makes the mean sensitive to a few very highly reported events. What additional summary would you want beside the mean?</li><li>Interpret p ≈ 0.0429 in the context of the threshold comparison. Do not describe it as the probability that the null hypothesis is true.</li><li>The threshold 50 was chosen by the analyst. Explain how changing the threshold could change the proportion comparison and why threshold sensitivity should be reported.</li><li>Write a one-sentence headline that is accurate about the variable reports_count. Then write one plausible but statistically unjustified headline and explain exactly what it gets wrong.</li></ol></section>
+<section class="panel"><div class="kicker">Replies</div><h2>Engage with classmates’ statistics</h2><div class="reply">Choose a classmate whose cautious headline differs from yours. Decide whether their wording refers to reporting intensity, event frequency, or something else, and use the dataset definitions to explain whether the wording is supported.</div><p class="small">A useful reply checks a calculation, compares methods or assumptions, or asks a statistically specific question. Avoid replies that only say that you agree.</p></section>
+<section class="panel"><button onclick="window.print()">Print this discussion prompt</button></section>
+</main></body></html>
