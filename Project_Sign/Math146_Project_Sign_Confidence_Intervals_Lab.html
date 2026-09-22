@@ -99,7 +99,7 @@ canvas{width:100%;height:360px;border:1px solid var(--line);border-radius:14px;b
 .submission-coursebar .submission-status{font-size:.82rem;color:#f4eab9;font-weight:700}
 .submission-coursebar .submission-note{font-size:.82rem;color:#dce8f6}
 @media(max-width:700px){.submission-coursebar-inner{padding:8px 10px}.submission-name-control{flex:1 1 100%;display:grid;grid-template-columns:auto minmax(0,1fr)}.submission-name-control input{width:100%;max-width:none}.submission-note{display:none}}
-@media print{.submission-coursebar{display:none!important}}
+.toolbar{top:var(--submission-bar-height,0px)!important}\n@media print{.submission-coursebar{display:none!important}.toolbar{top:0!important}}
 </style>
 </head>
 <body>
@@ -118,7 +118,7 @@ canvas{width:100%;height:360px;border:1px solid var(--line);border-radius:14px;b
 </div></header>
 <div class="toolbar no-print"><div class="wrap">
 <nav class="nav"><a href="Math146_Project_Sign_Case_File.html">Case overview</a><a href="#start">Start</a><a href="#mean">Mean CI</a><a href="#levels">Confidence levels</a><a href="#size">Sample size</a><a href="#proportion">Proportion CI</a><a href="#coverage">Coverage</a><a href="#report">Finish</a></nav>
-<div class="actions"><button onclick="saveAll()">Save</button><button onclick="clearAll()">Clear</button><button class="primary" onclick="generateReport()">Generate report</button></div>
+<div class="actions"><button onclick="saveAll()">Save</button><button onclick="clearAll()">Clear</button><button class="primary" onclick="generateReport()">Build report preview</button></div>
 </div></div>
 <main class="wrap">
 <section class="card" id="start">
@@ -269,7 +269,7 @@ The 95% confidence interval is \((0.955,\,2.934)\).
 <h2>Final response</h2>
 <label>Write 5–7 sentences summarizing what the sample estimated, how confidence level affected width, and what 95% confidence means.
 <textarea data-save="final_response"></textarea></label>
-<p><button class="primary" onclick="generateReport()">Generate report</button> <button onclick="copyReport()">Copy report</button> <button onclick="window.print()">Print</button></p>
+<p><button class="primary" onclick="generateReport()">Build report preview</button> <button onclick="copyReport()">Copy report</button> <button onclick="window.print()">Print</button></p>
 <div class="report" id="reportPreview">Your report will appear here.</div>
 </section>
 <div class="case-pagination no-print"><a href="Math146_Project_Sign_Continuous_Lab.html">← Case File 2</a><a href="Math146_Project_Sign_Hypothesis_Testing_Lab.html">Case File 4 →</a></div><p class="footer-note">Project Sign Applied Data Lab · Confidence Intervals</p>
@@ -356,7 +356,7 @@ window.addEventListener('DOMContentLoaded',()=>{loadAll();runCoverage()})
     try{localStorage.setItem(NAME_KEY,value)}catch(e){}
   }
 
-  function initName(){
+  function updateSubmissionOffset(){const b=document.querySelector('.submission-coursebar');document.documentElement.style.setProperty('--submission-bar-height',(b?b.offsetHeight:0)+'px')}\n  function initName(){updateSubmissionOffset();window.addEventListener('resize',updateSubmissionOffset);
     const top=topNameField(),primary=primaryNameField();
     if(!top)return;
     let remembered='';
