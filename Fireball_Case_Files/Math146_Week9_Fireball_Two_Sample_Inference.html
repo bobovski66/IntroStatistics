@@ -110,7 +110,7 @@
 .submission-coursebar .submission-status{font-size:.82rem;color:#f4eab9;font-weight:700}
 .submission-coursebar .submission-note{font-size:.82rem;color:#dce8f6}
 @media(max-width:700px){.submission-coursebar-inner{padding:8px 10px}.submission-name-control{flex:1 1 100%;display:grid;grid-template-columns:auto minmax(0,1fr)}.submission-name-control input{width:100%;max-width:none}.submission-note{display:none}}
-@media print{.submission-coursebar{display:none!important}}
+.toolbar{top:var(--submission-bar-height,0px)!important}\n@media print{.submission-coursebar{display:none!important}.toolbar{top:0!important}}
 </style>
 </head>
 <body><div class="submission-coursebar no-print">
@@ -135,7 +135,7 @@
     <div class="actions"><a class="toolbar-link" href="Math146_Fireball_Q1_2026_Case_File.html">Case overview</a><a class="toolbar-link" href="https://amsmeteors.org/ams-q1-2026-fireball-analysis.html" target="_blank" rel="noopener">AMS source</a>
       <button onclick="saveAll()">Save</button>
       <button onclick="clearAll()">Clear answers</button>
-      <button class="primary" onclick="generateReport()">Generate report</button>
+      <button class="primary" onclick="generateReport()">Build report preview</button>
     </div>
   </div>
 </div>
@@ -483,7 +483,7 @@ function generateReport(){
     try{localStorage.setItem(NAME_KEY,value)}catch(e){}
   }
 
-  function initName(){
+  function updateSubmissionOffset(){const b=document.querySelector('.submission-coursebar');document.documentElement.style.setProperty('--submission-bar-height',(b?b.offsetHeight:0)+'px')}\n  function initName(){updateSubmissionOffset();window.addEventListener('resize',updateSubmissionOffset);
     const top=topNameField(),primary=primaryNameField();
     if(!top)return;
     let remembered='';
