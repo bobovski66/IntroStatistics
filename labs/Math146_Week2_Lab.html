@@ -156,6 +156,7 @@ details summary{line-height:1.35;}
 <li>Interpret each computed value as a statement about the real-world situation.</li>
 </ul>
 </div>
+<div class="scenario lab-question-card"><strong>Lab question:</strong> How can a random process be represented by a probability distribution, and what does its long-run behavior tell us?<p style="margin:8px 0 0"><strong>Why this matters:</strong> A probability model does more than list possible outcomes. It assigns weights to those outcomes, lets us calculate long-run averages, and tells us which model—such as geometric or binomial—matches the way an experiment is repeated.</p></div>
 <div class="formulas">
 <h2>Reference Formulas</h2>
 <p>\[ P(X=k) = (1-p)^{k-1}p \qquad \mu_{\text{geo}} = \frac{1}{p} \]</p>
@@ -174,11 +175,7 @@ details summary{line-height:1.35;}
 <!-- PROBLEM 1 -->
 <div class="problem" id="p1">
 <h2>Problem 1 — Probability Distribution and Expected Value</h2><p class="problem-goal"><strong>Goal:</strong> Check a discrete probability model and use it to compute an expected value.</p>
-<div class="scenario">A simple game uses a spinner with four possible outcomes. The
-  spinner lands on 1 with probability 0.10, on 2 with probability 0.30, on 3 with
-  probability 0.40, and on 4 with probability 0.20. Treat the spinner value as the random
-  variable \(X\), then check that the probabilities form a valid distribution and compute
-  the long-run average outcome.</div>
+<div class="scenario">A simple spinner has four possible outcomes. It lands on 1 with probability 0.10, on 2 with probability 0.30, on 3 with probability 0.40, and on 4 with probability 0.20. This deliberately simple model makes the rules visible: probabilities must add to 1, and the expected value is a probability-weighted average rather than the outcome of any one spin.</div>
 <div class="part">
 <div class="part-stem"><span class="part-label">(a &amp; b)</span>
 <span class="part-text">Complete the table below and verify the sum equals 1.</span></div>
@@ -193,7 +190,7 @@ details summary{line-height:1.35;}
 </table>
 <div class="answer-row">
 <button class="check-btn" onclick="checkNum(['w2_1_p2','w2_1_p4','w2_1_sum'],'w2_1ab_v')">Check</button><span class="verdict" id="w2_1ab_v"></span></div>
-<details><summary>Show solution</summary><div class="solution">
+<details><summary>Compare with a worked solution</summary><div class="solution">
 <p><span class="ans">\(P(X=2)=0.30\), \(P(X=4)=0.20\); the four probabilities sum to \(1.00\).</span></p>
 <p>Every probability distribution's values must total exactly 1. Since
       \(0.10+0.40=0.50\) is already assigned, the remaining two probabilities must sum to
@@ -206,7 +203,7 @@ details summary{line-height:1.35;}
       and what do the axes represent?</span></div>
 <div class="text-answer"><label>Describe or sketch.</label>
 <textarea id="w2_1c" placeholder="The x-axis shows…, the y-axis shows…, the bars have heights…"></textarea></div>
-<details><summary>Show solution</summary><div class="solution">
+<details><summary>Compare with a worked solution</summary><div class="solution">
 <p><span class="ans">Four bars at \(x=1,2,3,4\) with heights \(0.10,0.30,0.40,0.20\).</span></p>
 <p>The horizontal axis lists the possible spinner values; the vertical axis is
       probability. Each bar's height equals \(P(X=x)\), and since the values sum to 1, the
@@ -218,7 +215,7 @@ details summary{line-height:1.35;}
 <span class="part-text">Compute \(\mu=E(X)\).</span></div>
 <div class="answer-row"><label>\(E(X)=\sum x\cdot P(X=x)=\)</label><input class="wide" data-ans="2.70" data-tol="0.02" id="w2_1d" type="text"/>
 <button class="check-btn" onclick="checkNum(['w2_1d'],'w2_1d_v')">Check</button><span class="verdict" id="w2_1d_v"></span></div>
-<details><summary>Show solution</summary><div class="solution">
+<details><summary>Compare with a worked solution</summary><div class="solution">
 <p><span class="ans">\(E(X)=2.70\).</span></p>
 <p>\(E(X)=1(0.10)+2(0.30)+3(0.40)+4(0.20)=0.10+0.60+1.20+0.80=2.70\). On average the
       spinner lands near 2.7, weighted toward the more likely outcomes 2 and 3.</p>
@@ -228,16 +225,13 @@ details summary{line-height:1.35;}
 <!-- PROBLEM 2 -->
 <div class="problem" id="p2">
 <h2>Problem 2 — Geometric Distribution</h2><p class="problem-goal"><strong>Goal:</strong> Recognize a geometric setting and compute probabilities and its expected waiting time.</p>
-<div class="scenario">A student guesses on a sequence of multiple-choice questions. Each
-  question has probability \(p=0.20\) of being answered correctly, and the guesses are
-  independent. Let \(X\) be the question number of the first correct answer. This is a
-  geometric setting because we are counting how long it takes until the first success.</div>
+<div class="scenario">A student answers a sequence of independent five-choice practice questions by guessing, so each question has probability \(p=0.20\) of being correct. Let \(X\) be the question number of the first correct answer. Because the number of trials is not fixed in advance—we keep going until the first success—this is a geometric setting.</div>
 <div class="part">
 <div class="part-stem"><span class="part-label">(a)</span>
 <span class="part-text">Compute \(P(X=3)\) using \((1-p)^{k-1}\cdot p\) with \(k=3\).</span></div>
 <div class="answer-row"><label>\(P(X=3)=\)</label><input class="wide" data-ans="0.128" data-tol="0.002" id="w2_2a" type="text"/>
 <button class="check-btn" onclick="checkNum(['w2_2a'],'w2_2a_v')">Check</button><span class="verdict" id="w2_2a_v"></span></div>
-<details><summary>Show solution</summary><div class="solution">
+<details><summary>Compare with a worked solution</summary><div class="solution">
 <p><span class="ans">\(P(X=3)=0.128\).</span></p>
 <p>\(P(X=3)=(0.80)^2\times0.20=0.64\times0.20=0.128\). Two wrong guesses must happen
       first, then a correct one on the third try.</p>
@@ -248,7 +242,7 @@ details summary{line-height:1.35;}
 <span class="part-text">Compute \(\mu=1/p\) and interpret it in one sentence.</span></div>
 <div class="answer-row"><label>\(\mu=\)</label><input data-ans="5" data-tol="0.01" id="w2_2b" type="text"/>
 <button class="check-btn" onclick="checkNum(['w2_2b'],'w2_2b_v')">Check</button><span class="verdict" id="w2_2b_v"></span></div>
-<details><summary>Show solution</summary><div class="solution">
+<details><summary>Compare with a worked solution</summary><div class="solution">
 <p><span class="ans">\(\mu=1/0.20=5\).</span></p>
 <p>On average, a student guessing with a 20% success rate needs 5 questions before
       getting the first one right.</p>
@@ -260,7 +254,7 @@ details summary{line-height:1.35;}
       skewed right? Why?</span></div>
 <div class="text-answer"><label>Your answer.</label>
 <textarea id="w2_2c" placeholder="The histogram is…"></textarea></div>
-<details><summary>Show solution</summary><div class="solution">
+<details><summary>Compare with a worked solution</summary><div class="solution">
 <p><span class="ans">Skewed right, with the tallest bar at \(k=1\).</span></p>
 <p>Geometric probabilities \((1-p)^{k-1}p\) are largest at \(k=1\) and shrink every
       time \(k\) increases, since each extra failure multiplies by another factor of
@@ -272,18 +266,14 @@ details summary{line-height:1.35;}
 <!-- PROBLEM 3 -->
 <div class="problem" id="p3">
 <h2>Problem 3 — Binomial Distribution</h2><p class="problem-goal"><strong>Goal:</strong> Recognize a binomial setting and compute probabilities, mean, and standard deviation.</p>
-<div class="scenario">A drug is effective for 70% of patients. A doctor prescribes it to
-  6 patients and records how many of those patients respond to the drug. Let \(X\) be the
-  number of patients for whom the drug is effective, so \(n=6\) and \(p=0.70\). This is a
-  binomial setting because there are a fixed number of independent trials and each trial
-  has the same probability of success.</div>
+<div class="scenario">A treatment is effective for 70% of patients in the population being modeled. Six patients receive the treatment, and \(X\) records how many respond. The binomial model treats the six responses as a fixed number of independent success/failure trials with the same success probability \(p=0.70\). The calculation is useful only to the extent that those assumptions are reasonable.</div>
 <div class="part">
 <div class="part-stem"><span class="part-label">(a)</span>
 <span class="part-text">Identify \(n\) and \(p\); list the four binomial conditions
       and confirm each applies here.</span></div>
 <div class="text-answer"><label>Your answer.</label>
 <textarea id="w2_3a" placeholder="n = …, p = …. This is binomial because…"></textarea></div>
-<details><summary>Show solution</summary><div class="solution">
+<details><summary>Compare with a worked solution</summary><div class="solution">
 <p><span class="ans">\(n=6\), \(p=0.70\); all four binomial conditions hold.</span></p>
 <p>A binomial setting needs: (1) a fixed number of trials, here \(n=6\) patients;
       (2) each trial independent, since one patient's response doesn't affect another's;
@@ -296,7 +286,7 @@ details summary{line-height:1.35;}
 <span class="part-text">Compute \(P(X=6)\).</span></div>
 <div class="answer-row"><label>\(\binom{6}{6}(0.70)^6(0.30)^0=\)</label><input class="wide" data-ans="0.1176" data-tol="0.002" id="w2_3b" type="text"/>
 <button class="check-btn" onclick="checkNum(['w2_3b'],'w2_3b_v')">Check</button><span class="verdict" id="w2_3b_v"></span></div>
-<details><summary>Show solution</summary><div class="solution">
+<details><summary>Compare with a worked solution</summary><div class="solution">
 <p><span class="ans">\(P(X=6)\approx0.1176\).</span></p>
 <p>\(\binom{6}{6}=1\), so \(P(X=6)=(0.70)^6=0.117649\approx0.1176\). All six patients
       responding is fairly unlikely even though the drug works most of the time.</p>
@@ -309,7 +299,7 @@ details summary{line-height:1.35;}
 <div class="answer-row"><label>\(\binom{6}{4}=\)</label><input data-ans="15" data-tol="0.01" id="w2_3c_c" type="text"/>
 <label>\(P(X=4)=\)</label><input class="wide" data-ans="0.3241" data-tol="0.005" id="w2_3c_p" type="text"/>
 <button class="check-btn" onclick="checkNum(['w2_3c_c','w2_3c_p'],'w2_3c_v')">Check</button><span class="verdict" id="w2_3c_v"></span></div>
-<details><summary>Show solution</summary><div class="solution">
+<details><summary>Compare with a worked solution</summary><div class="solution">
 <p><span class="ans">\(\binom{6}{4}=15\); \(P(X=4)=15(0.2401)(0.09)=0.3241\).</span></p>
 <p>Four patients responding and two not is the single most likely outcome for this
       drug and sample size, since \(np=4.2\) is close to 4.</p>
@@ -321,7 +311,7 @@ details summary{line-height:1.35;}
 <div class="answer-row"><label>\(\mu=np=\)</label><input data-ans="4.2" data-tol="0.05" id="w2_3d_mu" type="text"/>
 <label>\(\sigma=\sqrt{np(1-p)}=\)</label><input class="wide" data-ans="1.12" data-tol="0.03" id="w2_3d_sig" type="text"/>
 <button class="check-btn" onclick="checkNum(['w2_3d_mu','w2_3d_sig'],'w2_3d_v')">Check</button><span class="verdict" id="w2_3d_v"></span></div>
-<details><summary>Show solution</summary><div class="solution">
+<details><summary>Compare with a worked solution</summary><div class="solution">
 <p><span class="ans">\(\mu=6(0.70)=4.2\); \(\sigma=\sqrt{6(0.70)(0.30)}=\sqrt{1.26}\approx1.12\).</span></p>
 <p>Across many groups of 6 patients, we'd expect an average of 4.2 to respond to the
       drug, typically varying by about 1.12 patients from that average.</p>
@@ -333,7 +323,7 @@ details summary{line-height:1.35;}
       left, or skewed right? Where is the tallest bar? Why?</span></div>
 <div class="text-answer"><label>Your answer.</label>
 <textarea id="w2_3e" placeholder="Since p = 0.70 &gt; 0.50, the histogram is…"></textarea></div>
-<details><summary>Show solution</summary><div class="solution">
+<details><summary>Compare with a worked solution</summary><div class="solution">
 <p><span class="ans">Skewed left, with the tallest bar near \(x=4\).</span></p>
 <p>Since \(p=0.70&gt;0.50\), successes are more common than failures, which pulls most
       of the outcomes toward the higher end of \(0\) through \(6\) and stretches a shorter
