@@ -130,7 +130,7 @@ footer{text-align:center;color:var(--muted);font-size:.87rem;margin:28px 0}
 .submission-coursebar .submission-status{font-size:.82rem;color:#f4eab9;font-weight:700}
 .submission-coursebar .submission-note{font-size:.82rem;color:#dce8f6}
 @media(max-width:700px){.submission-coursebar-inner{padding:8px 10px}.submission-name-control{flex:1 1 100%;display:grid;grid-template-columns:auto minmax(0,1fr)}.submission-name-control input{width:100%;max-width:none}.submission-note{display:none}}
-@media print{.submission-coursebar{display:none!important}}
+.toolbar{top:var(--submission-bar-height,0px)!important}\n@media print{.submission-coursebar{display:none!important}.toolbar{top:0!important}}
 </style>
 </head>
 <body>
@@ -162,7 +162,7 @@ footer{text-align:center;color:var(--muted);font-size:.87rem;margin:28px 0}
 <div>
 <button onclick="saveAll()">Save</button>
 <button onclick="clearAll()">Clear</button>
-<button class="primary" onclick="generateReport()">Generate report</button>
+<button class="primary" onclick="generateReport()">Build report preview</button>
 </div>
 </div>
 </div>
@@ -346,7 +346,7 @@ footer{text-align:center;color:var(--muted);font-size:.87rem;margin:28px 0}
 <textarea data-save="final_response"></textarea>
 </label>
 <p>
-<button class="primary" onclick="generateReport()">Generate report</button>
+<button class="primary" onclick="generateReport()">Build report preview</button>
 <button onclick="copyReport()">Copy report</button>
 <button onclick="window.print()">Print</button>
 </p>
@@ -510,7 +510,7 @@ window.addEventListener('DOMContentLoaded',()=>{drawUniform();drawNormal()});
     try{localStorage.setItem(NAME_KEY,value)}catch(e){}
   }
 
-  function initName(){
+  function updateSubmissionOffset(){const b=document.querySelector('.submission-coursebar');document.documentElement.style.setProperty('--submission-bar-height',(b?b.offsetHeight:0)+'px')}\n  function initName(){updateSubmissionOffset();window.addEventListener('resize',updateSubmissionOffset);
     const top=topNameField(),primary=primaryNameField();
     if(!top)return;
     let remembered='';
