@@ -161,6 +161,7 @@ details summary{line-height:1.35;}
 <li>Explain probability as area under a density curve in the context of each problem.</li>
 </ul>
 </div>
+<div class="scenario lab-question-card"><strong>Lab question:</strong> How does area under a density curve become probability, and what does a z-score tell us about where an observation lies?<p style="margin:8px 0 0"><strong>Why this matters:</strong> Continuous probability is geometric: probabilities are areas, not heights or single points. Standardization then puts different normal distributions onto the same z-scale so one probability table can be used again and again.</p></div>
 <div class="formulas">
 <h2>Reference Formulas</h2>
 <p>\[ U(a,b):\quad \text{height}=\frac{1}{b-a},\quad P(c\le X\le d)=\frac{d-c}{b-a},\quad \mu=\frac{a+b}{2} \]</p>
@@ -178,16 +179,14 @@ details summary{line-height:1.35;}
 <!-- PROBLEM 1 -->
 <div class="problem" id="p1">
 <h2>Problem 1 — Uniform Distribution</h2><p class="problem-goal"><strong>Goal:</strong> Use area in a uniform density model to calculate probabilities.</p>
-<div class="scenario">A coffee shop fills espresso shots with amounts that vary uniformly
-  between 1.5 and 2.5 ounces. Let \(X\sim U(1.5,2.5)\). In a uniform distribution,
-  probability comes from area, so the rectangle must have total area 1.</div>
+<div class="scenario">Suppose an espresso machine is modeled as filling shots uniformly between 1.5 and 2.5 ounces, so \(X\sim U(1.5,2.5)\). A real machine need not be perfectly uniform; this is a mathematical model chosen so the relationship between width, height, area, and probability can be seen directly.</div>
 <div class="part">
 <div class="part-stem"><span class="part-label">(a)</span>
 <span class="part-text">Find the height of the density curve and the total area.</span></div>
 <div class="answer-row"><label>height \(=1/(b-a)=\)</label><input data-ans="1" data-tol="0.01" id="w3_1a_h" type="text"/>
 <label>total area \(=\)</label><input data-ans="1" data-tol="0.01" id="w3_1a_area" type="text"/>
 <button class="check-btn" onclick="checkNum(['w3_1a_h','w3_1a_area'],'w3_1a_v')">Check</button><span class="verdict" id="w3_1a_v"></span></div>
-<details><summary>Show solution</summary><div class="solution">
+<details><summary>Compare with a worked solution</summary><div class="solution">
 <p><span class="ans">height \(=1\), total area \(=1\).</span></p>
 <p>height \(=1/(2.5-1.5)=1\). Total area \(=\)height\(\times\)width\(=1\times1=1\),
       confirming this is a valid density.</p>
@@ -199,7 +198,7 @@ details summary{line-height:1.35;}
       axis labels in words.</span></div>
 <div class="text-answer"><label>Your answer.</label>
 <textarea id="w3_1b" placeholder="The curve is a horizontal line at height… from x = … to x = …"></textarea></div>
-<details><summary>Show solution</summary><div class="solution">
+<details><summary>Compare with a worked solution</summary><div class="solution">
 <p><span class="ans">A flat horizontal line at height 1, running from \(x=1.5\) to \(x=2.5\).</span></p>
 <p>Outside that interval the height is 0. The x-axis is the shot amount in ounces;
       the y-axis is density. The rectangle formed has area exactly 1.</p>
@@ -210,7 +209,7 @@ details summary{line-height:1.35;}
 <span class="part-text">Find \(P(X&lt;2.0)\).</span></div>
 <div class="answer-row"><label>\((2.0-1.5)/(2.5-1.5)=\)</label><input data-ans="0.5" data-tol="0.01" id="w3_1c" type="text"/>
 <button class="check-btn" onclick="checkNum(['w3_1c'],'w3_1c_v')">Check</button><span class="verdict" id="w3_1c_v"></span></div>
-<details><summary>Show solution</summary><div class="solution">
+<details><summary>Compare with a worked solution</summary><div class="solution">
 <p><span class="ans">\(P(X&lt;2.0)=0.5\).</span></p>
 <p>In a uniform distribution, probability equals the fraction of the interval's
       width covered: \((2.0-1.5)/(2.5-1.5)=0.5/1=0.5\).</p>
@@ -221,7 +220,7 @@ details summary{line-height:1.35;}
 <span class="part-text">Find \(\mu\).</span></div>
 <div class="answer-row"><label>\(\mu=(a+b)/2=\)</label><input data-ans="2.0" data-tol="0.01" id="w3_1d_mu" type="text"/>
 <button class="check-btn" onclick="checkNum(['w3_1d_mu'],'w3_1d_v')">Check</button><span class="verdict" id="w3_1d_v"></span></div>
-<details><summary>Show solution</summary><div class="solution">
+<details><summary>Compare with a worked solution</summary><div class="solution">
 <p><span class="ans">\(\mu=2.0\) oz.</span></p>
 <p>For a uniform distribution the mean is the midpoint of the interval:
       \((1.5+2.5)/2=2.0\).</p>
@@ -232,7 +231,7 @@ details summary{line-height:1.35;}
 <span class="part-text">Interpret \(\mu\) in one sentence, in context.</span></div>
 <div class="text-answer"><label>Your answer.</label>
 <textarea id="w3_1e" placeholder="On average…"></textarea></div>
-<details><summary>Show solution</summary><div class="solution">
+<details><summary>Compare with a worked solution</summary><div class="solution">
 <p><span class="ans">On average, the machine pours 2.0 ounces per shot.</span></p>
 <p>\(\mu\) describes the long-run average amount dispensed if the shop pulled many,
       many shots — not the amount of any single shot, which still varies uniformly between
@@ -243,15 +242,13 @@ details summary{line-height:1.35;}
 <!-- PROBLEM 2 -->
 <div class="problem" id="p2">
 <h2>Problem 2 — Empirical Rule</h2><p class="problem-goal"><strong>Goal:</strong> Use the Empirical Rule to connect distance from the mean with normal probabilities.</p>
-<div class="scenario">For the standard normal random variable \(Z\sim N(0,1)\), use the
-  Empirical Rule to estimate the requested percentages. Do not use the z-table for this
-  problem; the goal is to reason from the 68–95–99.7 pattern.</div>
+<div class="scenario">Work on the standard normal scale \(Z\sim N(0,1)\). Here the numbers on the horizontal axis are standard deviations from the mean. Use the Empirical Rule—not the z-table—to estimate the requested areas and connect “one or two standard deviations away” with probability.</div>
 <div class="part">
 <div class="part-stem"><span class="part-label">(a)</span>
 <span class="part-text">What percentage falls between \(z=-2\) and \(z=2\)?</span></div>
 <div class="answer-row"><label>percentage \(=\)</label><input class="wide" data-ans="95" data-tol="0.5" id="w3_2a" type="text"/><label>%</label>
 <button class="check-btn" onclick="checkNum(['w3_2a'],'w3_2a_v')">Check</button><span class="verdict" id="w3_2a_v"></span></div>
-<details><summary>Show solution</summary><div class="solution">
+<details><summary>Compare with a worked solution</summary><div class="solution">
 <p><span class="ans">95%.</span></p>
 <p>The Empirical Rule states that about 95% of data in a normal distribution falls
       within 2 standard deviations of the mean.</p>
@@ -262,7 +259,7 @@ details summary{line-height:1.35;}
 <span class="part-text">What percentage falls above \(z=1\)?</span></div>
 <div class="answer-row"><label>percentage \(=\)</label><input class="wide" data-ans="16" data-tol="0.5" id="w3_2b" type="text"/><label>%</label>
 <button class="check-btn" onclick="checkNum(['w3_2b'],'w3_2b_v')">Check</button><span class="verdict" id="w3_2b_v"></span></div>
-<details><summary>Show solution</summary><div class="solution">
+<details><summary>Compare with a worked solution</summary><div class="solution">
 <p><span class="ans">16%.</span></p>
 <p>68% falls between \(z=-1\) and \(z=1\), leaving 32% outside. By symmetry that 32%
       splits evenly, so 16% lies above \(z=1\).</p>
@@ -274,7 +271,7 @@ details summary{line-height:1.35;}
       region, and what is its probability?</span></div>
 <div class="text-answer"><label>Your answer.</label>
 <textarea id="w3_2c" placeholder="The shaded region is to the right of z=1 and has area…"></textarea></div>
-<details><summary>Show solution</summary><div class="solution">
+<details><summary>Compare with a worked solution</summary><div class="solution">
 <p><span class="ans">The shaded region is the tail to the right of \(z=1\), with area \(0.16\).</span></p>
 <p>Shade everything under the curve from \(z=1\) out to the right end. That tail
       holds about 16% of the total probability, matching part (b).</p>
@@ -284,15 +281,13 @@ details summary{line-height:1.35;}
 <!-- PROBLEM 3 -->
 <div class="problem" id="p3">
 <h2>Problem 3 — z-Table Probabilities</h2><p class="problem-goal"><strong>Goal:</strong> Standardize values with z-scores and read probabilities from the standard normal distribution.</p>
-<div class="scenario">Now use the z-table, which gives left-tail areas \(P(Z\le z)\), to
-  find each probability. Pay attention to whether the problem asks for a left tail, a
-  right tail, or the area between two z-scores.</div>
+<div class="scenario">Now use the z-table, which reports left-tail area \(P(Z\le z)\). For each question, first decide what region is being requested—left tail, right tail, or an interval between two z-scores—then use the table and only the subtraction that region requires.</div>
 <div class="part">
 <div class="part-stem"><span class="part-label">(a)</span>
 <span class="part-text">Find \(P(Z\le1.72)\).</span></div>
 <div class="answer-row"><label>left tail, read directly:</label><input class="wide" data-ans="0.9573" data-tol="0.002" id="w3_3a" type="text"/>
 <button class="check-btn" onclick="checkNum(['w3_3a'],'w3_3a_v')">Check</button><span class="verdict" id="w3_3a_v"></span></div>
-<details><summary>Show solution</summary><div class="solution">
+<details><summary>Compare with a worked solution</summary><div class="solution">
 <p><span class="ans">\(P(Z\le1.72)=0.9573\).</span></p>
 <p>The z-table gives left-tail area directly at \(z=1.72\); no arithmetic needed.</p>
 </div></details>
@@ -302,7 +297,7 @@ details summary{line-height:1.35;}
 <span class="part-text">Find \(P(Z&gt;-0.63)\).</span></div>
 <div class="answer-row"><label>\(1-P(Z\le-0.63)=\)</label><input class="wide" data-ans="0.7357" data-tol="0.002" id="w3_3b" type="text"/>
 <button class="check-btn" onclick="checkNum(['w3_3b'],'w3_3b_v')">Check</button><span class="verdict" id="w3_3b_v"></span></div>
-<details><summary>Show solution</summary><div class="solution">
+<details><summary>Compare with a worked solution</summary><div class="solution">
 <p><span class="ans">\(P(Z&gt;-0.63)=0.7357\).</span></p>
 <p>\(P(Z\le-0.63)=0.2643\), so \(P(Z&gt;-0.63)=1-0.2643=0.7357\).</p>
 </div></details>
@@ -314,7 +309,7 @@ details summary{line-height:1.35;}
 <label>\(P(Z\le-1.20)=\)</label><input class="wide" data-ans="0.1151" data-tol="0.002" id="w3_3c_lo" type="text"/>
 <label>difference \(=\)</label><input class="wide" data-ans="0.5764" data-tol="0.003" id="w3_3c_diff" type="text"/>
 <button class="check-btn" onclick="checkNum(['w3_3c_hi','w3_3c_lo','w3_3c_diff'],'w3_3c_v')">Check</button><span class="verdict" id="w3_3c_v"></span></div>
-<details id="det-w3-3c"><summary>Show solution</summary><div class="solution">
+<details id="det-w3-3c"><summary>Compare with a worked solution</summary><div class="solution">
 <p><span class="ans">\(P(-1.20\le Z\le0.50)=0.5764\).</span></p>
 <p>\(P(Z\le0.50)=0.6915\) and \(P(Z\le-1.20)=0.1151\). Subtracting the smaller left
       tail from the larger one leaves exactly the area between the two z-scores:
