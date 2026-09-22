@@ -16,7 +16,7 @@ const FIREBALL_SOURCE={title:'Has Something Changed in the Near-Earth Meteoroid 
 .submission-coursebar .submission-status{font-size:.82rem;color:#f4eab9;font-weight:700}
 .submission-coursebar .submission-note{font-size:.82rem;color:#dce8f6}
 @media(max-width:700px){.submission-coursebar-inner{padding:8px 10px}.submission-name-control{flex:1 1 100%;display:grid;grid-template-columns:auto minmax(0,1fr)}.submission-name-control input{width:100%;max-width:none}.submission-note{display:none}}
-@media print{.submission-coursebar{display:none!important}}
+.toolbar{top:var(--submission-bar-height,0px)!important}\n@media print{.submission-coursebar{display:none!important}.toolbar{top:0!important}}
 </style>
 </head><body>
 <div class="submission-coursebar no-print">
@@ -36,7 +36,7 @@ const FIREBALL_SOURCE={title:'Has Something Changed in the Near-Earth Meteoroid 
 <label>Minimum witness reports<input class="db-min-reports" min="25" step="1" type="number"/></label>
 <label>Search visible columns<input class="db-search" placeholder="ID, date, value…" type="search"/></label>
 <label>Rows displayed<select class="db-limit"><option value="50">50</option><option value="100">100</option><option value="261">261</option><option value="all">All</option></select></label>
-</div><div class="db-summary"></div><div class="db-table-wrap"><table><thead></thead><tbody></tbody></table></div><p class="db-note">The optional CSV remains available for students who wish to use external software, but every row needed for this activity is available here.</p></div></section><section class="card" id="report"><h2>Final monthly memorandum</h2><label>Write 6–8 sentences stating whether March appears different, how the answer changes when the largest event is removed, and which threshold comparison is most convincing.<textarea data-save="final_response"></textarea></label><p class="actions"><button class="primary" onclick="generateReport()">Generate report</button><button onclick="copyReport()">Copy report</button><button onclick="window.print()">Print</button></p><div class="report" id="reportPreview">Your report will appear here.</div></section><p class="footer-note">Case File 4: The March Escalation · Data: American Meteor Society</p></main>
+</div><div class="db-summary"></div><div class="db-table-wrap"><table><thead></thead><tbody></tbody></table></div><p class="db-note">The optional CSV remains available for students who wish to use external software, but every row needed for this activity is available here.</p></div></section><section class="card" id="report"><h2>Final monthly memorandum</h2><label>Write 6–8 sentences stating whether March appears different, how the answer changes when the largest event is removed, and which threshold comparison is most convincing.<textarea data-save="final_response"></textarea></label><p class="actions"><button class="primary" onclick="generateReport()">Build report preview</button><button onclick="copyReport()">Copy report</button><button onclick="window.print()">Print</button></p><div class="report" id="reportPreview">Your report will appear here.</div></section><p class="footer-note">Case File 4: The March Escalation · Data: American Meteor Society</p></main>
 <script id="math146-unified-submission-script">
 (function(){
   const NAME_KEY='math146_submission_student_name';
@@ -58,7 +58,7 @@ const FIREBALL_SOURCE={title:'Has Something Changed in the Near-Earth Meteoroid 
     try{localStorage.setItem(NAME_KEY,value)}catch(e){}
   }
 
-  function initName(){
+  function updateSubmissionOffset(){const b=document.querySelector('.submission-coursebar');document.documentElement.style.setProperty('--submission-bar-height',(b?b.offsetHeight:0)+'px')}\n  function initName(){updateSubmissionOffset();window.addEventListener('resize',updateSubmissionOffset);
     const top=topNameField(),primary=primaryNameField();
     if(!top)return;
     let remembered='';
