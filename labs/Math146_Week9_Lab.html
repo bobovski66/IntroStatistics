@@ -510,7 +510,39 @@ function generateReport(){
   const name=esc(getVal('student_name')) || 'Student'; const today=new Date().toLocaleDateString();
   const statLines=statRows.map(r=>`<tr><td>${r[0]}</td><td>${esc(getVal(r[1]))}</td><td>${esc(getVal(r[2]))}</td></tr>`).join('');
   const report=`<!DOCTYPE html><html><head><meta charset="utf-8"><title>Fireball Inference Report</title><script>window.MathJax={tex:{inlineMath:[['$','$'],['\\\\(','\\\\)']],displayMath:[['$$','$$'],['\\\\[','\\\\]']]}};<\/script><script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"><\/script><style>body{font-family:system-ui, sans-serif;max-width:900px;margin:24px auto;line-height:1.5;color:#222} h1{color:#162b55} h2{border-bottom:1px solid #ccc;padding-bottom:4px;color:#263b62} table{width:100%;border-collapse:collapse;margin:10px 0} td,th{border-bottom:1px solid #ddd;padding:7px;text-align:left} th{background:#f2f4f7} img{max-width:100%;border:1px solid #ddd;border-radius:10px;margin:8px 0} .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px} .box{border:1px solid #ddd;border-radius:12px;padding:12px;margin:10px 0;background:#fbfcff} @media print{button{display:none} body{margin:0;max-width:none} .box{break-inside:avoid}}</style></head><body><button onclick="window.print()">Print or save as PDF</button><h1>Fireball Reports and Two-Sample Inference</h1><p><strong>Name:</strong> ${name}<br><strong>Date:</strong> ${today}</p><h2>Summary statistics</h2><table><thead><tr><th>Statistic</th><th>Baseline 2021–2025</th><th>2026</th></tr></thead><tbody>${statLines}</tbody></table><div class="box"><h2>Written description</h2><p><strong>Mean versus median:</strong><br>${esc(getVal('q_shape'))}</p><p><strong>Spread:</strong><br>${esc(getVal('q_spread'))}</p><p><strong>Largest 2026 event:</strong><br>${esc(getVal('q_largest'))}</p></div><h2>Graphs</h2><div class="grid"><div><h3>Baseline histogram</h3><img src="${histB}"></div><div><h3>2026 histogram</h3><img src="${histY}"></div></div><p>${esc(getVal('q_graphs'))}</p><h2>Confidence interval for means</h2><p>Point estimate: ${esc(getVal('ci_point'))}<br>Standard error: ${esc(getVal('ci_se'))}<br>Margin of error: ${esc(getVal('ci_me'))}<br>Confidence interval: (${esc(getVal('ci_low'))}, ${esc(getVal('ci_high'))})</p><p>${esc(getVal('ci_interp'))}</p><h2>Hypothesis test for means</h2><p>$z$-statistic: ${esc(getVal('mean_z'))}<br>$p$-value: ${esc(getVal('mean_p'))}<br>Decision: ${esc(getVal('mean_decision'))}</p><p>${esc(getVal('mean_conclusion'))}</p><p><strong>Agreement with the confidence interval:</strong><br>${esc(getVal('mean_ci_agreement'))}</p><h2>Standard error diagnosis</h2><p>$s_{2026}/s_{\\text{base}}$: ${esc(getVal('diag_ratio'))}<br>$s_{2026}^{2}/n_{2026}$: ${esc(getVal('diag_term2026'))}<br>$s_{\\text{base}}^{2}/n_{\\text{base}}$: ${esc(getVal('diag_termbase'))}</p><p>${esc(getVal('diag_explain'))}</p><h2>Hypothesis test for proportions</h2><p>$x_{\\text{base}}$: ${esc(getVal('prop_xbase'))}, $\\hat{p}_{\\text{base}}$: ${esc(getVal('prop_pbase'))}<br>$x_{2026}$: ${esc(getVal('prop_x2026'))}, $\\hat{p}_{2026}$: ${esc(getVal('prop_p2026'))}<br>$\\hat{p}_{\\text{pool}}$: ${esc(getVal('prop_ppool'))}<br>$z$-statistic: ${esc(getVal('prop_z'))}<br>$p$-value: ${esc(getVal('prop_pval'))}<br>Decision: ${esc(getVal('prop_decision'))}</p><p>${esc(getVal('prop_conclusion'))}</p><h3>Sensitivity to the cutoff</h3><table><thead><tr><th>Threshold</th><th>$p$-value</th><th>Reject $H_0$?</th></tr></thead><tbody><tr><td>&ge; 25</td><td>${esc(getVal('thr_p25'))}</td><td>${esc(getVal('thr_d25'))}</td></tr><tr><td>&ge; 50</td><td>${esc(getVal('thr_p50'))}</td><td>${esc(getVal('thr_d50'))}</td></tr><tr><td>&ge; 100</td><td>${esc(getVal('thr_p100'))}</td><td>${esc(getVal('thr_d100'))}</td></tr><tr><td>&ge; 150</td><td>${esc(getVal('thr_p150'))}</td><td>${esc(getVal('thr_d150'))}</td></tr></tbody></table><p>${esc(getVal('thr_comment'))}</p><h2>Final synthesis</h2><p>${esc(getVal('synthesis'))}</p>
-<script id="math146-submission-script">
+
+</body></html>`;
+  document.getElementById('reportPreview').textContent='Report generated. A new tab/window should open. Use Print or Save as PDF from that page.';
+  const win=window.open('','_blank'); if(win){win.document.open(); win.document.write(report); win.document.close();} else {document.getElementById('reportPreview').innerHTML='<p>Your browser blocked the pop-up. Copy the generated report HTML below into a new file, or allow pop-ups for this page.</p><textarea style="width:100%;min-height:300px">'+esc(report)+'</textarea>';}
+}
+window.addEventListener('resize',()=>{drawHist('histBase',vals(baseline),'#2457a6'); drawHist('hist2026',vals(y2026),'#9f3f4a');});
+initStatsInputs(); makeRawTable(); makeDataLists(); loadAll(); drawHist('histBase',vals(baseline),'#2457a6'); drawHist('hist2026',vals(y2026),'#9f3f4a'); updateThreshold();
+</script>
+<script>
+(function(){
+  function saveFields(){ try{ if(typeof saveAll==='function') saveAll(); }catch(e){} }
+  function answerControls(){return Array.from(document.querySelectorAll('[data-save]')).filter(el=>!el.readOnly && el.dataset.save!=='student_name');}
+  function updateWeek9Progress(){
+    const a=answerControls(); const done=a.filter(el=>String(el.value||'').trim()!=='').length; const total=a.length; const pct=total?Math.round(100*done/total):0;
+    const txt=document.getElementById('studentProgressText'), fill=document.getElementById('studentProgressFill');
+    if(txt) txt.textContent=`${done} of ${total} response boxes started (${pct}%)`; if(fill) fill.style.width=pct+'%';
+  }
+  function setCloneValues(clone){
+    const live=Array.from(document.querySelectorAll('input,textarea,select')); const copy=Array.from(clone.querySelectorAll('input,textarea,select'));
+    live.forEach((el,i)=>{const c=copy[i];if(!c)return;if(el.tagName==='TEXTAREA')c.textContent=el.value;else if(el.tagName==='SELECT'){Array.from(c.options).forEach((o,j)=>{if(j===el.selectedIndex)o.setAttribute('selected','selected');else o.removeAttribute('selected')});}else if(el.type==='checkbox'||el.type==='radio'){if(el.checked)c.setAttribute('checked','checked');else c.removeAttribute('checked')}else c.setAttribute('value',el.value);c.className=el.className;});
+    const lc=Array.from(document.querySelectorAll('canvas')), cc=Array.from(clone.querySelectorAll('canvas'));
+    lc.forEach((canvas,i)=>{if(!cc[i])return;try{const img=clone.ownerDocument.createElement('img');img.src=canvas.toDataURL('image/png');img.alt=canvas.getAttribute('aria-label')||'Saved graph';img.style.cssText=canvas.style.cssText+';max-width:100%;';cc[i].replaceWith(img);}catch(e){}});
+    const ld=Array.from(document.querySelectorAll('details')), cd=Array.from(clone.querySelectorAll('details'));ld.forEach((d,i)=>{if(!cd[i])return;if(d.open)cd[i].setAttribute('open','');else cd[i].removeAttribute('open')});
+  }
+  window.saveFilledHTML=function(){
+    saveFields(); const clone=document.documentElement.cloneNode(true); setCloneValues(clone); clone.setAttribute('data-filled-copy','true');clone.setAttribute('data-saved-at',new Date().toISOString());if(!clone.dataset.instanceId) clone.dataset.instanceId=Date.now().toString(36);
+    const name=document.querySelector('[data-save="student_name"]')?.value.trim()||''; const safeName=name?('_'+name.replace(/[^a-z0-9]+/gi,'_')):''; const base='Math146_Week9_Fireball_Inference';
+    const blob=new Blob(['<!DOCTYPE html>\n'+clone.outerHTML],{type:'text/html;charset=utf-8'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=base+safeName+'_FILLED.html';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+    const note=document.getElementById('exportStatus');if(note)note.textContent='Filled HTML saved. Graphs and current answers are embedded in this copy.';
+  };
+  document.addEventListener('input',updateWeek9Progress);document.addEventListener('change',updateWeek9Progress);window.addEventListener('load',updateWeek9Progress);updateWeek9Progress();
+})();
+</script><script id="math146-submission-script">
 (function(){
   const SUBMISSION_NAME_KEY='math146_submission_student_name';
 
@@ -748,36 +780,5 @@ function generateReport(){
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init); else init();
 })();
 </script>
-</body></html>`;
-  document.getElementById('reportPreview').textContent='Report generated. A new tab/window should open. Use Print or Save as PDF from that page.';
-  const win=window.open('','_blank'); if(win){win.document.open(); win.document.write(report); win.document.close();} else {document.getElementById('reportPreview').innerHTML='<p>Your browser blocked the pop-up. Copy the generated report HTML below into a new file, or allow pop-ups for this page.</p><textarea style="width:100%;min-height:300px">'+esc(report)+'</textarea>';}
-}
-window.addEventListener('resize',()=>{drawHist('histBase',vals(baseline),'#2457a6'); drawHist('hist2026',vals(y2026),'#9f3f4a');});
-initStatsInputs(); makeRawTable(); makeDataLists(); loadAll(); drawHist('histBase',vals(baseline),'#2457a6'); drawHist('hist2026',vals(y2026),'#9f3f4a'); updateThreshold();
-</script>
-<script>
-(function(){
-  function saveFields(){ try{ if(typeof saveAll==='function') saveAll(); }catch(e){} }
-  function answerControls(){return Array.from(document.querySelectorAll('[data-save]')).filter(el=>!el.readOnly && el.dataset.save!=='student_name');}
-  function updateWeek9Progress(){
-    const a=answerControls(); const done=a.filter(el=>String(el.value||'').trim()!=='').length; const total=a.length; const pct=total?Math.round(100*done/total):0;
-    const txt=document.getElementById('studentProgressText'), fill=document.getElementById('studentProgressFill');
-    if(txt) txt.textContent=`${done} of ${total} response boxes started (${pct}%)`; if(fill) fill.style.width=pct+'%';
-  }
-  function setCloneValues(clone){
-    const live=Array.from(document.querySelectorAll('input,textarea,select')); const copy=Array.from(clone.querySelectorAll('input,textarea,select'));
-    live.forEach((el,i)=>{const c=copy[i];if(!c)return;if(el.tagName==='TEXTAREA')c.textContent=el.value;else if(el.tagName==='SELECT'){Array.from(c.options).forEach((o,j)=>{if(j===el.selectedIndex)o.setAttribute('selected','selected');else o.removeAttribute('selected')});}else if(el.type==='checkbox'||el.type==='radio'){if(el.checked)c.setAttribute('checked','checked');else c.removeAttribute('checked')}else c.setAttribute('value',el.value);c.className=el.className;});
-    const lc=Array.from(document.querySelectorAll('canvas')), cc=Array.from(clone.querySelectorAll('canvas'));
-    lc.forEach((canvas,i)=>{if(!cc[i])return;try{const img=clone.ownerDocument.createElement('img');img.src=canvas.toDataURL('image/png');img.alt=canvas.getAttribute('aria-label')||'Saved graph';img.style.cssText=canvas.style.cssText+';max-width:100%;';cc[i].replaceWith(img);}catch(e){}});
-    const ld=Array.from(document.querySelectorAll('details')), cd=Array.from(clone.querySelectorAll('details'));ld.forEach((d,i)=>{if(!cd[i])return;if(d.open)cd[i].setAttribute('open','');else cd[i].removeAttribute('open')});
-  }
-  window.saveFilledHTML=function(){
-    saveFields(); const clone=document.documentElement.cloneNode(true); setCloneValues(clone); clone.setAttribute('data-filled-copy','true');clone.setAttribute('data-saved-at',new Date().toISOString());if(!clone.dataset.instanceId) clone.dataset.instanceId=Date.now().toString(36);
-    const name=document.querySelector('[data-save="student_name"]')?.value.trim()||''; const safeName=name?('_'+name.replace(/[^a-z0-9]+/gi,'_')):''; const base='Math146_Week9_Fireball_Inference';
-    const blob=new Blob(['<!DOCTYPE html>\n'+clone.outerHTML],{type:'text/html;charset=utf-8'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=base+safeName+'_FILLED.html';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),1000);
-    const note=document.getElementById('exportStatus');if(note)note.textContent='Filled HTML saved. Graphs and current answers are embedded in this copy.';
-  };
-  document.addEventListener('input',updateWeek9Progress);document.addEventListener('change',updateWeek9Progress);window.addEventListener('load',updateWeek9Progress);updateWeek9Progress();
-})();
-</script></body>
+</body>
 </html>
