@@ -139,6 +139,19 @@ details summary{line-height:1.35;}
 @media(max-width:680px){.submission-name-control{flex:1 1 100%}.submission-name-control input{width:min(240px,60vw)!important}}
 @media print{.submission-name-control,.submission-help{display:none!important}}
 </style>
+<style id="math146-precalc-submit-style">
+/* Submission workflow matched to the Precalculus student labs. */
+.student-topbar{position:sticky;top:0;z-index:1000;background:#17335a;color:#fff;box-shadow:0 3px 12px rgba(0,0,0,.18);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+.student-topbar-inner{max-width:960px;margin:0 auto;padding:9px 18px;display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.student-topbar button{display:inline-block;background:#fff;color:#17335a;border:1px solid #ccd8e5;padding:8px 12px;border-radius:9px;font-weight:800;cursor:pointer}
+.student-topbar button.primary{background:#eef4fb}
+.student-topbar .status{margin-left:auto;font-size:.82rem;color:#e7eef8;white-space:nowrap}
+.student-name-entry{display:block;margin-top:12px;font-family:var(--mono,ui-monospace,monospace);font-size:13px;color:#4a5565}
+.student-name-entry input{display:block;margin-top:5px;width:260px;max-width:100%;padding:7px 9px;border:1px solid var(--rule,#ccc);border-radius:7px;background:#fff;color:#222;font:14px var(--mono,ui-monospace,monospace)}
+.submission-save-note{font-size:15px!important;color:#555!important;margin-top:10px!important}
+@media(max-width:700px){.student-topbar-inner{padding:8px 10px}.student-topbar .status{width:100%;margin-left:0}.student-topbar button{padding:8px 10px}}
+@media print{.student-topbar{display:none!important}}
+</style>
 </head>
 <body>
 <div class="wrap">
@@ -698,6 +711,248 @@ details summary{line-height:1.35;}
   };
 
   function init(){ initSubmissionName(); }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init); else init();
+})();
+</script>
+<script id="math146-precalc-submit-script">
+(function(){
+  function primaryNameField(){
+    return document.querySelector('[data-save="student_name"]') ||
+      document.querySelector('input[id$="_name"]') ||
+      document.querySelector('input[name="student_name"]');
+  }
+  function dateField(){
+    return document.querySelector('input[id$="_date"]') || document.querySelector('[data-save="student_date"]');
+  }
+  function safeSubmissionFilename(s){
+    return String(s||'student').trim().replace(/[^a-z0-9._-]+/gi,'_').replace(/^_+|_+$/g,'')||'student';
+  }
+  function responseControls(){
+    const name=primaryNameField(),date=dateField();
+    return Array.from(document.querySelectorAll('input,textarea,select')).filter(el=>{
+      if(el.closest('.solution,.submission-toolbar,.student-topbar')) return false;
+      if(el===name||el===date||el.readOnly||el.disabled) return false;
+      const t=(el.type||'').toLowerCase();
+      return !['button','submit','reset','hidden','range'].includes(t);
+    });
+  }
+  function hasValue(el){
+    const t=(el.type||'').toLowerCase();
+    if(t==='checkbox'||t==='radio') return !!el.checked;
+    return String(el.value||'').trim()!=='';
+  }
+  function updateProgress(){
+    const a=responseControls(),done=a.filter(hasValue).length,pct=a.length?Math.round(100*done/a.length):0;
+    const p=document.getElementById('studentProgress');
+    if(p) p.textContent=pct+'% started';
+  }
+  function persistWorking(){
+    try{
+      if(typeof save==='function') save();
+      else if(typeof saveAll==='function'){
+        if(saveAll.length>0 && typeof PREFIX!=='undefined') saveAll(PREFIX);
+        else saveAll();
+      }
+    }catch(e){}
+  }
+  function placeNameField(){
+    const input=primaryNameField();
+    if(!input) return;
+    const oldLabel=input.closest('label');
+    const target=document.querySelector('.student-start') ||
+      document.querySelector('.student-guide') ||
+      document.querySelector('#intro') ||
+      document.querySelector('main');
+    if(!target) return;
+
+    let label=oldLabel;
+    if(!label){
+      label=document.createElement('label');
+      label.appendChild(document.createTextNode('Student name'));
+      label.appendChild(input);
+    }
+    label.classList.add('student-name-entry');
+    const textNodes=Array.from(label.childNodes).filter(n=>n.nodeType===3);
+    if(textNodes.length) textNodes[0].textContent='Student name ';
+    target.appendChild(label);
+
+    const idrow=document.querySelector('.id-row');
+    if(idrow && !idrow.querySelector('input')) idrow.remove();
+  }
+  function installWorkingBar(){
+    document.querySelector('.toolbar.student-toolbar')?.remove();
+    const directToolbar=Array.from(document.body.children).find(el=>el.classList&&el.classList.contains('toolbar'));
+    if(directToolbar) directToolbar.remove();
+    document.querySelector('.submission-coursebar')?.remove();
+
+    if(document.querySelector('.student-topbar')) return;
+    const bar=document.createElement('div');
+    bar.className='student-topbar no-print';
+    bar.innerHTML='<div class="student-topbar-inner"><button class="primary" type="button" onclick="createSubmissionCopy()">Prepare Submission</button><button type="button" onclick="jumpNext()">Next problem</button><button type="button" onclick="clearStudentData()">Clear answers</button><span class="status"><span id="studentProgress">0% started</span> · <span id="saveStatus">autosave ready</span></span></div>';
+    document.body.insertBefore(bar,document.body.firstChild);
+  }
+  function installInstructions(){
+    const target=document.querySelector('.student-start') || document.querySelector('.student-guide') || document.querySelector('#intro');
+    if(!target || target.querySelector('.submission-save-note')) return;
+    const p=document.createElement('p');
+    p.className='submission-save-note';
+    p.innerHTML='Your work autosaves in this browser. When you are ready to turn it in, enter your name and choose <strong>Prepare Submission</strong>. The lab switches to a clean submission view in this same tab with your current answers written into the page. From there you can <strong>Print / Save as PDF</strong>, <strong>Download HTML</strong> for upload to Canvas, or return to the lab.';
+    target.appendChild(p);
+  }
+
+  window.jumpNext=function(){
+    const items=[...document.querySelectorAll('.problem, main > section.card')];
+    if(!items.length) return;
+    const y=window.scrollY+100;
+    const next=items.find(el=>el.offsetTop>y);
+    (next||items[0]).scrollIntoView({behavior:'smooth',block:'start'});
+  };
+  window.clearStudentData=function(){
+    if(typeof clearData==='function'){clearData();return;}
+    if(typeof clearAll==='function'){clearAll();return;}
+  };
+
+  function submissionAnswerText(el){
+    const tag=el.tagName,type=(el.type||'').toLowerCase();
+    if(tag==='SELECT'){
+      const opt=el.selectedOptions&&el.selectedOptions[0];
+      return el.value&&opt?opt.textContent.trim():'No response';
+    }
+    if(type==='checkbox') return el.checked?'Checked':'Not checked';
+    if(type==='radio') return el.checked?'Selected':'Not selected';
+    const v=(el.value==null?'':String(el.value)).trim();
+    return v||'No response';
+  }
+  function replaceSubmissionControls(sourceRoot,cloneRoot){
+    const source=[...sourceRoot.querySelectorAll('input,select,textarea')].filter(e=>!e.closest('.solution'));
+    const copied=[...cloneRoot.querySelectorAll('input,select,textarea')].filter(e=>!e.closest('.solution'));
+    const name=primaryNameField();
+    copied.forEach((copy,i)=>{
+      const original=source[i];
+      if(!original){copy.remove();return;}
+      if(original===name){copy.remove();return;}
+      const type=(original.type||'').toLowerCase();
+      if(['button','submit','reset','hidden'].includes(type)){copy.remove();return;}
+      if(original.readOnly && String(original.value||'').length>1000){
+        const note=document.createElement('div');
+        note.className='submission-source-note';
+        note.textContent='Large source-data field omitted from this submission copy.';
+        copy.replaceWith(note);return;
+      }
+      const block=(original.tagName==='TEXTAREA'||original.tagName==='SELECT'||['text','number','email','url','range'].includes(type));
+      const out=document.createElement(block?'div':'span');
+      out.className='submission-answer'+(block?' submission-answer-block':'');
+      out.textContent=submissionAnswerText(original);
+      copy.replaceWith(out);
+    });
+  }
+  function replaceSubmissionCanvases(sourceRoot,cloneRoot){
+    const source=[...sourceRoot.querySelectorAll('canvas')],copied=[...cloneRoot.querySelectorAll('canvas')];
+    copied.forEach((copy,i)=>{
+      const original=source[i];
+      if(!original){copy.remove();return;}
+      try{
+        const img=document.createElement('img');
+        img.className='submission-canvas-image';
+        img.alt=original.getAttribute('aria-label')||'Lab visual';
+        img.src=original.toDataURL('image/png');
+        copy.replaceWith(img);
+      }catch(err){
+        const note=document.createElement('div');
+        note.className='submission-answer submission-answer-block';
+        note.textContent='Interactive visual not included in this copy.';
+        copy.replaceWith(note);
+      }
+    });
+  }
+  function makeSubmissionLinksAbsolute(sourceRoot,cloneRoot){
+    const sourceImgs=[...sourceRoot.querySelectorAll('img')],copiedImgs=[...cloneRoot.querySelectorAll('img')];
+    copiedImgs.forEach((img,i)=>{if(sourceImgs[i]&&sourceImgs[i].src&&!img.src.startsWith('data:'))img.src=sourceImgs[i].src;});
+    const sourceLinks=[...sourceRoot.querySelectorAll('a')],copiedLinks=[...cloneRoot.querySelectorAll('a')];
+    copiedLinks.forEach((a,i)=>{if(sourceLinks[i]&&sourceLinks[i].href)a.href=sourceLinks[i].href;});
+  }
+  function cleanSubmissionClone(clone){
+    clone.querySelectorAll('details,.solution,.check-btn,.verdict,.feedback,.completion-panel,.student-name-entry,script').forEach(x=>x.remove());
+    clone.querySelectorAll('button').forEach(x=>x.remove());
+    clone.querySelectorAll('table').forEach(t=>{
+      if(t.querySelectorAll('tr').length>80){
+        const note=document.createElement('div');
+        note.className='submission-source-note';
+        note.textContent='Large source-data table omitted from this submission copy. It remains available in the interactive lab.';
+        t.replaceWith(note);
+      }
+    });
+    clone.querySelectorAll('.copy-actions,.student-status,.student-coursebar').forEach(x=>x.remove());
+  }
+  function installSubmissionPage(name,title,clone){
+    document.title=title+' — '+name;
+    let extra=document.getElementById('submission-mode-style');
+    if(!extra){
+      extra=document.createElement('style');
+      extra.id='submission-mode-style';
+      extra.textContent='body{overflow:auto!important;height:auto!important;background:#fff!important;color:#111!important}.submission-toolbar{position:sticky;top:0;z-index:1000;display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding:12px 18px;background:#17335a;color:#fff;box-shadow:0 3px 12px rgba(0,0,0,.18);font-family:system-ui,sans-serif}.submission-toolbar button{display:inline-block!important;background:#fff!important;color:#17335a!important;border:1px solid #ccd8e5!important;padding:9px 13px!important;border-radius:9px!important;font-weight:800!important;cursor:pointer!important}.submission-note{font-size:.88rem;color:#e7eef8}.submission-cover{max-width:960px;margin:20px auto 0;padding:0 24px}.submission-cover-card{background:#fff;border:1px solid #ccd8e5;border-radius:14px;padding:14px 18px}.submission-cover h1{margin:0 0 8px;color:#17335a;font-size:1.45rem}.submission-meta{display:flex;gap:22px;flex-wrap:wrap}.submission-answer{display:inline-block;padding:4px 8px;border:1px solid #b9c6d5;border-radius:7px;background:#fff;color:#111;font-weight:700;white-space:pre-wrap;overflow-wrap:anywhere;vertical-align:baseline}.submission-answer-block{display:block;width:100%;min-height:2.1em;margin:5px 0 2px}.submission-canvas-image{display:block;max-width:100%;height:auto;border:1px solid #ccd8e5;border-radius:10px;background:#fff}.submission-source-note{padding:8px 10px;border:1px dashed #b9c6d5;background:#f8fafc;color:#526174;border-radius:8px;font:14px system-ui,sans-serif;margin:8px 0}.student-topbar,details,.solution,.check-btn,.verdict{display:none!important}@media print{.submission-toolbar{display:none!important}.submission-cover{margin-top:0;padding:0}.wrap{padding:0!important}.problem{break-inside:auto!important}.part{break-inside:avoid!important}.submission-cover-card{border:0;padding:0 0 10px}.problem,.objectives,.student-start,.student-guide,.student-objectives,.card,header{box-shadow:none!important}}';
+      document.head.appendChild(extra);
+    }
+    document.body.replaceChildren();
+    const toolbar=document.createElement('div');
+    toolbar.className='submission-toolbar';
+    toolbar.innerHTML='<button type="button" id="submissionPrintButton">Print / Save as PDF</button><button type="button" id="submissionDownloadButton">Download HTML</button><button type="button" id="submissionReturnButton">Return to Lab</button><span class="submission-note">Submission view — your answers are already saved.</span>';
+    document.body.appendChild(toolbar);
+
+    const cover=document.createElement('div');
+    cover.className='submission-cover';
+    const card=document.createElement('div');
+    card.className='submission-cover-card';
+    const h=document.createElement('h1');h.textContent=title;
+    const meta=document.createElement('div');meta.className='submission-meta';
+    const student=document.createElement('div');student.innerHTML='<strong>Student:</strong> ';student.appendChild(document.createTextNode(name));
+    const made=document.createElement('div');made.innerHTML='<strong>Submission prepared:</strong> ';made.appendChild(document.createTextNode(new Date().toLocaleString()));
+    meta.append(student,made);card.append(h,meta);cover.appendChild(card);document.body.appendChild(cover);
+
+    document.body.appendChild(clone);
+    const wk=(title.match(/Week\s+(\d+)/i)||[])[1]||'Lab';
+    document.body.dataset.downloadBase='Math146_Week_'+wk+'_Lab_'+safeSubmissionFilename(name);
+    document.getElementById('submissionPrintButton').addEventListener('click',()=>window.print());
+    document.getElementById('submissionDownloadButton').addEventListener('click',()=>{
+      const html='<!doctype html>\n'+document.documentElement.outerHTML;
+      const blob=new Blob([html],{type:'text/html;charset=utf-8'});
+      const url=URL.createObjectURL(blob);
+      const a=document.createElement('a');a.href=url;a.download=(document.body.dataset.downloadBase||'Math146_Lab_Submission')+'.html';
+      document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
+    });
+    document.getElementById('submissionReturnButton').addEventListener('click',()=>location.reload());
+  }
+
+  window.createSubmissionCopy=function(){
+    persistWorking();
+    const nameInput=primaryNameField(),name=(nameInput?.value||'').trim(),status=document.getElementById('saveStatus');
+    if(!name){if(status)status.textContent='enter your name first';nameInput?.focus();return;}
+    const source=document.querySelector('main.wrap')||document.querySelector('.wrap')||document.body;
+    const clone=source.cloneNode(true);
+    replaceSubmissionCanvases(source,clone);
+    replaceSubmissionControls(source,clone);
+    makeSubmissionLinksAbsolute(source,clone);
+    cleanSubmissionClone(clone);
+    const title=(document.querySelector('header h1')?.textContent||document.title).trim();
+    installSubmissionPage(name,title,clone);
+  };
+
+  function init(){
+    placeNameField();
+    installInstructions();
+    installWorkingBar();
+    const name=primaryNameField();
+    if(name){
+      try{
+        const remembered=localStorage.getItem('math146_submission_student_name')||'';
+        if(!name.value.trim()&&remembered) name.value=remembered;
+      }catch(e){}
+      name.addEventListener('input',()=>{try{localStorage.setItem('math146_submission_student_name',name.value)}catch(e){}});
+    }
+    document.addEventListener('input',()=>{const s=document.getElementById('saveStatus');if(s)s.textContent='saved in browser';updateProgress();});
+    document.addEventListener('change',()=>{const s=document.getElementById('saveStatus');if(s)s.textContent='saved in browser';updateProgress();});
+    updateProgress();
+  }
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init); else init();
 })();
 </script>
