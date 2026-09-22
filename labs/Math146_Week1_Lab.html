@@ -153,6 +153,7 @@ details summary{line-height:1.35;}
 <li>Compute a sample mean and sample standard deviation by hand, and predict how an outlier changes each.</li>
 </ul>
 </div>
+<div class="scenario lab-question-card"><strong>Lab question:</strong> How can a small set of observations be used to describe a larger group without confusing a sample with the population it represents?<p style="margin:8px 0 0"><strong>Why this matters:</strong> Nearly every inferential method later in the course begins here. A sample gives us statistics we can calculate; the population has parameters we usually cannot observe directly. Descriptive statistics are the first attempt to summarize what the sample is telling us.</p></div>
 <div aria-label="Lab controls" class="toolbar student-toolbar no-print">
 <div class="toolbar-main">
 <button class="primary-action" onclick="saveFilledHTML()" type="button">Save filled HTML</button>
@@ -165,17 +166,13 @@ details summary{line-height:1.35;}
 <!-- PROBLEM 1 -->
 <div class="problem" id="p1">
 <h2>Problem 1 — Population, Sample, and Notation</h2><p class="problem-goal"><strong>Goal:</strong> Identify the population, the sample, and the notation that belongs to each.</p>
-<div class="scenario">A county health department wants to learn about sleep habits among
-  adults in the county. They randomly select 120 adults, record how many hours each person
-  slept last night, and find that this sample has an average of 6.8 hours. Use this
-  situation to distinguish the group being studied from the smaller group actually
-  measured.</div>
+<div class="scenario">A county health department wants to learn about sleep habits among adults in the county. Measuring every adult is unrealistic, so 120 adults are randomly selected and asked how many hours they slept last night. Their mean is 6.8 hours. The sample is the group actually measured; the population is the larger group the department wants to understand. Use this setting to keep those two ideas—and their notation—separate.</div>
 <div class="part">
 <div class="part-stem"><span class="part-label">(a)</span>
 <span class="part-text">Identify the population.</span></div>
 <div class="text-answer"><label>Write one sentence.</label>
 <textarea id="w1_1a" placeholder="The population is…"></textarea></div>
-<details><summary>Show solution</summary><div class="solution">
+<details><summary>Compare with a worked solution</summary><div class="solution">
 <p><span class="ans">The population is all adults in the county.</span></p>
 <p>The population is the entire group the health department wants to learn about,
       whether or not every member was actually measured.</p>
@@ -186,7 +183,7 @@ details summary{line-height:1.35;}
 <span class="part-text">Identify the sample.</span></div>
 <div class="text-answer"><label>Write one sentence.</label>
 <textarea id="w1_1b" placeholder="The sample is…"></textarea></div>
-<details><summary>Show solution</summary><div class="solution">
+<details><summary>Compare with a worked solution</summary><div class="solution">
 <p><span class="ans">The sample is the 120 adults who were randomly selected and measured.</span></p>
 <p>The sample is the subset actually observed; it is used to estimate facts about
       the population.</p>
@@ -197,7 +194,7 @@ details summary{line-height:1.35;}
 <span class="part-text">Which symbol, \(\mu\) or \(\bar{x}\), represents 6.8 hours? Explain.</span></div>
 <div class="text-answer"><label>Name the symbol and explain why.</label>
 <textarea id="w1_1c" placeholder="The symbol is … because…"></textarea></div>
-<details><summary>Show solution</summary><div class="solution">
+<details><summary>Compare with a worked solution</summary><div class="solution">
 <p><span class="ans">\(\bar{x}\), the sample mean.</span></p>
 <p>6.8 hours was computed from the sample of 120 adults, not from every adult in the
       county, so it is a statistic (\(\bar{x}\)) rather than a parameter (\(\mu\)).</p>
@@ -208,7 +205,7 @@ details summary{line-height:1.35;}
 <span class="part-text">Which Greek letter represents the unknown true average?</span></div>
 <div class="text-answer"><label>Name it and state what it represents.</label>
 <textarea id="w1_1d" placeholder="The symbol is…"></textarea></div>
-<details><summary>Show solution</summary><div class="solution">
+<details><summary>Compare with a worked solution</summary><div class="solution">
 <p><span class="ans">\(\mu\), the population mean.</span></p>
 <p>\(\mu\) is the true average sleep time across every adult in the county. It is
       unknown and unobservable directly; \(\bar{x}\) is our best estimate of it.</p>
@@ -218,9 +215,7 @@ details summary{line-height:1.35;}
 <!-- PROBLEM 2 -->
 <div class="problem" id="p2">
 <h2>Problem 2 — Summation Notation and Frequency</h2><p class="problem-goal"><strong>Goal:</strong> Translate a small dataset into summations, frequencies, relative frequencies, and percentages.</p>
-<div class="scenario">Ten students report the number of cups of coffee they drank
-  yesterday: <strong>0, 1, 2, 1, 3, 0, 2, 1, 0, 2</strong>. Use this small dataset to
-  practice summation notation and to organize the values into a frequency table.</div>
+<div class="scenario">Ten students at a campus café report how many cups of coffee they drank yesterday: <strong>0, 1, 2, 1, 3, 0, 2, 1, 0, 2</strong>. Before a dataset can be modeled, it has to be organized. Use these ten observations to translate raw data into summation notation, frequencies, relative frequencies, and percentages.</div>
 <div class="part">
 <div class="part-stem"><span class="part-label">(a)</span>
 <span class="part-text">Compute \(\displaystyle\sum_{i=1}^{10} x_i\) (add all ten values).</span></div>
@@ -254,7 +249,7 @@ details summary{line-height:1.35;}
 <span class="part-text">What percentage of students drank at least one cup?</span></div>
 <div class="answer-row"><label>percentage</label><input data-ans="70" data-tol="0.5" id="w1_2d" type="text"/><label>%</label>
 <button class="check-btn" onclick="checkNum(['w1_2d'],'w1_2d_v')">Check</button><span class="verdict" id="w1_2d_v"></span></div>
-<details><summary>Show solution</summary><div class="solution">
+<details><summary>Compare with a worked solution</summary><div class="solution">
 <p><span class="ans">\(\sum x_i=12\), \(\sum x_i^2=24\), frequencies 3/3/3/1, and 70% drank at least one cup.</span></p>
 <p>\(\sum x_i = 0+1+2+1+3+0+2+1+0+2=12\), and squaring first gives
       \(\sum x_i^2=0+1+4+1+9+0+4+1+0+4=24\). Cups \(0,1,2,3\) occur \(3,3,3,1\) times out
@@ -267,10 +262,7 @@ details summary{line-height:1.35;}
 <!-- PROBLEM 3 -->
 <div class="problem" id="p3">
 <h2>Problem 3 — Mean and Standard Deviation</h2><p class="problem-goal"><strong>Goal:</strong> Compute and interpret the sample mean and sample standard deviation, including the effect of an outlier.</p>
-<div class="scenario">Five friends report how many text messages they sent yesterday:
-  <strong>12, 25, 8, 31, 14</strong>. Use these values to compute the sample mean and
-  sample standard deviation, then think about how an extreme value would affect both
-  statistics.</div>
+<div class="scenario">Five friends report how many text messages they sent yesterday: <strong>12, 25, 8, 31, 14</strong>. The dataset is deliberately small so every deviation from the mean can be seen. Compute the sample mean and sample standard deviation, then investigate what happens when one unusually large observation is added.</div>
 <div class="part">
 <div class="part-stem"><span class="part-label">(a)</span>
 <span class="part-text">Compute the sample mean \(\bar{x}\).</span></div>
@@ -295,7 +287,7 @@ details summary{line-height:1.35;}
 </table>
 <div class="answer-row"><label>\(s=\sqrt{\sum(x_i-\bar{x})^2/(n-1)}=\)</label><input class="wide" data-ans="9.62" data-tol="0.05" id="w1_3b_s" type="text"/>
 <button class="check-btn" onclick="checkNum(['w1_3b_d1','w1_3b_sq1','w1_3b_d2','w1_3b_sq2','w1_3b_d3','w1_3b_sq3','w1_3b_d4','w1_3b_sq4','w1_3b_d5','w1_3b_sq5','w1_3b_dsum','w1_3b_sqsum','w1_3b_s'],'w1_3b_v')">Check</button><span class="verdict" id="w1_3b_v"></span></div>
-<details><summary>Show solution</summary><div class="solution">
+<details><summary>Compare with a worked solution</summary><div class="solution">
 <p><span class="ans">\(\bar{x}=90/5=18\); deviations \(-6,7,-10,13,-4\) (sum \(0\)); squared deviations \(36,49,100,169,16\) (sum \(370\)); \(s=\sqrt{370/4}=\sqrt{92.5}\approx9.62\).</span></p>
 <p>The deviations always sum to zero — that is a built-in check. Dividing the sum
       of squared deviations by \(n-1=4\) and taking the square root gives the sample
@@ -308,7 +300,7 @@ details summary{line-height:1.35;}
       happens to \(\bar{x}\) and \(s\)?</span></div>
 <div class="text-answer"><label>Explain both changes in one or two sentences.</label>
 <textarea id="w1_3c" placeholder="Adding 500 will…"></textarea></div>
-<details><summary>Show solution</summary><div class="solution">
+<details><summary>Compare with a worked solution</summary><div class="solution">
 <p><span class="ans">Both \(\bar{x}\) and \(s\) increase sharply.</span></p>
 <p>500 is far above the other five values, so it pulls the mean upward substantially.
       It also sits very far from the new mean, so its squared deviation dominates the sum,
