@@ -154,6 +154,7 @@ details summary{line-height:1.35;}
 <li>Carry out a two-sample \(z\)-test comparing two population proportions.</li>
 </ul>
 </div>
+<div class="scenario lab-question-card"><strong>Lab question:</strong> How can we tell whether an observed difference between two groups is larger than ordinary sampling variation?<p style="margin:8px 0 0"><strong>Why this matters:</strong> Two-sample inference adds a new design question before the arithmetic begins: are the observations independent, or are they naturally paired? Once the design is identified, a standard error turns the observed difference into a scale on which evidence can be judged.</p></div>
 <div class="formulas">
 <h2>Reference Formulas</h2>
 <p>\[\text{SE}_{\bar{x}_1-\bar{x}_2}=\sqrt{\frac{\sigma_1^2}{n_1}+\frac{\sigma_2^2}{n_2}} \qquad z=\frac{(\bar{x}_1-\bar{x}_2)-0}{\text{SE}} \qquad \text{CI: }(\bar{x}_1-\bar{x}_2)\pm z^*\,\text{SE}\]</p>
@@ -171,17 +172,14 @@ details summary{line-height:1.35;}
 <!-- PROBLEM 1 -->
 <div class="problem" id="p1">
 <h2>Problem 1 — Independent or Paired?</h2><p class="problem-goal"><strong>Goal:</strong> Decide whether a two-sample situation uses independent or paired data.</p>
-<div class="scenario">Before choosing a two-sample method, decide whether the two sets of
-  data are independent or paired. Independent samples come from separate groups. Paired
-  data come from matched measurements, such as before-and-after measurements on the same
-  people.</div>
+<div class="scenario">Before choosing a two-sample method, determine how the data were produced. Separate groups give independent samples; repeated or matched measurements give paired data. This design decision is not bookkeeping—it determines what counts as one independent piece of information.</div>
 <div class="part">
 <div class="part-stem"><span class="part-label">(a)</span>
 <span class="part-text">The same 30 students take a short quiz before and after a
       review session. Paired or independent?</span></div>
 <div class="text-answer"><label>Your answer.</label>
 <textarea id="w7_1a" placeholder="These data are…"></textarea></div>
-<details><summary>Show solution</summary><div class="solution">
+<details><summary>Compare with a worked solution</summary><div class="solution">
 <p><span class="ans">Paired.</span></p>
 <p>The same 30 students are measured twice, so each before-score is matched to that
       same student's after-score.</p>
@@ -193,7 +191,7 @@ details summary{line-height:1.35;}
       their quiz scores are compared. Paired or independent?</span></div>
 <div class="text-answer"><label>Your answer.</label>
 <textarea id="w7_1b" placeholder="These data are…"></textarea></div>
-<details><summary>Show solution</summary><div class="solution">
+<details><summary>Compare with a worked solution</summary><div class="solution">
 <p><span class="ans">Independent.</span></p>
 <p>The two sections are made up of different students, so there's no natural
       pairing between a score in one section and a score in the other.</p>
@@ -205,7 +203,7 @@ details summary{line-height:1.35;}
       taking a medication. Paired or independent?</span></div>
 <div class="text-answer"><label>Your answer.</label>
 <textarea id="w7_1c" placeholder="These data are…"></textarea></div>
-<details><summary>Show solution</summary><div class="solution">
+<details><summary>Compare with a worked solution</summary><div class="solution">
 <p><span class="ans">Paired.</span></p>
 <p>Each patient contributes both a before- and an after-measurement, so the two
       values are naturally linked by patient.</p>
@@ -217,7 +215,7 @@ details summary{line-height:1.35;}
       Paired or independent?</span></div>
 <div class="text-answer"><label>Your answer.</label>
 <textarea id="w7_1d" placeholder="These data are…"></textarea></div>
-<details><summary>Show solution</summary><div class="solution">
+<details><summary>Compare with a worked solution</summary><div class="solution">
 <p><span class="ans">Independent.</span></p>
 <p>The two cities are separate populations of respondents with no shared
       individuals, so the samples don't pair up.</p>
@@ -227,11 +225,7 @@ details summary{line-height:1.35;}
 <!-- PROBLEM 2 -->
 <div class="problem" id="p2">
 <h2>Problem 2 — Two-Sample z-Test for Means</h2><p class="problem-goal"><strong>Goal:</strong> Compare two population means with a two-sample z-test.</p>
-<div class="scenario">A website team compares the average time, in seconds, that users
-  spend on two page layouts. For Layout 1, \(n_1=40\), \(\bar{x}_1=58.2\), and
-  \(\sigma_1=8.0\). For Layout 2, \(n_2=45\), \(\bar{x}_2=54.6\), and \(\sigma_2=7.5\). Test
-  whether users spend more time on Layout 1 than on Layout 2.
-  Use \(H_0:\mu_1=\mu_2\) and \(H_a:\mu_1&gt;\mu_2\). Test at significance level \(\alpha=0.05\).</div>
+<div class="scenario">A user-experience team compares two page layouts. For Layout 1, \(n_1=40\), \(\bar{x}_1=58.2\) seconds, and \(\sigma_1=8.0\) seconds. For Layout 2, \(n_2=45\), \(\bar{x}_2=54.6\) seconds, and \(\sigma_2=7.5\) seconds. The team asks whether users spend more time on Layout 1. Test \(H_0:\mu_1=\mu_2\) against \(H_a:\mu_1>\mu_2\) at \(\alpha=0.05\), remembering that “more time” is a measured difference, not automatically a better design.</div>
 <div class="part">
 <div class="part-stem"><span class="part-label">(a)</span>
 <span class="part-text">Find the standard error.</span></div>
@@ -239,7 +233,7 @@ details summary{line-height:1.35;}
 <label>\(\sigma_2^2/n_2=\)</label><input data-ans="1.25" data-tol="0.05" id="w7_2a_t2" type="text"/>
 <label>SE\(=\sqrt{\text{sum}}=\)</label><input class="wide" data-ans="1.688" data-tol="0.02" id="w7_2a_se" type="text"/>
 <button class="check-btn" onclick="checkNum(['w7_2a_t1','w7_2a_t2','w7_2a_se'],'w7_2a_v')">Check</button><span class="verdict" id="w7_2a_v"></span></div>
-<details><summary>Show solution</summary><div class="solution">
+<details><summary>Compare with a worked solution</summary><div class="solution">
 <p><span class="ans">SE \(\approx1.688\).</span></p>
 <p>\(\sigma_1^2/n_1=64/40=1.6\), \(\sigma_2^2/n_2=56.25/45=1.25\).
       \(\text{SE}=\sqrt{2.85}\approx1.688\).</p>
@@ -250,7 +244,7 @@ details summary{line-height:1.35;}
 <span class="part-text">Find the test statistic \(z\).</span></div>
 <div class="answer-row"><label>\(z=(\bar{x}_1-\bar{x}_2)/\text{SE}=\)</label><input class="wide" data-ans="2.13" data-tol="0.04" id="w7_2b" type="text"/>
 <button class="check-btn" onclick="checkNum(['w7_2b'],'w7_2b_v')">Check</button><span class="verdict" id="w7_2b_v"></span></div>
-<details><summary>Show solution</summary><div class="solution">
+<details><summary>Compare with a worked solution</summary><div class="solution">
 <p><span class="ans">\(z\approx2.13\).</span></p>
 <p>\(z=3.6/1.688\approx2.13\).</p>
 </div></details>
@@ -260,7 +254,7 @@ details summary{line-height:1.35;}
 <span class="part-text">Find the \(p\)-value (right-tailed).</span></div>
 <div class="answer-row"><label>\(1-P(Z\le2.13)=\)</label><input class="wide" data-ans="0.0166" data-tol="0.003" id="w7_2c" type="text"/>
 <button class="check-btn" onclick="checkNum(['w7_2c'],'w7_2c_v')">Check</button><span class="verdict" id="w7_2c_v"></span></div>
-<details><summary>Show solution</summary><div class="solution">
+<details><summary>Compare with a worked solution</summary><div class="solution">
 <p><span class="ans">\(p\approx0.0166\).</span></p>
 <p>\(1-P(Z\le2.13)=1-0.9834=0.0166\).</p>
 </div></details>
@@ -271,7 +265,7 @@ details summary{line-height:1.35;}
       conclusion in context.</span></div>
 <div class="text-answer"><label>Your answer.</label>
 <textarea id="w7_2d" placeholder="Since p-value = … &lt; 0.05, we … There is sufficient evidence to conclude that…"></textarea></div>
-<details><summary>Show solution</summary><div class="solution">
+<details><summary>Compare with a worked solution</summary><div class="solution">
 <p>SE\(\approx1.688\), \(z\approx2.13\), \(p\)-value\(=1-0.9834=0.0166&lt;0.05\).</p>
 <p class="reject">Reject \(H_0\).</p>
 <p>Layout 1 has a greater average time on page: there is sufficient evidence at
@@ -282,15 +276,13 @@ details summary{line-height:1.35;}
 <!-- PROBLEM 3 -->
 <div class="problem" id="p3">
 <h2>Problem 3 — Confidence Interval for \(\mu_1-\mu_2\)</h2><p class="problem-goal"><strong>Goal:</strong> Estimate a difference of population means with a confidence interval.</p>
-<div class="scenario">Using the same layout data from Problem 2, construct a 95%
-  confidence interval for \(\mu_1-\mu_2\). The interval estimates how much longer, on
-  average, users spend on Layout 1 compared with Layout 2.</div>
+<div class="scenario">Use the same page-layout data from Problem 2 to construct a 95% confidence interval for \(\mu_1-\mu_2\). The hypothesis test asks whether a difference is detectable; the interval goes further by estimating how large that difference could plausibly be.</div>
 <div class="part">
 <div class="part-stem"><span class="part-label">(a)</span>
 <span class="part-text">Find the margin of error.</span></div>
 <div class="answer-row"><label>ME\(=z^*\times\text{SE}=1.96\times1.688=\)</label><input class="wide" data-ans="3.308" data-tol="0.02" id="w7_3a" type="text"/>
 <button class="check-btn" onclick="checkNum(['w7_3a'],'w7_3a_v')">Check</button><span class="verdict" id="w7_3a_v"></span></div>
-<details><summary>Show solution</summary><div class="solution">
+<details><summary>Compare with a worked solution</summary><div class="solution">
 <p><span class="ans">ME \(\approx3.31\).</span></p>
 <p>\(1.96\times1.688\approx3.308\).</p>
 </div></details>
@@ -301,7 +293,7 @@ details summary{line-height:1.35;}
 <div class="answer-row"><label>\((\bar{x}_1-\bar{x}_2)\pm\text{ME}=3.6\pm\text{ME}\): lower \(=\)</label><input data-ans="0.29" data-tol="0.05" id="w7_3b_lo" type="text"/>
 <label>upper \(=\)</label><input data-ans="6.91" data-tol="0.05" id="w7_3b_hi" type="text"/>
 <button class="check-btn" onclick="checkNum(['w7_3b_lo','w7_3b_hi'],'w7_3b_v')">Check</button><span class="verdict" id="w7_3b_v"></span></div>
-<details><summary>Show solution</summary><div class="solution">
+<details><summary>Compare with a worked solution</summary><div class="solution">
 <p><span class="ans">95% CI: \((0.29,\,6.91)\) seconds.</span></p>
 <p>ME\(=1.96\times1.688\approx3.308\), so the interval is \(3.6\pm3.31=(0.29,6.91)\).</p>
 </div></details>
@@ -312,7 +304,7 @@ details summary{line-height:1.35;}
       interval and what that implies about \(\mu_1-\mu_2\).</span></div>
 <div class="text-answer"><label>Your answer.</label>
 <textarea id="w7_3c" placeholder="The interval (0.29, 6.91) does / does not contain 0. This tells us…"></textarea></div>
-<details><summary>Show solution</summary><div class="solution">
+<details><summary>Compare with a worked solution</summary><div class="solution">
 <p><span class="ans">The interval \((0.29,6.91)\) does not contain 0.</span></p>
 <p>Since 0 is excluded, and the whole interval is positive, this is consistent with
       \(\mu_1&gt;\mu_2\): Layout 1's true mean time on page is plausibly greater than Layout
@@ -323,18 +315,14 @@ details summary{line-height:1.35;}
 <!-- PROBLEM 4 -->
 <div class="problem" id="p4">
 <h2>Problem 4 — Two-Sample z-Test for Proportions</h2><p class="problem-goal"><strong>Goal:</strong> Compare two population proportions with a two-sample z-test.</p>
-<div class="scenario">A school compares participation in an after-school program for two
-  grade levels. In Grade 11, 84 of 150 students participate. In Grade 12, 63 of 140
-  students participate. Test whether the participation proportions differ between the two
-  grades. Use \(H_0:p_1=p_2\) and \(H_a:p_1\ne p_2\). Test at significance level
-  \(\alpha=0.05\).</div>
+<div class="scenario">A school compares participation in an after-school program across two grade levels. In Grade 11, 84 of 150 students participate; in Grade 12, 63 of 140 participate. Test whether the population participation proportions differ, using \(H_0:p_1=p_2\), \(H_a:p_1\ne p_2\), and \(\alpha=0.05\).</div>
 <div class="part">
 <div class="part-stem"><span class="part-label">(a)</span>
 <span class="part-text">Find the sample proportions.</span></div>
 <div class="answer-row"><label>\(\hat{p}_1=84/150=\)</label><input data-ans="0.56" data-tol="0.005" id="w7_4a_p1" type="text"/>
 <label>\(\hat{p}_2=63/140=\)</label><input data-ans="0.45" data-tol="0.005" id="w7_4a_p2" type="text"/>
 <button class="check-btn" onclick="checkNum(['w7_4a_p1','w7_4a_p2'],'w7_4a_v')">Check</button><span class="verdict" id="w7_4a_v"></span></div>
-<details><summary>Show solution</summary><div class="solution">
+<details><summary>Compare with a worked solution</summary><div class="solution">
 <p><span class="ans">\(\hat{p}_1=0.56\), \(\hat{p}_2=0.45\).</span></p>
 <p>\(84/150=0.56\) and \(63/140=0.45\).</p>
 </div></details>
@@ -344,7 +332,7 @@ details summary{line-height:1.35;}
 <span class="part-text">Find the pooled proportion.</span></div>
 <div class="answer-row"><label>\(\hat{p}_{\text{pool}}=(84+63)/(150+140)=\)</label><input class="wide" data-ans="0.5069" data-tol="0.003" id="w7_4b" type="text"/>
 <button class="check-btn" onclick="checkNum(['w7_4b'],'w7_4b_v')">Check</button><span class="verdict" id="w7_4b_v"></span></div>
-<details><summary>Show solution</summary><div class="solution">
+<details><summary>Compare with a worked solution</summary><div class="solution">
 <p><span class="ans">\(\hat{p}_{\text{pool}}\approx0.5069\).</span></p>
 <p>\(147/290\approx0.5069\). Pooling combines both samples into one estimate of the
       shared proportion assumed under \(H_0\).</p>
@@ -356,7 +344,7 @@ details summary{line-height:1.35;}
 <div class="answer-row"><label>SE\(=\sqrt{\hat{p}_{\text{pool}}(1-\hat{p}_{\text{pool}})(1/150+1/140)}=\)</label><input class="wide" data-ans="0.05876" data-tol="0.003" id="w7_4c_se" type="text"/>
 <label>\(z=(\hat{p}_1-\hat{p}_2)/\text{SE}=\)</label><input class="wide" data-ans="1.87" data-tol="0.04" id="w7_4c_z" type="text"/>
 <button class="check-btn" onclick="checkNum(['w7_4c_se','w7_4c_z'],'w7_4c_v')">Check</button><span class="verdict" id="w7_4c_v"></span></div>
-<details><summary>Show solution</summary><div class="solution">
+<details><summary>Compare with a worked solution</summary><div class="solution">
 <p><span class="ans">\(z\approx1.87\).</span></p>
 <p>SE\(\approx\sqrt{0.2500\times0.01381}\approx0.05876\).
       \(z=0.11/0.05876\approx1.87\).</p>
@@ -370,7 +358,7 @@ details summary{line-height:1.35;}
 <button class="check-btn" onclick="checkNum(['w7_4d_pv'],'w7_4d_v')">Check</button><span class="verdict" id="w7_4d_v"></span></div>
 <div class="text-answer"><label>Your answer.</label>
 <textarea id="w7_4d_conc" placeholder="Since p-value = … &gt; 0.05, we … There is insufficient/sufficient evidence that…"></textarea></div>
-<details><summary>Show solution</summary><div class="solution">
+<details><summary>Compare with a worked solution</summary><div class="solution">
 <p>\(\hat{p}_1=0.56\), \(\hat{p}_2=0.45\), \(\hat{p}_{\text{pool}}=147/290\approx0.5069\).
       SE\(\approx\sqrt{0.2500\times0.01381}\approx0.05876\). \(z=0.11/0.05876\approx1.87\).
       \(p\)-value\(=2(1-0.9693)=0.0614&gt;0.05\).</p>
