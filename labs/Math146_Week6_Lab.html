@@ -156,6 +156,7 @@ details summary{line-height:1.35;}
 <li>Carry out a one-sample \(z\)-test for a population proportion.</li>
 </ul>
 </div>
+<div class="scenario lab-question-card"><strong>Lab question:</strong> When is a sample result unusual enough under a claimed population value to count as evidence against that claim?<p style="margin:8px 0 0"><strong>Why this matters:</strong> Hypothesis testing begins by assuming a specific null model and asking how surprising the observed sample would be if that model were correct. The p-value measures that surprise; it is not the probability that the null hypothesis is true.</p></div>
 <div class="formulas">
 <h2>Reference Formulas</h2>
 <p>Test statistic for a mean: \[\displaystyle z=\frac{\bar{x}-\mu_0}{\sigma/\sqrt{n}}\]</p>
@@ -174,10 +175,7 @@ details summary{line-height:1.35;}
 <!-- PROBLEM 1 -->
 <div class="problem" id="p1">
 <h2>Problem 1 — Writing Hypotheses</h2><p class="problem-goal"><strong>Goal:</strong> Translate a research claim into null and alternative hypotheses and identify the test direction.</p>
-<div class="scenario">For each situation, write the null and alternative hypotheses and
-  identify whether the test is left-tailed, right-tailed, or two-tailed. Pay close
-  attention to the wording of the claim: phrases such as less, higher, and changed
-  determine the direction of \(H_a\).</div>
+<div class="scenario">Each statement below describes a claim that could be tested with data. Before any calculation is done, translate the research question into \(H_0\) and \(H_a\). The wording matters: “less,” “greater,” and “different” determine which departures from the null count as evidence.</div>
 <div class="part">
 <div class="part-stem"><span class="part-label">(a)</span>
 <span class="part-text">Cereal boxes are labeled as containing 18 oz on average. A
@@ -185,7 +183,7 @@ details summary{line-height:1.35;}
       \(H_0\), \(H_a\), and the test type.</span></div>
 <div class="text-answer"><label>Your answer.</label>
 <textarea id="w6_1a" placeholder="H₀: μ = …    Hₐ: μ …    Test type: …"></textarea></div>
-<details><summary>Show solution</summary><div class="solution">
+<details><summary>Compare with a worked solution</summary><div class="solution">
 <p><span class="ans">\(H_0:\mu=18\), \(H_a:\mu&lt;18\); left-tailed.</span></p>
 <p>"Less than" points the alternative hypothesis toward smaller values, which makes
       the rejection region sit in the left tail.</p>
@@ -198,7 +196,7 @@ details summary{line-height:1.35;}
       State \(H_0\), \(H_a\), and the test type.</span></div>
 <div class="text-answer"><label>Your answer.</label>
 <textarea id="w6_1b" placeholder="H₀: μ = …    Hₐ: μ …    Test type: …"></textarea></div>
-<details><summary>Show solution</summary><div class="solution">
+<details><summary>Compare with a worked solution</summary><div class="solution">
 <p><span class="ans">\(H_0:\mu=24\), \(H_a:\mu\ne24\); two-tailed.</span></p>
 <p>"Changed" allows the true mean to differ in either direction, so both tails count
       as evidence against \(H_0\).</p>
@@ -211,7 +209,7 @@ details summary{line-height:1.35;}
       \(H_a\), and the test type.</span></div>
 <div class="text-answer"><label>Your answer.</label>
 <textarea id="w6_1c" placeholder="H₀: p = …    Hₐ: p …    Test type: …"></textarea></div>
-<details><summary>Show solution</summary><div class="solution">
+<details><summary>Compare with a worked solution</summary><div class="solution">
 <p><span class="ans">\(H_0:p=0.70\), \(H_a:p&gt;0.70\); right-tailed.</span></p>
 <p>"Higher than" points the alternative toward larger values, putting the rejection
       region in the right tail.</p>
@@ -221,18 +219,14 @@ details summary{line-height:1.35;}
 <!-- PROBLEM 2 -->
 <div class="problem" id="p2">
 <h2>Problem 2 — One-Sample z-Test for a Population Mean</h2><p class="problem-goal"><strong>Goal:</strong> Carry out a one-sample z-test for a population mean from start to finish.</p>
-<div class="scenario">A filling machine is supposed to put 20.0 ounces of product into
-  each container. A quality-control sample of \(n=49\) containers has mean fill amount
-  \(\bar{x}=19.7\) ounces. Assume the population standard deviation is known to be
-  \(\sigma=0.8\) ounces. Test whether the machine is underfilling containers.
-  Use \(H_0:\mu=20.0\) and \(H_a:\mu&lt;20.0\). Test at significance level \(\alpha=0.05\).</div>
+<div class="scenario">A filling machine is supposed to put 20.0 ounces of product into each container. A quality-control sample of \(n=49\) containers has mean fill \(\bar{x}=19.7\) ounces. Assume \(\sigma=0.8\) ounces is known. The practical question is whether the machine is systematically underfilling, so test \(H_0:\mu=20.0\) against \(H_a:\mu<20.0\) at \(\alpha=0.05\).</div>
 <div class="part">
 <div class="part-stem"><span class="part-label">(a)</span>
 <span class="part-text">Find the test statistic \(z\).</span></div>
 <div class="answer-row"><label>SE \(=\sigma/\sqrt{n}=\)</label><input class="wide" data-ans="0.1143" data-tol="0.003" id="w6_2a_se" type="text"/>
 <label>\(z=(\bar{x}-\mu_0)/\text{SE}=\)</label><input class="wide" data-ans="-2.63" data-tol="0.04" id="w6_2a_z" type="text"/>
 <button class="check-btn" onclick="checkNum(['w6_2a_se','w6_2a_z'],'w6_2a_v')">Check</button><span class="verdict" id="w6_2a_v"></span></div>
-<details><summary>Show solution</summary><div class="solution">
+<details><summary>Compare with a worked solution</summary><div class="solution">
 <p><span class="ans">\(z\approx-2.63\).</span></p>
 <p>\(\text{SE}=0.8/7\approx0.1143\). \(z=(19.7-20.0)/0.1143\approx-2.63\).</p>
 </div></details>
@@ -242,7 +236,7 @@ details summary{line-height:1.35;}
 <span class="part-text">Find the \(p\)-value (left-tailed).</span></div>
 <div class="answer-row"><label>\(P(Z\le-2.63)=\)</label><input class="wide" data-ans="0.0043" data-tol="0.001" id="w6_2b" type="text"/>
 <button class="check-btn" onclick="checkNum(['w6_2b'],'w6_2b_v')">Check</button><span class="verdict" id="w6_2b_v"></span></div>
-<details><summary>Show solution</summary><div class="solution">
+<details><summary>Compare with a worked solution</summary><div class="solution">
 <p><span class="ans">\(p\)-value \(\approx0.0043\).</span></p>
 <p>Reading the z-table's left tail at \(z=-2.63\) gives \(0.0043\).</p>
 </div></details>
@@ -253,7 +247,7 @@ details summary{line-height:1.35;}
       \(p\)-value to \(\alpha\).</span></div>
 <div class="text-answer"><label>Your answer.</label>
 <textarea id="w6_2c" placeholder="Since p-value = … &lt; / &gt; 0.05, we reject / fail to reject H₀."></textarea></div>
-<details><summary>Show solution</summary><div class="solution">
+<details><summary>Compare with a worked solution</summary><div class="solution">
 <p class="reject">Reject \(H_0\): \(p=0.0043&lt;\alpha=0.05\).</p>
 <p>Because the \(p\)-value is smaller than \(\alpha\), the observed sample mean would
       be very unlikely if \(H_0\) were true, so we reject \(H_0\).</p>
@@ -265,7 +259,7 @@ details summary{line-height:1.35;}
       variable, the direction, and the significance level.</span></div>
 <div class="text-answer"><label>Your answer.</label>
 <textarea id="w6_2d" placeholder="There is sufficient / insufficient evidence at α=0.05 to conclude that…"></textarea></div>
-<details><summary>Show solution</summary><div class="solution">
+<details><summary>Compare with a worked solution</summary><div class="solution">
 <p><span class="ans">The machine is underfilling.</span></p>
 <p>There is sufficient evidence at \(\alpha=0.05\) that the true mean fill is less
       than 20.0 oz.</p>
@@ -275,15 +269,13 @@ details summary{line-height:1.35;}
 <!-- PROBLEM 3 -->
 <div class="problem" id="p3">
 <h2>Problem 3 — Interpreting a p-Value</h2><p class="problem-goal"><strong>Goal:</strong> Interpret a p-value as evidence relative to a null hypothesis.</p>
-<div class="scenario">A test statistic is reported as \(z=1.84\). Use this same z-score
-  to compare how the p-value changes depending on whether the alternative hypothesis is
-  right-tailed or two-tailed.</div>
+<div class="scenario">Suppose an analysis produces the standardized statistic \(z=1.84\). The observed result has not changed, but the research question can: “is the parameter larger?” is a right-tailed question, while “is it different?” is two-tailed. Compare the p-values to see why the alternative hypothesis must be chosen from the question being asked, not after looking at the data.</div>
 <div class="part">
 <div class="part-stem"><span class="part-label">(a)</span>
 <span class="part-text">Find the \(p\)-value for a right-tailed test.</span></div>
 <div class="answer-row"><label>\(1-P(Z\le1.84)=\)</label><input class="wide" data-ans="0.0329" data-tol="0.002" id="w6_3a" type="text"/>
 <button class="check-btn" onclick="checkNum(['w6_3a'],'w6_3a_v')">Check</button><span class="verdict" id="w6_3a_v"></span></div>
-<details><summary>Show solution</summary><div class="solution">
+<details><summary>Compare with a worked solution</summary><div class="solution">
 <p><span class="ans">\(p=0.0329\).</span></p>
 <p>\(P(Z\le1.84)=0.9671\), so the right-tailed \(p\)-value is \(1-0.9671=0.0329\).</p>
 </div></details>
@@ -293,7 +285,7 @@ details summary{line-height:1.35;}
 <span class="part-text">Find the \(p\)-value for a two-tailed test.</span></div>
 <div class="answer-row"><label>\(2(1-P(Z\le1.84))=\)</label><input class="wide" data-ans="0.0658" data-tol="0.002" id="w6_3b" type="text"/>
 <button class="check-btn" onclick="checkNum(['w6_3b'],'w6_3b_v')">Check</button><span class="verdict" id="w6_3b_v"></span></div>
-<details><summary>Show solution</summary><div class="solution">
+<details><summary>Compare with a worked solution</summary><div class="solution">
 <p><span class="ans">\(p=0.0658\).</span></p>
 <p>A two-tailed \(p\)-value doubles the one-tailed area: \(2\times0.0329=0.0658\).</p>
 </div></details>
@@ -304,7 +296,7 @@ details summary{line-height:1.35;}
       explain why the same \(z\) gives different conclusions.</span></div>
 <div class="text-answer"><label>Your answer.</label>
 <textarea id="w6_3c" placeholder="Right-tailed: … Two-tailed: … This happens because…"></textarea></div>
-<details><summary>Show solution</summary><div class="solution">
+<details><summary>Compare with a worked solution</summary><div class="solution">
 <table>
 <thead><tr><th>Test</th><th>\(p\)-value</th><th>Decision</th></tr></thead>
 <tbody>
@@ -322,16 +314,13 @@ details summary{line-height:1.35;}
 <!-- PROBLEM 4 -->
 <div class="problem" id="p4">
 <h2>Problem 4 — One-Sample z-Test for a Population Proportion</h2><p class="problem-goal"><strong>Goal:</strong> Carry out a one-sample z-test for a population proportion.</p>
-<div class="scenario">A company claims that 65% of its customers renew their
-  subscription. In a random sample of \(n=200\) customers, 118 renew. Test whether the
-  true renewal proportion is less than the company claims.
-  Use \(H_0:p=0.65\) and \(H_a:p&lt;0.65\). Test at significance level \(\alpha=0.05\).</div>
+<div class="scenario">A company claims that 65% of its customers renew their subscription. In a random sample of \(n=200\) customers, 118 renew. Test whether the population renewal rate is lower than the advertised 65%, using \(H_0:p=0.65\), \(H_a:p<0.65\), and \(\alpha=0.05\).</div>
 <div class="part">
 <div class="part-stem"><span class="part-label">(a)</span>
 <span class="part-text">Find the sample proportion \(\hat{p}\).</span></div>
 <div class="answer-row"><label>\(\hat{p}=118/200=\)</label><input data-ans="0.59" data-tol="0.005" id="w6_4a" type="text"/>
 <button class="check-btn" onclick="checkNum(['w6_4a'],'w6_4a_v')">Check</button><span class="verdict" id="w6_4a_v"></span></div>
-<details><summary>Show solution</summary><div class="solution">
+<details><summary>Compare with a worked solution</summary><div class="solution">
 <p><span class="ans">\(\hat{p}=0.59\).</span></p>
 <p>\(118/200=0.59\).</p>
 </div></details>
@@ -342,7 +331,7 @@ details summary{line-height:1.35;}
 <div class="answer-row"><label>SE \(=\sqrt{p_0(1-p_0)/n}=\)</label><input class="wide" data-ans="0.0337" data-tol="0.003" id="w6_4b_se" type="text"/>
 <label>\(z=(\hat{p}-p_0)/\text{SE}=\)</label><input class="wide" data-ans="-1.78" data-tol="0.04" id="w6_4b_z" type="text"/>
 <button class="check-btn" onclick="checkNum(['w6_4b_se','w6_4b_z'],'w6_4b_v')">Check</button><span class="verdict" id="w6_4b_v"></span></div>
-<details><summary>Show solution</summary><div class="solution">
+<details><summary>Compare with a worked solution</summary><div class="solution">
 <p><span class="ans">\(z\approx-1.78\).</span></p>
 <p>\(\text{SE}=\sqrt{0.65\times0.35/200}\approx0.0337\).
       \(z=(0.59-0.65)/0.0337\approx-1.78\).</p>
@@ -353,7 +342,7 @@ details summary{line-height:1.35;}
 <span class="part-text">Find the \(p\)-value.</span></div>
 <div class="answer-row"><label>\(P(Z\le-1.78)=\)</label><input class="wide" data-ans="0.0375" data-tol="0.002" id="w6_4c" type="text"/>
 <button class="check-btn" onclick="checkNum(['w6_4c'],'w6_4c_v')">Check</button><span class="verdict" id="w6_4c_v"></span></div>
-<details><summary>Show solution</summary><div class="solution">
+<details><summary>Compare with a worked solution</summary><div class="solution">
 <p><span class="ans">\(p\)-value \(\approx0.0375\).</span></p>
 <p>Reading the z-table's left tail at \(z=-1.78\) gives \(0.0375\).</p>
 </div></details>
@@ -364,7 +353,7 @@ details summary{line-height:1.35;}
       in context.</span></div>
 <div class="text-answer"><label>Your answer.</label>
 <textarea id="w6_4d" placeholder="Since p-value = … &lt; 0.05, we … There is sufficient evidence to conclude that…"></textarea></div>
-<details><summary>Show solution</summary><div class="solution">
+<details><summary>Compare with a worked solution</summary><div class="solution">
 <p>\(\hat{p}=0.59\). \(\text{SE}=\sqrt{0.65\times0.35/200}\approx0.0337\).
       \(z=(0.59-0.65)/0.0337\approx-1.78\), giving \(p\)-value \(\approx0.0375\). Since
       \(0.0375&lt;0.05\):</p>
