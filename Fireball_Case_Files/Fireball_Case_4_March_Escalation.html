@@ -16,7 +16,8 @@ const FIREBALL_SOURCE={title:'Has Something Changed in the Near-Earth Meteoroid 
 .submission-coursebar .submission-status{font-size:.82rem;color:#f4eab9;font-weight:700}
 .submission-coursebar .submission-note{font-size:.82rem;color:#dce8f6}
 @media(max-width:700px){.submission-coursebar-inner{padding:8px 10px}.submission-name-control{flex:1 1 100%;display:grid;grid-template-columns:auto minmax(0,1fr)}.submission-name-control input{width:100%;max-width:none}.submission-note{display:none}}
-.toolbar{top:var(--submission-bar-height,0px)!important}\n@media print{.submission-coursebar{display:none!important}.toolbar{top:0!important}}
+.toolbar{top:var(--submission-bar-height,0px)!important}
+@media print{.submission-coursebar{display:none!important}.toolbar{top:0!important}}
 </style>
 </head><body>
 <div class="submission-coursebar no-print">
@@ -58,7 +59,8 @@ const FIREBALL_SOURCE={title:'Has Something Changed in the Near-Earth Meteoroid 
     try{localStorage.setItem(NAME_KEY,value)}catch(e){}
   }
 
-  function updateSubmissionOffset(){const b=document.querySelector('.submission-coursebar');document.documentElement.style.setProperty('--submission-bar-height',(b?b.offsetHeight:0)+'px')}\n  function initName(){updateSubmissionOffset();window.addEventListener('resize',updateSubmissionOffset);
+  function updateSubmissionOffset(){const b=document.querySelector('.submission-coursebar');document.documentElement.style.setProperty('--submission-bar-height',(b?b.offsetHeight:0)+'px')}
+  function initName(){updateSubmissionOffset();window.addEventListener('resize',updateSubmissionOffset);
     const top=topNameField(),primary=primaryNameField();
     if(!top)return;
     let remembered='';
