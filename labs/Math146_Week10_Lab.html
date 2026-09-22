@@ -158,6 +158,7 @@ details summary{line-height:1.35;}
 <li>Find a regression line from raw bivariate data and recognize the limits of correlation and extrapolation.</li>
 </ul>
 </div>
+<div class="scenario lab-question-card"><strong>Lab question:</strong> How much can one quantitative variable tell us about another, and where does a straight-line model stop being trustworthy?<p style="margin:8px 0 0"><strong>Why this matters:</strong> Regression is useful because it turns association into a prediction rule, but the equation is only part of the analysis. A useful model also requires context, residual checks, attention to extrapolation, and restraint about causal claims.</p></div>
 <div class="formulas">
 <h2>Reference Formulas</h2>
 <p>Regression slope and intercept: \[b=r\cdot\frac{s_y}{s_x} \qquad a=\bar{y}-b\bar{x} \qquad \hat{y}=a+bx\]</p>
@@ -176,13 +177,7 @@ details summary{line-height:1.35;}
 <!-- PROBLEM 1 -->
 <div class="problem" id="p1">
 <h2>Problem 1 — Computing the Regression Line from Summary Statistics</h2><p class="problem-goal"><strong>Goal:</strong> Compute a least-squares regression line from summary statistics and use it for prediction.</p>
-<div class="scenario">A physical therapist records weeks of therapy (\(x\)) and
-  improvement score (\(y\)) for 10 patients.
-  <table style="width:auto;">
-<thead><tr><th>\(\bar{x}\)</th><th>\(s_x\)</th><th>\(\bar{y}\)</th><th>\(s_y\)</th><th>\(r\)</th></tr></thead>
-<tbody><tr><td>6</td><td>2.5</td><td>40</td><td>12</td><td>0.85</td></tr></tbody>
-</table>
-</div>
+<div class="scenario">A physical therapist records weeks of therapy \(x\) and an improvement score \(y\) for 10 patients. The summary statistics are given below. Use them to construct the least-squares line, then interpret the slope as a change in predicted improvement per additional week of therapy.<br><br><table class="data-table"><thead><tr><th>\(\bar{x}\)</th><th>\(s_x\)</th><th>\(\bar{y}\)</th><th>\(s_y\)</th><th>\(r\)</th></tr></thead><tbody><tr><td>6</td><td>2.5</td><td>40</td><td>12</td><td>0.85</td></tr></tbody></table></div>
 <div class="part">
 <div class="part-stem"><span class="part-label">(a)</span>
 <span class="part-text">Compute the regression line \(\hat{y}=a+bx\).</span></div>
@@ -191,7 +186,7 @@ details summary{line-height:1.35;}
 <button class="check-btn" onclick="checkNum(['w10_1a_b','w10_1a_a'],'w10_1a_v')">Check</button><span class="verdict" id="w10_1a_v"></span></div>
 <div class="text-answer"><label>Write the equation, then interpret the slope in one sentence.</label>
 <textarea id="w10_1a_interp" placeholder="ŷ = … + …x. For each additional week of therapy, improvement score is predicted to…"></textarea></div>
-<details><summary>Show solution</summary><div class="solution">
+<details><summary>Compare with a worked solution</summary><div class="solution">
 <p><span class="ans">\(b=4.08\), \(a=15.52\); \(\hat{y}=15.52+4.08x\).</span></p>
 <p>\(b=0.85\times12/2.5=0.85\times4.8=4.08\). \(a=40-4.08(6)=40-24.48=15.52\). Each
       additional week of therapy predicts a 4.08-point increase in improvement score on
@@ -203,7 +198,7 @@ details summary{line-height:1.35;}
 <span class="part-text">Predict the improvement score for 8 weeks of therapy.</span></div>
 <div class="answer-row"><label>\(\hat{y}(8)=a+b(8)=\)</label><input class="wide" data-ans="48.16" data-tol="0.1" id="w10_1b" type="text"/>
 <button class="check-btn" onclick="checkNum(['w10_1b'],'w10_1b_v')">Check</button><span class="verdict" id="w10_1b_v"></span></div>
-<details><summary>Show solution</summary><div class="solution">
+<details><summary>Compare with a worked solution</summary><div class="solution">
 <p><span class="ans">\(\hat{y}(8)=48.16\).</span></p>
 <p>\(\hat{y}(8)=15.52+4.08(8)=48.16\).</p>
 </div></details>
@@ -216,7 +211,7 @@ details summary{line-height:1.35;}
 <button class="check-btn" onclick="checkNum(['w10_1c'],'w10_1c_v')">Check</button><span class="verdict" id="w10_1c_v"></span></div>
 <div class="text-answer"><label>Your interpretation.</label>
 <textarea id="w10_1c_interp" placeholder="72.25% of the variability in improvement score is explained by… The remaining 27.75% reflects…"></textarea></div>
-<details><summary>Show solution</summary><div class="solution">
+<details><summary>Compare with a worked solution</summary><div class="solution">
 <p><span class="ans">\(r^2=0.7225\) (72.25%).</span></p>
 <p>\(r^2=0.85^2=0.7225\): 72.25% of the variability in improvement score is explained
       by the linear relationship with weeks of therapy. The remaining 27.75% reflects
@@ -230,7 +225,7 @@ details summary{line-height:1.35;}
       model appropriate? What might fit better?</span></div>
 <div class="text-answer"><label>Your answer.</label>
 <textarea id="w10_1d" placeholder="A curved residual plot suggests the linearity condition is violated…"></textarea></div>
-<details><summary>Show solution</summary><div class="solution">
+<details><summary>Compare with a worked solution</summary><div class="solution">
 <p><span class="ans">A curved residual pattern means the linear model is not appropriate.</span></p>
 <p>Residuals should look randomly scattered around zero with no pattern if a linear
       model fits well. A curve suggests a nonlinear relationship — perhaps improvement
@@ -242,16 +237,14 @@ details summary{line-height:1.35;}
 <!-- PROBLEM 2 -->
 <div class="problem" id="p2">
 <h2>Problem 2 — Interpreting Regression in Context</h2><p class="problem-goal"><strong>Goal:</strong> Interpret slope, prediction, and model limitations in context.</p>
-<div class="scenario">A dataset of 50 cities records average summer temperature (\(x\),
-  °F) and annual ice cream sales per capita (\(y\), dollars). Regression line:
-  \(\hat{y}=-120+4.5x\), \(r^2=0.61\). The warmest city in the data has \(x=95\)°F.</div>
+<div class="scenario">A dataset of 50 cities records average summer temperature \(x\), in °F, and annual ice-cream sales per capita \(y\), in dollars. The fitted line is \(\hat{y}=-120+4.5x\), with \(r^2=0.61\); the warmest observed city has \(x=95\)°F. Use the model to practice interpretation while keeping prediction, extrapolation, and causation separate.</div>
 <div class="part">
 <div class="part-stem"><span class="part-label">(a)</span>
 <span class="part-text">Interpret the slope in context: what does 4.5 mean for a
       real city?</span></div>
 <div class="text-answer"><label>Your answer.</label>
 <textarea id="w10_2a" placeholder="For each additional degree Fahrenheit…"></textarea></div>
-<details><summary>Show solution</summary><div class="solution">
+<details><summary>Compare with a worked solution</summary><div class="solution">
 <p><span class="ans">Each additional degree of average summer temperature predicts about \$4.50 more in ice cream sales per capita.</span></p>
 <p>The slope is a rate of change: for every 1°F increase in average summer
       temperature, predicted per-capita ice cream sales rise by \$4.50, on average.</p>
@@ -263,7 +256,7 @@ details summary{line-height:1.35;}
       variability is explained? What explains the rest?</span></div>
 <div class="text-answer"><label>Your answer.</label>
 <textarea id="w10_2b" placeholder="61% of the variability in ice cream sales is explained by…"></textarea></div>
-<details><summary>Show solution</summary><div class="solution">
+<details><summary>Compare with a worked solution</summary><div class="solution">
 <p><span class="ans">61% of the variability in ice cream sales is explained by average summer temperature.</span></p>
 <p>The remaining 39% comes from other factors — local prices, population
       demographics, availability of ice cream shops, and so on — that aren't captured by
@@ -276,7 +269,7 @@ details summary{line-height:1.35;}
       extrapolation.</span></div>
 <div class="text-answer"><label>Your answer.</label>
 <textarea id="w10_2c" placeholder="No, because x = 110°F lies outside the data range. This is called extrapolation…"></textarea></div>
-<details><summary>Show solution</summary><div class="solution">
+<details><summary>Compare with a worked solution</summary><div class="solution">
 <p><span class="ans">No — this is extrapolation.</span></p>
 <p>The warmest city in the data only reaches 95°F, so predicting at 110°F means
       applying the line far outside the range of observed data. There's no evidence the
@@ -290,7 +283,7 @@ details summary{line-height:1.35;}
       cause.</span></div>
 <div class="text-answer"><label>Your answer.</label>
 <textarea id="w10_2d" placeholder="This confuses correlation with causation…"></textarea></div>
-<details><summary>Show solution</summary><div class="solution">
+<details><summary>Compare with a worked solution</summary><div class="solution">
 <p><span class="ans">This confuses correlation with causation.</span></p>
 <p>Temperature and ice cream sales move together, but that doesn't mean one causes
       the other. The underlying cause is a lurking variable — the season — that drives
@@ -301,15 +294,14 @@ details summary{line-height:1.35;}
 <!-- PROBLEM 3 -->
 <div class="problem" id="p3">
 <h2>Problem 3 — Correlation and r²</h2><p class="problem-goal"><strong>Goal:</strong> Connect correlation with r² and explain what r² does and does not say.</p>
-<div class="scenario">Three scatterplots have correlations \(r=-0.92\), \(r=0.45\),
-  \(r=0.01\).</div>
+<div class="scenario">Three different datasets produce correlations \(r=-0.92\), \(r=0.45\), and \(r=0.01\). Treat these as reports from three analysts. Classify the direction and strength of the linear relationships, compute \(r^2\), and then ask what a correlation near zero can miss when a relationship is curved rather than linear.</div>
 <div class="part">
 <div class="part-stem"><span class="part-label">(a)</span>
 <span class="part-text">Match each \(r\) to its description: strong negative linear
       · weak positive linear · no linear relationship.</span></div>
 <div class="text-answer"><label>Your answer.</label>
 <textarea id="w10_3a" placeholder="r = −0.92: …   r = 0.45: …   r = 0.01: …"></textarea></div>
-<details><summary>Show solution</summary><div class="solution">
+<details><summary>Compare with a worked solution</summary><div class="solution">
 <p><span class="ans">\(r=-0.92\): strong negative. \(r=0.45\): weak positive. \(r=0.01\): no linear relationship.</span></p>
 <p>The sign gives the direction and the magnitude (distance from 0) gives the
       strength of the linear association.</p>
@@ -322,7 +314,7 @@ details summary{line-height:1.35;}
 <label>\((0.45)^2=\)</label><input class="wide" data-ans="0.2025" data-tol="0.005" id="w10_3b_2" type="text"/>
 <label>\((0.01)^2=\)</label><input class="wide" data-ans="0.0001" data-tol="0.0005" id="w10_3b_3" type="text"/>
 <button class="check-btn" onclick="checkNum(['w10_3b_1','w10_3b_2','w10_3b_3'],'w10_3b_v')">Check</button><span class="verdict" id="w10_3b_v"></span></div>
-<details><summary>Show solution</summary><div class="solution">
+<details><summary>Compare with a worked solution</summary><div class="solution">
 <p><span class="ans">\(0.8464\) (84.64%), \(0.2025\) (20.25%), \(0.0001\) (0.01%).</span></p>
 <p>Squaring \(r\) removes the sign, which is why \(r^2\) tells you the strength of
       the relationship regardless of its direction.</p>
@@ -334,7 +326,7 @@ details summary{line-height:1.35;}
       associated? What does \(r\) measure — and what does it miss?</span></div>
 <div class="text-answer"><label>Your answer.</label>
 <textarea id="w10_3c" placeholder="r measures only linear association. A strong curved relationship could still exist…"></textarea></div>
-<details><summary>Show solution</summary><div class="solution">
+<details><summary>Compare with a worked solution</summary><div class="solution">
 <p><span class="ans">Yes — \(r\) only measures linear association.</span></p>
 <p>A strong curved relationship, such as a U-shape or a cycle, can produce
       \(r\approx0\) even though \(x\) and \(y\) are tightly linked in a nonlinear way. Low
@@ -344,10 +336,8 @@ details summary{line-height:1.35;}
 </div>
 <!-- PROBLEM 4 -->
 <div class="problem" id="p4">
-<h2>Problem 4 — Regression from Raw Data</h2><p class="problem-goal"><strong>Goal:</strong> Compute a regression line from raw paired data and inspect how the model behaves.</p>
-<div class="scenario">Below is a bivariate data set. Find the regression equation for the
-  response variable \(y\). Use your calculator's regression function (LinReg or
-  equivalent). Round \(b\) and \(a\) to two decimal places.</div>
+<h2>Problem 4 — Regression Without Context</h2><p class="problem-goal"><strong>Goal:</strong> Compute a regression line from raw paired data and inspect how the model behaves.</p>
+<div class="scenario">The 19 pairs below are intentionally unlabeled. That is the point of the exercise: a computer can calculate a regression line without knowing what the variables mean, but a scientifically useful interpretation cannot. Fit the line mechanically first. When you reach the interpretation, notice exactly what can—and cannot—be said without units, variable names, or a data-collection story.</div>
 <div class="calc-note">This problem requires a calculator or statistical software — enter
   the data, run linear regression, and read off the slope and intercept.</div>
 <div style="display:flex;justify-content:center;">
@@ -384,7 +374,7 @@ details summary{line-height:1.35;}
 <button class="check-btn" onclick="checkNum(['w10_4a_b','w10_4a_a'],'w10_4a_v')">Check</button><span class="verdict" id="w10_4a_v"></span></div>
 <div class="text-answer"><label>Write the regression equation.</label>
 <textarea id="w10_4a_eq" placeholder="ŷ = …"></textarea></div>
-<details><summary>Show solution</summary><div class="solution">
+<details><summary>Compare with a worked solution</summary><div class="solution">
 <p><span class="ans">\(b\approx-2.91\), \(a\approx238.15\); \(\hat{y}=238.15-2.91x\).</span></p>
 <p>Running linear regression on the 19 data pairs gives slope \(b\approx-2.91\) and
       intercept \(a\approx238.15\). The strong negative \(r\approx-0.928\) means larger
@@ -396,7 +386,7 @@ details summary{line-height:1.35;}
 <span class="part-text">Predict \(\hat{y}\) for \(x=50\).</span></div>
 <div class="answer-row"><label>\(\hat{y}(50)=a+b(50)=\)</label><input class="wide" data-ans="92.65" data-tol="2" id="w10_4b" type="text"/>
 <button class="check-btn" onclick="checkNum(['w10_4b'],'w10_4b_v')">Check</button><span class="verdict" id="w10_4b_v"></span></div>
-<details><summary>Show solution</summary><div class="solution">
+<details><summary>Compare with a worked solution</summary><div class="solution">
 <p><span class="ans">\(\hat{y}(50)\approx92.65\).</span></p>
 <p>\(\hat{y}(50)=238.15-2.91(50)=238.15-145.50=92.65\).</p>
 </div></details>
@@ -407,7 +397,7 @@ details summary{line-height:1.35;}
       unlabeled — interpret in terms of "for each one-unit increase in \(x\)…"</span></div>
 <div class="text-answer"><label>Your answer.</label>
 <textarea id="w10_4c" placeholder="For each one-unit increase in x, y is predicted to decrease by approximately 2.91 units…"></textarea></div>
-<details><summary>Show solution</summary><div class="solution">
+<details><summary>Compare with a worked solution</summary><div class="solution">
 <p><span class="ans">For each one-unit increase in \(x\), \(y\) is predicted to decrease by about 2.91 units.</span></p>
 <p>Since the slope is negative, larger \(x\) values are associated with smaller
       predicted \(y\) values, on average.</p>
@@ -417,16 +407,14 @@ details summary{line-height:1.35;}
 <!-- PROBLEM 5 -->
 <div class="problem" id="p5">
 <h2>Problem 5 — The Closing Thread</h2><p class="problem-goal"><strong>Goal:</strong> Bring the main ideas of regression together in one final interpretation.</p>
-<div class="scenario">Write a paragraph (4–6 sentences) tracing the central question of
-  this course — "what does one variable tell you about another?" — from Chapter 1 through
-  Chapter 10. Name at least five tools and explain how each contributes.</div>
+<div class="scenario">Use the final response to connect the course rather than merely list formulas. Trace how statistics moved from describing one variable to estimating population quantities, comparing groups, and finally modeling a relationship between two quantitative variables.</div>
 <div class="part">
 <div class="part-stem"><span class="part-label"></span>
 <span class="part-text">Include: standard deviation, correlation, regression line,
       \(r^2\), and at least one more.</span></div>
 <div class="text-answer"><label>Your paragraph.</label>
 <textarea class="tall" id="w10_5" placeholder="This course begins with a single variable…"></textarea></div>
-<details><summary>Show solution</summary><div class="solution">
+<details><summary>Compare with a worked solution</summary><div class="solution">
 <p><span class="ans">There's no single correct paragraph here — use this checklist instead.</span></p>
 <p>A strong response should: describe standard deviation as measuring spread within
       one variable; introduce correlation \(r\) as measuring the direction and strength of
