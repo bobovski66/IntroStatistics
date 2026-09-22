@@ -100,8 +100,27 @@
   }
 </style>
 <link rel="stylesheet" href="assets/case-style.css"><style>body{background:var(--bg);color:var(--ink)}header{background:radial-gradient(circle at 84% 16%,rgba(255,143,72,.24),transparent 28%),linear-gradient(135deg,#193b68,#101c31)}.card{background:var(--paper);border-color:var(--line)}.case-brief,.source-dossier{font-size:16px}.toolbar-link{display:inline-block}</style><script defer src="../submission-tools.js"></script>
+<style id="math146-unified-submission-style">
+.submission-coursebar{position:sticky;top:0;z-index:1001;background:#17385f;color:#fff;box-shadow:0 3px 12px rgba(0,0,0,.18);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+.submission-coursebar-inner{max-width:1120px;margin:0 auto;padding:9px 18px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.submission-name-control{display:flex;align-items:center;gap:8px}
+.submission-name-control label{font-size:.82rem;font-weight:800;color:#e7eef8}
+.submission-name-control input{width:220px;max-width:42vw;padding:7px 9px;border:1px solid #9fb2ca;border-radius:8px;background:#fff;color:#172033;font:inherit}
+.submission-coursebar button{background:#fff;color:#17385f;border:1px solid #cad7e5;padding:8px 13px;border-radius:9px;font-weight:800;cursor:pointer}
+.submission-coursebar .submission-status{font-size:.82rem;color:#f4eab9;font-weight:700}
+.submission-coursebar .submission-note{font-size:.82rem;color:#dce8f6}
+@media(max-width:700px){.submission-coursebar-inner{padding:8px 10px}.submission-name-control{flex:1 1 100%;display:grid;grid-template-columns:auto minmax(0,1fr)}.submission-name-control input{width:100%;max-width:none}.submission-note{display:none}}
+@media print{.submission-coursebar{display:none!important}}
+</style>
 </head>
-<body>
+<body><div class="submission-coursebar no-print">
+  <div class="submission-coursebar-inner">
+    <div class="submission-name-control"><label for="submissionStudentName">Student name</label><input id="submissionStudentName" autocomplete="name" placeholder="Your name" type="text"></div>
+    <button type="button" onclick="createSubmissionCopy()">Prepare Submission</button>
+    <span class="submission-note">Your work stays in this browser until you prepare a copy.</span>
+    <span id="submissionStatus" class="submission-status"></span>
+  </div>
+</div>
 <header>
   <div class="wrap">
     <p class="meta">MATH&amp; 146 · FIREBALL REVIEW · CASE FILE 6 OF 6</p><h1>Case File 6: Fireball Reports and Two-Sample Inference</h1>
@@ -443,7 +462,204 @@ function generateReport(){
   const histB=document.getElementById('histBase').toDataURL('image/png'), histY=document.getElementById('hist2026').toDataURL('image/png');
   const name=esc(getVal('student_name')) || 'Student'; const today=new Date().toLocaleDateString();
   const statLines=statRows.map(r=>`<tr><td>${r[0]}</td><td>${esc(getVal(r[1]))}</td><td>${esc(getVal(r[2]))}</td></tr>`).join('');
-  const report=`<!DOCTYPE html><html><head><meta charset="utf-8"><title>Fireball Inference Report</title><script>window.MathJax={tex:{inlineMath:[['$','$'],['\\\\(','\\\\)']],displayMath:[['$$','$$'],['\\\\[','\\\\]']]}};<\/script><script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"><\/script><style>body{font-family:system-ui, sans-serif;max-width:900px;margin:24px auto;line-height:1.5;color:#222} h1{color:#162b55} h2{border-bottom:1px solid #ccc;padding-bottom:4px;color:#263b62} table{width:100%;border-collapse:collapse;margin:10px 0} td,th{border-bottom:1px solid #ddd;padding:7px;text-align:left} th{background:#f2f4f7} img{max-width:100%;border:1px solid #ddd;border-radius:10px;margin:8px 0} .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px} .box{border:1px solid #ddd;border-radius:12px;padding:12px;margin:10px 0;background:#fbfcff} @media print{button{display:none} body{margin:0;max-width:none} .box{break-inside:avoid}}</style><link rel="stylesheet" href="assets/case-style.css"><style>body{background:var(--bg);color:var(--ink)}header{background:radial-gradient(circle at 84% 16%,rgba(255,143,72,.24),transparent 28%),linear-gradient(135deg,#193b68,#101c31)}.card{background:var(--paper);border-color:var(--line)}.case-brief,.source-dossier{font-size:16px}.toolbar-link{display:inline-block}</style></head><body><button onclick="window.print()">Print or save as PDF</button><h1>Fireball Reports and Two-Sample Inference</h1><p><strong>Name:</strong> ${name}<br><strong>Date:</strong> ${today}</p><h2>Summary statistics</h2><table><thead><tr><th>Statistic</th><th>Baseline 2021–2025</th><th>2026</th></tr></thead><tbody>${statLines}</tbody></table><div class="box"><h2>Written description</h2><p><strong>Mean versus median:</strong><br>${esc(getVal('q_shape'))}</p><p><strong>Spread:</strong><br>${esc(getVal('q_spread'))}</p><p><strong>Largest 2026 event:</strong><br>${esc(getVal('q_largest'))}</p></div><h2>Graphs</h2><div class="grid"><div><h3>Baseline histogram</h3><img src="${histB}"></div><div><h3>2026 histogram</h3><img src="${histY}"></div></div><p>${esc(getVal('q_graphs'))}</p><h2>Confidence interval for means</h2><p>Point estimate: ${esc(getVal('ci_point'))}<br>Standard error: ${esc(getVal('ci_se'))}<br>Margin of error: ${esc(getVal('ci_me'))}<br>Confidence interval: (${esc(getVal('ci_low'))}, ${esc(getVal('ci_high'))})</p><p>${esc(getVal('ci_interp'))}</p><h2>Hypothesis test for means</h2><p>$z$-statistic: ${esc(getVal('mean_z'))}<br>$p$-value: ${esc(getVal('mean_p'))}<br>Decision: ${esc(getVal('mean_decision'))}</p><p>${esc(getVal('mean_conclusion'))}</p><p><strong>Agreement with the confidence interval:</strong><br>${esc(getVal('mean_ci_agreement'))}</p><h2>Standard error diagnosis</h2><p>$s_{2026}/s_{\\text{base}}$: ${esc(getVal('diag_ratio'))}<br>$s_{2026}^{2}/n_{2026}$: ${esc(getVal('diag_term2026'))}<br>$s_{\\text{base}}^{2}/n_{\\text{base}}$: ${esc(getVal('diag_termbase'))}</p><p>${esc(getVal('diag_explain'))}</p><h2>Hypothesis test for proportions</h2><p>$x_{\\text{base}}$: ${esc(getVal('prop_xbase'))}, $\\hat{p}_{\\text{base}}$: ${esc(getVal('prop_pbase'))}<br>$x_{2026}$: ${esc(getVal('prop_x2026'))}, $\\hat{p}_{2026}$: ${esc(getVal('prop_p2026'))}<br>$\\hat{p}_{\\text{pool}}$: ${esc(getVal('prop_ppool'))}<br>$z$-statistic: ${esc(getVal('prop_z'))}<br>$p$-value: ${esc(getVal('prop_pval'))}<br>Decision: ${esc(getVal('prop_decision'))}</p><p>${esc(getVal('prop_conclusion'))}</p><h3>Sensitivity to the cutoff</h3><table><thead><tr><th>Threshold</th><th>$p$-value</th><th>Reject $H_0$?</th></tr></thead><tbody><tr><td>&ge; 25</td><td>${esc(getVal('thr_p25'))}</td><td>${esc(getVal('thr_d25'))}</td></tr><tr><td>&ge; 50</td><td>${esc(getVal('thr_p50'))}</td><td>${esc(getVal('thr_d50'))}</td></tr><tr><td>&ge; 100</td><td>${esc(getVal('thr_p100'))}</td><td>${esc(getVal('thr_d100'))}</td></tr><tr><td>&ge; 150</td><td>${esc(getVal('thr_p150'))}</td><td>${esc(getVal('thr_d150'))}</td></tr></tbody></table><p>${esc(getVal('thr_comment'))}</p><h2>Final synthesis</h2><p>${esc(getVal('synthesis'))}</p></body></html>`;
+  const report=`<!DOCTYPE html><html><head><meta charset="utf-8"><title>Fireball Inference Report</title><script>window.MathJax={tex:{inlineMath:[['$','$'],['\\\\(','\\\\)']],displayMath:[['$$','$$'],['\\\\[','\\\\]']]}};<\/script><script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"><\/script><style>body{font-family:system-ui, sans-serif;max-width:900px;margin:24px auto;line-height:1.5;color:#222} h1{color:#162b55} h2{border-bottom:1px solid #ccc;padding-bottom:4px;color:#263b62} table{width:100%;border-collapse:collapse;margin:10px 0} td,th{border-bottom:1px solid #ddd;padding:7px;text-align:left} th{background:#f2f4f7} img{max-width:100%;border:1px solid #ddd;border-radius:10px;margin:8px 0} .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px} .box{border:1px solid #ddd;border-radius:12px;padding:12px;margin:10px 0;background:#fbfcff} @media print{button{display:none} body{margin:0;max-width:none} .box{break-inside:avoid}}</style><link rel="stylesheet" href="assets/case-style.css"><style>body{background:var(--bg);color:var(--ink)}header{background:radial-gradient(circle at 84% 16%,rgba(255,143,72,.24),transparent 28%),linear-gradient(135deg,#193b68,#101c31)}.card{background:var(--paper);border-color:var(--line)}.case-brief,.source-dossier{font-size:16px}.toolbar-link{display:inline-block}</style></head><body><button onclick="window.print()">Print or save as PDF</button><h1>Fireball Reports and Two-Sample Inference</h1><p><strong>Name:</strong> ${name}<br><strong>Date:</strong> ${today}</p><h2>Summary statistics</h2><table><thead><tr><th>Statistic</th><th>Baseline 2021–2025</th><th>2026</th></tr></thead><tbody>${statLines}</tbody></table><div class="box"><h2>Written description</h2><p><strong>Mean versus median:</strong><br>${esc(getVal('q_shape'))}</p><p><strong>Spread:</strong><br>${esc(getVal('q_spread'))}</p><p><strong>Largest 2026 event:</strong><br>${esc(getVal('q_largest'))}</p></div><h2>Graphs</h2><div class="grid"><div><h3>Baseline histogram</h3><img src="${histB}"></div><div><h3>2026 histogram</h3><img src="${histY}"></div></div><p>${esc(getVal('q_graphs'))}</p><h2>Confidence interval for means</h2><p>Point estimate: ${esc(getVal('ci_point'))}<br>Standard error: ${esc(getVal('ci_se'))}<br>Margin of error: ${esc(getVal('ci_me'))}<br>Confidence interval: (${esc(getVal('ci_low'))}, ${esc(getVal('ci_high'))})</p><p>${esc(getVal('ci_interp'))}</p><h2>Hypothesis test for means</h2><p>$z$-statistic: ${esc(getVal('mean_z'))}<br>$p$-value: ${esc(getVal('mean_p'))}<br>Decision: ${esc(getVal('mean_decision'))}</p><p>${esc(getVal('mean_conclusion'))}</p><p><strong>Agreement with the confidence interval:</strong><br>${esc(getVal('mean_ci_agreement'))}</p><h2>Standard error diagnosis</h2><p>$s_{2026}/s_{\\text{base}}$: ${esc(getVal('diag_ratio'))}<br>$s_{2026}^{2}/n_{2026}$: ${esc(getVal('diag_term2026'))}<br>$s_{\\text{base}}^{2}/n_{\\text{base}}$: ${esc(getVal('diag_termbase'))}</p><p>${esc(getVal('diag_explain'))}</p><h2>Hypothesis test for proportions</h2><p>$x_{\\text{base}}$: ${esc(getVal('prop_xbase'))}, $\\hat{p}_{\\text{base}}$: ${esc(getVal('prop_pbase'))}<br>$x_{2026}$: ${esc(getVal('prop_x2026'))}, $\\hat{p}_{2026}$: ${esc(getVal('prop_p2026'))}<br>$\\hat{p}_{\\text{pool}}$: ${esc(getVal('prop_ppool'))}<br>$z$-statistic: ${esc(getVal('prop_z'))}<br>$p$-value: ${esc(getVal('prop_pval'))}<br>Decision: ${esc(getVal('prop_decision'))}</p><p>${esc(getVal('prop_conclusion'))}</p><h3>Sensitivity to the cutoff</h3><table><thead><tr><th>Threshold</th><th>$p$-value</th><th>Reject $H_0$?</th></tr></thead><tbody><tr><td>&ge; 25</td><td>${esc(getVal('thr_p25'))}</td><td>${esc(getVal('thr_d25'))}</td></tr><tr><td>&ge; 50</td><td>${esc(getVal('thr_p50'))}</td><td>${esc(getVal('thr_d50'))}</td></tr><tr><td>&ge; 100</td><td>${esc(getVal('thr_p100'))}</td><td>${esc(getVal('thr_d100'))}</td></tr><tr><td>&ge; 150</td><td>${esc(getVal('thr_p150'))}</td><td>${esc(getVal('thr_d150'))}</td></tr></tbody></table><p>${esc(getVal('thr_comment'))}</p><h2>Final synthesis</h2><p>${esc(getVal('synthesis'))}</p><script id="math146-unified-submission-script">
+(function(){
+  const NAME_KEY='math146_submission_student_name';
+
+  function primaryNameField(){
+    return document.querySelector('[data-save="student_name"]') ||
+      document.querySelector('input[id$="_name"]') ||
+      document.querySelector('input[name="student_name"]');
+  }
+  function topNameField(){return document.getElementById('submissionStudentName');}
+
+  function syncName(value,fromTop){
+    const top=topNameField(),primary=primaryNameField();
+    if(fromTop && primary && primary.value!==value){
+      primary.value=value;
+      primary.dispatchEvent(new Event('input',{bubbles:true}));
+      primary.dispatchEvent(new Event('change',{bubbles:true}));
+    }else if(!fromTop && top && top.value!==value){top.value=value;}
+    try{localStorage.setItem(NAME_KEY,value)}catch(e){}
+  }
+
+  function initName(){
+    const top=topNameField(),primary=primaryNameField();
+    if(!top)return;
+    let remembered='';
+    try{remembered=localStorage.getItem(NAME_KEY)||''}catch(e){}
+    top.value=(primary&&primary.value.trim())?primary.value:remembered;
+    if(primary&&!primary.value.trim()&&top.value){
+      primary.value=top.value;
+      primary.dispatchEvent(new Event('input',{bubbles:true}));
+    }
+    top.addEventListener('input',()=>syncName(top.value,true));
+    if(primary)primary.addEventListener('input',()=>syncName(primary.value,false));
+  }
+
+  function safeFilename(s){
+    return String(s||'student').trim().replace(/[^a-z0-9._-]+/gi,'_').replace(/^_+|_+$/g,'')||'student';
+  }
+
+  function currentAnswer(el){
+    const tag=el.tagName,type=(el.type||'').toLowerCase();
+    if(tag==='SELECT'){
+      const opt=el.selectedOptions&&el.selectedOptions[0];
+      return el.value&&opt?opt.textContent.trim():'No response';
+    }
+    if(type==='checkbox')return el.checked?'☑':'☐';
+    if(type==='radio')return el.checked?'◉':'○';
+    const v=(el.value==null?'':String(el.value)).trim();
+    return v||'No response';
+  }
+
+  function responseControls(){
+    return Array.from(document.querySelectorAll('input,select,textarea')).filter(el=>{
+      if(el.closest('.submission-coursebar,.solution,.teacher-answer'))return false;
+      if(el.readOnly||el.disabled)return false;
+      const t=(el.type||'').toLowerCase();
+      if(['button','submit','reset','hidden','range'].includes(t))return false;
+      if(el===primaryNameField())return false;
+      return true;
+    });
+  }
+
+  function completionSummary(){
+    const controls=responseControls(),groups=new Set();let done=0,total=0;
+    controls.forEach(el=>{
+      const t=(el.type||'').toLowerCase();
+      if(t==='radio'){
+        const key=el.name||el.id;if(groups.has(key))return;groups.add(key);total++;
+        const any=el.name?Array.from(document.querySelectorAll('input[type="radio"]')).some(r=>r.name===el.name&&r.checked):el.checked;
+        if(any)done++;
+      }else{total++;if(t==='checkbox'?el.checked:String(el.value||'').trim()!=='')done++;}
+    });
+    return {done,total};
+  }
+
+  function replaceControls(source,clone){
+    const live=Array.from(source.querySelectorAll('input,select,textarea'));
+    const copy=Array.from(clone.querySelectorAll('input,select,textarea'));
+    copy.forEach((c,i)=>{
+      const o=live[i];if(!o){c.remove();return;}
+      const t=(o.type||'').toLowerCase();
+      if(['button','submit','reset','hidden'].includes(t)){c.remove();return;}
+      const val=(o.value==null?'':String(o.value));
+      if(o.readOnly&&val.length>500){
+        const note=document.createElement('div');note.className='submission-source-note';note.textContent='Large source-data field omitted from this submission copy.';c.replaceWith(note);return;
+      }
+      const block=o.tagName==='TEXTAREA'||o.tagName==='SELECT'||['text','number','email','url','range'].includes(t);
+      const out=document.createElement(block?'div':'span');
+      out.className='submission-answer'+(block?' submission-answer-block':'');
+      out.textContent=currentAnswer(o);c.replaceWith(out);
+    });
+  }
+
+  function replaceCanvases(source,clone){
+    const live=Array.from(source.querySelectorAll('canvas')),copy=Array.from(clone.querySelectorAll('canvas'));
+    copy.forEach((c,i)=>{
+      const o=live[i];if(!o){c.remove();return;}
+      try{
+        const img=document.createElement('img');img.className='submission-canvas-image';
+        img.alt=o.getAttribute('aria-label')||'Lab graph';img.src=o.toDataURL('image/png');c.replaceWith(img);
+      }catch(e){
+        const note=document.createElement('div');note.className='submission-source-note';note.textContent='Interactive graphic could not be captured in this copy.';c.replaceWith(note);
+      }
+    });
+  }
+
+  function makeLinksAbsolute(source,clone){
+    const si=Array.from(source.querySelectorAll('img')),ci=Array.from(clone.querySelectorAll('img'));
+    ci.forEach((img,i)=>{if(si[i]&&si[i].src&&!img.src.startsWith('data:'))img.src=si[i].src});
+    const sa=Array.from(source.querySelectorAll('a')),ca=Array.from(clone.querySelectorAll('a'));
+    ca.forEach((a,i)=>{if(sa[i]&&sa[i].href)a.href=sa[i].href});
+  }
+
+  function cleanClone(clone){
+    clone.querySelectorAll('.submission-coursebar,.toolbar,.no-print,.actions,.feedback,.solution,.teacher-answer,.footer-note,script,button').forEach(x=>x.remove());
+    clone.querySelectorAll('details').forEach(x=>x.remove());
+    clone.querySelectorAll('table').forEach(t=>{
+      if(t.querySelectorAll('tr').length>60){
+        const note=document.createElement('div');note.className='submission-source-note';
+        note.textContent='Large source-data table omitted from the submission copy. It remains available in the interactive lab.';
+        t.replaceWith(note);
+      }
+    });
+    clone.querySelectorAll('label').forEach(l=>{if(l.querySelector('[data-save="student_name"]'))l.remove()});
+  }
+
+  function installSubmission(name,title,clone,summary){
+    document.title=title+' — '+name;
+    const style=document.createElement('style');style.id='submission-mode-style';style.textContent=
+      'body{overflow:auto!important;height:auto!important;background:#fff!important;color:#111!important}' +
+      '.submission-toolbar{position:sticky;top:0;z-index:1100;display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding:12px 18px;background:#17385f;color:#fff;box-shadow:0 3px 12px rgba(0,0,0,.18);font-family:system-ui,sans-serif}' +
+      '.submission-toolbar button{display:inline-block!important;background:#fff!important;color:#17385f!important;border:1px solid #cad7e5!important;padding:9px 13px!important;border-radius:9px!important;font-weight:800!important;cursor:pointer!important}' +
+      '.submission-toolbar span{font-size:.88rem;color:#e7eef8}' +
+      '.submission-cover{max-width:1000px;margin:20px auto 0;padding:0 20px;font-family:system-ui,sans-serif}' +
+      '.submission-cover-card{background:#f7f9fc;border:1px solid #ccd8e5;border-radius:14px;padding:15px 18px}' +
+      '.submission-cover h1{margin:0 0 8px;color:#17385f;font-size:1.45rem}.submission-meta{display:flex;gap:22px;flex-wrap:wrap;font-size:.95rem}' +
+      '.submission-completion{margin-top:8px;color:#46566c;font-size:.88rem}' +
+      '.submission-content{max-width:1000px;margin:0 auto;padding:0 20px 60px}' +
+      '.submission-answer{display:inline-block;padding:4px 8px;border:1px solid #b9c6d5;border-radius:7px;background:#fff;color:#111;font-weight:700;white-space:pre-wrap;overflow-wrap:anywhere}' +
+      '.submission-answer-block{display:block;width:100%;min-height:2.1em;margin:5px 0 2px}' +
+      '.submission-canvas-image{display:block;max-width:100%;height:auto;border:1px solid #ccd8e5;border-radius:10px;background:#fff;margin:8px 0}' +
+      '.submission-source-note{padding:8px 10px;border:1px dashed #b9c6d5;background:#f8fafc;color:#526174;border-radius:8px;font:14px system-ui,sans-serif;margin:8px 0}' +
+      '@media print{.submission-toolbar{display:none!important}.submission-cover{margin-top:0;padding:0}.submission-content{max-width:none;padding:0}.submission-cover-card{border:0;padding:0 0 10px}.card,.case-brief,.source-dossier{box-shadow:none!important;break-inside:auto}.part{break-inside:avoid!important}}';
+    document.head.appendChild(style);
+    document.body.replaceChildren();
+
+    const toolbar=document.createElement('div');toolbar.className='submission-toolbar';
+    toolbar.innerHTML='<button id="submissionPrintButton" type="button">Print / Save as PDF</button><button id="submissionDownloadButton" type="button">Download HTML</button><button id="submissionReturnButton" type="button">Return to Lab</button><span>Submission view — your answers are fixed on the page; source databases and worked solutions are omitted.</span>';
+    document.body.appendChild(toolbar);
+
+    const cover=document.createElement('div');cover.className='submission-cover';
+    const card=document.createElement('div');card.className='submission-cover-card';
+    const h=document.createElement('h1');h.textContent=title;
+    const meta=document.createElement('div');meta.className='submission-meta';
+    const student=document.createElement('div');student.innerHTML='<strong>Student:</strong> ';student.appendChild(document.createTextNode(name));
+    const made=document.createElement('div');made.innerHTML='<strong>Prepared:</strong> ';made.appendChild(document.createTextNode(new Date().toLocaleString()));
+    meta.append(student,made);
+    const comp=document.createElement('div');comp.className='submission-completion';
+    comp.textContent=summary.total?summary.done+' of '+summary.total+' response fields contain work in this prepared copy.':'Prepared copy of current lab work.';
+    card.append(h,meta,comp);cover.appendChild(card);document.body.appendChild(cover);
+
+    const holder=document.createElement('div');holder.className='submission-content';
+    while(clone.firstChild)holder.appendChild(clone.firstChild);
+    document.body.appendChild(holder);
+    document.body.dataset.downloadBase='Math146_'+safeFilename(title)+'_'+safeFilename(name);
+
+    document.getElementById('submissionPrintButton').onclick=()=>window.print();
+    document.getElementById('submissionDownloadButton').onclick=()=>{
+      const html='<!doctype html>\n'+document.documentElement.outerHTML;
+      const blob=new Blob([html],{type:'text/html;charset=utf-8'}),url=URL.createObjectURL(blob),a=document.createElement('a');
+      a.href=url;a.download=(document.body.dataset.downloadBase||'Math146_Lab_Submission')+'.html';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
+    };
+    document.getElementById('submissionReturnButton').onclick=()=>location.reload();
+    window.scrollTo(0,0);
+  }
+
+  window.createSubmissionCopy=function(){
+    const top=topNameField(),primary=primaryNameField(),name=((top&&top.value)||(primary&&primary.value)||'').trim();
+    const status=document.getElementById('submissionStatus');
+    if(!name){if(status)status.textContent='Enter your name before preparing the submission.';if(top)top.focus();else if(primary)primary.focus();return;}
+    syncName(name,true);
+    try{
+      if(typeof saveAll==='function'){
+        if(saveAll.length>0 && typeof PREFIX!=='undefined')saveAll(PREFIX); else if(saveAll.length===0)saveAll();
+      }
+    }catch(e){}
+    const summary=completionSummary();
+    const source=document.querySelector('main')||document.body;
+    const clone=source.cloneNode(true);
+    replaceCanvases(source,clone);replaceControls(source,clone);makeLinksAbsolute(source,clone);cleanClone(clone);
+    const title=(document.querySelector('header h1')?.textContent||document.title).trim();
+    installSubmission(name,title,clone,summary);
+  };
+
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',initName);else initName();
+})();
+</script>
+</body></html>`;
   document.getElementById('reportPreview').textContent='Report generated. A new tab/window should open. Use Print or Save as PDF from that page.';
   const win=window.open('','_blank'); if(win){win.document.open(); win.document.write(report); win.document.close();} else {document.getElementById('reportPreview').innerHTML='<p>Your browser blocked the pop-up. Copy the generated report HTML below into a new file, or allow pop-ups for this page.</p><textarea style="width:100%;min-height:300px">'+esc(report)+'</textarea>';}
 }
