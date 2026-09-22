@@ -5,9 +5,228 @@ const AMS_THRESHOLD_TABLE=[[2011, 346, 6, 4, 1], [2012, 446, 11, 6, 2], [2013, 7
 const FIREBALL_KEY_EVENTS=[{"date": "2026-03-08", "label": "Western Europe daytime bolide", "reports": 3229, "note": "Long-duration daylight event across western Europe; suspected diogenite specimens were reported by AMS.", "event_id": 102242}, {"date": "2026-03-09", "label": "East Coast fireball", "reports": 282, "note": "One of the large events in the tight Anthelion zone.", "event_id": 102339}, {"date": "2026-03-11", "label": "France\u2013Spain fireball", "reports": 236, "note": "Large event in the tight Anthelion zone.", "event_id": 102454}, {"date": "2026-03-17", "label": "Ohio daytime bolide", "reports": 222, "note": "Meteorite-producing event with a high-declination radiant.", "event_id": 102609}, {"date": "2026-03-21", "label": "Houston fireball", "reports": 181, "note": "Meteorite-producing event reported over the Houston area.", "event_id": 102747}, {"date": "2026-03-23", "label": "California fireball", "reports": 306, "note": "Large high-declination event visible across several western states.", "event_id": 102805}];
 const FIREBALL_SOURCE={title:'Has Something Changed in the Near-Earth Meteoroid Environment?',organization:'American Meteor Society',published:'2026-03-25',updated:'2026-03-31',url:'https://amsmeteors.org/ams-q1-2026-fireball-analysis.html',csv_sha256:'e0bf510c16c80ad115d321b14b6ed3967b662a0d30d918cf0907c9e6477b38ba'};
 </script><script src="assets/case-common.js"></script><script src="assets/case3.js"></script><script defer src="../submission-tools.js"></script>
-</head><body><header><div class="wrap"><p class="meta">MATH&amp; 146 · FIREBALL REVIEW · POISSON COUNTS</p><h1>Case File 3: The Threshold Signal</h1><p>Use the annual AMS threshold table to ask whether Q1 2026 contains unusually many widely reported events.</p></div></header><div class="toolbar no-print"><div class="wrap"><nav class="nav"><a href="#table">Annual table</a><a href="#baseline">Baseline</a><a href="#poisson">Poisson</a><a href="#model">Model check</a><a href="#report">Report</a></nav><div class="actions"><button onclick="saveAll(PREFIX)">Save</button><button onclick="clearAll(PREFIX)">Clear</button><a class="toolbar-link" href="Math146_Fireball_Q1_2026_Case_File.html">Case overview</a><a class="toolbar-link" href="https://amsmeteors.org/ams-q1-2026-fireball-analysis.html" rel="noopener" target="_blank">AMS source</a></div></div></div><main class="wrap"><div class="case-brief"><div class="case-kicker"><span>Q1 2026 fireball review</span><span>Case file 3 of 6</span></div><p class="case-lede">An independent statistical review has been requested after the American Meteor Society reported an unusual concentration of high-witness fireball events in the first quarter of 2026.</p><div class="case-grid"><div class="case-panel"><h3>Question under review</h3><p>Are the Q1 2026 counts above the 25+, 50+, and 100+ witness thresholds unusual relative to the 2018–2025 baseline?</p></div><div class="case-panel"><h3>Evidence used in this file</h3><p>The annual Q1 witness-threshold table reported in the AMS article. This case uses all events in the article table, not the 261-row trajectory subset.</p></div></div><div class="evidence-strip"><div class="evidence-item"><strong>43.375</strong><span>baseline λ, 25+</span></div><div class="evidence-item"><strong>19.875</strong><span>baseline λ, 50+</span></div><div class="evidence-item"><strong>8.375</strong><span>baseline λ, 100+</span></div><div class="evidence-item"><strong>40</strong><span>2026 at 50+</span></div><div class="evidence-item"><strong>16</strong><span>2026 at 100+</span></div></div><div class="case-panel"><h3>Current assignment</h3><p>Compute baseline Poisson rates, exact upper-tail probabilities, and variance-to-mean ratios. Decide why the upper thresholds and total event count require different models.</p></div><details class="case-log"><summary>Investigation log</summary><p>Case File 2 showed that reports_count is heavily skewed. This file avoids averaging individual witness counts and instead counts how many events cross fixed thresholds.</p></details><div class="case-note"><strong>Statistical boundary:</strong> Witness-report counts are properties of the reporting system as well as the event. They can be affected by brightness and physical scale, but also by population, visibility, weather, geography, media attention, and reporting behavior. Claims about physical causes require evidence beyond this CSV.</div><label>Your name<input data-save="student_name" type="text"/></label></div><div class="source-dossier"><div class="source-meta"><span>Source checkpoint</span><span>AMS article updated March 31, 2026</span></div><h2>What the source provides</h2><div class="layer-grid"><div class="layer"><span class="tag">Article-level totals</span><h3>All Q1 events</h3><p>The AMS article reports 2,322 total Q1 2026 events, including 70 with at least 25 reports, 40 with at least 50, and 16 with at least 100.</p></div><div class="layer"><span class="tag">Attached CSV</span><h3>Trajectory subset</h3><p>The supplied file contains 261 events from Q1 2021–2026 with at least 25 reports and usable witness-derived trajectory solutions. Sixty-seven are from 2026.</p></div><div class="layer"><span class="tag">Model boundary</span><h3>Do not merge silently</h3><p>The article totals and the trajectory CSV answer different questions. Three of the 70 Q1 2026 events at the 25+ threshold are absent from the 67-event trajectory subset.</p></div></div><div class="callout source-claim"><strong>Question inherited from the source:</strong> If increased reporting affected every event similarly, would the greatest change be expected at the high-witness thresholds or across the entire event count?</div><div class="source-actions"><a href="https://amsmeteors.org/ams-q1-2026-fireball-analysis.html" rel="noopener" target="_blank">Open AMS analysis</a><a download="ams-q1-2026-radiant-data.csv" href="source/ams-q1-2026-radiant-data.csv">Optional CSV download</a><a href="source/README.txt">Read source notes</a></div></div>
+
+<style id="math146-unified-submission-style">
+.submission-coursebar{position:sticky;top:0;z-index:1001;background:#17385f;color:#fff;box-shadow:0 3px 12px rgba(0,0,0,.18);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+.submission-coursebar-inner{max-width:1120px;margin:0 auto;padding:9px 18px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.submission-name-control{display:flex;align-items:center;gap:8px}
+.submission-name-control label{font-size:.82rem;font-weight:800;color:#e7eef8}
+.submission-name-control input{width:220px;max-width:42vw;padding:7px 9px;border:1px solid #9fb2ca;border-radius:8px;background:#fff;color:#172033;font:inherit}
+.submission-coursebar button{background:#fff;color:#17385f;border:1px solid #cad7e5;padding:8px 13px;border-radius:9px;font-weight:800;cursor:pointer}
+.submission-coursebar .submission-status{font-size:.82rem;color:#f4eab9;font-weight:700}
+.submission-coursebar .submission-note{font-size:.82rem;color:#dce8f6}
+@media(max-width:700px){.submission-coursebar-inner{padding:8px 10px}.submission-name-control{flex:1 1 100%;display:grid;grid-template-columns:auto minmax(0,1fr)}.submission-name-control input{width:100%;max-width:none}.submission-note{display:none}}
+@media print{.submission-coursebar{display:none!important}}
+</style>
+</head><body>
+<div class="submission-coursebar no-print">
+  <div class="submission-coursebar-inner">
+    <div class="submission-name-control"><label for="submissionStudentName">Student name</label><input id="submissionStudentName" autocomplete="name" placeholder="Your name" type="text"></div>
+    <button type="button" onclick="createSubmissionCopy()">Prepare Submission</button>
+    <span class="submission-note">Your work stays in this browser until you prepare a copy.</span>
+    <span id="submissionStatus" class="submission-status"></span>
+  </div>
+</div><header><div class="wrap"><p class="meta">MATH&amp; 146 · FIREBALL REVIEW · POISSON COUNTS</p><h1>Case File 3: The Threshold Signal</h1><p>Use the annual AMS threshold table to ask whether Q1 2026 contains unusually many widely reported events.</p></div></header><div class="toolbar no-print"><div class="wrap"><nav class="nav"><a href="#table">Annual table</a><a href="#baseline">Baseline</a><a href="#poisson">Poisson</a><a href="#model">Model check</a><a href="#report">Report</a></nav><div class="actions"><button onclick="saveAll(PREFIX)">Save</button><button onclick="clearAll(PREFIX)">Clear</button><a class="toolbar-link" href="Math146_Fireball_Q1_2026_Case_File.html">Case overview</a><a class="toolbar-link" href="https://amsmeteors.org/ams-q1-2026-fireball-analysis.html" rel="noopener" target="_blank">AMS source</a></div></div></div><main class="wrap"><div class="case-brief"><div class="case-kicker"><span>Q1 2026 fireball review</span><span>Case file 3 of 6</span></div><p class="case-lede">An independent statistical review has been requested after the American Meteor Society reported an unusual concentration of high-witness fireball events in the first quarter of 2026.</p><div class="case-grid"><div class="case-panel"><h3>Question under review</h3><p>Are the Q1 2026 counts above the 25+, 50+, and 100+ witness thresholds unusual relative to the 2018–2025 baseline?</p></div><div class="case-panel"><h3>Evidence used in this file</h3><p>The annual Q1 witness-threshold table reported in the AMS article. This case uses all events in the article table, not the 261-row trajectory subset.</p></div></div><div class="evidence-strip"><div class="evidence-item"><strong>43.375</strong><span>baseline λ, 25+</span></div><div class="evidence-item"><strong>19.875</strong><span>baseline λ, 50+</span></div><div class="evidence-item"><strong>8.375</strong><span>baseline λ, 100+</span></div><div class="evidence-item"><strong>40</strong><span>2026 at 50+</span></div><div class="evidence-item"><strong>16</strong><span>2026 at 100+</span></div></div><div class="case-panel"><h3>Current assignment</h3><p>Compute baseline Poisson rates, exact upper-tail probabilities, and variance-to-mean ratios. Decide why the upper thresholds and total event count require different models.</p></div><details class="case-log"><summary>Investigation log</summary><p>Case File 2 showed that reports_count is heavily skewed. This file avoids averaging individual witness counts and instead counts how many events cross fixed thresholds.</p></details><div class="case-note"><strong>Statistical boundary:</strong> Witness-report counts are properties of the reporting system as well as the event. They can be affected by brightness and physical scale, but also by population, visibility, weather, geography, media attention, and reporting behavior. Claims about physical causes require evidence beyond this CSV.</div><label>Your name<input data-save="student_name" type="text"/></label></div><div class="source-dossier"><div class="source-meta"><span>Source checkpoint</span><span>AMS article updated March 31, 2026</span></div><h2>What the source provides</h2><div class="layer-grid"><div class="layer"><span class="tag">Article-level totals</span><h3>All Q1 events</h3><p>The AMS article reports 2,322 total Q1 2026 events, including 70 with at least 25 reports, 40 with at least 50, and 16 with at least 100.</p></div><div class="layer"><span class="tag">Attached CSV</span><h3>Trajectory subset</h3><p>The supplied file contains 261 events from Q1 2021–2026 with at least 25 reports and usable witness-derived trajectory solutions. Sixty-seven are from 2026.</p></div><div class="layer"><span class="tag">Model boundary</span><h3>Do not merge silently</h3><p>The article totals and the trajectory CSV answer different questions. Three of the 70 Q1 2026 events at the 25+ threshold are absent from the 67-event trajectory subset.</p></div></div><div class="callout source-claim"><strong>Question inherited from the source:</strong> If increased reporting affected every event similarly, would the greatest change be expected at the high-witness thresholds or across the entire event count?</div><div class="source-actions"><a href="https://amsmeteors.org/ams-q1-2026-fireball-analysis.html" rel="noopener" target="_blank">Open AMS analysis</a><a download="ams-q1-2026-radiant-data.csv" href="source/ams-q1-2026-radiant-data.csv">Optional CSV download</a><a href="source/README.txt">Read source notes</a></div></div>
 <section class="card" id="table"><h2>Part 1. Reconstruct the annual pattern</h2><div class="callout embedded-note"><strong>The annual database is embedded here.</strong> The complete 2011–2026 threshold table is displayed on this page; no external spreadsheet is needed for this case file.</div><div class="scroll"><table><thead><tr><th>Year</th><th class="num">Total</th><th class="num">25+</th><th class="num">50+</th><th class="num">100+</th></tr></thead><tbody><tr><td>2011</td><td class="num">346</td><td class="num">6</td><td class="num">4</td><td class="num">1</td></tr><tr><td>2012</td><td class="num">446</td><td class="num">11</td><td class="num">6</td><td class="num">2</td></tr><tr><td>2013</td><td class="num">757</td><td class="num">19</td><td class="num">11</td><td class="num">2</td></tr><tr><td>2014</td><td class="num">813</td><td class="num">12</td><td class="num">7</td><td class="num">5</td></tr><tr><td>2015</td><td class="num">784</td><td class="num">18</td><td class="num">8</td><td class="num">5</td></tr><tr><td>2016</td><td class="num">1,175</td><td class="num">26</td><td class="num">14</td><td class="num">9</td></tr><tr><td>2017</td><td class="num">1,155</td><td class="num">25</td><td class="num">12</td><td class="num">6</td></tr><tr><td>2018</td><td class="num">1,305</td><td class="num">41</td><td class="num">18</td><td class="num">8</td></tr><tr><td>2019</td><td class="num">1,557</td><td class="num">42</td><td class="num">21</td><td class="num">8</td></tr><tr><td>2020</td><td class="num">1,575</td><td class="num">36</td><td class="num">17</td><td class="num">7</td></tr><tr><td>2021</td><td class="num">2,065</td><td class="num">53</td><td class="num">30</td><td class="num">15</td></tr><tr><td>2022</td><td class="num">2,168</td><td class="num">48</td><td class="num">15</td><td class="num">6</td></tr><tr><td>2023</td><td class="num">1,865</td><td class="num">47</td><td class="num">20</td><td class="num">9</td></tr><tr><td>2024</td><td class="num">1,712</td><td class="num">39</td><td class="num">21</td><td class="num">9</td></tr><tr><td>2025</td><td class="num">1,905</td><td class="num">41</td><td class="num">17</td><td class="num">5</td></tr><tr><td>2026</td><td class="num">2,322</td><td class="num">70</td><td class="num">40</td><td class="num">16</td></tr></tbody></table></div><div class="chart-wrap"><canvas class="chart" id="thresholdChart"></canvas></div><label>Describe the pattern. Is 2026 unusual at every level to the same degree?<textarea data-save="pattern"></textarea></label></section>
 <section class="card" id="baseline"><h2>Part 2. Estimate the baseline rates</h2><p>For each upper threshold, average the eight annual counts from 2018 through 2025. This average is the Poisson rate \(\lambda\) used in the source analysis.</p><div class="grid3"><label>λ for 25+<input data-save="l25" id="l25" type="number"/></label><label>λ for 50+<input data-save="l50" id="l50" type="number"/></label><label>λ for 100+<input data-save="l100" id="l100" type="number"/></label><label>2026 / λ at 25+<input data-save="r25" id="r25" type="number"/></label><label>2026 / λ at 50+<input data-save="r50" id="r50" type="number"/></label><label>2026 / λ at 100+<input data-save="r100" id="r100" type="number"/></label></div><p><button onclick="checkBaseline()">Check baseline calculations</button></p><div class="feedback" id="baselineFeedback"></div></section>
 <section class="card" id="poisson"><h2>Part 3. Compute exact Poisson upper tails</h2><p>For an observed count k, calculate \(P(X\ge k)\) under \(X\sim\operatorname{Poisson}(\lambda)\). This is the chance of a result at least as large as the Q1 2026 count if the baseline rate remained unchanged.</p><div class="formula">\[P(X\ge k)=1-\sum_{i=0}^{k-1}e^{-\lambda}\frac{\lambda^i}{i!}\]</div><table><thead><tr><th>Threshold</th><th class="num">λ</th><th class="num">Observed 2026</th><th class="num">Upper-tail p-value</th><th class="num">Approx. odds 1 in …</th></tr></thead><tbody><tr><td>25+</td><td>43.375</td><td>70</td><td><input data-save="p25" id="p25" type="number"/></td><td><input data-save="o25" id="o25" type="number"/></td></tr><tr><td>50+</td><td>19.875</td><td>40</td><td><input data-save="p50" id="p50" type="number"/></td><td><input data-save="o50" id="o50" type="number"/></td></tr><tr><td>100+</td><td>8.375</td><td>16</td><td><input data-save="p100" id="p100" type="number"/></td><td><input data-save="o100" id="o100" type="number"/></td></tr></tbody></table><p><button onclick="checkPoisson()">Check Poisson results</button></p><div class="feedback" id="poissonFeedback"></div><label>Which threshold gives the strongest exact Poisson evidence, and is it the threshold with the largest raw count?<textarea data-save="strongest"></textarea></label></section>
 <section class="card" id="model"><h2>Part 4. Check the count model</h2><p>A Poisson process has variance approximately equal to its mean. The sample variance-to-mean ratio (VMR) across the baseline years is used as a diagnostic.</p><div class="grid3"><label>VMR, 25+ counts<input data-save="v25" id="v25" type="number"/></label><label>VMR, 50+ counts<input data-save="v50" id="v50" type="number"/></label><label>VMR, 100+ counts<input data-save="v100" id="v100" type="number"/></label><label>VMR, total event counts<input data-save="vt" id="vt" type="number"/></label></div><p><button onclick="checkVMR()">Check VMR values</button></p><div class="feedback" id="vmrFeedback"></div><div class="callout warning"><strong>Why the total is different:</strong> The baseline total-event counts vary far more than a Poisson model allows. A tiny Poisson p-value for 2,322 total events would therefore be misleading. The source uses an overdispersed count model for the total and finds that the total is not the central anomaly.</div><label>Explain why “the Poisson p-value is tiny” is not enough unless the Poisson model is plausible.<textarea data-save="model_explanation"></textarea></label></section>
-<section class="card" id="report"><h2>Final threshold memorandum</h2><label>Write 6–8 sentences explaining where the threshold signal appears, which p-values are most compelling, and why the total event count is not analyzed with the same Poisson model.<textarea data-save="final_response"></textarea></label><p class="actions"><button class="primary" onclick="generateReport()">Generate report</button><button onclick="copyReport()">Copy report</button><button onclick="window.print()">Print</button></p><div class="report" id="reportPreview">Your report will appear here.</div></section><p class="footer-note">Case File 3: The Threshold Signal · Data: American Meteor Society</p></main></body></html>
+<section class="card" id="report"><h2>Final threshold memorandum</h2><label>Write 6–8 sentences explaining where the threshold signal appears, which p-values are most compelling, and why the total event count is not analyzed with the same Poisson model.<textarea data-save="final_response"></textarea></label><p class="actions"><button class="primary" onclick="generateReport()">Generate report</button><button onclick="copyReport()">Copy report</button><button onclick="window.print()">Print</button></p><div class="report" id="reportPreview">Your report will appear here.</div></section><p class="footer-note">Case File 3: The Threshold Signal · Data: American Meteor Society</p></main>
+<script id="math146-unified-submission-script">
+(function(){
+  const NAME_KEY='math146_submission_student_name';
+
+  function primaryNameField(){
+    return document.querySelector('[data-save="student_name"]') ||
+      document.querySelector('input[id$="_name"]') ||
+      document.querySelector('input[name="student_name"]');
+  }
+  function topNameField(){return document.getElementById('submissionStudentName');}
+
+  function syncName(value,fromTop){
+    const top=topNameField(),primary=primaryNameField();
+    if(fromTop && primary && primary.value!==value){
+      primary.value=value;
+      primary.dispatchEvent(new Event('input',{bubbles:true}));
+      primary.dispatchEvent(new Event('change',{bubbles:true}));
+    }else if(!fromTop && top && top.value!==value){top.value=value;}
+    try{localStorage.setItem(NAME_KEY,value)}catch(e){}
+  }
+
+  function initName(){
+    const top=topNameField(),primary=primaryNameField();
+    if(!top)return;
+    let remembered='';
+    try{remembered=localStorage.getItem(NAME_KEY)||''}catch(e){}
+    top.value=(primary&&primary.value.trim())?primary.value:remembered;
+    if(primary&&!primary.value.trim()&&top.value){
+      primary.value=top.value;
+      primary.dispatchEvent(new Event('input',{bubbles:true}));
+    }
+    top.addEventListener('input',()=>syncName(top.value,true));
+    if(primary)primary.addEventListener('input',()=>syncName(primary.value,false));
+  }
+
+  function safeFilename(s){
+    return String(s||'student').trim().replace(/[^a-z0-9._-]+/gi,'_').replace(/^_+|_+$/g,'')||'student';
+  }
+
+  function currentAnswer(el){
+    const tag=el.tagName,type=(el.type||'').toLowerCase();
+    if(tag==='SELECT'){
+      const opt=el.selectedOptions&&el.selectedOptions[0];
+      return el.value&&opt?opt.textContent.trim():'No response';
+    }
+    if(type==='checkbox')return el.checked?'☑':'☐';
+    if(type==='radio')return el.checked?'◉':'○';
+    const v=(el.value==null?'':String(el.value)).trim();
+    return v||'No response';
+  }
+
+  function responseControls(){
+    return Array.from(document.querySelectorAll('input,select,textarea')).filter(el=>{
+      if(el.closest('.submission-coursebar,.solution,.teacher-answer'))return false;
+      if(el.readOnly||el.disabled)return false;
+      const t=(el.type||'').toLowerCase();
+      if(['button','submit','reset','hidden','range'].includes(t))return false;
+      if(el===primaryNameField())return false;
+      return true;
+    });
+  }
+
+  function completionSummary(){
+    const controls=responseControls(),groups=new Set();let done=0,total=0;
+    controls.forEach(el=>{
+      const t=(el.type||'').toLowerCase();
+      if(t==='radio'){
+        const key=el.name||el.id;if(groups.has(key))return;groups.add(key);total++;
+        const any=el.name?Array.from(document.querySelectorAll('input[type="radio"]')).some(r=>r.name===el.name&&r.checked):el.checked;
+        if(any)done++;
+      }else{total++;if(t==='checkbox'?el.checked:String(el.value||'').trim()!=='')done++;}
+    });
+    return {done,total};
+  }
+
+  function replaceControls(source,clone){
+    const live=Array.from(source.querySelectorAll('input,select,textarea'));
+    const copy=Array.from(clone.querySelectorAll('input,select,textarea'));
+    copy.forEach((c,i)=>{
+      const o=live[i];if(!o){c.remove();return;}
+      const t=(o.type||'').toLowerCase();
+      if(['button','submit','reset','hidden'].includes(t)){c.remove();return;}
+      const val=(o.value==null?'':String(o.value));
+      if(o.readOnly&&val.length>500){
+        const note=document.createElement('div');note.className='submission-source-note';note.textContent='Large source-data field omitted from this submission copy.';c.replaceWith(note);return;
+      }
+      const block=o.tagName==='TEXTAREA'||o.tagName==='SELECT'||['text','number','email','url','range'].includes(t);
+      const out=document.createElement(block?'div':'span');
+      out.className='submission-answer'+(block?' submission-answer-block':'');
+      out.textContent=currentAnswer(o);c.replaceWith(out);
+    });
+  }
+
+  function replaceCanvases(source,clone){
+    const live=Array.from(source.querySelectorAll('canvas')),copy=Array.from(clone.querySelectorAll('canvas'));
+    copy.forEach((c,i)=>{
+      const o=live[i];if(!o){c.remove();return;}
+      try{
+        const img=document.createElement('img');img.className='submission-canvas-image';
+        img.alt=o.getAttribute('aria-label')||'Lab graph';img.src=o.toDataURL('image/png');c.replaceWith(img);
+      }catch(e){
+        const note=document.createElement('div');note.className='submission-source-note';note.textContent='Interactive graphic could not be captured in this copy.';c.replaceWith(note);
+      }
+    });
+  }
+
+  function makeLinksAbsolute(source,clone){
+    const si=Array.from(source.querySelectorAll('img')),ci=Array.from(clone.querySelectorAll('img'));
+    ci.forEach((img,i)=>{if(si[i]&&si[i].src&&!img.src.startsWith('data:'))img.src=si[i].src});
+    const sa=Array.from(source.querySelectorAll('a')),ca=Array.from(clone.querySelectorAll('a'));
+    ca.forEach((a,i)=>{if(sa[i]&&sa[i].href)a.href=sa[i].href});
+  }
+
+  function cleanClone(clone){
+    clone.querySelectorAll('.submission-coursebar,.toolbar,.no-print,.actions,.feedback,.solution,.teacher-answer,.footer-note,script,button').forEach(x=>x.remove());
+    clone.querySelectorAll('details').forEach(x=>x.remove());
+    clone.querySelectorAll('table').forEach(t=>{
+      if(t.querySelectorAll('tr').length>60){
+        const note=document.createElement('div');note.className='submission-source-note';
+        note.textContent='Large source-data table omitted from the submission copy. It remains available in the interactive lab.';
+        t.replaceWith(note);
+      }
+    });
+    clone.querySelectorAll('label').forEach(l=>{if(l.querySelector('[data-save="student_name"]'))l.remove()});
+  }
+
+  function installSubmission(name,title,clone,summary){
+    document.title=title+' — '+name;
+    const style=document.createElement('style');style.id='submission-mode-style';style.textContent=
+      'body{overflow:auto!important;height:auto!important;background:#fff!important;color:#111!important}' +
+      '.submission-toolbar{position:sticky;top:0;z-index:1100;display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding:12px 18px;background:#17385f;color:#fff;box-shadow:0 3px 12px rgba(0,0,0,.18);font-family:system-ui,sans-serif}' +
+      '.submission-toolbar button{display:inline-block!important;background:#fff!important;color:#17385f!important;border:1px solid #cad7e5!important;padding:9px 13px!important;border-radius:9px!important;font-weight:800!important;cursor:pointer!important}' +
+      '.submission-toolbar span{font-size:.88rem;color:#e7eef8}' +
+      '.submission-cover{max-width:1000px;margin:20px auto 0;padding:0 20px;font-family:system-ui,sans-serif}' +
+      '.submission-cover-card{background:#f7f9fc;border:1px solid #ccd8e5;border-radius:14px;padding:15px 18px}' +
+      '.submission-cover h1{margin:0 0 8px;color:#17385f;font-size:1.45rem}.submission-meta{display:flex;gap:22px;flex-wrap:wrap;font-size:.95rem}' +
+      '.submission-completion{margin-top:8px;color:#46566c;font-size:.88rem}' +
+      '.submission-content{max-width:1000px;margin:0 auto;padding:0 20px 60px}' +
+      '.submission-answer{display:inline-block;padding:4px 8px;border:1px solid #b9c6d5;border-radius:7px;background:#fff;color:#111;font-weight:700;white-space:pre-wrap;overflow-wrap:anywhere}' +
+      '.submission-answer-block{display:block;width:100%;min-height:2.1em;margin:5px 0 2px}' +
+      '.submission-canvas-image{display:block;max-width:100%;height:auto;border:1px solid #ccd8e5;border-radius:10px;background:#fff;margin:8px 0}' +
+      '.submission-source-note{padding:8px 10px;border:1px dashed #b9c6d5;background:#f8fafc;color:#526174;border-radius:8px;font:14px system-ui,sans-serif;margin:8px 0}' +
+      '@media print{.submission-toolbar{display:none!important}.submission-cover{margin-top:0;padding:0}.submission-content{max-width:none;padding:0}.submission-cover-card{border:0;padding:0 0 10px}.card,.case-brief,.source-dossier{box-shadow:none!important;break-inside:auto}.part{break-inside:avoid!important}}';
+    document.head.appendChild(style);
+    document.body.replaceChildren();
+
+    const toolbar=document.createElement('div');toolbar.className='submission-toolbar';
+    toolbar.innerHTML='<button id="submissionPrintButton" type="button">Print / Save as PDF</button><button id="submissionDownloadButton" type="button">Download HTML</button><button id="submissionReturnButton" type="button">Return to Lab</button><span>Submission view — your answers are fixed on the page; source databases and worked solutions are omitted.</span>';
+    document.body.appendChild(toolbar);
+
+    const cover=document.createElement('div');cover.className='submission-cover';
+    const card=document.createElement('div');card.className='submission-cover-card';
+    const h=document.createElement('h1');h.textContent=title;
+    const meta=document.createElement('div');meta.className='submission-meta';
+    const student=document.createElement('div');student.innerHTML='<strong>Student:</strong> ';student.appendChild(document.createTextNode(name));
+    const made=document.createElement('div');made.innerHTML='<strong>Prepared:</strong> ';made.appendChild(document.createTextNode(new Date().toLocaleString()));
+    meta.append(student,made);
+    const comp=document.createElement('div');comp.className='submission-completion';
+    comp.textContent=summary.total?summary.done+' of '+summary.total+' response fields contain work in this prepared copy.':'Prepared copy of current lab work.';
+    card.append(h,meta,comp);cover.appendChild(card);document.body.appendChild(cover);
+
+    const holder=document.createElement('div');holder.className='submission-content';
+    while(clone.firstChild)holder.appendChild(clone.firstChild);
+    document.body.appendChild(holder);
+    document.body.dataset.downloadBase='Math146_'+safeFilename(title)+'_'+safeFilename(name);
+
+    document.getElementById('submissionPrintButton').onclick=()=>window.print();
+    document.getElementById('submissionDownloadButton').onclick=()=>{
+      const html='<!doctype html>\n'+document.documentElement.outerHTML;
+      const blob=new Blob([html],{type:'text/html;charset=utf-8'}),url=URL.createObjectURL(blob),a=document.createElement('a');
+      a.href=url;a.download=(document.body.dataset.downloadBase||'Math146_Lab_Submission')+'.html';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
+    };
+    document.getElementById('submissionReturnButton').onclick=()=>location.reload();
+    window.scrollTo(0,0);
+  }
+
+  window.createSubmissionCopy=function(){
+    const top=topNameField(),primary=primaryNameField(),name=((top&&top.value)||(primary&&primary.value)||'').trim();
+    const status=document.getElementById('submissionStatus');
+    if(!name){if(status)status.textContent='Enter your name before preparing the submission.';if(top)top.focus();else if(primary)primary.focus();return;}
+    syncName(name,true);
+    try{
+      if(typeof saveAll==='function'){
+        if(saveAll.length>0 && typeof PREFIX!=='undefined')saveAll(PREFIX); else if(saveAll.length===0)saveAll();
+      }
+    }catch(e){}
+    const summary=completionSummary();
+    const source=document.querySelector('main')||document.body;
+    const clone=source.cloneNode(true);
+    replaceCanvases(source,clone);replaceControls(source,clone);makeLinksAbsolute(source,clone);cleanClone(clone);
+    const title=(document.querySelector('header h1')?.textContent||document.title).trim();
+    installSubmission(name,title,clone,summary);
+  };
+
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',initName);else initName();
+})();
+</script>
+</body></html>
