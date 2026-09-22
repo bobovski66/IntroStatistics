@@ -152,6 +152,7 @@ details summary{line-height:1.35;}
 <li>Construct and interpret a confidence interval for a population proportion.</li>
 </ul>
 </div>
+<div class="scenario lab-question-card"><strong>Lab question:</strong> How can a sample estimate be turned into a defensible range of plausible values for an unknown population parameter?<p style="margin:8px 0 0"><strong>Why this matters:</strong> A point estimate gives one number, but it does not show sampling uncertainty. A confidence interval combines the estimate with a margin of error so the uncertainty is visible, and its width records the trade-off among confidence, variability, and sample size.</p></div>
 <div class="formulas">
 <h2>Reference Formulas</h2>
 <p>CI for a mean (\(\sigma\) known): \[ \bar{x}\pm z^*\frac{\sigma}{\sqrt{n}} \]</p>
@@ -171,10 +172,7 @@ details summary{line-height:1.35;}
 <!-- PROBLEM 1 -->
 <div class="problem" id="p1">
 <h2>Problem 1 — Confidence Interval for a Population Mean</h2><p class="problem-goal"><strong>Goal:</strong> Construct and interpret a confidence interval for a population mean.</p>
-<div class="scenario">A school counselor samples 36 students and finds a mean sleep time
-  of \(\bar{x}=6.8\) hours. Assume the population standard deviation is known to be
-  \(\sigma=1.5\) hours. Use this sample to construct a 95% confidence interval for the
-  true mean sleep time of students at the school.</div>
+<div class="scenario">A school counselor wants to estimate typical sleep time for students at the school. A random sample of 36 students has mean sleep time \(\bar{x}=6.8\) hours, and previous large studies justify using \(\sigma=1.5\) hours for this exercise. Build a 95% confidence interval for the population mean, then state what the interval estimates.</div>
 <div class="part">
 <div class="part-stem"><span class="part-label">(a)</span>
 <span class="part-text">Construct a 95% confidence interval for \(\mu\).</span></div>
@@ -184,7 +182,7 @@ details summary{line-height:1.35;}
 <div class="answer-row"><label>lower \(=\bar{x}-\)ME\(=\)</label><input data-ans="6.31" data-tol="0.02" id="w5_1a_lo" type="text"/>
 <label>upper \(=\bar{x}+\)ME\(=\)</label><input data-ans="7.29" data-tol="0.02" id="w5_1a_hi" type="text"/>
 <button class="check-btn" onclick="checkNum(['w5_1a_se','w5_1a_zs','w5_1a_me','w5_1a_lo','w5_1a_hi'],'w5_1a_v')">Check</button><span class="verdict" id="w5_1a_v"></span></div>
-<details><summary>Show solution</summary><div class="solution">
+<details><summary>Compare with a worked solution</summary><div class="solution">
 <p><span class="ans">95% CI: \((6.31,\,7.29)\) hours; ME \(=0.49\) hours.</span></p>
 <p>\(\text{SE}=1.5/\sqrt{36}=1.5/6=0.25\). \(\text{ME}=1.96\times0.25=0.49\). The
       interval is \(\bar{x}\pm\text{ME}=6.8\pm0.49\).</p>
@@ -195,7 +193,7 @@ details summary{line-height:1.35;}
 <span class="part-text">State the margin of error.</span></div>
 <div class="answer-row"><label>ME \(=\)</label><input data-ans="0.49" data-tol="0.01" id="w5_1b_me" type="text"/>
 <button class="check-btn" onclick="checkNum(['w5_1b_me'],'w5_1b_v')">Check</button><span class="verdict" id="w5_1b_v"></span></div>
-<details><summary>Show solution</summary><div class="solution">
+<details><summary>Compare with a worked solution</summary><div class="solution">
 <p><span class="ans">ME \(=0.49\) hours.</span></p>
 <p>\(\text{ME}=z^*\times\text{SE}=1.96\times0.25=0.49\).</p>
 </div></details>
@@ -206,7 +204,7 @@ details summary{line-height:1.35;}
       sentence including the confidence level, the population, and both bounds.</span></div>
 <div class="text-answer"><label>Your answer.</label>
 <textarea id="w5_1c" placeholder="We are 95% confident that…"></textarea></div>
-<details><summary>Show solution</summary><div class="solution">
+<details><summary>Compare with a worked solution</summary><div class="solution">
 <p><span class="ans">We are 95% confident that the true mean sleep time of students at the school is between 6.31 and 7.29 hours.</span></p>
 <p>A correct interpretation names the confidence level, the population parameter
       being estimated (the true mean, not an individual student's sleep), and both
@@ -217,10 +215,7 @@ details summary{line-height:1.35;}
 <!-- PROBLEM 2 -->
 <div class="problem" id="p2">
 <h2>Problem 2 — Confidence Level and Width</h2><p class="problem-goal"><strong>Goal:</strong> See how changing the confidence level changes interval width.</p>
-<div class="scenario">A sample of 64 packages has mean weight \(\bar{x}=12.4\) ounces.
-  Assume the population standard deviation is \(\sigma=1.2\) ounces. You will use the same
-  data to compare a 90% confidence interval with a 99% confidence interval and explain
-  how confidence level affects interval width.</div>
+<div class="scenario">A packaging line is being audited. A sample of 64 packages has mean weight \(\bar{x}=12.4\) ounces, with population standard deviation \(\sigma=1.2\) ounces. Use exactly the same sample to construct 90% and 99% confidence intervals. Because only the confidence level changes, this comparison isolates the price paid for asking for more confidence.</div>
 <div class="part">
 <div class="part-stem"><span class="part-label">shared</span>
 <span class="part-text">Find the standard error used by both intervals.</span></div>
@@ -234,7 +229,7 @@ details summary{line-height:1.35;}
 <label>lower \(=\)</label><input data-ans="12.153" data-tol="0.01" id="w5_2a_lo" type="text"/>
 <label>upper \(=\)</label><input data-ans="12.647" data-tol="0.01" id="w5_2a_hi" type="text"/>
 <button class="check-btn" onclick="checkNum(['w5_2a_me','w5_2a_lo','w5_2a_hi'],'w5_2a_v')">Check</button><span class="verdict" id="w5_2a_v"></span></div>
-<details><summary>Show solution</summary><div class="solution">
+<details><summary>Compare with a worked solution</summary><div class="solution">
 <p><span class="ans">90% CI: \((12.153,\,12.647)\).</span></p>
 <p>\(\text{SE}=1.2/8=0.15\). \(\text{ME}=1.645\times0.15=0.247\), giving
       \(12.4\pm0.247\).</p>
@@ -247,7 +242,7 @@ details summary{line-height:1.35;}
 <label>lower \(=\)</label><input data-ans="12.014" data-tol="0.01" id="w5_2b_lo" type="text"/>
 <label>upper \(=\)</label><input data-ans="12.786" data-tol="0.01" id="w5_2b_hi" type="text"/>
 <button class="check-btn" onclick="checkNum(['w5_2b_me','w5_2b_lo','w5_2b_hi'],'w5_2b_v')">Check</button><span class="verdict" id="w5_2b_v"></span></div>
-<details><summary>Show solution</summary><div class="solution">
+<details><summary>Compare with a worked solution</summary><div class="solution">
 <p><span class="ans">99% CI: \((12.014,\,12.786)\). The 99% interval is wider.</span></p>
 <p>\(\text{ME}=2.576\times0.15=0.386\), giving \(12.4\pm0.386\). Higher confidence
       requires a larger \(z^*\), which produces a larger margin of error and therefore a
@@ -260,7 +255,7 @@ details summary{line-height:1.35;}
       and explain the trade-off between confidence level and width.</span></div>
 <div class="text-answer"><label>Your answer.</label>
 <textarea id="w5_2c" placeholder="The ___ interval is wider because…"></textarea></div>
-<details><summary>Show solution</summary><div class="solution">
+<details><summary>Compare with a worked solution</summary><div class="solution">
 <p><span class="ans">The 99% interval is wider.</span></p>
 <p>Higher confidence means we want to be more certain the interval captures the true
       mean, which forces a larger critical value \(z^*\) and therefore a larger margin of
@@ -271,10 +266,7 @@ details summary{line-height:1.35;}
 <!-- PROBLEM 3 -->
 <div class="problem" id="p3">
 <h2>Problem 3 — Required Sample Size for a Mean</h2><p class="problem-goal"><strong>Goal:</strong> Determine the sample size required for a target margin of error.</p>
-<div class="scenario">A transportation planner wants to estimate the mean commute time
-  for workers in a city. The estimate should be within \(\text{ME}=2\) minutes at 95%
-  confidence. Historical data suggest \(\sigma=10\) minutes. Find the minimum sample size
-  needed to meet this margin of error.</div>
+<div class="scenario">A transportation planner wants to estimate the mean commute time for workers in a city closely enough to guide scheduling decisions. The estimate must be within 2 minutes at 95% confidence, and historical data suggest \(\sigma=10\) minutes. Determine how many workers must be sampled before any data are collected.</div>
 <div class="part">
 <div class="part-stem"><span class="part-label">(a)</span>
 <span class="part-text">Find the required sample size.</span></div>
@@ -282,7 +274,7 @@ details summary{line-height:1.35;}
 <label>squared \(=\)</label><input data-ans="96.04" data-tol="0.5" id="w5_3a_sq" type="text"/>
 <label>required \(n\) (rounded up) \(=\)</label><input data-ans="97" data-tol="0.01" id="w5_3a_n" type="text"/>
 <button class="check-btn" onclick="checkNum(['w5_3a_r','w5_3a_sq','w5_3a_n'],'w5_3a_v')">Check</button><span class="verdict" id="w5_3a_v"></span></div>
-<details><summary>Show solution</summary><div class="solution">
+<details><summary>Compare with a worked solution</summary><div class="solution">
 <p><span class="ans">\(n=97\).</span></p>
 <p>\(n\ge\left(\dfrac{1.96\times10}{2}\right)^2=(9.8)^2=96.04\). We always round up:
       \(n=96\) would give \(\text{ME}&gt;2\), violating the requirement, so \(n=97\).</p>
@@ -293,7 +285,7 @@ details summary{line-height:1.35;}
 <span class="part-text">Why do we round up rather than down?</span></div>
 <div class="text-answer"><label>Explain in one or two sentences.</label>
 <textarea id="w5_3b" placeholder="We round up because…"></textarea></div>
-<details><summary>Show solution</summary><div class="solution">
+<details><summary>Compare with a worked solution</summary><div class="solution">
 <p><span class="ans">Rounding down would leave the margin of error too large.</span></p>
 <p>The sample-size formula gives the smallest \(n\) that guarantees the margin of
       error is at most the target value. Since a larger \(n\) only shrinks the margin of
@@ -305,15 +297,13 @@ details summary{line-height:1.35;}
 <!-- PROBLEM 4 -->
 <div class="problem" id="p4">
 <h2>Problem 4 — Confidence Interval for a Population Proportion</h2><p class="problem-goal"><strong>Goal:</strong> Construct and interpret a confidence interval for a population proportion.</p>
-<div class="scenario">In a survey of 250 adults, 145 report that they check the weather
-  forecast on their phone every day. Use this sample to estimate the population
-  proportion of adults who check the weather forecast on their phone daily.</div>
+<div class="scenario">A survey of 250 adults finds that 145 check a weather forecast on their phone every day. Rather than reporting only the sample percentage, use the data to estimate the population proportion and make the sampling uncertainty visible with a 95% confidence interval.</div>
 <div class="part">
 <div class="part-stem"><span class="part-label">(a)</span>
 <span class="part-text">Find the sample proportion \(\hat{p}\).</span></div>
 <div class="answer-row"><label>\(\hat{p}=145/250=\)</label><input data-ans="0.58" data-tol="0.005" id="w5_4a_p" type="text"/>
 <button class="check-btn" onclick="checkNum(['w5_4a_p'],'w5_4a_v')">Check</button><span class="verdict" id="w5_4a_v"></span></div>
-<details><summary>Show solution</summary><div class="solution">
+<details><summary>Compare with a worked solution</summary><div class="solution">
 <p><span class="ans">\(\hat{p}=0.58\).</span></p>
 <p>\(145/250=0.58\).</p>
 </div></details>
@@ -324,7 +314,7 @@ details summary{line-height:1.35;}
 <div class="answer-row"><label>\(n\hat{p}=\)</label><input data-ans="145" data-tol="1" id="w5_4b_np" type="text"/>
 <label>\(n(1-\hat{p})=\)</label><input data-ans="105" data-tol="1" id="w5_4b_nq" type="text"/>
 <button class="check-btn" onclick="checkNum(['w5_4b_np','w5_4b_nq'],'w5_4b_v')">Check</button><span class="verdict" id="w5_4b_v"></span></div>
-<details><summary>Show solution</summary><div class="solution">
+<details><summary>Compare with a worked solution</summary><div class="solution">
 <p><span class="ans">\(n\hat{p}=145\ge10\) and \(n(1-\hat{p})=105\ge10\); the normal approximation is valid.</span></p>
 <p>Both expected counts comfortably clear the threshold of 10, so we may proceed with
       a normal-based confidence interval for the proportion.</p>
@@ -338,7 +328,7 @@ details summary{line-height:1.35;}
 <div class="answer-row"><label>lower \(=\)</label><input data-ans="0.519" data-tol="0.01" id="w5_4c_lo" type="text"/>
 <label>upper \(=\)</label><input data-ans="0.641" data-tol="0.01" id="w5_4c_hi" type="text"/>
 <button class="check-btn" onclick="checkNum(['w5_4c_se','w5_4c_me','w5_4c_lo','w5_4c_hi'],'w5_4c_v')">Check</button><span class="verdict" id="w5_4c_v"></span></div>
-<details><summary>Show solution</summary><div class="solution">
+<details><summary>Compare with a worked solution</summary><div class="solution">
 <p><span class="ans">95% CI: \((0.519,\,0.641)\).</span></p>
 <p>\(\hat{p}=0.58\); \(n\hat{p}=145\ge10\) and \(n(1-\hat{p})=105\ge10\).
       \(\text{SE}=\sqrt{0.58\times0.42/250}\approx0.0312\), and
@@ -352,7 +342,7 @@ details summary{line-height:1.35;}
       bounds.</span></div>
 <div class="text-answer"><label>Your answer.</label>
 <textarea id="w5_4d" placeholder="We are 95% confident that…"></textarea></div>
-<details><summary>Show solution</summary><div class="solution">
+<details><summary>Compare with a worked solution</summary><div class="solution">
 <p><span class="ans">We are 95% confident that between 51.9% and 64.1% of adults check the weather forecast on their phone daily.</span></p>
 <p>A complete interpretation names the population (adults), the variable (checking
       the forecast daily), the confidence level, and both bounds — without claiming
