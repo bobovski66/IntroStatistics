@@ -339,7 +339,7 @@ details summary{line-height:1.35;}
 <section aria-labelledby="finish-title" class="completion-panel">
 <h2 id="finish-title">Before you finish</h2>
 <p>Check that your name and date are filled in, every requested explanation is complete, and numerical answers have been checked where a Check button is provided.</p>
-<p>Your browser copy is useful while you work, but it stays on this device. Save a filled HTML copy if you want a portable version that can be reopened, uploaded, or submitted later.</p>
+<p>Your browser copy is useful while you work, but it stays on this device. When you are ready to turn in the lab, choose <strong>Prepare Submission</strong>, review the read-only copy, and then save it as a PDF or download the HTML file required by your instructor.</p>
 <div class="finish-actions"><button class="primary-action" onclick="createSubmissionCopy()" type="button">Prepare Submission</button></div>
 <div aria-live="polite" class="export-note" id="exportStatus"></div>
 </section></div>
@@ -661,7 +661,6 @@ details summary{line-height:1.35;}
     }
     syncName(name,true);
     try{ if(typeof save==='function') save(); }catch(e){}
-    try{ if(typeof saveAll==='function') saveAll(); }catch(e){}
 
     const labDate=(dateField() ? dateField().value : '').trim();
     const summary=completionSummary();
