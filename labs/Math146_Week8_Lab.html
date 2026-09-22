@@ -161,6 +161,7 @@ details summary{line-height:1.35;}
 <li>Use a chi-squared table to bracket a \(p\)-value and decide whether to reject \(H_0\).</li>
 </ul>
 </div>
+<div class="scenario lab-question-card"><strong>Lab question:</strong> How can counts in categories reveal whether a proposed distribution fits the data or whether two categorical variables are associated?<p style="margin:8px 0 0"><strong>Why this matters:</strong> Chi-squared methods compare what was observed with what a model predicts should have been observed. The statistic becomes large when the discrepancies are large relative to the expected counts, but the conclusion must still be interpreted in the context that produced those counts.</p></div>
 <div class="formulas">
 <h2>Reference: Chi-Squared Tests</h2>
 <p>Test statistic: \[\chi^2=\sum\frac{(O-E)^2}{E}\]</p>
@@ -197,13 +198,7 @@ details summary{line-height:1.35;}
 <!-- PROBLEM 1 -->
 <div class="problem" id="p1">
 <h2>Problem 1 — Goodness-of-Fit: Campus Event Preferences</h2><p class="problem-goal"><strong>Goal:</strong> Carry out a chi-squared goodness-of-fit test from observed and expected counts.</p>
-<div class="scenario">A survey asks 160 students which evening event they would prefer.
-  Test whether the four event choices are equally popular at \(\alpha=0.05\).
-  <table>
-<thead><tr><th>Event</th><th>Movie night</th><th>Game night</th><th>Open mic</th><th>Trivia</th></tr></thead>
-<tbody><tr><td class="lft">Observed \(O\)</td><td>54</td><td>50</td><td>34</td><td>22</td></tr></tbody>
-</table>
-</div>
+<div class="scenario">A student-life office surveys 160 students about which evening event they would most like the college to offer. If there were no overall preference, the four options would be equally popular. Use a chi-squared goodness-of-fit test at \(\alpha=0.05\) to compare that equal-preference model with the observed counts.<br><br><table class="data-table"><thead><tr><th>Event</th><th>Movie night</th><th>Game night</th><th>Open mic</th><th>Trivia</th></tr></thead><tbody><tr><td>Observed \(O\)</td><td>54</td><td>50</td><td>34</td><td>22</td></tr></tbody></table></div>
 <div class="warning"><strong>Write first:</strong> \(H_0\): the four choices are equally
   popular. \(H_a\): the four choices are not equally popular.</div>
 <div class="part">
@@ -211,7 +206,7 @@ details summary{line-height:1.35;}
 <span class="part-text">Find the expected count for each category.</span></div>
 <div class="answer-row"><label>\(E=160/4=\)</label><input data-ans="40" data-tol="0.01" id="w8_1a" type="text"/>
 <button class="check-btn" onclick="checkNum(['w8_1a'],'w8_1a_v')">Check</button><span class="verdict" id="w8_1a_v"></span></div>
-<details><summary>Show solution</summary><div class="solution">
+<details><summary>Compare with a worked solution</summary><div class="solution">
 <p><span class="ans">Each expected count is 40.</span></p>
 <p>Under \(H_0\), all four categories are equally likely, so each gets an equal share
       of the 160 respondents: \(160/4=40\).</p>
@@ -231,7 +226,7 @@ details summary{line-height:1.35;}
 </table>
 <div class="answer-row">
 <button class="check-btn" onclick="checkNum(['w8_1b1','w8_1b2','w8_1b3','w8_1b4'],'w8_1b_v')">Check</button><span class="verdict" id="w8_1b_v"></span></div>
-<details><summary>Show solution</summary><div class="solution">
+<details><summary>Compare with a worked solution</summary><div class="solution">
 <p><span class="ans">Contributions: \(4.90,\,2.50,\,0.90,\,8.10\).</span></p>
 <p>Each contribution is \((O-E)^2/E\): for movie night, \((54-40)^2/40=4.90\), and
       similarly for the rest.</p>
@@ -244,7 +239,7 @@ details summary{line-height:1.35;}
 <label>\(df=\)</label><input data-ans="3" data-tol="0.01" id="w8_1d" type="text"/>
 <label>Reject? 1=yes, 0=no</label><input data-ans="1" data-tol="0.01" id="w8_1e" type="text"/>
 <button class="check-btn" onclick="checkNum(['w8_1c','w8_1d','w8_1e'],'w8_1c_v')">Check</button><span class="verdict" id="w8_1c_v"></span></div>
-<details><summary>Show solution</summary><div class="solution">
+<details><summary>Compare with a worked solution</summary><div class="solution">
 <p><span class="ans">\(\chi^2=16.40\), \(df=3\); reject \(H_0\).</span></p>
 <p>Summing the contributions gives \(4.90+2.50+0.90+8.10=16.40\). Since \(df=3\) and
       \(16.40&gt;16.266\) (the \(\alpha=0.001\) critical value), \(p&lt;0.001\), so we reject
@@ -256,7 +251,7 @@ details summary{line-height:1.35;}
 <span class="part-text">Write the conclusion in context.</span></div>
 <div class="text-answer"><label>Your answer.</label>
 <textarea id="w8_1con" placeholder="Write the conclusion in context."></textarea></div>
-<details><summary>Show solution</summary><div class="solution">
+<details><summary>Compare with a worked solution</summary><div class="solution">
 <p><span class="ans">The four campus event preferences are not equally popular.</span></p>
 <p>There is sufficient evidence at \(\alpha=0.05\) to conclude that students do not
       prefer the four evening events equally.</p>
@@ -266,16 +261,7 @@ details summary{line-height:1.35;}
 <!-- PROBLEM 2 -->
 <div class="problem" id="p2">
 <h2>Problem 2 — Goodness-of-Fit: Snack Mix Pieces</h2><p class="problem-goal"><strong>Goal:</strong> Practice a second goodness-of-fit setting and interpret the test statistic.</p>
-<div class="scenario">A company claims that its snack mix contains 40% pretzels, 25%
-  cereal squares, 20% peanuts, and 15% raisins. A student counts 150 pieces.
-  <table>
-<thead><tr><th>Piece</th><th>Pretzels</th><th>Cereal</th><th>Peanuts</th><th>Raisins</th></tr></thead>
-<tbody>
-<tr><td class="lft">Observed \(O\)</td><td>72</td><td>34</td><td>25</td><td>19</td></tr>
-<tr><td class="lft">Claim \(p_i\)</td><td>0.40</td><td>0.25</td><td>0.20</td><td>0.15</td></tr>
-</tbody>
-</table>
-</div>
+<div class="scenario">A snack-mix company claims a fixed recipe: 40% pretzels, 25% cereal squares, 20% peanuts, and 15% raisins. A student counts 150 pieces from one large bag. Treat the advertised recipe as the probability model and use a goodness-of-fit test to ask whether the observed composition is unusually far from that claim.<br><br><table class="data-table"><thead><tr><th>Piece</th><th>Pretzels</th><th>Cereal</th><th>Peanuts</th><th>Raisins</th></tr></thead><tbody><tr><td>Observed \(O\)</td><td>72</td><td>34</td><td>25</td><td>19</td></tr><tr><td>Claim \(p_i\)</td><td>0.40</td><td>0.25</td><td>0.20</td><td>0.15</td></tr></tbody></table></div>
 <div class="part">
 <div class="part-stem"><span class="part-label">(a)</span>
 <span class="part-text">Find the expected counts.</span></div>
@@ -284,7 +270,7 @@ details summary{line-height:1.35;}
 <label>Peanuts</label><input data-ans="30" data-tol="0.01" id="w8_2e3" type="text"/>
 <label>Raisins</label><input data-ans="22.5" data-tol="0.01" id="w8_2e4" type="text"/>
 <button class="check-btn" onclick="checkNum(['w8_2e1','w8_2e2','w8_2e3','w8_2e4'],'w8_2a_v')">Check</button><span class="verdict" id="w8_2a_v"></span></div>
-<details><summary>Show solution</summary><div class="solution">
+<details><summary>Compare with a worked solution</summary><div class="solution">
 <p><span class="ans">Expected counts: \(60,\,37.5,\,30,\,22.5\).</span></p>
 <p>Multiply the total 150 pieces by each claimed proportion: \(150\times0.40=60\),
       and similarly for the rest.</p>
@@ -297,7 +283,7 @@ details summary{line-height:1.35;}
 <label>\(df=\)</label><input data-ans="3" data-tol="0.01" id="w8_2df" type="text"/>
 <label>Reject? 1=yes, 0=no</label><input data-ans="0" data-tol="0.01" id="w8_2r" type="text"/>
 <button class="check-btn" onclick="checkNum(['w8_2x','w8_2df','w8_2r'],'w8_2b_v')">Check</button><span class="verdict" id="w8_2b_v"></span></div>
-<details><summary>Show solution</summary><div class="solution">
+<details><summary>Compare with a worked solution</summary><div class="solution">
 <p><span class="ans">\(\chi^2\approx4.10\), \(df=3\); fail to reject \(H_0\).</span></p>
 <p>Expected counts are 60, 37.5, 30, and 22.5; contributions are approximately 2.40,
       0.33, 0.83, and 0.54, summing to \(\chi^2\approx4.10\). With \(df=3\),
@@ -309,7 +295,7 @@ details summary{line-height:1.35;}
 <span class="part-text">Write the conclusion in context.</span></div>
 <div class="text-answer"><label>Your answer.</label>
 <textarea id="w8_2con" placeholder="Write the conclusion in context."></textarea></div>
-<details><summary>Show solution</summary><div class="solution">
+<details><summary>Compare with a worked solution</summary><div class="solution">
 <p class="ftreject">Fail to reject \(H_0\).</p>
 <p>There is insufficient evidence to conclude that the snack mix distribution
       differs from the company's claim.</p>
@@ -319,18 +305,7 @@ details summary{line-height:1.35;}
 <!-- PROBLEM 3 -->
 <div class="problem" id="p3">
 <h2>Problem 3 — Test of Independence: Tutoring and Course Outcome</h2><p class="problem-goal"><strong>Goal:</strong> Use a contingency table to test whether two categorical variables are independent.</p>
-<div class="scenario">A college records tutoring attendance and course outcome for 170
-  students. Test for association at \(\alpha=0.05\).
-  <table>
-<thead><tr><th class="lft">Tutoring attendance</th><th>Passed</th><th>Did not pass</th><th>Row total</th></tr></thead>
-<tbody>
-<tr><td class="lft">None</td><td>28</td><td>22</td><td>50</td></tr>
-<tr><td class="lft">Occasional</td><td>42</td><td>18</td><td>60</td></tr>
-<tr><td class="lft">Regular</td><td>54</td><td>6</td><td>60</td></tr>
-<tr><td class="lft"><strong>Column total</strong></td><td><strong>124</strong></td><td><strong>46</strong></td><td><strong>170</strong></td></tr>
-</tbody>
-</table>
-</div>
+<div class="scenario">A college records tutoring attendance and course outcome for 170 students. The question is whether those two categorical variables are associated. Test independence at \(\alpha=0.05\), then be careful with the conclusion: an association in observational data does not by itself show that tutoring caused the outcome.<br><br><table class="data-table"><thead><tr><th>Tutoring attendance</th><th>Passed</th><th>Did not pass</th><th>Row total</th></tr></thead><tbody><tr><td>None</td><td>28</td><td>22</td><td>50</td></tr><tr><td>Occasional</td><td>42</td><td>18</td><td>60</td></tr><tr><td>Regular</td><td>54</td><td>6</td><td>60</td></tr><tr><td>Column total</td><td>124</td><td>46</td><td>170</td></tr></tbody></table></div>
 <div class="warning"><strong>Hypotheses:</strong> \(H_0\): tutoring attendance and course
   outcome are independent. \(H_a\): tutoring attendance and course outcome are associated.</div>
 <div class="part">
@@ -340,7 +315,7 @@ details summary{line-height:1.35;}
 <label>None/Did not pass \(E=\)</label><input data-ans="13.53" data-tol="0.05" id="w8_3e2" type="text"/>
 <label>Regular/Passed \(E=\)</label><input data-ans="43.76" data-tol="0.05" id="w8_3e3" type="text"/>
 <button class="check-btn" onclick="checkNum(['w8_3e1','w8_3e2','w8_3e3'],'w8_3a_v')">Check</button><span class="verdict" id="w8_3a_v"></span></div>
-<details><summary>Show solution</summary><div class="solution">
+<details><summary>Compare with a worked solution</summary><div class="solution">
 <p><span class="ans">Expected counts are approximately: None (36.47, 13.53), Occasional (43.76, 16.24), Regular (43.76, 16.24).</span></p>
 <p>Use \(E=(\text{row total})(\text{column total})/\text{grand total}\), e.g.
       \(50\times124/170\approx36.47\).</p>
@@ -353,7 +328,7 @@ details summary{line-height:1.35;}
 <label>\(df=\)</label><input data-ans="2" data-tol="0.01" id="w8_3df" type="text"/>
 <label>Reject? 1=yes, 0=no</label><input data-ans="1" data-tol="0.01" id="w8_3r" type="text"/>
 <button class="check-btn" onclick="checkNum(['w8_3x','w8_3df','w8_3r'],'w8_3b_v')">Check</button><span class="verdict" id="w8_3b_v"></span></div>
-<details><summary>Show solution</summary><div class="solution">
+<details><summary>Compare with a worked solution</summary><div class="solution">
 <p><span class="ans">\(\chi^2\approx16.40\), \(df=2\); reject \(H_0\).</span></p>
 <p>The full test statistic sums \((O-E)^2/E\) across all six cells, giving
       \(\chi^2\approx16.40\). Since \(df=2\) and \(16.40&gt;13.816\), \(p&lt;0.001\), so we
@@ -365,7 +340,7 @@ details summary{line-height:1.35;}
 <span class="part-text">Write the conclusion in context, avoiding causal language.</span></div>
 <div class="text-answer"><label>Your answer.</label>
 <textarea id="w8_3con" placeholder="Write the conclusion in context, avoiding causal language."></textarea></div>
-<details><summary>Show solution</summary><div class="solution">
+<details><summary>Compare with a worked solution</summary><div class="solution">
 <p><span class="ans">There is strong evidence that tutoring attendance and course outcome are associated.</span></p>
 <p>This does not prove that tutoring alone caused the difference in outcomes —
       association is not causation.</p>
@@ -374,9 +349,8 @@ details summary{line-height:1.35;}
 </div>
 <!-- PROBLEM 4 -->
 <div class="problem" id="p4">
-<h2>Problem 4 — Table Reading Only</h2><p class="problem-goal"><strong>Goal:</strong> Read a chi-squared table carefully enough to bracket a p-value and make a decision.</p>
-<div class="scenario">For each case, bracket the \(p\)-value as best you can and decide
-  whether to reject at \(\alpha=0.05\).</div>
+<h2>Problem 4 — Reading Evidence from a Chi-Squared Table</h2><p class="problem-goal"><strong>Goal:</strong> Read a chi-squared table carefully enough to bracket a p-value and make a decision.</p>
+<div class="scenario">A chi-squared calculation does not always produce an exact p-value from a printed table. Instead, the test statistic is located between critical values, which brackets the p-value. For each case below, use the table as an evidence scale: bracket \(p\) as closely as possible, then decide whether the evidence crosses the \(\alpha=0.05\) threshold.</div>
 <div class="part">
 <div class="part-stem"><span class="part-label">(a-c)</span>
 <span class="part-text">Complete the table below.</span></div>
@@ -390,7 +364,7 @@ details summary{line-height:1.35;}
 </table>
 <div class="answer-row">
 <button class="check-btn" onclick="checkNum(['w8_4a','w8_4b','w8_4c'],'w8_4_v')">Check decisions</button><span class="verdict" id="w8_4_v"></span></div>
-<details><summary>Show solution</summary><div class="solution">
+<details><summary>Compare with a worked solution</summary><div class="solution">
 <p><span class="ans">A: \(0.01<p<0.05\), \(0.001<p<0.01\),="" \(0.05<p<0.10\),="" b:="" c:="" fail="" reject.="" reject.<="" span="" to=""></p<0.05\),></span></p>
 <p>Compare each \(\chi^2\) to the critical values in its \(df\) row of the reference
       table above, and bracket \(p\) between the two columns it falls within.</p>
