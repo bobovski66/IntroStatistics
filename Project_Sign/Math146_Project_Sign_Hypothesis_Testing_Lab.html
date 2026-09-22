@@ -105,7 +105,7 @@ canvas{width:100%;height:310px;border:1px solid var(--line);border-radius:14px;b
 .submission-coursebar .submission-status{font-size:.82rem;color:#f4eab9;font-weight:700}
 .submission-coursebar .submission-note{font-size:.82rem;color:#dce8f6}
 @media(max-width:700px){.submission-coursebar-inner{padding:8px 10px}.submission-name-control{flex:1 1 100%;display:grid;grid-template-columns:auto minmax(0,1fr)}.submission-name-control input{width:100%;max-width:none}.submission-note{display:none}}
-@media print{.submission-coursebar{display:none!important}}
+.toolbar{top:var(--submission-bar-height,0px)!important}\n@media print{.submission-coursebar{display:none!important}.toolbar{top:0!important}}
 </style>
 </head>
 <body>
@@ -127,7 +127,7 @@ canvas{width:100%;height:310px;border:1px solid var(--line);border-radius:14px;b
 <a href="#start">Start</a><a href="#hypotheses">Hypotheses</a><a href="#mean">Mean test</a>
 <a href="#proportion">Proportion test</a><a href="#simulate">p-values</a><a href="#compare">Compare</a><a href="#report">Finish</a>
 </nav>
-<div class="actions"><button onclick="saveAll()">Save</button><button onclick="clearAll()">Clear</button><button class="primary" onclick="generateReport()">Generate report</button></div>
+<div class="actions"><button onclick="saveAll()">Save</button><button onclick="clearAll()">Clear</button><button class="primary" onclick="generateReport()">Build report preview</button></div>
 </div></div>
 <main class="wrap">
 <section class="card" id="start">
@@ -332,7 +332,7 @@ Since \(p&lt;\alpha\), reject \(H_0\).
 <h2>Final response</h2>
 <label>Write 6–8 sentences comparing the mean test and proportion test. Include both hypotheses, both decisions, and one correct interpretation of a \(p\)-value.
 <textarea data-save="final_response"></textarea></label>
-<p><button class="primary" onclick="generateReport()">Generate report</button> <button onclick="copyReport()">Copy report</button> <button onclick="window.print()">Print</button></p>
+<p><button class="primary" onclick="generateReport()">Build report preview</button> <button onclick="copyReport()">Copy report</button> <button onclick="window.print()">Print</button></p>
 <div class="report" id="reportPreview">Your report will appear here.</div>
 </section>
 <div class="case-pagination no-print"><a href="Math146_Project_Sign_Confidence_Intervals_Lab.html">← Case File 3</a><a href="Math146_Project_Sign_Two_Sample_Inference_Lab.html">Case File 5 →</a></div><p class="footer-note">Project Sign Applied Data Lab · One-Sample Hypothesis Tests</p>
@@ -425,7 +425,7 @@ window.addEventListener('DOMContentLoaded',()=>{loadAll();runSimulation()})
     try{localStorage.setItem(NAME_KEY,value)}catch(e){}
   }
 
-  function initName(){
+  function updateSubmissionOffset(){const b=document.querySelector('.submission-coursebar');document.documentElement.style.setProperty('--submission-bar-height',(b?b.offsetHeight:0)+'px')}\n  function initName(){updateSubmissionOffset();window.addEventListener('resize',updateSubmissionOffset);
     const top=topNameField(),primary=primaryNameField();
     if(!top)return;
     let remembered='';
