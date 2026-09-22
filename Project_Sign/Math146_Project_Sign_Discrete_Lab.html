@@ -105,7 +105,7 @@ canvas{width:100%;height:320px;border:1px solid var(--line);border-radius:14px;b
 .submission-coursebar .submission-status{font-size:.82rem;color:#f4eab9;font-weight:700}
 .submission-coursebar .submission-note{font-size:.82rem;color:#dce8f6}
 @media(max-width:700px){.submission-coursebar-inner{padding:8px 10px}.submission-name-control{flex:1 1 100%;display:grid;grid-template-columns:auto minmax(0,1fr)}.submission-name-control input{width:100%;max-width:none}.submission-note{display:none}}
-@media print{.submission-coursebar{display:none!important}}
+.toolbar{top:var(--submission-bar-height,0px)!important}\n@media print{.submission-coursebar{display:none!important}.toolbar{top:0!important}}
 </style>
 </head><body>
 <div class="submission-coursebar no-print">
@@ -119,7 +119,7 @@ canvas{width:100%;height:320px;border:1px solid var(--line);border-radius:14px;b
 <header><div class="wrap"><h1>Project Sign Case File 1: Discrete Distributions</h1><p>Begin with the incident table. Reconstruct the distribution of recorded object counts, then compare it with binomial and geometric models.</p>
 <p class="meta">MATH&amp; 146 · PROJECT SIGN · CASE FILE 1 OF 6 · DISCRETE DISTRIBUTIONS</p></div></header>
 <div class="toolbar no-print"><div class="wrap"><nav class="nav"><a href="Math146_Project_Sign_Case_File.html">Case overview</a><a href="#intro">Start</a><a href="#empirical">Empirical PMF</a><a href="#expectation">Expected value</a><a href="#models">Models</a><a href="#simulate">Simulation</a><a href="#report">Report</a></nav>
-<div class="actions"><button onclick="saveAll()">Save</button><button onclick="clearAll()">Clear</button><button class="primary" onclick="generateReport()">Generate report</button></div></div></div>
+<div class="actions"><button onclick="saveAll()">Save</button><button onclick="clearAll()">Clear</button><button class="primary" onclick="generateReport()">Build report preview</button></div></div></div>
 <main class="wrap">
 <section class="card" id="intro">
 <div class="case-brief">
@@ -363,7 +363,7 @@ window.addEventListener('DOMContentLoaded',()=>{drawPMF();runSimulation()})
     try{localStorage.setItem(NAME_KEY,value)}catch(e){}
   }
 
-  function initName(){
+  function updateSubmissionOffset(){const b=document.querySelector('.submission-coursebar');document.documentElement.style.setProperty('--submission-bar-height',(b?b.offsetHeight:0)+'px')}\n  function initName(){updateSubmissionOffset();window.addEventListener('resize',updateSubmissionOffset);
     const top=topNameField(),primary=primaryNameField();
     if(!top)return;
     let remembered='';
