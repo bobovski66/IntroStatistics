@@ -443,15 +443,39 @@
       .titles .subtitle { font-size: 0.88rem; }
       .stat-strip { grid-template-columns: 1fr; }
     }
+
+    /* Keep the cumulative sampling display below the three distribution views. */
+    body { overflow: auto; }
+    .app { height: auto; min-height: 100vh; }
+    .charts { flex: none; }
+    .charts .canvas-wrap { height: 280px; min-height: 280px; flex: none; }
+    .history-card { padding: 17px 18px; }
+    .history-card .chart-head { flex-wrap: wrap; align-items: flex-start; }
+    .history-card .chart-title { font-size: 1.12rem; }
+    .history-card .chart-note { max-width: 82ch; line-height: 1.55; font-size: .9rem; margin-top: 5px; }
+    .history-actions { display: flex; gap: 8px; flex-wrap: wrap; margin: 12px 0; }
+    .history-actions button { padding: 8px 12px; }
+    .history-meta { color: var(--muted); font-size: .86rem; margin: 8px 0; }
+    .history-wrap { height: 540px; min-height: 540px; }
+    .history-table { width: 100%; max-width: 660px; border-collapse: collapse; margin-top: 12px; font-size: .87rem; }
+    .history-table th,.history-table td { text-align: left; padding: 7px 12px; border-bottom: 1px solid var(--panel-border); }
+    .history-card details { color: var(--muted); font-size: .88rem; margin-top: 12px; }
+    .history-card summary { cursor: pointer; }
+    .history-bridge { color: var(--muted); font-size: .86rem; line-height: 1.5; margin: 14px 0 0; }
+    .history-bridge a { color: var(--accent); }
+    .demo-course-link { color: var(--accent); font-size: .82rem; display: inline-block; margin-bottom: 8px; }
+    @media(max-width:560px) { .history-card { padding: 12px 10px; } .history-wrap { height: 540px; } .history-actions button { flex: 1 1 40%; } }
+    @media print { .topbar-actions,.ctrl-buttons,.history-actions { display: none; } .app { max-width: none; padding: 0; } .charts { grid-template-columns: 1fr; } .chart-card,.history-card { break-inside: avoid; } .history-wrap { height: 450px; min-height: 450px; } }
+
   </style>
 </head>
 <body>
   <div class="app">
     <header>
       <div class="titles">
-        <h1>The Averaging Machine</h1>
+        <a class="demo-course-link" href="../readings/week4_reading.html">← Week 4 reading</a><h1>The Averaging Machine</h1>
         <p class="subtitle">
-          Central Limit Theorem demo: choose a population, take many random samples, and watch the sample means organize into a bell.
+          Choose a population and sample size, then watch repeated sample means accumulate. Compare the observations in each sample with the average that sample contributes.
         </p>
       </div>
       <div class="topbar-actions">
@@ -530,7 +554,7 @@
             <span class="pill"><span class="dot cyan"></span>values</span>
           </div>
         </div>
-        <div class="canvas-wrap"><canvas id="popCanvas"></canvas></div>
+        <div class="canvas-wrap"><canvas id="popCanvas" role="img" aria-label="Distribution of individual population values">Population histogram.</canvas></div>
       </div>
 
       <div class="card chart-card">
@@ -543,22 +567,35 @@
             <span class="pill"><span class="dot yellow"></span>sample</span>
           </div>
         </div>
-        <div class="canvas-wrap"><canvas id="sampleCanvas"></canvas></div>
+        <div class="canvas-wrap"><canvas id="sampleCanvas" role="img" aria-label="Individual values in the current sample and its mean">Current sample and its mean.</canvas></div>
       </div>
 
       <div class="card chart-card">
         <div class="chart-head">
           <div>
             <h2 class="chart-title"><span class="step-num">3.</span>Sample means</h2>
-            <p class="chart-note">Averages from repeated samples.</p>
+            <p class="chart-note">One value per complete sample. More repetitions fill this histogram; increasing n changes its spread and shape.</p>
           </div>
           <div class="chart-legend">
             <span class="pill"><span class="dot purple"></span>x̄</span>
-            <span class="pill"><span class="dot green"></span>normal</span>
+            <span class="pill"><span class="dot green"></span>normal reference</span>
           </div>
         </div>
-        <div class="canvas-wrap"><canvas id="meansCanvas"></canvas></div>
+        <div class="canvas-wrap"><canvas id="meansCanvas" role="img" aria-label="Histogram of repeated sample means">Sampling distribution of the mean.</canvas></div>
       </div>
+    </section>
+
+    <section class="card history-card" aria-labelledby="historyTitle">
+      <div class="chart-head">
+        <div><h2 class="chart-title" id="historyTitle"><span class="step-num">4.</span>Repeated samples, one row at a time</h2>
+          <p class="chart-note" id="historyDescription">Each row shows the individual observations as amber circles and their sample mean as a purple diamond. The dashed line marks the fixed population mean μ. The same horizontal scale is used for observations and means.</p></div>
+      </div>
+      <div class="history-actions"><button id="historyOneBtn" type="button">Take 1 sample</button><button id="historyTenBtn" type="button" class="secondary">Take 10 samples</button><button id="historyClearBtn" type="button" class="ghost">Clear samples</button></div>
+      <p class="history-meta" id="historyCount">0 samples generated.</p>
+      <div class="canvas-wrap history-wrap"><canvas id="historyCanvas" role="img" aria-describedby="historyDescription historyReadout">A growing stack of samples and their means. The latest five means are also listed in the table below.</canvas></div>
+      <p class="history-meta" id="historyReadout" aria-live="polite">Take one sample to add the first row.</p>
+      <details><summary>Latest five sample means as a table</summary><table class="history-table"><thead><tr><th scope="col">Sample</th><th scope="col">Observations n</th><th scope="col">Mean</th></tr></thead><tbody id="historyRows"></tbody></table></details>
+      <p class="history-bridge">Keep n fixed while taking more samples to fill in one sampling distribution. Change n to begin a fresh set of samples and compare its spread. In the <a href="ci_demo.html">confidence interval demo</a>, each new sample contributes an interval to a similar accumulating display.</p>
     </section>
   </div>
 
@@ -569,7 +606,7 @@
       <button class="modal-close" data-close aria-label="Close">×</button>
       <h2 id="infoTitle">The Central Limit Theorem</h2>
       <p>
-        When we repeatedly take random samples of size n and compute the sample mean, those sample means tend toward an approximately normal distribution as n grows. This holds even when the original population is not normal.
+        When we repeatedly take random samples of size n and compute the sample mean, those sample means tend toward an approximately normal distribution as n grows. For independent observations from a common population with finite variance, this can hold even when the original population is skewed. The required sample size depends on its skewness and tails.
       </p>
       <p>
         Individual observations may be noisy; averages become more stable and predictable.
@@ -596,6 +633,10 @@
     const popCanvas = document.getElementById('popCanvas');
     const sampleCanvas = document.getElementById('sampleCanvas');
     const meansCanvas = document.getElementById('meansCanvas');
+    const historyCanvas = document.getElementById('historyCanvas');
+    const historyCount = document.getElementById('historyCount');
+    const historyReadout = document.getElementById('historyReadout');
+    const historyRows = document.getElementById('historyRows');
 
     const popMeanEl = document.getElementById('popMean');
     const popSdEl = document.getElementById('popSd');
@@ -611,6 +652,8 @@
     let population = [];
     let currentSample = [];
     let sampleMeans = [];
+    let sampleHistory = [];
+    let totalSamples = 0;
     let autoTimer = null;
 
     // ---- theme handling ----
@@ -713,7 +756,11 @@
         currentSample.push(x);
         sum += x;
       }
-      sampleMeans.push(sum / n);
+      const average = sum / n;
+      sampleMeans.push(average);
+      totalSamples++;
+      sampleHistory.push({ index: totalSamples, values: currentSample.slice(), mean: average });
+      if (sampleHistory.length > 24) sampleHistory = sampleHistory.slice(-24);
       if (sampleMeans.length > 20000) sampleMeans = sampleMeans.slice(-20000);
     }
     function sampleMany(k) {
@@ -725,9 +772,8 @@
       const counts = Array(bins).fill(0);
       const width = (max - min) / bins;
       for (const x of data) {
-        let idx = Math.floor((x - min) / width);
-        if (idx < 0 || idx >= bins) continue;
-        if (idx === bins) idx = bins - 1;
+        if (!Number.isFinite(x) || x < min || x > max) continue;
+        const idx = Math.min(bins - 1, Math.floor((x - min) / width));
         counts[idx]++;
       }
       return counts;
@@ -784,7 +830,9 @@
       const bins = options.bins || 34;
       const [min, max] = options.range || [0, 10];
       const counts = histogram(data, bins, min, max);
-      const yMax = Math.max(1, ...counts) * 1.12;
+      const referencePeak = options.normalOverlay && data.length > 2
+        ? data.length * (max - min) / bins / (Math.max(options.normalSigma, 0.0001) * Math.sqrt(2 * Math.PI)) : 0;
+      const yMax = Math.max(1, ...counts, referencePeak) * 1.12;
       const chartW = w - pad.left - pad.right;
       const chartH = h - pad.top - pad.bottom;
       const binW = chartW / bins;
@@ -839,7 +887,7 @@
       ctx.clearRect(0, 0, w, h);
       const C = readChartColors();
       const pad = { left: 38, right: 16, top: 18, bottom: 36 };
-      const [min, max] = [0, 10];
+      const [min, max] = distSelect.value === 'dice' ? [0.5, 6.5] : [0, 10];
       const chartW = w - pad.left - pad.right;
       const chartH = h - pad.top - pad.bottom;
 
@@ -872,6 +920,53 @@
       ctx.fillStyle = C.green;
       ctx.font = '13px system-ui, -apple-system, sans-serif';
       ctx.fillText('x̄ = ' + m.toFixed(2), Math.min(mx + 8, w - 90), pad.top + 14);
+    }
+
+
+    function drawSampleHistory() {
+      const { ctx, w, h } = prepCanvas(historyCanvas);
+      const C = readChartColors();
+      ctx.clearRect(0, 0, w, h);
+      const pad = { left: 58, right: 18, top: 36, bottom: 44 };
+      const [min, max] = distSelect.value === 'dice' ? [0.5, 6.5] : [0, 10];
+      const bottom = h - pad.bottom;
+      const xPos = value => pad.left + (value - min) / (max - min) * (w - pad.left - pad.right);
+      ctx.font = '12px system-ui, sans-serif';
+      for (let i = 0; i <= 4; i++) {
+        const value = min + (max - min) * i / 4, px = xPos(value);
+        ctx.strokeStyle = C.grid; ctx.lineWidth = 1;
+        ctx.beginPath(); ctx.moveTo(px, pad.top); ctx.lineTo(px, bottom); ctx.stroke();
+        ctx.fillStyle = C.muted; ctx.textAlign = 'center'; ctx.fillText(value.toFixed(1), px, bottom + 19);
+      }
+      ctx.strokeStyle = C.axis;ctx.beginPath();ctx.moveTo(pad.left,bottom);ctx.lineTo(w-pad.right,bottom);ctx.stroke();
+      ctx.fillStyle = C.muted;ctx.textAlign = 'left';ctx.fillText('Sample', 6, 20);
+      ctx.textAlign = 'center';ctx.fillText('Observation / sample mean', (pad.left+w-pad.right)/2, h-6);
+      if (population.length) {
+        const px = xPos(mean(population));
+        ctx.setLineDash([5,5]);ctx.strokeStyle=C.red;ctx.lineWidth=1.5;
+        ctx.beginPath();ctx.moveTo(px,pad.top);ctx.lineTo(px,bottom);ctx.stroke();ctx.setLineDash([]);
+        ctx.fillStyle=C.red;ctx.fillText('μ',px,20);
+      }
+      const slot = (bottom-pad.top)/24;
+      sampleHistory.forEach((sample,row) => {
+        const y=pad.top+(row+.5)*slot;
+        ctx.fillStyle=C.muted;ctx.font='11px system-ui, sans-serif';ctx.textAlign='right';ctx.fillText(sample.index,pad.left-10,y+4);
+        ctx.fillStyle=C.yellow;
+        sample.values.forEach((value,i) => {
+          ctx.beginPath();ctx.arc(xPos(value),y+((i%3)-1)*1.5,sample.values.length>40?1.8:2.7,0,2*Math.PI);ctx.fill();
+        });
+        const px=xPos(sample.mean),r=row===sampleHistory.length-1?6:4.7;
+        ctx.fillStyle=C.purple;ctx.beginPath();ctx.moveTo(px,y-r);ctx.lineTo(px+r,y);ctx.lineTo(px,y+r);ctx.lineTo(px-r,y);ctx.closePath();ctx.fill();
+      });
+      ctx.textAlign='left';
+      if (!sampleHistory.length) {ctx.fillStyle=C.muted;ctx.font='13px system-ui, sans-serif';ctx.fillText('Take 1 sample to add the first row.',pad.left+5,pad.top+40);}
+      historyCount.textContent = totalSamples + ' samples generated · ' + Number(nSlider.value) + ' observations per sample · showing the latest ' + sampleHistory.length + ' rows.';
+      const latest=sampleHistory[sampleHistory.length-1];
+      historyReadout.textContent = latest
+        ? 'Sample '+latest.index+': '+latest.values.length+' observations contribute one mean, '+latest.mean.toFixed(3)+'. The histogram contains '+sampleMeans.length+' sample means.'
+        : 'Take one sample to add the first row.';
+      historyRows.innerHTML = sampleHistory.slice(-5).map(sample => '<tr><th scope="row">'+sample.index+'</th><td>'+sample.values.length+'</td><td>'+sample.mean.toFixed(3)+'</td></tr>').join('');
+      historyCanvas.setAttribute('aria-label', totalSamples+' samples generated; '+sampleHistory.length+' recent samples and their means shown. '+historyReadout.textContent);
     }
 
     function updateStats() {
@@ -919,14 +1014,21 @@
         xLabel: 'x̄'
       });
 
+      drawSampleHistory();
       updateStats();
     }
 
-    function resetExperiment() {
-      population = generatePopulation(distSelect.value);
+    function clearSampling() {
+      if (autoTimer) toggleAuto();
       currentSample = [];
       sampleMeans = [];
+      sampleHistory = [];
+      totalSamples = 0;
       render();
+    }
+    function resetExperiment() {
+      population = generatePopulation(distSelect.value);
+      clearSampling();
     }
 
     function toggleAuto() {
@@ -947,20 +1049,19 @@
     }
 
     distSelect.addEventListener('change', resetExperiment);
-    nSlider.addEventListener('input', () => {
-      currentSample = [];
-      sampleMeans = [];
-      render();
-    });
+    nSlider.addEventListener('input', clearSampling);
     speedSlider.addEventListener('input', render);
     oneBtn.addEventListener('click', () => sampleMany(1));
     manyBtn.addEventListener('click', () => sampleMany(Number(speedSlider.value)));
     autoBtn.addEventListener('click', toggleAuto);
-    resetBtn.addEventListener('click', resetExperiment);
+    resetBtn.addEventListener('click', clearSampling);
+    document.getElementById('historyOneBtn').addEventListener('click', () => sampleMany(1));
+    document.getElementById('historyTenBtn').addEventListener('click', () => sampleMany(10));
+    document.getElementById('historyClearBtn').addEventListener('click', clearSampling);
 
     // observe each canvas container for size changes
     const ro = new ResizeObserver(() => render());
-    [popCanvas, sampleCanvas, meansCanvas].forEach(c => ro.observe(c.parentElement));
+    [popCanvas, sampleCanvas, meansCanvas, historyCanvas].forEach(c => ro.observe(c.parentElement));
     window.addEventListener('resize', () => render());
 
     resetExperiment();
