@@ -18,6 +18,21 @@ code{background:var(--soft);padding:.08rem .28rem;border-radius:5px}button{borde
 </style>
 <script>window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]],processEscapes:true},options:{skipHtmlTags:["script","noscript","style","textarea","pre","code"]}};</script>
 <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<style id="week5-visual-styles">
+/* Week 5 diagrams are embedded so saved pages retain their graphs. */
+.w5-visual{margin:20px 0;padding:14px 14px 12px;background:#fff;border:1px solid #cdd9df;border-radius:11px;break-inside:avoid;color:#182e40;font:16px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif;min-width:0;max-width:100%}
+.w5-visual .w5-plot{overflow-x:auto;max-width:100%;border-radius:5px}
+.w5-visual svg{display:block;width:100%;height:auto;min-width:420px;max-width:none}
+.w5-visual figcaption{font-size:.92em;margin-top:9px;color:#435969}
+.w5-visual figcaption b{display:block;color:#245a81;margin-bottom:3px}
+.w5-visual .w5-key{font-size:.85em;color:#536675;margin:8px 0 0}
+.w5-table-lookup{max-width:100%;overflow:auto;margin:16px 0}
+.w5-table-lookup table{border-collapse:collapse;background:#fff;font:15px/1.5 system-ui,sans-serif;width:100%}
+.w5-table-lookup th,.w5-table-lookup td{padding:9px;border:1px solid #cdd9df;text-align:center;color:#182e40}
+.w5-table-lookup .w5-selected{background:#dcefe9;font-weight:750;border:2px solid #287d76}
+@media(max-width:540px){.w5-visual{padding:10px 8px}.w5-visual figcaption{font-size:14px}.w5-visual .w5-key{font-size:12px}}
+@media print{.w5-visual{box-shadow:none;border:1px solid #aab6bf;break-inside:avoid;padding:8px;margin:12px 0;print-color-adjust:exact;-webkit-print-color-adjust:exact}.w5-visual .w5-plot{overflow:visible}.w5-visual svg{min-width:0;width:100%}.w5-visual figcaption{font-size:10pt}.w5-table-lookup{break-inside:avoid}.w5-table-lookup .w5-selected{print-color-adjust:exact;-webkit-print-color-adjust:exact}}
+</style>
 </head>
 <body>
 <header><a href="../index.html">← MATH&amp; 146 course</a><h1>Week 5 Discussion — How Many Frames Stay Unexplained?</h1><p>Build a confidence interval around a proportion without turning uncertainty into a supernatural conclusion.</p></header>
@@ -31,7 +46,1051 @@ code{background:var(--soft);padding:.08rem .28rem;border-radius:5px}button{borde
 <p>The group has an archive containing thousands of nighttime frames from comparable forest sites. Reviewing every image would be impractical, so the investigators randomly select <strong>200 frames</strong>. Each frame is examined using the same checklist. Images that can be classified as known animals, people, insects, lens flare, camera artifacts, or other ordinary sources are removed from the “unexplained” category.</p>
 <p>After the review, <strong>34 of the 200 frames</strong> remain labeled <em>unexplained after review</em>. That label is important: it means only that the team could not confidently identify the source using the available information. It does not mean that 34 photographs show a cryptid.</p>
 <p>Because these 200 frames are only a sample, the observed proportion 34/200 will not be exactly equal to the proportion we would obtain if every comparable image in the archive were reviewed. A confidence interval gives us a reasonable range of population proportions compatible with the sample.</p>
-<p><strong>The statistical question:</strong> What does this random sample suggest about the proportion of comparable archived images that would remain unexplained under the same review procedure, and how should we communicate the uncertainty in that estimate?</p></section>
+<p><strong>The statistical question:</strong> What does this random sample suggest about the proportion of comparable archived images that would remain unexplained under the same review procedure, and how should we communicate the uncertainty in that estimate?</p>
+<figure class="w5-visual" data-visual="w5-discussion-frames"><div class="w5-plot" tabindex="0" role="group" aria-label="The sample contains two review categories; scroll horizontally on narrow screens"><svg id="w5-discussion-frames" role="img" aria-labelledby="w5-discussion-frames-title w5-discussion-frames-desc" xmlns:xlink="http://www.w3.org/1999/xlink" width="504pt" height="295.2pt" viewBox="0 0 504 295.2" xmlns="http://www.w3.org/2000/svg" version="1.1">
+<title id="w5-discussion-frames-title">The sample contains two review categories</title><desc id="w5-discussion-frames-desc">The teal squares represent the 34 frames remaining unexplained after review; the gray squares represent the other 166 frames. These categories describe the review outcome. Use the sample counts to estimate the population proportion and construct its confidence interval.</desc>
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">#w5-discussion-frames *{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="w5-discussion-frames-figure_1">
+  <g id="w5-discussion-frames-patch_1">
+   <path d="M 0 295.2 L 504 295.2 L 504 0 L 0 0 z" style="fill: #ffffff"/>
+  </g>
+  <g id="w5-discussion-frames-axes_1">
+   <g id="w5-discussion-frames-PathCollection_1">
+    <defs>
+     <path id="w5-discussion-frames-mcfa9d447d2" d="M -4.031129 4.031129 L 4.031129 4.031129 L 4.031129 -4.031129 L -4.031129 -4.031129 z" style="stroke: #ffffff; stroke-width: 0.6"/>
+    </defs>
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-mcfa9d447d2" x="65.860364" y="52.330909" style="fill: #287d76; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_2">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-mcfa9d447d2" x="85.719273" y="52.330909" style="fill: #287d76; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_3">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-mcfa9d447d2" x="105.578182" y="52.330909" style="fill: #287d76; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_4">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-mcfa9d447d2" x="125.437091" y="52.330909" style="fill: #287d76; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_5">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-mcfa9d447d2" x="145.296" y="52.330909" style="fill: #287d76; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_6">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-mcfa9d447d2" x="165.154909" y="52.330909" style="fill: #287d76; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_7">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-mcfa9d447d2" x="185.013818" y="52.330909" style="fill: #287d76; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_8">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-mcfa9d447d2" x="204.872727" y="52.330909" style="fill: #287d76; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_9">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-mcfa9d447d2" x="224.731636" y="52.330909" style="fill: #287d76; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_10">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-mcfa9d447d2" x="244.590545" y="52.330909" style="fill: #287d76; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_11">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-mcfa9d447d2" x="264.449455" y="52.330909" style="fill: #287d76; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_12">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-mcfa9d447d2" x="284.308364" y="52.330909" style="fill: #287d76; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_13">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-mcfa9d447d2" x="304.167273" y="52.330909" style="fill: #287d76; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_14">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-mcfa9d447d2" x="324.026182" y="52.330909" style="fill: #287d76; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_15">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-mcfa9d447d2" x="343.885091" y="52.330909" style="fill: #287d76; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_16">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-mcfa9d447d2" x="363.744" y="52.330909" style="fill: #287d76; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_17">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-mcfa9d447d2" x="383.602909" y="52.330909" style="fill: #287d76; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_18">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-mcfa9d447d2" x="403.461818" y="52.330909" style="fill: #287d76; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_19">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-mcfa9d447d2" x="423.320727" y="52.330909" style="fill: #287d76; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_20">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-mcfa9d447d2" x="443.179636" y="52.330909" style="fill: #287d76; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_21">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-mcfa9d447d2" x="65.860364" y="72.189818" style="fill: #287d76; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_22">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-mcfa9d447d2" x="85.719273" y="72.189818" style="fill: #287d76; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_23">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-mcfa9d447d2" x="105.578182" y="72.189818" style="fill: #287d76; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_24">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-mcfa9d447d2" x="125.437091" y="72.189818" style="fill: #287d76; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_25">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-mcfa9d447d2" x="145.296" y="72.189818" style="fill: #287d76; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_26">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-mcfa9d447d2" x="165.154909" y="72.189818" style="fill: #287d76; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_27">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-mcfa9d447d2" x="185.013818" y="72.189818" style="fill: #287d76; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_28">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-mcfa9d447d2" x="204.872727" y="72.189818" style="fill: #287d76; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_29">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-mcfa9d447d2" x="224.731636" y="72.189818" style="fill: #287d76; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_30">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-mcfa9d447d2" x="244.590545" y="72.189818" style="fill: #287d76; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_31">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-mcfa9d447d2" x="264.449455" y="72.189818" style="fill: #287d76; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_32">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-mcfa9d447d2" x="284.308364" y="72.189818" style="fill: #287d76; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_33">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-mcfa9d447d2" x="304.167273" y="72.189818" style="fill: #287d76; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_34">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-mcfa9d447d2" x="324.026182" y="72.189818" style="fill: #287d76; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_35">
+    <defs>
+     <path id="w5-discussion-frames-m7b5513b5e5" d="M -4.031129 4.031129 L 4.031129 4.031129 L 4.031129 -4.031129 L -4.031129 -4.031129 z" style="stroke: #ffffff; stroke-width: 0.6"/>
+    </defs>
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="343.885091" y="72.189818" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_36">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="363.744" y="72.189818" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_37">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="383.602909" y="72.189818" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_38">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="403.461818" y="72.189818" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_39">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="423.320727" y="72.189818" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_40">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="443.179636" y="72.189818" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_41">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="65.860364" y="92.048727" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_42">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="85.719273" y="92.048727" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_43">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="105.578182" y="92.048727" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_44">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="125.437091" y="92.048727" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_45">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="145.296" y="92.048727" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_46">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="165.154909" y="92.048727" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_47">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="185.013818" y="92.048727" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_48">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="204.872727" y="92.048727" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_49">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="224.731636" y="92.048727" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_50">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="244.590545" y="92.048727" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_51">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="264.449455" y="92.048727" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_52">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="284.308364" y="92.048727" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_53">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="304.167273" y="92.048727" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_54">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="324.026182" y="92.048727" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_55">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="343.885091" y="92.048727" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_56">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="363.744" y="92.048727" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_57">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="383.602909" y="92.048727" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_58">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="403.461818" y="92.048727" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_59">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="423.320727" y="92.048727" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_60">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="443.179636" y="92.048727" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_61">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="65.860364" y="111.907636" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_62">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="85.719273" y="111.907636" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_63">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="105.578182" y="111.907636" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_64">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="125.437091" y="111.907636" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_65">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="145.296" y="111.907636" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_66">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="165.154909" y="111.907636" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_67">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="185.013818" y="111.907636" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_68">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="204.872727" y="111.907636" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_69">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="224.731636" y="111.907636" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_70">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="244.590545" y="111.907636" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_71">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="264.449455" y="111.907636" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_72">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="284.308364" y="111.907636" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_73">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="304.167273" y="111.907636" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_74">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="324.026182" y="111.907636" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_75">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="343.885091" y="111.907636" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_76">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="363.744" y="111.907636" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_77">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="383.602909" y="111.907636" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_78">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="403.461818" y="111.907636" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_79">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="423.320727" y="111.907636" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_80">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="443.179636" y="111.907636" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_81">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="65.860364" y="131.766545" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_82">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="85.719273" y="131.766545" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_83">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="105.578182" y="131.766545" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_84">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="125.437091" y="131.766545" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_85">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="145.296" y="131.766545" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_86">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="165.154909" y="131.766545" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_87">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="185.013818" y="131.766545" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_88">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="204.872727" y="131.766545" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_89">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="224.731636" y="131.766545" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_90">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="244.590545" y="131.766545" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_91">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="264.449455" y="131.766545" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_92">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="284.308364" y="131.766545" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_93">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="304.167273" y="131.766545" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_94">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="324.026182" y="131.766545" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_95">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="343.885091" y="131.766545" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_96">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="363.744" y="131.766545" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_97">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="383.602909" y="131.766545" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_98">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="403.461818" y="131.766545" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_99">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="423.320727" y="131.766545" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_100">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="443.179636" y="131.766545" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_101">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="65.860364" y="151.625455" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_102">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="85.719273" y="151.625455" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_103">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="105.578182" y="151.625455" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_104">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="125.437091" y="151.625455" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_105">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="145.296" y="151.625455" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_106">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="165.154909" y="151.625455" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_107">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="185.013818" y="151.625455" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_108">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="204.872727" y="151.625455" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_109">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="224.731636" y="151.625455" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_110">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="244.590545" y="151.625455" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_111">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="264.449455" y="151.625455" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_112">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="284.308364" y="151.625455" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_113">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="304.167273" y="151.625455" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_114">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="324.026182" y="151.625455" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_115">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="343.885091" y="151.625455" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_116">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="363.744" y="151.625455" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_117">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="383.602909" y="151.625455" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_118">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="403.461818" y="151.625455" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_119">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="423.320727" y="151.625455" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_120">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="443.179636" y="151.625455" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_121">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="65.860364" y="171.484364" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_122">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="85.719273" y="171.484364" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_123">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="105.578182" y="171.484364" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_124">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="125.437091" y="171.484364" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_125">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="145.296" y="171.484364" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_126">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="165.154909" y="171.484364" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_127">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="185.013818" y="171.484364" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_128">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="204.872727" y="171.484364" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_129">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="224.731636" y="171.484364" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_130">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="244.590545" y="171.484364" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_131">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="264.449455" y="171.484364" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_132">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="284.308364" y="171.484364" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_133">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="304.167273" y="171.484364" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_134">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="324.026182" y="171.484364" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_135">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="343.885091" y="171.484364" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_136">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="363.744" y="171.484364" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_137">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="383.602909" y="171.484364" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_138">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="403.461818" y="171.484364" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_139">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="423.320727" y="171.484364" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_140">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="443.179636" y="171.484364" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_141">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="65.860364" y="191.343273" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_142">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="85.719273" y="191.343273" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_143">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="105.578182" y="191.343273" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_144">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="125.437091" y="191.343273" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_145">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="145.296" y="191.343273" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_146">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="165.154909" y="191.343273" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_147">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="185.013818" y="191.343273" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_148">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="204.872727" y="191.343273" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_149">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="224.731636" y="191.343273" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_150">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="244.590545" y="191.343273" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_151">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="264.449455" y="191.343273" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_152">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="284.308364" y="191.343273" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_153">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="304.167273" y="191.343273" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_154">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="324.026182" y="191.343273" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_155">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="343.885091" y="191.343273" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_156">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="363.744" y="191.343273" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_157">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="383.602909" y="191.343273" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_158">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="403.461818" y="191.343273" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_159">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="423.320727" y="191.343273" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_160">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="443.179636" y="191.343273" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_161">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="65.860364" y="211.202182" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_162">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="85.719273" y="211.202182" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_163">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="105.578182" y="211.202182" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_164">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="125.437091" y="211.202182" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_165">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="145.296" y="211.202182" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_166">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="165.154909" y="211.202182" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_167">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="185.013818" y="211.202182" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_168">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="204.872727" y="211.202182" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_169">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="224.731636" y="211.202182" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_170">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="244.590545" y="211.202182" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_171">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="264.449455" y="211.202182" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_172">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="284.308364" y="211.202182" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_173">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="304.167273" y="211.202182" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_174">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="324.026182" y="211.202182" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_175">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="343.885091" y="211.202182" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_176">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="363.744" y="211.202182" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_177">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="383.602909" y="211.202182" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_178">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="403.461818" y="211.202182" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_179">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="423.320727" y="211.202182" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_180">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="443.179636" y="211.202182" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_181">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="65.860364" y="231.061091" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_182">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="85.719273" y="231.061091" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_183">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="105.578182" y="231.061091" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_184">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="125.437091" y="231.061091" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_185">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="145.296" y="231.061091" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_186">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="165.154909" y="231.061091" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_187">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="185.013818" y="231.061091" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_188">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="204.872727" y="231.061091" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_189">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="224.731636" y="231.061091" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_190">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="244.590545" y="231.061091" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_191">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="264.449455" y="231.061091" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_192">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="284.308364" y="231.061091" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_193">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="304.167273" y="231.061091" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_194">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="324.026182" y="231.061091" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_195">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="343.885091" y="231.061091" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_196">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="363.744" y="231.061091" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_197">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="383.602909" y="231.061091" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_198">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="403.461818" y="231.061091" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_199">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="423.320727" y="231.061091" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-PathCollection_200">
+    <g clip-path="url(#w5-discussion-frames-p9971a7be0b)">
+     <use xlink:href="#w5-discussion-frames-m7b5513b5e5" x="443.179636" y="231.061091" style="fill: #d5dfe5; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w5-discussion-frames-text_1">
+    <text style="font-size: 12px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="254.52" y="25.91856" transform="rotate(-0 254.52 25.91856)">34 in the focal category; 166 in the other category</text>
+   </g>
+   <g id="w5-discussion-frames-text_2">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="254.52" y="268.39584" transform="rotate(-0 254.52 268.39584)">Each square represents one observation; n = 200</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="w5-discussion-frames-p9971a7be0b">
+   <rect x="46.001455" y="32.472" width="417.037091" height="218.448"/>
+  </clipPath>
+ </defs>
+</svg></div><figcaption><b>The sample contains two review categories</b>The teal squares represent the 34 frames remaining unexplained after review; the gray squares represent the other 166 frames. These categories describe the review outcome. Use the sample counts to estimate the population proportion and construct its confidence interval.</figcaption></figure>
+</section>
 <section class="panel"><div class="kicker">Initial post</div><h2>What to include</h2><ol class="tasks"><li>Compute the sample proportion p̂.</li><li>Compute the standard error SE = √(p̂(1−p̂)/n).</li><li>Construct an approximate 95% confidence interval using p̂ ± 1.96(SE).</li><li>Interpret the interval in the language of the archive and review procedure.</li><li>Explain what the confidence interval does not tell you about the cause of the unexplained frames.</li></ol></section>
 <section class="panel"><div class="kicker">Replies</div><h2>Engage with classmates’ statistics</h2><div class="reply">Check a classmate’s interval endpoints. Then compare interpretations: does the wording correctly describe uncertainty about a population proportion, or does it accidentally claim more about the unexplained images than the data establish?</div><p class="small">A useful reply checks a calculation, compares methods or assumptions, or asks a statistically specific question. Avoid replies that only say that you agree.</p></section>
 <section class="panel"><button onclick="window.print()">Print this discussion prompt</button></section>

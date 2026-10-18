@@ -150,6 +150,21 @@ textarea.code-input{display:block;width:100%;min-height:145px;margin:14px 0 0;pa
 @media(max-width:540px){.w4-visual{padding:10px 8px}.w4-visual figcaption{font-size:14px}.w4-visual .w4-key{font-size:12px}}
 @media print{.w4-visual{box-shadow:none;border:1px solid #aab6bf;break-inside:avoid;padding:8px;margin:12px 0;print-color-adjust:exact;-webkit-print-color-adjust:exact}.w4-visual .w4-plot{overflow:visible}.w4-visual svg{min-width:0;width:100%}.w4-visual figcaption{font-size:10pt}.w4-table-lookup{break-inside:avoid}.w4-table-lookup .w4-selected{print-color-adjust:exact;-webkit-print-color-adjust:exact}}
 </style>
+<style id="week5-visual-styles">
+/* Week 5 diagrams are embedded so saved pages retain their graphs. */
+.w5-visual{margin:20px 0;padding:14px 14px 12px;background:#fff;border:1px solid #cdd9df;border-radius:11px;break-inside:avoid;color:#182e40;font:16px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif;min-width:0;max-width:100%}
+.w5-visual .w5-plot{overflow-x:auto;max-width:100%;border-radius:5px}
+.w5-visual svg{display:block;width:100%;height:auto;min-width:420px;max-width:none}
+.w5-visual figcaption{font-size:.92em;margin-top:9px;color:#435969}
+.w5-visual figcaption b{display:block;color:#245a81;margin-bottom:3px}
+.w5-visual .w5-key{font-size:.85em;color:#536675;margin:8px 0 0}
+.w5-table-lookup{max-width:100%;overflow:auto;margin:16px 0}
+.w5-table-lookup table{border-collapse:collapse;background:#fff;font:15px/1.5 system-ui,sans-serif;width:100%}
+.w5-table-lookup th,.w5-table-lookup td{padding:9px;border:1px solid #cdd9df;text-align:center;color:#182e40}
+.w5-table-lookup .w5-selected{background:#dcefe9;font-weight:750;border:2px solid #287d76}
+@media(max-width:540px){.w5-visual{padding:10px 8px}.w5-visual figcaption{font-size:14px}.w5-visual .w5-key{font-size:12px}}
+@media print{.w5-visual{box-shadow:none;border:1px solid #aab6bf;break-inside:avoid;padding:8px;margin:12px 0;print-color-adjust:exact;-webkit-print-color-adjust:exact}.w5-visual .w5-plot{overflow:visible}.w5-visual svg{min-width:0;width:100%}.w5-visual figcaption{font-size:10pt}.w5-table-lookup{break-inside:avoid}.w5-table-lookup .w5-selected{print-color-adjust:exact;-webkit-print-color-adjust:exact}}
+</style>
 </head>
 <body>
 <div class="shell">
@@ -2570,6 +2585,237 @@ upper = xbar + margin_error</div>
 </section><section class="lesson" id="ci-confidence-width" data-cell-link="ci-confidence-width">
   <h3>Compare interval widths</h3>
   <p class="lesson-copy">Keep the same data and change only the confidence level. The larger critical value should make the interval wider.</p>
+<figure class="w5-visual" data-visual="w5-python-width"><div class="w5-plot" tabindex="0" role="group" aria-label="Change confidence while holding the data fixed; scroll horizontally on narrow screens"><svg id="w5-python-width" role="img" aria-labelledby="w5-python-width-title w5-python-width-desc" xmlns:xlink="http://www.w3.org/1999/xlink" width="504pt" height="248.4pt" viewBox="0 0 504 248.4" xmlns="http://www.w3.org/2000/svg" version="1.1">
+<title id="w5-python-width-title">Change confidence while holding the data fixed</title><desc id="w5-python-width-desc">Reference example: the same point estimate 50 and SE = 2 produce three different widths. Apply this comparison to the package-weight parameters in the task below.</desc>
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">#w5-python-width *{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="w5-python-width-figure_1">
+  <g id="w5-python-width-patch_1">
+   <path d="M 0 248.4 L 504 248.4 L 504 0 L 0 0 z" style="fill: #ffffff"/>
+  </g>
+  <g id="w5-python-width-axes_1">
+   <g id="w5-python-width-patch_2">
+    <path d="M 95.76 186.3 L 483.84 186.3 L 483.84 44.712 L 95.76 44.712 z" style="fill: #ffffff"/>
+   </g>
+   <g id="w5-python-width-matplotlib.axis_1">
+    <g id="w5-python-width-xtick_1">
+     <g id="w5-python-width-line2d_1">
+      <defs>
+       <path id="w5-python-width-mc1a2571991" d="M 0 0 L 0 3.5" style="stroke: #536675; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#w5-python-width-mc1a2571991" x="101.472303" y="186.3" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w5-python-width-text_1">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="101.472303" y="201.658281" transform="rotate(-0 101.472303 201.658281)">42</text>
+     </g>
+    </g>
+    <g id="w5-python-width-xtick_2">
+     <g id="w5-python-width-line2d_2">
+      <g>
+       <use xlink:href="#w5-python-width-mc1a2571991" x="148.554227" y="186.3" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w5-python-width-text_2">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="148.554227" y="201.658281" transform="rotate(-0 148.554227 201.658281)">44</text>
+     </g>
+    </g>
+    <g id="w5-python-width-xtick_3">
+     <g id="w5-python-width-line2d_3">
+      <g>
+       <use xlink:href="#w5-python-width-mc1a2571991" x="195.636152" y="186.3" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w5-python-width-text_3">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="195.636152" y="201.658281" transform="rotate(-0 195.636152 201.658281)">46</text>
+     </g>
+    </g>
+    <g id="w5-python-width-xtick_4">
+     <g id="w5-python-width-line2d_4">
+      <g>
+       <use xlink:href="#w5-python-width-mc1a2571991" x="242.718076" y="186.3" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w5-python-width-text_4">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="242.718076" y="201.658281" transform="rotate(-0 242.718076 201.658281)">48</text>
+     </g>
+    </g>
+    <g id="w5-python-width-xtick_5">
+     <g id="w5-python-width-line2d_5">
+      <g>
+       <use xlink:href="#w5-python-width-mc1a2571991" x="289.8" y="186.3" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w5-python-width-text_5">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="289.8" y="201.658281" transform="rotate(-0 289.8 201.658281)">50</text>
+     </g>
+    </g>
+    <g id="w5-python-width-xtick_6">
+     <g id="w5-python-width-line2d_6">
+      <g>
+       <use xlink:href="#w5-python-width-mc1a2571991" x="336.881924" y="186.3" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w5-python-width-text_6">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="336.881924" y="201.658281" transform="rotate(-0 336.881924 201.658281)">52</text>
+     </g>
+    </g>
+    <g id="w5-python-width-xtick_7">
+     <g id="w5-python-width-line2d_7">
+      <g>
+       <use xlink:href="#w5-python-width-mc1a2571991" x="383.963848" y="186.3" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w5-python-width-text_7">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="383.963848" y="201.658281" transform="rotate(-0 383.963848 201.658281)">54</text>
+     </g>
+    </g>
+    <g id="w5-python-width-xtick_8">
+     <g id="w5-python-width-line2d_8">
+      <g>
+       <use xlink:href="#w5-python-width-mc1a2571991" x="431.045773" y="186.3" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w5-python-width-text_8">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="431.045773" y="201.658281" transform="rotate(-0 431.045773 201.658281)">56</text>
+     </g>
+    </g>
+    <g id="w5-python-width-xtick_9">
+     <g id="w5-python-width-line2d_9">
+      <g>
+       <use xlink:href="#w5-python-width-mc1a2571991" x="478.127697" y="186.3" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w5-python-width-text_9">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="478.127697" y="201.658281" transform="rotate(-0 478.127697 201.658281)">58</text>
+     </g>
+    </g>
+    <g id="w5-python-width-text_10">
+     <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="289.8" y="222.443984" transform="rotate(-0 289.8 222.443984)">Population mean</text>
+    </g>
+   </g>
+   <g id="w5-python-width-matplotlib.axis_2">
+    <g id="w5-python-width-ytick_1">
+     <g id="w5-python-width-line2d_10">
+      <defs>
+       <path id="w5-python-width-m5653a548e7" d="M 0 0 L -3.5 0" style="stroke: #536675; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#w5-python-width-m5653a548e7" x="95.76" y="68.31" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w5-python-width-text_11">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #536675" x="88.76" y="72.489141" transform="rotate(-0 88.76 72.489141)">90%</text>
+     </g>
+    </g>
+    <g id="w5-python-width-ytick_2">
+     <g id="w5-python-width-line2d_11">
+      <g>
+       <use xlink:href="#w5-python-width-m5653a548e7" x="95.76" y="115.506" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w5-python-width-text_12">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #536675" x="88.76" y="119.685141" transform="rotate(-0 88.76 119.685141)">95%</text>
+     </g>
+    </g>
+    <g id="w5-python-width-ytick_3">
+     <g id="w5-python-width-line2d_12">
+      <g>
+       <use xlink:href="#w5-python-width-m5653a548e7" x="95.76" y="162.702" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w5-python-width-text_13">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #536675" x="88.76" y="166.881141" transform="rotate(-0 88.76 166.881141)">99%</text>
+     </g>
+    </g>
+   </g>
+   <g id="w5-python-width-LineCollection_1">
+    <path d="M 212.357126 68.31 L 367.242874 68.31" clip-path="url(#w5-python-width-pb312108620)" style="fill: none; stroke: #245a81; stroke-width: 2.8"/>
+   </g>
+   <g id="w5-python-width-LineCollection_2">
+    <path d="M 212.357126 63.5904 L 212.357126 73.0296" clip-path="url(#w5-python-width-pb312108620)" style="fill: none; stroke: #245a81; stroke-width: 1.4"/>
+    <path d="M 367.242874 63.5904 L 367.242874 73.0296" clip-path="url(#w5-python-width-pb312108620)" style="fill: none; stroke: #245a81; stroke-width: 1.4"/>
+   </g>
+   <g id="w5-python-width-LineCollection_3">
+    <path d="M 197.521124 115.506 L 382.078876 115.506" clip-path="url(#w5-python-width-pb312108620)" style="fill: none; stroke: #287d76; stroke-width: 2.8"/>
+   </g>
+   <g id="w5-python-width-LineCollection_4">
+    <path d="M 197.521124 110.7864 L 197.521124 120.2256" clip-path="url(#w5-python-width-pb312108620)" style="fill: none; stroke: #287d76; stroke-width: 1.4"/>
+    <path d="M 382.078876 110.7864 L 382.078876 120.2256" clip-path="url(#w5-python-width-pb312108620)" style="fill: none; stroke: #287d76; stroke-width: 1.4"/>
+   </g>
+   <g id="w5-python-width-LineCollection_5">
+    <path d="M 168.525 162.702 L 411.075 162.702" clip-path="url(#w5-python-width-pb312108620)" style="fill: none; stroke: #ad6b15; stroke-width: 2.8"/>
+   </g>
+   <g id="w5-python-width-LineCollection_6">
+    <path d="M 168.525 157.9824 L 168.525 167.4216" clip-path="url(#w5-python-width-pb312108620)" style="fill: none; stroke: #ad6b15; stroke-width: 1.4"/>
+    <path d="M 411.075 157.9824 L 411.075 167.4216" clip-path="url(#w5-python-width-pb312108620)" style="fill: none; stroke: #ad6b15; stroke-width: 1.4"/>
+   </g>
+   <g id="w5-python-width-line2d_13">
+    <path d="M 289.8 186.3 L 289.8 44.712" clip-path="url(#w5-python-width-pb312108620)" style="fill: none; stroke-dasharray: 3.7,1.6; stroke-dashoffset: 0; stroke: #536675"/>
+   </g>
+   <g id="w5-python-width-patch_3">
+    <path d="M 95.76 186.3 L 483.84 186.3" style="fill: none; stroke: #80919c; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="w5-python-width-text_14">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #245a81" x="479.9592" y="76.80528" transform="rotate(-0 479.9592 76.80528)">ME = 3.29</text>
+   </g>
+   <g id="w5-python-width-text_15">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #287d76" x="479.9592" y="124.00128" transform="rotate(-0 479.9592 124.00128)">ME = 3.92</text>
+   </g>
+   <g id="w5-python-width-text_16">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #ad6b15" x="479.9592" y="171.19728" transform="rotate(-0 479.9592 171.19728)">ME = 5.15</text>
+   </g>
+   <g id="w5-python-width-text_17">
+    <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="289.8" y="24.88968" transform="rotate(-0 289.8 24.88968)">Same point estimate = 50</text>
+   </g>
+   <g id="w5-python-width-PathCollection_1">
+    <defs>
+     <path id="w5-python-width-m5d02f8b543" d="M 0 2.95804 C 0.784481 2.95804 1.536938 2.646362 2.09165 2.09165 C 2.646362 1.536938 2.95804 0.784481 2.95804 0 C 2.95804 -0.784481 2.646362 -1.536938 2.09165 -2.09165 C 1.536938 -2.646362 0.784481 -2.95804 0 -2.95804 C -0.784481 -2.95804 -1.536938 -2.646362 -2.09165 -2.09165 C -2.646362 -1.536938 -2.95804 -0.784481 -2.95804 0 C -2.95804 0.784481 -2.646362 1.536938 -2.09165 2.09165 C -1.536938 2.646362 -0.784481 2.95804 0 2.95804 z" style="stroke: #245a81"/>
+    </defs>
+    <g clip-path="url(#w5-python-width-pb312108620)">
+     <use xlink:href="#w5-python-width-m5d02f8b543" x="289.8" y="68.31" style="fill: #245a81; stroke: #245a81"/>
+    </g>
+   </g>
+   <g id="w5-python-width-PathCollection_2">
+    <defs>
+     <path id="w5-python-width-m463fae42d2" d="M 0 2.95804 C 0.784481 2.95804 1.536938 2.646362 2.09165 2.09165 C 2.646362 1.536938 2.95804 0.784481 2.95804 0 C 2.95804 -0.784481 2.646362 -1.536938 2.09165 -2.09165 C 1.536938 -2.646362 0.784481 -2.95804 0 -2.95804 C -0.784481 -2.95804 -1.536938 -2.646362 -2.09165 -2.09165 C -2.646362 -1.536938 -2.95804 -0.784481 -2.95804 0 C -2.95804 0.784481 -2.646362 1.536938 -2.09165 2.09165 C -1.536938 2.646362 -0.784481 2.95804 0 2.95804 z" style="stroke: #287d76"/>
+    </defs>
+    <g clip-path="url(#w5-python-width-pb312108620)">
+     <use xlink:href="#w5-python-width-m463fae42d2" x="289.8" y="115.506" style="fill: #287d76; stroke: #287d76"/>
+    </g>
+   </g>
+   <g id="w5-python-width-PathCollection_3">
+    <defs>
+     <path id="w5-python-width-m5929aebd77" d="M 0 2.95804 C 0.784481 2.95804 1.536938 2.646362 2.09165 2.09165 C 2.646362 1.536938 2.95804 0.784481 2.95804 0 C 2.95804 -0.784481 2.646362 -1.536938 2.09165 -2.09165 C 1.536938 -2.646362 0.784481 -2.95804 0 -2.95804 C -0.784481 -2.95804 -1.536938 -2.646362 -2.09165 -2.09165 C -2.646362 -1.536938 -2.95804 -0.784481 -2.95804 0 C -2.95804 0.784481 -2.646362 1.536938 -2.09165 2.09165 C -1.536938 2.646362 -0.784481 2.95804 0 2.95804 z" style="stroke: #ad6b15"/>
+    </defs>
+    <g clip-path="url(#w5-python-width-pb312108620)">
+     <use xlink:href="#w5-python-width-m5929aebd77" x="289.8" y="162.702" style="fill: #ad6b15; stroke: #ad6b15"/>
+    </g>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="w5-python-width-pb312108620">
+   <rect x="95.76" y="44.712" width="388.08" height="141.588"/>
+  </clipPath>
+ </defs>
+</svg></div><figcaption><b>Change confidence while holding the data fixed</b>Reference example: the same point estimate 50 and SE = 2 produce three different widths. Apply this comparison to the package-weight parameters in the task below.</figcaption></figure>
+
 <div class="cell" data-cell-id="ci-confidence-width">
     <div class="cell-head"><span class="cell-label">cell 36 — compare 90% and 99% intervals</span><span class="cell-state">not checked</span></div>
     <div class="task"><p>For \(\bar x=12.4\), \(\sigma=1.2\), and \(n=64\), compute the widths of the 90% and 99% intervals.</p><button class="text-button hint-toggle" type="button">hint</button></div>
@@ -2629,7 +2875,7 @@ required_n = math.ceil(raw_n)</div>
   </div>
 </section><section class="lesson" id="ci-proportion-conditions" data-cell-link="ci-proportion-conditions">
   <h3>Estimate a proportion and check conditions</h3>
-  <p class="lesson-copy">For a yes/no variable, the estimate is the sample proportion <code>successes / n</code>. Count expected successes and failures before using the normal approximation.</p>
+  <p class="lesson-copy">For a yes/no variable, the estimate is the sample proportion <code>successes / n</code>. Check the observed numbers of successes and failures before using the normal approximation.</p>
 <div class="cell" data-cell-id="ci-proportion-conditions">
     <div class="cell-head"><span class="cell-label">cell 38 — sample proportion and conditions</span><span class="cell-state">not checked</span></div>
     <div class="task"><p>In a survey of 250 adults, 145 report checking the forecast daily. Compute \(\hat p\), the success count, and the failure count.</p><button class="text-button hint-toggle" type="button">hint</button></div>
@@ -2686,6 +2932,498 @@ upper = phat + margin_error</div>
 </section><section class="lesson" id="ci-repeated-sampling" data-cell-link="ci-repeated-sampling">
   <h3>Watch repeated intervals capture the mean</h3>
   <p class="lesson-copy">A 95% method does not make the fixed parameter random. Repeat the sampling process and watch most—but not all—of the intervals capture the same population mean.</p>
+<figure class="w5-visual" data-visual="w5-python-coverage"><div class="w5-plot" tabindex="0" role="group" aria-label="A picture of the repeated-interval simulation; scroll horizontally on narrow screens"><svg id="w5-python-coverage" role="img" aria-labelledby="w5-python-coverage-title w5-python-coverage-desc" xmlns:xlink="http://www.w3.org/1999/xlink" width="504pt" height="450pt" viewBox="0 0 504 450" xmlns="http://www.w3.org/2000/svg" version="1.1">
+<title id="w5-python-coverage-title">A picture of the repeated-interval simulation</title><desc id="w5-python-coverage-desc">Intervals vary around one fixed population mean. Solid teal intervals with dots capture the mean; dashed rust intervals with crosses miss it. The displayed intervals capture μ 37 times out of 40. Across all 100 simulated intervals, 95 capture μ.</desc>
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">#w5-python-coverage *{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="w5-python-coverage-figure_1">
+  <g id="w5-python-coverage-patch_1">
+   <path d="M 0 450 L 504 450 L 504 0 L 0 0 z" style="fill: #ffffff"/>
+  </g>
+  <g id="w5-python-coverage-axes_1">
+   <g id="w5-python-coverage-patch_2">
+    <path d="M 65.52 387 L 493.92 387 L 493.92 58.5 L 65.52 58.5 z" style="fill: #ffffff"/>
+   </g>
+   <g id="w5-python-coverage-matplotlib.axis_1">
+    <g id="w5-python-coverage-xtick_1">
+     <g id="w5-python-coverage-line2d_1">
+      <defs>
+       <path id="w5-python-coverage-m215d4e0a36" d="M 0 0 L 0 3.5" style="stroke: #536675; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#w5-python-coverage-m215d4e0a36" x="104.08503" y="387" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w5-python-coverage-text_1">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="104.08503" y="402.358281" transform="rotate(-0 104.08503 402.358281)">6</text>
+     </g>
+    </g>
+    <g id="w5-python-coverage-xtick_2">
+     <g id="w5-python-coverage-line2d_2">
+      <g>
+       <use xlink:href="#w5-python-coverage-m215d4e0a36" x="196.233059" y="387" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w5-python-coverage-text_2">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="196.233059" y="402.358281" transform="rotate(-0 196.233059 402.358281)">6.5</text>
+     </g>
+    </g>
+    <g id="w5-python-coverage-xtick_3">
+     <g id="w5-python-coverage-line2d_3">
+      <g>
+       <use xlink:href="#w5-python-coverage-m215d4e0a36" x="288.381087" y="387" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w5-python-coverage-text_3">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="288.381087" y="402.358281" transform="rotate(-0 288.381087 402.358281)">7</text>
+     </g>
+    </g>
+    <g id="w5-python-coverage-xtick_4">
+     <g id="w5-python-coverage-line2d_4">
+      <g>
+       <use xlink:href="#w5-python-coverage-m215d4e0a36" x="380.529115" y="387" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w5-python-coverage-text_4">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="380.529115" y="402.358281" transform="rotate(-0 380.529115 402.358281)">7.5</text>
+     </g>
+    </g>
+    <g id="w5-python-coverage-xtick_5">
+     <g id="w5-python-coverage-line2d_5">
+      <g>
+       <use xlink:href="#w5-python-coverage-m215d4e0a36" x="472.677144" y="387" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w5-python-coverage-text_5">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="472.677144" y="402.358281" transform="rotate(-0 472.677144 402.358281)">8</text>
+     </g>
+    </g>
+    <g id="w5-python-coverage-text_6">
+     <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="279.72" y="423.143984" transform="rotate(-0 279.72 423.143984)">Interval for the population mean</text>
+    </g>
+   </g>
+   <g id="w5-python-coverage-matplotlib.axis_2">
+    <g id="w5-python-coverage-ytick_1">
+     <g id="w5-python-coverage-line2d_6">
+      <defs>
+       <path id="w5-python-coverage-me60f08f204" d="M 0 0 L -3.5 0" style="stroke: #536675; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#w5-python-coverage-me60f08f204" x="65.52" y="66.512195" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w5-python-coverage-text_7">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #536675" x="58.52" y="70.691336" transform="rotate(-0 58.52 70.691336)">1</text>
+     </g>
+    </g>
+    <g id="w5-python-coverage-ytick_2">
+     <g id="w5-python-coverage-line2d_7">
+      <g>
+       <use xlink:href="#w5-python-coverage-me60f08f204" x="65.52" y="138.621951" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w5-python-coverage-text_8">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #536675" x="58.52" y="142.801092" transform="rotate(-0 58.52 142.801092)">10</text>
+     </g>
+    </g>
+    <g id="w5-python-coverage-ytick_3">
+     <g id="w5-python-coverage-line2d_8">
+      <g>
+       <use xlink:href="#w5-python-coverage-me60f08f204" x="65.52" y="218.743902" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w5-python-coverage-text_9">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #536675" x="58.52" y="222.923043" transform="rotate(-0 58.52 222.923043)">20</text>
+     </g>
+    </g>
+    <g id="w5-python-coverage-ytick_4">
+     <g id="w5-python-coverage-line2d_9">
+      <g>
+       <use xlink:href="#w5-python-coverage-me60f08f204" x="65.52" y="298.865854" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w5-python-coverage-text_10">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #536675" x="58.52" y="303.044994" transform="rotate(-0 58.52 303.044994)">30</text>
+     </g>
+    </g>
+    <g id="w5-python-coverage-ytick_5">
+     <g id="w5-python-coverage-line2d_10">
+      <g>
+       <use xlink:href="#w5-python-coverage-me60f08f204" x="65.52" y="378.987805" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w5-python-coverage-text_11">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #536675" x="58.52" y="383.166946" transform="rotate(-0 58.52 383.166946)">40</text>
+     </g>
+    </g>
+    <g id="w5-python-coverage-text_12">
+     <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="37.922891" y="222.75" transform="rotate(-90 37.922891 222.75)">Repeated sample</text>
+    </g>
+   </g>
+   <g id="w5-python-coverage-line2d_11">
+    <path d="M 111.148892 66.512195 L 291.759028 66.512195" clip-path="url(#w5-python-coverage-p7fd184474e)" style="fill: none; stroke: #287d76; stroke-width: 1.6; stroke-linecap: square"/>
+   </g>
+   <g id="w5-python-coverage-line2d_12">
+    <path d="M 179.976894 74.52439 L 360.587029 74.52439" clip-path="url(#w5-python-coverage-p7fd184474e)" style="fill: none; stroke: #287d76; stroke-width: 1.6; stroke-linecap: square"/>
+   </g>
+   <g id="w5-python-coverage-line2d_13">
+    <path d="M 184.086699 82.536585 L 364.696835 82.536585" clip-path="url(#w5-python-coverage-p7fd184474e)" style="fill: none; stroke: #287d76; stroke-width: 1.6; stroke-linecap: square"/>
+   </g>
+   <g id="w5-python-coverage-line2d_14">
+    <path d="M 105.167841 90.54878 L 285.777977 90.54878" clip-path="url(#w5-python-coverage-p7fd184474e)" style="fill: none; stroke-dasharray: 5.92,2.56; stroke-dashoffset: 0; stroke: #a64b36; stroke-width: 1.6"/>
+   </g>
+   <g id="w5-python-coverage-line2d_15">
+    <path d="M 201.815004 98.560976 L 382.42514 98.560976" clip-path="url(#w5-python-coverage-p7fd184474e)" style="fill: none; stroke: #287d76; stroke-width: 1.6; stroke-linecap: square"/>
+   </g>
+   <g id="w5-python-coverage-line2d_16">
+    <path d="M 192.019036 106.573171 L 372.629171 106.573171" clip-path="url(#w5-python-coverage-p7fd184474e)" style="fill: none; stroke: #287d76; stroke-width: 1.6; stroke-linecap: square"/>
+   </g>
+   <g id="w5-python-coverage-line2d_17">
+    <path d="M 200.824552 114.585366 L 381.434687 114.585366" clip-path="url(#w5-python-coverage-p7fd184474e)" style="fill: none; stroke: #287d76; stroke-width: 1.6; stroke-linecap: square"/>
+   </g>
+   <g id="w5-python-coverage-line2d_18">
+    <path d="M 202.255799 122.597561 L 382.865935 122.597561" clip-path="url(#w5-python-coverage-p7fd184474e)" style="fill: none; stroke: #287d76; stroke-width: 1.6; stroke-linecap: square"/>
+   </g>
+   <g id="w5-python-coverage-line2d_19">
+    <path d="M 174.883029 130.609756 L 355.493165 130.609756" clip-path="url(#w5-python-coverage-p7fd184474e)" style="fill: none; stroke: #287d76; stroke-width: 1.6; stroke-linecap: square"/>
+   </g>
+   <g id="w5-python-coverage-line2d_20">
+    <path d="M 200.492144 138.621951 L 381.10228 138.621951" clip-path="url(#w5-python-coverage-p7fd184474e)" style="fill: none; stroke: #287d76; stroke-width: 1.6; stroke-linecap: square"/>
+   </g>
+   <g id="w5-python-coverage-line2d_21">
+    <path d="M 293.837137 146.634146 L 474.447273 146.634146" clip-path="url(#w5-python-coverage-p7fd184474e)" style="fill: none; stroke-dasharray: 5.92,2.56; stroke-dashoffset: 0; stroke: #a64b36; stroke-width: 1.6"/>
+   </g>
+   <g id="w5-python-coverage-line2d_22">
+    <path d="M 165.290271 154.646341 L 345.900407 154.646341" clip-path="url(#w5-python-coverage-p7fd184474e)" style="fill: none; stroke: #287d76; stroke-width: 1.6; stroke-linecap: square"/>
+   </g>
+   <g id="w5-python-coverage-line2d_23">
+    <path d="M 186.682138 162.658537 L 367.292274 162.658537" clip-path="url(#w5-python-coverage-p7fd184474e)" style="fill: none; stroke: #287d76; stroke-width: 1.6; stroke-linecap: square"/>
+   </g>
+   <g id="w5-python-coverage-line2d_24">
+    <path d="M 145.392227 170.670732 L 326.002362 170.670732" clip-path="url(#w5-python-coverage-p7fd184474e)" style="fill: none; stroke: #287d76; stroke-width: 1.6; stroke-linecap: square"/>
+   </g>
+   <g id="w5-python-coverage-line2d_25">
+    <path d="M 131.680093 178.682927 L 312.290229 178.682927" clip-path="url(#w5-python-coverage-p7fd184474e)" style="fill: none; stroke: #287d76; stroke-width: 1.6; stroke-linecap: square"/>
+   </g>
+   <g id="w5-python-coverage-line2d_26">
+    <path d="M 188.214692 186.695122 L 368.824828 186.695122" clip-path="url(#w5-python-coverage-p7fd184474e)" style="fill: none; stroke: #287d76; stroke-width: 1.6; stroke-linecap: square"/>
+   </g>
+   <g id="w5-python-coverage-line2d_27">
+    <path d="M 266.502906 194.707317 L 447.113042 194.707317" clip-path="url(#w5-python-coverage-p7fd184474e)" style="fill: none; stroke: #287d76; stroke-width: 1.6; stroke-linecap: square"/>
+   </g>
+   <g id="w5-python-coverage-line2d_28">
+    <path d="M 267.419844 202.719512 L 448.02998 202.719512" clip-path="url(#w5-python-coverage-p7fd184474e)" style="fill: none; stroke: #287d76; stroke-width: 1.6; stroke-linecap: square"/>
+   </g>
+   <g id="w5-python-coverage-line2d_29">
+    <path d="M 215.378554 210.731707 L 395.98869 210.731707" clip-path="url(#w5-python-coverage-p7fd184474e)" style="fill: none; stroke: #287d76; stroke-width: 1.6; stroke-linecap: square"/>
+   </g>
+   <g id="w5-python-coverage-line2d_30">
+    <path d="M 152.297418 218.743902 L 332.907553 218.743902" clip-path="url(#w5-python-coverage-p7fd184474e)" style="fill: none; stroke: #287d76; stroke-width: 1.6; stroke-linecap: square"/>
+   </g>
+   <g id="w5-python-coverage-line2d_31">
+    <path d="M 244.158117 226.756098 L 424.768253 226.756098" clip-path="url(#w5-python-coverage-p7fd184474e)" style="fill: none; stroke: #287d76; stroke-width: 1.6; stroke-linecap: square"/>
+   </g>
+   <g id="w5-python-coverage-line2d_32">
+    <path d="M 229.196212 234.768293 L 409.806347 234.768293" clip-path="url(#w5-python-coverage-p7fd184474e)" style="fill: none; stroke: #287d76; stroke-width: 1.6; stroke-linecap: square"/>
+   </g>
+   <g id="w5-python-coverage-line2d_33">
+    <path d="M 238.620072 242.780488 L 419.230208 242.780488" clip-path="url(#w5-python-coverage-p7fd184474e)" style="fill: none; stroke: #287d76; stroke-width: 1.6; stroke-linecap: square"/>
+   </g>
+   <g id="w5-python-coverage-line2d_34">
+    <path d="M 231.10526 250.792683 L 411.715396 250.792683" clip-path="url(#w5-python-coverage-p7fd184474e)" style="fill: none; stroke: #287d76; stroke-width: 1.6; stroke-linecap: square"/>
+   </g>
+   <g id="w5-python-coverage-line2d_35">
+    <path d="M 241.2533 258.804878 L 421.863436 258.804878" clip-path="url(#w5-python-coverage-p7fd184474e)" style="fill: none; stroke: #287d76; stroke-width: 1.6; stroke-linecap: square"/>
+   </g>
+   <g id="w5-python-coverage-line2d_36">
+    <path d="M 217.879749 266.817073 L 398.489885 266.817073" clip-path="url(#w5-python-coverage-p7fd184474e)" style="fill: none; stroke: #287d76; stroke-width: 1.6; stroke-linecap: square"/>
+   </g>
+   <g id="w5-python-coverage-line2d_37">
+    <path d="M 157.171105 274.829268 L 337.781241 274.829268" clip-path="url(#w5-python-coverage-p7fd184474e)" style="fill: none; stroke: #287d76; stroke-width: 1.6; stroke-linecap: square"/>
+   </g>
+   <g id="w5-python-coverage-line2d_38">
+    <path d="M 150.001359 282.841463 L 330.611495 282.841463" clip-path="url(#w5-python-coverage-p7fd184474e)" style="fill: none; stroke: #287d76; stroke-width: 1.6; stroke-linecap: square"/>
+   </g>
+   <g id="w5-python-coverage-line2d_39">
+    <path d="M 188.355485 290.853659 L 368.965621 290.853659" clip-path="url(#w5-python-coverage-p7fd184474e)" style="fill: none; stroke: #287d76; stroke-width: 1.6; stroke-linecap: square"/>
+   </g>
+   <g id="w5-python-coverage-line2d_40">
+    <path d="M 184.042699 298.865854 L 364.652835 298.865854" clip-path="url(#w5-python-coverage-p7fd184474e)" style="fill: none; stroke: #287d76; stroke-width: 1.6; stroke-linecap: square"/>
+   </g>
+   <g id="w5-python-coverage-line2d_41">
+    <path d="M 266.692738 306.878049 L 447.302874 306.878049" clip-path="url(#w5-python-coverage-p7fd184474e)" style="fill: none; stroke: #287d76; stroke-width: 1.6; stroke-linecap: square"/>
+   </g>
+   <g id="w5-python-coverage-line2d_42">
+    <path d="M 186.969264 314.890244 L 367.579399 314.890244" clip-path="url(#w5-python-coverage-p7fd184474e)" style="fill: none; stroke: #287d76; stroke-width: 1.6; stroke-linecap: square"/>
+   </g>
+   <g id="w5-python-coverage-line2d_43">
+    <path d="M 84.992727 322.902439 L 265.602863 322.902439" clip-path="url(#w5-python-coverage-p7fd184474e)" style="fill: none; stroke-dasharray: 5.92,2.56; stroke-dashoffset: 0; stroke: #a64b36; stroke-width: 1.6"/>
+   </g>
+   <g id="w5-python-coverage-line2d_44">
+    <path d="M 176.633104 330.914634 L 357.24324 330.914634" clip-path="url(#w5-python-coverage-p7fd184474e)" style="fill: none; stroke: #287d76; stroke-width: 1.6; stroke-linecap: square"/>
+   </g>
+   <g id="w5-python-coverage-line2d_45">
+    <path d="M 171.044179 338.926829 L 351.654315 338.926829" clip-path="url(#w5-python-coverage-p7fd184474e)" style="fill: none; stroke: #287d76; stroke-width: 1.6; stroke-linecap: square"/>
+   </g>
+   <g id="w5-python-coverage-line2d_46">
+    <path d="M 192.905198 346.939024 L 373.515334 346.939024" clip-path="url(#w5-python-coverage-p7fd184474e)" style="fill: none; stroke: #287d76; stroke-width: 1.6; stroke-linecap: square"/>
+   </g>
+   <g id="w5-python-coverage-line2d_47">
+    <path d="M 157.4648 354.95122 L 338.074936 354.95122" clip-path="url(#w5-python-coverage-p7fd184474e)" style="fill: none; stroke: #287d76; stroke-width: 1.6; stroke-linecap: square"/>
+   </g>
+   <g id="w5-python-coverage-line2d_48">
+    <path d="M 243.471318 362.963415 L 424.081454 362.963415" clip-path="url(#w5-python-coverage-p7fd184474e)" style="fill: none; stroke: #287d76; stroke-width: 1.6; stroke-linecap: square"/>
+   </g>
+   <g id="w5-python-coverage-line2d_49">
+    <path d="M 178.385194 370.97561 L 358.99533 370.97561" clip-path="url(#w5-python-coverage-p7fd184474e)" style="fill: none; stroke: #287d76; stroke-width: 1.6; stroke-linecap: square"/>
+   </g>
+   <g id="w5-python-coverage-line2d_50">
+    <path d="M 160.041375 378.987805 L 340.651511 378.987805" clip-path="url(#w5-python-coverage-p7fd184474e)" style="fill: none; stroke: #287d76; stroke-width: 1.6; stroke-linecap: square"/>
+   </g>
+   <g id="w5-python-coverage-line2d_51">
+    <path d="M 288.381087 387 L 288.381087 58.5" clip-path="url(#w5-python-coverage-p7fd184474e)" style="fill: none; stroke-dasharray: 5.18,2.24; stroke-dashoffset: 0; stroke: #182e40; stroke-width: 1.4"/>
+   </g>
+   <g id="w5-python-coverage-patch_3">
+    <path d="M 65.52 387 L 65.52 58.5" style="fill: none; stroke: #80919c; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="w5-python-coverage-patch_4">
+    <path d="M 65.52 387 L 493.92 387" style="fill: none; stroke: #80919c; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="w5-python-coverage-text_13">
+    <text style="font-size: 13px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="279.72" y="19.08" transform="rotate(-0 279.72 19.08)">True μ = 7 stays fixed</text>
+   </g>
+   <g id="w5-python-coverage-text_14">
+    <text style="font-size: 11.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #287d76" x="279.72" y="42.075" transform="rotate(-0 279.72 42.075)">Shown: 37 of 40 capture μ; target coverage = 95%</text>
+   </g>
+   <g id="w5-python-coverage-PathCollection_1">
+    <defs>
+     <path id="w5-python-coverage-m9108ec0c74" d="M 0 1.732051 C 0.459345 1.732051 0.899939 1.549551 1.224745 1.224745 C 1.549551 0.899939 1.732051 0.459345 1.732051 0 C 1.732051 -0.459345 1.549551 -0.899939 1.224745 -1.224745 C 0.899939 -1.549551 0.459345 -1.732051 0 -1.732051 C -0.459345 -1.732051 -0.899939 -1.549551 -1.224745 -1.224745 C -1.549551 -0.899939 -1.732051 -0.459345 -1.732051 0 C -1.732051 0.459345 -1.549551 0.899939 -1.224745 1.224745 C -0.899939 1.549551 -0.459345 1.732051 0 1.732051 z" style="stroke: #287d76"/>
+    </defs>
+    <g clip-path="url(#w5-python-coverage-p7fd184474e)">
+     <use xlink:href="#w5-python-coverage-m9108ec0c74" x="201.45396" y="66.512195" style="fill: #287d76; stroke: #287d76"/>
+    </g>
+   </g>
+   <g id="w5-python-coverage-PathCollection_2">
+    <g clip-path="url(#w5-python-coverage-p7fd184474e)">
+     <use xlink:href="#w5-python-coverage-m9108ec0c74" x="270.281962" y="74.52439" style="fill: #287d76; stroke: #287d76"/>
+    </g>
+   </g>
+   <g id="w5-python-coverage-PathCollection_3">
+    <g clip-path="url(#w5-python-coverage-p7fd184474e)">
+     <use xlink:href="#w5-python-coverage-m9108ec0c74" x="274.391767" y="82.536585" style="fill: #287d76; stroke: #287d76"/>
+    </g>
+   </g>
+   <g id="w5-python-coverage-PathCollection_4">
+    <defs>
+     <path id="w5-python-coverage-mdc310a32b3" d="M -2.236068 2.236068 L 2.236068 -2.236068 M -2.236068 -2.236068 L 2.236068 2.236068" style="stroke: #a64b36; stroke-width: 1.5"/>
+    </defs>
+    <g clip-path="url(#w5-python-coverage-p7fd184474e)">
+     <use xlink:href="#w5-python-coverage-mdc310a32b3" x="195.472909" y="90.54878" style="fill: #a64b36; stroke: #a64b36; stroke-width: 1.5"/>
+    </g>
+   </g>
+   <g id="w5-python-coverage-PathCollection_5">
+    <g clip-path="url(#w5-python-coverage-p7fd184474e)">
+     <use xlink:href="#w5-python-coverage-m9108ec0c74" x="292.120072" y="98.560976" style="fill: #287d76; stroke: #287d76"/>
+    </g>
+   </g>
+   <g id="w5-python-coverage-PathCollection_6">
+    <g clip-path="url(#w5-python-coverage-p7fd184474e)">
+     <use xlink:href="#w5-python-coverage-m9108ec0c74" x="282.324104" y="106.573171" style="fill: #287d76; stroke: #287d76"/>
+    </g>
+   </g>
+   <g id="w5-python-coverage-PathCollection_7">
+    <g clip-path="url(#w5-python-coverage-p7fd184474e)">
+     <use xlink:href="#w5-python-coverage-m9108ec0c74" x="291.12962" y="114.585366" style="fill: #287d76; stroke: #287d76"/>
+    </g>
+   </g>
+   <g id="w5-python-coverage-PathCollection_8">
+    <g clip-path="url(#w5-python-coverage-p7fd184474e)">
+     <use xlink:href="#w5-python-coverage-m9108ec0c74" x="292.560867" y="122.597561" style="fill: #287d76; stroke: #287d76"/>
+    </g>
+   </g>
+   <g id="w5-python-coverage-PathCollection_9">
+    <g clip-path="url(#w5-python-coverage-p7fd184474e)">
+     <use xlink:href="#w5-python-coverage-m9108ec0c74" x="265.188097" y="130.609756" style="fill: #287d76; stroke: #287d76"/>
+    </g>
+   </g>
+   <g id="w5-python-coverage-PathCollection_10">
+    <g clip-path="url(#w5-python-coverage-p7fd184474e)">
+     <use xlink:href="#w5-python-coverage-m9108ec0c74" x="290.797212" y="138.621951" style="fill: #287d76; stroke: #287d76"/>
+    </g>
+   </g>
+   <g id="w5-python-coverage-PathCollection_11">
+    <g clip-path="url(#w5-python-coverage-p7fd184474e)">
+     <use xlink:href="#w5-python-coverage-mdc310a32b3" x="384.142205" y="146.634146" style="fill: #a64b36; stroke: #a64b36; stroke-width: 1.5"/>
+    </g>
+   </g>
+   <g id="w5-python-coverage-PathCollection_12">
+    <g clip-path="url(#w5-python-coverage-p7fd184474e)">
+     <use xlink:href="#w5-python-coverage-m9108ec0c74" x="255.595339" y="154.646341" style="fill: #287d76; stroke: #287d76"/>
+    </g>
+   </g>
+   <g id="w5-python-coverage-PathCollection_13">
+    <g clip-path="url(#w5-python-coverage-p7fd184474e)">
+     <use xlink:href="#w5-python-coverage-m9108ec0c74" x="276.987206" y="162.658537" style="fill: #287d76; stroke: #287d76"/>
+    </g>
+   </g>
+   <g id="w5-python-coverage-PathCollection_14">
+    <g clip-path="url(#w5-python-coverage-p7fd184474e)">
+     <use xlink:href="#w5-python-coverage-m9108ec0c74" x="235.697294" y="170.670732" style="fill: #287d76; stroke: #287d76"/>
+    </g>
+   </g>
+   <g id="w5-python-coverage-PathCollection_15">
+    <g clip-path="url(#w5-python-coverage-p7fd184474e)">
+     <use xlink:href="#w5-python-coverage-m9108ec0c74" x="221.985161" y="178.682927" style="fill: #287d76; stroke: #287d76"/>
+    </g>
+   </g>
+   <g id="w5-python-coverage-PathCollection_16">
+    <g clip-path="url(#w5-python-coverage-p7fd184474e)">
+     <use xlink:href="#w5-python-coverage-m9108ec0c74" x="278.51976" y="186.695122" style="fill: #287d76; stroke: #287d76"/>
+    </g>
+   </g>
+   <g id="w5-python-coverage-PathCollection_17">
+    <g clip-path="url(#w5-python-coverage-p7fd184474e)">
+     <use xlink:href="#w5-python-coverage-m9108ec0c74" x="356.807974" y="194.707317" style="fill: #287d76; stroke: #287d76"/>
+    </g>
+   </g>
+   <g id="w5-python-coverage-PathCollection_18">
+    <g clip-path="url(#w5-python-coverage-p7fd184474e)">
+     <use xlink:href="#w5-python-coverage-m9108ec0c74" x="357.724912" y="202.719512" style="fill: #287d76; stroke: #287d76"/>
+    </g>
+   </g>
+   <g id="w5-python-coverage-PathCollection_19">
+    <g clip-path="url(#w5-python-coverage-p7fd184474e)">
+     <use xlink:href="#w5-python-coverage-m9108ec0c74" x="305.683622" y="210.731707" style="fill: #287d76; stroke: #287d76"/>
+    </g>
+   </g>
+   <g id="w5-python-coverage-PathCollection_20">
+    <g clip-path="url(#w5-python-coverage-p7fd184474e)">
+     <use xlink:href="#w5-python-coverage-m9108ec0c74" x="242.602486" y="218.743902" style="fill: #287d76; stroke: #287d76"/>
+    </g>
+   </g>
+   <g id="w5-python-coverage-PathCollection_21">
+    <g clip-path="url(#w5-python-coverage-p7fd184474e)">
+     <use xlink:href="#w5-python-coverage-m9108ec0c74" x="334.463185" y="226.756098" style="fill: #287d76; stroke: #287d76"/>
+    </g>
+   </g>
+   <g id="w5-python-coverage-PathCollection_22">
+    <g clip-path="url(#w5-python-coverage-p7fd184474e)">
+     <use xlink:href="#w5-python-coverage-m9108ec0c74" x="319.50128" y="234.768293" style="fill: #287d76; stroke: #287d76"/>
+    </g>
+   </g>
+   <g id="w5-python-coverage-PathCollection_23">
+    <g clip-path="url(#w5-python-coverage-p7fd184474e)">
+     <use xlink:href="#w5-python-coverage-m9108ec0c74" x="328.92514" y="242.780488" style="fill: #287d76; stroke: #287d76"/>
+    </g>
+   </g>
+   <g id="w5-python-coverage-PathCollection_24">
+    <g clip-path="url(#w5-python-coverage-p7fd184474e)">
+     <use xlink:href="#w5-python-coverage-m9108ec0c74" x="321.410328" y="250.792683" style="fill: #287d76; stroke: #287d76"/>
+    </g>
+   </g>
+   <g id="w5-python-coverage-PathCollection_25">
+    <g clip-path="url(#w5-python-coverage-p7fd184474e)">
+     <use xlink:href="#w5-python-coverage-m9108ec0c74" x="331.558368" y="258.804878" style="fill: #287d76; stroke: #287d76"/>
+    </g>
+   </g>
+   <g id="w5-python-coverage-PathCollection_26">
+    <g clip-path="url(#w5-python-coverage-p7fd184474e)">
+     <use xlink:href="#w5-python-coverage-m9108ec0c74" x="308.184817" y="266.817073" style="fill: #287d76; stroke: #287d76"/>
+    </g>
+   </g>
+   <g id="w5-python-coverage-PathCollection_27">
+    <g clip-path="url(#w5-python-coverage-p7fd184474e)">
+     <use xlink:href="#w5-python-coverage-m9108ec0c74" x="247.476173" y="274.829268" style="fill: #287d76; stroke: #287d76"/>
+    </g>
+   </g>
+   <g id="w5-python-coverage-PathCollection_28">
+    <g clip-path="url(#w5-python-coverage-p7fd184474e)">
+     <use xlink:href="#w5-python-coverage-m9108ec0c74" x="240.306427" y="282.841463" style="fill: #287d76; stroke: #287d76"/>
+    </g>
+   </g>
+   <g id="w5-python-coverage-PathCollection_29">
+    <g clip-path="url(#w5-python-coverage-p7fd184474e)">
+     <use xlink:href="#w5-python-coverage-m9108ec0c74" x="278.660553" y="290.853659" style="fill: #287d76; stroke: #287d76"/>
+    </g>
+   </g>
+   <g id="w5-python-coverage-PathCollection_30">
+    <g clip-path="url(#w5-python-coverage-p7fd184474e)">
+     <use xlink:href="#w5-python-coverage-m9108ec0c74" x="274.347767" y="298.865854" style="fill: #287d76; stroke: #287d76"/>
+    </g>
+   </g>
+   <g id="w5-python-coverage-PathCollection_31">
+    <g clip-path="url(#w5-python-coverage-p7fd184474e)">
+     <use xlink:href="#w5-python-coverage-m9108ec0c74" x="356.997806" y="306.878049" style="fill: #287d76; stroke: #287d76"/>
+    </g>
+   </g>
+   <g id="w5-python-coverage-PathCollection_32">
+    <g clip-path="url(#w5-python-coverage-p7fd184474e)">
+     <use xlink:href="#w5-python-coverage-m9108ec0c74" x="277.274331" y="314.890244" style="fill: #287d76; stroke: #287d76"/>
+    </g>
+   </g>
+   <g id="w5-python-coverage-PathCollection_33">
+    <g clip-path="url(#w5-python-coverage-p7fd184474e)">
+     <use xlink:href="#w5-python-coverage-mdc310a32b3" x="175.297795" y="322.902439" style="fill: #a64b36; stroke: #a64b36; stroke-width: 1.5"/>
+    </g>
+   </g>
+   <g id="w5-python-coverage-PathCollection_34">
+    <g clip-path="url(#w5-python-coverage-p7fd184474e)">
+     <use xlink:href="#w5-python-coverage-m9108ec0c74" x="266.938172" y="330.914634" style="fill: #287d76; stroke: #287d76"/>
+    </g>
+   </g>
+   <g id="w5-python-coverage-PathCollection_35">
+    <g clip-path="url(#w5-python-coverage-p7fd184474e)">
+     <use xlink:href="#w5-python-coverage-m9108ec0c74" x="261.349247" y="338.926829" style="fill: #287d76; stroke: #287d76"/>
+    </g>
+   </g>
+   <g id="w5-python-coverage-PathCollection_36">
+    <g clip-path="url(#w5-python-coverage-p7fd184474e)">
+     <use xlink:href="#w5-python-coverage-m9108ec0c74" x="283.210266" y="346.939024" style="fill: #287d76; stroke: #287d76"/>
+    </g>
+   </g>
+   <g id="w5-python-coverage-PathCollection_37">
+    <g clip-path="url(#w5-python-coverage-p7fd184474e)">
+     <use xlink:href="#w5-python-coverage-m9108ec0c74" x="247.769868" y="354.95122" style="fill: #287d76; stroke: #287d76"/>
+    </g>
+   </g>
+   <g id="w5-python-coverage-PathCollection_38">
+    <g clip-path="url(#w5-python-coverage-p7fd184474e)">
+     <use xlink:href="#w5-python-coverage-m9108ec0c74" x="333.776386" y="362.963415" style="fill: #287d76; stroke: #287d76"/>
+    </g>
+   </g>
+   <g id="w5-python-coverage-PathCollection_39">
+    <g clip-path="url(#w5-python-coverage-p7fd184474e)">
+     <use xlink:href="#w5-python-coverage-m9108ec0c74" x="268.690262" y="370.97561" style="fill: #287d76; stroke: #287d76"/>
+    </g>
+   </g>
+   <g id="w5-python-coverage-PathCollection_40">
+    <g clip-path="url(#w5-python-coverage-p7fd184474e)">
+     <use xlink:href="#w5-python-coverage-m9108ec0c74" x="250.346443" y="378.987805" style="fill: #287d76; stroke: #287d76"/>
+    </g>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="w5-python-coverage-p7fd184474e">
+   <rect x="65.52" y="58.5" width="428.4" height="328.5"/>
+  </clipPath>
+ </defs>
+</svg></div><figcaption><b>A picture of the repeated-interval simulation</b>The graph displays the first 40 of 100 intervals generated from the normal model and random seed used below (μ = 7, σ = 1.5, n = 36). The code reports coverage across all 100, so the displayed subset and the complete simulation can have different capture percentages. The displayed intervals capture μ 37 times out of 40. Across all 100 simulated intervals, 95 capture μ.</figcaption></figure>
+
   <div class="cell" data-cell-id="ci-repeated-sampling">
     <div class="cell-head"><span class="cell-label">cell 40 — simulate 100 confidence intervals</span><span class="cell-state">not checked</span></div>
     <div class="task"><p>Generate 100 samples, construct a 95% interval from each sample mean, compute the capture rate, and graph the first 40 intervals.</p><button class="text-button hint-toggle" type="button">hint</button></div>

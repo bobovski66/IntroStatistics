@@ -514,6 +514,24 @@ footer {
   height: 1px;
   background: currentColor;
 }
+
+.reading-link { display: inline-block; color: var(--accent); margin: 0 0 8px; font-size: 13px; }
+.viz-header { gap: 10px; flex-wrap: wrap; }
+.procedure-note { font-size: 12px; line-height: 1.5; color: var(--ink-soft); margin: 11px 0 0; }
+.stack-note { margin: 0; padding: 9px 16px; border-top: 1px solid var(--rule-soft); font-size: 12px; color: var(--ink-soft); }
+.comparison-panel { border: 1px solid var(--rule); background: var(--bg-panel); margin: 0 0 24px; }
+.comparison-panel h2 { margin: 0; font: 500 19px 'EB Garamond', Georgia, serif; }
+.comparison-copy { margin: 12px 18px 6px; color: var(--ink-soft); font-size: 14px; }
+.comparison-plot { overflow-x: auto; padding: 4px 10px; }
+#level-comparison { display: block; width: 100%; height: auto; min-width: 520px; }
+.comparison-table-wrap { margin: 0 18px 16px; overflow-x: auto; }
+.comparison-table { border-collapse: collapse; width: 100%; font-size: 13px; }
+.comparison-table th,.comparison-table td { padding: 8px 10px; border-bottom: 1px solid var(--rule-soft); text-align: left; }
+.comparison-table caption { text-align: left; color: var(--ink-soft); margin-bottom: 6px; }
+.comparison-table td { font-family: 'IBM Plex Mono', monospace; }
+.comparison-panel .comparison-note { font-size: 12px; color: var(--ink-soft); margin: 0 18px 15px; }
+@media print { .controls,.reading-link { display: none; } .layout { grid-template-columns: 1fr; } .comparison-panel { break-inside: avoid; } .comparison-plot { overflow: visible; } #level-comparison { min-width: 0; } }
+
 </style>
 </head>
 <body>
@@ -521,7 +539,7 @@ footer {
 
   <header class="masthead">
     <div>
-      <div class="kicker">MATH&amp; 146 · Inferential Statistics · Demonstration 04</div>
+      <a class="reading-link" href="../readings/week5_reading.html">← Week 5 reading</a><div class="kicker">MATH&amp; 146 · Inferential Statistics · Demonstration 04</div>
       <h1>Confidence Intervals:</h1>
       <div class="subtitle">The confidence interval is the random object that changes while <span style="font-family:'EB Garamond';">μ</span> is fixed.</div>
     </div>
@@ -553,7 +571,7 @@ footer {
         <div class="viz-title">Population &amp; Sampling Stack</div>
         <div class="viz-meta" id="viz-meta">drawn: 0</div>
       </div>
-      <canvas id="viz-canvas" width="1600" height="1240"></canvas>
+      <canvas id="viz-canvas" width="1600" height="1240" role="img" aria-label="Normal population above a stack of confidence intervals around the fixed mean 100" aria-describedby="stack-description">Each sampled interval either captures or misses the fixed population mean.</canvas><p class="stack-note" id="stack-description">Each row is one sample’s interval; its dot marks the sample mean. Solid intervals capture the fixed μ = 100; dashed intervals miss it. Arrowheads mark intervals continuing beyond the displayed range.</p>
     </div>
 
     <aside class="controls">
@@ -588,7 +606,7 @@ footer {
         <button class="action-btn" id="draw-one">draw one sample</button>
         <button class="action-btn" id="play-btn"><span class="play-dot"></span><span class="play-label">play</span></button>
         <button class="action-btn" id="draw-many">draw 100 samples</button>
-        <button class="action-btn secondary" id="reset">clear stack</button>
+        <button class="action-btn secondary" id="reset">clear stack</button><p class="procedure-note">Changing sample size, confidence level, or method starts a fresh stack and resets its coverage counts.</p>
       </div>
 
     </aside>
@@ -612,6 +630,15 @@ footer {
       <div class="status-value" id="stat-coverage">— <span class="small">vs. 95%</span></div>
     </div>
   </div>
+
+
+  <section class="comparison-panel" aria-labelledby="comparison-title">
+    <div class="formula-header"><h2 id="comparison-title">Compare confidence levels using the same sample</h2><span id="comparison-method">z-intervals</span></div>
+    <p class="comparison-copy">These three intervals use the most recent sample mean and the same standard error. Only the confidence level changes.</p>
+    <div class="comparison-plot"><svg id="level-comparison" viewBox="0 0 880 250" width="880" height="250" role="img" aria-label="Draw a sample to compare interval widths."></svg></div>
+    <div class="comparison-table-wrap"><table class="comparison-table"><caption id="comparison-caption">Draw one sample to compare 90%, 95%, and 99% intervals.</caption><thead><tr><th scope="col">Confidence</th><th scope="col">Critical value</th><th scope="col">Interval endpoints</th><th scope="col">Full width</th></tr></thead><tbody id="comparison-rows"></tbody></table></div>
+    <p class="comparison-note">This comparison reuses one sample. It adds no intervals to the repeated-sampling stack above.</p>
+  </section>
 
   <div class="formula-panel">
     <div class="formula-header">
@@ -728,7 +755,11 @@ const _tCache = {};
 function tQuantile(p, df) {
   const key = p.toFixed(6) + ':' + df;
   if (_tCache[key] !== undefined) return _tCache[key];
-  let lo = -50, hi = 50;
+  if (!(p > 0 && p < 1 && df > 0)) return NaN;
+  if (p === 0.5) return 0;
+  if (p < 0.5) return -tQuantile(1 - p, df);
+  let lo = 0, hi = 1;
+  while (tCDF(hi, df) < p) hi *= 2;
   for (let i = 0; i < 80; i++) {
     const mid = (lo + hi)/2;
     if (tCDF(mid, df) < p) lo = mid; else hi = mid;
@@ -882,7 +913,7 @@ function drawPopulationDensity() {
   ctx.fillStyle = '#4a3f36';
   ctx.font = '500 22px "IBM Plex Mono", monospace';
   ctx.textAlign = 'left';
-  ctx.fillText('population: N(100, 15²)', PAD_L + 10, PAD_T + 28);
+  ctx.fillText('population: μ = 100, σ = 15', PAD_L + 10, PAD_T + 28);
 }
 
 function drawAxis() {
@@ -958,8 +989,8 @@ function drawStack() {
   for (let i = 0; i < intervals.length; i++) {
     const ci = intervals[i];
     const y = stackBodyTop + i*slotH + slotH/2;
-    const xl = xToPx(ci.lo);
-    const xh = xToPx(ci.hi);
+    const xl = xToPx(Math.max(X_MIN, Math.min(X_MAX, ci.lo)));
+    const xh = xToPx(Math.max(X_MIN, Math.min(X_MAX, ci.hi)));
     const xm = xToPx(ci.mean);
 
     const color = ci.captured ? '#2d6a4f' : '#b34323';
@@ -967,25 +998,29 @@ function drawStack() {
 
     ctx.strokeStyle = color;
     ctx.lineWidth = isLatest ? 2.8 : 1.8;
+    ctx.setLineDash(ci.captured ? [] : [7,5]);
 
     // main line
     ctx.beginPath();
     ctx.moveTo(xl, y);
     ctx.lineTo(xh, y);
     ctx.stroke();
+    ctx.setLineDash([]);
 
     // endpoint caps
     const cap = isLatest ? 6 : 4;
     ctx.beginPath();
-    ctx.moveTo(xl, y - cap); ctx.lineTo(xl, y + cap);
-    ctx.moveTo(xh, y - cap); ctx.lineTo(xh, y + cap);
+    if (ci.lo < X_MIN) { ctx.moveTo(xl+8,y-cap); ctx.lineTo(xl,y); ctx.lineTo(xl+8,y+cap); }
+    else { ctx.moveTo(xl,y-cap); ctx.lineTo(xl,y+cap); }
+    if (ci.hi > X_MAX) { ctx.moveTo(xh-8,y-cap); ctx.lineTo(xh,y); ctx.lineTo(xh-8,y+cap); }
+    else { ctx.moveTo(xh,y-cap); ctx.lineTo(xh,y+cap); }
     ctx.stroke();
 
     // x-bar marker
     ctx.fillStyle = color;
     const r = isLatest ? 3.2 : 2.2;
     ctx.beginPath();
-    ctx.arc(xm, y, r, 0, 2*Math.PI);
+    if (ci.mean >= X_MIN && ci.mean <= X_MAX) ctx.arc(xm, y, r, 0, 2*Math.PI);
     ctx.fill();
 
     // highlight latest with subtle background band
@@ -1018,10 +1053,61 @@ function updateStats() {
     covEl.innerHTML = (cov*100).toFixed(1) + '% <span class="small">vs. ' + nominal + '</span>';
   }
 
-  document.getElementById('viz-meta').textContent = 'drawn: ' + state.totalDrawn;
+  document.getElementById('viz-meta').textContent = 'drawn: ' + state.totalDrawn + ' · shown: ' + state.intervals.length;
+  canvas.setAttribute('aria-label', Math.round(state.level*100)+'% confidence interval simulation. '+state.totalDrawn+' intervals drawn; '+state.totalCaptured+' capture the fixed mean 100. Latest '+state.intervals.length+' intervals shown.');
+}
+
+
+function comparisonIntervals(ci) {
+  return [0.90, 0.95, 0.99].map(level => {
+    const crit = ci.kind === 't' ? tQuantile((1+level)/2, ci.n-1) : Z_STAR[level.toFixed(2)];
+    const margin = crit*ci.se;
+    return { level, crit, margin, mean: ci.mean, lo: ci.mean-margin, hi: ci.mean+margin };
+  });
+}
+
+function updateComparison(ci) {
+  const svg=document.getElementById('level-comparison');
+  const rows=document.getElementById('comparison-rows');
+  const caption=document.getElementById('comparison-caption');
+  document.getElementById('comparison-method').textContent=state.sigmaKnown?'z-intervals':'t-intervals';
+  if (!ci) {
+    svg.innerHTML='<text x="440" y="125" text-anchor="middle" fill="#8a7a66" font-size="18" font-family="sans-serif">Draw one sample to compare interval widths.</text>';
+    svg.setAttribute('aria-label','Draw a sample to compare 90%, 95%, and 99% interval widths.');
+    rows.innerHTML='';caption.textContent='Draw one sample to compare 90%, 95%, and 99% intervals.';return;
+  }
+  const intervals=comparisonIntervals(ci),largest=intervals[2].margin;
+  const low=ci.mean-1.28*largest, high=ci.mean+1.28*largest;
+  const x=value=>115+(value-low)/(high-low)*710;
+  const colors=['#245a81','#287d76','#ad6b15'];
+  let drawing='<line x1="'+x(ci.mean)+'" y1="30" x2="'+x(ci.mean)+'" y2="190" stroke="#8a7a66" stroke-dasharray="5 4"/><text x="'+x(ci.mean)+'" y="20" text-anchor="middle" font-size="14" fill="#4a3f36" font-family="sans-serif">Same sample mean: '+fmt(ci.mean,2)+'</text>';
+  intervals.forEach((interval,i)=>{
+    const y=57+55*i,px=x(ci.mean),left=x(interval.lo),right=x(interval.hi),color=colors[i];
+    drawing+='<text x="72" y="'+(y+5)+'" text-anchor="end" font-size="16" fill="'+color+'" font-family="sans-serif">'+Math.round(100*interval.level)+'%</text>';
+    drawing+='<path d="M '+left+' '+y+' H '+right+' M '+left+' '+(y-7)+' V '+(y+7)+' M '+right+' '+(y-7)+' V '+(y+7)+'" stroke="'+color+'" stroke-width="3" fill="none"/>';
+    drawing+='<circle cx="'+px+'" cy="'+y+'" r="5" fill="'+color+'"/>';
+  });
+  drawing+='<line x1="115" y1="204" x2="825" y2="204" stroke="#8a7a66"/>';
+  for(let i=0;i<=4;i++){
+    const value=low+(high-low)*i/4,px=x(value);
+    drawing+='<path d="M '+px+' 204 v 5" stroke="#8a7a66"/><text x="'+px+'" y="228" text-anchor="middle" fill="#4a3f36" font-size="13" font-family="sans-serif">'+fmt(value,2)+'</text>';
+  }
+  svg.innerHTML=drawing;
+  svg.setAttribute('aria-label','Same sample mean '+fmt(ci.mean,2)+'. Interval full widths at 90%, 95%, and 99% confidence: '+intervals.map(interval=>fmt(2*interval.margin,2)).join(', ')+'.');
+  caption.textContent='Same '+ci.n+' observations; '+(ci.kind==='t'?'sample SD s = '+fmt(ci.sd,2):'known population SD σ = '+POP_SIGMA)+'.';
+  rows.innerHTML=intervals.map(interval=>'<tr><th scope="row">'+Math.round(100*interval.level)+'%</th><td>'+fmt(interval.crit,3)+'</td><td>('+fmt(interval.lo,2)+', '+fmt(interval.hi,2)+')</td><td>'+fmt(2*interval.margin,2)+'</td></tr>').join('');
+}
+
+function resetExperiment() {
+  stopPlay();
+  state.intervals=[];state.totalDrawn=0;state.totalCaptured=0;
+  document.getElementById('method-display').innerHTML=state.sigmaKnown?'z-interval':'t-interval';
+  document.getElementById('formula-method').textContent=state.sigmaKnown?'x̄ ± z* · σ/√n':'x̄ ± t* · s/√n';
+  render();updateFormulaPanel(null);updateStats();
 }
 
 function updateFormulaPanel(ci) {
+  updateComparison(ci);
   const body = document.getElementById('formula-body');
   if (!ci) {
     body.innerHTML = '<div class="formula-empty">draw a sample to begin.</div>';
@@ -1078,11 +1164,11 @@ function updateFormulaPanel(ci) {
 }
 
 function interpretation(ci) {
-  const w = ci.hi - ci.lo;
-  const note = ci.captured
-    ? 'this interval contains the true μ = 100. that does not mean μ has a 95% probability of lying inside; μ is fixed. it means the procedure produced an interval that did its job this time.'
-    : 'this interval missed μ = 100 entirely. at the 95% level, we expect roughly one in twenty intervals to miss; missing is not a defect of the method, it is part of the method.';
-  return `interval width: <span style="font-family:'IBM Plex Mono',monospace;font-weight:500;">${fmt(w, 2)}</span> units. ${note}`;
+  const level=Math.round(100*ci.level),miss=(100*(1-ci.level)).toFixed(0);
+  const note=ci.captured
+    ? 'this interval contains the fixed μ = 100. The '+level+'% confidence level describes repeated-sampling coverage of the method.'
+    : 'this interval misses the fixed μ = 100. At '+level+'% confidence, the procedure is expected to miss about '+miss+'% of the time over many repetitions.';
+  return 'interval width: <span style="font-family:monospace;font-weight:500;">'+fmt(ci.hi-ci.lo,2)+'</span> units. '+note;
 }
 
 /* ================================================================
@@ -1092,15 +1178,15 @@ function interpretation(ci) {
 document.getElementById('n-slider').addEventListener('input', e => {
   state.n = parseInt(e.target.value, 10);
   document.getElementById('n-value').textContent = state.n;
+  resetExperiment();
 });
 
 document.querySelectorAll('.level-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('.level-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
-    state.level = parseFloat(btn.dataset.level);
-    // refresh nominal display in coverage stat
-    updateStats();
+    const nextLevel=parseFloat(btn.dataset.level);
+    if (nextLevel !== state.level) { state.level=nextLevel;resetExperiment(); }
   });
 });
 
@@ -1108,7 +1194,8 @@ document.querySelectorAll('.toggle-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
-    state.sigmaKnown = btn.dataset.sigma === 'known';
+    const known=btn.dataset.sigma === 'known';
+    if (known !== state.sigmaKnown) { state.sigmaKnown=known;resetExperiment(); }
     document.getElementById('method-display').innerHTML = state.sigmaKnown
       ? '<span class="num" style="font-size:15px;">z-interval</span>'
       : '<span class="num" style="font-size:15px;">t-interval</span>';
@@ -1148,21 +1235,14 @@ playBtn.addEventListener('click', () => {
   if (playTimer) stopPlay(); else startPlay();
 });
 
-document.getElementById('reset').addEventListener('click', () => {
-  stopPlay();
-  state.intervals = [];
-  state.totalDrawn = 0;
-  state.totalCaptured = 0;
-  render();
-  updateFormulaPanel(null);
-  updateStats();
-});
+document.getElementById('reset').addEventListener('click', resetExperiment);
 
 /* ================================================================
    Initial render
    ================================================================ */
 
 render();
+updateFormulaPanel(null);
 updateStats();
 </script>
 </body>
