@@ -120,6 +120,21 @@ textarea.code-input{display:block;width:100%;min-height:145px;margin:14px 0 0;pa
 @media(max-width:520px){body{font-size:17px}.controls{flex-wrap:wrap}.reset-btn{margin-left:0}.cell-head{align-items:flex-start}textarea.code-input{font-size:13px;min-height:175px}.module-footer{align-items:stretch;flex-direction:column}.module-step.next,.module-step-note{margin-left:0}}
 @media print{:root,:root[data-theme="dark"]{color-scheme:light;--bg:#fff;--surface:#fff;--surface-raised:#fff;--text:#111;--text-soft:#333;--heading:#111;--border:#bbb}.sidebar,.controls,.runtime-status,.module-footer{display:none!important}.shell{display:block}main{width:100%;padding:0}.module{display:block!important;break-before:page}.module:first-of-type{break-before:auto}.cell{break-inside:avoid;box-shadow:none}.output,.feedback,.solution,.figure-output{display:none!important}}
 </style>
+<style id="week3-visual-styles">
+/* Week 3 diagrams are embedded so saved pages retain their graphs. */
+.w3-visual{margin:20px 0;padding:14px 14px 12px;background:#fff;border:1px solid #cdd9df;border-radius:11px;break-inside:avoid;color:#182e40;font:16px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif;min-width:0;max-width:100%}
+.w3-visual .w3-plot{overflow-x:auto;max-width:100%;border-radius:5px}
+.w3-visual svg{display:block;width:100%;height:auto;min-width:420px;max-width:none}
+.w3-visual figcaption{font-size:.92em;margin-top:9px;color:#435969}
+.w3-visual figcaption b{display:block;color:#245a81;margin-bottom:3px}
+.w3-visual .w3-key{font-size:.85em;color:#536675;margin:8px 0 0}
+.w3-table-lookup{max-width:100%;overflow:auto;margin:16px 0}
+.w3-table-lookup table{border-collapse:collapse;background:#fff;font:15px/1.5 system-ui,sans-serif;width:100%}
+.w3-table-lookup th,.w3-table-lookup td{padding:9px;border:1px solid #cdd9df;text-align:center;color:#182e40}
+.w3-table-lookup .w3-selected{background:#dcefe9;font-weight:750;border:2px solid #287d76}
+@media(max-width:540px){.w3-visual{padding:10px 8px}.w3-visual figcaption{font-size:14px}.w3-visual .w3-key{font-size:12px}}
+@media print{.w3-visual{box-shadow:none;border:1px solid #aab6bf;break-inside:avoid;padding:8px;margin:12px 0;print-color-adjust:exact;-webkit-print-color-adjust:exact}.w3-visual .w3-plot{overflow:visible}.w3-visual svg{min-width:0;width:100%}.w3-visual figcaption{font-size:10pt}.w3-table-lookup{break-inside:avoid}.w3-table-lookup .w3-selected{print-color-adjust:exact;-webkit-print-color-adjust:exact}}
+</style>
 </head>
 <body>
 <div class="shell">
@@ -800,6 +815,172 @@ probability = favorable_width / total_width</div>
 </section><section class="lesson" id="uniform-graph" data-cell-link="uniform-graph">
   <h3>Shade the probability</h3>
   <p class="lesson-copy">You already computed the uniform probability. Now draw the rectangle and shade the part whose area represents that probability.</p>
+<figure class="w3-visual" data-visual="python-uniform-reference"><div class="w3-plot" tabindex="0" role="group" aria-label="The picture behind fill_between; scroll horizontally on narrow screens"><svg id="python-uniform-reference" role="img" aria-labelledby="python-uniform-reference-title python-uniform-reference-desc" xmlns:xlink="http://www.w3.org/1999/xlink" width="504pt" height="219.6pt" viewBox="0 0 504 219.6" xmlns="http://www.w3.org/2000/svg" version="1.1">
+<title id="python-uniform-reference-title">The picture behind fill_between</title><desc id="python-uniform-reference-desc">A reference uniform bus-arrival model on 0 to 10 minutes with 2 to 7 shaded. The height is 0.10 and the shaded area is 0.50.</desc>
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">#python-uniform-reference *{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="python-uniform-reference-figure_1">
+  <g id="python-uniform-reference-patch_1">
+   <path d="M 0 219.6 L 504 219.6 L 504 0 L 0 0 z" style="fill: #ffffff"/>
+  </g>
+  <g id="python-uniform-reference-axes_1">
+   <g id="python-uniform-reference-patch_2">
+    <path d="M 60.48 166.896 L 491.4 166.896 L 491.4 35.136 L 60.48 35.136 z" style="fill: #ffffff"/>
+   </g>
+   <g id="python-uniform-reference-FillBetweenPolyCollection_1">
+    <defs>
+     <path id="python-uniform-reference-m8c81f2676e" d="M 107.611875 -140.544 L 107.611875 -52.704 L 444.268125 -52.704 L 444.268125 -140.544 L 444.268125 -140.544 L 107.611875 -140.544 z" style="stroke: #f4f7fa"/>
+    </defs>
+    <g clip-path="url(#python-uniform-reference-pbbeac2f0e8)">
+     <use xlink:href="#python-uniform-reference-m8c81f2676e" x="0" y="219.6" style="fill: #f4f7fa; stroke: #f4f7fa"/>
+    </g>
+   </g>
+   <g id="python-uniform-reference-FillBetweenPolyCollection_2">
+    <defs>
+     <path id="python-uniform-reference-mafd3a21a48" d="M 174.943125 -140.544 L 174.943125 -52.704 L 343.27125 -52.704 L 343.27125 -140.544 L 343.27125 -140.544 L 174.943125 -140.544 z" style="stroke: #c3dbd9"/>
+    </defs>
+    <g clip-path="url(#python-uniform-reference-pbbeac2f0e8)">
+     <use xlink:href="#python-uniform-reference-mafd3a21a48" x="0" y="219.6" style="fill: #c3dbd9; stroke: #c3dbd9"/>
+    </g>
+   </g>
+   <g id="python-uniform-reference-matplotlib.axis_1">
+    <g id="python-uniform-reference-xtick_1">
+     <g id="python-uniform-reference-line2d_1">
+      <defs>
+       <path id="python-uniform-reference-m1e2a67566c" d="M 0 0 L 0 3.5" style="stroke: #536675; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#python-uniform-reference-m1e2a67566c" x="107.611875" y="166.896" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="python-uniform-reference-text_1">
+      <text style="font-size: 11.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="107.611875" y="182.634203" transform="rotate(-0 107.611875 182.634203)">0</text>
+     </g>
+    </g>
+    <g id="python-uniform-reference-xtick_2">
+     <g id="python-uniform-reference-line2d_2">
+      <g>
+       <use xlink:href="#python-uniform-reference-m1e2a67566c" x="174.943125" y="166.896" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="python-uniform-reference-text_2">
+      <text style="font-size: 11.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="174.943125" y="182.634203" transform="rotate(-0 174.943125 182.634203)">2</text>
+     </g>
+    </g>
+    <g id="python-uniform-reference-xtick_3">
+     <g id="python-uniform-reference-line2d_3">
+      <g>
+       <use xlink:href="#python-uniform-reference-m1e2a67566c" x="275.94" y="166.896" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="python-uniform-reference-text_3">
+      <text style="font-size: 11.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="275.94" y="182.634203" transform="rotate(-0 275.94 182.634203)">5</text>
+     </g>
+    </g>
+    <g id="python-uniform-reference-xtick_4">
+     <g id="python-uniform-reference-line2d_4">
+      <g>
+       <use xlink:href="#python-uniform-reference-m1e2a67566c" x="343.27125" y="166.896" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="python-uniform-reference-text_4">
+      <text style="font-size: 11.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="343.27125" y="182.634203" transform="rotate(-0 343.27125 182.634203)">7</text>
+     </g>
+    </g>
+    <g id="python-uniform-reference-xtick_5">
+     <g id="python-uniform-reference-line2d_5">
+      <g>
+       <use xlink:href="#python-uniform-reference-m1e2a67566c" x="444.268125" y="166.896" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="python-uniform-reference-text_5">
+      <text style="font-size: 11.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="444.268125" y="182.634203" transform="rotate(-0 444.268125 182.634203)">10</text>
+     </g>
+    </g>
+    <g id="python-uniform-reference-text_6">
+     <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="275.94" y="198.523891" transform="rotate(-0 275.94 198.523891)">Wait time (minutes)</text>
+    </g>
+   </g>
+   <g id="python-uniform-reference-matplotlib.axis_2">
+    <g id="python-uniform-reference-ytick_1">
+     <g id="python-uniform-reference-line2d_6">
+      <defs>
+       <path id="python-uniform-reference-m227dbd3cbc" d="M 0 0 L -3.5 0" style="stroke: #536675; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#python-uniform-reference-m227dbd3cbc" x="60.48" y="166.896" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="python-uniform-reference-text_7">
+      <text style="font-size: 11.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #536675" x="53.48" y="171.265102" transform="rotate(-0 53.48 171.265102)">0.0</text>
+     </g>
+    </g>
+    <g id="python-uniform-reference-ytick_2">
+     <g id="python-uniform-reference-line2d_7">
+      <g>
+       <use xlink:href="#python-uniform-reference-m227dbd3cbc" x="60.48" y="79.056" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="python-uniform-reference-text_8">
+      <text style="font-size: 11.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #536675" x="53.48" y="83.425102" transform="rotate(-0 53.48 83.425102)">0.1</text>
+     </g>
+    </g>
+    <g id="python-uniform-reference-text_9">
+     <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="28.591797" y="101.016" transform="rotate(-90 28.591797 101.016)">Density</text>
+    </g>
+   </g>
+   <g id="python-uniform-reference-line2d_8">
+    <path d="M 107.611875 166.896 L 107.611875 79.056 L 444.268125 79.056 L 444.268125 166.896" clip-path="url(#python-uniform-reference-pbbeac2f0e8)" style="fill: none; stroke: #245a81; stroke-width: 2.3; stroke-linecap: square"/>
+   </g>
+   <g id="python-uniform-reference-line2d_9">
+    <path d="M 174.943125 166.896 L 174.943125 79.056" clip-path="url(#python-uniform-reference-pbbeac2f0e8)" style="fill: none; stroke-dasharray: 5.55,2.4; stroke-dashoffset: 0; stroke: #287d76; stroke-width: 1.5"/>
+   </g>
+   <g id="python-uniform-reference-line2d_10">
+    <path d="M 343.27125 166.896 L 343.27125 79.056" clip-path="url(#python-uniform-reference-pbbeac2f0e8)" style="fill: none; stroke-dasharray: 5.55,2.4; stroke-dashoffset: 0; stroke: #287d76; stroke-width: 1.5"/>
+   </g>
+   <g id="python-uniform-reference-patch_3">
+    <path d="M 60.48 166.896 L 60.48 35.136" style="fill: none; stroke: #80919c; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="python-uniform-reference-patch_4">
+    <path d="M 60.48 166.896 L 491.4 166.896" style="fill: none; stroke: #80919c; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="python-uniform-reference-text_10">
+    <text style="font-size: 13px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #287d76" x="487.0908" y="18.0072" transform="rotate(-0 487.0908 18.0072)">Reference example: area = 0.50</text>
+   </g>
+   <g id="python-uniform-reference-text_11">
+    <text style="font-size: 12px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="259.107188" y="126.28725" transform="rotate(-0 259.107188 126.28725)">Shaded area</text>
+   </g>
+   <g id="python-uniform-reference-patch_5">
+    <path d="M 176.943974 66.7584 Q 259.106389 66.7584 341.268805 66.7584" style="fill: none; stroke: #287d76; stroke-width: 1.4; stroke-linecap: round"/>
+    <path d="M 176.943974 54.2584 L 176.943974 54.2584 L 176.943974 79.2584 L 176.943974 79.2584" style="fill: none; stroke: #287d76; stroke-width: 1.4; stroke-linecap: round"/>
+    <path d="M 341.268805 79.2584 L 341.268805 79.2584 L 341.268805 54.2584 L 341.268805 54.2584" style="fill: none; stroke: #287d76; stroke-width: 1.4; stroke-linecap: round"/>
+   </g>
+   <g id="python-uniform-reference-text_12">
+    <text style="font-size: 12px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #287d76" x="259.107188" y="57.9744" transform="rotate(-0 259.107188 57.9744)">width = 5</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="python-uniform-reference-pbbeac2f0e8">
+   <rect x="60.48" y="35.136" width="430.92" height="131.76"/>
+  </clipPath>
+ </defs>
+</svg></div><figcaption><b>The picture behind fill_between</b>The blue line draws the density; the shaded region fills the space from y = 0 up to that line over the selected interval. Your code below applies the same idea to the espresso-shot model.</figcaption></figure>
+
 <div class="cell" data-cell-id="uniform-graph">
     <div class="cell-head"><span class="cell-label">cell 23 — draw and shade a uniform density</span><span class="cell-state">not checked</span></div>
     <div class="task"><p>Complete the density height and shade the interval from 1.8 to 2.2 ounces.</p><button class="text-button hint-toggle" type="button">hint</button></div>
@@ -857,6 +1038,179 @@ print(z)</textarea>
 </section><section class="lesson" id="normal-left-tail" data-cell-link="normal-left-tail">
   <h3>Find left- and right-tail areas</h3>
   <p class="lesson-copy">Python's <code>NormalDist().cdf(z)</code> returns area to the left of <code>z</code>. A right-tail probability is therefore <code>1 - cdf(z)</code>.</p>
+<figure class="w3-visual" data-visual="python-cdf-reference"><div class="w3-plot" tabindex="0" role="group" aria-label="cdf(z) accumulates area from the left; scroll horizontally on narrow screens"><svg id="python-cdf-reference" role="img" aria-labelledby="python-cdf-reference-title python-cdf-reference-desc" xmlns:xlink="http://www.w3.org/1999/xlink" width="504pt" height="219.6pt" viewBox="0 0 504 219.6" xmlns="http://www.w3.org/2000/svg" version="1.1">
+<title id="python-cdf-reference-title">cdf(z) accumulates area from the left</title><desc id="python-cdf-reference-desc">Normal density with mean 0 and standard deviation 1. The region from -3.8 to 1.23 is shaded; tails continue beyond the displayed axis. Reference example: cdf(1.23) = 0.8907. The area on the other side is 1 − cdf(1.23). Use the cutoffs in each task when you write your own calculations.</desc>
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">#python-cdf-reference *{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="python-cdf-reference-figure_1">
+  <g id="python-cdf-reference-patch_1">
+   <path d="M 0 219.6 L 504 219.6 L 504 0 L 0 0 z" style="fill: #ffffff"/>
+  </g>
+  <g id="python-cdf-reference-axes_1">
+   <g id="python-cdf-reference-patch_2">
+    <path d="M 60.48 166.896 L 491.4 166.896 L 491.4 35.136 L 60.48 35.136 z" style="fill: #ffffff"/>
+   </g>
+   <g id="python-cdf-reference-matplotlib.axis_1">
+    <g id="python-cdf-reference-xtick_1">
+     <g id="python-cdf-reference-line2d_1">
+      <defs>
+       <path id="python-cdf-reference-m14a8944653" d="M 0 0 L 0 3.5" style="stroke: #536675; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#python-cdf-reference-m14a8944653" x="105.84" y="166.896" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="python-cdf-reference-text_1">
+      <text style="font-size: 11.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="105.84" y="182.634203" transform="rotate(-0 105.84 182.634203)">−3</text>
+     </g>
+    </g>
+    <g id="python-cdf-reference-xtick_2">
+     <g id="python-cdf-reference-line2d_2">
+      <g>
+       <use xlink:href="#python-cdf-reference-m14a8944653" x="162.54" y="166.896" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="python-cdf-reference-text_2">
+      <text style="font-size: 11.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="162.54" y="182.634203" transform="rotate(-0 162.54 182.634203)">−2</text>
+     </g>
+    </g>
+    <g id="python-cdf-reference-xtick_3">
+     <g id="python-cdf-reference-line2d_3">
+      <g>
+       <use xlink:href="#python-cdf-reference-m14a8944653" x="219.24" y="166.896" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="python-cdf-reference-text_3">
+      <text style="font-size: 11.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="219.24" y="182.634203" transform="rotate(-0 219.24 182.634203)">−1</text>
+     </g>
+    </g>
+    <g id="python-cdf-reference-xtick_4">
+     <g id="python-cdf-reference-line2d_4">
+      <g>
+       <use xlink:href="#python-cdf-reference-m14a8944653" x="275.94" y="166.896" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="python-cdf-reference-text_4">
+      <text style="font-size: 11.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="275.94" y="182.634203" transform="rotate(-0 275.94 182.634203)">0</text>
+     </g>
+    </g>
+    <g id="python-cdf-reference-xtick_5">
+     <g id="python-cdf-reference-line2d_5">
+      <g>
+       <use xlink:href="#python-cdf-reference-m14a8944653" x="345.681" y="166.896" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="python-cdf-reference-text_5">
+      <text style="font-size: 11.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="345.681" y="182.634203" transform="rotate(-0 345.681 182.634203)">1.23</text>
+     </g>
+    </g>
+    <g id="python-cdf-reference-xtick_6">
+     <g id="python-cdf-reference-line2d_6">
+      <g>
+       <use xlink:href="#python-cdf-reference-m14a8944653" x="446.04" y="166.896" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="python-cdf-reference-text_6">
+      <text style="font-size: 11.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="446.04" y="182.634203" transform="rotate(-0 446.04 182.634203)">3</text>
+     </g>
+    </g>
+    <g id="python-cdf-reference-text_7">
+     <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="275.94" y="202.523891" transform="rotate(-0 275.94 202.523891)">z-score</text>
+    </g>
+   </g>
+   <g id="python-cdf-reference-matplotlib.axis_2">
+    <g id="python-cdf-reference-ytick_1">
+     <g id="python-cdf-reference-line2d_7">
+      <path d="M 60.48 166.896 L 491.4 166.896" clip-path="url(#python-cdf-reference-p15da9a10ca)" style="fill: none; stroke: #e7edf0; stroke-width: 0.7; stroke-linecap: square"/>
+     </g>
+     <g id="python-cdf-reference-line2d_8">
+      <defs>
+       <path id="python-cdf-reference-me5b960f205" d="M 0 0 L -3.5 0" style="stroke: #536675; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#python-cdf-reference-me5b960f205" x="60.48" y="166.896" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="python-cdf-reference-text_8">
+      <text style="font-size: 11.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #536675" x="53.48" y="171.265102" transform="rotate(-0 53.48 171.265102)">0.0</text>
+     </g>
+    </g>
+    <g id="python-cdf-reference-ytick_2">
+     <g id="python-cdf-reference-line2d_9">
+      <path d="M 60.48 111.996 L 491.4 111.996" clip-path="url(#python-cdf-reference-p15da9a10ca)" style="fill: none; stroke: #e7edf0; stroke-width: 0.7; stroke-linecap: square"/>
+     </g>
+     <g id="python-cdf-reference-line2d_10">
+      <g>
+       <use xlink:href="#python-cdf-reference-me5b960f205" x="60.48" y="111.996" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="python-cdf-reference-text_9">
+      <text style="font-size: 11.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #536675" x="53.48" y="116.365102" transform="rotate(-0 53.48 116.365102)">0.2</text>
+     </g>
+    </g>
+    <g id="python-cdf-reference-ytick_3">
+     <g id="python-cdf-reference-line2d_11">
+      <path d="M 60.48 57.096 L 491.4 57.096" clip-path="url(#python-cdf-reference-p15da9a10ca)" style="fill: none; stroke: #e7edf0; stroke-width: 0.7; stroke-linecap: square"/>
+     </g>
+     <g id="python-cdf-reference-line2d_12">
+      <g>
+       <use xlink:href="#python-cdf-reference-me5b960f205" x="60.48" y="57.096" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="python-cdf-reference-text_10">
+      <text style="font-size: 11.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #536675" x="53.48" y="61.465102" transform="rotate(-0 53.48 61.465102)">0.4</text>
+     </g>
+    </g>
+    <g id="python-cdf-reference-text_11">
+     <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="24.591797" y="101.016" transform="rotate(-90 24.591797 101.016)">Density</text>
+    </g>
+   </g>
+   <g id="python-cdf-reference-FillBetweenPolyCollection_1">
+    <defs>
+     <path id="python-cdf-reference-mafb9e550db" d="M 60.48 -52.784139 L 60.48 -52.704 L 61.051545 -52.704 L 61.62309 -52.704 L 62.194635 -52.704 L 62.76618 -52.704 L 63.337725 -52.704 L 63.909271 -52.704 L 64.480816 -52.704 L 65.052361 -52.704 L 65.623906 -52.704 L 66.195451 -52.704 L 66.766996 -52.704 L 67.338541 -52.704 L 67.910086 -52.704 L 68.481631 -52.704 L 69.053176 -52.704 L 69.624721 -52.704 L 70.196267 -52.704 L 70.767812 -52.704 L 71.339357 -52.704 L 71.910902 -52.704 L 72.482447 -52.704 L 73.053992 -52.704 L 73.625537 -52.704 L 74.197082 -52.704 L 74.768627 -52.704 L 75.340172 -52.704 L 75.911717 -52.704 L 76.483263 -52.704 L 77.054808 -52.704 L 77.626353 -52.704 L 78.197898 -52.704 L 78.769443 -52.704 L 79.340988 -52.704 L 79.912533 -52.704 L 80.484078 -52.704 L 81.055623 -52.704 L 81.627168 -52.704 L 82.198713 -52.704 L 82.770259 -52.704 L 83.341804 -52.704 L 83.913349 -52.704 L 84.484894 -52.704 L 85.056439 -52.704 L 85.627984 -52.704 L 86.199529 -52.704 L 86.771074 -52.704 L 87.342619 -52.704 L 87.914164 -52.704 L 88.485709 -52.704 L 89.057255 -52.704 L 89.6288 -52.704 L 90.200345 -52.704 L 90.77189 -52.704 L 91.343435 -52.704 L 91.91498 -52.704 L 92.486525 -52.704 L 93.05807 -52.704 L 93.629615 -52.704 L 94.20116 -52.704 L 94.772705 -52.704 L 95.344251 -52.704 L 95.915796 -52.704 L 96.487341 -52.704 L 97.058886 -52.704 L 97.630431 -52.704 L 98.201976 -52.704 L 98.773521 -52.704 L 99.345066 -52.704 L 99.916611 -52.704 L 100.488156 -52.704 L 101.059701 -52.704 L 101.631246 -52.704 L 102.202792 -52.704 L 102.774337 -52.704 L 103.345882 -52.704 L 103.917427 -52.704 L 104.488972 -52.704 L 105.060517 -52.704 L 105.632062 -52.704 L 106.203607 -52.704 L 106.775152 -52.704 L 107.346697 -52.704 L 107.918242 -52.704 L 108.489788 -52.704 L 109.061333 -52.704 L 109.632878 -52.704 L 110.204423 -52.704 L 110.775968 -52.704 L 111.347513 -52.704 L 111.919058 -52.704 L 112.490603 -52.704 L 113.062148 -52.704 L 113.633693 -52.704 L 114.205238 -52.704 L 114.776784 -52.704 L 115.348329 -52.704 L 115.919874 -52.704 L 116.491419 -52.704 L 117.062964 -52.704 L 117.634509 -52.704 L 118.206054 -52.704 L 118.777599 -52.704 L 119.349144 -52.704 L 119.920689 -52.704 L 120.492234 -52.704 L 121.06378 -52.704 L 121.635325 -52.704 L 122.20687 -52.704 L 122.778415 -52.704 L 123.34996 -52.704 L 123.921505 -52.704 L 124.49305 -52.704 L 125.064595 -52.704 L 125.63614 -52.704 L 126.207685 -52.704 L 126.77923 -52.704 L 127.350776 -52.704 L 127.922321 -52.704 L 128.493866 -52.704 L 129.065411 -52.704 L 129.636956 -52.704 L 130.208501 -52.704 L 130.780046 -52.704 L 131.351591 -52.704 L 131.923136 -52.704 L 132.494681 -52.704 L 133.066226 -52.704 L 133.637772 -52.704 L 134.209317 -52.704 L 134.780862 -52.704 L 135.352407 -52.704 L 135.923952 -52.704 L 136.495497 -52.704 L 137.067042 -52.704 L 137.638587 -52.704 L 138.210132 -52.704 L 138.781677 -52.704 L 139.353222 -52.704 L 139.924768 -52.704 L 140.496313 -52.704 L 141.067858 -52.704 L 141.639403 -52.704 L 142.210948 -52.704 L 142.782493 -52.704 L 143.354038 -52.704 L 143.925583 -52.704 L 144.497128 -52.704 L 145.068673 -52.704 L 145.640218 -52.704 L 146.211764 -52.704 L 146.783309 -52.704 L 147.354854 -52.704 L 147.926399 -52.704 L 148.497944 -52.704 L 149.069489 -52.704 L 149.641034 -52.704 L 150.212579 -52.704 L 150.784124 -52.704 L 151.355669 -52.704 L 151.927214 -52.704 L 152.49876 -52.704 L 153.070305 -52.704 L 153.64185 -52.704 L 154.213395 -52.704 L 154.78494 -52.704 L 155.356485 -52.704 L 155.92803 -52.704 L 156.499575 -52.704 L 157.07112 -52.704 L 157.642665 -52.704 L 158.21421 -52.704 L 158.785756 -52.704 L 159.357301 -52.704 L 159.928846 -52.704 L 160.500391 -52.704 L 161.071936 -52.704 L 161.643481 -52.704 L 162.215026 -52.704 L 162.786571 -52.704 L 163.358116 -52.704 L 163.929661 -52.704 L 164.501206 -52.704 L 165.072752 -52.704 L 165.644297 -52.704 L 166.215842 -52.704 L 166.787387 -52.704 L 167.358932 -52.704 L 167.930477 -52.704 L 168.502022 -52.704 L 169.073567 -52.704 L 169.645112 -52.704 L 170.216657 -52.704 L 170.788202 -52.704 L 171.359747 -52.704 L 171.931293 -52.704 L 172.502838 -52.704 L 173.074383 -52.704 L 173.645928 -52.704 L 174.217473 -52.704 L 174.789018 -52.704 L 175.360563 -52.704 L 175.932108 -52.704 L 176.503653 -52.704 L 177.075198 -52.704 L 177.646743 -52.704 L 178.218289 -52.704 L 178.789834 -52.704 L 179.361379 -52.704 L 179.932924 -52.704 L 180.504469 -52.704 L 181.076014 -52.704 L 181.647559 -52.704 L 182.219104 -52.704 L 182.790649 -52.704 L 183.362194 -52.704 L 183.933739 -52.704 L 184.505285 -52.704 L 185.07683 -52.704 L 185.648375 -52.704 L 186.21992 -52.704 L 186.791465 -52.704 L 187.36301 -52.704 L 187.934555 -52.704 L 188.5061 -52.704 L 189.077645 -52.704 L 189.64919 -52.704 L 190.220735 -52.704 L 190.792281 -52.704 L 191.363826 -52.704 L 191.935371 -52.704 L 192.506916 -52.704 L 193.078461 -52.704 L 193.650006 -52.704 L 194.221551 -52.704 L 194.793096 -52.704 L 195.364641 -52.704 L 195.936186 -52.704 L 196.507731 -52.704 L 197.079277 -52.704 L 197.650822 -52.704 L 198.222367 -52.704 L 198.793912 -52.704 L 199.365457 -52.704 L 199.937002 -52.704 L 200.508547 -52.704 L 201.080092 -52.704 L 201.651637 -52.704 L 202.223182 -52.704 L 202.794727 -52.704 L 203.366273 -52.704 L 203.937818 -52.704 L 204.509363 -52.704 L 205.080908 -52.704 L 205.652453 -52.704 L 206.223998 -52.704 L 206.795543 -52.704 L 207.367088 -52.704 L 207.938633 -52.704 L 208.510178 -52.704 L 209.081723 -52.704 L 209.653269 -52.704 L 210.224814 -52.704 L 210.796359 -52.704 L 211.367904 -52.704 L 211.939449 -52.704 L 212.510994 -52.704 L 213.082539 -52.704 L 213.654084 -52.704 L 214.225629 -52.704 L 214.797174 -52.704 L 215.368719 -52.704 L 215.940265 -52.704 L 216.51181 -52.704 L 217.083355 -52.704 L 217.6549 -52.704 L 218.226445 -52.704 L 218.79799 -52.704 L 219.369535 -52.704 L 219.94108 -52.704 L 220.512625 -52.704 L 221.08417 -52.704 L 221.655715 -52.704 L 222.227261 -52.704 L 222.798806 -52.704 L 223.370351 -52.704 L 223.941896 -52.704 L 224.513441 -52.704 L 225.084986 -52.704 L 225.656531 -52.704 L 226.228076 -52.704 L 226.799621 -52.704 L 227.371166 -52.704 L 227.942711 -52.704 L 228.514257 -52.704 L 229.085802 -52.704 L 229.657347 -52.704 L 230.228892 -52.704 L 230.800437 -52.704 L 231.371982 -52.704 L 231.943527 -52.704 L 232.515072 -52.704 L 233.086617 -52.704 L 233.658162 -52.704 L 234.229707 -52.704 L 234.801253 -52.704 L 235.372798 -52.704 L 235.944343 -52.704 L 236.515888 -52.704 L 237.087433 -52.704 L 237.658978 -52.704 L 238.230523 -52.704 L 238.802068 -52.704 L 239.373613 -52.704 L 239.945158 -52.704 L 240.516703 -52.704 L 241.088248 -52.704 L 241.659794 -52.704 L 242.231339 -52.704 L 242.802884 -52.704 L 243.374429 -52.704 L 243.945974 -52.704 L 244.517519 -52.704 L 245.089064 -52.704 L 245.660609 -52.704 L 246.232154 -52.704 L 246.803699 -52.704 L 247.375244 -52.704 L 247.94679 -52.704 L 248.518335 -52.704 L 249.08988 -52.704 L 249.661425 -52.704 L 250.23297 -52.704 L 250.804515 -52.704 L 251.37606 -52.704 L 251.947605 -52.704 L 252.51915 -52.704 L 253.090695 -52.704 L 253.66224 -52.704 L 254.233786 -52.704 L 254.805331 -52.704 L 255.376876 -52.704 L 255.948421 -52.704 L 256.519966 -52.704 L 257.091511 -52.704 L 257.663056 -52.704 L 258.234601 -52.704 L 258.806146 -52.704 L 259.377691 -52.704 L 259.949236 -52.704 L 260.520782 -52.704 L 261.092327 -52.704 L 261.663872 -52.704 L 262.235417 -52.704 L 262.806962 -52.704 L 263.378507 -52.704 L 263.950052 -52.704 L 264.521597 -52.704 L 265.093142 -52.704 L 265.664687 -52.704 L 266.236232 -52.704 L 266.807778 -52.704 L 267.379323 -52.704 L 267.950868 -52.704 L 268.522413 -52.704 L 269.093958 -52.704 L 269.665503 -52.704 L 270.237048 -52.704 L 270.808593 -52.704 L 271.380138 -52.704 L 271.951683 -52.704 L 272.523228 -52.704 L 273.094774 -52.704 L 273.666319 -52.704 L 274.237864 -52.704 L 274.809409 -52.704 L 275.380954 -52.704 L 275.952499 -52.704 L 276.524044 -52.704 L 277.095589 -52.704 L 277.667134 -52.704 L 278.238679 -52.704 L 278.810224 -52.704 L 279.38177 -52.704 L 279.953315 -52.704 L 280.52486 -52.704 L 281.096405 -52.704 L 281.66795 -52.704 L 282.239495 -52.704 L 282.81104 -52.704 L 283.382585 -52.704 L 283.95413 -52.704 L 284.525675 -52.704 L 285.09722 -52.704 L 285.668766 -52.704 L 286.240311 -52.704 L 286.811856 -52.704 L 287.383401 -52.704 L 287.954946 -52.704 L 288.526491 -52.704 L 289.098036 -52.704 L 289.669581 -52.704 L 290.241126 -52.704 L 290.812671 -52.704 L 291.384216 -52.704 L 291.955762 -52.704 L 292.527307 -52.704 L 293.098852 -52.704 L 293.670397 -52.704 L 294.241942 -52.704 L 294.813487 -52.704 L 295.385032 -52.704 L 295.956577 -52.704 L 296.528122 -52.704 L 297.099667 -52.704 L 297.671212 -52.704 L 298.242758 -52.704 L 298.814303 -52.704 L 299.385848 -52.704 L 299.957393 -52.704 L 300.528938 -52.704 L 301.100483 -52.704 L 301.672028 -52.704 L 302.243573 -52.704 L 302.815118 -52.704 L 303.386663 -52.704 L 303.958208 -52.704 L 304.529754 -52.704 L 305.101299 -52.704 L 305.672844 -52.704 L 306.244389 -52.704 L 306.815934 -52.704 L 307.387479 -52.704 L 307.959024 -52.704 L 308.530569 -52.704 L 309.102114 -52.704 L 309.673659 -52.704 L 310.245204 -52.704 L 310.816749 -52.704 L 311.388295 -52.704 L 311.95984 -52.704 L 312.531385 -52.704 L 313.10293 -52.704 L 313.674475 -52.704 L 314.24602 -52.704 L 314.817565 -52.704 L 315.38911 -52.704 L 315.960655 -52.704 L 316.5322 -52.704 L 317.103745 -52.704 L 317.675291 -52.704 L 318.246836 -52.704 L 318.818381 -52.704 L 319.389926 -52.704 L 319.961471 -52.704 L 320.533016 -52.704 L 321.104561 -52.704 L 321.676106 -52.704 L 322.247651 -52.704 L 322.819196 -52.704 L 323.390741 -52.704 L 323.962287 -52.704 L 324.533832 -52.704 L 325.105377 -52.704 L 325.676922 -52.704 L 326.248467 -52.704 L 326.820012 -52.704 L 327.391557 -52.704 L 327.963102 -52.704 L 328.534647 -52.704 L 329.106192 -52.704 L 329.677737 -52.704 L 330.249283 -52.704 L 330.820828 -52.704 L 331.392373 -52.704 L 331.963918 -52.704 L 332.535463 -52.704 L 333.107008 -52.704 L 333.678553 -52.704 L 334.250098 -52.704 L 334.821643 -52.704 L 335.393188 -52.704 L 335.964733 -52.704 L 336.536279 -52.704 L 337.107824 -52.704 L 337.679369 -52.704 L 338.250914 -52.704 L 338.822459 -52.704 L 339.394004 -52.704 L 339.965549 -52.704 L 340.537094 -52.704 L 341.108639 -52.704 L 341.680184 -52.704 L 342.251729 -52.704 L 342.823275 -52.704 L 343.39482 -52.704 L 343.966365 -52.704 L 344.53791 -52.704 L 345.109455 -52.704 L 345.681 -52.704 L 345.681 -104.100122 L 345.681 -104.100122 L 345.109455 -104.738685 L 344.53791 -105.379829 L 343.966365 -106.023455 L 343.39482 -106.669461 L 342.823275 -107.317745 L 342.251729 -107.968201 L 341.680184 -108.620722 L 341.108639 -109.275199 L 340.537094 -109.931521 L 339.965549 -110.589575 L 339.394004 -111.249247 L 338.822459 -111.910421 L 338.250914 -112.572978 L 337.679369 -113.236799 L 337.107824 -113.901761 L 336.536279 -114.567742 L 335.964733 -115.234616 L 335.393188 -115.902257 L 334.821643 -116.570536 L 334.250098 -117.239325 L 333.678553 -117.908491 L 333.107008 -118.577902 L 332.535463 -119.247423 L 331.963918 -119.91692 L 331.392373 -120.586254 L 330.820828 -121.255288 L 330.249283 -121.923883 L 329.677737 -122.591896 L 329.106192 -123.259187 L 328.534647 -123.925612 L 327.963102 -124.591027 L 327.391557 -125.255286 L 326.820012 -125.918244 L 326.248467 -126.579753 L 325.676922 -127.239665 L 325.105377 -127.89783 L 324.533832 -128.5541 L 323.962287 -129.208324 L 323.390741 -129.860351 L 322.819196 -130.510028 L 322.247651 -131.157204 L 321.676106 -131.801725 L 321.104561 -132.443439 L 320.533016 -133.082191 L 319.961471 -133.717827 L 319.389926 -134.350194 L 318.818381 -134.979137 L 318.246836 -135.6045 L 317.675291 -136.22613 L 317.103745 -136.843871 L 316.5322 -137.457569 L 315.960655 -138.067069 L 315.38911 -138.672216 L 314.817565 -139.272857 L 314.24602 -139.868837 L 313.674475 -140.460003 L 313.10293 -141.046201 L 312.531385 -141.627279 L 311.95984 -142.203085 L 311.388295 -142.773466 L 310.816749 -143.338273 L 310.245204 -143.897356 L 309.673659 -144.450564 L 309.102114 -144.99775 L 308.530569 -145.538765 L 307.959024 -146.073465 L 307.387479 -146.601703 L 306.815934 -147.123335 L 306.244389 -147.638218 L 305.672844 -148.14621 L 305.101299 -148.647171 L 304.529754 -149.140963 L 303.958208 -149.627447 L 303.386663 -150.106487 L 302.815118 -150.57795 L 302.243573 -151.041702 L 301.672028 -151.497613 L 301.100483 -151.945553 L 300.528938 -152.385395 L 299.957393 -152.817013 L 299.385848 -153.240285 L 298.814303 -153.655087 L 298.242758 -154.061302 L 297.671212 -154.458811 L 297.099667 -154.847501 L 296.528122 -155.227257 L 295.956577 -155.597969 L 295.385032 -155.95953 L 294.813487 -156.311832 L 294.241942 -156.654775 L 293.670397 -156.988255 L 293.098852 -157.312175 L 292.527307 -157.62644 L 291.955762 -157.930957 L 291.384216 -158.225634 L 290.812671 -158.510386 L 290.241126 -158.785126 L 289.669581 -159.049774 L 289.098036 -159.304249 L 288.526491 -159.548477 L 287.954946 -159.782383 L 287.383401 -160.005898 L 286.811856 -160.218954 L 286.240311 -160.421488 L 285.668766 -160.613438 L 285.09722 -160.794746 L 284.525675 -160.965358 L 283.95413 -161.125223 L 283.382585 -161.274291 L 282.81104 -161.412517 L 282.239495 -161.53986 L 281.66795 -161.656281 L 281.096405 -161.761745 L 280.52486 -161.85622 L 279.953315 -161.939676 L 279.38177 -162.012089 L 278.810224 -162.073436 L 278.238679 -162.123699 L 277.667134 -162.162863 L 277.095589 -162.190915 L 276.524044 -162.207847 L 275.952499 -162.213653 L 275.380954 -162.208333 L 274.809409 -162.191888 L 274.237864 -162.164322 L 273.666319 -162.125644 L 273.094774 -162.075866 L 272.523228 -162.015003 L 271.951683 -161.943074 L 271.380138 -161.8601 L 270.808593 -161.766107 L 270.237048 -161.661124 L 269.665503 -161.545181 L 269.093958 -161.418315 L 268.522413 -161.280563 L 267.950868 -161.131969 L 267.379323 -160.972576 L 266.807778 -160.802432 L 266.236232 -160.621591 L 265.664687 -160.430105 L 265.093142 -160.228033 L 264.521597 -160.015435 L 263.950052 -159.792377 L 263.378507 -159.558923 L 262.806962 -159.315146 L 262.235417 -159.061117 L 261.663872 -158.796913 L 261.092327 -158.522612 L 260.520782 -158.238297 L 259.949236 -157.944052 L 259.377691 -157.639964 L 258.806146 -157.326123 L 258.234601 -157.002623 L 257.663056 -156.669559 L 257.091511 -156.327028 L 256.519966 -155.975133 L 255.948421 -155.613975 L 255.376876 -155.243661 L 254.805331 -154.864298 L 254.233786 -154.475997 L 253.66224 -154.078871 L 253.090695 -153.673035 L 252.51915 -153.258605 L 251.947605 -152.835702 L 251.37606 -152.404446 L 250.804515 -151.964961 L 250.23297 -151.517372 L 249.661425 -151.061808 L 249.08988 -150.598396 L 248.518335 -150.127267 L 247.94679 -149.648555 L 247.375244 -149.162394 L 246.803699 -148.66892 L 246.232154 -148.168269 L 245.660609 -147.660581 L 245.089064 -147.145996 L 244.517519 -146.624657 L 243.945974 -146.096705 L 243.374429 -145.562285 L 242.802884 -145.021542 L 242.231339 -144.474624 L 241.659794 -143.921676 L 241.088248 -143.362847 L 240.516703 -142.798287 L 239.945158 -142.228146 L 239.373613 -141.652575 L 238.802068 -141.071724 L 238.230523 -140.485747 L 237.658978 -139.894795 L 237.087433 -139.299022 L 236.515888 -138.698582 L 235.944343 -138.093629 L 235.372798 -137.484316 L 234.801253 -136.870799 L 234.229707 -136.253231 L 233.658162 -135.631768 L 233.086617 -135.006565 L 232.515072 -134.377775 L 231.943527 -133.745555 L 231.371982 -133.110058 L 230.800437 -132.471439 L 230.228892 -131.829852 L 229.657347 -131.18545 L 229.085802 -130.538387 L 228.514257 -129.888816 L 227.942711 -129.236889 L 227.371166 -128.582759 L 226.799621 -127.926575 L 226.228076 -127.268489 L 225.656531 -126.60865 L 225.084986 -125.947208 L 224.513441 -125.284311 L 223.941896 -124.620105 L 223.370351 -123.954738 L 222.798806 -123.288354 L 222.227261 -122.621098 L 221.655715 -121.953113 L 221.08417 -121.284541 L 220.512625 -120.615523 L 219.94108 -119.946199 L 219.369535 -119.276707 L 218.79799 -118.607184 L 218.226445 -117.937765 L 217.6549 -117.268586 L 217.083355 -116.599778 L 216.51181 -115.931473 L 215.940265 -115.263802 L 215.368719 -114.596891 L 214.797174 -113.930869 L 214.225629 -113.265859 L 213.654084 -112.601987 L 213.082539 -111.939372 L 212.510994 -111.278135 L 211.939449 -110.618395 L 211.367904 -109.960267 L 210.796359 -109.303867 L 210.224814 -108.649307 L 209.653269 -107.996698 L 209.081723 -107.34615 L 208.510178 -106.697769 L 207.938633 -106.051661 L 207.367088 -105.407929 L 206.795543 -104.766674 L 206.223998 -104.127996 L 205.652453 -103.491992 L 205.080908 -102.858758 L 204.509363 -102.228387 L 203.937818 -101.60097 L 203.366273 -100.976596 L 202.794727 -100.355353 L 202.223182 -99.737326 L 201.651637 -99.122597 L 201.080092 -98.511249 L 200.508547 -97.903359 L 199.937002 -97.299005 L 199.365457 -96.698261 L 198.793912 -96.1012 L 198.222367 -95.507892 L 197.650822 -94.918406 L 197.079277 -94.332808 L 196.507731 -93.751163 L 195.936186 -93.173532 L 195.364641 -92.599976 L 194.793096 -92.030553 L 194.221551 -91.465317 L 193.650006 -90.904325 L 193.078461 -90.347626 L 192.506916 -89.795271 L 191.935371 -89.247308 L 191.363826 -88.703782 L 190.792281 -88.164737 L 190.220735 -87.630214 L 189.64919 -87.100253 L 189.077645 -86.574892 L 188.5061 -86.054166 L 187.934555 -85.538109 L 187.36301 -85.026753 L 186.791465 -84.520128 L 186.21992 -84.018262 L 185.648375 -83.521181 L 185.07683 -83.028909 L 184.505285 -82.541469 L 183.933739 -82.058881 L 183.362194 -81.581163 L 182.790649 -81.108334 L 182.219104 -80.640408 L 181.647559 -80.177399 L 181.076014 -79.719319 L 180.504469 -79.266177 L 179.932924 -78.817982 L 179.361379 -78.374742 L 178.789834 -77.93646 L 178.218289 -77.503142 L 177.646743 -77.074789 L 177.075198 -76.651401 L 176.503653 -76.232977 L 175.932108 -75.819516 L 175.360563 -75.411013 L 174.789018 -75.007462 L 174.217473 -74.608858 L 173.645928 -74.215192 L 173.074383 -73.826454 L 172.502838 -73.442634 L 171.931293 -73.063719 L 171.359747 -72.689697 L 170.788202 -72.320552 L 170.216657 -71.95627 L 169.645112 -71.596832 L 169.073567 -71.242221 L 168.502022 -70.892418 L 167.930477 -70.547403 L 167.358932 -70.207153 L 166.787387 -69.871647 L 166.215842 -69.540861 L 165.644297 -69.214771 L 165.072752 -68.893352 L 164.501206 -68.576577 L 163.929661 -68.264419 L 163.358116 -67.95685 L 162.786571 -67.653841 L 162.215026 -67.355363 L 161.643481 -67.061385 L 161.071936 -66.771877 L 160.500391 -66.486806 L 159.928846 -66.206139 L 159.357301 -65.929844 L 158.785756 -65.657886 L 158.21421 -65.390232 L 157.642665 -65.126845 L 157.07112 -64.867691 L 156.499575 -64.612732 L 155.92803 -64.361934 L 155.356485 -64.115257 L 154.78494 -63.872665 L 154.213395 -63.63412 L 153.64185 -63.399583 L 153.070305 -63.169015 L 152.49876 -62.942378 L 151.927214 -62.71963 L 151.355669 -62.500734 L 150.784124 -62.285648 L 150.212579 -62.074331 L 149.641034 -61.866745 L 149.069489 -61.662846 L 148.497944 -61.462595 L 147.926399 -61.26595 L 147.354854 -61.07287 L 146.783309 -60.883313 L 146.211764 -60.697237 L 145.640218 -60.5146 L 145.068673 -60.335361 L 144.497128 -60.159478 L 143.925583 -59.986908 L 143.354038 -59.81761 L 142.782493 -59.651541 L 142.210948 -59.48866 L 141.639403 -59.328924 L 141.067858 -59.172292 L 140.496313 -59.018721 L 139.924768 -58.86817 L 139.353222 -58.720597 L 138.781677 -58.575961 L 138.210132 -58.434219 L 137.638587 -58.29533 L 137.067042 -58.159253 L 136.495497 -58.025948 L 135.923952 -57.895372 L 135.352407 -57.767486 L 134.780862 -57.642248 L 134.209317 -57.519618 L 133.637772 -57.399556 L 133.066226 -57.282023 L 132.494681 -57.166978 L 131.923136 -57.054382 L 131.351591 -56.944196 L 130.780046 -56.83638 L 130.208501 -56.730897 L 129.636956 -56.627708 L 129.065411 -56.526775 L 128.493866 -56.428059 L 127.922321 -56.331524 L 127.350776 -56.237133 L 126.77923 -56.144847 L 126.207685 -56.054632 L 125.63614 -55.966451 L 125.064595 -55.880268 L 124.49305 -55.796047 L 123.921505 -55.713754 L 123.34996 -55.633353 L 122.778415 -55.55481 L 122.20687 -55.478091 L 121.635325 -55.403163 L 121.06378 -55.329991 L 120.492234 -55.258544 L 119.920689 -55.188788 L 119.349144 -55.120691 L 118.777599 -55.054221 L 118.206054 -54.989348 L 117.634509 -54.92604 L 117.062964 -54.864265 L 116.491419 -54.803995 L 115.919874 -54.745199 L 115.348329 -54.687847 L 114.776784 -54.631911 L 114.205238 -54.577362 L 113.633693 -54.524171 L 113.062148 -54.472311 L 112.490603 -54.421754 L 111.919058 -54.372473 L 111.347513 -54.32444 L 110.775968 -54.277631 L 110.204423 -54.232019 L 109.632878 -54.187578 L 109.061333 -54.144283 L 108.489788 -54.10211 L 107.918242 -54.061033 L 107.346697 -54.02103 L 106.775152 -53.982076 L 106.203607 -53.944148 L 105.632062 -53.907223 L 105.060517 -53.871279 L 104.488972 -53.836294 L 103.917427 -53.802246 L 103.345882 -53.769113 L 102.774337 -53.736875 L 102.202792 -53.705511 L 101.631246 -53.675001 L 101.059701 -53.645325 L 100.488156 -53.616463 L 99.916611 -53.588395 L 99.345066 -53.561105 L 98.773521 -53.534571 L 98.201976 -53.508778 L 97.630431 -53.483706 L 97.058886 -53.459339 L 96.487341 -53.435659 L 95.915796 -53.412649 L 95.344251 -53.390293 L 94.772705 -53.368575 L 94.20116 -53.347478 L 93.629615 -53.326988 L 93.05807 -53.30709 L 92.486525 -53.287767 L 91.91498 -53.269006 L 91.343435 -53.250793 L 90.77189 -53.233113 L 90.200345 -53.215952 L 89.6288 -53.199298 L 89.057255 -53.183137 L 88.485709 -53.167456 L 87.914164 -53.152243 L 87.342619 -53.137485 L 86.771074 -53.12317 L 86.199529 -53.109287 L 85.627984 -53.095824 L 85.056439 -53.08277 L 84.484894 -53.070113 L 83.913349 -53.057843 L 83.341804 -53.04595 L 82.770259 -53.034423 L 82.198713 -53.023252 L 81.627168 -53.012427 L 81.055623 -53.00194 L 80.484078 -52.991779 L 79.912533 -52.981937 L 79.340988 -52.972404 L 78.769443 -52.963172 L 78.197898 -52.954232 L 77.626353 -52.945575 L 77.054808 -52.937195 L 76.483263 -52.929082 L 75.911717 -52.92123 L 75.340172 -52.91363 L 74.768627 -52.906275 L 74.197082 -52.899159 L 73.625537 -52.892274 L 73.053992 -52.885613 L 72.482447 -52.879171 L 71.910902 -52.872939 L 71.339357 -52.866913 L 70.767812 -52.861085 L 70.196267 -52.855451 L 69.624721 -52.850004 L 69.053176 -52.844739 L 68.481631 -52.83965 L 67.910086 -52.834731 L 67.338541 -52.829978 L 66.766996 -52.825385 L 66.195451 -52.820948 L 65.623906 -52.816662 L 65.052361 -52.812522 L 64.480816 -52.808523 L 63.909271 -52.804662 L 63.337725 -52.800933 L 62.76618 -52.797333 L 62.194635 -52.793857 L 61.62309 -52.790503 L 61.051545 -52.787264 L 60.48 -52.784139 z" style="stroke: #c9dedd"/>
+    </defs>
+    <g clip-path="url(#python-cdf-reference-p15da9a10ca)">
+     <use xlink:href="#python-cdf-reference-mafb9e550db" x="0" y="219.6" style="fill: #c9dedd; stroke: #c9dedd"/>
+    </g>
+   </g>
+   <g id="python-cdf-reference-patch_3">
+    <path d="M 60.48 166.896 L 60.48 35.136" style="fill: none; stroke: #80919c; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="python-cdf-reference-patch_4">
+    <path d="M 60.48 166.896 L 491.4 166.896" style="fill: none; stroke: #80919c; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="python-cdf-reference-line2d_13">
+    <path d="M 345.681 166.896 L 345.681 115.499878" clip-path="url(#python-cdf-reference-p15da9a10ca)" style="fill: none; stroke-dasharray: 5.55,2.4; stroke-dashoffset: 0; stroke: #287d76; stroke-width: 1.5"/>
+   </g>
+   <g id="python-cdf-reference-text_12">
+    <text style="font-weight: 500; font-size: 13px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #287d76" x="487.0908" y="21.594388" transform="rotate(-0 487.0908 21.594388)">Reference cutoff: z = 1.23</text>
+   </g>
+   <g id="python-cdf-reference-line2d_14">
+    <path d="M 60.48 166.815861 L 81.459 166.590693 L 94.5 166.241568 L 104.706 165.750533 L 113.211 165.114309 L 120.582 164.330348 L 126.819 163.448799 L 132.489 162.434153 L 137.592 161.315866 L 142.695 159.973599 L 147.231 158.568505 L 151.767 156.942117 L 156.303 155.073994 L 160.839 152.944839 L 164.808 150.853961 L 168.777 148.539886 L 172.746 145.994671 L 176.715 143.212876 L 181.251 139.740958 L 185.787 135.958695 L 190.323 131.87448 L 194.859 127.504001 L 199.962 122.274637 L 205.632 116.130716 L 212.436 108.408519 L 234.549 83.001276 L 239.652 77.666409 L 243.621 73.806376 L 247.59 70.254068 L 250.992 67.489975 L 254.394 65.01426 L 257.229 63.189714 L 260.064 61.596073 L 262.899 60.244903 L 265.734 59.146108 L 268.569 58.307802 L 271.404 57.736215 L 274.239 57.435612 L 277.074 57.408244 L 279.909 57.654314 L 282.744 58.171982 L 285.579 58.95738 L 288.414 60.004668 L 291.249 61.306099 L 294.084 62.852121 L 296.919 64.631486 L 300.321 67.056617 L 303.723 69.774504 L 307.125 72.757912 L 311.094 76.535003 L 315.63 81.182295 L 320.733 86.740963 L 327.537 94.513632 L 346.815 116.758826 L 352.485 122.870777 L 357.588 128.06524 L 362.691 132.923114 L 367.227 136.933017 L 371.763 140.638209 L 376.299 144.03202 L 380.835 147.114192 L 384.804 149.559524 L 389.34 152.07548 L 393.876 154.307135 L 398.412 156.270968 L 402.948 157.985657 L 407.484 159.471297 L 412.587 160.89478 L 417.69 162.084482 L 423.36 163.167475 L 429.597 164.111794 L 436.401 164.899166 L 443.772 165.525449 L 452.277 166.026674 L 463.05 166.423155 L 476.658 166.687911 L 491.4 166.815861 L 491.4 166.815861" clip-path="url(#python-cdf-reference-p15da9a10ca)" style="fill: none; stroke: #245a81; stroke-width: 2.3; stroke-linecap: square"/>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="python-cdf-reference-p15da9a10ca">
+   <rect x="60.48" y="35.136" width="430.92" height="131.76"/>
+  </clipPath>
+ </defs>
+</svg></div><figcaption><b>cdf(z) accumulates area from the left</b>Reference example: cdf(1.23) = 0.8907. The area on the other side is 1 − cdf(1.23). Use the cutoffs in each task when you write your own calculations.</figcaption></figure>
+
 <div class="cell" data-cell-id="normal-left-tail">
     <div class="cell-head"><span class="cell-label">cell 25 — compute left and right tails</span><span class="cell-state">not checked</span></div>
     <div class="task"><p>Compute \(P(Z\le1.72)\) and \(P(Z&gt;-0.63)\).</p><button class="text-button hint-toggle" type="button">hint</button></div>
