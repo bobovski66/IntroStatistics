@@ -425,6 +425,16 @@ footer {
 footer p {
   margin: 0.3rem 0;
 }
+
+.plot-panel{min-width:0}.plot-panel canvas{max-width:100%;height:auto}
+.plot-key{display:flex;flex-wrap:wrap;gap:14px;font-size:.9rem;color:var(--ink-soft);margin:8px 0 14px}.plot-key span:before{content:"";display:inline-block;width:19px;height:11px;margin-right:6px;border:1px solid #9c1f2e;vertical-align:middle}.key-alpha:before{background:#f7e9e9}.key-p:before{background:#dfb4bb}
+.connection-note{padding:12px 14px;border-left:3px solid var(--accent);background:#edf1f5;font-size:.95rem;margin-top:12px}
+.tail-section,.trial-section{margin-top:24px;padding:20px;background:var(--paper);border:1px solid var(--rule);border-radius:4px}.tail-section h2,.trial-section h2{font:600 1.5rem 'Cormorant Garamond',Georgia,serif;margin:0 0 6px}.tail-section>p,.trial-section>p{margin:6px 0 16px;color:var(--ink-soft)}
+.tail-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.tail-card{padding:12px;border:1px solid var(--rule);border-radius:4px;background:white}.tail-card.selected{outline:2px solid var(--accent);outline-offset:-2px;background:#f1f5f8}.tail-card h3{margin:0;font-size:1rem}.tail-card .tail-value{font:14px 'JetBrains Mono',monospace}.tail-card svg{width:100%;height:auto;display:block;margin:9px 0}.tail-card p{font-size:.9rem;margin:4px 0;color:var(--ink-soft)}
+.trial-actions{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:12px 0}.trial-status{font-family:'JetBrains Mono',monospace;font-size:.85rem;margin:8px 0}.trial-scroll{overflow:auto;max-height:600px;border-top:1px solid var(--rule);margin-top:12px}.trial-scroll svg{display:block;width:100%;min-width:600px;height:auto}.trial-empty{padding:18px;color:var(--ink-soft)}
+.btn:focus-visible{outline:3px solid var(--accent-soft);outline-offset:3px}.btn:disabled{opacity:.5;cursor:default}
+@media(max-width:650px){.page{padding:20px 12px 35px}.tail-cards{grid-template-columns:1fr}.tail-card svg{max-width:360px}.tail-section,.trial-section{padding:14px}}
+@media print{.page{max-width:none;padding:0}body{background:white}.controls,.topbar,.trial-actions{display:none}.main-grid{display:block}.plot-panel,.tail-section,.trial-section{break-inside:avoid}.tail-cards{grid-template-columns:repeat(3,minmax(0,1fr))}.trial-scroll{max-height:none;overflow:visible}.trial-scroll svg{min-width:0}.tail-card.selected{outline:1px solid #1d3557}canvas{print-color-adjust:exact;-webkit-print-color-adjust:exact}}
 </style>
 </head>
 <body>
@@ -434,7 +444,7 @@ footer p {
   <h1>z-Test and Confidence Interval Explorer</h1>
   <p class="subtitle">Chapter 6 &middot; The Connection Between Hypothesis Tests and Confidence Intervals</p>
   <p class="preamble">
-    The top panel shows the null sampling distribution centered at the claimed value <span class="sym">&mu;<span class="sub">0</span></span>; the shaded tail is the p-value. The bottom panel shows the corresponding confidence interval for <span class="sym">&mu;</span>. The two pictures are linked: any value of <span class="sym">&mu;<span class="sub">0</span></span> outside the interval is exactly a value the test would reject at level <span class="sym">&alpha;</span>.
+    Compare the observed sample statistic with the sampling distribution predicted by the null claim. Shaded tails turn that departure into a p-value. The interval below gives a second view of the same sample; the note beneath it explains when its relationship to the selected test is exact.
   </p>
 </header>
 
@@ -458,7 +468,7 @@ footer p {
     <h3>Sample &amp; Hypothesis</h3>
 
     <div class="control-row">
-      <label>
+      <label for="inp-stat">
         <span class="control-name" id="lbl-stat">Sample mean <span class="sym bar">x</span></span>
         <span class="ink-faint" id="hint-stat"></span>
       </label>
@@ -466,21 +476,21 @@ footer p {
     </div>
 
     <div class="control-row">
-      <label>
+      <label for="inp-claim">
         <span class="control-name" id="lbl-claim">Claimed value <span class="sym">&mu;<span class="sub">0</span></span></span>
       </label>
       <input type="number" id="inp-claim" step="0.01" value="8.00">
     </div>
 
     <div class="control-row" id="row-sigma">
-      <label>
+      <label for="inp-sigma">
         <span class="control-name">Population SD <span class="sym">&sigma;</span></span>
       </label>
       <input type="number" id="inp-sigma" step="0.01" min="0.01" value="0.50">
     </div>
 
     <div class="control-row">
-      <label>
+      <label for="inp-n">
         <span class="control-name">Sample size <span class="sym">n</span></span>
       </label>
       <input type="number" id="inp-n" step="1" min="2" value="36">
@@ -517,18 +527,24 @@ footer p {
     <p class="plot-subtitle" id="plot-subtitle-top">
       Distribution of <span class="sym bar">x</span> under <span class="sym">H<span class="sub">0</span></span>: <span class="sym">&mu; = &mu;<span class="sub">0</span></span>. Shaded area is the p-value.
     </p>
-    <canvas id="plot-top" width="780" height="320"></canvas>
+    <canvas id="plot-top" width="780" height="320" role="img" aria-describedby="plot-subtitle-top">Null sampling distribution; numerical results appear below.</canvas>
+<div class="plot-key"><span class="key-alpha">Pale: rejection region, total area α</span><span class="key-p">Dark: p-value area</span></div>
 
     <div class="plot-divider"></div>
 
     <h2 class="plot-title">Confidence interval for <span id="param-name" class="sym">&mu;</span></h2>
     <p class="plot-subtitle" id="plot-subtitle-bot">
-      The set of all <span class="sym">&mu;<span class="sub">0</span></span> values the test would <em>not</em> reject at the chosen <span class="sym">&alpha;</span> (two-tailed).
+      A two-sided interval at confidence level 1 − α. Its center and width come from the observed sample.
     </p>
-    <canvas id="plot-bot" width="780" height="140"></canvas>
+    <canvas id="plot-bot" width="780" height="160" role="img" aria-describedby="plot-subtitle-bot connection-note">Two-sided confidence interval; endpoints appear below.</canvas><div id="connection-note" class="connection-note"></div>
   </section>
 </div>
 
+<section class="tail-section" aria-labelledby="tail-heading">
+  <h2 id="tail-heading">Same result, three possible questions</h2>
+  <p>Compare the shaded areas for the same z-score. The outlined card is the selected alternative. Choose the alternative from the research question before examining the data; α changes the decision threshold, not these p-values.</p>
+  <div class="tail-cards" id="tail-cards"></div>
+</section>
 <div class="readouts">
   <div class="readout">
     <div class="readout-label">Test statistic</div>
@@ -549,8 +565,16 @@ footer p {
   <div class="verdict" id="verdict"></div>
 </div>
 
+<section class="trial-section" aria-labelledby="trial-heading">
+  <h2 id="trial-heading">Repeat the test when H₀ is true</h2>
+  <p>Each row is a new simulated <em>standardized</em> statistic from N(0, 1), the reference model used above. Red points are false rejections. The dashed cutoffs and pale rejection regions are fixed by the selected alternative and α. This simulation uses the normal reference model, rather than resampling the entered data.</p>
+  <div class="trial-actions"><button class="btn" id="trial-one" type="button">Draw one test</button><button class="btn" id="trial-many" type="button">Draw 20 tests</button><button class="btn" id="trial-reset" type="button">Reset</button></div>
+  <p id="trial-status" class="trial-status" aria-live="polite"></p>
+  <div class="trial-scroll" id="trial-stack" tabindex="0" role="group" aria-label="Recent simulated null test statistics; scroll to inspect rows"></div>
+  <p>Over many valid tests with H₀ true, the rejection fraction approaches α. A short run will vary. This rate is not the probability that a particular rejected claim is true. Changing the alternative, α, or null model starts a fresh run.</p>
+</section>
 <footer>
-  <p>For one-sample tests with known <span class="sym">&sigma;</span> and <span class="sym">n &ge;</span> 30 (means) or <span class="sym">np<span class="sub">0</span> &ge;</span> 10 and <span class="sym">n(1 &minus; p<span class="sub">0</span>) &ge;</span> 10 (proportions). The proportion test uses <span class="sym">SE = &radic;(p<span class="sub">0</span>(1 &minus; p<span class="sub">0</span>)/n)</span>; the proportion CI uses <span class="sym">SE = &radic;(p&#770;(1 &minus; p&#770;)/n)</span>.</p>
+  <p>Use independent, representative observations. Mean z-procedures require known σ and a normal population or an adequate CLT approximation; n ≥ 30 alone is not a guarantee. Proportion tests require expected null counts np₀ ≥ 10 and n(1 − p₀) ≥ 10; the elementary proportion interval instead checks observed success and failure counts. The proportion test uses <span class="sym">SE = &radic;(p<span class="sub">0</span>(1 &minus; p<span class="sub">0</span>)/n)</span>; the proportion CI uses <span class="sym">SE = &radic;(p&#770;(1 &minus; p&#770;)/n)</span>.</p>
 </footer>
 
 </div>
@@ -581,16 +605,16 @@ function normalPDF(z) {
 
 // z-critical values for the standard alpha levels
 const Z_CRIT = {
-  '0.10': 1.6449,  // for two-tailed 90% CI; one-tailed 0.10 also = 1.2816 but we report 2-sided CI
-  '0.05': 1.9600,
-  '0.01': 2.5758
+  '0.10': 1.6448536269514722,  // for two-tailed 90% CI; one-tailed 0.10 also = 1.2816 but we report 2-sided CI
+  '0.05': 1.959963984540054,
+  '0.01': 2.5758293035489004
 };
 
-// One-tailed critical values (used only for the plot's rejection region marker)
+// One-tailed critical values for rejection regions and matching bounds
 const Z_CRIT_ONE = {
-  '0.10': 1.2816,
-  '0.05': 1.6449,
-  '0.01': 2.3263
+  '0.10': 1.2815515655446004,
+  '0.05': 1.6448536269514722,
+  '0.01': 2.3263478740408408
 };
 
 function fmt(x, digits = 4) {
@@ -632,7 +656,7 @@ function seNull(s) {
 function seCI(s) {
   if (s.mode === 'mean') return s.sigma / Math.sqrt(s.n);
   // Wald CI for proportion uses p-hat
-  const ph = Math.max(0.0001, Math.min(0.9999, s.stat));
+  const ph = s.stat;
   return Math.sqrt(ph * (1 - ph) / s.n);
 }
 
@@ -657,17 +681,23 @@ function isReject(s) {
   return pValue(s) <= s.alpha;
 }
 
-function checkConditions(s) {
-  if (s.mode === 'mean') {
-    if (s.n < 30) return 'Condition warning: n < 30 (CLT approximation may be poor).';
-    return null;
-  }
-  const np = s.n * s.claim;
-  const nq = s.n * (1 - s.claim);
-  if (np < 10 || nq < 10) {
-    return `Condition warning: np\u2080 = ${fmt(np,1)}, n(1\u2212p\u2080) = ${fmt(nq,1)}; both should be \u2265 10.`;
-  }
+function inputError(s) {
+  if (![s.stat,s.claim,s.n].every(Number.isFinite)) return 'Enter a statistic, a null claim, and a sample size to draw the graphs.';
+  if (s.n < 2 || !Number.isInteger(s.n)) return 'Sample size must be a whole number of at least 2.';
+  if (s.mode === 'mean' && (!Number.isFinite(s.sigma) || s.sigma <= 0)) return 'The known population standard deviation must be positive.';
+  if (s.mode === 'prop' && (s.claim <= 0 || s.claim >= 1)) return 'The null proportion p₀ must be strictly between 0 and 1.';
+  if (s.mode === 'prop' && (s.stat < 0 || s.stat > 1)) return 'The sample proportion must be between 0 and 1.';
   return null;
+}
+
+function checkConditions(s) {
+  if (s.mode === 'mean') return s.n < 30 ? 'Small sample: a normal population is needed for an exact mean z-test. Justify any normal approximation; sample size alone cannot establish the sampling conditions.' : null;
+  const messages=[];
+  const np=s.n*s.claim, nq=s.n*(1-s.claim);
+  if(np<10 || nq<10) messages.push(`Test approximation: expected null counts are ${fmt(np,1)} and ${fmt(nq,1)}; both should be at least 10.`);
+  const x=s.n*s.stat, nx=s.n*(1-s.stat);
+  if(x<10 || nx<10) messages.push(`Interval approximation: observed counts are ${fmt(x,1)} and ${fmt(nx,1)}; the elementary Wald interval is unsuitable when either is below 10.`);
+  return messages.join(' ') || null;
 }
 
 //============================================================
@@ -689,178 +719,42 @@ function xRange(s) {
 //============================================================
 
 function plotTop() {
-  const cv = document.getElementById('plot-top');
-  const ctx = cv.getContext('2d');
-  const W = cv.width, H = cv.height;
-  const M = { l: 50, r: 30, t: 24, b: 56 };
-  const pw = W - M.l - M.r;
-  const ph = H - M.t - M.b;
-
-  ctx.clearRect(0, 0, W, H);
-
-  const { lo, hi } = xRange(state);
-  const mu0 = state.claim;
-  const se = seNull(state);
-  const xobs = state.stat;
-  const z = zScore(state);
-
-  // Map x-data to canvas px
-  const xPx = x => M.l + ((x - lo) / (hi - lo)) * pw;
-
-  // Compute pdf max for vertical scaling
-  const pdfMax = normalPDF(0) / se;
-  const yPx = pdf => M.t + ph - (pdf / pdfMax) * (ph - 8);
-
-  // Generate curve
-  const N = 220;
-  const curve = [];
-  for (let i = 0; i <= N; i++) {
-    const x = lo + (i / N) * (hi - lo);
-    const pdf = normalPDF((x - mu0) / se) / se;
-    curve.push({ x, pdf });
+  const cv=document.getElementById('plot-top'),ctx=cv.getContext('2d'),W=cv.width,H=cv.height;
+  const M={l:50,r:30,t:38,b:62},pw=W-M.l-M.r,ph=H-M.t-M.b;
+  ctx.clearRect(0,0,W,H);
+  const {lo,hi}=xRange(state),se=seNull(state),claim=state.claim,z=zScore(state);
+  const xp=x=>M.l+(x-lo)/(hi-lo)*pw;
+  const yp=x=>M.t+ph-normalPDF((x-claim)/se)/normalPDF(0)*(ph-20);
+  const base=M.t+ph;
+  function area(a,b,color){
+    a=Math.max(lo,a);b=Math.min(hi,b);if(b<=a)return;
+    ctx.fillStyle=color;ctx.beginPath();ctx.moveTo(xp(a),base);
+    for(let i=0;i<=250;i++){const x=a+(b-a)*i/250;ctx.lineTo(xp(x),yp(x));}
+    ctx.lineTo(xp(b),base);ctx.closePath();ctx.fill();
   }
-
-  // Shade rejection region (lighter, in the background)
-  ctx.fillStyle = 'rgba(156, 31, 46, 0.06)';
-  const zcOne = Z_CRIT_ONE[state.alpha.toFixed(2)];
-  if (state.tail === 'left' || state.tail === 'two') {
-    const zc = state.tail === 'two' ? Z_CRIT[state.alpha.toFixed(2)] : zcOne;
-    const xCut = mu0 - zc * se;
-    ctx.beginPath();
-    ctx.moveTo(xPx(lo), yPx(0));
-    for (const p of curve) {
-      if (p.x > xCut) break;
-      ctx.lineTo(xPx(p.x), yPx(p.pdf));
-    }
-    ctx.lineTo(xPx(xCut), yPx(0));
-    ctx.closePath();
-    ctx.fill();
-  }
-  if (state.tail === 'right' || state.tail === 'two') {
-    const zc = state.tail === 'two' ? Z_CRIT[state.alpha.toFixed(2)] : zcOne;
-    const xCut = mu0 + zc * se;
-    ctx.beginPath();
-    ctx.moveTo(xPx(xCut), yPx(0));
-    for (const p of curve) {
-      if (p.x < xCut) continue;
-      ctx.lineTo(xPx(p.x), yPx(p.pdf));
-    }
-    ctx.lineTo(xPx(hi), yPx(0));
-    ctx.closePath();
-    ctx.fill();
-  }
-
-  // Shade actual p-value tail (darker)
-  ctx.fillStyle = 'rgba(156, 31, 46, 0.32)';
-  function shadeTailLeft(cutx) {
-    ctx.beginPath();
-    ctx.moveTo(xPx(lo), yPx(0));
-    for (const p of curve) {
-      if (p.x > cutx) break;
-      ctx.lineTo(xPx(p.x), yPx(p.pdf));
-    }
-    ctx.lineTo(xPx(cutx), yPx(normalPDF((cutx - mu0) / se) / se));
-    ctx.lineTo(xPx(cutx), yPx(0));
-    ctx.closePath();
-    ctx.fill();
-  }
-  function shadeTailRight(cutx) {
-    ctx.beginPath();
-    ctx.moveTo(xPx(cutx), yPx(0));
-    ctx.lineTo(xPx(cutx), yPx(normalPDF((cutx - mu0) / se) / se));
-    for (const p of curve) {
-      if (p.x < cutx) continue;
-      ctx.lineTo(xPx(p.x), yPx(p.pdf));
-    }
-    ctx.lineTo(xPx(hi), yPx(0));
-    ctx.closePath();
-    ctx.fill();
-  }
-  if (state.tail === 'left')  shadeTailLeft(xobs);
-  if (state.tail === 'right') shadeTailRight(xobs);
-  if (state.tail === 'two') {
-    const dist = Math.abs(z);
-    shadeTailLeft(mu0 - dist * se);
-    shadeTailRight(mu0 + dist * se);
-  }
-
-  // Draw bell curve
-  ctx.strokeStyle = '#1d3557';
-  ctx.lineWidth = 1.8;
-  ctx.beginPath();
-  for (let i = 0; i < curve.length; i++) {
-    const p = curve[i];
-    if (i === 0) ctx.moveTo(xPx(p.x), yPx(p.pdf));
-    else ctx.lineTo(xPx(p.x), yPx(p.pdf));
-  }
-  ctx.stroke();
-
-  // x-axis
-  ctx.strokeStyle = '#5a5d5a';
-  ctx.lineWidth = 1;
-  ctx.beginPath();
-  ctx.moveTo(M.l, M.t + ph);
-  ctx.lineTo(M.l + pw, M.t + ph);
-  ctx.stroke();
-
-  // x-axis ticks (mu0 - 3se, ..., mu0 + 3se)
-  ctx.fillStyle = '#5a5d5a';
-  ctx.font = "12px 'JetBrains Mono', monospace";
-  ctx.textAlign = 'center';
-  for (let k = -3; k <= 3; k++) {
-    const xv = mu0 + k * se;
-    if (xv < lo || xv > hi) continue;
-    const px = xPx(xv);
-    ctx.beginPath();
-    ctx.moveTo(px, M.t + ph);
-    ctx.lineTo(px, M.t + ph + 4);
-    ctx.stroke();
-    ctx.fillText(fmtSig(xv, 4), px, M.t + ph + 16);
-  }
-
-  // mu_0 marker (on axis)
-  const muPx = xPx(mu0);
-  ctx.strokeStyle = '#1d3557';
-  ctx.lineWidth = 1.5;
-  ctx.setLineDash([3, 3]);
-  ctx.beginPath();
-  ctx.moveTo(muPx, M.t + ph);
-  ctx.lineTo(muPx, M.t + 4);
-  ctx.stroke();
-  ctx.setLineDash([]);
-  ctx.fillStyle = '#1d3557';
-  ctx.font = "italic 13px 'Crimson Pro', serif";
-  ctx.textAlign = 'center';
-  ctx.fillText('\u03bc\u2080', muPx, M.t - 6);
-
-  // observed value marker
-  const xobsPx = xPx(xobs);
-  ctx.strokeStyle = '#9c1f2e';
-  ctx.lineWidth = 2;
-  ctx.beginPath();
-  ctx.moveTo(xobsPx, M.t + ph + 1);
-  ctx.lineTo(xobsPx, M.t + 4);
-  ctx.stroke();
-  ctx.fillStyle = '#9c1f2e';
-  const obsLabel = state.mode === 'mean' ? 'x\u0304' : 'p\u0302';
-  ctx.font = "italic 13px 'Crimson Pro', serif";
-  ctx.fillText(obsLabel, xobsPx, M.t - 6);
-
-  // axis caption (param name)
-  ctx.fillStyle = '#5a5d5a';
-  ctx.font = "italic 14px 'Crimson Pro', serif";
-  ctx.textAlign = 'center';
-  const paramSym = state.mode === 'mean' ? 'sample mean' : 'sample proportion';
-  ctx.fillText(paramSym, M.l + pw/2, M.t + ph + 38);
-
-  // p-value annotation
-  ctx.fillStyle = '#9c1f2e';
-  ctx.font = "12px 'JetBrains Mono', monospace";
-  ctx.textAlign = 'right';
-  ctx.fillText(`p = ${fmt(pValue(state),4)}`, M.l + pw - 6, M.t + 14);
-  ctx.textAlign = 'left';
-  ctx.fillStyle = '#1d3557';
-  ctx.fillText(`z = ${fmt(z,3)}`, M.l + 6, M.t + 14);
+  const critical=state.tail==='two'?Z_CRIT[state.alpha.toFixed(2)]:Z_CRIT_ONE[state.alpha.toFixed(2)];
+  const cuts=[];
+  if(state.tail!=='right'){area(lo,claim-critical*se,'#f5e3e6');cuts.push(claim-critical*se);}
+  if(state.tail!=='left'){area(claim+critical*se,hi,'#f5e3e6');cuts.push(claim+critical*se);}
+  if(state.tail==='left')area(lo,state.stat,'#dca7b1');
+  else if(state.tail==='right')area(state.stat,hi,'#dca7b1');
+  else{area(lo,claim-Math.abs(z)*se,'#dca7b1');area(claim+Math.abs(z)*se,hi,'#dca7b1');}
+  ctx.strokeStyle='#1d3557';ctx.lineWidth=2;ctx.beginPath();
+  for(let i=0;i<=400;i++){const x=lo+(hi-lo)*i/400;i?ctx.lineTo(xp(x),yp(x)):ctx.moveTo(xp(x),yp(x));}ctx.stroke();
+  ctx.strokeStyle='#5a5d5a';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(M.l,base);ctx.lineTo(M.l+pw,base);ctx.stroke();
+  ctx.font="12px 'JetBrains Mono', monospace";ctx.fillStyle='#5a5d5a';ctx.textAlign='center';
+  for(let k=-3;k<=3;k++){const x=claim+k*se;ctx.beginPath();ctx.moveTo(xp(x),base);ctx.lineTo(xp(x),base+4);ctx.stroke();ctx.fillText(fmtSig(x,4),xp(x),base+18);}
+  ctx.setLineDash([4,4]);ctx.strokeStyle='#ad6b15';
+  for(const cut of cuts){ctx.beginPath();ctx.moveTo(xp(cut),base);ctx.lineTo(xp(cut),yp(cut));ctx.stroke();}
+  ctx.strokeStyle='#1d3557';ctx.beginPath();ctx.moveTo(xp(claim),base);ctx.lineTo(xp(claim),M.t+4);ctx.stroke();ctx.setLineDash([]);
+  const sym=state.mode==='mean'?'μ₀':'p₀',obs=state.mode==='mean'?'x̄':'p̂';
+  ctx.fillStyle='#1d3557';ctx.fillText(`${sym} = ${fmtSig(claim,4)}`,xp(claim),M.t-19);
+  ctx.strokeStyle='#9c1f2e';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(xp(state.stat),base);ctx.lineTo(xp(state.stat),M.t+7);ctx.stroke();
+  ctx.fillStyle='#9c1f2e';ctx.fillText(`${obs} = ${fmtSig(state.stat,4)}`,xp(state.stat),M.t-3);
+  ctx.fillStyle='#5a5d5a';ctx.fillText(state.mode==='mean'?'Sample mean under H₀':'Sample proportion under H₀',M.l+pw/2,base+40);
+  ctx.textAlign='left';ctx.fillStyle='#1d3557';ctx.fillText(`z = ${fmt(z,3)}`,M.l+6,M.t+15);
+  ctx.textAlign='right';ctx.fillStyle='#9c1f2e';ctx.fillText(`p = ${fmt(pValue(state),4)}`,M.l+pw-6,M.t+15);
+  cv.setAttribute('aria-label',`Null model centered at ${claim}; observed ${state.stat}; ${state.tail}-tailed z ${fmt(z,3)}, p-value ${fmt(pValue(state),4)}. Pale regions have total probability alpha ${state.alpha}.`);
 }
 
 //============================================================
@@ -946,7 +840,7 @@ function plotBot() {
   ctx.stroke();
   ctx.setLineDash([]);
   ctx.fillStyle = isOutside ? '#9c1f2e' : '#5a5d5a';
-  ctx.fillText('\u03bc\u2080', muPx, cy + barH/2 + 22);
+  ctx.fillText((state.mode === 'mean' ? 'μ₀' : 'p₀') + ' = ' + fmtSig(state.claim,4), muPx, cy + barH/2 + 60);
 
   // CI endpoint labels
   ctx.fillStyle = '#5a5d5a';
@@ -960,19 +854,19 @@ function plotBot() {
   ctx.font = "12px 'JetBrains Mono', monospace";
   ctx.textAlign = 'left';
   const conf = (1 - state.alpha) * 100;
-  ctx.fillText(`${fmt(conf,0)}% CI`, M.l + 4, M.t + 14);
+  ctx.fillText(`${fmt(conf,0)}% two-sided CI`, M.l + 4, M.t + 14);
 
   // Outside indicator
   if (isOutside) {
     ctx.fillStyle = '#9c1f2e';
     ctx.font = "italic 12px 'Crimson Pro', serif";
     ctx.textAlign = 'right';
-    ctx.fillText('\u03bc\u2080 lies outside the interval', M.l + pw - 4, M.t + 14);
+    ctx.fillText((state.mode === 'mean' ? 'μ₀' : 'p₀') + ' lies outside the interval', M.l + pw - 4, M.t + 14);
   } else {
     ctx.fillStyle = '#2f5d3f';
     ctx.font = "italic 12px 'Crimson Pro', serif";
     ctx.textAlign = 'right';
-    ctx.fillText('\u03bc\u2080 lies inside the interval', M.l + pw - 4, M.t + 14);
+    ctx.fillText((state.mode === 'mean' ? 'μ₀' : 'p₀') + ' lies inside the interval', M.l + pw - 4, M.t + 14);
   }
 }
 
@@ -1048,7 +942,7 @@ function updateReadouts() {
 
 function updateWarning() {
   const w = document.getElementById('warning');
-  const msg = checkConditions(state);
+  const msg = inputError(state) || checkConditions(state);
   if (msg) {
     w.textContent = msg;
     w.classList.remove('hidden');
@@ -1061,11 +955,87 @@ function updateWarning() {
 // FULL RENDER
 //============================================================
 
+
+function tailProbability(z,tail){return tail==='left'?normalCDF(z):tail==='right'?normalCDF(-z):2*normalCDF(-Math.abs(z));}
+
+function smallTailSVG(z,tail){
+  const lo=-Math.max(3.8,Math.abs(z)+.4),hi=-lo,W=300,H=128,left=16,right=284,base=98;
+  const xp=x=>left+(x-lo)/(hi-lo)*(right-left),yp=x=>base-76*normalPDF(x)/normalPDF(0);
+  const points=(a,b)=>Array.from({length:161},(_,i)=>{const x=a+(b-a)*i/160;return `${xp(x).toFixed(2)},${yp(x).toFixed(2)}`;}).join(' ');
+  const fill=(a,b)=>`<polygon points="${xp(a)},${base} ${points(a,b)} ${xp(b)},${base}" fill="#dca7b1"/>`;
+  let regions=tail==='left'?fill(lo,z):tail==='right'?fill(z,hi):fill(lo,-Math.abs(z))+fill(Math.abs(z),hi);
+  const title=`${tail}-tailed p-value ${fmt(tailProbability(z,tail),4)} for z ${fmt(z,3)}`;
+  return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${title}" xmlns="http://www.w3.org/2000/svg"><title>${title}</title>${regions}<polyline points="${points(lo,hi)}" fill="none" stroke="#1d3557" stroke-width="2"/><path d="M${left} ${base}H${right}" stroke="#80919c"/><path d="M${xp(z)} ${base}V16" stroke="#9c1f2e" stroke-width="1.5"/><text x="${xp(z)}" y="119" text-anchor="middle" font-family="Arial,sans-serif" font-size="12" fill="#9c1f2e">${fmt(z,2)}</text><text x="${xp(0)}" y="12" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#536675">null center: z = 0</text></svg>`;
+}
+
+function updateTailComparison(){
+  const z=zScore(state),symbol=state.mode==='mean'?'μ':'p',claim=state.mode==='mean'?'μ₀':'p₀';
+  document.getElementById('tail-cards').innerHTML=[['left','Left-tailed','<'],['two','Two-tailed','≠'],['right','Right-tailed','>']].map(([tail,name,op])=>`<article class="tail-card ${state.tail===tail?'selected':''}"><h3>${name}${state.tail===tail?' · selected':''}</h3><p>Hₐ: ${symbol} ${op==='<'?'&lt;':op==='>'?'&gt;':op} ${claim}</p>${smallTailSVG(z,tail)}<div class="tail-value">p = ${fmt(tailProbability(z,tail),4)}</div></article>`).join('');
+}
+
+function updateConnection(){
+  const conf=fmt((1-state.alpha)*100,0),[lo,hi]=ciBounds(state),inside=state.claim>=lo&&state.claim<=hi;
+  document.getElementById('plot-subtitle-top').textContent=`Reference distribution of the ${state.mode==='mean'?'sample mean':'sample proportion'} under H₀. Dark shading is the selected ${state.tail==='two'?'two-sided':state.tail+'-tailed'} p-value; pale shading marks the α rejection region.`;
+  let text;
+  if(state.mode==='prop') text=`The ${conf}% interval is the elementary two-sided Wald interval, using p̂ in its standard error. The proportion test uses p₀ instead. They are different procedures: whether p₀ falls inside this interval need not match the test decision, even for a two-sided test. Use the p-value for the selected test.`;
+  else if(state.tail==='two')text=`These are matching known-σ procedures: the ${conf}% two-sided z-interval and the two-sided test at α = ${state.alpha}. The claim is ${inside?'inside':'outside'} the interval. Strictly outside claims are rejected; exact endpoints depend on the equality convention (this test uses p ≤ α).`;
+  else{
+    const delta=Z_CRIT_ONE[state.alpha.toFixed(2)]*seNull(state),isLeft=state.tail==='left',bound=state.stat+(isLeft?delta:-delta);
+    text=`The plotted ${conf}% interval is two-sided, so its endpoints do not give the selected one-sided test rule. The matching ${conf}% one-sided ${isLeft?'upper':'lower'} bound is ${fmt(bound,4)}: reject for ${isLeft?'μ₀ ≥ upper bound':'μ₀ ≤ lower bound'} (subject to numerical rounding).`;
+  }
+  document.getElementById('connection-note').textContent=text;
+  document.getElementById('plot-subtitle-bot').textContent=`Two-sided ${conf}% ${state.mode==='mean'?'known-σ z':'Wald'} interval, centered at the observed ${state.mode==='mean'?'sample mean':'sample proportion'}.`;
+  document.getElementById('plot-bot').setAttribute('aria-label',`Two-sided ${conf}% confidence interval from ${fmt(lo,4)} to ${fmt(hi,4)}. The null claim ${state.claim} lies ${inside?'inside':'outside'}.`);
+}
+
+const nullTrials={rows:[],total:0,rejected:0,key:''};
+function resetNullTrials(){nullTrials.rows=[];nullTrials.total=0;nullTrials.rejected=0;}
+function syncNullTrials(){
+  const key=[state.mode,state.claim,state.sigma,state.n,state.tail,state.alpha].join('|');
+  if(key!==nullTrials.key){resetNullTrials();nullTrials.key=key;}
+}
+function drawNullTrials(n){
+  if(inputError(state))return;syncNullTrials();
+  for(let i=0;i<n;i++){
+    const u=Math.max(Number.MIN_VALUE,Math.random()),v=Math.random();
+    const z=Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v),p=tailProbability(z,state.tail),reject=p<=state.alpha;
+    nullTrials.total++;if(reject)nullTrials.rejected++;
+    nullTrials.rows.push({index:nullTrials.total,z,p,reject});if(nullTrials.rows.length>40)nullTrials.rows.shift();
+  }
+  renderNullTrials();
+}
+function renderNullTrials(){
+  syncNullTrials();
+  const {total,rejected,rows}=nullTrials;
+  document.getElementById('trial-status').textContent=total?`${rejected} false rejection${rejected===1?'':'s'} / ${total} tests = ${fmt(100*rejected/total,1)}%; reference rate α = ${fmt(100*state.alpha,0)}%. Showing the latest ${rows.length}.`:`No tests drawn. Reference false-rejection rate α = ${fmt(100*state.alpha,0)}%.`;
+  const box=document.getElementById('trial-stack');
+  if(!total){box.innerHTML='<div class="trial-empty">Draw tests to build the stack. Every row is generated with H₀ true.</div>';return;}
+  const extent=Math.max(3.5,...rows.map(r=>Math.abs(r.z)+.2)),left=75,right=570,top=64,H=top+rows.length*25+18;
+  const xp=z=>left+(z+extent)/(2*extent)*(right-left),critical=state.tail==='two'?Z_CRIT[state.alpha.toFixed(2)]:Z_CRIT_ONE[state.alpha.toFixed(2)];
+  let body=`<rect width="780" height="${H}" fill="#fffdf8"/>`;
+  if(state.tail!=='right')body+=`<rect x="${left}" y="40" width="${xp(-critical)-left}" height="${H-48}" fill="#f5e3e6"/>`;
+  if(state.tail!=='left')body+=`<rect x="${xp(critical)}" y="40" width="${right-xp(critical)}" height="${H-48}" fill="#f5e3e6"/>`;
+  for(const z of [-3,-2,-1,0,1,2,3])body+=`<path d="M${xp(z)} 40V${H-8}" stroke="${z===0?'#1d3557':'#e1e7eb'}"/><text x="${xp(z)}" y="31" text-anchor="middle">${z}</text>`;
+  for(const z of state.tail==='two'?[-critical,critical]:[state.tail==='left'?-critical:critical])body+=`<path d="M${xp(z)} 40V${H-8}" stroke="#ad6b15" stroke-dasharray="4 4"/>`;
+  body+='<text x="10" y="17">Test</text><text x="322" y="17" text-anchor="middle">Simulated z under H₀</text><text x="605" y="17">p-value · decision</text>';
+  for(let i=0;i<rows.length;i++){
+    const r=rows[i],y=top+i*25,color=r.reject?'#9c1f2e':'#1d3557';
+    body+=`<text x="10" y="${y+4}">#${r.index}</text><path d="M${xp(0)} ${y}H${xp(r.z)}" stroke="${color}" stroke-width="1.3"/><circle cx="${xp(r.z)}" cy="${y}" r="4.5" fill="${color}"/><text x="605" y="${y+4}" fill="${color}">${fmt(r.p,4)} · ${r.reject?'reject':'fail to reject'}</text>`;
+  }
+  box.innerHTML=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 ${H}" role="img" aria-label="${rejected} false rejections in ${total} independent standard-normal null tests; most recent ${rows.length} plotted" font-family="Arial,sans-serif" font-size="12" fill="#182e40"><title>Repeated testing under a true null hypothesis</title>${body}</svg>`;
+  box.scrollTop=box.scrollHeight;
+}
+
 function render() {
-  plotTop();
-  plotBot();
-  updateReadouts();
+  const invalid=inputError(state);
+  ['trial-one','trial-many'].forEach(id=>document.getElementById(id).disabled=Boolean(invalid));
   updateWarning();
+  if(invalid){
+    ['plot-top','plot-bot'].forEach(id=>{const c=document.getElementById(id);c.getContext('2d').clearRect(0,0,c.width,c.height);c.setAttribute('aria-label',invalid);});
+    ['rd-z','rd-p','rd-ci','rd-rule','verdict'].forEach(id=>document.getElementById(id).textContent='—');
+    document.getElementById('tail-cards').innerHTML='';document.getElementById('connection-note').textContent=invalid;return;
+  }
+  plotTop();plotBot();updateReadouts();updateTailComparison();updateConnection();renderNullTrials();
 }
 
 //============================================================
@@ -1110,8 +1080,8 @@ function setMode(mode) {
     paramName.innerHTML = 'p';
     inpStat.step = '0.001';
     inpClaim.step = '0.001';
-    inpStat.min = '0.001';
-    inpStat.max = '0.999';
+    inpStat.min = '0';
+    inpStat.max = '1';
     inpClaim.min = '0.001';
     inpClaim.max = '0.999';
     // If values are out of [0,1], reset to seeds defaults
@@ -1171,20 +1141,23 @@ function loadExample(name) {
 //============================================================
 
 function wireEvents() {
+  document.getElementById('trial-one').addEventListener('click',()=>drawNullTrials(1));
+  document.getElementById('trial-many').addEventListener('click',()=>drawNullTrials(20));
+  document.getElementById('trial-reset').addEventListener('click',()=>{resetNullTrials();renderNullTrials();});
   document.getElementById('inp-stat').addEventListener('input', e => {
-    state.stat = parseFloat(e.target.value) || 0;
+    state.stat = parseFloat(e.target.value);
     render();
   });
   document.getElementById('inp-claim').addEventListener('input', e => {
-    state.claim = parseFloat(e.target.value) || 0;
+    state.claim = parseFloat(e.target.value);
     render();
   });
   document.getElementById('inp-sigma').addEventListener('input', e => {
-    state.sigma = Math.max(0.0001, parseFloat(e.target.value) || 0);
+    state.sigma = parseFloat(e.target.value);
     render();
   });
   document.getElementById('inp-n').addEventListener('input', e => {
-    state.n = Math.max(2, Math.round(parseFloat(e.target.value) || 2));
+    state.n = parseFloat(e.target.value);
     render();
   });
 
