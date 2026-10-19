@@ -71,12 +71,16 @@
     .fill{position:absolute;top:4px;height:12px;border-radius:999px;background:linear-gradient(90deg,var(--purple),var(--blue))}
     footer{padding:8px 0 24px;color:var(--muted);font-size:.92rem}
     @media (max-width:980px){.layout,.metrics,.twocol,.row{grid-template-columns:1fr}}
+
+    .chi-plot,.null-stack{overflow:auto;max-width:100%}.chi-plot svg,.null-stack svg{display:block;width:100%;height:auto;min-width:650px}.null-stack{max-height:570px;border:1px solid var(--line);border-radius:8px}.null-stack svg{min-width:750px}.sim-actions{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin:14px 0}.sim-actions label{display:flex;align-items:center;gap:8px}.sim-empty{padding:20px;color:var(--muted)}.sim-status{font-variant-numeric:tabular-nums}.approx-warning{border-left:4px solid #ad6b15;background:#fff5df;padding:10px 12px;margin:12px 0}button:focus-visible,select:focus-visible,input:focus-visible,[tabindex]:focus-visible{outline:3px solid #ad6b15;outline-offset:3px}
+    @media print{body{background:white}header,main{max-width:none;padding:0}.layout,.twocol{display:block}.panel{box-shadow:none;break-inside:avoid;border:1px solid #aaa}.sim-actions,button,#controls,select{display:none}.chi-plot,.null-stack{overflow:visible;max-height:none}.chi-plot svg,.null-stack svg{min-width:0}svg,canvas{print-color-adjust:exact;-webkit-print-color-adjust:exact}}
   </style>
 </head>
 <body>
 <header>
+  <p><a href="../index.html">← MATH&amp; 146 course</a> · <a href="../readings/week8_reading.html">Week 8 reading</a></p>
   <h1>Geometry of Categorical Models</h1>
-  <p class="subtitle">A categorical model is a point in a shape. With 2 categories the shape is a line segment, with 3 categories it is a triangle, and with 4 categories it is a tetrahedron. This demo shows the expected model point, the observed data point, and the chi-squared distance between them.</p>
+  <p class="subtitle">A categorical model is a point in a shape. With 2 categories the shape is a line segment, with 3 categories it is a triangle, and with 4 categories it is a tetrahedron. This demo shows the expected model point, the observed data point, and their weighted squared departure, measured by chi-squared.</p>
 </header>
 <main>
   <div class="layout">
@@ -84,24 +88,24 @@
       <div class="panel">
         <h2>1. Choose the model size</h2>
         <div class="row">
-          <select id="kSelect">
+          <select id="kSelect" aria-label="Number of categories">
             <option value="2">2 categories</option>
             <option value="3" selected>3 categories</option>
             <option value="4">4 categories</option>
           </select>
-          <select id="scenarioSelect"></select>
+          <select id="scenarioSelect" aria-label="Category labels"></select>
         </div>
         <div class="row" style="margin-top:10px;">
           <button class="orange" id="newExpectedBtn">New expected model</button>
-          <button class="secondary" id="newObservedBtn">Random observed start</button>
+          <button class="secondary" id="newObservedBtn">Explore a count allocation</button>
         </div>
         <div class="row" style="margin-top:10px;">
-          <button class="primary" id="matchBtn">Match expected</button>
+          <button class="primary" id="matchBtn">Round expected counts</button>
           <button class="secondary" id="resetBtn">Reset example</button>
         </div>
         <div id="controls"></div>
         <div class="note">
-          The total sample size is fixed at <strong id="nLabel">60</strong>. That is why one count is always dependent on the others.
+          The total sample size is fixed at <strong id="nLabel">60</strong>. That is why one count is always dependent on the others. Sliders and “Explore” choose possible allocations; “Draw under H₀” below samples from the expected model. Rounding expected counts gives a whole-number approximation and may leave χ² above zero.
         </div>
       </div>
       <div class="panel">
@@ -111,7 +115,7 @@
           <div><strong>Chi-squared:</strong> &chi;<sup>2</sup> = &Sigma; (O - E)<sup>2</sup> / E</div>
           <div style="margin-top:8px;"><strong>Degrees of freedom:</strong> df = k - 1</div>
         </div>
-        <p class="small">The expected counts define a target point in the shape. The observed counts define another point. The chi-squared statistic measures a weighted distance from observed to expected.</p>
+        <p class="small">The expected counts define a target point in the shape. The observed counts define another point. The chi-squared statistic is a weighted squared departure: χ² = N Σ(p̂ − p)²/p. Its value is not ordinary screen distance between the points.</p>
       </div>
     </section>
 
@@ -125,7 +129,8 @@
           <div class="metric"><div class="label">p-value</div><div class="value" id="pLabel">1.000</div></div>
         </div>
         <div id="decision" class="decision good">Small weighted distance: the observed counts look compatible with the expected model.</div>
-        <canvas id="geomCanvas" width="900" height="630"></canvas>
+        <canvas id="geomCanvas" width="900" height="630" role="img" aria-label="Categorical probability model geometry">The counts table and residuals describe the model and observed data.</canvas>
+        <p class="small">Colored rings keep the markers visible when they share a projected location. Use the legend to identify the model points.</p>
         <div class="legend">
           <span><span class="swatch sw-black"></span>equal model</span>
           <span><span class="swatch sw-orange"></span>expected model</span>
@@ -151,9 +156,29 @@
       <footer>Tip: in the 4-category case, drag inside the picture to rotate the tetrahedron.</footer>
     </section>
   </div>
+
+  <section class="panel" aria-labelledby="tail-heading">
+    <h2 id="tail-heading">6. Turn the mismatch into a right-tail probability</h2>
+    <p class="small">Squaring the residuals combines departures in either direction into a nonnegative statistic. The p-value is the area to the right of the observed χ². Pale shading marks the rejection region at the chosen α; dark shading is the current p-value.</p>
+    <div class="sim-actions"><label for="alphaSelect">Significance level α <select id="alphaSelect"><option value="0.10">0.10</option><option value="0.05" selected>0.05</option><option value="0.01">0.01</option></select></label></div>
+    <div id="approx-warning" class="approx-warning" role="status" hidden></div>
+    <div id="chi-tail" class="chi-plot" tabindex="0" role="group" aria-label="Chi-squared null curve and shaded right tail"></div>
+    <p class="small" id="chi-curve-note"></p>
+  </section>
+  <section class="panel" aria-labelledby="simulation-heading">
+    <h2 id="simulation-heading">7. Let repeated tests under H₀ pile up</h2>
+    <p class="small">Each draw generates 60 independent categorical observations using the <em>fixed expected probabilities</em>. The latest sample moves the observed point above and adds a row below. Red points reject this true null model; the dashed cutoff is fixed by df and α.</p>
+    <div class="sim-actions"><button class="primary" id="sample-one">Draw under H₀</button><button class="secondary" id="sample-many">Draw 20 under H₀</button><button class="secondary" id="sample-clear">Clear sampled tests</button></div>
+    <p class="sim-status" id="sample-status" aria-live="polite"></p>
+    <div id="null-stack" class="null-stack" tabindex="0" role="group" aria-label="Recent chi-squared statistics from samples generated under the true null model"></div>
+    <p class="small">Compare the rejection fraction with nominal α. Counts are discrete and the chi-squared reference distribution is an approximation, so the long-run fraction need not equal α exactly. This rate is not the probability that a particular null claim is true. Choose α before analyzing real data; changing it here compares thresholds on the same draws without changing their statistics or p-values.</p>
+    <p class="small">Changing the expected model, category labels, or number of categories clears the sampled run. Moving the observed sliders only explores the current table; it does not add simulated tests.</p>
+  </section>
 </main>
 <script>
 const N = 60;
+let alpha = .05;
+const nullHistory = {key:"",rows:[]};
 const scenarioNames = {
   2: ['Pass / Not Pass','Tea / Coffee','Cats / Dogs'],
   3: ['Pizza / Tacos / Salad','Drive / Bus / Walk','Rock / Jazz / Classical'],
@@ -174,8 +199,8 @@ const scenarioCats = {
 let k = 3;
 let scenario = scenarioNames[3][0];
 let cats = scenarioCats[scenario];
-let expected = randomExpected(k);
-let observed = randomObserved(k);
+let expected = Array(k).fill(N/k);
+let observed = [30,18,12];
 let rotX = -0.35, rotY = 0.75;
 let dragging = false, lastX = 0, lastY = 0;
 
@@ -218,8 +243,10 @@ function randomObserved(dim){
 }
 
 function setObservedToExpected(){
-  observed = expected.map(x => Math.round(x));
-  adjustLastToTotal(observed);
+  observed = expected.map(Math.floor);
+  const remaining=N-observed.reduce((a,b)=>a+b,0);
+  const order=expected.map((e,i)=>({i,fraction:e-Math.floor(e)})).sort((a,b)=>b.fraction-a.fraction);
+  for(let i=0;i<remaining;i++)observed[order[i].i]++;
 }
 
 function adjustLastToTotal(arr){
@@ -239,10 +266,10 @@ function computeRows(){
 function chiValue(){ return computeRows().reduce((s,r)=>s+r.c,0); }
 
 function gammln(xx){const cof=[76.18009172947146,-86.50532032941677,24.01409824083091,-1.231739572450155,.1208650973866179e-2,-.5395239384953e-5];let x=xx-1,tmp=x+5.5;tmp-=(x+.5)*Math.log(tmp);let ser=1.000000000190015;for(let j=0;j<6;j++){x+=1;ser+=cof[j]/x}return -tmp+Math.log(2.5066282746310005*ser)}
-function gser(a,x){if(x<=0)return 0;let sum=1/a,del=sum,ap=a;for(let n=1;n<=100;n++){ap+=1;del*=x/ap;sum+=del;if(Math.abs(del)<Math.abs(sum)*3e-7)break}return sum*Math.exp(-x+a*Math.log(x)-gammln(a))}
-function gcf(a,x){const FPMIN=1e-30;let b=x+1-a,c=1/FPMIN,d=1/b,h=d;for(let i=1;i<=100;i++){const an=-i*(i-a);b+=2;d=an*d+b;if(Math.abs(d)<FPMIN)d=FPMIN;c=b+an/c;if(Math.abs(c)<FPMIN)c=FPMIN;d=1/d;const del=d*c;h*=del;if(Math.abs(del-1)<3e-7)break}return Math.exp(-x+a*Math.log(x)-gammln(a))*h}
+function gser(a,x){if(x<=0)return 0;let sum=1/a,del=sum,ap=a;for(let n=1;n<=250;n++){ap+=1;del*=x/ap;sum+=del;if(Math.abs(del)<Math.abs(sum)*3e-13)break}return sum*Math.exp(-x+a*Math.log(x)-gammln(a))}
+function gcf(a,x){const FPMIN=1e-30;let b=x+1-a,c=1/FPMIN,d=1/b,h=d;for(let i=1;i<=250;i++){const an=-i*(i-a);b+=2;d=an*d+b;if(Math.abs(d)<FPMIN)d=FPMIN;c=b+an/c;if(Math.abs(c)<FPMIN)c=FPMIN;d=1/d;const del=d*c;h*=del;if(Math.abs(del-1)<3e-13)break}return Math.exp(-x+a*Math.log(x)-gammln(a))*h}
 function gammaP(a,x){return x<a+1?gser(a,x):1-gcf(a,x)}
-function pChi(x,df){return Math.max(0,Math.min(1,1-gammaP(df/2,x/2)))}
+function pChi(x,df){if(x<=0)return 1;const a=df/2,t=x/2;return Math.max(0,Math.min(1,t<a+1?1-gser(a,t):gcf(a,t)))}
 
 function renderControls(){
   const html = [];
@@ -250,7 +277,7 @@ function renderControls(){
     html.push(`
       <div class="control">
         <div class="control-top"><span class="cat">${cats[i]}</span><span class="count" id="count-${i}">${observed[i]}</span></div>
-        <input type="range" id="slider-${i}" min="0" max="${maxForIndex(i)}" value="${observed[i]}">
+        <input type="range" aria-label="Observed count for ${cats[i]}" id="slider-${i}" min="0" max="${maxForIndex(i)}" value="${observed[i]}">
       </div>
     `);
   }
@@ -379,10 +406,10 @@ function drawLine(obsW,expW,eqW){
   ctx.fillStyle='#475569'; ctx.font='bold 18px system-ui'; ctx.textAlign='center';
   ctx.fillText(cats[0],P.A.x,P.A.y-24); ctx.fillText(cats[1],P.B.x,P.B.y-24);
   drawArrow(E.x,E.y-8,P.x,P.y-8,'#7c3aed',4);
-  drawPoint(Q.x,Q.y,'#111827',8); drawPoint(E.x,E.y,'#ea580c',11); drawPoint(P.x,P.y,'#2563eb',11);
-  ctx.fillStyle='#111827'; ctx.textAlign='left'; ctx.font='bold 14px system-ui'; ctx.fillText('Equal model',Q.x+12,Q.y-10);
-  ctx.fillStyle='#9a3412'; ctx.fillText('Expected model',E.x+12,E.y-14);
-  ctx.fillStyle='#1e3a8a'; ctx.fillText('Observed counts',P.x+12,P.y+20);
+  drawPoint(Q.x,Q.y,'#111827',16); drawPoint(E.x,E.y,'#ea580c',12); drawPoint(P.x,P.y,'#2563eb',8);
+  ctx.fillStyle='#111827'; ctx.textAlign='left'; ctx.font='bold 14px system-ui';
+  ctx.fillStyle='#9a3412';
+  ctx.fillStyle='#1e3a8a';
   ctx.fillStyle='#475569'; ctx.font='15px system-ui'; ctx.fillText('Two categories live on a line segment. Once one count is chosen, the other is determined.',35,38);
 }
 
@@ -399,10 +426,10 @@ function drawTriangle(obsW,expW,eqW){
   ctx.fillStyle='#334155'; ctx.textAlign='center'; ctx.font='bold 18px system-ui';
   ctx.fillText(cats[0],P.A.x,P.A.y-24); ctx.fillText(cats[1],P.B.x,P.B.y+30); ctx.fillText(cats[2],P.C.x,P.C.y+30);
   drawArrow(E.x,E.y,P.x,P.y,'#7c3aed',4);
-  drawPoint(Q.x,Q.y,'#111827',8); drawPoint(E.x,E.y,'#ea580c',11); drawPoint(P.x,P.y,'#2563eb',11);
-  ctx.textAlign='left'; ctx.font='bold 14px system-ui'; ctx.fillStyle='#111827'; ctx.fillText('Equal model',Q.x+12,Q.y+18);
-  ctx.fillStyle='#9a3412'; ctx.fillText('Expected model',E.x+12,E.y-12);
-  ctx.fillStyle='#1e3a8a'; ctx.fillText('Observed counts',P.x+12,P.y+18);
+  drawPoint(Q.x,Q.y,'#111827',16); drawPoint(E.x,E.y,'#ea580c',12); drawPoint(P.x,P.y,'#2563eb',8);
+  ctx.textAlign='left'; ctx.font='bold 14px system-ui'; ctx.fillStyle='#111827';
+  ctx.fillStyle='#9a3412';
+  ctx.fillStyle='#1e3a8a';
   ctx.fillStyle='#475569'; ctx.font='15px system-ui'; ctx.fillText('Three categories live in a triangle. There are two free parameters and one dependent parameter.',35,38);
 }
 
@@ -427,10 +454,10 @@ function drawTetra(obsW,expW,eqW){
   V.forEach((p,i)=>ctx.fillText(cats[i],p.x,p.y-16));
   const P = proj3D(obs), E = proj3D(exp), Q = proj3D(eq);
   drawArrow(E.x,E.y,P.x,P.y,'#7c3aed',4);
-  drawPoint(Q.x,Q.y,'#111827',8); drawPoint(E.x,E.y,'#ea580c',11); drawPoint(P.x,P.y,'#2563eb',11);
-  ctx.textAlign='left'; ctx.font='bold 14px system-ui'; ctx.fillStyle='#111827'; ctx.fillText('Equal model',Q.x+12,Q.y+18);
-  ctx.fillStyle='#9a3412'; ctx.fillText('Expected model',E.x+12,E.y-12);
-  ctx.fillStyle='#1e3a8a'; ctx.fillText('Observed counts',P.x+12,P.y+18);
+  drawPoint(Q.x,Q.y,'#111827',16); drawPoint(E.x,E.y,'#ea580c',12); drawPoint(P.x,P.y,'#2563eb',8);
+  ctx.textAlign='left'; ctx.font='bold 14px system-ui'; ctx.fillStyle='#111827';
+  ctx.fillStyle='#9a3412';
+  ctx.fillStyle='#1e3a8a';
   ctx.fillStyle='#475569'; ctx.font='15px system-ui'; ctx.fillText('Four categories live in a tetrahedron. Drag to rotate. There are three free parameters and one dependent parameter.',35,38);
 }
 
@@ -443,9 +470,8 @@ function updateText(){
   document.getElementById('pLabel').textContent = p<.001 ? '< .001' : p.toFixed(3);
   const dec = document.getElementById('decision');
   dec.className = 'decision';
-  if(p<.05){ dec.classList.add('bad'); dec.textContent = 'Large weighted distance: the observed counts are far from the expected model.'; }
-  else if(p<.15){ dec.classList.add('warn'); dec.textContent = 'Moderate weighted distance: the observed counts are beginning to pull away from the expected model.'; }
-  else { dec.classList.add('good'); dec.textContent = 'Small weighted distance: the observed counts look compatible with the expected model.'; }
+  if(p<=alpha){dec.classList.add('bad');dec.textContent=`Reject H₀ at α = ${alpha}: evidence that the population probabilities differ from the specified model.`;}
+  else{dec.classList.add('good');dec.textContent=`Fail to reject H₀ at α = ${alpha}: the test does not establish a departure from the specified model; it does not prove the model true.`;}
   document.getElementById('shapeText').innerHTML = (
     k===2 ? 'With two categories, there are <strong>two parameters</strong>, but only <strong>one free parameter</strong>. Once one probability or count is chosen, the other is a <strong>dependent</strong> or <strong>bound parameter</strong> because the total must stay fixed.' :
     k===3 ? 'With three categories, there are <strong>three parameters</strong>, but only <strong>two free parameters</strong>. The third parameter is dependent because all three proportions must add to 1, or all three counts must add to the total sample size.' :
@@ -471,33 +497,81 @@ function updateTable(){
   }).join('');
 }
 
+
+function chiCritical(a,df){let lo=0,hi=df+10*Math.sqrt(2*df)+20;for(let i=0;i<65;i++){const mid=(lo+hi)/2;if(pChi(mid,df)>a)lo=mid;else hi=mid;}return (lo+hi)/2;}
+function chiPDF(x,df){if(x<=0)return df===2?.5:df<2?Infinity:0;const a=df/2;return Math.exp((a-1)*Math.log(x)-x/2-a*Math.log(2)-gammln(a));}
+function probText(p){return p<.0001?'<0.0001':p.toFixed(4);}
+function escapeSVG(s){return String(s).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;');}
+function svgText(x,y,label,color='#536675',anchor='start',size=13){return `<text x="${x}" y="${y}" fill="${color}" text-anchor="${anchor}" font-size="${size}">${escapeSVG(label)}</text>`;}
+function svgFrame(body,height,label){return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 ${height}" role="img" aria-label="${escapeSVG(label)}" font-family="Arial,sans-serif" fill="#182e40"><title>${escapeSVG(label)}</title><rect width="900" height="${height}" fill="white"/>${body}</svg>`;}
+function syncNullHistory(){const key=JSON.stringify([k,scenario,expected]);if(key!==nullHistory.key){nullHistory.key=key;nullHistory.rows=[];}}
+function renderChiTail(){
+  const df=k-1,stat=chiValue(),p=pChi(stat,df),cut=chiCritical(alpha,df),hi=Math.max(chiCritical(.001,df)*1.1,stat*1.12),left=65,right=620,top=25,base=190;
+  const maxDensity=df===1?.75:df===2?.55:.28,xp=x=>left+x/hi*(right-left),yp=x=>base-145*chiPDF(Math.max(.00001,x),df)/maxDensity;
+  const pts=(a,b)=>Array.from({length:401},(_,i)=>{const x=a+(b-a)*i/400;return `${xp(x)},${yp(x)}`;}).join(' ');
+  const area=(a,color)=>`<polygon points="${xp(a)},${base} ${pts(a,hi)} ${right},${base}" fill="${color}"/>`;
+  let body=`<defs><clipPath id="chi-tail-clip"><rect x="${left}" y="${top}" width="${right-left}" height="${base-top}"/></clipPath></defs><g clip-path="url(#chi-tail-clip)">`+area(cut,'#f3e6d3')+area(stat,'#b9d8d4')+`<polyline points="${pts(0,hi)}" fill="none" stroke="#245a81" stroke-width="2.2"/><path d="M${xp(cut)} ${base}V${top}" stroke="#ad6b15" stroke-dasharray="4 4"/><path d="M${xp(stat)} ${base}V${top}" stroke="#287d76" stroke-width="1.5"/></g><path d="M${left} ${base}H${right}" stroke="#80919c"/>`;
+  for(const x of [0,hi/2,hi])body+=svgText(xp(x),213,x.toFixed(1),'#536675','middle',12);
+  body+=svgText((left+right)/2,239,'Chi-squared statistic χ² under H₀','#536675','middle',14);
+  body+=svgText(655,42,`χ² = ${stat.toFixed(3)}; df = ${df}`,'#245a81')+svgText(655,70,`right-tail p ${p<.0001?'':'= '}${probText(p)}`,'#287d76')+svgText(655,98,`α = ${alpha}`)+svgText(655,126,`critical value = ${cut.toFixed(3)}`,'#ad6b15')+svgText(655,158,p<=alpha?'Reject H₀':'Fail to reject H₀',p<=alpha?'#9c3b42':'#245a81');
+  document.getElementById('chi-tail').innerHTML=svgFrame(body,258,`Chi-squared ${stat.toFixed(3)}, df ${df}, right-tail p ${probText(p)}; rejection cutoff ${cut.toFixed(3)} at alpha ${alpha}`);
+  document.getElementById('chi-curve-note').textContent=df===1?'For df = 1, the density rises without bound near zero; the top of that part of the curve is cropped. Areas and p-values still use the full mathematical distribution.':'The curve changes with df. Its area to the right of the observed statistic is the p-value under the null model.';
+  const small=expected.some(e=>e<5),w=document.getElementById('approx-warning');w.hidden=!small;w.textContent=small?'At least one expected count is below 5. The course’s condition for the chi-squared approximation is not met; treat the displayed approximate p-value with that limitation. The simulated data still follow the specified categorical model.':'';
+  canvas.setAttribute('aria-label',`${k}-category probability model; observed counts ${observed.join(', ')}; expected counts ${expected.join(', ')}; chi-squared ${stat.toFixed(3)}.`);
+}
+function sampleNullDatasets(count){
+  syncNullHistory();
+  for(let trial=0;trial<count;trial++){
+    const counts=Array(k).fill(0);
+    for(let j=0;j<N;j++){
+      const u=Math.random();let cumulative=0,category=k-1;
+      for(let i=0;i<k-1;i++){cumulative+=expected[i]/N;if(u<cumulative){category=i;break;}}
+      counts[category]++;
+    }
+    observed=counts;const chi=chiValue();nullHistory.rows.push({index:nullHistory.rows.length+1,counts:[...counts],chi,p:pChi(chi,k-1)});
+  }
+  renderControls();update();const stack=document.getElementById('null-stack');stack.scrollTop=stack.scrollHeight;
+}
+function renderNullHistory(){
+  const rows=nullHistory.rows,total=rows.length,rejected=rows.filter(row=>row.p<=alpha).length,box=document.getElementById('null-stack');
+  document.getElementById('sample-status').textContent=total?`${rejected} false rejections / ${total} simulated datasets = ${(100*rejected/total).toFixed(1)}%; nominal α = ${(100*alpha).toFixed(0)}%. Showing the latest ${Math.min(50,total)}.`:`No null datasets drawn. Nominal α = ${(100*alpha).toFixed(0)}%.`;
+  if(!total){box.innerHTML='<div class="sim-empty">Draw samples under H₀ to build the stack.</div>';return;}
+  const recent=rows.slice(-50),cut=chiCritical(alpha,k-1),hi=Math.max(chiCritical(.001,k-1)*1.12,...recent.map(r=>r.chi*1.08)),left=65,right=520,xp=x=>left+x/hi*(right-left),H=65+recent.length*25;
+  let body=`<rect x="${xp(cut)}" y="43" width="${right-xp(cut)}" height="${H-49}" fill="#faeeee"/>`+svgText(10,18,'Draw #')+svgText(290,18,'χ² from samples with H₀ true','#245a81','middle')+svgText(555,18,'χ² · p-value · decision');
+  for(let i=0;i<=4;i++){const x=hi*i/4;body+=`<path d="M${xp(x)} 43V${H-6}" stroke="#e0e8ed"/>`+svgText(xp(x),36,x.toFixed(1),'#536675','middle',12);}
+  body+=`<path d="M${xp(cut)} 43V${H-6}" stroke="#ad6b15" stroke-dasharray="4 4"/>`;
+  recent.forEach((r,i)=>{const y=60+i*25,reject=r.p<=alpha,color=reject?'#9c3b42':'#245a81';body+=svgText(10,y+4,r.index)+`<path d="M${left} ${y}H${xp(r.chi)}" stroke="${color}" stroke-opacity=".45"/><circle cx="${xp(r.chi)}" cy="${y}" r="4" fill="${color}"/>`+svgText(555,y+4,`${r.chi.toFixed(2)} · ${probText(r.p)} · ${reject?'reject':'fail to reject'}`,color);});
+  box.innerHTML=svgFrame(body,H,`${rejected} false rejections in ${total} simulated multinomial null datasets; latest ${recent.length} shown.`);
+}
+
 function update(){
-  updateText();
-  updateTable();
-  drawGeometry();
+  syncNullHistory();updateText();updateTable();drawGeometry();renderChiTail();renderNullHistory();
 }
 
 function resetExample(){
-  expected = randomExpected(k);
-  observed = randomObserved(k);
-  renderControls();
-  update();
+  expected = Array(k).fill(N/k);
+  observed = k===2?[36,24]:k===3?[30,18,12]:[24,16,12,8];
+  rotX=-.35;rotY=.75;
+  nullHistory.rows=[];
+  renderControls();update();
 }
 
 document.getElementById('kSelect').addEventListener('change', e => {
   k = Number(e.target.value);
   fillScenarioSelect();
   cats = scenarioCats[scenario];
-  expected = randomExpected(k);
-  observed = randomObserved(k);
-  renderControls();
-  update();
+  resetExample();
 });
-document.getElementById('scenarioSelect').addEventListener('change', e => { scenario = e.target.value; cats = scenarioCats[scenario]; update(); });
+document.getElementById('scenarioSelect').addEventListener('change', e => { scenario = e.target.value; cats = scenarioCats[scenario]; renderControls();update(); });
 document.getElementById('newExpectedBtn').addEventListener('click', ()=>{ expected = randomExpected(k); update(); });
 document.getElementById('newObservedBtn').addEventListener('click', ()=>{ observed = randomObserved(k); renderControls(); update(); });
 document.getElementById('matchBtn').addEventListener('click', ()=>{ setObservedToExpected(); renderControls(); update(); });
 document.getElementById('resetBtn').addEventListener('click', resetExample);
+
+document.getElementById('alphaSelect').addEventListener('change',e=>{alpha=Number(e.target.value);update();});
+document.getElementById('sample-one').addEventListener('click',()=>sampleNullDatasets(1));
+document.getElementById('sample-many').addEventListener('click',()=>sampleNullDatasets(20));
+document.getElementById('sample-clear').addEventListener('click',()=>{nullHistory.rows=[];renderNullHistory();});
 
 canvas.addEventListener('mousedown', e => { if(k!==4) return; dragging=true; lastX=e.offsetX; lastY=e.offsetY; });
 canvas.addEventListener('mousemove', e => { if(!dragging || k!==4) return; rotY += (e.offsetX-lastX)*0.01; rotX += (e.offsetY-lastY)*0.01; lastX=e.offsetX; lastY=e.offsetY; drawGeometry(); });

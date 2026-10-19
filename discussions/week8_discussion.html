@@ -18,6 +18,21 @@ code{background:var(--soft);padding:.08rem .28rem;border-radius:5px}button{borde
 </style>
 <script>window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]],processEscapes:true},options:{skipHtmlTags:["script","noscript","style","textarea","pre","code"]}};</script>
 <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<style id="week8-visual-styles">
+/* Week 8 diagrams are embedded so saved pages retain their graphs. */
+.w8-visual{margin:20px 0;padding:14px 14px 12px;background:#fff;border:1px solid #cdd9df;border-radius:11px;break-inside:avoid;color:#182e40;font:16px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif;min-width:0;max-width:100%}
+.w8-visual .w8-plot{overflow-x:auto;max-width:100%;border-radius:5px}
+.w8-visual svg{display:block;width:100%;height:auto;min-width:420px;max-width:none}
+.w8-visual figcaption{font-size:.92em;margin-top:9px;color:#435969}
+.w8-visual figcaption b{display:block;color:#245a81;margin-bottom:3px}
+.w8-visual .w8-key{font-size:.85em;color:#536675;margin:8px 0 0}
+.w8-table-lookup{max-width:100%;overflow:auto;margin:16px 0}
+.w8-table-lookup table{border-collapse:collapse;background:#fff;font:15px/1.5 system-ui,sans-serif;width:100%}
+.w8-table-lookup th,.w8-table-lookup td{padding:9px;border:1px solid #cdd9df;text-align:center;color:#182e40}
+.w8-table-lookup .w8-selected{background:#dcefe9;font-weight:750;border:2px solid #287d76}
+@media(max-width:540px){.w8-visual{padding:10px 8px}.w8-visual figcaption{font-size:14px}.w8-visual .w8-key{font-size:12px}}
+@media print{.w8-visual{box-shadow:none;border:1px solid #aab6bf;break-inside:avoid;padding:8px;margin:12px 0;print-color-adjust:exact;-webkit-print-color-adjust:exact}.w8-visual .w8-plot{overflow:visible}.w8-visual svg{min-width:0;width:100%}.w8-visual figcaption{font-size:10pt}.w8-table-lookup{break-inside:avoid}.w8-table-lookup .w8-selected{print-color-adjust:exact;-webkit-print-color-adjust:exact}}
+</style>
 </head>
 <body>
 <header><a href="../index.html">← MATH&amp; 146 course</a><h1>Week 8 Discussion — The Cryptid Hotline Mix</h1><p>Use a chi-squared goodness-of-fit test to decide whether a new report mix matches an old model.</p></header>
@@ -36,7 +51,187 @@ code{background:var(--soft);padding:.08rem .28rem;border-radius:5px}button{borde
 </div>
 <p>During a new reporting period, the hotline receives <strong>200 reports</strong>. The observed counts are <strong>120, 50, and 30</strong> in those same categories. If the historical percentages still describe the reporting process well, we would not expect the observed counts to match the expected counts exactly; random variation creates some difference every time.</p>
 <p>A chi-squared goodness-of-fit test asks whether the observed differences are modest enough to be explained by ordinary random variation or large enough to make the historical category model doubtful. The test pays attention not only to the total discrepancy but to how large each discrepancy is relative to its expected count.</p>
-<p><strong>The statistical question:</strong> Does the new mix of report categories fit the historical 50%–30%–20% model reasonably well, and which category is contributing most strongly to any mismatch?</p></section>
+<p><strong>The statistical question:</strong> Does the new mix of report categories fit the historical 50%–30%–20% model reasonably well, and which category is contributing most strongly to any mismatch?</p>
+<figure class="w8-visual" data-visual="w8-discussion-mix"><div class="w8-plot" tabindex="0" role="group" aria-label="Compare the observed allocation with the null model; scroll horizontally on narrow screens"><svg id="w8-discussion-mix" role="img" aria-labelledby="w8-discussion-mix-title w8-discussion-mix-desc" xmlns:xlink="http://www.w3.org/1999/xlink" width="504pt" height="252pt" viewBox="0 0 504 252" xmlns="http://www.w3.org/2000/svg" version="1.1">
+<title id="w8-discussion-mix-title">Compare the observed allocation with the null model</title><desc id="w8-discussion-mix-desc">Large-footed
+hominid: observed 60, expected 50 percent; Winged
+humanoid: observed 25, expected 30 percent; Lake or river
+creature: observed 15, expected 20 percent</desc>
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">#w8-discussion-mix *{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="w8-discussion-mix-figure_1">
+  <g id="w8-discussion-mix-patch_1">
+   <path d="M 0 252 L 504 252 L 504 0 L 0 0 z" style="fill: #ffffff"/>
+  </g>
+  <g id="w8-discussion-mix-axes_1">
+   <g id="w8-discussion-mix-patch_2">
+    <path d="M 50.4 189 L 488.88 189 L 488.88 45.36 L 50.4 45.36 z" style="fill: #ffffff"/>
+   </g>
+   <g id="w8-discussion-mix-patch_3">
+    <path d="M 70.330909 189 L 120.527273 189 L 120.527273 76.78125 L 70.330909 76.78125 z" clip-path="url(#w8-discussion-mix-p1df7302c1a)" style="fill: #bcd0e1; stroke: #245a81; stroke-linejoin: miter"/>
+   </g>
+   <g id="w8-discussion-mix-patch_4">
+    <path d="M 217.967273 189 L 268.163636 189 L 268.163636 142.242188 L 217.967273 142.242188 z" clip-path="url(#w8-discussion-mix-p1df7302c1a)" style="fill: #bcd0e1; stroke: #245a81; stroke-linejoin: miter"/>
+   </g>
+   <g id="w8-discussion-mix-patch_5">
+    <path d="M 365.603636 189 L 415.8 189 L 415.8 160.945312 L 365.603636 160.945312 z" clip-path="url(#w8-discussion-mix-p1df7302c1a)" style="fill: #bcd0e1; stroke: #245a81; stroke-linejoin: miter"/>
+   </g>
+   <g id="w8-discussion-mix-patch_6">
+    <path d="M 123.48 189 L 173.676364 189 L 173.676364 95.484375 L 123.48 95.484375 z" clip-path="url(#w8-discussion-mix-p1df7302c1a)" style="fill: #e8d2ad; stroke: #ad6b15; stroke-linejoin: miter"/>
+   </g>
+   <g id="w8-discussion-mix-patch_7">
+    <path d="M 271.116364 189 L 321.312727 189 L 321.312727 132.890625 L 271.116364 132.890625 z" clip-path="url(#w8-discussion-mix-p1df7302c1a)" style="fill: #e8d2ad; stroke: #ad6b15; stroke-linejoin: miter"/>
+   </g>
+   <g id="w8-discussion-mix-patch_8">
+    <path d="M 418.752727 189 L 468.949091 189 L 468.949091 151.59375 L 418.752727 151.59375 z" clip-path="url(#w8-discussion-mix-p1df7302c1a)" style="fill: #e8d2ad; stroke: #ad6b15; stroke-linejoin: miter"/>
+   </g>
+   <g id="w8-discussion-mix-matplotlib.axis_1">
+    <g id="w8-discussion-mix-xtick_1">
+     <g id="w8-discussion-mix-line2d_1">
+      <defs>
+       <path id="w8-discussion-mix-mec8c7942ec" d="M 0 0 L 0 3.5" style="stroke: #536675; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#w8-discussion-mix-mec8c7942ec" x="122.003636" y="189" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w8-discussion-mix-text_1">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; fill: #536675" transform="translate(86.844886 204.358281)">Large-footed</text>
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; fill: #536675" transform="translate(99.762152 216.675875)">hominid</text>
+     </g>
+    </g>
+    <g id="w8-discussion-mix-xtick_2">
+     <g id="w8-discussion-mix-line2d_2">
+      <g>
+       <use xlink:href="#w8-discussion-mix-mec8c7942ec" x="269.64" y="189" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w8-discussion-mix-text_2">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; fill: #536675" transform="translate(248.944531 204.358281)">Winged</text>
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; fill: #536675" transform="translate(242.070391 216.675875)">humanoid</text>
+     </g>
+    </g>
+    <g id="w8-discussion-mix-xtick_3">
+     <g id="w8-discussion-mix-line2d_3">
+      <g>
+       <use xlink:href="#w8-discussion-mix-mec8c7942ec" x="417.276364" y="189" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w8-discussion-mix-text_3">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; fill: #536675" transform="translate(382.659879 204.358281)">Lake or river</text>
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; fill: #536675" transform="translate(394.196989 216.675875)">creature</text>
+     </g>
+    </g>
+   </g>
+   <g id="w8-discussion-mix-matplotlib.axis_2">
+    <g id="w8-discussion-mix-ytick_1">
+     <g id="w8-discussion-mix-line2d_4">
+      <defs>
+       <path id="w8-discussion-mix-m686d8bfd90" d="M 0 0 L -3.5 0" style="stroke: #536675; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#w8-discussion-mix-m686d8bfd90" x="50.4" y="189" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w8-discussion-mix-text_4">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #536675" x="43.4" y="193.179141" transform="rotate(-0 43.4 193.179141)">0</text>
+     </g>
+    </g>
+    <g id="w8-discussion-mix-ytick_2">
+     <g id="w8-discussion-mix-line2d_5">
+      <g>
+       <use xlink:href="#w8-discussion-mix-m686d8bfd90" x="50.4" y="151.59375" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w8-discussion-mix-text_5">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #536675" x="43.4" y="155.772891" transform="rotate(-0 43.4 155.772891)">20</text>
+     </g>
+    </g>
+    <g id="w8-discussion-mix-ytick_3">
+     <g id="w8-discussion-mix-line2d_6">
+      <g>
+       <use xlink:href="#w8-discussion-mix-m686d8bfd90" x="50.4" y="114.1875" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w8-discussion-mix-text_6">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #536675" x="43.4" y="118.366641" transform="rotate(-0 43.4 118.366641)">40</text>
+     </g>
+    </g>
+    <g id="w8-discussion-mix-ytick_4">
+     <g id="w8-discussion-mix-line2d_7">
+      <g>
+       <use xlink:href="#w8-discussion-mix-m686d8bfd90" x="50.4" y="76.78125" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w8-discussion-mix-text_7">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #536675" x="43.4" y="80.960391" transform="rotate(-0 43.4 80.960391)">60</text>
+     </g>
+    </g>
+    <g id="w8-discussion-mix-text_8">
+     <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="22.802891" y="117.18" transform="rotate(-90 22.802891 117.18)">Percentage</text>
+    </g>
+   </g>
+   <g id="w8-discussion-mix-patch_9">
+    <path d="M 50.4 189 L 50.4 45.36" style="fill: none; stroke: #80919c; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="w8-discussion-mix-patch_10">
+    <path d="M 50.4 189 L 488.88 189" style="fill: none; stroke: #80919c; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="w8-discussion-mix-text_9">
+    <text style="font-size: 10.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="95.429091" y="71.597578" transform="rotate(-0 95.429091 71.597578)">60%</text>
+   </g>
+   <g id="w8-discussion-mix-text_10">
+    <text style="font-size: 10.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="243.065455" y="137.058516" transform="rotate(-0 243.065455 137.058516)">25%</text>
+   </g>
+   <g id="w8-discussion-mix-text_11">
+    <text style="font-size: 10.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="390.701818" y="155.761641" transform="rotate(-0 390.701818 155.761641)">15%</text>
+   </g>
+   <g id="w8-discussion-mix-text_12">
+    <text style="font-size: 10.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="148.578182" y="90.300703" transform="rotate(-0 148.578182 90.300703)">50%</text>
+   </g>
+   <g id="w8-discussion-mix-text_13">
+    <text style="font-size: 10.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="296.214545" y="127.706953" transform="rotate(-0 296.214545 127.706953)">30%</text>
+   </g>
+   <g id="w8-discussion-mix-text_14">
+    <text style="font-size: 10.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="443.850909" y="146.410078" transform="rotate(-0 443.850909 146.410078)">20%</text>
+   </g>
+   <g id="w8-discussion-mix-legend_1">
+    <g id="w8-discussion-mix-patch_11">
+     <path d="M 171.846562 30.299544 L 193.846562 30.299544 L 193.846562 22.599544 L 171.846562 22.599544 z" style="fill: #bcd0e1; stroke: #245a81; stroke-linejoin: miter"/>
+    </g>
+    <g id="w8-discussion-mix-text_15">
+     <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: start; fill: #182e40" x="202.646562" y="30.299544" transform="rotate(-0 202.646562 30.299544)">Observed</text>
+    </g>
+    <g id="w8-discussion-mix-patch_12">
+     <path d="M 277.572031 30.299544 L 299.572031 30.299544 L 299.572031 22.599544 L 277.572031 22.599544 z" style="fill: #e8d2ad; stroke: #ad6b15; stroke-linejoin: miter"/>
+    </g>
+    <g id="w8-discussion-mix-text_16">
+     <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: start; fill: #182e40" x="308.372031" y="30.299544" transform="rotate(-0 308.372031 30.299544)">Null model</text>
+    </g>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="w8-discussion-mix-p1df7302c1a">
+   <rect x="50.4" y="45.36" width="438.48" height="143.64"/>
+  </clipPath>
+ </defs>
+</svg></div><figcaption><b>Compare the observed allocation with the null model</b>Compare the mix on a common percentage scale. For the test, convert the null probabilities to expected <em>counts</em> using n = 200. The bars describe report categories, not independently verified animal populations.</figcaption></figure>
+</section>
 <section class="panel"><div class="kicker">Initial post</div><h2>What to include</h2><ol class="tasks"><li>Compute the expected counts under the historical model.</li><li>Compute each category’s chi-squared contribution (O−E)²/E and add them to obtain χ².</li><li>Find the degrees of freedom.</li><li>Use a chi-squared calculator or table to estimate the p-value and decide whether the new report mix is consistent with the historical model at α = 0.05.</li><li>Identify which category contributes most to χ². Explain why a change in the mix of reports is not automatically evidence that the underlying creatures became more or less common.</li></ol></section>
 <section class="panel"><div class="kicker">Replies</div><h2>Engage with classmates’ statistics</h2><div class="reply">Check one classmate’s expected count and one chi-squared contribution. Then compare which category each of you sees as driving the discrepancy and whether your interpretations stay focused on the report distribution rather than the reality of the reported creatures.</div><p class="small">A useful reply checks a calculation, compares methods or assumptions, or asks a statistically specific question. Avoid replies that only say that you agree.</p></section>
 <section class="panel"><button onclick="window.print()">Print this discussion prompt</button></section>

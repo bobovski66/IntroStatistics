@@ -195,6 +195,21 @@ textarea.code-input{display:block;width:100%;min-height:145px;margin:14px 0 0;pa
 @media(max-width:540px){.w7-visual{padding:10px 8px}.w7-visual figcaption{font-size:14px}.w7-visual .w7-key{font-size:12px}}
 @media print{.w7-visual{box-shadow:none;border:1px solid #aab6bf;break-inside:avoid;padding:8px;margin:12px 0;print-color-adjust:exact;-webkit-print-color-adjust:exact}.w7-visual .w7-plot{overflow:visible}.w7-visual svg{min-width:0;width:100%}.w7-visual figcaption{font-size:10pt}.w7-table-lookup{break-inside:avoid}.w7-table-lookup .w7-selected{print-color-adjust:exact;-webkit-print-color-adjust:exact}}
 </style>
+<style id="week8-visual-styles">
+/* Week 8 diagrams are embedded so saved pages retain their graphs. */
+.w8-visual{margin:20px 0;padding:14px 14px 12px;background:#fff;border:1px solid #cdd9df;border-radius:11px;break-inside:avoid;color:#182e40;font:16px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif;min-width:0;max-width:100%}
+.w8-visual .w8-plot{overflow-x:auto;max-width:100%;border-radius:5px}
+.w8-visual svg{display:block;width:100%;height:auto;min-width:420px;max-width:none}
+.w8-visual figcaption{font-size:.92em;margin-top:9px;color:#435969}
+.w8-visual figcaption b{display:block;color:#245a81;margin-bottom:3px}
+.w8-visual .w8-key{font-size:.85em;color:#536675;margin:8px 0 0}
+.w8-table-lookup{max-width:100%;overflow:auto;margin:16px 0}
+.w8-table-lookup table{border-collapse:collapse;background:#fff;font:15px/1.5 system-ui,sans-serif;width:100%}
+.w8-table-lookup th,.w8-table-lookup td{padding:9px;border:1px solid #cdd9df;text-align:center;color:#182e40}
+.w8-table-lookup .w8-selected{background:#dcefe9;font-weight:750;border:2px solid #287d76}
+@media(max-width:540px){.w8-visual{padding:10px 8px}.w8-visual figcaption{font-size:14px}.w8-visual .w8-key{font-size:12px}}
+@media print{.w8-visual{box-shadow:none;border:1px solid #aab6bf;break-inside:avoid;padding:8px;margin:12px 0;print-color-adjust:exact;-webkit-print-color-adjust:exact}.w8-visual .w8-plot{overflow:visible}.w8-visual svg{min-width:0;width:100%}.w8-visual figcaption{font-size:10pt}.w8-table-lookup{break-inside:avoid}.w8-table-lookup .w8-selected{print-color-adjust:exact;-webkit-print-color-adjust:exact}}
+</style>
 </head>
 <body>
 <div class="shell">
@@ -5247,6 +5262,202 @@ print(&quot;p-value =&quot;, p_value)</textarea>
   <div class="module-lessons"><section class="lesson" id="gof-expected-counts" data-cell-link="gof-expected-counts">
   <h3>Turn model probabilities into expected counts</h3>
   <p class="lesson-copy">The model gives probabilities, but the data are counts. Multiply each model probability by the sample size so observed and expected values are on the same scale.</p>
+<figure class="w8-visual" data-visual="w8-python-expected"><div class="w8-plot" tabindex="0" role="group" aria-label="Compare the observed allocation with the null model; scroll horizontally on narrow screens"><svg id="w8-python-expected" role="img" aria-labelledby="w8-python-expected-title w8-python-expected-desc" xmlns:xlink="http://www.w3.org/1999/xlink" width="504pt" height="252pt" viewBox="0 0 504 252" xmlns="http://www.w3.org/2000/svg" version="1.1">
+<title id="w8-python-expected-title">Compare the observed allocation with the null model</title><desc id="w8-python-expected-desc">Movie: observed 54, expected 40; Game: observed 50, expected 40; Open mic: observed 34, expected 40; Trivia: observed 22, expected 40</desc>
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">#w8-python-expected *{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="w8-python-expected-figure_1">
+  <g id="w8-python-expected-patch_1">
+   <path d="M 0 252 L 504 252 L 504 0 L 0 0 z" style="fill: #ffffff"/>
+  </g>
+  <g id="w8-python-expected-axes_1">
+   <g id="w8-python-expected-patch_2">
+    <path d="M 50.4 189 L 488.88 189 L 488.88 45.36 L 50.4 45.36 z" style="fill: #ffffff"/>
+   </g>
+   <g id="w8-python-expected-patch_3">
+    <path d="M 70.330909 189 L 106.960688 189 L 106.960688 76.78125 L 70.330909 76.78125 z" clip-path="url(#w8-python-expected-pc54daf02ef)" style="fill: #bcd0e1; stroke: #245a81; stroke-linejoin: miter"/>
+   </g>
+   <g id="w8-python-expected-patch_4">
+    <path d="M 178.065553 189 L 214.695332 189 L 214.695332 85.09375 L 178.065553 85.09375 z" clip-path="url(#w8-python-expected-pc54daf02ef)" style="fill: #bcd0e1; stroke: #245a81; stroke-linejoin: miter"/>
+   </g>
+   <g id="w8-python-expected-patch_5">
+    <path d="M 285.800197 189 L 322.429975 189 L 322.429975 118.34375 L 285.800197 118.34375 z" clip-path="url(#w8-python-expected-pc54daf02ef)" style="fill: #bcd0e1; stroke: #245a81; stroke-linejoin: miter"/>
+   </g>
+   <g id="w8-python-expected-patch_6">
+    <path d="M 393.53484 189 L 430.164619 189 L 430.164619 143.28125 L 393.53484 143.28125 z" clip-path="url(#w8-python-expected-pc54daf02ef)" style="fill: #bcd0e1; stroke: #245a81; stroke-linejoin: miter"/>
+   </g>
+   <g id="w8-python-expected-patch_7">
+    <path d="M 109.115381 189 L 145.74516 189 L 145.74516 105.875 L 109.115381 105.875 z" clip-path="url(#w8-python-expected-pc54daf02ef)" style="fill: #e8d2ad; stroke: #ad6b15; stroke-linejoin: miter"/>
+   </g>
+   <g id="w8-python-expected-patch_8">
+    <path d="M 216.850025 189 L 253.479803 189 L 253.479803 105.875 L 216.850025 105.875 z" clip-path="url(#w8-python-expected-pc54daf02ef)" style="fill: #e8d2ad; stroke: #ad6b15; stroke-linejoin: miter"/>
+   </g>
+   <g id="w8-python-expected-patch_9">
+    <path d="M 324.584668 189 L 361.214447 189 L 361.214447 105.875 L 324.584668 105.875 z" clip-path="url(#w8-python-expected-pc54daf02ef)" style="fill: #e8d2ad; stroke: #ad6b15; stroke-linejoin: miter"/>
+   </g>
+   <g id="w8-python-expected-patch_10">
+    <path d="M 432.319312 189 L 468.949091 189 L 468.949091 105.875 L 432.319312 105.875 z" clip-path="url(#w8-python-expected-pc54daf02ef)" style="fill: #e8d2ad; stroke: #ad6b15; stroke-linejoin: miter"/>
+   </g>
+   <g id="w8-python-expected-matplotlib.axis_1">
+    <g id="w8-python-expected-xtick_1">
+     <g id="w8-python-expected-line2d_1">
+      <defs>
+       <path id="w8-python-expected-m326f7e942a" d="M 0 0 L 0 3.5" style="stroke: #536675; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#w8-python-expected-m326f7e942a" x="108.038034" y="189" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w8-python-expected-text_1">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="108.038034" y="204.358281" transform="rotate(-0 108.038034 204.358281)">Movie</text>
+     </g>
+    </g>
+    <g id="w8-python-expected-xtick_2">
+     <g id="w8-python-expected-line2d_2">
+      <g>
+       <use xlink:href="#w8-python-expected-m326f7e942a" x="215.772678" y="189" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w8-python-expected-text_2">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="215.772678" y="204.358281" transform="rotate(-0 215.772678 204.358281)">Game</text>
+     </g>
+    </g>
+    <g id="w8-python-expected-xtick_3">
+     <g id="w8-python-expected-line2d_3">
+      <g>
+       <use xlink:href="#w8-python-expected-m326f7e942a" x="323.507322" y="189" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w8-python-expected-text_3">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="323.507322" y="204.358281" transform="rotate(-0 323.507322 204.358281)">Open mic</text>
+     </g>
+    </g>
+    <g id="w8-python-expected-xtick_4">
+     <g id="w8-python-expected-line2d_4">
+      <g>
+       <use xlink:href="#w8-python-expected-m326f7e942a" x="431.241966" y="189" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w8-python-expected-text_4">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="431.241966" y="204.358281" transform="rotate(-0 431.241966 204.358281)">Trivia</text>
+     </g>
+    </g>
+   </g>
+   <g id="w8-python-expected-matplotlib.axis_2">
+    <g id="w8-python-expected-ytick_1">
+     <g id="w8-python-expected-line2d_5">
+      <defs>
+       <path id="w8-python-expected-m19767dad57" d="M 0 0 L -3.5 0" style="stroke: #536675; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#w8-python-expected-m19767dad57" x="50.4" y="189" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w8-python-expected-text_5">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #536675" x="43.4" y="193.179141" transform="rotate(-0 43.4 193.179141)">0</text>
+     </g>
+    </g>
+    <g id="w8-python-expected-ytick_2">
+     <g id="w8-python-expected-line2d_6">
+      <g>
+       <use xlink:href="#w8-python-expected-m19767dad57" x="50.4" y="147.4375" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w8-python-expected-text_6">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #536675" x="43.4" y="151.616641" transform="rotate(-0 43.4 151.616641)">20</text>
+     </g>
+    </g>
+    <g id="w8-python-expected-ytick_3">
+     <g id="w8-python-expected-line2d_7">
+      <g>
+       <use xlink:href="#w8-python-expected-m19767dad57" x="50.4" y="105.875" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w8-python-expected-text_7">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #536675" x="43.4" y="110.054141" transform="rotate(-0 43.4 110.054141)">40</text>
+     </g>
+    </g>
+    <g id="w8-python-expected-ytick_4">
+     <g id="w8-python-expected-line2d_8">
+      <g>
+       <use xlink:href="#w8-python-expected-m19767dad57" x="50.4" y="64.3125" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w8-python-expected-text_8">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #536675" x="43.4" y="68.491641" transform="rotate(-0 43.4 68.491641)">60</text>
+     </g>
+    </g>
+    <g id="w8-python-expected-text_9">
+     <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="22.802891" y="117.18" transform="rotate(-90 22.802891 117.18)">Count</text>
+    </g>
+   </g>
+   <g id="w8-python-expected-patch_11">
+    <path d="M 50.4 189 L 50.4 45.36" style="fill: none; stroke: #80919c; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="w8-python-expected-patch_12">
+    <path d="M 50.4 189 L 488.88 189" style="fill: none; stroke: #80919c; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="w8-python-expected-text_10">
+    <text style="font-size: 10.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="88.645799" y="71.597578" transform="rotate(-0 88.645799 71.597578)">54</text>
+   </g>
+   <g id="w8-python-expected-text_11">
+    <text style="font-size: 10.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="196.380442" y="79.910078" transform="rotate(-0 196.380442 79.910078)">50</text>
+   </g>
+   <g id="w8-python-expected-text_12">
+    <text style="font-size: 10.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="304.115086" y="113.160078" transform="rotate(-0 304.115086 113.160078)">34</text>
+   </g>
+   <g id="w8-python-expected-text_13">
+    <text style="font-size: 10.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="411.84973" y="138.097578" transform="rotate(-0 411.84973 138.097578)">22</text>
+   </g>
+   <g id="w8-python-expected-text_14">
+    <text style="font-size: 10.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="127.43027" y="100.691328" transform="rotate(-0 127.43027 100.691328)">40</text>
+   </g>
+   <g id="w8-python-expected-text_15">
+    <text style="font-size: 10.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="235.164914" y="100.691328" transform="rotate(-0 235.164914 100.691328)">40</text>
+   </g>
+   <g id="w8-python-expected-text_16">
+    <text style="font-size: 10.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="342.899558" y="100.691328" transform="rotate(-0 342.899558 100.691328)">40</text>
+   </g>
+   <g id="w8-python-expected-text_17">
+    <text style="font-size: 10.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="450.634201" y="100.691328" transform="rotate(-0 450.634201 100.691328)">40</text>
+   </g>
+   <g id="w8-python-expected-legend_1">
+    <g id="w8-python-expected-patch_13">
+     <path d="M 149.769219 30.299544 L 171.769219 30.299544 L 171.769219 22.599544 L 149.769219 22.599544 z" style="fill: #bcd0e1; stroke: #245a81; stroke-linejoin: miter"/>
+    </g>
+    <g id="w8-python-expected-text_18">
+     <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: start; fill: #182e40" x="180.569219" y="30.299544" transform="rotate(-0 180.569219 30.299544)">Observed</text>
+    </g>
+    <g id="w8-python-expected-patch_14">
+     <path d="M 255.494687 30.299544 L 277.494687 30.299544 L 277.494687 22.599544 L 255.494687 22.599544 z" style="fill: #e8d2ad; stroke: #ad6b15; stroke-linejoin: miter"/>
+    </g>
+    <g id="w8-python-expected-text_19">
+     <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: start; fill: #182e40" x="286.294688" y="30.299544" transform="rotate(-0 286.294688 30.299544)">Expected under H₀</text>
+    </g>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="w8-python-expected-pc54daf02ef">
+   <rect x="50.4" y="45.36" width="438.48" height="143.64"/>
+  </clipPath>
+ </defs>
+</svg></div><figcaption><b>Compare the observed allocation with the null model</b>An equal-probability model allocates 160(0.25) = 40 expected observations to each category. Align the entries before calculating <code>(observed - expected)**2 / expected</code>.</figcaption></figure>
+
 <div class="cell" data-cell-id="gof-expected-counts">
     <div class="cell-head"><span class="cell-label">cell 55 — goodness-of-fit expected counts</span><span class="cell-state">not checked</span></div>
     <div class="task"><p>A survey of 160 students records event preferences \([54,50,34,22]\). Under \(H_0\), the four choices are equally popular. Compute the expected counts.</p><button class="text-button hint-toggle" type="button">hint</button></div>
@@ -5299,6 +5510,199 @@ degrees_of_freedom = len(observed) - 1</div>
 </section><section class="lesson" id="chi-square-pvalue" data-cell-link="chi-square-pvalue">
   <h3>Find the chi-squared p-value</h3>
   <p class="lesson-copy">Chi-squared measures mismatch and cannot be negative. Larger values are more unusual, so the p-value is the right-tail area.</p>
+<figure class="w8-visual" data-visual="w8-python-tail"><div class="w8-plot" tabindex="0" role="group" aria-label="A large total mismatch is evidence in the right tail; scroll horizontally on narrow screens"><svg id="w8-python-tail" role="img" aria-labelledby="w8-python-tail-title w8-python-tail-desc" xmlns:xlink="http://www.w3.org/1999/xlink" width="504pt" height="230.4pt" viewBox="0 0 504 230.4" xmlns="http://www.w3.org/2000/svg" version="1.1">
+<title id="w8-python-tail-title">A large total mismatch is evidence in the right tail</title><desc id="w8-python-tail-desc">Chi-squared null density with 3 degrees of freedom. Area at or above 16.4 is shaded and equals approximately 0.000938742.</desc>
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">#w8-python-tail *{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="w8-python-tail-figure_1">
+  <g id="w8-python-tail-patch_1">
+   <path d="M 0 230.4 L 504 230.4 L 504 0 L 0 0 z" style="fill: #ffffff"/>
+  </g>
+  <g id="w8-python-tail-axes_1">
+   <g id="w8-python-tail-patch_2">
+    <path d="M 60.48 175.104 L 491.4 175.104 L 491.4 36.864 L 60.48 36.864 z" style="fill: #ffffff"/>
+   </g>
+   <g id="w8-python-tail-FillBetweenPolyCollection_1">
+    <defs>
+     <path id="w8-python-tail-m0ca68ce670" d="M 234.494187 -66.625747 L 234.494187 -55.296 L 235.138061 -55.296 L 235.781936 -55.296 L 236.42581 -55.296 L 237.069684 -55.296 L 237.713558 -55.296 L 238.357432 -55.296 L 239.001307 -55.296 L 239.645181 -55.296 L 240.289055 -55.296 L 240.932929 -55.296 L 241.576803 -55.296 L 242.220678 -55.296 L 242.864552 -55.296 L 243.508426 -55.296 L 244.1523 -55.296 L 244.796175 -55.296 L 245.440049 -55.296 L 246.083923 -55.296 L 246.727797 -55.296 L 247.371671 -55.296 L 248.015546 -55.296 L 248.65942 -55.296 L 249.303294 -55.296 L 249.947168 -55.296 L 250.591043 -55.296 L 251.234917 -55.296 L 251.878791 -55.296 L 252.522665 -55.296 L 253.166539 -55.296 L 253.810414 -55.296 L 254.454288 -55.296 L 255.098162 -55.296 L 255.742036 -55.296 L 256.38591 -55.296 L 257.029785 -55.296 L 257.673659 -55.296 L 258.317533 -55.296 L 258.961407 -55.296 L 259.605282 -55.296 L 260.249156 -55.296 L 260.89303 -55.296 L 261.536904 -55.296 L 262.180778 -55.296 L 262.824653 -55.296 L 263.468527 -55.296 L 264.112401 -55.296 L 264.756275 -55.296 L 265.40015 -55.296 L 266.044024 -55.296 L 266.687898 -55.296 L 267.331772 -55.296 L 267.975646 -55.296 L 268.619521 -55.296 L 269.263395 -55.296 L 269.907269 -55.296 L 270.551143 -55.296 L 271.195017 -55.296 L 271.838892 -55.296 L 272.482766 -55.296 L 273.12664 -55.296 L 273.770514 -55.296 L 274.414389 -55.296 L 275.058263 -55.296 L 275.702137 -55.296 L 276.346011 -55.296 L 276.989885 -55.296 L 277.63376 -55.296 L 278.277634 -55.296 L 278.921508 -55.296 L 279.565382 -55.296 L 280.209257 -55.296 L 280.853131 -55.296 L 281.497005 -55.296 L 282.140879 -55.296 L 282.784753 -55.296 L 283.428628 -55.296 L 284.072502 -55.296 L 284.716376 -55.296 L 285.36025 -55.296 L 286.004124 -55.296 L 286.647999 -55.296 L 287.291873 -55.296 L 287.935747 -55.296 L 288.579621 -55.296 L 289.223496 -55.296 L 289.86737 -55.296 L 290.511244 -55.296 L 291.155118 -55.296 L 291.798992 -55.296 L 292.442867 -55.296 L 293.086741 -55.296 L 293.730615 -55.296 L 294.374489 -55.296 L 295.018364 -55.296 L 295.662238 -55.296 L 296.306112 -55.296 L 296.949986 -55.296 L 297.59386 -55.296 L 298.237735 -55.296 L 298.881609 -55.296 L 299.525483 -55.296 L 300.169357 -55.296 L 300.813232 -55.296 L 301.457106 -55.296 L 302.10098 -55.296 L 302.744854 -55.296 L 303.388728 -55.296 L 304.032603 -55.296 L 304.676477 -55.296 L 305.320351 -55.296 L 305.964225 -55.296 L 306.608099 -55.296 L 307.251974 -55.296 L 307.895848 -55.296 L 308.539722 -55.296 L 309.183596 -55.296 L 309.827471 -55.296 L 310.471345 -55.296 L 311.115219 -55.296 L 311.759093 -55.296 L 312.402967 -55.296 L 313.046842 -55.296 L 313.690716 -55.296 L 314.33459 -55.296 L 314.978464 -55.296 L 315.622339 -55.296 L 316.266213 -55.296 L 316.910087 -55.296 L 317.553961 -55.296 L 318.197835 -55.296 L 318.84171 -55.296 L 319.485584 -55.296 L 320.129458 -55.296 L 320.773332 -55.296 L 321.417206 -55.296 L 322.061081 -55.296 L 322.704955 -55.296 L 323.348829 -55.296 L 323.992703 -55.296 L 324.636578 -55.296 L 325.280452 -55.296 L 325.924326 -55.296 L 326.5682 -55.296 L 327.212074 -55.296 L 327.855949 -55.296 L 328.499823 -55.296 L 329.143697 -55.296 L 329.787571 -55.296 L 330.431446 -55.296 L 331.07532 -55.296 L 331.719194 -55.296 L 332.363068 -55.296 L 333.006942 -55.296 L 333.650817 -55.296 L 334.294691 -55.296 L 334.938565 -55.296 L 335.582439 -55.296 L 336.226313 -55.296 L 336.870188 -55.296 L 337.514062 -55.296 L 338.157936 -55.296 L 338.80181 -55.296 L 339.445685 -55.296 L 340.089559 -55.296 L 340.733433 -55.296 L 341.377307 -55.296 L 342.021181 -55.296 L 342.665056 -55.296 L 343.30893 -55.296 L 343.952804 -55.296 L 344.596678 -55.296 L 345.240553 -55.296 L 345.884427 -55.296 L 346.528301 -55.296 L 347.172175 -55.296 L 347.816049 -55.296 L 348.459924 -55.296 L 349.103798 -55.296 L 349.747672 -55.296 L 350.391546 -55.296 L 351.035421 -55.296 L 351.679295 -55.296 L 352.323169 -55.296 L 352.967043 -55.296 L 353.610917 -55.296 L 354.254792 -55.296 L 354.898666 -55.296 L 355.54254 -55.296 L 356.186414 -55.296 L 356.830288 -55.296 L 357.474163 -55.296 L 358.118037 -55.296 L 358.761911 -55.296 L 359.405785 -55.296 L 360.04966 -55.296 L 360.693534 -55.296 L 361.337408 -55.296 L 361.981282 -55.296 L 362.625156 -55.296 L 363.269031 -55.296 L 363.912905 -55.296 L 364.556779 -55.296 L 365.200653 -55.296 L 365.844528 -55.296 L 366.488402 -55.296 L 367.132276 -55.296 L 367.77615 -55.296 L 368.420024 -55.296 L 369.063899 -55.296 L 369.707773 -55.296 L 370.351647 -55.296 L 370.995521 -55.296 L 371.639395 -55.296 L 372.28327 -55.296 L 372.927144 -55.296 L 373.571018 -55.296 L 374.214892 -55.296 L 374.858767 -55.296 L 375.502641 -55.296 L 376.146515 -55.296 L 376.790389 -55.296 L 377.434263 -55.296 L 378.078138 -55.296 L 378.722012 -55.296 L 379.365886 -55.296 L 380.00976 -55.296 L 380.653635 -55.296 L 381.297509 -55.296 L 381.941383 -55.296 L 382.585257 -55.296 L 383.229131 -55.296 L 383.873006 -55.296 L 384.51688 -55.296 L 385.160754 -55.296 L 385.804628 -55.296 L 386.448502 -55.296 L 387.092377 -55.296 L 387.736251 -55.296 L 388.380125 -55.296 L 389.023999 -55.296 L 389.667874 -55.296 L 390.311748 -55.296 L 390.955622 -55.296 L 391.599496 -55.296 L 392.24337 -55.296 L 392.887245 -55.296 L 393.531119 -55.296 L 394.174993 -55.296 L 394.818867 -55.296 L 395.462742 -55.296 L 396.106616 -55.296 L 396.75049 -55.296 L 397.394364 -55.296 L 398.038238 -55.296 L 398.682113 -55.296 L 399.325987 -55.296 L 399.969861 -55.296 L 400.613735 -55.296 L 401.257609 -55.296 L 401.901484 -55.296 L 402.545358 -55.296 L 403.189232 -55.296 L 403.833106 -55.296 L 404.476981 -55.296 L 405.120855 -55.296 L 405.764729 -55.296 L 406.408603 -55.296 L 407.052477 -55.296 L 407.696352 -55.296 L 408.340226 -55.296 L 408.9841 -55.296 L 409.627974 -55.296 L 410.271849 -55.296 L 410.915723 -55.296 L 411.559597 -55.296 L 412.203471 -55.296 L 412.847345 -55.296 L 413.49122 -55.296 L 414.135094 -55.296 L 414.778968 -55.296 L 415.422842 -55.296 L 416.066717 -55.296 L 416.710591 -55.296 L 417.354465 -55.296 L 417.998339 -55.296 L 418.642213 -55.296 L 419.286088 -55.296 L 419.929962 -55.296 L 420.573836 -55.296 L 421.21771 -55.296 L 421.861584 -55.296 L 422.505459 -55.296 L 423.149333 -55.296 L 423.793207 -55.296 L 424.437081 -55.296 L 425.080956 -55.296 L 425.72483 -55.296 L 426.368704 -55.296 L 427.012578 -55.296 L 427.656452 -55.296 L 428.300327 -55.296 L 428.944201 -55.296 L 429.588075 -55.296 L 430.231949 -55.296 L 430.875824 -55.296 L 431.519698 -55.296 L 432.163572 -55.296 L 432.807446 -55.296 L 433.45132 -55.296 L 434.095195 -55.296 L 434.739069 -55.296 L 435.382943 -55.296 L 436.026817 -55.296 L 436.670691 -55.296 L 437.314566 -55.296 L 437.95844 -55.296 L 438.602314 -55.296 L 439.246188 -55.296 L 439.890063 -55.296 L 440.533937 -55.296 L 441.177811 -55.296 L 441.821685 -55.296 L 442.465559 -55.296 L 443.109434 -55.296 L 443.753308 -55.296 L 444.397182 -55.296 L 445.041056 -55.296 L 445.684931 -55.296 L 446.328805 -55.296 L 446.972679 -55.296 L 447.616553 -55.296 L 448.260427 -55.296 L 448.904302 -55.296 L 449.548176 -55.296 L 450.19205 -55.296 L 450.835924 -55.296 L 451.479798 -55.296 L 452.123673 -55.296 L 452.767547 -55.296 L 453.411421 -55.296 L 454.055295 -55.296 L 454.69917 -55.296 L 455.343044 -55.296 L 455.986918 -55.296 L 456.630792 -55.296 L 457.274666 -55.296 L 457.918541 -55.296 L 458.562415 -55.296 L 459.206289 -55.296 L 459.850163 -55.296 L 460.494038 -55.296 L 461.137912 -55.296 L 461.781786 -55.296 L 462.42566 -55.296 L 463.069534 -55.296 L 463.713409 -55.296 L 464.357283 -55.296 L 465.001157 -55.296 L 465.645031 -55.296 L 466.288906 -55.296 L 466.93278 -55.296 L 467.576654 -55.296 L 468.220528 -55.296 L 468.864402 -55.296 L 469.508277 -55.296 L 470.152151 -55.296 L 470.796025 -55.296 L 471.439899 -55.296 L 472.083773 -55.296 L 472.727648 -55.296 L 473.371522 -55.296 L 474.015396 -55.296 L 474.65927 -55.296 L 475.303145 -55.296 L 475.947019 -55.296 L 476.590893 -55.296 L 477.234767 -55.296 L 477.878641 -55.296 L 478.522516 -55.296 L 479.16639 -55.296 L 479.810264 -55.296 L 480.454138 -55.296 L 481.098013 -55.296 L 481.741887 -55.296 L 482.385761 -55.296 L 483.029635 -55.296 L 483.673509 -55.296 L 484.317384 -55.296 L 484.961258 -55.296 L 485.605132 -55.296 L 486.249006 -55.296 L 486.89288 -55.296 L 487.536755 -55.296 L 488.180629 -55.296 L 488.824503 -55.296 L 489.468377 -55.296 L 490.112252 -55.296 L 490.756126 -55.296 L 491.4 -55.296 L 491.4 -55.351698 L 491.4 -55.351698 L 490.756126 -55.352467 L 490.112252 -55.353246 L 489.468377 -55.354036 L 488.824503 -55.354837 L 488.180629 -55.355649 L 487.536755 -55.356472 L 486.89288 -55.357307 L 486.249006 -55.358153 L 485.605132 -55.35901 L 484.961258 -55.359879 L 484.317384 -55.36076 L 483.673509 -55.361653 L 483.029635 -55.362559 L 482.385761 -55.363477 L 481.741887 -55.364407 L 481.098013 -55.36535 L 480.454138 -55.366306 L 479.810264 -55.367275 L 479.16639 -55.368258 L 478.522516 -55.369254 L 477.878641 -55.370263 L 477.234767 -55.371287 L 476.590893 -55.372324 L 475.947019 -55.373375 L 475.303145 -55.374441 L 474.65927 -55.375522 L 474.015396 -55.376617 L 473.371522 -55.377728 L 472.727648 -55.378853 L 472.083773 -55.379994 L 471.439899 -55.38115 L 470.796025 -55.382323 L 470.152151 -55.383511 L 469.508277 -55.384716 L 468.864402 -55.385937 L 468.220528 -55.387175 L 467.576654 -55.388429 L 466.93278 -55.389701 L 466.288906 -55.39099 L 465.645031 -55.392297 L 465.001157 -55.393622 L 464.357283 -55.394965 L 463.713409 -55.396326 L 463.069534 -55.397706 L 462.42566 -55.399104 L 461.781786 -55.400522 L 461.137912 -55.401959 L 460.494038 -55.403415 L 459.850163 -55.404892 L 459.206289 -55.406389 L 458.562415 -55.407906 L 457.918541 -55.409443 L 457.274666 -55.411002 L 456.630792 -55.412582 L 455.986918 -55.414184 L 455.343044 -55.415807 L 454.69917 -55.417453 L 454.055295 -55.419121 L 453.411421 -55.420812 L 452.767547 -55.422526 L 452.123673 -55.424263 L 451.479798 -55.426024 L 450.835924 -55.427808 L 450.19205 -55.429618 L 449.548176 -55.431451 L 448.904302 -55.43331 L 448.260427 -55.435194 L 447.616553 -55.437104 L 446.972679 -55.43904 L 446.328805 -55.441002 L 445.684931 -55.442991 L 445.041056 -55.445007 L 444.397182 -55.44705 L 443.753308 -55.449121 L 443.109434 -55.45122 L 442.465559 -55.453348 L 441.821685 -55.455505 L 441.177811 -55.457691 L 440.533937 -55.459907 L 439.890063 -55.462153 L 439.246188 -55.46443 L 438.602314 -55.466737 L 437.95844 -55.469076 L 437.314566 -55.471447 L 436.670691 -55.47385 L 436.026817 -55.476285 L 435.382943 -55.478754 L 434.739069 -55.481256 L 434.095195 -55.483792 L 433.45132 -55.486362 L 432.807446 -55.488968 L 432.163572 -55.491609 L 431.519698 -55.494285 L 430.875824 -55.496998 L 430.231949 -55.499748 L 429.588075 -55.502535 L 428.944201 -55.50536 L 428.300327 -55.508223 L 427.656452 -55.511125 L 427.012578 -55.514066 L 426.368704 -55.517048 L 425.72483 -55.520069 L 425.080956 -55.523132 L 424.437081 -55.526236 L 423.793207 -55.529382 L 423.149333 -55.532571 L 422.505459 -55.535803 L 421.861584 -55.539079 L 421.21771 -55.542399 L 420.573836 -55.545764 L 419.929962 -55.549174 L 419.286088 -55.552631 L 418.642213 -55.556135 L 417.998339 -55.559686 L 417.354465 -55.563285 L 416.710591 -55.566932 L 416.066717 -55.570629 L 415.422842 -55.574376 L 414.778968 -55.578174 L 414.135094 -55.582023 L 413.49122 -55.585924 L 412.847345 -55.589878 L 412.203471 -55.593885 L 411.559597 -55.597946 L 410.915723 -55.602062 L 410.271849 -55.606234 L 409.627974 -55.610462 L 408.9841 -55.614747 L 408.340226 -55.61909 L 407.696352 -55.623491 L 407.052477 -55.627952 L 406.408603 -55.632474 L 405.764729 -55.637056 L 405.120855 -55.6417 L 404.476981 -55.646406 L 403.833106 -55.651176 L 403.189232 -55.656011 L 402.545358 -55.66091 L 401.901484 -55.665876 L 401.257609 -55.670908 L 400.613735 -55.676008 L 399.969861 -55.681177 L 399.325987 -55.686415 L 398.682113 -55.691724 L 398.038238 -55.697105 L 397.394364 -55.702558 L 396.75049 -55.708084 L 396.106616 -55.713685 L 395.462742 -55.719361 L 394.818867 -55.725113 L 394.174993 -55.730943 L 393.531119 -55.736851 L 392.887245 -55.742838 L 392.24337 -55.748906 L 391.599496 -55.755055 L 390.955622 -55.761288 L 390.311748 -55.767603 L 389.667874 -55.774004 L 389.023999 -55.78049 L 388.380125 -55.787064 L 387.736251 -55.793726 L 387.092377 -55.800477 L 386.448502 -55.807319 L 385.804628 -55.814253 L 385.160754 -55.821279 L 384.51688 -55.8284 L 383.873006 -55.835616 L 383.229131 -55.842929 L 382.585257 -55.85034 L 381.941383 -55.857851 L 381.297509 -55.865462 L 380.653635 -55.873174 L 380.00976 -55.880991 L 379.365886 -55.888911 L 378.722012 -55.896938 L 378.078138 -55.905072 L 377.434263 -55.913316 L 376.790389 -55.921669 L 376.146515 -55.930134 L 375.502641 -55.938712 L 374.858767 -55.947405 L 374.214892 -55.956214 L 373.571018 -55.965141 L 372.927144 -55.974187 L 372.28327 -55.983354 L 371.639395 -55.992644 L 370.995521 -56.002057 L 370.351647 -56.011596 L 369.707773 -56.021262 L 369.063899 -56.031058 L 368.420024 -56.040984 L 367.77615 -56.051042 L 367.132276 -56.061235 L 366.488402 -56.071563 L 365.844528 -56.082029 L 365.200653 -56.092635 L 364.556779 -56.103382 L 363.912905 -56.114272 L 363.269031 -56.125307 L 362.625156 -56.136488 L 361.981282 -56.147819 L 361.337408 -56.159301 L 360.693534 -56.170935 L 360.04966 -56.182724 L 359.405785 -56.19467 L 358.761911 -56.206775 L 358.118037 -56.21904 L 357.474163 -56.231469 L 356.830288 -56.244062 L 356.186414 -56.256823 L 355.54254 -56.269754 L 354.898666 -56.282856 L 354.254792 -56.296131 L 353.610917 -56.309584 L 352.967043 -56.323214 L 352.323169 -56.337025 L 351.679295 -56.35102 L 351.035421 -56.3652 L 350.391546 -56.379568 L 349.747672 -56.394126 L 349.103798 -56.408877 L 348.459924 -56.423824 L 347.816049 -56.438968 L 347.172175 -56.454313 L 346.528301 -56.46986 L 345.884427 -56.485614 L 345.240553 -56.501576 L 344.596678 -56.517749 L 343.952804 -56.534135 L 343.30893 -56.550739 L 342.665056 -56.567561 L 342.021181 -56.584606 L 341.377307 -56.601876 L 340.733433 -56.619374 L 340.089559 -56.637102 L 339.445685 -56.655065 L 338.80181 -56.673265 L 338.157936 -56.691704 L 337.514062 -56.710387 L 336.870188 -56.729316 L 336.226313 -56.748494 L 335.582439 -56.767925 L 334.938565 -56.787611 L 334.294691 -56.807557 L 333.650817 -56.827765 L 333.006942 -56.848239 L 332.363068 -56.868983 L 331.719194 -56.889999 L 331.07532 -56.911291 L 330.431446 -56.932864 L 329.787571 -56.954719 L 329.143697 -56.976862 L 328.499823 -56.999295 L 327.855949 -57.022023 L 327.212074 -57.045048 L 326.5682 -57.068376 L 325.924326 -57.09201 L 325.280452 -57.115954 L 324.636578 -57.140211 L 323.992703 -57.164786 L 323.348829 -57.189683 L 322.704955 -57.214906 L 322.061081 -57.240459 L 321.417206 -57.266346 L 320.773332 -57.292572 L 320.129458 -57.31914 L 319.485584 -57.346056 L 318.84171 -57.373324 L 318.197835 -57.400947 L 317.553961 -57.428932 L 316.910087 -57.457282 L 316.266213 -57.486001 L 315.622339 -57.515095 L 314.978464 -57.544569 L 314.33459 -57.574427 L 313.690716 -57.604673 L 313.046842 -57.635314 L 312.402967 -57.666354 L 311.759093 -57.697797 L 311.115219 -57.72965 L 310.471345 -57.761917 L 309.827471 -57.794604 L 309.183596 -57.827715 L 308.539722 -57.861257 L 307.895848 -57.895234 L 307.251974 -57.929653 L 306.608099 -57.964518 L 305.964225 -57.999835 L 305.320351 -58.03561 L 304.676477 -58.07185 L 304.032603 -58.108558 L 303.388728 -58.145742 L 302.744854 -58.183408 L 302.10098 -58.221561 L 301.457106 -58.260208 L 300.813232 -58.299355 L 300.169357 -58.339007 L 299.525483 -58.379172 L 298.881609 -58.419856 L 298.237735 -58.461065 L 297.59386 -58.502807 L 296.949986 -58.545086 L 296.306112 -58.587911 L 295.662238 -58.631288 L 295.018364 -58.675223 L 294.374489 -58.719725 L 293.730615 -58.764799 L 293.086741 -58.810454 L 292.442867 -58.856695 L 291.798992 -58.903532 L 291.155118 -58.95097 L 290.511244 -58.999017 L 289.86737 -59.047682 L 289.223496 -59.096971 L 288.579621 -59.146892 L 287.935747 -59.197454 L 287.291873 -59.248663 L 286.647999 -59.300529 L 286.004124 -59.353058 L 285.36025 -59.40626 L 284.716376 -59.460143 L 284.072502 -59.514714 L 283.428628 -59.569983 L 282.784753 -59.625958 L 282.140879 -59.682648 L 281.497005 -59.740061 L 280.853131 -59.798206 L 280.209257 -59.857093 L 279.565382 -59.91673 L 278.921508 -59.977127 L 278.277634 -60.038292 L 277.63376 -60.100236 L 276.989885 -60.162967 L 276.346011 -60.226496 L 275.702137 -60.290832 L 275.058263 -60.355984 L 274.414389 -60.421963 L 273.770514 -60.48878 L 273.12664 -60.556443 L 272.482766 -60.624963 L 271.838892 -60.694351 L 271.195017 -60.764617 L 270.551143 -60.835772 L 269.907269 -60.907826 L 269.263395 -60.980791 L 268.619521 -61.054677 L 267.975646 -61.129495 L 267.331772 -61.205257 L 266.687898 -61.281974 L 266.044024 -61.359657 L 265.40015 -61.438319 L 264.756275 -61.51797 L 264.112401 -61.598622 L 263.468527 -61.680288 L 262.824653 -61.76298 L 262.180778 -61.84671 L 261.536904 -61.93149 L 260.89303 -62.017332 L 260.249156 -62.104251 L 259.605282 -62.192257 L 258.961407 -62.281364 L 258.317533 -62.371586 L 257.673659 -62.462935 L 257.029785 -62.555424 L 256.38591 -62.649068 L 255.742036 -62.743879 L 255.098162 -62.839872 L 254.454288 -62.93706 L 253.810414 -63.035458 L 253.166539 -63.135079 L 252.522665 -63.235939 L 251.878791 -63.338051 L 251.234917 -63.441429 L 250.591043 -63.54609 L 249.947168 -63.652048 L 249.303294 -63.759318 L 248.65942 -63.867915 L 248.015546 -63.977854 L 247.371671 -64.089152 L 246.727797 -64.201824 L 246.083923 -64.315885 L 245.440049 -64.431353 L 244.796175 -64.548242 L 244.1523 -64.66657 L 243.508426 -64.786353 L 242.864552 -64.907607 L 242.220678 -65.030351 L 241.576803 -65.154599 L 240.932929 -65.280371 L 240.289055 -65.407683 L 239.645181 -65.536552 L 239.001307 -65.666997 L 238.357432 -65.799035 L 237.713558 -65.932685 L 237.069684 -66.067964 L 236.42581 -66.204891 L 235.781936 -66.343485 L 235.138061 -66.483764 L 234.494187 -66.625747 z" style="stroke: #f3e6d3"/>
+    </defs>
+    <g clip-path="url(#w8-python-tail-pbbdbc58be6)">
+     <use xlink:href="#w8-python-tail-m0ca68ce670" x="0" y="230.4" style="fill: #f3e6d3; stroke: #f3e6d3"/>
+    </g>
+   </g>
+   <g id="w8-python-tail-FillBetweenPolyCollection_2">
+    <defs>
+     <path id="w8-python-tail-m1b9071f2dd" d="M 425.666441 -55.520345 L 425.666441 -55.296 L 425.831186 -55.296 L 425.995932 -55.296 L 426.160678 -55.296 L 426.325424 -55.296 L 426.490169 -55.296 L 426.654915 -55.296 L 426.819661 -55.296 L 426.984407 -55.296 L 427.149153 -55.296 L 427.313898 -55.296 L 427.478644 -55.296 L 427.64339 -55.296 L 427.808136 -55.296 L 427.972881 -55.296 L 428.137627 -55.296 L 428.302373 -55.296 L 428.467119 -55.296 L 428.631864 -55.296 L 428.79661 -55.296 L 428.961356 -55.296 L 429.126102 -55.296 L 429.290847 -55.296 L 429.455593 -55.296 L 429.620339 -55.296 L 429.785085 -55.296 L 429.949831 -55.296 L 430.114576 -55.296 L 430.279322 -55.296 L 430.444068 -55.296 L 430.608814 -55.296 L 430.773559 -55.296 L 430.938305 -55.296 L 431.103051 -55.296 L 431.267797 -55.296 L 431.432542 -55.296 L 431.597288 -55.296 L 431.762034 -55.296 L 431.92678 -55.296 L 432.091525 -55.296 L 432.256271 -55.296 L 432.421017 -55.296 L 432.585763 -55.296 L 432.750508 -55.296 L 432.915254 -55.296 L 433.08 -55.296 L 433.244746 -55.296 L 433.409492 -55.296 L 433.574237 -55.296 L 433.738983 -55.296 L 433.903729 -55.296 L 434.068475 -55.296 L 434.23322 -55.296 L 434.397966 -55.296 L 434.562712 -55.296 L 434.727458 -55.296 L 434.892203 -55.296 L 435.056949 -55.296 L 435.221695 -55.296 L 435.386441 -55.296 L 435.551186 -55.296 L 435.715932 -55.296 L 435.880678 -55.296 L 436.045424 -55.296 L 436.210169 -55.296 L 436.374915 -55.296 L 436.539661 -55.296 L 436.704407 -55.296 L 436.869153 -55.296 L 437.033898 -55.296 L 437.198644 -55.296 L 437.36339 -55.296 L 437.528136 -55.296 L 437.692881 -55.296 L 437.857627 -55.296 L 438.022373 -55.296 L 438.187119 -55.296 L 438.351864 -55.296 L 438.51661 -55.296 L 438.681356 -55.296 L 438.846102 -55.296 L 439.010847 -55.296 L 439.175593 -55.296 L 439.340339 -55.296 L 439.505085 -55.296 L 439.669831 -55.296 L 439.834576 -55.296 L 439.999322 -55.296 L 440.164068 -55.296 L 440.328814 -55.296 L 440.493559 -55.296 L 440.658305 -55.296 L 440.823051 -55.296 L 440.987797 -55.296 L 441.152542 -55.296 L 441.317288 -55.296 L 441.482034 -55.296 L 441.64678 -55.296 L 441.811525 -55.296 L 441.976271 -55.296 L 442.141017 -55.296 L 442.305763 -55.296 L 442.470508 -55.296 L 442.635254 -55.296 L 442.8 -55.296 L 442.964746 -55.296 L 443.129492 -55.296 L 443.294237 -55.296 L 443.458983 -55.296 L 443.623729 -55.296 L 443.788475 -55.296 L 443.95322 -55.296 L 444.117966 -55.296 L 444.282712 -55.296 L 444.447458 -55.296 L 444.612203 -55.296 L 444.776949 -55.296 L 444.941695 -55.296 L 445.106441 -55.296 L 445.271186 -55.296 L 445.435932 -55.296 L 445.600678 -55.296 L 445.765424 -55.296 L 445.930169 -55.296 L 446.094915 -55.296 L 446.259661 -55.296 L 446.424407 -55.296 L 446.589153 -55.296 L 446.753898 -55.296 L 446.918644 -55.296 L 447.08339 -55.296 L 447.248136 -55.296 L 447.412881 -55.296 L 447.577627 -55.296 L 447.742373 -55.296 L 447.907119 -55.296 L 448.071864 -55.296 L 448.23661 -55.296 L 448.401356 -55.296 L 448.566102 -55.296 L 448.730847 -55.296 L 448.895593 -55.296 L 449.060339 -55.296 L 449.225085 -55.296 L 449.389831 -55.296 L 449.554576 -55.296 L 449.719322 -55.296 L 449.884068 -55.296 L 450.048814 -55.296 L 450.213559 -55.296 L 450.378305 -55.296 L 450.543051 -55.296 L 450.707797 -55.296 L 450.872542 -55.296 L 451.037288 -55.296 L 451.202034 -55.296 L 451.36678 -55.296 L 451.531525 -55.296 L 451.696271 -55.296 L 451.861017 -55.296 L 452.025763 -55.296 L 452.190508 -55.296 L 452.355254 -55.296 L 452.52 -55.296 L 452.684746 -55.296 L 452.849492 -55.296 L 453.014237 -55.296 L 453.178983 -55.296 L 453.343729 -55.296 L 453.508475 -55.296 L 453.67322 -55.296 L 453.837966 -55.296 L 454.002712 -55.296 L 454.167458 -55.296 L 454.332203 -55.296 L 454.496949 -55.296 L 454.661695 -55.296 L 454.826441 -55.296 L 454.991186 -55.296 L 455.155932 -55.296 L 455.320678 -55.296 L 455.485424 -55.296 L 455.650169 -55.296 L 455.814915 -55.296 L 455.979661 -55.296 L 456.144407 -55.296 L 456.309153 -55.296 L 456.473898 -55.296 L 456.638644 -55.296 L 456.80339 -55.296 L 456.968136 -55.296 L 457.132881 -55.296 L 457.297627 -55.296 L 457.462373 -55.296 L 457.627119 -55.296 L 457.791864 -55.296 L 457.95661 -55.296 L 458.121356 -55.296 L 458.286102 -55.296 L 458.450847 -55.296 L 458.615593 -55.296 L 458.780339 -55.296 L 458.945085 -55.296 L 459.109831 -55.296 L 459.274576 -55.296 L 459.439322 -55.296 L 459.604068 -55.296 L 459.768814 -55.296 L 459.933559 -55.296 L 460.098305 -55.296 L 460.263051 -55.296 L 460.427797 -55.296 L 460.592542 -55.296 L 460.757288 -55.296 L 460.922034 -55.296 L 461.08678 -55.296 L 461.251525 -55.296 L 461.416271 -55.296 L 461.581017 -55.296 L 461.745763 -55.296 L 461.910508 -55.296 L 462.075254 -55.296 L 462.24 -55.296 L 462.404746 -55.296 L 462.569492 -55.296 L 462.734237 -55.296 L 462.898983 -55.296 L 463.063729 -55.296 L 463.228475 -55.296 L 463.39322 -55.296 L 463.557966 -55.296 L 463.722712 -55.296 L 463.887458 -55.296 L 464.052203 -55.296 L 464.216949 -55.296 L 464.381695 -55.296 L 464.546441 -55.296 L 464.711186 -55.296 L 464.875932 -55.296 L 465.040678 -55.296 L 465.205424 -55.296 L 465.370169 -55.296 L 465.534915 -55.296 L 465.699661 -55.296 L 465.864407 -55.296 L 466.029153 -55.296 L 466.193898 -55.296 L 466.358644 -55.296 L 466.52339 -55.296 L 466.688136 -55.296 L 466.852881 -55.296 L 467.017627 -55.296 L 467.182373 -55.296 L 467.347119 -55.296 L 467.511864 -55.296 L 467.67661 -55.296 L 467.841356 -55.296 L 468.006102 -55.296 L 468.170847 -55.296 L 468.335593 -55.296 L 468.500339 -55.296 L 468.665085 -55.296 L 468.829831 -55.296 L 468.994576 -55.296 L 469.159322 -55.296 L 469.324068 -55.296 L 469.488814 -55.296 L 469.653559 -55.296 L 469.818305 -55.296 L 469.983051 -55.296 L 470.147797 -55.296 L 470.312542 -55.296 L 470.477288 -55.296 L 470.642034 -55.296 L 470.80678 -55.296 L 470.971525 -55.296 L 471.136271 -55.296 L 471.301017 -55.296 L 471.465763 -55.296 L 471.630508 -55.296 L 471.795254 -55.296 L 471.96 -55.296 L 472.124746 -55.296 L 472.289492 -55.296 L 472.454237 -55.296 L 472.618983 -55.296 L 472.783729 -55.296 L 472.948475 -55.296 L 473.11322 -55.296 L 473.277966 -55.296 L 473.442712 -55.296 L 473.607458 -55.296 L 473.772203 -55.296 L 473.936949 -55.296 L 474.101695 -55.296 L 474.266441 -55.296 L 474.431186 -55.296 L 474.595932 -55.296 L 474.760678 -55.296 L 474.925424 -55.296 L 475.090169 -55.296 L 475.254915 -55.296 L 475.419661 -55.296 L 475.584407 -55.296 L 475.749153 -55.296 L 475.913898 -55.296 L 476.078644 -55.296 L 476.24339 -55.296 L 476.408136 -55.296 L 476.572881 -55.296 L 476.737627 -55.296 L 476.902373 -55.296 L 477.067119 -55.296 L 477.231864 -55.296 L 477.39661 -55.296 L 477.561356 -55.296 L 477.726102 -55.296 L 477.890847 -55.296 L 478.055593 -55.296 L 478.220339 -55.296 L 478.385085 -55.296 L 478.549831 -55.296 L 478.714576 -55.296 L 478.879322 -55.296 L 479.044068 -55.296 L 479.208814 -55.296 L 479.373559 -55.296 L 479.538305 -55.296 L 479.703051 -55.296 L 479.867797 -55.296 L 480.032542 -55.296 L 480.197288 -55.296 L 480.362034 -55.296 L 480.52678 -55.296 L 480.691525 -55.296 L 480.856271 -55.296 L 481.021017 -55.296 L 481.185763 -55.296 L 481.350508 -55.296 L 481.515254 -55.296 L 481.68 -55.296 L 481.844746 -55.296 L 482.009492 -55.296 L 482.174237 -55.296 L 482.338983 -55.296 L 482.503729 -55.296 L 482.668475 -55.296 L 482.83322 -55.296 L 482.997966 -55.296 L 483.162712 -55.296 L 483.327458 -55.296 L 483.492203 -55.296 L 483.656949 -55.296 L 483.821695 -55.296 L 483.986441 -55.296 L 484.151186 -55.296 L 484.315932 -55.296 L 484.480678 -55.296 L 484.645424 -55.296 L 484.810169 -55.296 L 484.974915 -55.296 L 485.139661 -55.296 L 485.304407 -55.296 L 485.469153 -55.296 L 485.633898 -55.296 L 485.798644 -55.296 L 485.96339 -55.296 L 486.128136 -55.296 L 486.292881 -55.296 L 486.457627 -55.296 L 486.622373 -55.296 L 486.787119 -55.296 L 486.951864 -55.296 L 487.11661 -55.296 L 487.281356 -55.296 L 487.446102 -55.296 L 487.610847 -55.296 L 487.775593 -55.296 L 487.940339 -55.296 L 488.105085 -55.296 L 488.269831 -55.296 L 488.434576 -55.296 L 488.599322 -55.296 L 488.764068 -55.296 L 488.928814 -55.296 L 489.093559 -55.296 L 489.258305 -55.296 L 489.423051 -55.296 L 489.587797 -55.296 L 489.752542 -55.296 L 489.917288 -55.296 L 490.082034 -55.296 L 490.24678 -55.296 L 490.411525 -55.296 L 490.576271 -55.296 L 490.741017 -55.296 L 490.905763 -55.296 L 491.070508 -55.296 L 491.235254 -55.296 L 491.4 -55.296 L 491.4 -55.351698 L 491.4 -55.351698 L 491.235254 -55.351894 L 491.070508 -55.35209 L 490.905763 -55.352287 L 490.741017 -55.352485 L 490.576271 -55.352684 L 490.411525 -55.352883 L 490.24678 -55.353083 L 490.082034 -55.353283 L 489.917288 -55.353484 L 489.752542 -55.353686 L 489.587797 -55.353889 L 489.423051 -55.354092 L 489.258305 -55.354297 L 489.093559 -55.354501 L 488.928814 -55.354707 L 488.764068 -55.354913 L 488.599322 -55.35512 L 488.434576 -55.355328 L 488.269831 -55.355536 L 488.105085 -55.355745 L 487.940339 -55.355955 L 487.775593 -55.356166 L 487.610847 -55.356377 L 487.446102 -55.356589 L 487.281356 -55.356802 L 487.11661 -55.357016 L 486.951864 -55.35723 L 486.787119 -55.357445 L 486.622373 -55.357661 L 486.457627 -55.357877 L 486.292881 -55.358095 L 486.128136 -55.358313 L 485.96339 -55.358532 L 485.798644 -55.358751 L 485.633898 -55.358971 L 485.469153 -55.359193 L 485.304407 -55.359415 L 485.139661 -55.359637 L 484.974915 -55.359861 L 484.810169 -55.360085 L 484.645424 -55.36031 L 484.480678 -55.360536 L 484.315932 -55.360762 L 484.151186 -55.36099 L 483.986441 -55.361218 L 483.821695 -55.361447 L 483.656949 -55.361677 L 483.492203 -55.361907 L 483.327458 -55.362139 L 483.162712 -55.362371 L 482.997966 -55.362604 L 482.83322 -55.362838 L 482.668475 -55.363072 L 482.503729 -55.363308 L 482.338983 -55.363544 L 482.174237 -55.363781 L 482.009492 -55.364019 L 481.844746 -55.364258 L 481.68 -55.364497 L 481.515254 -55.364738 L 481.350508 -55.364979 L 481.185763 -55.365221 L 481.021017 -55.365464 L 480.856271 -55.365708 L 480.691525 -55.365952 L 480.52678 -55.366198 L 480.362034 -55.366444 L 480.197288 -55.366691 L 480.032542 -55.366939 L 479.867797 -55.367188 L 479.703051 -55.367438 L 479.538305 -55.367689 L 479.373559 -55.36794 L 479.208814 -55.368193 L 479.044068 -55.368446 L 478.879322 -55.3687 L 478.714576 -55.368955 L 478.549831 -55.369211 L 478.385085 -55.369468 L 478.220339 -55.369726 L 478.055593 -55.369984 L 477.890847 -55.370244 L 477.726102 -55.370504 L 477.561356 -55.370766 L 477.39661 -55.371028 L 477.231864 -55.371291 L 477.067119 -55.371555 L 476.902373 -55.37182 L 476.737627 -55.372086 L 476.572881 -55.372353 L 476.408136 -55.372621 L 476.24339 -55.37289 L 476.078644 -55.373159 L 475.913898 -55.37343 L 475.749153 -55.373702 L 475.584407 -55.373974 L 475.419661 -55.374247 L 475.254915 -55.374522 L 475.090169 -55.374797 L 474.925424 -55.375074 L 474.760678 -55.375351 L 474.595932 -55.375629 L 474.431186 -55.375908 L 474.266441 -55.376188 L 474.101695 -55.37647 L 473.936949 -55.376752 L 473.772203 -55.377035 L 473.607458 -55.377319 L 473.442712 -55.377604 L 473.277966 -55.37789 L 473.11322 -55.378177 L 472.948475 -55.378465 L 472.783729 -55.378754 L 472.618983 -55.379045 L 472.454237 -55.379336 L 472.289492 -55.379628 L 472.124746 -55.379921 L 471.96 -55.380215 L 471.795254 -55.38051 L 471.630508 -55.380806 L 471.465763 -55.381104 L 471.301017 -55.381402 L 471.136271 -55.381701 L 470.971525 -55.382002 L 470.80678 -55.382303 L 470.642034 -55.382606 L 470.477288 -55.382909 L 470.312542 -55.383214 L 470.147797 -55.383519 L 469.983051 -55.383826 L 469.818305 -55.384134 L 469.653559 -55.384443 L 469.488814 -55.384752 L 469.324068 -55.385063 L 469.159322 -55.385375 L 468.994576 -55.385689 L 468.829831 -55.386003 L 468.665085 -55.386318 L 468.500339 -55.386635 L 468.335593 -55.386952 L 468.170847 -55.387271 L 468.006102 -55.387591 L 467.841356 -55.387911 L 467.67661 -55.388233 L 467.511864 -55.388557 L 467.347119 -55.388881 L 467.182373 -55.389206 L 467.017627 -55.389533 L 466.852881 -55.38986 L 466.688136 -55.390189 L 466.52339 -55.390519 L 466.358644 -55.39085 L 466.193898 -55.391182 L 466.029153 -55.391515 L 465.864407 -55.39185 L 465.699661 -55.392186 L 465.534915 -55.392522 L 465.370169 -55.39286 L 465.205424 -55.3932 L 465.040678 -55.39354 L 464.875932 -55.393882 L 464.711186 -55.394224 L 464.546441 -55.394568 L 464.381695 -55.394913 L 464.216949 -55.39526 L 464.052203 -55.395607 L 463.887458 -55.395956 L 463.722712 -55.396306 L 463.557966 -55.396657 L 463.39322 -55.39701 L 463.228475 -55.397363 L 463.063729 -55.397718 L 462.898983 -55.398074 L 462.734237 -55.398431 L 462.569492 -55.39879 L 462.404746 -55.39915 L 462.24 -55.399511 L 462.075254 -55.399873 L 461.910508 -55.400237 L 461.745763 -55.400602 L 461.581017 -55.400968 L 461.416271 -55.401335 L 461.251525 -55.401704 L 461.08678 -55.402074 L 460.922034 -55.402445 L 460.757288 -55.402817 L 460.592542 -55.403191 L 460.427797 -55.403566 L 460.263051 -55.403943 L 460.098305 -55.404321 L 459.933559 -55.4047 L 459.768814 -55.40508 L 459.604068 -55.405462 L 459.439322 -55.405845 L 459.274576 -55.406229 L 459.109831 -55.406615 L 458.945085 -55.407002 L 458.780339 -55.40739 L 458.615593 -55.40778 L 458.450847 -55.408171 L 458.286102 -55.408563 L 458.121356 -55.408957 L 457.95661 -55.409352 L 457.791864 -55.409749 L 457.627119 -55.410146 L 457.462373 -55.410546 L 457.297627 -55.410946 L 457.132881 -55.411348 L 456.968136 -55.411752 L 456.80339 -55.412157 L 456.638644 -55.412563 L 456.473898 -55.412971 L 456.309153 -55.41338 L 456.144407 -55.41379 L 455.979661 -55.414202 L 455.814915 -55.414615 L 455.650169 -55.41503 L 455.485424 -55.415446 L 455.320678 -55.415864 L 455.155932 -55.416283 L 454.991186 -55.416704 L 454.826441 -55.417126 L 454.661695 -55.417549 L 454.496949 -55.417974 L 454.332203 -55.418401 L 454.167458 -55.418829 L 454.002712 -55.419258 L 453.837966 -55.419689 L 453.67322 -55.420122 L 453.508475 -55.420555 L 453.343729 -55.420991 L 453.178983 -55.421428 L 453.014237 -55.421866 L 452.849492 -55.422306 L 452.684746 -55.422748 L 452.52 -55.423191 L 452.355254 -55.423635 L 452.190508 -55.424081 L 452.025763 -55.424529 L 451.861017 -55.424978 L 451.696271 -55.425429 L 451.531525 -55.425881 L 451.36678 -55.426335 L 451.202034 -55.426791 L 451.037288 -55.427248 L 450.872542 -55.427706 L 450.707797 -55.428166 L 450.543051 -55.428628 L 450.378305 -55.429092 L 450.213559 -55.429557 L 450.048814 -55.430023 L 449.884068 -55.430492 L 449.719322 -55.430961 L 449.554576 -55.431433 L 449.389831 -55.431906 L 449.225085 -55.432381 L 449.060339 -55.432857 L 448.895593 -55.433335 L 448.730847 -55.433815 L 448.566102 -55.434297 L 448.401356 -55.43478 L 448.23661 -55.435264 L 448.071864 -55.435751 L 447.907119 -55.436239 L 447.742373 -55.436729 L 447.577627 -55.43722 L 447.412881 -55.437714 L 447.248136 -55.438208 L 447.08339 -55.438705 L 446.918644 -55.439203 L 446.753898 -55.439704 L 446.589153 -55.440205 L 446.424407 -55.440709 L 446.259661 -55.441214 L 446.094915 -55.441721 L 445.930169 -55.44223 L 445.765424 -55.442741 L 445.600678 -55.443253 L 445.435932 -55.443767 L 445.271186 -55.444283 L 445.106441 -55.444801 L 444.941695 -55.44532 L 444.776949 -55.445841 L 444.612203 -55.446365 L 444.447458 -55.446889 L 444.282712 -55.447416 L 444.117966 -55.447945 L 443.95322 -55.448475 L 443.788475 -55.449007 L 443.623729 -55.449541 L 443.458983 -55.450077 L 443.294237 -55.450615 L 443.129492 -55.451155 L 442.964746 -55.451696 L 442.8 -55.452239 L 442.635254 -55.452785 L 442.470508 -55.453332 L 442.305763 -55.453881 L 442.141017 -55.454432 L 441.976271 -55.454985 L 441.811525 -55.455539 L 441.64678 -55.456096 L 441.482034 -55.456655 L 441.317288 -55.457215 L 441.152542 -55.457778 L 440.987797 -55.458342 L 440.823051 -55.458908 L 440.658305 -55.459477 L 440.493559 -55.460047 L 440.328814 -55.460619 L 440.164068 -55.461194 L 439.999322 -55.46177 L 439.834576 -55.462348 L 439.669831 -55.462928 L 439.505085 -55.463511 L 439.340339 -55.464095 L 439.175593 -55.464681 L 439.010847 -55.46527 L 438.846102 -55.46586 L 438.681356 -55.466452 L 438.51661 -55.467047 L 438.351864 -55.467643 L 438.187119 -55.468242 L 438.022373 -55.468842 L 437.857627 -55.469445 L 437.692881 -55.47005 L 437.528136 -55.470657 L 437.36339 -55.471266 L 437.198644 -55.471877 L 437.033898 -55.47249 L 436.869153 -55.473105 L 436.704407 -55.473723 L 436.539661 -55.474343 L 436.374915 -55.474964 L 436.210169 -55.475588 L 436.045424 -55.476214 L 435.880678 -55.476842 L 435.715932 -55.477473 L 435.551186 -55.478105 L 435.386441 -55.47874 L 435.221695 -55.479377 L 435.056949 -55.480016 L 434.892203 -55.480658 L 434.727458 -55.481301 L 434.562712 -55.481947 L 434.397966 -55.482595 L 434.23322 -55.483245 L 434.068475 -55.483898 L 433.903729 -55.484553 L 433.738983 -55.48521 L 433.574237 -55.485869 L 433.409492 -55.486531 L 433.244746 -55.487194 L 433.08 -55.487861 L 432.915254 -55.488529 L 432.750508 -55.4892 L 432.585763 -55.489873 L 432.421017 -55.490548 L 432.256271 -55.491226 L 432.091525 -55.491906 L 431.92678 -55.492589 L 431.762034 -55.493274 L 431.597288 -55.493961 L 431.432542 -55.49465 L 431.267797 -55.495342 L 431.103051 -55.496037 L 430.938305 -55.496733 L 430.773559 -55.497432 L 430.608814 -55.498134 L 430.444068 -55.498838 L 430.279322 -55.499544 L 430.114576 -55.500253 L 429.949831 -55.500964 L 429.785085 -55.501678 L 429.620339 -55.502394 L 429.455593 -55.503113 L 429.290847 -55.503834 L 429.126102 -55.504558 L 428.961356 -55.505284 L 428.79661 -55.506013 L 428.631864 -55.506744 L 428.467119 -55.507478 L 428.302373 -55.508214 L 428.137627 -55.508953 L 427.972881 -55.509694 L 427.808136 -55.510438 L 427.64339 -55.511184 L 427.478644 -55.511933 L 427.313898 -55.512685 L 427.149153 -55.513439 L 426.984407 -55.514196 L 426.819661 -55.514955 L 426.654915 -55.515718 L 426.490169 -55.516482 L 426.325424 -55.51725 L 426.160678 -55.518019 L 425.995932 -55.518792 L 425.831186 -55.519567 L 425.666441 -55.520345 z" style="stroke: #b9d8d4"/>
+    </defs>
+    <g clip-path="url(#w8-python-tail-pbbdbc58be6)">
+     <use xlink:href="#w8-python-tail-m1b9071f2dd" x="0" y="230.4" style="fill: #b9d8d4; stroke: #b9d8d4"/>
+    </g>
+   </g>
+   <g id="w8-python-tail-matplotlib.axis_1">
+    <g id="w8-python-tail-xtick_1">
+     <g id="w8-python-tail-line2d_1">
+      <defs>
+       <path id="w8-python-tail-m5f09750f30" d="M 0 0 L 0 3.5" style="stroke: #536675; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#w8-python-tail-m5f09750f30" x="60.48" y="175.104" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w8-python-tail-text_1">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="60.48" y="190.462281" transform="rotate(-0 60.48 190.462281)">0</text>
+     </g>
+    </g>
+    <g id="w8-python-tail-xtick_2">
+     <g id="w8-python-tail-line2d_2">
+      <g>
+       <use xlink:href="#w8-python-tail-m5f09750f30" x="234.494187" y="175.104" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w8-python-tail-text_2">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="234.494187" y="190.462281" transform="rotate(-0 234.494187 190.462281)">7.81</text>
+     </g>
+    </g>
+    <g id="w8-python-tail-xtick_3">
+     <g id="w8-python-tail-line2d_3">
+      <g>
+       <use xlink:href="#w8-python-tail-m5f09750f30" x="425.666441" y="175.104" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w8-python-tail-text_3">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="425.666441" y="190.462281" transform="rotate(-0 425.666441 190.462281)">16.4</text>
+     </g>
+    </g>
+    <g id="w8-python-tail-text_4">
+     <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="275.94" y="206.247984" transform="rotate(-0 275.94 206.247984)">Chi-squared statistic χ²</text>
+    </g>
+   </g>
+   <g id="w8-python-tail-matplotlib.axis_2">
+    <g id="w8-python-tail-ytick_1">
+     <g id="w8-python-tail-line2d_4">
+      <path d="M 60.48 175.104 L 491.4 175.104" clip-path="url(#w8-python-tail-pbbdbc58be6)" style="fill: none; stroke: #e7edf0; stroke-width: 0.7; stroke-linecap: square"/>
+     </g>
+     <g id="w8-python-tail-line2d_5">
+      <defs>
+       <path id="w8-python-tail-mead6e564e6" d="M 0 0 L -3.5 0" style="stroke: #536675; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#w8-python-tail-mead6e564e6" x="60.48" y="175.104" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w8-python-tail-text_5">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #536675" x="53.48" y="179.283141" transform="rotate(-0 53.48 179.283141)">0.00</text>
+     </g>
+    </g>
+    <g id="w8-python-tail-ytick_2">
+     <g id="w8-python-tail-line2d_6">
+      <path d="M 60.48 149.824422 L 491.4 149.824422" clip-path="url(#w8-python-tail-pbbdbc58be6)" style="fill: none; stroke: #e7edf0; stroke-width: 0.7; stroke-linecap: square"/>
+     </g>
+     <g id="w8-python-tail-line2d_7">
+      <g>
+       <use xlink:href="#w8-python-tail-mead6e564e6" x="60.48" y="149.824422" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w8-python-tail-text_6">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #536675" x="53.48" y="154.003562" transform="rotate(-0 53.48 154.003562)">0.05</text>
+     </g>
+    </g>
+    <g id="w8-python-tail-ytick_3">
+     <g id="w8-python-tail-line2d_8">
+      <path d="M 60.48 124.544843 L 491.4 124.544843" clip-path="url(#w8-python-tail-pbbdbc58be6)" style="fill: none; stroke: #e7edf0; stroke-width: 0.7; stroke-linecap: square"/>
+     </g>
+     <g id="w8-python-tail-line2d_9">
+      <g>
+       <use xlink:href="#w8-python-tail-mead6e564e6" x="60.48" y="124.544843" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w8-python-tail-text_7">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #536675" x="53.48" y="128.723984" transform="rotate(-0 53.48 128.723984)">0.10</text>
+     </g>
+    </g>
+    <g id="w8-python-tail-ytick_4">
+     <g id="w8-python-tail-line2d_10">
+      <path d="M 60.48 99.265265 L 491.4 99.265265" clip-path="url(#w8-python-tail-pbbdbc58be6)" style="fill: none; stroke: #e7edf0; stroke-width: 0.7; stroke-linecap: square"/>
+     </g>
+     <g id="w8-python-tail-line2d_11">
+      <g>
+       <use xlink:href="#w8-python-tail-mead6e564e6" x="60.48" y="99.265265" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w8-python-tail-text_8">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #536675" x="53.48" y="103.444405" transform="rotate(-0 53.48 103.444405)">0.15</text>
+     </g>
+    </g>
+    <g id="w8-python-tail-ytick_5">
+     <g id="w8-python-tail-line2d_12">
+      <path d="M 60.48 73.985686 L 491.4 73.985686" clip-path="url(#w8-python-tail-pbbdbc58be6)" style="fill: none; stroke: #e7edf0; stroke-width: 0.7; stroke-linecap: square"/>
+     </g>
+     <g id="w8-python-tail-line2d_13">
+      <g>
+       <use xlink:href="#w8-python-tail-mead6e564e6" x="60.48" y="73.985686" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w8-python-tail-text_9">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #536675" x="53.48" y="78.164827" transform="rotate(-0 53.48 78.164827)">0.20</text>
+     </g>
+    </g>
+    <g id="w8-python-tail-ytick_6">
+     <g id="w8-python-tail-line2d_14">
+      <path d="M 60.48 48.706108 L 491.4 48.706108" clip-path="url(#w8-python-tail-pbbdbc58be6)" style="fill: none; stroke: #e7edf0; stroke-width: 0.7; stroke-linecap: square"/>
+     </g>
+     <g id="w8-python-tail-line2d_15">
+      <g>
+       <use xlink:href="#w8-python-tail-mead6e564e6" x="60.48" y="48.706108" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w8-python-tail-text_10">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #536675" x="53.48" y="52.885249" transform="rotate(-0 53.48 52.885249)">0.25</text>
+     </g>
+    </g>
+    <g id="w8-python-tail-text_11">
+     <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="22.388203" y="105.984" transform="rotate(-90 22.388203 105.984)">Density</text>
+    </g>
+   </g>
+   <g id="w8-python-tail-line2d_16">
+    <path d="M 234.494187 175.104 L 234.494187 36.864" clip-path="url(#w8-python-tail-pbbdbc58be6)" style="fill: none; stroke-dasharray: 3.7,1.6; stroke-dashoffset: 0; stroke: #ad6b15"/>
+   </g>
+   <g id="w8-python-tail-line2d_17">
+    <path d="M 60.502267 168.728816 L 60.933597 146.607864 L 61.796255 127.492854 L 62.658913 115.021755 L 63.521571 105.479393 L 64.815558 94.358631 L 66.109545 85.729606 L 67.403532 78.827199 L 68.69752 73.219178 L 69.991507 68.629622 L 71.285494 64.867835 L 72.579481 61.794457 L 73.873468 59.303356 L 75.167456 57.311114 L 76.461443 55.750515 L 77.75543 54.566307 L 79.049417 53.712323 L 80.343404 53.149466 L 81.637391 52.84425 L 82.931379 52.767717 L 84.225366 52.89462 L 85.519353 53.202797 L 87.244669 53.862168 L 88.969986 54.768775 L 91.126631 56.197139 L 93.283276 57.899835 L 95.871251 60.237059 L 98.890554 63.281595 L 102.772516 67.561705 L 107.517135 73.151114 L 116.575045 84.256983 L 125.201627 94.705364 L 131.671563 102.184296 L 137.27884 108.326974 L 142.454789 113.683234 L 147.630738 118.72259 L 152.806687 123.439842 L 157.982635 127.836869 L 163.158584 131.92065 L 168.334533 135.701759 L 173.510482 139.19322 L 178.68643 142.409633 L 183.862379 145.366512 L 189.038328 148.079781 L 194.645606 150.762757 L 200.252883 153.198523 L 206.29149 155.567353 L 212.330097 157.69497 L 218.800033 159.731602 L 225.269969 161.541313 L 232.171234 163.247545 L 239.503828 164.834946 L 247.267751 166.292756 L 255.894332 167.678653 L 264.952243 168.906378 L 274.872811 170.025097 L 285.656038 171.018264 L 297.733251 171.906275 L 311.535781 172.691202 L 327.494957 173.365105 L 346.042106 173.918263 L 368.902547 174.366467 L 398.232923 174.70453 L 439.209184 174.935438 L 491.4 175.048302 L 491.4 175.048302" clip-path="url(#w8-python-tail-pbbdbc58be6)" style="fill: none; stroke: #245a81; stroke-width: 2.2; stroke-linecap: square"/>
+   </g>
+   <g id="w8-python-tail-line2d_18">
+    <path d="M 425.666441 175.104 L 425.666441 174.879655" clip-path="url(#w8-python-tail-pbbdbc58be6)" style="fill: none; stroke-dasharray: 5.55,2.4; stroke-dashoffset: 0; stroke: #287d76; stroke-width: 1.5"/>
+   </g>
+   <g id="w8-python-tail-patch_3">
+    <path d="M 60.48 175.104 L 60.48 36.864" style="fill: none; stroke: #80919c; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="w8-python-tail-patch_4">
+    <path d="M 60.48 175.104 L 491.4 175.104" style="fill: none; stroke: #80919c; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="w8-python-tail-text_12">
+    <text style="font-size: 12px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #287d76" x="487.0908" y="18.8928" transform="rotate(-0 487.0908 18.8928)">χ² = 16.4; df = 3; right-tail p ≈ 0.000939</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="w8-python-tail-pbbdbc58be6">
+   <rect x="60.48" y="36.864" width="430.92" height="138.24"/>
+  </clipPath>
+ </defs>
+</svg></div><figcaption><b>A large total mismatch is evidence in the right tail</b>Use <code>chi2.sf(chi_square, degrees_of_freedom)</code> for this shaded area. The survival function returns P(χ² ≥ 16.4) under the df = 3 reference distribution.</figcaption></figure>
+
 <div class="cell" data-cell-id="chi-square-pvalue">
     <div class="cell-head"><span class="cell-label">cell 57 — chi-squared p-value</span><span class="cell-state">not checked</span></div>
     <div class="task"><p>Use SciPy to compute the right-tail p-value for \(\chi^2=16.4\) with \(df=3\), then decide at \(\alpha=0.05\).</p><button class="text-button hint-toggle" type="button">hint</button></div>
@@ -5324,6 +5728,249 @@ reject_null = p_value &lt;= alpha</div>
 </section><section class="lesson" id="independence-expected" data-cell-link="independence-expected">
   <h3>Build an expected table</h3>
   <p class="lesson-copy">If row and column variables are independent, the table margins determine the expected counts. Build row totals, column totals, and the grand total first.</p>
+<figure class="w8-visual" data-visual="w8-python-table"><div class="w8-plot" tabindex="0" role="group" aria-label="Independence reallocates counts while preserving the margins; scroll horizontally on narrow screens"><svg id="w8-python-table" role="img" aria-labelledby="w8-python-table-title w8-python-table-desc" xmlns:xlink="http://www.w3.org/1999/xlink" width="504pt" height="237.6pt" viewBox="0 0 504 237.6" xmlns="http://www.w3.org/2000/svg" version="1.1">
+<title id="w8-python-table-title">Independence reallocates counts while preserving the margins</title><desc id="w8-python-table-desc">Observed table [[28.0, 22.0], [42.0, 18.0], [54.0, 6.0]]. Expected table [[36.4706, 13.5294], [43.7647, 16.2353], [43.7647, 16.2353]]. Expected counts are each row total times each column total divided by the grand total.</desc>
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">#w8-python-table *{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="w8-python-table-figure_1">
+  <g id="w8-python-table-patch_1">
+   <path d="M 0 237.6 L 504 237.6 L 504 0 L 0 0 z" style="fill: #ffffff"/>
+  </g>
+  <g id="w8-python-table-axes_1">
+   <g id="w8-python-table-patch_2">
+    <path d="M 90.72 187.704 L 256.62 187.704 L 256.62 57.024 L 90.72 57.024 z" style="fill: #f7fafc"/>
+   </g>
+   <g id="w8-python-table-matplotlib.axis_1">
+    <g id="w8-python-table-xtick_1">
+     <g id="w8-python-table-line2d_1"/>
+     <g id="w8-python-table-text_1">
+      <text style="font-size: 10.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="132.195" y="46.840328" transform="rotate(-0 132.195 46.840328)">Passed</text>
+     </g>
+    </g>
+    <g id="w8-python-table-xtick_2">
+     <g id="w8-python-table-line2d_2"/>
+     <g id="w8-python-table-text_2">
+      <text style="font-size: 10.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="215.145" y="46.840328" transform="rotate(-0 215.145 46.840328)">Did not pass</text>
+     </g>
+    </g>
+    <g id="w8-python-table-xtick_3">
+     <g id="w8-python-table-line2d_3">
+      <path d="M 90.72 187.704 L 90.72 57.024" clip-path="url(#w8-python-table-pa4dde8285a)" style="fill: none; stroke: #bccdd7; stroke-linecap: square"/>
+     </g>
+     <g id="w8-python-table-line2d_4"/>
+    </g>
+    <g id="w8-python-table-xtick_4">
+     <g id="w8-python-table-line2d_5">
+      <path d="M 173.67 187.704 L 173.67 57.024" clip-path="url(#w8-python-table-pa4dde8285a)" style="fill: none; stroke: #bccdd7; stroke-linecap: square"/>
+     </g>
+     <g id="w8-python-table-line2d_6"/>
+    </g>
+    <g id="w8-python-table-xtick_5">
+     <g id="w8-python-table-line2d_7">
+      <path d="M 256.62 187.704 L 256.62 57.024" clip-path="url(#w8-python-table-pa4dde8285a)" style="fill: none; stroke: #bccdd7; stroke-linecap: square"/>
+     </g>
+     <g id="w8-python-table-line2d_8"/>
+    </g>
+   </g>
+   <g id="w8-python-table-matplotlib.axis_2">
+    <g id="w8-python-table-ytick_1">
+     <g id="w8-python-table-line2d_9"/>
+     <g id="w8-python-table-text_3">
+      <text style="font-size: 10.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #536675" x="87.22" y="82.79318" transform="rotate(-0 87.22 82.79318)">None</text>
+     </g>
+    </g>
+    <g id="w8-python-table-ytick_2">
+     <g id="w8-python-table-line2d_10"/>
+     <g id="w8-python-table-text_4">
+      <text style="font-size: 10.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #536675" x="87.22" y="126.35318" transform="rotate(-0 87.22 126.35318)">Occasional</text>
+     </g>
+    </g>
+    <g id="w8-python-table-ytick_3">
+     <g id="w8-python-table-line2d_11"/>
+     <g id="w8-python-table-text_5">
+      <text style="font-size: 10.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #536675" x="87.22" y="169.91318" transform="rotate(-0 87.22 169.91318)">Regular</text>
+     </g>
+    </g>
+    <g id="w8-python-table-ytick_4">
+     <g id="w8-python-table-line2d_12">
+      <path d="M 90.72 57.024 L 256.62 57.024" clip-path="url(#w8-python-table-pa4dde8285a)" style="fill: none; stroke: #bccdd7; stroke-linecap: square"/>
+     </g>
+     <g id="w8-python-table-line2d_13"/>
+    </g>
+    <g id="w8-python-table-ytick_5">
+     <g id="w8-python-table-line2d_14">
+      <path d="M 90.72 100.584 L 256.62 100.584" clip-path="url(#w8-python-table-pa4dde8285a)" style="fill: none; stroke: #bccdd7; stroke-linecap: square"/>
+     </g>
+     <g id="w8-python-table-line2d_15"/>
+    </g>
+    <g id="w8-python-table-ytick_6">
+     <g id="w8-python-table-line2d_16">
+      <path d="M 90.72 144.144 L 256.62 144.144" clip-path="url(#w8-python-table-pa4dde8285a)" style="fill: none; stroke: #bccdd7; stroke-linecap: square"/>
+     </g>
+     <g id="w8-python-table-line2d_17"/>
+    </g>
+    <g id="w8-python-table-ytick_7">
+     <g id="w8-python-table-line2d_18">
+      <path d="M 90.72 187.704 L 256.62 187.704" clip-path="url(#w8-python-table-pa4dde8285a)" style="fill: none; stroke: #bccdd7; stroke-linecap: square"/>
+     </g>
+     <g id="w8-python-table-line2d_19"/>
+    </g>
+   </g>
+   <g id="w8-python-table-patch_3">
+    <path d="M 90.72 187.704 L 90.72 57.024" style="fill: none; stroke: #80919c; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="w8-python-table-patch_4">
+    <path d="M 90.72 187.704 L 256.62 187.704" style="fill: none; stroke: #80919c; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="w8-python-table-text_6">
+    <text style="font-size: 13px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="132.195" y="82.391188" transform="rotate(-0 132.195 82.391188)">28</text>
+   </g>
+   <g id="w8-python-table-text_7">
+    <text style="font-size: 13px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="215.145" y="82.391188" transform="rotate(-0 215.145 82.391188)">22</text>
+   </g>
+   <g id="w8-python-table-text_8">
+    <text style="font-size: 13px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="132.195" y="125.951188" transform="rotate(-0 132.195 125.951188)">42</text>
+   </g>
+   <g id="w8-python-table-text_9">
+    <text style="font-size: 13px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="215.145" y="125.951188" transform="rotate(-0 215.145 125.951188)">18</text>
+   </g>
+   <g id="w8-python-table-text_10">
+    <text style="font-size: 13px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="132.195" y="169.511188" transform="rotate(-0 132.195 169.511188)">54</text>
+   </g>
+   <g id="w8-python-table-text_11">
+    <text style="font-size: 13px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="215.145" y="169.511188" transform="rotate(-0 215.145 169.511188)">6</text>
+   </g>
+   <g id="w8-python-table-text_12">
+    <text style="font-size: 12px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="173.67" y="20.024" transform="rotate(-0 173.67 20.024)">Observed counts</text>
+   </g>
+  </g>
+  <g id="w8-python-table-axes_2">
+   <g id="w8-python-table-patch_5">
+    <path d="M 322.98 187.704 L 488.88 187.704 L 488.88 57.024 L 322.98 57.024 z" style="fill: #f7fafc"/>
+   </g>
+   <g id="w8-python-table-matplotlib.axis_3">
+    <g id="w8-python-table-xtick_6">
+     <g id="w8-python-table-line2d_20"/>
+     <g id="w8-python-table-text_13">
+      <text style="font-size: 10.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="364.455" y="46.840328" transform="rotate(-0 364.455 46.840328)">Passed</text>
+     </g>
+    </g>
+    <g id="w8-python-table-xtick_7">
+     <g id="w8-python-table-line2d_21"/>
+     <g id="w8-python-table-text_14">
+      <text style="font-size: 10.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="447.405" y="46.840328" transform="rotate(-0 447.405 46.840328)">Did not pass</text>
+     </g>
+    </g>
+    <g id="w8-python-table-xtick_8">
+     <g id="w8-python-table-line2d_22">
+      <path d="M 322.98 187.704 L 322.98 57.024" clip-path="url(#w8-python-table-p8248fdd5c7)" style="fill: none; stroke: #bccdd7; stroke-linecap: square"/>
+     </g>
+     <g id="w8-python-table-line2d_23"/>
+    </g>
+    <g id="w8-python-table-xtick_9">
+     <g id="w8-python-table-line2d_24">
+      <path d="M 405.93 187.704 L 405.93 57.024" clip-path="url(#w8-python-table-p8248fdd5c7)" style="fill: none; stroke: #bccdd7; stroke-linecap: square"/>
+     </g>
+     <g id="w8-python-table-line2d_25"/>
+    </g>
+    <g id="w8-python-table-xtick_10">
+     <g id="w8-python-table-line2d_26">
+      <path d="M 488.88 187.704 L 488.88 57.024" clip-path="url(#w8-python-table-p8248fdd5c7)" style="fill: none; stroke: #bccdd7; stroke-linecap: square"/>
+     </g>
+     <g id="w8-python-table-line2d_27"/>
+    </g>
+   </g>
+   <g id="w8-python-table-matplotlib.axis_4">
+    <g id="w8-python-table-ytick_8">
+     <g id="w8-python-table-line2d_28"/>
+    </g>
+    <g id="w8-python-table-ytick_9">
+     <g id="w8-python-table-line2d_29"/>
+    </g>
+    <g id="w8-python-table-ytick_10">
+     <g id="w8-python-table-line2d_30"/>
+    </g>
+    <g id="w8-python-table-ytick_11">
+     <g id="w8-python-table-line2d_31">
+      <path d="M 322.98 57.024 L 488.88 57.024" clip-path="url(#w8-python-table-p8248fdd5c7)" style="fill: none; stroke: #bccdd7; stroke-linecap: square"/>
+     </g>
+     <g id="w8-python-table-line2d_32"/>
+    </g>
+    <g id="w8-python-table-ytick_12">
+     <g id="w8-python-table-line2d_33">
+      <path d="M 322.98 100.584 L 488.88 100.584" clip-path="url(#w8-python-table-p8248fdd5c7)" style="fill: none; stroke: #bccdd7; stroke-linecap: square"/>
+     </g>
+     <g id="w8-python-table-line2d_34"/>
+    </g>
+    <g id="w8-python-table-ytick_13">
+     <g id="w8-python-table-line2d_35">
+      <path d="M 322.98 144.144 L 488.88 144.144" clip-path="url(#w8-python-table-p8248fdd5c7)" style="fill: none; stroke: #bccdd7; stroke-linecap: square"/>
+     </g>
+     <g id="w8-python-table-line2d_36"/>
+    </g>
+    <g id="w8-python-table-ytick_14">
+     <g id="w8-python-table-line2d_37">
+      <path d="M 322.98 187.704 L 488.88 187.704" clip-path="url(#w8-python-table-p8248fdd5c7)" style="fill: none; stroke: #bccdd7; stroke-linecap: square"/>
+     </g>
+     <g id="w8-python-table-line2d_38"/>
+    </g>
+   </g>
+   <g id="w8-python-table-patch_6">
+    <path d="M 322.98 187.704 L 322.98 57.024" style="fill: none; stroke: #80919c; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="w8-python-table-patch_7">
+    <path d="M 322.98 187.704 L 488.88 187.704" style="fill: none; stroke: #80919c; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="w8-python-table-text_15">
+    <text style="font-size: 13px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="364.455" y="82.391188" transform="rotate(-0 364.455 82.391188)">36.47</text>
+   </g>
+   <g id="w8-python-table-text_16">
+    <text style="font-size: 13px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="447.405" y="82.391188" transform="rotate(-0 447.405 82.391188)">13.53</text>
+   </g>
+   <g id="w8-python-table-text_17">
+    <text style="font-size: 13px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="364.455" y="125.951188" transform="rotate(-0 364.455 125.951188)">43.76</text>
+   </g>
+   <g id="w8-python-table-text_18">
+    <text style="font-size: 13px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="447.405" y="125.951188" transform="rotate(-0 447.405 125.951188)">16.24</text>
+   </g>
+   <g id="w8-python-table-text_19">
+    <text style="font-size: 13px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="364.455" y="169.511188" transform="rotate(-0 364.455 169.511188)">43.76</text>
+   </g>
+   <g id="w8-python-table-text_20">
+    <text style="font-size: 13px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="447.405" y="169.511188" transform="rotate(-0 447.405 169.511188)">16.24</text>
+   </g>
+   <g id="w8-python-table-text_21">
+    <text style="font-size: 12px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="405.93" y="20.024" transform="rotate(-0 405.93 20.024)">Expected if independent</text>
+   </g>
+  </g>
+  <g id="w8-python-table-text_22">
+   <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="277.2" y="228.096" transform="rotate(-0 277.2 228.096)">Same row totals, column totals, and grand total</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="w8-python-table-pa4dde8285a">
+   <rect x="90.72" y="57.024" width="165.9" height="130.68"/>
+  </clipPath>
+  <clipPath id="w8-python-table-p8248fdd5c7">
+   <rect x="322.98" y="57.024" width="165.9" height="130.68"/>
+  </clipPath>
+ </defs>
+</svg></div><figcaption><b>Independence reallocates counts while preserving the margins</b>In <code>np.outer(row_totals, column_totals)</code>, the result has one row per tutoring category and one column per outcome. Divide that entire array by 170. Check that its margins still match the observed margins.</figcaption></figure>
+
 <div class="cell" data-cell-id="independence-expected">
     <div class="cell-head"><span class="cell-label">cell 58 — expected contingency table</span><span class="cell-state">not checked</span></div>
     <div class="task"><p>The rows record tutoring attendance (none, occasional, regular), and the columns record course outcome (passed, did not pass). Compute the row totals, column totals, grand total, and expected table.</p><button class="text-button hint-toggle" type="button">hint</button></div>
@@ -5343,8 +5990,7 @@ expected = np.outer(____, ____) / ____
 
 print(&quot;row totals =&quot;, row_totals)
 print(&quot;column totals =&quot;, column_totals)
-print(&quot;expected table =
-&quot;, expected)</textarea>
+print(&quot;expected table =\n&quot;, expected)</textarea>
     <div class="controls"><button class="btn run-btn" type="button" disabled>Run</button><button class="btn check-btn" type="button">Check</button><button class="btn solution-btn" type="button">Solution</button><button class="btn reset-btn" type="button">Reset</button></div>
     <pre class="output" aria-live="polite"></pre>
     <div class="figure-output" aria-live="polite"></div>
@@ -5411,8 +6057,7 @@ largest_cell = np.unravel_index(
 )
 largest_residual = standardized_residuals[largest_cell]
 
-print(&quot;standardized residuals =
-&quot;, standardized_residuals)
+print(&quot;standardized residuals =\n&quot;, standardized_residuals)
 print(&quot;largest cell =&quot;, largest_cell)
 print(&quot;largest residual =&quot;, largest_residual)</textarea>
     <div class="controls"><button class="btn run-btn" type="button" disabled>Run</button><button class="btn check-btn" type="button">Check</button><button class="btn solution-btn" type="button">Solution</button><button class="btn reset-btn" type="button">Reset</button></div>
@@ -5428,6 +6073,179 @@ largest_cell = np.unravel_index(
 </section><section class="lesson" id="chi-square-heatmap" data-cell-link="chi-square-heatmap">
   <h3>Draw the residual table</h3>
   <p class="lesson-copy">Turn the residual table into a picture. The sign shows above or below expectation; the magnitude shows how far.</p>
+<figure class="w8-visual" data-visual="w8-python-residuals"><div class="w8-plot" tabindex="0" role="group" aria-label="Residual signs locate the departures from independence; scroll horizontally on narrow screens"><svg id="w8-python-residuals" role="img" aria-labelledby="w8-python-residuals-title w8-python-residuals-desc" xmlns:xlink="http://www.w3.org/1999/xlink" width="504pt" height="273.6pt" viewBox="0 0 504 273.6" xmlns="http://www.w3.org/2000/svg" version="1.1">
+<title id="w8-python-residuals-title">Residual signs locate the departures from independence</title><desc id="w8-python-residuals-desc">Pearson residuals by tutoring attendance (none, occasional, regular) and outcome (passed, did not pass): [[-1.4026, 2.3029], [-0.2668, 0.438], [1.5472, -2.5402]]</desc>
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">#w8-python-residuals *{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="w8-python-residuals-figure_1">
+  <g id="w8-python-residuals-patch_1">
+   <path d="M 0 273.6 L 504 273.6 L 504 0 L 0 0 z" style="fill: #ffffff"/>
+  </g>
+  <g id="w8-python-residuals-axes_1">
+   <g id="w8-python-residuals-patch_2">
+    <path d="M 115.92 216.144 L 382.032 216.144 L 382.032 43.776 L 115.92 43.776 z" style="fill: #ffffff"/>
+   </g>
+   <g clip-path="url(#w8-python-residuals-p13a513f47f)">
+    <image xlink:href="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAXIAAADwCAYAAAAdK+9uAAADnElEQVR4nO3WwY0BUABFUWRqmIUuaEMJogM7lamFSGztZyEKMEXIz8+Vcyp4q5u3vB527wV8sc3ld/YEGGo1ewAAnxFygDghB4gTcoA4IQeIE3KAOCEHiBNygDghB4gTcoA4IQeIE3KAOCEHiBNygDghB4gTcoA4IQeIE3KAOCEHiBNygDghB4gTcoA4IQeIE3KAOCEHiBNygDghB4gTcoA4IQeIE3KAOCEHiBNygDghB4gTcoA4IQeIE3KAOCEHiBNygDghB4gTcoA4IQeIE3KAOCEHiBNygDghB4gTcoA4IQeIE3KAOCEHiBNygDghB4gTcoA4IQeIE3KAOCEHiBNygDghB4gTcoA4IQeIE3KAOCEHiBNygDghB4gTcoA4IQeIE3KAOCEHiBNygDghB4gTcoA4IQeIE3KAOCEHiBNygDghB4gTcoA4IQeIE3KAOCEHiFs+/l7v2SNgpPXzPnsCDOWRA8QJOUCckAPECTlAnJADxAk5QJyQA8QJOUCckAPECTlAnJADxAk5QJyQA8QJOUCckAPECTlAnJADxAk5QJyQA8QJOUCckAPECTlAnJADxAk5QJyQA8QJOUCckAPECTlAnJADxAk5QJyQA8QJOUCckAPECTlAnJADxAk5QJyQA8QJOUCckAPECTlAnJADxAk5QJyQA8QJOUCckAPECTlAnJADxAk5QJyQA8QJOUCckAPECTlAnJADxAk5QJyQA8QJOUCckAPECTlAnJADxAk5QJyQA8QJOUCckAPECTlAnJADxAk5QJyQA8QJOUCckAPECTlAnJADxAk5QJyQA8QJOUCckAPECTlAnJADxAk5QJyQA8T9nM632RtgqO1xP3sCDOWRA8QJOUCckAPECTlAnJADxAk5QJyQA8QJOUCckAPECTlAnJADxAk5QJyQA8QJOUCckAPECTlAnJADxAk5QJyQA8QJOUCckAPECTlAnJADxAk5QJyQA8QJOUCckAPECTlAnJADxAk5QJyQA8QJOUCckAPECTlAnJADxAk5QJyQA8QJOUCckAPECTlAnJADxAk5QJyQA8QJOUCckAPECTlAnJADxAk5QJyQA8QJOUCckAPECTlAnJADxAk5QJyQA8QJOUCckAPECTlAnJADxAk5QJyQA8QJOUCckAPECTlAnJADxAk5QJyQA8QJOUCckAPECTlAnJADxAk5QJyQA8QJOUCckAPECTlAnJADxAk5QJyQA8T9A4i5Dg41vK6jAAAAAElFTkSuQmCC" id="w8-python-residuals-imagec6648600b8" transform="scale(1 -1) translate(0 -172.8)" x="115.92" y="-43.344" width="266.4" height="172.8"/>
+   </g>
+   <g id="w8-python-residuals-matplotlib.axis_1">
+    <g id="w8-python-residuals-xtick_1">
+     <g id="w8-python-residuals-line2d_1"/>
+     <g id="w8-python-residuals-text_1">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="182.448" y="228.002281" transform="rotate(-0 182.448 228.002281)">Passed</text>
+     </g>
+    </g>
+    <g id="w8-python-residuals-xtick_2">
+     <g id="w8-python-residuals-line2d_2"/>
+     <g id="w8-python-residuals-text_2">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="315.504" y="228.002281" transform="rotate(-0 315.504 228.002281)">Did not pass</text>
+     </g>
+    </g>
+    <g id="w8-python-residuals-text_3">
+     <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="248.976" y="243.787984" transform="rotate(-0 248.976 243.787984)">Course outcome</text>
+    </g>
+   </g>
+   <g id="w8-python-residuals-matplotlib.axis_2">
+    <g id="w8-python-residuals-ytick_1">
+     <g id="w8-python-residuals-line2d_3"/>
+     <g id="w8-python-residuals-text_4">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #536675" x="112.42" y="76.683141" transform="rotate(-0 112.42 76.683141)">None</text>
+     </g>
+    </g>
+    <g id="w8-python-residuals-ytick_2">
+     <g id="w8-python-residuals-line2d_4"/>
+     <g id="w8-python-residuals-text_5">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #536675" x="112.42" y="134.139141" transform="rotate(-0 112.42 134.139141)">Occasional</text>
+     </g>
+    </g>
+    <g id="w8-python-residuals-ytick_3">
+     <g id="w8-python-residuals-line2d_5"/>
+     <g id="w8-python-residuals-text_6">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #536675" x="112.42" y="191.595141" transform="rotate(-0 112.42 191.595141)">Regular</text>
+     </g>
+    </g>
+    <g id="w8-python-residuals-text_7">
+     <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="46.038828" y="129.96" transform="rotate(-90 46.038828 129.96)">Tutoring attendance</text>
+    </g>
+   </g>
+   <g id="w8-python-residuals-patch_3">
+    <path d="M 115.92 216.144 L 115.92 43.776" style="fill: none; stroke: #80919c; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="w8-python-residuals-patch_4">
+    <path d="M 115.92 216.144 L 382.032 216.144" style="fill: none; stroke: #80919c; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="w8-python-residuals-text_8">
+    <text style="font-size: 14px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #ffffff" x="182.448" y="76.367125" transform="rotate(-0 182.448 76.367125)">-1.40</text>
+   </g>
+   <g id="w8-python-residuals-text_9">
+    <text style="font-size: 14px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #ffffff" x="315.504" y="76.367125" transform="rotate(-0 315.504 76.367125)">+2.30</text>
+   </g>
+   <g id="w8-python-residuals-text_10">
+    <text style="font-size: 14px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="182.448" y="133.823125" transform="rotate(-0 182.448 133.823125)">-0.27</text>
+   </g>
+   <g id="w8-python-residuals-text_11">
+    <text style="font-size: 14px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="315.504" y="133.823125" transform="rotate(-0 315.504 133.823125)">+0.44</text>
+   </g>
+   <g id="w8-python-residuals-text_12">
+    <text style="font-size: 14px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #ffffff" x="182.448" y="191.279125" transform="rotate(-0 182.448 191.279125)">+1.55</text>
+   </g>
+   <g id="w8-python-residuals-text_13">
+    <text style="font-size: 14px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #ffffff" x="315.504" y="191.279125" transform="rotate(-0 315.504 191.279125)">-2.54</text>
+   </g>
+  </g>
+  <g id="w8-python-residuals-axes_2">
+   <g id="w8-python-residuals-patch_5">
+    <path d="M 400.176 216.144 L 408.7944 216.144 L 408.7944 43.776 L 400.176 43.776 z" style="fill: #ffffff"/>
+   </g>
+   <image xlink:href="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAAwAAADvCAYAAADGpTXLAAABaklEQVR4nO2Y0RHDIAxDAUO7Tlfq/hskBTpBPx538jk0+bZOki0Hktxe75nAU3MxUu8BKO0BAfE85FLkDHKAhZMUctLUQ4XxDjiHhcFlykABGQIcJFFAoR70kqzecxAwcEnyfcjsxAq501bhsWt4HzYA1HiSjN6XArbVcFopw/OO9w34AcDHLk4rq0+1GUyrXhI+shwkyd8ae3hA9R770GCbPFYUX+HwJRFHI8kZKGALD6x+ZeMoA//wcxgcZpB7YPVLXQroAYcP/cVONc3BAJkCMEOaO3iQA0ZA0/LBjY+YwSFLdHD/uQ+jM8DEbaUMXNJ5qhm4B9ilBQa5pK6XtEH45JLmeVAG/UtA3aXZ5YB4kgbduIAe+gmvDv85aQdJ18/SiDfpfuC2wlvl6BCwMIdwkgbt0oIHdZccJNEu8bTqo0FXdCF88rTqo0G/RTsHoHoPhgPH28E0Blx/DgEZ2ILG9LAQb1TvYPoLAKs5TrD/3iIAAAAASUVORK5CYII=" id="w8-python-residuals-imageeb2c9bb6a9" transform="scale(1 -1) translate(0 -172.08)" x="400.32" y="-43.92" width="8.64" height="172.08"/>
+   <g id="w8-python-residuals-matplotlib.axis_3"/>
+   <g id="w8-python-residuals-matplotlib.axis_4">
+    <g id="w8-python-residuals-ytick_4">
+     <g id="w8-python-residuals-line2d_6">
+      <defs>
+       <path id="w8-python-residuals-m1ca1e66113" d="M 0 0 L 3.5 0" style="stroke: #536675; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#w8-python-residuals-m1ca1e66113" x="408.7944" y="197.81571" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w8-python-residuals-text_14">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: start; fill: #536675" x="415.7944" y="202.564733" transform="rotate(-0 415.7944 202.564733)">−2</text>
+     </g>
+    </g>
+    <g id="w8-python-residuals-ytick_5">
+     <g id="w8-python-residuals-line2d_7">
+      <g>
+       <use xlink:href="#w8-python-residuals-m1ca1e66113" x="408.7944" y="163.887855" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w8-python-residuals-text_15">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: start; fill: #536675" x="415.7944" y="168.636878" transform="rotate(-0 415.7944 168.636878)">−1</text>
+     </g>
+    </g>
+    <g id="w8-python-residuals-ytick_6">
+     <g id="w8-python-residuals-line2d_8">
+      <g>
+       <use xlink:href="#w8-python-residuals-m1ca1e66113" x="408.7944" y="129.96" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w8-python-residuals-text_16">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: start; fill: #536675" x="415.7944" y="134.709023" transform="rotate(-0 415.7944 134.709023)">0</text>
+     </g>
+    </g>
+    <g id="w8-python-residuals-ytick_7">
+     <g id="w8-python-residuals-line2d_9">
+      <g>
+       <use xlink:href="#w8-python-residuals-m1ca1e66113" x="408.7944" y="96.032145" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w8-python-residuals-text_17">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: start; fill: #536675" x="415.7944" y="100.781169" transform="rotate(-0 415.7944 100.781169)">1</text>
+     </g>
+    </g>
+    <g id="w8-python-residuals-ytick_8">
+     <g id="w8-python-residuals-line2d_10">
+      <g>
+       <use xlink:href="#w8-python-residuals-m1ca1e66113" x="408.7944" y="62.10429" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w8-python-residuals-text_18">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: start; fill: #536675" x="415.7944" y="66.853314" transform="rotate(-0 415.7944 66.853314)">2</text>
+     </g>
+    </g>
+    <g id="w8-python-residuals-text_19">
+     <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="447.720181" y="129.96" transform="rotate(-90 447.720181 129.96)">Pearson residual (O − E) / √E</text>
+    </g>
+   </g>
+   <g id="w8-python-residuals-LineCollection_1"/>
+   <g id="w8-python-residuals-patch_6">
+    <path d="M 400.176 216.144 L 404.4852 216.144 L 408.7944 216.144 L 408.7944 43.776 L 404.4852 43.776 L 400.176 43.776 L 400.176 216.144 z" style="fill: none; stroke: #80919c; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="w8-python-residuals-p13a513f47f">
+   <rect x="115.92" y="43.776" width="266.112" height="172.368"/>
+  </clipPath>
+ </defs>
+</svg></div><figcaption><b>Residual signs locate the departures from independence</b>These are Pearson residuals, (O − E)/√E. Use a diverging color map centered at zero so opposite signs remain visible. Their squared sum is the overall χ² statistic; inspecting a large residual is not a separate adjusted significance test.</figcaption></figure>
+
 <div class="cell" data-cell-id="chi-square-heatmap">
     <div class="cell-head"><span class="cell-label">cell 61 — standardized-residual heatmap</span><span class="cell-state">not checked</span></div>
     <div class="task"><p>Draw a heatmap of the standardized residuals for the tutoring table and label each cell with its residual.</p><button class="text-button hint-toggle" type="button">hint</button></div>
