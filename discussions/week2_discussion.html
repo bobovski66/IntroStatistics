@@ -18,9 +18,23 @@ code{background:var(--soft);padding:.08rem .28rem;border-radius:5px}button{borde
 </style>
 <script>window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]],processEscapes:true},options:{skipHtmlTags:["script","noscript","style","textarea","pre","code"]}};</script>
 <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
-</head>
+<style id="week2-visual-styles">
+/* Week 2 diagrams are embedded so saved pages retain their graphs. */
+.w2-visual{margin:20px 0;padding:14px 14px 12px;background:#fff;border:1px solid #cdd9df;border-radius:11px;break-inside:avoid;color:#182e40;font:16px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif;min-width:0;max-width:100%}
+.w2-visual .w2-plot{overflow-x:auto;max-width:100%;border-radius:5px}
+.w2-visual svg{display:block;width:100%;height:auto;min-width:420px;max-width:none}
+.w2-visual figcaption{font-size:.92em;margin-top:9px;color:#435969}
+.w2-visual figcaption b{display:block;color:#245a81;margin-bottom:3px}
+.w2-visual .w2-key{font-size:.85em;color:#536675;margin:8px 0 0}
+.w2-table-lookup{max-width:100%;overflow:auto;margin:16px 0}
+.w2-table-lookup table{border-collapse:collapse;background:#fff;font:15px/1.5 system-ui,sans-serif;width:100%}
+.w2-table-lookup th,.w2-table-lookup td{padding:9px;border:1px solid #cdd9df;text-align:center;color:#182e40}
+.w2-table-lookup .w2-selected{background:#dcefe9;font-weight:750;border:2px solid #287d76}
+@media(max-width:540px){.w2-visual{padding:10px 8px}.w2-visual figcaption{font-size:14px}.w2-visual .w2-key{font-size:12px}}
+@media print{.w2-visual{box-shadow:none;border:1px solid #aab6bf;break-inside:avoid;padding:8px;margin:12px 0;print-color-adjust:exact;-webkit-print-color-adjust:exact}.w2-visual .w2-plot{overflow:visible}.w2-visual svg{min-width:0;width:100%}.w2-visual figcaption{font-size:10pt}.w2-table-lookup{break-inside:avoid}.w2-table-lookup .w2-selected{print-color-adjust:exact;-webkit-print-color-adjust:exact}}
+.w2-records{overflow-x:auto;margin:15px 0}.w2-records table{width:100%;border-collapse:collapse;background:#fff;color:#182e40;font:14px/1.5 system-ui,sans-serif}.w2-records th,.w2-records td{border:1px solid #cbd8df;padding:9px;text-align:right}.w2-records th{background:#edf3f6;color:#245a81}.w2-records th:first-child,.w2-records td:first-child{text-align:left}.w2-records caption{text-align:left;font-weight:650;padding:6px}.w2-reading-note{background:#eef7f4;border-left:4px solid #287d76;padding:12px 16px;margin:16px 0}.w2-reading-note p{margin:5px 0}details .eq{overflow-x:auto}@media print{.w2-records{overflow:visible}}</style></head>
 <body>
-<header><a href="../index.html">← MATH&amp; 146 course</a><h1>Week 2 Discussion — Waiting for the Light</h1><p>Use geometric and binomial models to describe a night-watch protocol.</p></header>
+<header><a href="../index.html">← MATH&amp; 146 course</a><h1>Week 2 Discussion — Waiting for the Light</h1><p>Define one trial carefully, then compare a waiting time with a fixed-window count.</p></header>
 <main>
 
 <section class="panel"><div class="kicker">How this discussion works</div><h2>Solve, present, then respond</h2>
@@ -30,9 +44,149 @@ code{background:var(--soft);padding:.08rem .28rem;border-radius:5px}button{borde
 <p>Imagine a small skywatch group that spends several nights monitoring the same patch of sky with two synchronized cameras. Because people can disagree about what counts as “something strange,” the group decides in advance to use a fixed rule. A light is recorded as a <strong>qualified anomalous-light event</strong> only if it lasts at least 10 seconds, appears to move against the apparent star field, and is captured by both cameras.</p>
 <p>This definition is intentionally operational: it tells the observers how to classify what they see, but it does <em>not</em> identify the object or explain its cause. A qualified event could eventually turn out to be an aircraft, satellite, atmospheric effect, unknown object, or something else. For the probability model, all that matters is whether an observation window satisfies the rule.</p>
 <p>The group divides the night into consecutive <strong>10-minute observation windows</strong>. From earlier nights they build a simplified model in which each window has probability <strong>p = 0.18</strong> of containing at least one qualified event. For this exercise, also assume that one window does not affect the next, so the windows may be treated as independent.</p>
-<p>Now suppose the group watches eight consecutive windows. There are two natural questions they might ask. One is, “How long will we wait until the <em>first</em> qualified event?” The other is, “How many qualified events will occur in the <em>eight windows altogether</em>?” Those questions sound similar, but they define different random variables and therefore lead to different probability models.</p>
+<p>Now suppose the group watches eight consecutive windows. There are two natural questions they might ask. One is, “How long will we wait until the <em>first</em> qualified event?” The other is, “How many of the <em>eight windows contain at least one qualified event</em>?” Those questions sound similar, but they define different random variables and therefore lead to different probability models.</p>
+<p>For one window, record S if at least one qualified event occurs and F otherwise. Two qualified lights in the same window still produce one S. Define \(T\) as the number of windows through and including the first S; for that question, imagine continuing the same protocol as long as needed. Define \(B\) as the number of S windows among the fixed first eight.</p>
+<figure class="w2-visual" data-visual="w2-sky-windows"><div class="w2-plot" tabindex="0" role="group" aria-label="Count the operationally defined trial outcome, rather than every light; scroll horizontally on narrow screens"><svg id="w2-sky-windows" role="img" aria-labelledby="w2-sky-windows-title w2-sky-windows-desc" xmlns:xlink="http://www.w3.org/1999/xlink" width="504pt" height="244.8pt" viewBox="0 0 504 244.8" xmlns="http://www.w3.org/2000/svg" version="1.1">
+<title id="w2-sky-windows-title">Count the operationally defined trial outcome, rather than every light</title><desc id="w2-sky-windows-desc">An invented eight-window example has light counts 0, 0, 0, 2, 0, 1, 0, and 0. Windows 4 and 6 contain at least one light, giving first positive window T equals 4 and positive-window count B equals 2.</desc>
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">#w2-sky-windows *{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="w2-sky-windows-figure_1">
+  <g id="w2-sky-windows-patch_1">
+   <path d="M 0 244.8 L 504 244.8 L 504 0 L 0 0 z" style="fill: #ffffff"/>
+  </g>
+  <g id="w2-sky-windows-axes_1">
+   <g id="w2-sky-windows-patch_2">
+    <path d="M 75.143747 109.460571 L 112.238147 109.460571 L 112.238147 71.67744 L 75.143747 71.67744 z" clip-path="url(#w2-sky-windows-p3e6a910ae4)" style="fill: #f0f4f7; stroke: #acbfcc; stroke-linejoin: miter"/>
+   </g>
+   <g id="w2-sky-windows-patch_3">
+    <path d="M 123.952168 109.460571 L 161.046568 109.460571 L 161.046568 71.67744 L 123.952168 71.67744 z" clip-path="url(#w2-sky-windows-p3e6a910ae4)" style="fill: #f0f4f7; stroke: #acbfcc; stroke-linejoin: miter"/>
+   </g>
+   <g id="w2-sky-windows-patch_4">
+    <path d="M 172.760589 109.460571 L 209.854989 109.460571 L 209.854989 71.67744 L 172.760589 71.67744 z" clip-path="url(#w2-sky-windows-p3e6a910ae4)" style="fill: #f0f4f7; stroke: #acbfcc; stroke-linejoin: miter"/>
+   </g>
+   <g id="w2-sky-windows-patch_5">
+    <path d="M 221.569011 109.460571 L 258.663411 109.460571 L 258.663411 71.67744 L 221.569011 71.67744 z" clip-path="url(#w2-sky-windows-p3e6a910ae4)" style="fill: #d7e9e3; stroke: #287d76; stroke-linejoin: miter"/>
+   </g>
+   <g id="w2-sky-windows-patch_6">
+    <path d="M 270.377432 109.460571 L 307.471832 109.460571 L 307.471832 71.67744 L 270.377432 71.67744 z" clip-path="url(#w2-sky-windows-p3e6a910ae4)" style="fill: #f0f4f7; stroke: #acbfcc; stroke-linejoin: miter"/>
+   </g>
+   <g id="w2-sky-windows-patch_7">
+    <path d="M 319.185853 109.460571 L 356.280253 109.460571 L 356.280253 71.67744 L 319.185853 71.67744 z" clip-path="url(#w2-sky-windows-p3e6a910ae4)" style="fill: #d7e9e3; stroke: #287d76; stroke-linejoin: miter"/>
+   </g>
+   <g id="w2-sky-windows-patch_8">
+    <path d="M 367.994274 109.460571 L 405.088674 109.460571 L 405.088674 71.67744 L 367.994274 71.67744 z" clip-path="url(#w2-sky-windows-p3e6a910ae4)" style="fill: #f0f4f7; stroke: #acbfcc; stroke-linejoin: miter"/>
+   </g>
+   <g id="w2-sky-windows-patch_9">
+    <path d="M 416.802695 109.460571 L 453.897095 109.460571 L 453.897095 71.67744 L 416.802695 71.67744 z" clip-path="url(#w2-sky-windows-p3e6a910ae4)" style="fill: #f0f4f7; stroke: #acbfcc; stroke-linejoin: miter"/>
+   </g>
+   <g id="w2-sky-windows-text_1">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="93.690947" y="44.763429" transform="rotate(-0 93.690947 44.763429)">1</text>
+   </g>
+   <g id="w2-sky-windows-text_2">
+    <text style="font-size: 14px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="93.690947" y="94.690919" transform="rotate(-0 93.690947 94.690919)">0</text>
+   </g>
+   <g id="w2-sky-windows-text_3">
+    <text style="font-size: 13px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="93.690947" y="138.962469" transform="rotate(-0 93.690947 138.962469)">F</text>
+   </g>
+   <g id="w2-sky-windows-text_4">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="142.499368" y="44.763429" transform="rotate(-0 142.499368 44.763429)">2</text>
+   </g>
+   <g id="w2-sky-windows-text_5">
+    <text style="font-size: 14px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="142.499368" y="94.690919" transform="rotate(-0 142.499368 94.690919)">0</text>
+   </g>
+   <g id="w2-sky-windows-text_6">
+    <text style="font-size: 13px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="142.499368" y="138.962469" transform="rotate(-0 142.499368 138.962469)">F</text>
+   </g>
+   <g id="w2-sky-windows-text_7">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="191.307789" y="44.763429" transform="rotate(-0 191.307789 44.763429)">3</text>
+   </g>
+   <g id="w2-sky-windows-text_8">
+    <text style="font-size: 14px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="191.307789" y="94.690919" transform="rotate(-0 191.307789 94.690919)">0</text>
+   </g>
+   <g id="w2-sky-windows-text_9">
+    <text style="font-size: 13px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="191.307789" y="138.962469" transform="rotate(-0 191.307789 138.962469)">F</text>
+   </g>
+   <g id="w2-sky-windows-text_10">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="240.116211" y="44.763429" transform="rotate(-0 240.116211 44.763429)">4</text>
+   </g>
+   <g id="w2-sky-windows-text_11">
+    <text style="font-size: 14px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="240.116211" y="94.690919" transform="rotate(-0 240.116211 94.690919)">2</text>
+   </g>
+   <g id="w2-sky-windows-text_12">
+    <text style="font-size: 13px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #287d76" x="240.116211" y="138.962469" transform="rotate(-0 240.116211 138.962469)">S</text>
+   </g>
+   <g id="w2-sky-windows-text_13">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="288.924632" y="44.763429" transform="rotate(-0 288.924632 44.763429)">5</text>
+   </g>
+   <g id="w2-sky-windows-text_14">
+    <text style="font-size: 14px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="288.924632" y="94.690919" transform="rotate(-0 288.924632 94.690919)">0</text>
+   </g>
+   <g id="w2-sky-windows-text_15">
+    <text style="font-size: 13px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="288.924632" y="138.962469" transform="rotate(-0 288.924632 138.962469)">F</text>
+   </g>
+   <g id="w2-sky-windows-text_16">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="337.733053" y="44.763429" transform="rotate(-0 337.733053 44.763429)">6</text>
+   </g>
+   <g id="w2-sky-windows-text_17">
+    <text style="font-size: 14px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="337.733053" y="94.690919" transform="rotate(-0 337.733053 94.690919)">1</text>
+   </g>
+   <g id="w2-sky-windows-text_18">
+    <text style="font-size: 13px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #287d76" x="337.733053" y="138.962469" transform="rotate(-0 337.733053 138.962469)">S</text>
+   </g>
+   <g id="w2-sky-windows-text_19">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="386.541474" y="44.763429" transform="rotate(-0 386.541474 44.763429)">7</text>
+   </g>
+   <g id="w2-sky-windows-text_20">
+    <text style="font-size: 14px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="386.541474" y="94.690919" transform="rotate(-0 386.541474 94.690919)">0</text>
+   </g>
+   <g id="w2-sky-windows-text_21">
+    <text style="font-size: 13px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="386.541474" y="138.962469" transform="rotate(-0 386.541474 138.962469)">F</text>
+   </g>
+   <g id="w2-sky-windows-text_22">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="435.349895" y="44.763429" transform="rotate(-0 435.349895 44.763429)">8</text>
+   </g>
+   <g id="w2-sky-windows-text_23">
+    <text style="font-size: 14px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="435.349895" y="94.690919" transform="rotate(-0 435.349895 94.690919)">0</text>
+   </g>
+   <g id="w2-sky-windows-text_24">
+    <text style="font-size: 13px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="435.349895" y="138.962469" transform="rotate(-0 435.349895 138.962469)">F</text>
+   </g>
+   <g id="w2-sky-windows-text_25">
+    <text style="font-size: 10.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #182e40" x="57.084632" y="93.725138" transform="rotate(-0 57.084632 93.725138)">Lights</text>
+   </g>
+   <g id="w2-sky-windows-text_26">
+    <text style="font-size: 10.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #182e40" x="57.084632" y="141.859812" transform="rotate(-0 57.084632 141.859812)">Window</text>
+   </g>
+   <g id="w2-sky-windows-text_27">
+    <text style="font-size: 11.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="269.401263" y="171.569829" transform="rotate(-0 269.401263 171.569829)">First qualified window: T = 4. Qualified windows among eight: B = 2.</text>
+   </g>
+   <g id="w2-sky-windows-text_28">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #287d76" x="269.401263" y="198.48384" transform="rotate(-0 269.401263 198.48384)">Three lights were observed, but the binomial variable counts two windows.</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="w2-sky-windows-p3e6a910ae4">
+   <rect x="30.24" y="31.824" width="463.68" height="181.152"/>
+  </clipPath>
+ </defs>
+</svg></div><figcaption><b>Count the operationally defined trial outcome, rather than every light</b>This invented sequence illustrates the definition, rather than providing the discussion’s probability answers. Two qualifying lights in one window still give one successful window. A probability for “at least one light in a window” does not directly model the total number of lights.</figcaption></figure>
 <p><strong>The statistical question:</strong> When should we use a geometric model, when should we use a binomial model, and what assumptions are we quietly making when we apply either one to a real observing session?</p></section>
-<section class="panel"><div class="kicker">Initial post</div><h2>What to include</h2><ol class="tasks"><li>Using a geometric model, find the probability that the first qualified event occurs in the fourth observation window.</li><li>Find the expected number of windows the group must watch before the first qualified event occurs.</li><li>Using a binomial model with n = 8 and p = 0.18, find the probability of exactly two qualified events.</li><li>Find the expected number of qualified events in eight windows.</li><li>Explain, in words, why the geometric and binomial questions use the same value of p but model different things. Also identify one assumption in the simplified model that could fail in a real skywatch.</li></ol></section>
-<section class="panel"><div class="kicker">Replies</div><h2>Engage with classmates’ statistics</h2><div class="reply">Choose a classmate who organized the two models differently from you. Verify one probability, then explain whether their description of the random variable makes it clear why the geometric and binomial models are not interchangeable.</div><p class="small">A useful reply checks a calculation, compares methods or assumptions, or asks a statistically specific question. Avoid replies that only say that you agree.</p></section>
+<section class="panel"><div class="kicker">Initial post</div><h2>What to include</h2><ol class="tasks"><li>Using a geometric model, find the probability that the first window containing a qualified event is window 4. State the required S/F prefix.</li><li>Find the expected number of windows through and including the first qualified window. Explain why an average wait is not a deadline.</li><li>Using a binomial model with n = 8 and p = 0.18, find the probability that exactly two of the eight windows contain at least one qualified event. Identify the combination factor.</li><li>Find the expected number of qualified windows among eight. Include the units and explain why a noninteger expected count is allowed.</li><li>Explain, in words, why the geometric and binomial questions use the same value of p but model different things. Also identify one assumption in the simplified model that could fail in a real skywatch. For example, one moving light could span adjacent windows or weather could change during the session.</li><li>If all eight windows are F, should the waiting time be recorded as T &gt; 8 or T = ∞? Under the stated independent model, is a qualified event more likely in the next window because none has appeared yet?</li></ol></section>
+<section class="panel"><div class="kicker">After your first calculation</div><h2>Check the model against its pictures</h2><p>Open the <a href="../demos/binomial_vs_geometric.html" target="_blank" rel="noopener">Week 2 Explorer</a>, choose <em>One stream, two questions</em>, and select the skywatch setting (n = 8, p = 0.18). Set the shaded binomial count to 2 and the first-success trial to 4. Compare the formulas and graph with your work, then generate several sequences and read B and T from one row.</p><p>The final geometric bar combines every wait beyond eight windows. A window with multiple lights is still one success. The probabilities concern the operational detection rule; they do not identify the lights’ causes.</p></section><section class="panel"><div class="kicker">Replies</div><h2>Engage with classmates’ statistics</h2><div class="reply">Choose a classmate who organized the two models differently from you. Verify one probability, then explain whether their description of the random variable makes it clear the units and stopping rule of each model. Check that their binomial variable counts positive windows rather than the total number of lights.</div><p class="small">A useful reply checks a calculation, compares methods or assumptions, or asks a statistically specific question. Avoid replies that only say that you agree.</p></section>
 <section class="panel"><button onclick="window.print()">Print this discussion prompt</button></section>
 </main></body></html>

@@ -419,9 +419,9 @@
       .stat-strip { grid-template-columns: 1fr; }
     }
   </style>
-</head>
+<style id="week2-lln-guide-styles">body{overflow:auto}.app{height:auto;min-height:100vh}.chart-region{flex:none}.canvas-wrap{height:clamp(340px,52vh,580px);min-height:340px}.lln-course-links{display:flex;gap:15px;flex-wrap:wrap;font-size:14px;margin:3px 0}.lln-course-links a,.lln-guide a{color:var(--accent)}.lln-guide{padding:17px 20px;line-height:1.6}.lln-guide h2{font-size:1.15rem;margin:0 0 8px}.lln-guide h3{font-size:1rem;margin:16px 0 7px}.lln-guide p{margin:8px 0}.lln-table{overflow:auto}.lln-guide table{border-collapse:collapse;width:100%;font-size:14px;font-variant-numeric:tabular-nums}.lln-guide th,.lln-guide td{border:1px solid var(--panel-border);padding:7px;text-align:right}.lln-guide th:first-child,.lln-guide td:first-child{text-align:left}.lln-guide li{margin:7px 0}@media print{body{background:white;color:#182e40}.topbar-actions,.control-strip{display:none}.app{height:auto}.lln-guide{box-shadow:none}}</style></head>
 <body>
-  <div class="app">
+  <div class="app"><nav class="lln-course-links"><a href="../index.html">Course home</a><a href="../readings/week2_reading.html#s5">Week 2 explanation</a><a href="binomial_vs_geometric.html">Probability and trial explorer</a><a href="../labs/Math146_Week2_Lab.html">Guided lab</a></nav>
     <header>
       <div class="titles">
         <h1>The Settling Average</h1>
@@ -502,9 +502,9 @@
 
     <section class="chart-region card">
       <div class="canvas-wrap">
-        <canvas id="chartCanvas"></canvas>
+        <canvas id="chartCanvas" role="img" aria-label="Individual outcomes, their running average, and the fixed model expectation. The table below lists recent values."></canvas>
       </div>
-    </section>
+    </section><section class="card lln-guide"><h2>Read the model, then watch the evidence</h2><div class="lln-table" id="modelTable"></div><p class="mini" id="modelExplanation"></p><h3>Predict, run, and compare</h3><ol><li>Choose the fair die. Can one roll equal its expected value? Predict which will settle down: individual outcomes or their average.</li><li>Record the running average at 10, 100, and 1,000 rolls. Reset and repeat. Does a new roll always move the average closer to the expectation?</li><li>Try the prize spinner and use its visible probability weights to calculate the expected payout. It is a different spinner from the four-value spinner in the lab.</li><li>Explain why a run of low outcomes does not make a high next outcome “due” under the independent model.</li></ol><p class="mini">The graph can show a recent portion of the experiment. The running total, trial count, and running average use every trial since Reset. Changing the experiment starts over.</p><h3>Recent observations and their running averages</h3><div class="lln-table" id="recentTable"></div><p class="mini">Each row is one observation. Its running mean uses all observations through that row, rather than only the recent rows displayed here.</p></section>
   </div>
 
   <!-- Info modal -->
@@ -514,11 +514,11 @@
       <button class="modal-close" data-close aria-label="Close">×</button>
       <h2 id="infoTitle">The Law of Large Numbers</h2>
       <p>
-        As we repeat the same random experiment more and more times, the average of the outcomes tends to get closer to the true expected value. Short runs can be wild; the point is that the long-run average becomes stable.
+        For independent repetitions of one of these fixed, finite-outcome models, the running average converges to the model’s expected value. Individual outcomes keep varying. The distance from the expectation can increase at any particular step; convergence does not mean a smooth or steadily decreasing error.
       </p>
       <div class="formula">average ≈ expected value</div>
       <p class="mini">
-        Written in symbols, the sample average x̄ converges to the expected value μ as the number of trials grows. Try stopping the demo after 10, 100, and 1000 trials and compare the distance from μ.
+        Written in symbols, the sample average x̄ converges to the expected value μ as the number of trials grows. Compare several fresh runs at 10, 100, and 1,000 trials. The average is not guaranteed to equal μ at any of those points. Earlier results do not change the next trial’s probabilities under this independent model.
       </p>
     </div>
   </div>
@@ -547,10 +547,18 @@
     const infoBtn = document.getElementById('infoBtn');
     const infoModal = document.getElementById('infoModal');
 
+    const LLN_MODELS = {
+      coin:{name:'Fair coin',values:[0,1],probabilities:[.5,.5],unit:'heads per flip'},
+      die:{name:'Fair die',values:[1,2,3,4,5,6],probabilities:[1/6,1/6,1/6,1/6,1/6,1/6],unit:'die units per roll'},
+      spinner:{name:'Prize spinner',values:[0,1,3,7,10],probabilities:[.50,.25,.15,.08,.02],unit:'prize units per spin'},
+      freeThrow:{name:'Free throw',values:[0,1],probabilities:[.28,.72],unit:'makes per attempt'}
+    };
+
     // ---- state (declared before theme init so first render can read them) ----
     let outcomes = [];
     let runningAverages = [];
     let total = 0;
+    let trialCount = 0;
     let autoTimer = null;
     let cssW = 0, cssH = 0, dpr = 1;
 
@@ -563,12 +571,12 @@
       render();
     }
     (function initTheme() {
-      const saved = localStorage.getItem(THEME_KEY);
+      let saved=null;try{saved=localStorage.getItem(THEME_KEY);}catch(e){}
       applyTheme(saved === 'light' ? 'light' : 'dark');
     })();
     themeBtn.addEventListener('click', () => {
       const next = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
-      localStorage.setItem(THEME_KEY, next);
+      try{localStorage.setItem(THEME_KEY,next);}catch(e){}
       applyTheme(next);
     });
 
@@ -584,28 +592,11 @@
     });
 
     function getExperiment() {
-      const type = experimentSelect.value;
-      if (type === 'coin') {
-        return { name: 'Coin flip', expected: 0.5, min: 0, max: 1,
-          sample: () => Math.random() < 0.5 ? 1 : 0 };
-      }
-      if (type === 'die') {
-        return { name: 'Die roll', expected: 3.5, min: 1, max: 6,
-          sample: () => 1 + Math.floor(Math.random() * 6) };
-      }
-      if (type === 'spinner') {
-        return { name: 'Prize spinner', expected: 2.05, min: 0, max: 10,
-          sample: () => {
-            const r = Math.random();
-            if (r < 0.50) return 0;
-            if (r < 0.75) return 1;
-            if (r < 0.90) return 3;
-            if (r < 0.98) return 7;
-            return 10;
-          }};
-      }
-      return { name: 'Free throw', expected: 0.72, min: 0, max: 1,
-        sample: () => Math.random() < 0.72 ? 1 : 0 };
+      const model=LLN_MODELS[experimentSelect.value]||LLN_MODELS.freeThrow;
+      const expected=model.values.reduce((sum,x,i)=>sum+x*model.probabilities[i],0);
+      return Object.assign({},model,{expected,min:Math.min(...model.values),max:Math.max(...model.values),
+        sample:()=>{const r=Math.random();let cumulative=0;for(let i=0;i<model.values.length;i++){cumulative+=model.probabilities[i];if(r<cumulative)return model.values[i];}return model.values[model.values.length-1];}
+      });
     }
 
     function runOneTrial() {
@@ -613,7 +604,8 @@
       const x = ex.sample();
       outcomes.push(x);
       total += x;
-      runningAverages.push(total / outcomes.length);
+      trialCount++;
+      runningAverages.push(total / trialCount);
       if (outcomes.length > 50000) {
         const removeCount = outcomes.length - 50000;
         outcomes = outcomes.slice(removeCount);
@@ -625,6 +617,8 @@
       render();
     }
     function reset() {
+      if(autoTimer!==null){clearInterval(autoTimer);autoTimer=null;autoBtn.textContent='Auto-run';autoBtn.classList.remove('ghost');autoBtn.classList.add('warning');}
+      trialCount=0;
       outcomes = [];
       runningAverages = [];
       total = 0;
@@ -640,7 +634,7 @@
 
     function updateStats() {
       const ex = getExperiment();
-      const n = outcomes.length;
+      const n = trialCount;
       const avg = n ? total / n : NaN;
       expectedValueEl.textContent = niceNumber(ex.expected);
       trialCountEl.textContent = n.toLocaleString();
@@ -649,6 +643,14 @@
       distanceValueEl.textContent = n ? niceNumber(Math.abs(avg - ex.expected)) : '—';
       speedValue.textContent = Number(speedSlider.value).toLocaleString();
       maxVisibleValue.textContent = Number(maxVisibleSlider.value).toLocaleString();
+      const modelTable=document.getElementById('modelTable');
+      if(modelTable)modelTable.innerHTML='<table><caption>'+ex.name+': the stated probability model</caption><thead><tr><th scope="col">Outcome x</th>'+ex.values.map(x=>'<th scope="col">'+x+'</th>').join('')+'</tr></thead><tbody><tr><th scope="row">P(X = x)</th>'+ex.probabilities.map(p=>'<td>'+niceNumber(p)+'</td>').join('')+'</tr><tr><th scope="row">x · P(X = x)</th>'+ex.values.map((x,i)=>'<td>'+niceNumber(x*ex.probabilities[i])+'</td>').join('')+'</tr></tbody></table>';
+      const modelExplanation=document.getElementById('modelExplanation');
+      if(modelExplanation)modelExplanation.textContent='Expected value = sum of outcome × probability = '+niceNumber(ex.expected)+' '+ex.unit+'. Model probabilities stay fixed while observed relative frequencies and the sample average change. Displayed weights are rounded.';
+      const recentTable=document.getElementById('recentTable');
+      if(recentTable){const start=Math.max(0,outcomes.length-12);recentTable.innerHTML='<table><thead><tr><th scope="col">Trial</th><th scope="col">Outcome</th><th scope="col">Running mean</th></tr></thead><tbody>'+outcomes.slice(start).map((x,j)=>{const i=start+j;return '<tr><th scope="row">'+(trialCount-outcomes.length+i+1)+'</th><td>'+x+'</td><td>'+niceNumber(runningAverages[i])+'</td></tr>';}).join('')+'</tbody></table>';}
+      chartCanvas.setAttribute('aria-label',ex.name+'. '+n+' independent trials. Expected value '+niceNumber(ex.expected)+'. '+(n?'Current running mean '+niceNumber(avg)+'.':'No observations yet.')+' The recent-observations table lists values.');
+
     }
 
     // ---- canvas sizing (HiDPI, responsive) ----
@@ -790,8 +792,8 @@
         Math.max(pad.top + 16, lastY - 12));
 
       // range labels
-      const visibleStartLabel = start + 1;
-      const visibleEndLabel = start + avgs.length;
+      const visibleStartLabel = trialCount - runningAverages.length + start + 1;
+      const visibleEndLabel = trialCount;
       ctx.fillStyle = C.muted;
       ctx.font = '12px system-ui, -apple-system, sans-serif';
       ctx.fillText(visibleStartLabel.toLocaleString(), pad.left - 4, h - pad.bottom + 22);

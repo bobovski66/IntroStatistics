@@ -8,15 +8,425 @@ main{max-width:900px;margin:auto;padding:28px 16px 80px}.head{margin-bottom:20px
 .q{background:var(--card);border:1px solid var(--line);border-radius:15px;padding:18px;margin:13px 0;box-shadow:var(--shadow)}.q.mastered{border-color:color-mix(in srgb,var(--good) 55%,var(--line));background:color-mix(in srgb,var(--goodsoft) 45%,var(--card))}.qnum{font-size:.76rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:850}.prompt{font-size:1.03rem;font-weight:680;margin:7px 0 12px}.options{display:grid;gap:8px}.opt{display:flex;gap:9px;align-items:flex-start;border:1px solid var(--line);border-radius:10px;padding:10px;background:var(--card2)}.opt input{margin-top:3px;accent-color:var(--accent)}.num{max-width:290px;border:1px solid var(--line);background:var(--card2);color:var(--ink);border-radius:9px;padding:9px 10px}.fb{min-height:1.25em;margin-top:9px;font-size:.91rem}.fb.good{color:var(--good)}.fb.bad{color:var(--bad)}.fb.warn{color:var(--warn)}
 .footer{position:sticky;bottom:12px;display:flex;justify-content:space-between;gap:10px;align-items:center;background:color-mix(in srgb,var(--panel) 95%,transparent);backdrop-filter:blur(10px);border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin-top:18px;box-shadow:var(--shadow)}.primary,.secondary{border-radius:9px;padding:9px 13px;font-weight:780;cursor:pointer}.primary{border:1px solid var(--accent);background:var(--accent);color:#fff}.secondary{border:1px solid var(--line);background:var(--card);color:var(--ink)}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}.small{color:var(--muted);font-size:.86rem}
 @media(max-width:650px){.progressbox{grid-template-columns:1fr}.footer{align-items:flex-start;flex-direction:column}.top .spacer{display:none}.topin{gap:7px}}@media print{.top,.footer,.actions,.theme{display:none!important}body{background:#fff}main{max-width:none;padding:0}.q{box-shadow:none;break-inside:avoid}.notice{border:1px solid #bbb}}
-</style></head><body>
+</style><style id="week2-visual-styles">
+/* Week 2 diagrams are embedded so saved pages retain their graphs. */
+.w2-visual{margin:20px 0;padding:14px 14px 12px;background:#fff;border:1px solid #cdd9df;border-radius:11px;break-inside:avoid;color:#182e40;font:16px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif;min-width:0;max-width:100%}
+.w2-visual .w2-plot{overflow-x:auto;max-width:100%;border-radius:5px}
+.w2-visual svg{display:block;width:100%;height:auto;min-width:420px;max-width:none}
+.w2-visual figcaption{font-size:.92em;margin-top:9px;color:#435969}
+.w2-visual figcaption b{display:block;color:#245a81;margin-bottom:3px}
+.w2-visual .w2-key{font-size:.85em;color:#536675;margin:8px 0 0}
+.w2-table-lookup{max-width:100%;overflow:auto;margin:16px 0}
+.w2-table-lookup table{border-collapse:collapse;background:#fff;font:15px/1.5 system-ui,sans-serif;width:100%}
+.w2-table-lookup th,.w2-table-lookup td{padding:9px;border:1px solid #cdd9df;text-align:center;color:#182e40}
+.w2-table-lookup .w2-selected{background:#dcefe9;font-weight:750;border:2px solid #287d76}
+@media(max-width:540px){.w2-visual{padding:10px 8px}.w2-visual figcaption{font-size:14px}.w2-visual .w2-key{font-size:12px}}
+@media print{.w2-visual{box-shadow:none;border:1px solid #aab6bf;break-inside:avoid;padding:8px;margin:12px 0;print-color-adjust:exact;-webkit-print-color-adjust:exact}.w2-visual .w2-plot{overflow:visible}.w2-visual svg{min-width:0;width:100%}.w2-visual figcaption{font-size:10pt}.w2-table-lookup{break-inside:avoid}.w2-table-lookup .w2-selected{print-color-adjust:exact;-webkit-print-color-adjust:exact}}
+.w2-records{overflow-x:auto;margin:15px 0}.w2-records table{width:100%;border-collapse:collapse;background:#fff;color:#182e40;font:14px/1.5 system-ui,sans-serif}.w2-records th,.w2-records td{border:1px solid #cbd8df;padding:9px;text-align:right}.w2-records th{background:#edf3f6;color:#245a81}.w2-records th:first-child,.w2-records td:first-child{text-align:left}.w2-records caption{text-align:left;font-weight:650;padding:6px}.w2-reading-note{background:#eef7f4;border-left:4px solid #287d76;padding:12px 16px;margin:16px 0}.w2-reading-note p{margin:5px 0}details .eq{overflow-x:auto}@media print{.w2-records{overflow:visible}}</style></head><body>
 <div class="top"><div class="topin"><a href="../index.html">← MATH&amp; 146 course</a><span class="spacer"></span><a href="index.html">All Assessed Practice</a><button class="theme" id="themeBtn">☾ Theme</button></div></div>
 <main><header class="head"><div class="eyebrow">MATH&amp; 146 · Assessed Practice</div><h1>Week 2 Assessed Practice — Discrete Probability</h1><p>Work with probability tables, expected value, and the geometric and binomial models.</p><div class="namebox"><label for="studentName">Student name</label><input id="studentName" type="text" placeholder="Enter your name"></div></header>
 <div class="notice">Work until each question is correct. You may check as often as needed. A correct response locks in; a missed response stays open and gives a small hint rather than the answer. Numerical responses accept the same gentle rounding tolerance used on the course page.</div>
-<div class="progressbox"><div class="track"><div class="fill" id="fill"></div></div><div class="score" id="score">0 of 5 correct</div></div><div id="questions"></div>
+<div class="progressbox"><div class="track"><div class="fill" id="fill"></div></div><div class="score" id="score">0 of 5 correct</div></div><div class="w2-reading-note"><p>Define the random variable and mark the included outcomes before calculating. <a href="../demos/binomial_vs_geometric.html">The explorer</a> provides additional practice with model weights and trial sequences.</p></div>
+<figure class="w2-visual" data-visual="w2-event-language"><div class="w2-plot" tabindex="0" role="group" aria-label="Mark the included outcomes before you add their probabilities; scroll horizontally on narrow screens"><svg id="w2-event-language" role="img" aria-labelledby="w2-event-language-title w2-event-language-desc" xmlns:xlink="http://www.w3.org/1999/xlink" width="504pt" height="241.2pt" viewBox="0 0 504 241.2" xmlns="http://www.w3.org/2000/svg" version="1.1">
+<title id="w2-event-language-title">Mark the included outcomes before you add their probabilities</title><desc id="w2-event-language-desc">For integer outcomes 0 through 8, exactly 5 selects only 5, at most 5 selects 0 through 5, and at least 5 selects 5 through 8.</desc>
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">#w2-event-language *{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="w2-event-language-figure_1">
+  <g id="w2-event-language-patch_1">
+   <path d="M 0 241.2 L 504 241.2 L 504 0 L 0 0 z" style="fill: #ffffff"/>
+  </g>
+  <g id="w2-event-language-axes_1">
+   <g id="w2-event-language-patch_2">
+    <path d="M 120.96 66.358047 L 488.88 66.358047 L 488.88 26.532 L 120.96 26.532 z" style="fill: #ffffff"/>
+   </g>
+   <g id="w2-event-language-PathCollection_1">
+    <defs>
+     <path id="w2-event-language-C0_0_bf9628d168" d="M 0 3.605551 C 0.956203 3.605551 1.873372 3.225648 2.54951 2.54951 C 3.225648 1.873372 3.605551 0.956203 3.605551 -0 C 3.605551 -0.956203 3.225648 -1.873372 2.54951 -2.54951 C 1.873372 -3.225648 0.956203 -3.605551 0 -3.605551 C -0.956203 -3.605551 -1.873372 -3.225648 -2.54951 -2.54951 C -3.225648 -1.873372 -3.605551 -0.956203 -3.605551 0 C -3.605551 0.956203 -3.225648 1.873372 -2.54951 2.54951 C -1.873372 3.225648 -0.956203 3.605551 0 3.605551 z"/>
+    </defs>
+    <g clip-path="url(#w2-event-language-p5ce799f7d3)">
+     <use xlink:href="#w2-event-language-C0_0_bf9628d168" x="141.4" y="49.289741" style="fill: #d6e2ea; stroke: #d6e2ea"/>
+    </g>
+    <g clip-path="url(#w2-event-language-p5ce799f7d3)">
+     <use xlink:href="#w2-event-language-C0_0_bf9628d168" x="182.28" y="49.289741" style="fill: #d6e2ea; stroke: #d6e2ea"/>
+    </g>
+    <g clip-path="url(#w2-event-language-p5ce799f7d3)">
+     <use xlink:href="#w2-event-language-C0_0_bf9628d168" x="223.16" y="49.289741" style="fill: #d6e2ea; stroke: #d6e2ea"/>
+    </g>
+    <g clip-path="url(#w2-event-language-p5ce799f7d3)">
+     <use xlink:href="#w2-event-language-C0_0_bf9628d168" x="264.04" y="49.289741" style="fill: #d6e2ea; stroke: #d6e2ea"/>
+    </g>
+    <g clip-path="url(#w2-event-language-p5ce799f7d3)">
+     <use xlink:href="#w2-event-language-C0_0_bf9628d168" x="304.92" y="49.289741" style="fill: #d6e2ea; stroke: #d6e2ea"/>
+    </g>
+    <g clip-path="url(#w2-event-language-p5ce799f7d3)">
+     <use xlink:href="#w2-event-language-C0_0_bf9628d168" x="345.8" y="49.289741" style="fill: #287d76; stroke: #287d76"/>
+    </g>
+    <g clip-path="url(#w2-event-language-p5ce799f7d3)">
+     <use xlink:href="#w2-event-language-C0_0_bf9628d168" x="386.68" y="49.289741" style="fill: #d6e2ea; stroke: #d6e2ea"/>
+    </g>
+    <g clip-path="url(#w2-event-language-p5ce799f7d3)">
+     <use xlink:href="#w2-event-language-C0_0_bf9628d168" x="427.56" y="49.289741" style="fill: #d6e2ea; stroke: #d6e2ea"/>
+    </g>
+    <g clip-path="url(#w2-event-language-p5ce799f7d3)">
+     <use xlink:href="#w2-event-language-C0_0_bf9628d168" x="468.44" y="49.289741" style="fill: #d6e2ea; stroke: #d6e2ea"/>
+    </g>
+   </g>
+   <g id="w2-event-language-matplotlib.axis_1">
+    <g id="w2-event-language-xtick_1">
+     <g id="w2-event-language-line2d_1">
+      <defs>
+       <path id="w2-event-language-m3c27b79fa0" d="M 0 0 L 0 3.5" style="stroke: #536675; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#w2-event-language-m3c27b79fa0" x="141.4" y="66.358047" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+    </g>
+    <g id="w2-event-language-xtick_2">
+     <g id="w2-event-language-line2d_2">
+      <g>
+       <use xlink:href="#w2-event-language-m3c27b79fa0" x="182.28" y="66.358047" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+    </g>
+    <g id="w2-event-language-xtick_3">
+     <g id="w2-event-language-line2d_3">
+      <g>
+       <use xlink:href="#w2-event-language-m3c27b79fa0" x="223.16" y="66.358047" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+    </g>
+    <g id="w2-event-language-xtick_4">
+     <g id="w2-event-language-line2d_4">
+      <g>
+       <use xlink:href="#w2-event-language-m3c27b79fa0" x="264.04" y="66.358047" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+    </g>
+    <g id="w2-event-language-xtick_5">
+     <g id="w2-event-language-line2d_5">
+      <g>
+       <use xlink:href="#w2-event-language-m3c27b79fa0" x="304.92" y="66.358047" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+    </g>
+    <g id="w2-event-language-xtick_6">
+     <g id="w2-event-language-line2d_6">
+      <g>
+       <use xlink:href="#w2-event-language-m3c27b79fa0" x="345.8" y="66.358047" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+    </g>
+    <g id="w2-event-language-xtick_7">
+     <g id="w2-event-language-line2d_7">
+      <g>
+       <use xlink:href="#w2-event-language-m3c27b79fa0" x="386.68" y="66.358047" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+    </g>
+    <g id="w2-event-language-xtick_8">
+     <g id="w2-event-language-line2d_8">
+      <g>
+       <use xlink:href="#w2-event-language-m3c27b79fa0" x="427.56" y="66.358047" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+    </g>
+    <g id="w2-event-language-xtick_9">
+     <g id="w2-event-language-line2d_9">
+      <g>
+       <use xlink:href="#w2-event-language-m3c27b79fa0" x="468.44" y="66.358047" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+    </g>
+   </g>
+   <g id="w2-event-language-matplotlib.axis_2"/>
+   <g id="w2-event-language-patch_3">
+    <path d="M 120.96 66.358047 L 488.88 66.358047" style="fill: none; stroke: #80919c; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="w2-event-language-text_1">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #182e40" x="98.8848" y="47.241544" transform="rotate(-0 98.8848 47.241544)">Exactly 5</text>
+   </g>
+  </g>
+  <g id="w2-event-language-axes_2">
+   <g id="w2-event-language-patch_4">
+    <path d="M 120.96 132.071023 L 488.88 132.071023 L 488.88 92.244977 L 120.96 92.244977 z" style="fill: #ffffff"/>
+   </g>
+   <g id="w2-event-language-PathCollection_2">
+    <defs>
+     <path id="w2-event-language-C1_0_bf9628d168" d="M 0 3.605551 C 0.956203 3.605551 1.873372 3.225648 2.54951 2.54951 C 3.225648 1.873372 3.605551 0.956203 3.605551 -0 C 3.605551 -0.956203 3.225648 -1.873372 2.54951 -2.54951 C 1.873372 -3.225648 0.956203 -3.605551 0 -3.605551 C -0.956203 -3.605551 -1.873372 -3.225648 -2.54951 -2.54951 C -3.225648 -1.873372 -3.605551 -0.956203 -3.605551 0 C -3.605551 0.956203 -3.225648 1.873372 -2.54951 2.54951 C -1.873372 3.225648 -0.956203 3.605551 0 3.605551 z"/>
+    </defs>
+    <g clip-path="url(#w2-event-language-pe7c18f4836)">
+     <use xlink:href="#w2-event-language-C1_0_bf9628d168" x="141.4" y="115.002718" style="fill: #287d76; stroke: #287d76"/>
+    </g>
+    <g clip-path="url(#w2-event-language-pe7c18f4836)">
+     <use xlink:href="#w2-event-language-C1_0_bf9628d168" x="182.28" y="115.002718" style="fill: #287d76; stroke: #287d76"/>
+    </g>
+    <g clip-path="url(#w2-event-language-pe7c18f4836)">
+     <use xlink:href="#w2-event-language-C1_0_bf9628d168" x="223.16" y="115.002718" style="fill: #287d76; stroke: #287d76"/>
+    </g>
+    <g clip-path="url(#w2-event-language-pe7c18f4836)">
+     <use xlink:href="#w2-event-language-C1_0_bf9628d168" x="264.04" y="115.002718" style="fill: #287d76; stroke: #287d76"/>
+    </g>
+    <g clip-path="url(#w2-event-language-pe7c18f4836)">
+     <use xlink:href="#w2-event-language-C1_0_bf9628d168" x="304.92" y="115.002718" style="fill: #287d76; stroke: #287d76"/>
+    </g>
+    <g clip-path="url(#w2-event-language-pe7c18f4836)">
+     <use xlink:href="#w2-event-language-C1_0_bf9628d168" x="345.8" y="115.002718" style="fill: #287d76; stroke: #287d76"/>
+    </g>
+    <g clip-path="url(#w2-event-language-pe7c18f4836)">
+     <use xlink:href="#w2-event-language-C1_0_bf9628d168" x="386.68" y="115.002718" style="fill: #d6e2ea; stroke: #d6e2ea"/>
+    </g>
+    <g clip-path="url(#w2-event-language-pe7c18f4836)">
+     <use xlink:href="#w2-event-language-C1_0_bf9628d168" x="427.56" y="115.002718" style="fill: #d6e2ea; stroke: #d6e2ea"/>
+    </g>
+    <g clip-path="url(#w2-event-language-pe7c18f4836)">
+     <use xlink:href="#w2-event-language-C1_0_bf9628d168" x="468.44" y="115.002718" style="fill: #d6e2ea; stroke: #d6e2ea"/>
+    </g>
+   </g>
+   <g id="w2-event-language-matplotlib.axis_3">
+    <g id="w2-event-language-xtick_10">
+     <g id="w2-event-language-line2d_10">
+      <g>
+       <use xlink:href="#w2-event-language-m3c27b79fa0" x="141.4" y="132.071023" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+    </g>
+    <g id="w2-event-language-xtick_11">
+     <g id="w2-event-language-line2d_11">
+      <g>
+       <use xlink:href="#w2-event-language-m3c27b79fa0" x="182.28" y="132.071023" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+    </g>
+    <g id="w2-event-language-xtick_12">
+     <g id="w2-event-language-line2d_12">
+      <g>
+       <use xlink:href="#w2-event-language-m3c27b79fa0" x="223.16" y="132.071023" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+    </g>
+    <g id="w2-event-language-xtick_13">
+     <g id="w2-event-language-line2d_13">
+      <g>
+       <use xlink:href="#w2-event-language-m3c27b79fa0" x="264.04" y="132.071023" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+    </g>
+    <g id="w2-event-language-xtick_14">
+     <g id="w2-event-language-line2d_14">
+      <g>
+       <use xlink:href="#w2-event-language-m3c27b79fa0" x="304.92" y="132.071023" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+    </g>
+    <g id="w2-event-language-xtick_15">
+     <g id="w2-event-language-line2d_15">
+      <g>
+       <use xlink:href="#w2-event-language-m3c27b79fa0" x="345.8" y="132.071023" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+    </g>
+    <g id="w2-event-language-xtick_16">
+     <g id="w2-event-language-line2d_16">
+      <g>
+       <use xlink:href="#w2-event-language-m3c27b79fa0" x="386.68" y="132.071023" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+    </g>
+    <g id="w2-event-language-xtick_17">
+     <g id="w2-event-language-line2d_17">
+      <g>
+       <use xlink:href="#w2-event-language-m3c27b79fa0" x="427.56" y="132.071023" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+    </g>
+    <g id="w2-event-language-xtick_18">
+     <g id="w2-event-language-line2d_18">
+      <g>
+       <use xlink:href="#w2-event-language-m3c27b79fa0" x="468.44" y="132.071023" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+    </g>
+   </g>
+   <g id="w2-event-language-matplotlib.axis_4"/>
+   <g id="w2-event-language-patch_5">
+    <path d="M 120.96 132.071023 L 488.88 132.071023" style="fill: none; stroke: #80919c; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="w2-event-language-text_2">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #182e40" x="98.8848" y="112.954521" transform="rotate(-0 98.8848 112.954521)">At most 5</text>
+   </g>
+  </g>
+  <g id="w2-event-language-axes_3">
+   <g id="w2-event-language-patch_6">
+    <path d="M 120.96 197.784 L 488.88 197.784 L 488.88 157.957953 L 120.96 157.957953 z" style="fill: #ffffff"/>
+   </g>
+   <g id="w2-event-language-PathCollection_3">
+    <defs>
+     <path id="w2-event-language-C2_0_bf9628d168" d="M 0 3.605551 C 0.956203 3.605551 1.873372 3.225648 2.54951 2.54951 C 3.225648 1.873372 3.605551 0.956203 3.605551 -0 C 3.605551 -0.956203 3.225648 -1.873372 2.54951 -2.54951 C 1.873372 -3.225648 0.956203 -3.605551 0 -3.605551 C -0.956203 -3.605551 -1.873372 -3.225648 -2.54951 -2.54951 C -3.225648 -1.873372 -3.605551 -0.956203 -3.605551 0 C -3.605551 0.956203 -3.225648 1.873372 -2.54951 2.54951 C -1.873372 3.225648 -0.956203 3.605551 0 3.605551 z"/>
+    </defs>
+    <g clip-path="url(#w2-event-language-pa51b719e0c)">
+     <use xlink:href="#w2-event-language-C2_0_bf9628d168" x="141.4" y="180.715694" style="fill: #d6e2ea; stroke: #d6e2ea"/>
+    </g>
+    <g clip-path="url(#w2-event-language-pa51b719e0c)">
+     <use xlink:href="#w2-event-language-C2_0_bf9628d168" x="182.28" y="180.715694" style="fill: #d6e2ea; stroke: #d6e2ea"/>
+    </g>
+    <g clip-path="url(#w2-event-language-pa51b719e0c)">
+     <use xlink:href="#w2-event-language-C2_0_bf9628d168" x="223.16" y="180.715694" style="fill: #d6e2ea; stroke: #d6e2ea"/>
+    </g>
+    <g clip-path="url(#w2-event-language-pa51b719e0c)">
+     <use xlink:href="#w2-event-language-C2_0_bf9628d168" x="264.04" y="180.715694" style="fill: #d6e2ea; stroke: #d6e2ea"/>
+    </g>
+    <g clip-path="url(#w2-event-language-pa51b719e0c)">
+     <use xlink:href="#w2-event-language-C2_0_bf9628d168" x="304.92" y="180.715694" style="fill: #d6e2ea; stroke: #d6e2ea"/>
+    </g>
+    <g clip-path="url(#w2-event-language-pa51b719e0c)">
+     <use xlink:href="#w2-event-language-C2_0_bf9628d168" x="345.8" y="180.715694" style="fill: #287d76; stroke: #287d76"/>
+    </g>
+    <g clip-path="url(#w2-event-language-pa51b719e0c)">
+     <use xlink:href="#w2-event-language-C2_0_bf9628d168" x="386.68" y="180.715694" style="fill: #287d76; stroke: #287d76"/>
+    </g>
+    <g clip-path="url(#w2-event-language-pa51b719e0c)">
+     <use xlink:href="#w2-event-language-C2_0_bf9628d168" x="427.56" y="180.715694" style="fill: #287d76; stroke: #287d76"/>
+    </g>
+    <g clip-path="url(#w2-event-language-pa51b719e0c)">
+     <use xlink:href="#w2-event-language-C2_0_bf9628d168" x="468.44" y="180.715694" style="fill: #287d76; stroke: #287d76"/>
+    </g>
+   </g>
+   <g id="w2-event-language-matplotlib.axis_5">
+    <g id="w2-event-language-xtick_19">
+     <g id="w2-event-language-line2d_19">
+      <g>
+       <use xlink:href="#w2-event-language-m3c27b79fa0" x="141.4" y="197.784" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w2-event-language-text_3">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="141.4" y="214.282047" transform="rotate(-0 141.4 214.282047)">0</text>
+     </g>
+    </g>
+    <g id="w2-event-language-xtick_20">
+     <g id="w2-event-language-line2d_20">
+      <g>
+       <use xlink:href="#w2-event-language-m3c27b79fa0" x="182.28" y="197.784" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w2-event-language-text_4">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="182.28" y="214.282047" transform="rotate(-0 182.28 214.282047)">1</text>
+     </g>
+    </g>
+    <g id="w2-event-language-xtick_21">
+     <g id="w2-event-language-line2d_21">
+      <g>
+       <use xlink:href="#w2-event-language-m3c27b79fa0" x="223.16" y="197.784" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w2-event-language-text_5">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="223.16" y="214.282047" transform="rotate(-0 223.16 214.282047)">2</text>
+     </g>
+    </g>
+    <g id="w2-event-language-xtick_22">
+     <g id="w2-event-language-line2d_22">
+      <g>
+       <use xlink:href="#w2-event-language-m3c27b79fa0" x="264.04" y="197.784" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w2-event-language-text_6">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="264.04" y="214.282047" transform="rotate(-0 264.04 214.282047)">3</text>
+     </g>
+    </g>
+    <g id="w2-event-language-xtick_23">
+     <g id="w2-event-language-line2d_23">
+      <g>
+       <use xlink:href="#w2-event-language-m3c27b79fa0" x="304.92" y="197.784" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w2-event-language-text_7">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="304.92" y="214.282047" transform="rotate(-0 304.92 214.282047)">4</text>
+     </g>
+    </g>
+    <g id="w2-event-language-xtick_24">
+     <g id="w2-event-language-line2d_24">
+      <g>
+       <use xlink:href="#w2-event-language-m3c27b79fa0" x="345.8" y="197.784" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w2-event-language-text_8">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="345.8" y="214.282047" transform="rotate(-0 345.8 214.282047)">5</text>
+     </g>
+    </g>
+    <g id="w2-event-language-xtick_25">
+     <g id="w2-event-language-line2d_25">
+      <g>
+       <use xlink:href="#w2-event-language-m3c27b79fa0" x="386.68" y="197.784" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w2-event-language-text_9">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="386.68" y="214.282047" transform="rotate(-0 386.68 214.282047)">6</text>
+     </g>
+    </g>
+    <g id="w2-event-language-xtick_26">
+     <g id="w2-event-language-line2d_26">
+      <g>
+       <use xlink:href="#w2-event-language-m3c27b79fa0" x="427.56" y="197.784" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w2-event-language-text_10">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="427.56" y="214.282047" transform="rotate(-0 427.56 214.282047)">7</text>
+     </g>
+    </g>
+    <g id="w2-event-language-xtick_27">
+     <g id="w2-event-language-line2d_27">
+      <g>
+       <use xlink:href="#w2-event-language-m3c27b79fa0" x="468.44" y="197.784" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w2-event-language-text_11">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="468.44" y="214.282047" transform="rotate(-0 468.44 214.282047)">8</text>
+     </g>
+    </g>
+    <g id="w2-event-language-text_12">
+     <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="304.92" y="230.379703" transform="rotate(-0 304.92 230.379703)">Possible integer outcome</text>
+    </g>
+   </g>
+   <g id="w2-event-language-matplotlib.axis_6"/>
+   <g id="w2-event-language-patch_7">
+    <path d="M 120.96 197.784 L 488.88 197.784" style="fill: none; stroke: #80919c; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="w2-event-language-text_13">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #182e40" x="98.8848" y="178.667498" transform="rotate(-0 98.8848 178.667498)">At least 5</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="w2-event-language-p5ce799f7d3">
+   <rect x="120.96" y="26.532" width="367.92" height="39.826047"/>
+  </clipPath>
+  <clipPath id="w2-event-language-pe7c18f4836">
+   <rect x="120.96" y="92.244977" width="367.92" height="39.826047"/>
+  </clipPath>
+  <clipPath id="w2-event-language-pa51b719e0c">
+   <rect x="120.96" y="157.957953" width="367.92" height="39.826047"/>
+  </clipPath>
+ </defs>
+</svg></div><figcaption><b>Mark the included outcomes before you add their probabilities</b>The endpoint is included in both “at most” and “at least.” The picture selects outcomes; their probability weights still come from the stated model. Use this translation before choosing a formula or calculator command.</figcaption></figure>
+<div id="questions"></div>
 <div class="footer"><span id="foot">Enter what you know, then check your current answers.</span><button class="primary" id="check">Check my current answers</button></div>
 <div class="actions"><button class="secondary" onclick="window.print()">Print / Save PDF</button><button class="secondary" id="reset">Reset this practice</button><a class="secondary" style="text-decoration:none" href="../index.html">Return to course</a></div><p class="small">Progress is saved in this browser and uses the same course record as the main MATH&amp; 146 page. Nothing is submitted automatically.</p></main>
 <script>
-const PRACTICE={"title": "Week 2 Assessed Practice — Discrete Probability", "subtitle": "Work with probability tables, expected value, and the geometric and binomial models.", "questions": [{"id": "w2q1", "type": "num", "prompt": "A probability table has probabilities 0.15, 0.25, 0.35, and p. Find p.", "answer": 0.25, "tolerance": 0.005, "hint": "All probabilities in a complete distribution must add to 1.", "success": "Correct.", "placeholder": "Enter a number"}, {"id": "w2q2", "type": "num", "prompt": "X takes values 0, 1, and 2 with probabilities 0.20, 0.50, and 0.30. Find E(X).", "answer": 1.1, "tolerance": 0.01, "hint": "Multiply each outcome by its probability, then add.", "success": "Correct.", "placeholder": "Enter a number"}, {"id": "w2q3", "type": "num", "prompt": "For a geometric model with p = 0.20, find P(first success occurs on trial 4).", "answer": 0.1024, "tolerance": 0.001, "hint": "The first three trials must fail and the fourth must succeed.", "success": "Correct.", "placeholder": "Enter a number"}, {"id": "w2q4", "type": "num", "prompt": "For X ~ Binomial(5, 0.30), find P(X = 2). Round to four decimals.", "answer": 0.3087, "tolerance": 0.001, "hint": "Use C(5,2)(0.30)^2(0.70)^3.", "success": "Correct.", "placeholder": "Enter a number"}, {"id": "w2q5", "type": "num", "prompt": "For X ~ Binomial(12, 0.40), find the mean.", "answer": 4.8, "tolerance": 0.01, "hint": "The binomial mean is np.", "success": "Correct.", "placeholder": "Enter a number"}]}; const ID='week2'; const KEY='math146_lms_state_v1';
+const PRACTICE={"title":"Week 2 Assessed Practice — Discrete Probability","subtitle":"Work with probability tables, expected value, and the geometric and binomial models.","questions":[{"id":"w2q1","type":"num","prompt":"A probability table has probabilities 0.15, 0.25, 0.35, and p. Find p.","answer":0.25,"tolerance":0.005,"hint":"Use the probability budget: the complete model must total one, with no negative weights.","success":"Correct — the assigned weights total 0.75, leaving 0.25.","placeholder":"Enter a number"},{"id":"w2q2","type":"num","prompt":"X takes values 0, 1, and 2 with probabilities 0.20, 0.50, and 0.30. Find E(X).","answer":1.1,"tolerance":0.01,"hint":"Pair each value with its own probability; the expected value is their weighted sum.","success":"Correct — 0(0.20) + 1(0.50) + 2(0.30) = 1.10. The expected value need not occur on an individual trial.","placeholder":"Enter a number"},{"id":"w2q3","type":"num","prompt":"For a geometric model with p = 0.20, find P(first success occurs on trial 4).","answer":0.1024,"tolerance":0.001,"hint":"First success on trial 4 requires three failures followed by one success. The success trial is included in the waiting time.","success":"Correct — (0.80)^3(0.20) = 0.1024.","placeholder":"Enter a number"},{"id":"w2q4","type":"num","prompt":"For X ~ Binomial(5, 0.30), find P(X = 2). Round to four decimals.","answer":0.3087,"tolerance":0.001,"hint":"Count the arrangements of two success positions among five, then multiply by the probability of one arrangement.","success":"Correct — there are 10 arrangements, each with probability (0.30)^2(0.70)^3, giving 0.3087.","placeholder":"Enter a number"},{"id":"w2q5","type":"num","prompt":"For X ~ Binomial(12, 0.40), find the mean.","answer":4.8,"tolerance":0.01,"hint":"Add the expected 0/1 success contribution from each of the twelve trials.","success":"Correct — 12(0.40) = 4.8 successes on average across repeated groups. An individual count is still an integer.","placeholder":"Enter a number"}]}; const ID='week2'; const KEY='math146_lms_state_v1';
 function load(){try{return JSON.parse(localStorage.getItem(KEY))||{}}catch(e){return {}}}
 let state=load(); state.tasks=state.tasks||{}; state.assessments=state.assessments||{}; state.assessments[ID]=state.assessments[ID]||{answers:{},mastered:[],checks:0,lastScore:0}; state.studentName=state.studentName||''; state.theme=state.theme||'light';
 const ps=()=>state.assessments[ID]; const save=()=>localStorage.setItem(KEY,JSON.stringify(state));
