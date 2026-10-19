@@ -18,6 +18,21 @@ code{background:var(--soft);padding:.08rem .28rem;border-radius:5px}button{borde
 </style>
 <script>window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]],processEscapes:true},options:{skipHtmlTags:["script","noscript","style","textarea","pre","code"]}};</script>
 <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<style id="week7-visual-styles">
+/* Week 7 diagrams are embedded so saved pages retain their graphs. */
+.w7-visual{margin:20px 0;padding:14px 14px 12px;background:#fff;border:1px solid #cdd9df;border-radius:11px;break-inside:avoid;color:#182e40;font:16px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif;min-width:0;max-width:100%}
+.w7-visual .w7-plot{overflow-x:auto;max-width:100%;border-radius:5px}
+.w7-visual svg{display:block;width:100%;height:auto;min-width:420px;max-width:none}
+.w7-visual figcaption{font-size:.92em;margin-top:9px;color:#435969}
+.w7-visual figcaption b{display:block;color:#245a81;margin-bottom:3px}
+.w7-visual .w7-key{font-size:.85em;color:#536675;margin:8px 0 0}
+.w7-table-lookup{max-width:100%;overflow:auto;margin:16px 0}
+.w7-table-lookup table{border-collapse:collapse;background:#fff;font:15px/1.5 system-ui,sans-serif;width:100%}
+.w7-table-lookup th,.w7-table-lookup td{padding:9px;border:1px solid #cdd9df;text-align:center;color:#182e40}
+.w7-table-lookup .w7-selected{background:#dcefe9;font-weight:750;border:2px solid #287d76}
+@media(max-width:540px){.w7-visual{padding:10px 8px}.w7-visual figcaption{font-size:14px}.w7-visual .w7-key{font-size:12px}}
+@media print{.w7-visual{box-shadow:none;border:1px solid #aab6bf;break-inside:avoid;padding:8px;margin:12px 0;print-color-adjust:exact;-webkit-print-color-adjust:exact}.w7-visual .w7-plot{overflow:visible}.w7-visual svg{min-width:0;width:100%}.w7-visual figcaption{font-size:10pt}.w7-table-lookup{break-inside:avoid}.w7-table-lookup .w7-selected{print-color-adjust:exact;-webkit-print-color-adjust:exact}}
+</style>
 </head>
 <body>
 <header><a href="../index.html">← MATH&amp; 146 course</a><h1>Week 7 Discussion — Two Forests, One Howl Detector</h1><p>Compare two independent samples, then ask how the design would change if the observations were paired.</p></header>
@@ -35,7 +50,152 @@ code{background:var(--soft);padding:.08rem .28rem;border-radius:5px}button{borde
 <div><strong>Cascade foothills</strong><br>n₂ = 45<br>x̄₂ = 7.1 s<br>s₂ = 2.8 s</div>
 </div>
 <p>That design makes these <strong>independent samples</strong>. The distinction matters because two-sample statistics use a different standard error from a paired design, where each observation in one condition is naturally linked to a specific observation in the other.</p>
-<p><strong>The statistical question:</strong> What does the sample evidence suggest about the difference in mean flagged-sound duration between the two regions, and why must we identify the study design before choosing the calculation?</p></section>
+<p><strong>The statistical question:</strong> What does the sample evidence suggest about the difference in mean flagged-sound duration between the two regions, and why must we identify the study design before choosing the calculation?</p>
+<figure class="w7-visual" data-visual="w7-discussion-design"><div class="w7-plot" tabindex="0" role="group" aria-label="The design determines what counts as an observation; scroll horizontally on narrow screens"><svg id="w7-discussion-design" role="img" aria-labelledby="w7-discussion-design-title w7-discussion-design-desc" xmlns:xlink="http://www.w3.org/1999/xlink" width="504pt" height="273.6pt" viewBox="0 0 504 273.6" xmlns="http://www.w3.org/2000/svg" version="1.1">
+<title id="w7-discussion-design-title">The design determines what counts as an observation</title><desc id="w7-discussion-design-desc">In the independent design, Group 1 contains units A, B, C and Group 2 contains distinct units D, E, F, without matching links. In the paired design, each unit A, B, C is connected from before to after.</desc>
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">#w7-discussion-design *{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="w7-discussion-design-figure_1">
+  <g id="w7-discussion-design-patch_1">
+   <path d="M 0 273.6 L 504 273.6 L 504 0 L 0 0 z" style="fill: #ffffff"/>
+  </g>
+  <g id="w7-discussion-design-axes_1">
+   <g id="w7-discussion-design-patch_2">
+    <path d="M 30.42411 117.45648 L 98.199452 117.45648 Q 103.665205 117.45648 103.665205 111.84768 L 103.665205 84.92544 Q 103.665205 79.31664 98.199452 79.31664 L 30.42411 79.31664 Q 24.958356 79.31664 24.958356 84.92544 L 24.958356 111.84768 Q 24.958356 117.45648 30.42411 117.45648 z" clip-path="url(#w7-discussion-design-pecd9acaf40)" style="fill: #f0f5f7; stroke: #245a81; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="w7-discussion-design-patch_3">
+    <path d="M 146.298082 117.45648 L 214.073425 117.45648 Q 219.539178 117.45648 219.539178 111.84768 L 219.539178 84.92544 Q 219.539178 79.31664 214.073425 79.31664 L 146.298082 79.31664 Q 140.832329 79.31664 140.832329 84.92544 L 140.832329 111.84768 Q 140.832329 117.45648 146.298082 117.45648 z" clip-path="url(#w7-discussion-design-pecd9acaf40)" style="fill: #f0f5f7; stroke: #287d76; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="w7-discussion-design-patch_4">
+    <path d="M 30.42411 169.05744 L 98.199452 169.05744 Q 103.665205 169.05744 103.665205 163.44864 L 103.665205 136.5264 Q 103.665205 130.9176 98.199452 130.9176 L 30.42411 130.9176 Q 24.958356 130.9176 24.958356 136.5264 L 24.958356 163.44864 Q 24.958356 169.05744 30.42411 169.05744 z" clip-path="url(#w7-discussion-design-pecd9acaf40)" style="fill: #f0f5f7; stroke: #245a81; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="w7-discussion-design-patch_5">
+    <path d="M 146.298082 169.05744 L 214.073425 169.05744 Q 219.539178 169.05744 219.539178 163.44864 L 219.539178 136.5264 Q 219.539178 130.9176 214.073425 130.9176 L 146.298082 130.9176 Q 140.832329 130.9176 140.832329 136.5264 L 140.832329 163.44864 Q 140.832329 169.05744 146.298082 169.05744 z" clip-path="url(#w7-discussion-design-pecd9acaf40)" style="fill: #f0f5f7; stroke: #287d76; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="w7-discussion-design-patch_6">
+    <path d="M 30.42411 220.6584 L 98.199452 220.6584 Q 103.665205 220.6584 103.665205 215.0496 L 103.665205 188.12736 Q 103.665205 182.51856 98.199452 182.51856 L 30.42411 182.51856 Q 24.958356 182.51856 24.958356 188.12736 L 24.958356 215.0496 Q 24.958356 220.6584 30.42411 220.6584 z" clip-path="url(#w7-discussion-design-pecd9acaf40)" style="fill: #f0f5f7; stroke: #245a81; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="w7-discussion-design-patch_7">
+    <path d="M 146.298082 220.6584 L 214.073425 220.6584 Q 219.539178 220.6584 219.539178 215.0496 L 219.539178 188.12736 Q 219.539178 182.51856 214.073425 182.51856 L 146.298082 182.51856 Q 140.832329 182.51856 140.832329 188.12736 L 140.832329 215.0496 Q 140.832329 220.6584 146.298082 220.6584 z" clip-path="url(#w7-discussion-design-pecd9acaf40)" style="fill: #f0f5f7; stroke: #287d76; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="w7-discussion-design-text_1">
+    <text style="font-weight: 500; font-size: 13px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="124.435068" y="26.59392" transform="rotate(-0 124.435068 26.59392)">Independent groups</text>
+   </g>
+   <g id="w7-discussion-design-text_2">
+    <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="65.404932" y="55.75968" transform="rotate(-0 65.404932 55.75968)">Group 1</text>
+   </g>
+   <g id="w7-discussion-design-text_3">
+    <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="181.278904" y="55.75968" transform="rotate(-0 181.278904 55.75968)">Group 2</text>
+   </g>
+   <g id="w7-discussion-design-text_4">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #245a81" x="64.311781" y="101.421872" transform="rotate(-0 64.311781 101.421872)">A</text>
+   </g>
+   <g id="w7-discussion-design-text_5">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #287d76" x="180.185753" y="101.421872" transform="rotate(-0 180.185753 101.421872)">D</text>
+   </g>
+   <g id="w7-discussion-design-text_6">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #245a81" x="64.311781" y="153.022832" transform="rotate(-0 64.311781 153.022832)">B</text>
+   </g>
+   <g id="w7-discussion-design-text_7">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #287d76" x="180.185753" y="153.022832" transform="rotate(-0 180.185753 153.022832)">E</text>
+   </g>
+   <g id="w7-discussion-design-text_8">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #245a81" x="64.311781" y="204.623792" transform="rotate(-0 64.311781 204.623792)">C</text>
+   </g>
+   <g id="w7-discussion-design-text_9">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #287d76" x="180.185753" y="204.623792" transform="rotate(-0 180.185753 204.623792)">F</text>
+   </g>
+   <g id="w7-discussion-design-text_10">
+    <text style="font-size: 10.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="124.435068" y="257.67648" transform="rotate(-0 124.435068 257.67648)">Distinct units; no matching links</text>
+   </g>
+  </g>
+  <g id="w7-discussion-design-axes_2">
+   <g id="w7-discussion-design-patch_8">
+    <path d="M 286.22137 117.45648 L 349.62411 117.45648 Q 355.089863 117.45648 355.089863 111.84768 L 355.089863 84.92544 Q 355.089863 79.31664 349.62411 79.31664 L 286.22137 79.31664 Q 280.755616 79.31664 280.755616 84.92544 L 280.755616 111.84768 Q 280.755616 117.45648 286.22137 117.45648 z" clip-path="url(#w7-discussion-design-pae3c2be54c)" style="fill: #f0f5f7; stroke: #245a81; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="w7-discussion-design-patch_9">
+    <path d="M 419.585753 117.45648 L 482.988493 117.45648 Q 488.454247 117.45648 488.454247 111.84768 L 488.454247 84.92544 Q 488.454247 79.31664 482.988493 79.31664 L 419.585753 79.31664 Q 414.12 79.31664 414.12 84.92544 L 414.12 111.84768 Q 414.12 117.45648 419.585753 117.45648 z" clip-path="url(#w7-discussion-design-pae3c2be54c)" style="fill: #f0f5f7; stroke: #287d76; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="w7-discussion-design-patch_10">
+    <path d="M 286.22137 169.05744 L 349.62411 169.05744 Q 355.089863 169.05744 355.089863 163.44864 L 355.089863 136.5264 Q 355.089863 130.9176 349.62411 130.9176 L 286.22137 130.9176 Q 280.755616 130.9176 280.755616 136.5264 L 280.755616 163.44864 Q 280.755616 169.05744 286.22137 169.05744 z" clip-path="url(#w7-discussion-design-pae3c2be54c)" style="fill: #f0f5f7; stroke: #245a81; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="w7-discussion-design-patch_11">
+    <path d="M 419.585753 169.05744 L 482.988493 169.05744 Q 488.454247 169.05744 488.454247 163.44864 L 488.454247 136.5264 Q 488.454247 130.9176 482.988493 130.9176 L 419.585753 130.9176 Q 414.12 130.9176 414.12 136.5264 L 414.12 163.44864 Q 414.12 169.05744 419.585753 169.05744 z" clip-path="url(#w7-discussion-design-pae3c2be54c)" style="fill: #f0f5f7; stroke: #287d76; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="w7-discussion-design-patch_12">
+    <path d="M 286.22137 220.6584 L 349.62411 220.6584 Q 355.089863 220.6584 355.089863 215.0496 L 355.089863 188.12736 Q 355.089863 182.51856 349.62411 182.51856 L 286.22137 182.51856 Q 280.755616 182.51856 280.755616 188.12736 L 280.755616 215.0496 Q 280.755616 220.6584 286.22137 220.6584 z" clip-path="url(#w7-discussion-design-pae3c2be54c)" style="fill: #f0f5f7; stroke: #245a81; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="w7-discussion-design-patch_13">
+    <path d="M 419.585753 220.6584 L 482.988493 220.6584 Q 488.454247 220.6584 488.454247 215.0496 L 488.454247 188.12736 Q 488.454247 182.51856 482.988493 182.51856 L 419.585753 182.51856 Q 414.12 182.51856 414.12 188.12736 L 414.12 215.0496 Q 414.12 220.6584 419.585753 220.6584 z" clip-path="url(#w7-discussion-design-pae3c2be54c)" style="fill: #f0f5f7; stroke: #287d76; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="w7-discussion-design-text_11">
+    <text style="font-weight: 500; font-size: 13px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="384.604932" y="26.59392" transform="rotate(-0 384.604932 26.59392)">Paired observations</text>
+   </g>
+   <g id="w7-discussion-design-text_12">
+    <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="319.01589" y="55.75968" transform="rotate(-0 319.01589 55.75968)">Before</text>
+   </g>
+   <g id="w7-discussion-design-text_13">
+    <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="450.193973" y="55.75968" transform="rotate(-0 450.193973 55.75968)">After</text>
+   </g>
+   <g id="w7-discussion-design-text_14">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #245a81" x="317.92274" y="101.421872" transform="rotate(-0 317.92274 101.421872)">A</text>
+   </g>
+   <g id="w7-discussion-design-text_15">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #287d76" x="451.287123" y="101.421872" transform="rotate(-0 451.287123 101.421872)">A</text>
+   </g>
+   <g id="w7-discussion-design-patch_14">
+    <path d="M 358.184899 98.38656 Q 384.606709 98.38656 409.351468 98.38656" style="fill: none; stroke: #536675; stroke-width: 1.5; stroke-linecap: round"/>
+    <path d="M 404.351468 95.88656 L 409.351468 98.38656 L 404.351468 100.88656" style="fill: none; stroke: #536675; stroke-width: 1.5; stroke-linecap: round"/>
+   </g>
+   <g id="w7-discussion-design-text_16">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #245a81" x="317.92274" y="153.022832" transform="rotate(-0 317.92274 153.022832)">B</text>
+   </g>
+   <g id="w7-discussion-design-text_17">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #287d76" x="451.287123" y="153.022832" transform="rotate(-0 451.287123 153.022832)">B</text>
+   </g>
+   <g id="w7-discussion-design-patch_15">
+    <path d="M 358.184899 149.98752 Q 384.606709 149.98752 409.351468 149.98752" style="fill: none; stroke: #536675; stroke-width: 1.5; stroke-linecap: round"/>
+    <path d="M 404.351468 147.48752 L 409.351468 149.98752 L 404.351468 152.48752" style="fill: none; stroke: #536675; stroke-width: 1.5; stroke-linecap: round"/>
+   </g>
+   <g id="w7-discussion-design-text_18">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #245a81" x="317.92274" y="204.623792" transform="rotate(-0 317.92274 204.623792)">C</text>
+   </g>
+   <g id="w7-discussion-design-text_19">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #287d76" x="451.287123" y="204.623792" transform="rotate(-0 451.287123 204.623792)">C</text>
+   </g>
+   <g id="w7-discussion-design-patch_16">
+    <path d="M 358.184899 201.58848 Q 384.606709 201.58848 409.351468 201.58848" style="fill: none; stroke: #536675; stroke-width: 1.5; stroke-linecap: round"/>
+    <path d="M 404.351468 199.08848 L 409.351468 201.58848 L 404.351468 204.08848" style="fill: none; stroke: #536675; stroke-width: 1.5; stroke-linecap: round"/>
+   </g>
+   <g id="w7-discussion-design-text_20">
+    <text style="font-size: 10.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="384.604932" y="257.67648" transform="rotate(-0 384.604932 257.67648)">Same unit stays linked across time</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="w7-discussion-design-pecd9acaf40">
+   <rect x="15.12" y="35.568" width="218.630137" height="224.352"/>
+  </clipPath>
+  <clipPath id="w7-discussion-design-pae3c2be54c">
+   <rect x="275.289863" y="35.568" width="218.630137" height="224.352"/>
+  </clipPath>
+ </defs>
+</svg></div><figcaption><b>The design determines what counts as an observation</b>For the forest comparison, the letters represent distinct recording units from the two regions: no Olympic observation is matched to a particular Cascade observation. In the proposed software study, a letter represents the <em>same detector</em> before and after its update. Its two measurements stay linked.</figcaption></figure>
+</section>
 <section class="panel"><div class="kicker">Initial post</div><h2>What to include</h2><ol class="tasks"><li>Explain why these samples are independent rather than paired.</li><li>Compute x̄₁ − x̄₂.</li><li>Compute SE(x̄₁−x̄₂) = √(s₁²/n₁ + s₂²/n₂).</li><li>Using 1.96 as an approximate 95% multiplier, construct an interval for μ₁ − μ₂ and interpret it.</li><li>Suppose instead that the same 40 detectors were measured before and after a software update. Explain why that new design would be paired and what information the pairing preserves.</li></ol></section>
 <section class="panel"><div class="kicker">Replies</div><h2>Engage with classmates’ statistics</h2><div class="reply">Compare your interval with a classmate’s and verify one endpoint. Then discuss the design question: what is gained when observations can be paired rather than treated as unrelated samples?</div><p class="small">A useful reply checks a calculation, compares methods or assumptions, or asks a statistically specific question. Avoid replies that only say that you agree.</p></section>
 <section class="panel"><button onclick="window.print()">Print this discussion prompt</button></section>

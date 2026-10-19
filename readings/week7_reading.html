@@ -1,3 +1,1166 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Comparing groups requires a clear definition of the difference, a suitable study design, and a standard error that accounts for both samples."><title>Week 7 Reading — Two-Sample Inference | MATH&amp; 146</title><link rel="stylesheet" href="readings.css"><script>window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]]},options:{skipHtmlTags:["script","style","textarea","pre","code"]}};</script><script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script></head>
-<body><a class="skip" href="#reading">Skip to reading</a><header><a href="../index.html">← MATH&amp; 146: Course Home</a><div class="eyebrow">Week 7 · Online Reading</div><h1>Two-Sample Inference</h1><p>Comparing groups requires a clear definition of the difference, a suitable study design, and a standard error that accounts for both samples.</p></header><main><nav aria-label="On this page"><b>In this reading</b><a href="#s0">1. Identify the design before selecting a formula</a><a href="#s1">2. Define the difference and keep its order</a><a href="#s2">3. A two-sample z-test for means</a><a href="#s3">4. An interval adds magnitude and direction</a><a href="#s4">5. Two-sample proportion testing: why pool?</a><a href="#references">PDF and course activities</a></nav><article id="reading"><section><h2>How to use this reading</h2><p>Read the explanations in order and pause at the worked examples. Try each check on paper before opening its explanation. Use the original PDF for more examples, exercises, and reference tables.</p><ul><li>Distinguish independent and paired observations.</li><li>Test and estimate a difference in means.</li><li>Use pooling correctly in a test of equal proportions.</li></ul></section><section id="s0"><h2>1. Identify the design before selecting a formula</h2><p>Two independent samples involve distinct groups with no pairing between their observations. Paired observations have a natural match: the same people before and after treatment, or matched individuals. Equal sample sizes alone do not make samples paired.</p><p>For paired measurements, the change within each pair is the relevant observation. Analyze those changes with a one-sample method when its conditions hold. An independent-samples formula would ignore their dependence. The posted chapter develops independent-sample procedures.</p><div class="table-wrap"><table><thead><tr><th scope="col">Design</th><th scope="col">Structure</th></tr></thead><tbody><tr><td>Separate random samples from two cities</td><td>Independent groups</td></tr><tr><td>Before and after scores for the same students</td><td>Paired observations</td></tr><tr><td>Matched pairs of patients</td><td>Paired observations</td></tr></tbody></table></div><div class="practice"><b>Check your understanding.</b><p>Two classes each contain 30 students. Are their scores necessarily paired?</p><details><summary>Show explanation</summary><p>No. Pairing requires a meaningful correspondence between observations, not merely equal group sizes.</p></details></div></section><section id="s1"><h2>2. Define the difference and keep its order</h2><p>Label the groups before calculating. The population parameter is \(\mu_1-\mu_2\), estimated by \(\bar x_1-\bar x_2\). A positive difference means Group 1 has the larger mean; reversing the order reverses the sign. A claim of equal means is \(H_0:\mu_1-\mu_2=0\).</p><p>For independent sample means, their variances add when taking a difference. Both samples contribute uncertainty; their standard deviations are not simply added or averaged.</p><div class="eq">\[SE=\sqrt{\frac{\sigma_1^2}{n_1}+\frac{\sigma_2^2}{n_2}}\]</div><p>The chapter uses known population standard deviations. Check independent sampling within and between groups and a suitable normal approximation for both means. Strong skewness can make the approximation poor despite apparently large samples.</p><div class="practice"><b>Check your understanding.</b><p>If both sample means estimate equal population means, where is their difference distribution centered?</p><details><summary>Show explanation</summary><p>At zero. Observed differences still vary from sample to sample.</p></details></div></section><section id="s2"><h2>3. A two-sample z-test for means</h2><p>Use the same hypothesis-testing steps as last week: state the hypotheses and α, check conditions, compute the statistic, find the appropriate tail probability, and conclude in context.</p><div class="eq">\[z=\frac{(\bar x_1-\bar x_2)-0}{\sqrt{\sigma_1^2/n_1+\sigma_2^2/n_2}}\]</div><div class="example"><b>Worked example.</b><p>Two teaching-method groups have \(n_1=35\), \(\bar x_1=81.4\), known \(\sigma_1=9.2\); and \(n_2=40\), \(\bar x_2=76.8\), known \(\sigma_2=11.0\). The difference is 4.6 points. Standard error is \(\sqrt{9.2^2/35+11^2/40}\approx2.333\), so \(z\approx1.97\). The two-sided p-value is about 0.0488, using the rounded z-table value.</p></div><p>At α = 0.05, reject equality under the stated model. This is a result close to the threshold, so include the estimated difference and its uncertainty. A causal claim about the teaching methods also needs a suitable experimental design.</p><div class="bridge"><b>When the standard deviations are estimated.</b><p>The usual independent-samples mean procedure uses Welch’s t-method with \(SE=\sqrt{s_1^2/n_1+s_2^2/n_2}\) and an appropriate degrees-of-freedom calculation. A large-sample z approximation using these sample SDs is an approximation, not the known-σ procedure.</p></div></section><section id="s3"><h2>4. An interval adds magnitude and direction</h2><p>For the same known-σ setting, the confidence interval estimates the population difference. Keep the units and group order in the interpretation.</p><div class="eq">\[(\bar x_1-\bar x_2)\pm z^*\sqrt{\sigma_1^2/n_1+\sigma_2^2/n_2}\]</div><div class="example"><b>Worked example.</b><p>The teaching-method 95% interval is \(4.6\pm1.96(2.333)\), approximately (0.03, 9.17) points for Method 1 minus Method 2.</p></div><p>This interval excludes zero but includes effects ranging from almost negligible to several points. A statistical decision alone does not describe that range. An interval crossing zero is consistent with differences in either direction; it does not establish exact equality.</p><div class="practice"><b>Check your understanding.</b><p>An interval for μ₁ − μ₂ is (−3.2, 8.6). Which direction is supported decisively?</p><details><summary>Show explanation</summary><p>Neither direction is established by this interval, because it includes zero and both signs. Its midpoint is 2.7, indicating the sample difference is positive.</p></details></div></section><section id="s4"><h2>5. Two-sample proportion testing: why pool?</h2><p>Now the response is binary in each group. Compute \(\hat p_1=x_1/n_1\) and \(\hat p_2=x_2/n_2\). Under \(H_0:p_1=p_2\), estimate the common proportion from the combined counts:</p><div class="eq">\[\hat p_{\mathrm{pool}}=\frac{x_1+x_2}{n_1+n_2},\qquad z=\frac{\hat p_1-\hat p_2}{\sqrt{\hat p_{\mathrm{pool}}(1-\hat p_{\mathrm{pool}})(1/n_1+1/n_2)}}\]</div><p>Pooling uses total successes divided by total observations, not an unweighted average of percentages from unequal groups. Check the expected success and failure counts in each group under the pooled null; use at least 10 of each for the normal approximation. The chapter also asks you to inspect the four observed counts.</p><div class="example"><b>Worked example.</b><p>Group 1 has 18 of 120 with a side effect; Group 2 has 31 of 110. Proportions are 0.1500 and about 0.2818. The pooled estimate is \(49/230\approx0.2130\). The null standard error is about 0.05405, so z is about −2.44. A left-tailed alternative gives p-value about 0.0074.</p></div><p>For an interval estimating \(p_1-p_2\), use an unpooled standard error \(\sqrt{\hat p_1(1-\hat p_1)/n_1+\hat p_2(1-\hat p_2)/n_2}\). Equality is assumed for the pooled test, not for estimating the difference.</p><div class="practice"><b>Check your understanding.</b><p>Group 1 has 10 successes in 20 observations and Group 2 has 90 in 100. Find the pooled estimate.</p><details><summary>Show explanation</summary><p>\((10+90)/(20+100)=100/120\approx0.8333\), not the average of 0.50 and 0.90.</p></details></div></section><section id="references"><h2>Continue practicing</h2><p>Continue with this week’s course activities, and use the PDF chapter for additional practice.</p><a class="pdf-link" href="../textbook/Math146_Ch7.pdf">Original PDF: Chapter 7</a><a class="pdf-link" href="../labs/Math146_Week7_Lab.html">Week 7 laboratory</a><p class="footer-nav"><a href="week6_reading.html">← Previous reading</a><a href="week8_reading.html">Next reading →</a></p></section></article></main></body></html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Comparing groups requires a clear definition of the difference, a suitable study design, and a standard error that accounts for both samples."><title>Week 7 Reading — Two-Sample Inference | MATH&amp; 146</title><link rel="stylesheet" href="readings.css"><script>window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]]},options:{skipHtmlTags:["script","style","textarea","pre","code"]}};</script><script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><style id="week7-visual-styles">
+/* Week 7 diagrams are embedded so saved pages retain their graphs. */
+.w7-visual{margin:20px 0;padding:14px 14px 12px;background:#fff;border:1px solid #cdd9df;border-radius:11px;break-inside:avoid;color:#182e40;font:16px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif;min-width:0;max-width:100%}
+.w7-visual .w7-plot{overflow-x:auto;max-width:100%;border-radius:5px}
+.w7-visual svg{display:block;width:100%;height:auto;min-width:420px;max-width:none}
+.w7-visual figcaption{font-size:.92em;margin-top:9px;color:#435969}
+.w7-visual figcaption b{display:block;color:#245a81;margin-bottom:3px}
+.w7-visual .w7-key{font-size:.85em;color:#536675;margin:8px 0 0}
+.w7-table-lookup{max-width:100%;overflow:auto;margin:16px 0}
+.w7-table-lookup table{border-collapse:collapse;background:#fff;font:15px/1.5 system-ui,sans-serif;width:100%}
+.w7-table-lookup th,.w7-table-lookup td{padding:9px;border:1px solid #cdd9df;text-align:center;color:#182e40}
+.w7-table-lookup .w7-selected{background:#dcefe9;font-weight:750;border:2px solid #287d76}
+@media(max-width:540px){.w7-visual{padding:10px 8px}.w7-visual figcaption{font-size:14px}.w7-visual .w7-key{font-size:12px}}
+@media print{.w7-visual{box-shadow:none;border:1px solid #aab6bf;break-inside:avoid;padding:8px;margin:12px 0;print-color-adjust:exact;-webkit-print-color-adjust:exact}.w7-visual .w7-plot{overflow:visible}.w7-visual svg{min-width:0;width:100%}.w7-visual figcaption{font-size:10pt}.w7-table-lookup{break-inside:avoid}.w7-table-lookup .w7-selected{print-color-adjust:exact;-webkit-print-color-adjust:exact}}
+</style>
+</head>
+<body><a class="skip" href="#reading">Skip to reading</a><header><a href="../index.html">← MATH&amp; 146: Course Home</a><div class="eyebrow">Week 7 · Online Reading</div><h1>Two-Sample Inference</h1><p>Comparing groups requires a clear definition of the difference, a suitable study design, and a standard error that accounts for both samples.</p></header><main><nav aria-label="On this page"><b>In this reading</b><a href="#s0">1. Identify the design before selecting a formula</a><a href="#s1">2. Define the difference and keep its order</a><a href="#s2">3. A two-sample z-test for means</a><a href="#s3">4. An interval adds magnitude and direction</a><a href="#s4">5. Two-sample proportion testing: why pool?</a><a href="#references">PDF and course activities</a></nav><article id="reading"><section><h2>How to use this reading</h2><p>Read the explanations in order and pause at the worked examples. Try each check on paper before opening its explanation. Use the original PDF for more examples, exercises, and reference tables.</p><ul><li>Distinguish independent and paired observations.</li><li>Test and estimate a difference in means.</li><li>Use pooling correctly in a test of equal proportions.</li></ul></section><section id="s0"><h2>1. Identify the design before selecting a formula</h2><p>Two independent samples involve distinct groups with no pairing between their observations. Paired observations have a natural match: the same people before and after treatment, or matched individuals. Equal sample sizes alone do not make samples paired.</p><p>For paired measurements, the change within each pair is the relevant observation. Analyze those changes with a one-sample method when its conditions hold. An independent-samples formula would ignore their dependence. The posted chapter develops independent-sample procedures.</p><div class="table-wrap"><table><thead><tr><th scope="col">Design</th><th scope="col">Structure</th></tr></thead><tbody><tr><td>Separate random samples from two cities</td><td>Independent groups</td></tr><tr><td>Before and after scores for the same students</td><td>Paired observations</td></tr><tr><td>Matched pairs of patients</td><td>Paired observations</td></tr></tbody></table></div>
+<figure class="w7-visual" data-visual="w7-reading-design"><div class="w7-plot" tabindex="0" role="group" aria-label="The design determines what counts as an observation; scroll horizontally on narrow screens"><svg id="w7-reading-design" role="img" aria-labelledby="w7-reading-design-title w7-reading-design-desc" xmlns:xlink="http://www.w3.org/1999/xlink" width="504pt" height="273.6pt" viewBox="0 0 504 273.6" xmlns="http://www.w3.org/2000/svg" version="1.1">
+<title id="w7-reading-design-title">The design determines what counts as an observation</title><desc id="w7-reading-design-desc">In the independent design, Group 1 contains units A, B, C and Group 2 contains distinct units D, E, F, without matching links. In the paired design, each unit A, B, C is connected from before to after.</desc>
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">#w7-reading-design *{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="w7-reading-design-figure_1">
+  <g id="w7-reading-design-patch_1">
+   <path d="M 0 273.6 L 504 273.6 L 504 0 L 0 0 z" style="fill: #ffffff"/>
+  </g>
+  <g id="w7-reading-design-axes_1">
+   <g id="w7-reading-design-patch_2">
+    <path d="M 30.42411 117.45648 L 98.199452 117.45648 Q 103.665205 117.45648 103.665205 111.84768 L 103.665205 84.92544 Q 103.665205 79.31664 98.199452 79.31664 L 30.42411 79.31664 Q 24.958356 79.31664 24.958356 84.92544 L 24.958356 111.84768 Q 24.958356 117.45648 30.42411 117.45648 z" clip-path="url(#w7-reading-design-p5e6dc4df70)" style="fill: #f0f5f7; stroke: #245a81; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="w7-reading-design-patch_3">
+    <path d="M 146.298082 117.45648 L 214.073425 117.45648 Q 219.539178 117.45648 219.539178 111.84768 L 219.539178 84.92544 Q 219.539178 79.31664 214.073425 79.31664 L 146.298082 79.31664 Q 140.832329 79.31664 140.832329 84.92544 L 140.832329 111.84768 Q 140.832329 117.45648 146.298082 117.45648 z" clip-path="url(#w7-reading-design-p5e6dc4df70)" style="fill: #f0f5f7; stroke: #287d76; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="w7-reading-design-patch_4">
+    <path d="M 30.42411 169.05744 L 98.199452 169.05744 Q 103.665205 169.05744 103.665205 163.44864 L 103.665205 136.5264 Q 103.665205 130.9176 98.199452 130.9176 L 30.42411 130.9176 Q 24.958356 130.9176 24.958356 136.5264 L 24.958356 163.44864 Q 24.958356 169.05744 30.42411 169.05744 z" clip-path="url(#w7-reading-design-p5e6dc4df70)" style="fill: #f0f5f7; stroke: #245a81; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="w7-reading-design-patch_5">
+    <path d="M 146.298082 169.05744 L 214.073425 169.05744 Q 219.539178 169.05744 219.539178 163.44864 L 219.539178 136.5264 Q 219.539178 130.9176 214.073425 130.9176 L 146.298082 130.9176 Q 140.832329 130.9176 140.832329 136.5264 L 140.832329 163.44864 Q 140.832329 169.05744 146.298082 169.05744 z" clip-path="url(#w7-reading-design-p5e6dc4df70)" style="fill: #f0f5f7; stroke: #287d76; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="w7-reading-design-patch_6">
+    <path d="M 30.42411 220.6584 L 98.199452 220.6584 Q 103.665205 220.6584 103.665205 215.0496 L 103.665205 188.12736 Q 103.665205 182.51856 98.199452 182.51856 L 30.42411 182.51856 Q 24.958356 182.51856 24.958356 188.12736 L 24.958356 215.0496 Q 24.958356 220.6584 30.42411 220.6584 z" clip-path="url(#w7-reading-design-p5e6dc4df70)" style="fill: #f0f5f7; stroke: #245a81; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="w7-reading-design-patch_7">
+    <path d="M 146.298082 220.6584 L 214.073425 220.6584 Q 219.539178 220.6584 219.539178 215.0496 L 219.539178 188.12736 Q 219.539178 182.51856 214.073425 182.51856 L 146.298082 182.51856 Q 140.832329 182.51856 140.832329 188.12736 L 140.832329 215.0496 Q 140.832329 220.6584 146.298082 220.6584 z" clip-path="url(#w7-reading-design-p5e6dc4df70)" style="fill: #f0f5f7; stroke: #287d76; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="w7-reading-design-text_1">
+    <text style="font-weight: 500; font-size: 13px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="124.435068" y="26.59392" transform="rotate(-0 124.435068 26.59392)">Independent groups</text>
+   </g>
+   <g id="w7-reading-design-text_2">
+    <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="65.404932" y="55.75968" transform="rotate(-0 65.404932 55.75968)">Group 1</text>
+   </g>
+   <g id="w7-reading-design-text_3">
+    <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="181.278904" y="55.75968" transform="rotate(-0 181.278904 55.75968)">Group 2</text>
+   </g>
+   <g id="w7-reading-design-text_4">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #245a81" x="64.311781" y="101.421872" transform="rotate(-0 64.311781 101.421872)">A</text>
+   </g>
+   <g id="w7-reading-design-text_5">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #287d76" x="180.185753" y="101.421872" transform="rotate(-0 180.185753 101.421872)">D</text>
+   </g>
+   <g id="w7-reading-design-text_6">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #245a81" x="64.311781" y="153.022832" transform="rotate(-0 64.311781 153.022832)">B</text>
+   </g>
+   <g id="w7-reading-design-text_7">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #287d76" x="180.185753" y="153.022832" transform="rotate(-0 180.185753 153.022832)">E</text>
+   </g>
+   <g id="w7-reading-design-text_8">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #245a81" x="64.311781" y="204.623792" transform="rotate(-0 64.311781 204.623792)">C</text>
+   </g>
+   <g id="w7-reading-design-text_9">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #287d76" x="180.185753" y="204.623792" transform="rotate(-0 180.185753 204.623792)">F</text>
+   </g>
+   <g id="w7-reading-design-text_10">
+    <text style="font-size: 10.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="124.435068" y="257.67648" transform="rotate(-0 124.435068 257.67648)">Distinct units; no matching links</text>
+   </g>
+  </g>
+  <g id="w7-reading-design-axes_2">
+   <g id="w7-reading-design-patch_8">
+    <path d="M 286.22137 117.45648 L 349.62411 117.45648 Q 355.089863 117.45648 355.089863 111.84768 L 355.089863 84.92544 Q 355.089863 79.31664 349.62411 79.31664 L 286.22137 79.31664 Q 280.755616 79.31664 280.755616 84.92544 L 280.755616 111.84768 Q 280.755616 117.45648 286.22137 117.45648 z" clip-path="url(#w7-reading-design-p4d4e4aefe5)" style="fill: #f0f5f7; stroke: #245a81; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="w7-reading-design-patch_9">
+    <path d="M 419.585753 117.45648 L 482.988493 117.45648 Q 488.454247 117.45648 488.454247 111.84768 L 488.454247 84.92544 Q 488.454247 79.31664 482.988493 79.31664 L 419.585753 79.31664 Q 414.12 79.31664 414.12 84.92544 L 414.12 111.84768 Q 414.12 117.45648 419.585753 117.45648 z" clip-path="url(#w7-reading-design-p4d4e4aefe5)" style="fill: #f0f5f7; stroke: #287d76; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="w7-reading-design-patch_10">
+    <path d="M 286.22137 169.05744 L 349.62411 169.05744 Q 355.089863 169.05744 355.089863 163.44864 L 355.089863 136.5264 Q 355.089863 130.9176 349.62411 130.9176 L 286.22137 130.9176 Q 280.755616 130.9176 280.755616 136.5264 L 280.755616 163.44864 Q 280.755616 169.05744 286.22137 169.05744 z" clip-path="url(#w7-reading-design-p4d4e4aefe5)" style="fill: #f0f5f7; stroke: #245a81; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="w7-reading-design-patch_11">
+    <path d="M 419.585753 169.05744 L 482.988493 169.05744 Q 488.454247 169.05744 488.454247 163.44864 L 488.454247 136.5264 Q 488.454247 130.9176 482.988493 130.9176 L 419.585753 130.9176 Q 414.12 130.9176 414.12 136.5264 L 414.12 163.44864 Q 414.12 169.05744 419.585753 169.05744 z" clip-path="url(#w7-reading-design-p4d4e4aefe5)" style="fill: #f0f5f7; stroke: #287d76; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="w7-reading-design-patch_12">
+    <path d="M 286.22137 220.6584 L 349.62411 220.6584 Q 355.089863 220.6584 355.089863 215.0496 L 355.089863 188.12736 Q 355.089863 182.51856 349.62411 182.51856 L 286.22137 182.51856 Q 280.755616 182.51856 280.755616 188.12736 L 280.755616 215.0496 Q 280.755616 220.6584 286.22137 220.6584 z" clip-path="url(#w7-reading-design-p4d4e4aefe5)" style="fill: #f0f5f7; stroke: #245a81; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="w7-reading-design-patch_13">
+    <path d="M 419.585753 220.6584 L 482.988493 220.6584 Q 488.454247 220.6584 488.454247 215.0496 L 488.454247 188.12736 Q 488.454247 182.51856 482.988493 182.51856 L 419.585753 182.51856 Q 414.12 182.51856 414.12 188.12736 L 414.12 215.0496 Q 414.12 220.6584 419.585753 220.6584 z" clip-path="url(#w7-reading-design-p4d4e4aefe5)" style="fill: #f0f5f7; stroke: #287d76; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="w7-reading-design-text_11">
+    <text style="font-weight: 500; font-size: 13px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="384.604932" y="26.59392" transform="rotate(-0 384.604932 26.59392)">Paired observations</text>
+   </g>
+   <g id="w7-reading-design-text_12">
+    <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="319.01589" y="55.75968" transform="rotate(-0 319.01589 55.75968)">Before</text>
+   </g>
+   <g id="w7-reading-design-text_13">
+    <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="450.193973" y="55.75968" transform="rotate(-0 450.193973 55.75968)">After</text>
+   </g>
+   <g id="w7-reading-design-text_14">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #245a81" x="317.92274" y="101.421872" transform="rotate(-0 317.92274 101.421872)">A</text>
+   </g>
+   <g id="w7-reading-design-text_15">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #287d76" x="451.287123" y="101.421872" transform="rotate(-0 451.287123 101.421872)">A</text>
+   </g>
+   <g id="w7-reading-design-patch_14">
+    <path d="M 358.184899 98.38656 Q 384.606709 98.38656 409.351468 98.38656" style="fill: none; stroke: #536675; stroke-width: 1.5; stroke-linecap: round"/>
+    <path d="M 404.351468 95.88656 L 409.351468 98.38656 L 404.351468 100.88656" style="fill: none; stroke: #536675; stroke-width: 1.5; stroke-linecap: round"/>
+   </g>
+   <g id="w7-reading-design-text_16">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #245a81" x="317.92274" y="153.022832" transform="rotate(-0 317.92274 153.022832)">B</text>
+   </g>
+   <g id="w7-reading-design-text_17">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #287d76" x="451.287123" y="153.022832" transform="rotate(-0 451.287123 153.022832)">B</text>
+   </g>
+   <g id="w7-reading-design-patch_15">
+    <path d="M 358.184899 149.98752 Q 384.606709 149.98752 409.351468 149.98752" style="fill: none; stroke: #536675; stroke-width: 1.5; stroke-linecap: round"/>
+    <path d="M 404.351468 147.48752 L 409.351468 149.98752 L 404.351468 152.48752" style="fill: none; stroke: #536675; stroke-width: 1.5; stroke-linecap: round"/>
+   </g>
+   <g id="w7-reading-design-text_18">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #245a81" x="317.92274" y="204.623792" transform="rotate(-0 317.92274 204.623792)">C</text>
+   </g>
+   <g id="w7-reading-design-text_19">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #287d76" x="451.287123" y="204.623792" transform="rotate(-0 451.287123 204.623792)">C</text>
+   </g>
+   <g id="w7-reading-design-patch_16">
+    <path d="M 358.184899 201.58848 Q 384.606709 201.58848 409.351468 201.58848" style="fill: none; stroke: #536675; stroke-width: 1.5; stroke-linecap: round"/>
+    <path d="M 404.351468 199.08848 L 409.351468 201.58848 L 404.351468 204.08848" style="fill: none; stroke: #536675; stroke-width: 1.5; stroke-linecap: round"/>
+   </g>
+   <g id="w7-reading-design-text_20">
+    <text style="font-size: 10.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="384.604932" y="257.67648" transform="rotate(-0 384.604932 257.67648)">Same unit stays linked across time</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="w7-reading-design-p5e6dc4df70">
+   <rect x="15.12" y="35.568" width="218.630137" height="224.352"/>
+  </clipPath>
+  <clipPath id="w7-reading-design-p4d4e4aefe5">
+   <rect x="275.289863" y="35.568" width="218.630137" height="224.352"/>
+  </clipPath>
+ </defs>
+</svg></div><figcaption><b>The design determines what counts as an observation</b>Labels are schematic units, not a dataset. In a paired study, preserve the match and calculate one change per unit. Equal sample sizes in separate groups create no such match.</figcaption></figure>
+<div class="practice"><b>Check your understanding.</b><p>Two classes each contain 30 students. Are their scores necessarily paired?</p><details><summary>Show explanation</summary><p>No. Pairing requires a meaningful correspondence between observations, not merely equal group sizes.</p></details></div></section><section id="s1"><h2>2. Define the difference and keep its order</h2><p>Label the groups before calculating. The population parameter is \(\mu_1-\mu_2\), estimated by \(\bar x_1-\bar x_2\). A positive difference means Group 1 has the larger mean; reversing the order reverses the sign. A claim of equal means is \(H_0:\mu_1-\mu_2=0\).</p>
+<figure class="w7-visual" data-visual="w7-reading-order"><div class="w7-plot" tabindex="0" role="group" aria-label="Keep the subtraction order visible; scroll horizontally on narrow screens"><svg id="w7-reading-order" role="img" aria-labelledby="w7-reading-order-title w7-reading-order-desc" xmlns:xlink="http://www.w3.org/1999/xlink" width="504pt" height="252pt" viewBox="0 0 504 252" xmlns="http://www.w3.org/2000/svg" version="1.1">
+<title id="w7-reading-order-title">Keep the subtraction order visible</title><desc id="w7-reading-order-desc">Method 1 sample mean is 81.4, Method 2 is 76.8. Method 1 minus Method 2 is positive 4.6; reversing the order gives negative 4.6.</desc>
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">#w7-reading-order *{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="w7-reading-order-figure_1">
+  <g id="w7-reading-order-patch_1">
+   <path d="M 0 252 L 504 252 L 504 0 L 0 0 z" style="fill: #ffffff"/>
+  </g>
+  <g id="w7-reading-order-axes_1">
+   <g id="w7-reading-order-patch_2">
+    <path d="M 60.48 86.330323 L 488.88 86.330323 L 488.88 30.24 L 60.48 30.24 z" style="fill: #ffffff"/>
+   </g>
+   <g id="w7-reading-order-matplotlib.axis_1">
+    <g id="w7-reading-order-xtick_1">
+     <g id="w7-reading-order-line2d_1">
+      <defs>
+       <path id="w7-reading-order-m663283818c" d="M 0 0 L 0 3.5" style="stroke: #536675; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#w7-reading-order-m663283818c" x="96.18" y="86.330323" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w7-reading-order-text_1">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="96.18" y="102.828369" transform="rotate(-0 96.18 102.828369)">74.0</text>
+     </g>
+    </g>
+    <g id="w7-reading-order-xtick_2">
+     <g id="w7-reading-order-line2d_2">
+      <g>
+       <use xlink:href="#w7-reading-order-m663283818c" x="196.14" y="86.330323" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w7-reading-order-text_2">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="196.14" y="102.828369" transform="rotate(-0 196.14 102.828369)">76.8</text>
+     </g>
+    </g>
+    <g id="w7-reading-order-xtick_3">
+     <g id="w7-reading-order-line2d_3">
+      <g>
+       <use xlink:href="#w7-reading-order-m663283818c" x="360.36" y="86.330323" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w7-reading-order-text_3">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="360.36" y="102.828369" transform="rotate(-0 360.36 102.828369)">81.4</text>
+     </g>
+    </g>
+    <g id="w7-reading-order-xtick_4">
+     <g id="w7-reading-order-line2d_4">
+      <g>
+       <use xlink:href="#w7-reading-order-m663283818c" x="453.18" y="86.330323" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w7-reading-order-text_4">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="453.18" y="102.828369" transform="rotate(-0 453.18 102.828369)">84.0</text>
+     </g>
+    </g>
+    <g id="w7-reading-order-text_5">
+     <text style="font-size: 11.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="274.68" y="118.166182" transform="rotate(-0 274.68 118.166182)">Observed mean score</text>
+    </g>
+   </g>
+   <g id="w7-reading-order-matplotlib.axis_2"/>
+   <g id="w7-reading-order-line2d_5">
+    <path d="M 196.14 64.757122 L 360.36 64.757122" clip-path="url(#w7-reading-order-p6c55dea64d)" style="fill: none; stroke: #bac7d0; stroke-width: 2; stroke-linecap: square"/>
+   </g>
+   <g id="w7-reading-order-line2d_6">
+    <defs>
+     <path id="w7-reading-order-m2974ebef30" d="M 0 4 C 1.060812 4 2.078319 3.578535 2.828427 2.828427 C 3.578535 2.078319 4 1.060812 4 0 C 4 -1.060812 3.578535 -2.078319 2.828427 -2.828427 C 2.078319 -3.578535 1.060812 -4 0 -4 C -1.060812 -4 -2.078319 -3.578535 -2.828427 -2.828427 C -3.578535 -2.078319 -4 -1.060812 -4 0 C -4 1.060812 -3.578535 2.078319 -2.828427 2.828427 C -2.078319 3.578535 -1.060812 4 0 4 z" style="stroke: #245a81"/>
+    </defs>
+    <g clip-path="url(#w7-reading-order-p6c55dea64d)">
+     <use xlink:href="#w7-reading-order-m2974ebef30" x="360.36" y="64.757122" style="fill: #245a81; stroke: #245a81"/>
+    </g>
+   </g>
+   <g id="w7-reading-order-line2d_7">
+    <defs>
+     <path id="w7-reading-order-me2b4cd0123" d="M 0 4 C 1.060812 4 2.078319 3.578535 2.828427 2.828427 C 3.578535 2.078319 4 1.060812 4 0 C 4 -1.060812 3.578535 -2.078319 2.828427 -2.828427 C 2.078319 -3.578535 1.060812 -4 0 -4 C -1.060812 -4 -2.078319 -3.578535 -2.828427 -2.828427 C -3.578535 -2.078319 -4 -1.060812 -4 0 C -4 1.060812 -3.578535 2.078319 -2.828427 2.828427 C -2.078319 3.578535 -1.060812 4 0 4 z" style="stroke: #287d76"/>
+    </defs>
+    <g clip-path="url(#w7-reading-order-p6c55dea64d)">
+     <use xlink:href="#w7-reading-order-me2b4cd0123" x="196.14" y="64.757122" style="fill: #287d76; stroke: #287d76"/>
+    </g>
+   </g>
+   <g id="w7-reading-order-patch_3">
+    <path d="M 60.48 86.330323 L 488.88 86.330323" style="fill: none; stroke: #80919c; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="w7-reading-order-text_6">
+    <text style="font-size: 11.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #245a81" x="360.36" y="51.813201" transform="rotate(-0 360.36 51.813201)">Method 1: 81.4</text>
+   </g>
+   <g id="w7-reading-order-text_7">
+    <text style="font-size: 11.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #287d76" x="196.14" y="51.813201" transform="rotate(-0 196.14 51.813201)">Method 2: 76.8</text>
+   </g>
+  </g>
+  <g id="w7-reading-order-axes_2">
+   <g id="w7-reading-order-patch_4">
+    <path d="M 60.48 204.12 L 488.88 204.12 L 488.88 148.029677 L 60.48 148.029677 z" style="fill: #ffffff"/>
+   </g>
+   <g id="w7-reading-order-matplotlib.axis_3">
+    <g id="w7-reading-order-xtick_5">
+     <g id="w7-reading-order-line2d_8">
+      <g>
+       <use xlink:href="#w7-reading-order-m663283818c" x="133.92" y="204.12" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w7-reading-order-text_8">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="133.92" y="220.618047" transform="rotate(-0 133.92 220.618047)">−4.6</text>
+     </g>
+    </g>
+    <g id="w7-reading-order-xtick_6">
+     <g id="w7-reading-order-line2d_9">
+      <g>
+       <use xlink:href="#w7-reading-order-m663283818c" x="274.68" y="204.12" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w7-reading-order-text_9">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="274.68" y="220.618047" transform="rotate(-0 274.68 220.618047)">0.0</text>
+     </g>
+    </g>
+    <g id="w7-reading-order-xtick_7">
+     <g id="w7-reading-order-line2d_10">
+      <g>
+       <use xlink:href="#w7-reading-order-m663283818c" x="415.44" y="204.12" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w7-reading-order-text_10">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="415.44" y="220.618047" transform="rotate(-0 415.44 220.618047)">4.6</text>
+     </g>
+    </g>
+    <g id="w7-reading-order-text_11">
+     <text style="font-size: 11.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="274.68" y="235.955859" transform="rotate(-0 274.68 235.955859)">Difference in points: its sign depends on the stated order</text>
+    </g>
+   </g>
+   <g id="w7-reading-order-matplotlib.axis_4"/>
+   <g id="w7-reading-order-line2d_11">
+    <path d="M 274.68 204.12 L 274.68 148.029677" clip-path="url(#w7-reading-order-p40a2519333)" style="fill: none; stroke-dasharray: 5.55,2.4; stroke-dashoffset: 0; stroke: #536675; stroke-width: 1.5"/>
+   </g>
+   <g id="w7-reading-order-line2d_12">
+    <g clip-path="url(#w7-reading-order-p40a2519333)">
+     <use xlink:href="#w7-reading-order-m2974ebef30" x="415.44" y="182.546799" style="fill: #245a81; stroke: #245a81"/>
+    </g>
+   </g>
+   <g id="w7-reading-order-line2d_13">
+    <g clip-path="url(#w7-reading-order-p40a2519333)">
+     <use xlink:href="#w7-reading-order-me2b4cd0123" x="133.92" y="182.546799" style="fill: #287d76; stroke: #287d76"/>
+    </g>
+   </g>
+   <g id="w7-reading-order-patch_5">
+    <path d="M 60.48 204.12 L 488.88 204.12" style="fill: none; stroke: #80919c; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="w7-reading-order-text_12">
+    <text style="font-size: 11.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #245a81" x="415.44" y="169.171414" transform="rotate(-0 415.44 169.171414)">1 − 2 = +4.6</text>
+   </g>
+   <g id="w7-reading-order-text_13">
+    <text style="font-size: 11.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #287d76" x="133.92" y="169.171414" transform="rotate(-0 133.92 169.171414)">2 − 1 = −4.6</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="w7-reading-order-p6c55dea64d">
+   <rect x="60.48" y="30.24" width="428.4" height="56.090323"/>
+  </clipPath>
+  <clipPath id="w7-reading-order-p40a2519333">
+   <rect x="60.48" y="148.029677" width="428.4" height="56.090323"/>
+  </clipPath>
+ </defs>
+</svg></div><figcaption><b>Keep the subtraction order visible</b>The measurements have not changed when the subtraction order changes. The estimate changes sign; its standard error and two-sided p-value stay the same. Reverse the population parameter and interval endpoints consistently too.</figcaption></figure>
+<p>For independent sample means, their variances add when taking a difference. Both samples contribute uncertainty; their standard deviations are not simply added or averaged.</p><div class="eq">\[SE=\sqrt{\frac{\sigma_1^2}{n_1}+\frac{\sigma_2^2}{n_2}}\]</div>
+<figure class="w7-visual" data-visual="w7-reading-variance"><div class="w7-plot" tabindex="0" role="group" aria-label="Both independent samples contribute uncertainty; scroll horizontally on narrow screens"><svg id="w7-reading-variance" role="img" aria-labelledby="w7-reading-variance-title w7-reading-variance-desc" xmlns:xlink="http://www.w3.org/1999/xlink" width="504pt" height="208.8pt" viewBox="0 0 504 208.8" xmlns="http://www.w3.org/2000/svg" version="1.1">
+<title id="w7-reading-variance-title">Both independent samples contribute uncertainty</title><desc id="w7-reading-variance-desc">Group 1 contributes variance 2.41829, Group 2 contributes 3.025. Their sum is 5.44329; the square root gives standard error 2.33309.</desc>
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">#w7-reading-variance *{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="w7-reading-variance-figure_1">
+  <g id="w7-reading-variance-patch_1">
+   <path d="M 0 208.8 L 504 208.8 L 504 0 L 0 0 z" style="fill: #ffffff"/>
+  </g>
+  <g id="w7-reading-variance-axes_1">
+   <g id="w7-reading-variance-patch_2">
+    <path d="M 50.4 150.336 L 488.88 150.336 L 488.88 37.584 L 50.4 37.584 z" style="fill: #ffffff"/>
+   </g>
+   <g id="w7-reading-variance-patch_3">
+    <path d="M 50.4 112.00032 L 243.274536 112.00032 L 243.274536 75.91968 L 50.4 75.91968 z" clip-path="url(#w7-reading-variance-p8ea7708de6)" style="fill: #b9d8d4"/>
+   </g>
+   <g id="w7-reading-variance-patch_4">
+    <path d="M 243.274536 112.00032 L 484.538614 112.00032 L 484.538614 75.91968 L 243.274536 75.91968 z" clip-path="url(#w7-reading-variance-p8ea7708de6)" style="fill: #bcd0e1"/>
+   </g>
+   <g id="w7-reading-variance-matplotlib.axis_1">
+    <g id="w7-reading-variance-xtick_1">
+     <g id="w7-reading-variance-line2d_1">
+      <defs>
+       <path id="w7-reading-variance-m2cef9f2e3d" d="M 0 0 L 0 3.5" style="stroke: #536675; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#w7-reading-variance-m2cef9f2e3d" x="50.4" y="150.336" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w7-reading-variance-text_1">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="50.4" y="165.694281" transform="rotate(-0 50.4 165.694281)">0</text>
+     </g>
+    </g>
+    <g id="w7-reading-variance-xtick_2">
+     <g id="w7-reading-variance-line2d_2">
+      <g>
+       <use xlink:href="#w7-reading-variance-m2cef9f2e3d" x="130.15672" y="150.336" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w7-reading-variance-text_2">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="130.15672" y="165.694281" transform="rotate(-0 130.15672 165.694281)">1</text>
+     </g>
+    </g>
+    <g id="w7-reading-variance-xtick_3">
+     <g id="w7-reading-variance-line2d_3">
+      <g>
+       <use xlink:href="#w7-reading-variance-m2cef9f2e3d" x="209.91344" y="150.336" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w7-reading-variance-text_3">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="209.91344" y="165.694281" transform="rotate(-0 209.91344 165.694281)">2</text>
+     </g>
+    </g>
+    <g id="w7-reading-variance-xtick_4">
+     <g id="w7-reading-variance-line2d_4">
+      <g>
+       <use xlink:href="#w7-reading-variance-m2cef9f2e3d" x="289.67016" y="150.336" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w7-reading-variance-text_4">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="289.67016" y="165.694281" transform="rotate(-0 289.67016 165.694281)">3</text>
+     </g>
+    </g>
+    <g id="w7-reading-variance-xtick_5">
+     <g id="w7-reading-variance-line2d_5">
+      <g>
+       <use xlink:href="#w7-reading-variance-m2cef9f2e3d" x="369.426879" y="150.336" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w7-reading-variance-text_5">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="369.426879" y="165.694281" transform="rotate(-0 369.426879 165.694281)">4</text>
+     </g>
+    </g>
+    <g id="w7-reading-variance-xtick_6">
+     <g id="w7-reading-variance-line2d_6">
+      <g>
+       <use xlink:href="#w7-reading-variance-m2cef9f2e3d" x="449.183599" y="150.336" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w7-reading-variance-text_6">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="449.183599" y="165.694281" transform="rotate(-0 449.183599 165.694281)">5</text>
+     </g>
+    </g>
+    <g id="w7-reading-variance-text_7">
+     <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="269.64" y="184.479984" transform="rotate(-0 269.64 184.479984)">Variance contribution (points²)</text>
+    </g>
+   </g>
+   <g id="w7-reading-variance-matplotlib.axis_2"/>
+   <g id="w7-reading-variance-patch_5">
+    <path d="M 50.4 150.336 L 488.88 150.336" style="fill: none; stroke: #80919c; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="w7-reading-variance-text_8">
+    <text style="font-size: 11.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="146.837268" y="97.133281" transform="rotate(-0 146.837268 97.133281)">Group 1: 2.418</text>
+   </g>
+   <g id="w7-reading-variance-text_9">
+    <text style="font-size: 11.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="363.906575" y="97.133281" transform="rotate(-0 363.906575 97.133281)">Group 2: 3.025</text>
+   </g>
+   <g id="w7-reading-variance-text_10">
+    <text style="font-size: 12px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="269.64" y="17.28864" transform="rotate(-0 269.64 17.28864)">Variance of difference = 5.443;   SE = √5.443 ≈ 2.333 points</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="w7-reading-variance-p8ea7708de6">
+   <rect x="50.4" y="37.584" width="438.48" height="112.752"/>
+  </clipPath>
+ </defs>
+</svg></div><figcaption><b>Both independent samples contribute uncertainty</b>For the teaching-method example below, add 9.2²/35 and 11²/40, then take the square root. Subtracting the means does <em>not</em> subtract their independent sources of sampling variation.</figcaption></figure>
+<p>The chapter uses known population standard deviations. Check independent sampling within and between groups and a suitable normal approximation for both means. Strong skewness can make the approximation poor despite apparently large samples.</p><div class="practice"><b>Check your understanding.</b><p>If both sample means estimate equal population means, where is their difference distribution centered?</p><details><summary>Show explanation</summary><p>At zero. Observed differences still vary from sample to sample.</p></details></div></section><section id="s2"><h2>3. A two-sample z-test for means</h2><p>Use the same hypothesis-testing steps as last week: state the hypotheses and α, check conditions, compute the statistic, find the appropriate tail probability, and conclude in context.</p><div class="eq">\[z=\frac{(\bar x_1-\bar x_2)-0}{\sqrt{\sigma_1^2/n_1+\sigma_2^2/n_2}}\]</div><div class="example"><b>Worked example.</b><p>Two teaching-method groups have \(n_1=35\), \(\bar x_1=81.4\), known \(\sigma_1=9.2\); and \(n_2=40\), \(\bar x_2=76.8\), known \(\sigma_2=11.0\). The difference is 4.6 points. Standard error is \(\sqrt{9.2^2/35+11^2/40}\approx2.333\), so \(z\approx1.97\). The two-sided p-value is about 0.0488, using the rounded z-table value.</p></div>
+<figure class="w7-visual" data-visual="w7-reading-null"><div class="w7-plot" tabindex="0" role="group" aria-label="Equal population means predict differences centered at zero; scroll horizontally on narrow screens"><svg id="w7-reading-null" role="img" aria-labelledby="w7-reading-null-title w7-reading-null-desc" xmlns:xlink="http://www.w3.org/1999/xlink" width="504pt" height="237.6pt" viewBox="0 0 504 237.6" xmlns="http://www.w3.org/2000/svg" version="1.1">
+<title id="w7-reading-null-title">Equal population means predict differences centered at zero</title><desc id="w7-reading-null-desc">Normal null distribution of a difference, centered at zero with standard error 2.33309; the observed difference is 4.6. The curve describes repeated differences of sample means under H₀. Shade both tails at least 4.6 points from zero. Full precision gives p ≈ 0.0487; rounding z to 1.97 before a table lookup gives 0.0488.</desc>
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">#w7-reading-null *{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="w7-reading-null-figure_1">
+  <g id="w7-reading-null-patch_1">
+   <path d="M 0 237.6 L 504 237.6 L 504 0 L 0 0 z" style="fill: #ffffff"/>
+  </g>
+  <g id="w7-reading-null-axes_1">
+   <g id="w7-reading-null-patch_2">
+    <path d="M 60.48 180.576 L 491.4 180.576 L 491.4 38.016 L 60.48 38.016 z" style="fill: #ffffff"/>
+   </g>
+   <g id="w7-reading-null-matplotlib.axis_1">
+    <g id="w7-reading-null-xtick_1">
+     <g id="w7-reading-null-line2d_1">
+      <defs>
+       <path id="w7-reading-null-mca324d17d5" d="M 0 0 L 0 3.5" style="stroke: #536675; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#w7-reading-null-mca324d17d5" x="105.84" y="180.576" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w7-reading-null-text_1">
+      <text style="font-size: 11.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="105.84" y="196.314203" transform="rotate(-0 105.84 196.314203)">−7</text>
+     </g>
+    </g>
+    <g id="w7-reading-null-xtick_2">
+     <g id="w7-reading-null-line2d_2">
+      <g>
+       <use xlink:href="#w7-reading-null-mca324d17d5" x="164.148103" y="180.576" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w7-reading-null-text_2">
+      <text style="font-size: 11.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="164.148103" y="196.314203" transform="rotate(-0 164.148103 196.314203)">−4.6</text>
+     </g>
+    </g>
+    <g id="w7-reading-null-xtick_3">
+     <g id="w7-reading-null-line2d_3">
+      <g>
+       <use xlink:href="#w7-reading-null-mca324d17d5" x="275.94" y="180.576" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w7-reading-null-text_3">
+      <text style="font-size: 11.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="275.94" y="196.314203" transform="rotate(-0 275.94 196.314203)">0</text>
+     </g>
+    </g>
+    <g id="w7-reading-null-xtick_4">
+     <g id="w7-reading-null-line2d_4">
+      <g>
+       <use xlink:href="#w7-reading-null-mca324d17d5" x="387.731897" y="180.576" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w7-reading-null-text_4">
+      <text style="font-size: 11.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="387.731897" y="196.314203" transform="rotate(-0 387.731897 196.314203)">4.6</text>
+     </g>
+    </g>
+    <g id="w7-reading-null-xtick_5">
+     <g id="w7-reading-null-line2d_5">
+      <g>
+       <use xlink:href="#w7-reading-null-mca324d17d5" x="446.04" y="180.576" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w7-reading-null-text_5">
+      <text style="font-size: 11.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="446.04" y="196.314203" transform="rotate(-0 446.04 196.314203)">7</text>
+     </g>
+    </g>
+    <g id="w7-reading-null-text_6">
+     <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="275.94" y="216.203891" transform="rotate(-0 275.94 216.203891)">Difference of sample means (points)</text>
+    </g>
+   </g>
+   <g id="w7-reading-null-matplotlib.axis_2">
+    <g id="w7-reading-null-ytick_1">
+     <g id="w7-reading-null-line2d_6">
+      <path d="M 60.48 180.576 L 491.4 180.576" clip-path="url(#w7-reading-null-p000d22f2aa)" style="fill: none; stroke: #e7edf0; stroke-width: 0.7; stroke-linecap: square"/>
+     </g>
+     <g id="w7-reading-null-line2d_7">
+      <defs>
+       <path id="w7-reading-null-m6b6a80bf3d" d="M 0 0 L -3.5 0" style="stroke: #536675; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#w7-reading-null-m6b6a80bf3d" x="60.48" y="180.576" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w7-reading-null-text_7">
+      <text style="font-size: 11.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #536675" x="53.48" y="184.945102" transform="rotate(-0 53.48 184.945102)">0</text>
+     </g>
+    </g>
+    <g id="w7-reading-null-ytick_2">
+     <g id="w7-reading-null-line2d_8">
+      <path d="M 60.48 121.176 L 491.4 121.176" clip-path="url(#w7-reading-null-p000d22f2aa)" style="fill: none; stroke: #e7edf0; stroke-width: 0.7; stroke-linecap: square"/>
+     </g>
+     <g id="w7-reading-null-line2d_9">
+      <g>
+       <use xlink:href="#w7-reading-null-m6b6a80bf3d" x="60.48" y="121.176" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w7-reading-null-text_8">
+      <text style="font-size: 11.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #536675" x="53.48" y="125.545102" transform="rotate(-0 53.48 125.545102)">0.086</text>
+     </g>
+    </g>
+    <g id="w7-reading-null-ytick_3">
+     <g id="w7-reading-null-line2d_10">
+      <path d="M 60.48 61.776 L 491.4 61.776" clip-path="url(#w7-reading-null-p000d22f2aa)" style="fill: none; stroke: #e7edf0; stroke-width: 0.7; stroke-linecap: square"/>
+     </g>
+     <g id="w7-reading-null-line2d_11">
+      <g>
+       <use xlink:href="#w7-reading-null-m6b6a80bf3d" x="60.48" y="61.776" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w7-reading-null-text_9">
+      <text style="font-size: 11.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #536675" x="53.48" y="66.145102" transform="rotate(-0 53.48 66.145102)">0.17</text>
+     </g>
+    </g>
+    <g id="w7-reading-null-text_10">
+     <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="9.958047" y="109.296" transform="rotate(-90 9.958047 109.296)">Density</text>
+    </g>
+   </g>
+   <g id="w7-reading-null-FillBetweenPolyCollection_1">
+    <defs>
+     <path id="w7-reading-null-m7442a1313d" d="M 60.48 -57.110708 L 60.48 -57.024 L 60.687752 -57.024 L 60.895503 -57.024 L 61.103255 -57.024 L 61.311007 -57.024 L 61.518759 -57.024 L 61.72651 -57.024 L 61.934262 -57.024 L 62.142014 -57.024 L 62.349765 -57.024 L 62.557517 -57.024 L 62.765269 -57.024 L 62.973021 -57.024 L 63.180772 -57.024 L 63.388524 -57.024 L 63.596276 -57.024 L 63.804027 -57.024 L 64.011779 -57.024 L 64.219531 -57.024 L 64.427282 -57.024 L 64.635034 -57.024 L 64.842786 -57.024 L 65.050538 -57.024 L 65.258289 -57.024 L 65.466041 -57.024 L 65.673793 -57.024 L 65.881544 -57.024 L 66.089296 -57.024 L 66.297048 -57.024 L 66.5048 -57.024 L 66.712551 -57.024 L 66.920303 -57.024 L 67.128055 -57.024 L 67.335806 -57.024 L 67.543558 -57.024 L 67.75131 -57.024 L 67.959062 -57.024 L 68.166813 -57.024 L 68.374565 -57.024 L 68.582317 -57.024 L 68.790068 -57.024 L 68.99782 -57.024 L 69.205572 -57.024 L 69.413324 -57.024 L 69.621075 -57.024 L 69.828827 -57.024 L 70.036579 -57.024 L 70.24433 -57.024 L 70.452082 -57.024 L 70.659834 -57.024 L 70.867585 -57.024 L 71.075337 -57.024 L 71.283089 -57.024 L 71.490841 -57.024 L 71.698592 -57.024 L 71.906344 -57.024 L 72.114096 -57.024 L 72.321847 -57.024 L 72.529599 -57.024 L 72.737351 -57.024 L 72.945103 -57.024 L 73.152854 -57.024 L 73.360606 -57.024 L 73.568358 -57.024 L 73.776109 -57.024 L 73.983861 -57.024 L 74.191613 -57.024 L 74.399365 -57.024 L 74.607116 -57.024 L 74.814868 -57.024 L 75.02262 -57.024 L 75.230371 -57.024 L 75.438123 -57.024 L 75.645875 -57.024 L 75.853627 -57.024 L 76.061378 -57.024 L 76.26913 -57.024 L 76.476882 -57.024 L 76.684633 -57.024 L 76.892385 -57.024 L 77.100137 -57.024 L 77.307888 -57.024 L 77.51564 -57.024 L 77.723392 -57.024 L 77.931144 -57.024 L 78.138895 -57.024 L 78.346647 -57.024 L 78.554399 -57.024 L 78.76215 -57.024 L 78.969902 -57.024 L 79.177654 -57.024 L 79.385406 -57.024 L 79.593157 -57.024 L 79.800909 -57.024 L 80.008661 -57.024 L 80.216412 -57.024 L 80.424164 -57.024 L 80.631916 -57.024 L 80.839668 -57.024 L 81.047419 -57.024 L 81.255171 -57.024 L 81.462923 -57.024 L 81.670674 -57.024 L 81.878426 -57.024 L 82.086178 -57.024 L 82.29393 -57.024 L 82.501681 -57.024 L 82.709433 -57.024 L 82.917185 -57.024 L 83.124936 -57.024 L 83.332688 -57.024 L 83.54044 -57.024 L 83.748191 -57.024 L 83.955943 -57.024 L 84.163695 -57.024 L 84.371447 -57.024 L 84.579198 -57.024 L 84.78695 -57.024 L 84.994702 -57.024 L 85.202453 -57.024 L 85.410205 -57.024 L 85.617957 -57.024 L 85.825709 -57.024 L 86.03346 -57.024 L 86.241212 -57.024 L 86.448964 -57.024 L 86.656715 -57.024 L 86.864467 -57.024 L 87.072219 -57.024 L 87.279971 -57.024 L 87.487722 -57.024 L 87.695474 -57.024 L 87.903226 -57.024 L 88.110977 -57.024 L 88.318729 -57.024 L 88.526481 -57.024 L 88.734233 -57.024 L 88.941984 -57.024 L 89.149736 -57.024 L 89.357488 -57.024 L 89.565239 -57.024 L 89.772991 -57.024 L 89.980743 -57.024 L 90.188494 -57.024 L 90.396246 -57.024 L 90.603998 -57.024 L 90.81175 -57.024 L 91.019501 -57.024 L 91.227253 -57.024 L 91.435005 -57.024 L 91.642756 -57.024 L 91.850508 -57.024 L 92.05826 -57.024 L 92.266012 -57.024 L 92.473763 -57.024 L 92.681515 -57.024 L 92.889267 -57.024 L 93.097018 -57.024 L 93.30477 -57.024 L 93.512522 -57.024 L 93.720274 -57.024 L 93.928025 -57.024 L 94.135777 -57.024 L 94.343529 -57.024 L 94.55128 -57.024 L 94.759032 -57.024 L 94.966784 -57.024 L 95.174536 -57.024 L 95.382287 -57.024 L 95.590039 -57.024 L 95.797791 -57.024 L 96.005542 -57.024 L 96.213294 -57.024 L 96.421046 -57.024 L 96.628797 -57.024 L 96.836549 -57.024 L 97.044301 -57.024 L 97.252053 -57.024 L 97.459804 -57.024 L 97.667556 -57.024 L 97.875308 -57.024 L 98.083059 -57.024 L 98.290811 -57.024 L 98.498563 -57.024 L 98.706315 -57.024 L 98.914066 -57.024 L 99.121818 -57.024 L 99.32957 -57.024 L 99.537321 -57.024 L 99.745073 -57.024 L 99.952825 -57.024 L 100.160577 -57.024 L 100.368328 -57.024 L 100.57608 -57.024 L 100.783832 -57.024 L 100.991583 -57.024 L 101.199335 -57.024 L 101.407087 -57.024 L 101.614839 -57.024 L 101.82259 -57.024 L 102.030342 -57.024 L 102.238094 -57.024 L 102.445845 -57.024 L 102.653597 -57.024 L 102.861349 -57.024 L 103.0691 -57.024 L 103.276852 -57.024 L 103.484604 -57.024 L 103.692356 -57.024 L 103.900107 -57.024 L 104.107859 -57.024 L 104.315611 -57.024 L 104.523362 -57.024 L 104.731114 -57.024 L 104.938866 -57.024 L 105.146618 -57.024 L 105.354369 -57.024 L 105.562121 -57.024 L 105.769873 -57.024 L 105.977624 -57.024 L 106.185376 -57.024 L 106.393128 -57.024 L 106.60088 -57.024 L 106.808631 -57.024 L 107.016383 -57.024 L 107.224135 -57.024 L 107.431886 -57.024 L 107.639638 -57.024 L 107.84739 -57.024 L 108.055142 -57.024 L 108.262893 -57.024 L 108.470645 -57.024 L 108.678397 -57.024 L 108.886148 -57.024 L 109.0939 -57.024 L 109.301652 -57.024 L 109.509403 -57.024 L 109.717155 -57.024 L 109.924907 -57.024 L 110.132659 -57.024 L 110.34041 -57.024 L 110.548162 -57.024 L 110.755914 -57.024 L 110.963665 -57.024 L 111.171417 -57.024 L 111.379169 -57.024 L 111.586921 -57.024 L 111.794672 -57.024 L 112.002424 -57.024 L 112.210176 -57.024 L 112.417927 -57.024 L 112.625679 -57.024 L 112.833431 -57.024 L 113.041183 -57.024 L 113.248934 -57.024 L 113.456686 -57.024 L 113.664438 -57.024 L 113.872189 -57.024 L 114.079941 -57.024 L 114.287693 -57.024 L 114.495445 -57.024 L 114.703196 -57.024 L 114.910948 -57.024 L 115.1187 -57.024 L 115.326451 -57.024 L 115.534203 -57.024 L 115.741955 -57.024 L 115.949706 -57.024 L 116.157458 -57.024 L 116.36521 -57.024 L 116.572962 -57.024 L 116.780713 -57.024 L 116.988465 -57.024 L 117.196217 -57.024 L 117.403968 -57.024 L 117.61172 -57.024 L 117.819472 -57.024 L 118.027224 -57.024 L 118.234975 -57.024 L 118.442727 -57.024 L 118.650479 -57.024 L 118.85823 -57.024 L 119.065982 -57.024 L 119.273734 -57.024 L 119.481486 -57.024 L 119.689237 -57.024 L 119.896989 -57.024 L 120.104741 -57.024 L 120.312492 -57.024 L 120.520244 -57.024 L 120.727996 -57.024 L 120.935748 -57.024 L 121.143499 -57.024 L 121.351251 -57.024 L 121.559003 -57.024 L 121.766754 -57.024 L 121.974506 -57.024 L 122.182258 -57.024 L 122.390009 -57.024 L 122.597761 -57.024 L 122.805513 -57.024 L 123.013265 -57.024 L 123.221016 -57.024 L 123.428768 -57.024 L 123.63652 -57.024 L 123.844271 -57.024 L 124.052023 -57.024 L 124.259775 -57.024 L 124.467527 -57.024 L 124.675278 -57.024 L 124.88303 -57.024 L 125.090782 -57.024 L 125.298533 -57.024 L 125.506285 -57.024 L 125.714037 -57.024 L 125.921789 -57.024 L 126.12954 -57.024 L 126.337292 -57.024 L 126.545044 -57.024 L 126.752795 -57.024 L 126.960547 -57.024 L 127.168299 -57.024 L 127.376051 -57.024 L 127.583802 -57.024 L 127.791554 -57.024 L 127.999306 -57.024 L 128.207057 -57.024 L 128.414809 -57.024 L 128.622561 -57.024 L 128.830312 -57.024 L 129.038064 -57.024 L 129.245816 -57.024 L 129.453568 -57.024 L 129.661319 -57.024 L 129.869071 -57.024 L 130.076823 -57.024 L 130.284574 -57.024 L 130.492326 -57.024 L 130.700078 -57.024 L 130.90783 -57.024 L 131.115581 -57.024 L 131.323333 -57.024 L 131.531085 -57.024 L 131.738836 -57.024 L 131.946588 -57.024 L 132.15434 -57.024 L 132.362092 -57.024 L 132.569843 -57.024 L 132.777595 -57.024 L 132.985347 -57.024 L 133.193098 -57.024 L 133.40085 -57.024 L 133.608602 -57.024 L 133.816354 -57.024 L 134.024105 -57.024 L 134.231857 -57.024 L 134.439609 -57.024 L 134.64736 -57.024 L 134.855112 -57.024 L 135.062864 -57.024 L 135.270615 -57.024 L 135.478367 -57.024 L 135.686119 -57.024 L 135.893871 -57.024 L 136.101622 -57.024 L 136.309374 -57.024 L 136.517126 -57.024 L 136.724877 -57.024 L 136.932629 -57.024 L 137.140381 -57.024 L 137.348133 -57.024 L 137.555884 -57.024 L 137.763636 -57.024 L 137.971388 -57.024 L 138.179139 -57.024 L 138.386891 -57.024 L 138.594643 -57.024 L 138.802395 -57.024 L 139.010146 -57.024 L 139.217898 -57.024 L 139.42565 -57.024 L 139.633401 -57.024 L 139.841153 -57.024 L 140.048905 -57.024 L 140.256657 -57.024 L 140.464408 -57.024 L 140.67216 -57.024 L 140.879912 -57.024 L 141.087663 -57.024 L 141.295415 -57.024 L 141.503167 -57.024 L 141.710918 -57.024 L 141.91867 -57.024 L 142.126422 -57.024 L 142.334174 -57.024 L 142.541925 -57.024 L 142.749677 -57.024 L 142.957429 -57.024 L 143.16518 -57.024 L 143.372932 -57.024 L 143.580684 -57.024 L 143.788436 -57.024 L 143.996187 -57.024 L 144.203939 -57.024 L 144.411691 -57.024 L 144.619442 -57.024 L 144.827194 -57.024 L 145.034946 -57.024 L 145.242698 -57.024 L 145.450449 -57.024 L 145.658201 -57.024 L 145.865953 -57.024 L 146.073704 -57.024 L 146.281456 -57.024 L 146.489208 -57.024 L 146.69696 -57.024 L 146.904711 -57.024 L 147.112463 -57.024 L 147.320215 -57.024 L 147.527966 -57.024 L 147.735718 -57.024 L 147.94347 -57.024 L 148.151221 -57.024 L 148.358973 -57.024 L 148.566725 -57.024 L 148.774477 -57.024 L 148.982228 -57.024 L 149.18998 -57.024 L 149.397732 -57.024 L 149.605483 -57.024 L 149.813235 -57.024 L 150.020987 -57.024 L 150.228739 -57.024 L 150.43649 -57.024 L 150.644242 -57.024 L 150.851994 -57.024 L 151.059745 -57.024 L 151.267497 -57.024 L 151.475249 -57.024 L 151.683001 -57.024 L 151.890752 -57.024 L 152.098504 -57.024 L 152.306256 -57.024 L 152.514007 -57.024 L 152.721759 -57.024 L 152.929511 -57.024 L 153.137263 -57.024 L 153.345014 -57.024 L 153.552766 -57.024 L 153.760518 -57.024 L 153.968269 -57.024 L 154.176021 -57.024 L 154.383773 -57.024 L 154.591524 -57.024 L 154.799276 -57.024 L 155.007028 -57.024 L 155.21478 -57.024 L 155.422531 -57.024 L 155.630283 -57.024 L 155.838035 -57.024 L 156.045786 -57.024 L 156.253538 -57.024 L 156.46129 -57.024 L 156.669042 -57.024 L 156.876793 -57.024 L 157.084545 -57.024 L 157.292297 -57.024 L 157.500048 -57.024 L 157.7078 -57.024 L 157.915552 -57.024 L 158.123304 -57.024 L 158.331055 -57.024 L 158.538807 -57.024 L 158.746559 -57.024 L 158.95431 -57.024 L 159.162062 -57.024 L 159.369814 -57.024 L 159.577566 -57.024 L 159.785317 -57.024 L 159.993069 -57.024 L 160.200821 -57.024 L 160.408572 -57.024 L 160.616324 -57.024 L 160.824076 -57.024 L 161.031827 -57.024 L 161.239579 -57.024 L 161.447331 -57.024 L 161.655083 -57.024 L 161.862834 -57.024 L 162.070586 -57.024 L 162.278338 -57.024 L 162.486089 -57.024 L 162.693841 -57.024 L 162.901593 -57.024 L 163.109345 -57.024 L 163.317096 -57.024 L 163.524848 -57.024 L 163.7326 -57.024 L 163.940351 -57.024 L 164.148103 -57.024 L 164.148103 -73.988359 L 164.148103 -73.988359 L 163.940351 -73.866134 L 163.7326 -73.744565 L 163.524848 -73.623651 L 163.317096 -73.50339 L 163.109345 -73.38378 L 162.901593 -73.264821 L 162.693841 -73.14651 L 162.486089 -73.028846 L 162.278338 -72.911827 L 162.070586 -72.795453 L 161.862834 -72.67972 L 161.655083 -72.564629 L 161.447331 -72.450176 L 161.239579 -72.33636 L 161.031827 -72.223181 L 160.824076 -72.110635 L 160.616324 -71.998721 L 160.408572 -71.887439 L 160.200821 -71.776785 L 159.993069 -71.666758 L 159.785317 -71.557357 L 159.577566 -71.448579 L 159.369814 -71.340424 L 159.162062 -71.232889 L 158.95431 -71.125972 L 158.746559 -71.019671 L 158.538807 -70.913986 L 158.331055 -70.808913 L 158.123304 -70.704452 L 157.915552 -70.6006 L 157.7078 -70.497356 L 157.500048 -70.394717 L 157.292297 -70.292682 L 157.084545 -70.191248 L 156.876793 -70.090415 L 156.669042 -69.99018 L 156.46129 -69.890541 L 156.253538 -69.791496 L 156.045786 -69.693044 L 155.838035 -69.595182 L 155.630283 -69.497908 L 155.422531 -69.401221 L 155.21478 -69.305119 L 155.007028 -69.209599 L 154.799276 -69.11466 L 154.591524 -69.020299 L 154.383773 -68.926515 L 154.176021 -68.833306 L 153.968269 -68.740669 L 153.760518 -68.648603 L 153.552766 -68.557106 L 153.345014 -68.466175 L 153.137263 -68.375808 L 152.929511 -68.286005 L 152.721759 -68.196761 L 152.514007 -68.108076 L 152.306256 -68.019947 L 152.098504 -67.932373 L 151.890752 -67.84535 L 151.683001 -67.758878 L 151.475249 -67.672954 L 151.267497 -67.587576 L 151.059745 -67.502741 L 150.851994 -67.418449 L 150.644242 -67.334696 L 150.43649 -67.25148 L 150.228739 -67.1688 L 150.020987 -67.086653 L 149.813235 -67.005038 L 149.605483 -66.923951 L 149.397732 -66.843391 L 149.18998 -66.763357 L 148.982228 -66.683844 L 148.774477 -66.604853 L 148.566725 -66.526379 L 148.358973 -66.448422 L 148.151221 -66.370979 L 147.94347 -66.294048 L 147.735718 -66.217627 L 147.527966 -66.141713 L 147.320215 -66.066305 L 147.112463 -65.9914 L 146.904711 -65.916996 L 146.69696 -65.843091 L 146.489208 -65.769683 L 146.281456 -65.696769 L 146.073704 -65.624348 L 145.865953 -65.552417 L 145.658201 -65.480974 L 145.450449 -65.410017 L 145.242698 -65.339544 L 145.034946 -65.269552 L 144.827194 -65.20004 L 144.619442 -65.131005 L 144.411691 -65.062444 L 144.203939 -64.994357 L 143.996187 -64.92674 L 143.788436 -64.859592 L 143.580684 -64.79291 L 143.372932 -64.726692 L 143.16518 -64.660936 L 142.957429 -64.595639 L 142.749677 -64.5308 L 142.541925 -64.466417 L 142.334174 -64.402486 L 142.126422 -64.339006 L 141.91867 -64.275976 L 141.710918 -64.213392 L 141.503167 -64.151252 L 141.295415 -64.089554 L 141.087663 -64.028297 L 140.879912 -63.967477 L 140.67216 -63.907093 L 140.464408 -63.847143 L 140.256657 -63.787624 L 140.048905 -63.728534 L 139.841153 -63.669871 L 139.633401 -63.611633 L 139.42565 -63.553818 L 139.217898 -63.496423 L 139.010146 -63.439447 L 138.802395 -63.382886 L 138.594643 -63.32674 L 138.386891 -63.271006 L 138.179139 -63.215681 L 137.971388 -63.160764 L 137.763636 -63.106253 L 137.555884 -63.052144 L 137.348133 -62.998437 L 137.140381 -62.945129 L 136.932629 -62.892218 L 136.724877 -62.839701 L 136.517126 -62.787577 L 136.309374 -62.735844 L 136.101622 -62.684499 L 135.893871 -62.63354 L 135.686119 -62.582965 L 135.478367 -62.532772 L 135.270615 -62.482959 L 135.062864 -62.433524 L 134.855112 -62.384465 L 134.64736 -62.335779 L 134.439609 -62.287465 L 134.231857 -62.23952 L 134.024105 -62.191943 L 133.816354 -62.144731 L 133.608602 -62.097882 L 133.40085 -62.051394 L 133.193098 -62.005265 L 132.985347 -61.959494 L 132.777595 -61.914077 L 132.569843 -61.869013 L 132.362092 -61.8243 L 132.15434 -61.779935 L 131.946588 -61.735918 L 131.738836 -61.692245 L 131.531085 -61.648915 L 131.323333 -61.605925 L 131.115581 -61.563274 L 130.90783 -61.52096 L 130.700078 -61.478981 L 130.492326 -61.437334 L 130.284574 -61.396017 L 130.076823 -61.35503 L 129.869071 -61.314369 L 129.661319 -61.274033 L 129.453568 -61.234019 L 129.245816 -61.194326 L 129.038064 -61.154952 L 128.830312 -61.115895 L 128.622561 -61.077152 L 128.414809 -61.038723 L 128.207057 -61.000604 L 127.999306 -60.962795 L 127.791554 -60.925292 L 127.583802 -60.888095 L 127.376051 -60.851201 L 127.168299 -60.814609 L 126.960547 -60.778316 L 126.752795 -60.74232 L 126.545044 -60.706621 L 126.337292 -60.671215 L 126.12954 -60.6361 L 125.921789 -60.601276 L 125.714037 -60.56674 L 125.506285 -60.532491 L 125.298533 -60.498526 L 125.090782 -60.464843 L 124.88303 -60.431442 L 124.675278 -60.398319 L 124.467527 -60.365473 L 124.259775 -60.332903 L 124.052023 -60.300606 L 123.844271 -60.268581 L 123.63652 -60.236825 L 123.428768 -60.205338 L 123.221016 -60.174117 L 123.013265 -60.143161 L 122.805513 -60.112467 L 122.597761 -60.082034 L 122.390009 -60.051861 L 122.182258 -60.021945 L 121.974506 -59.992285 L 121.766754 -59.962878 L 121.559003 -59.933724 L 121.351251 -59.904821 L 121.143499 -59.876166 L 120.935748 -59.847759 L 120.727996 -59.819596 L 120.520244 -59.791678 L 120.312492 -59.764002 L 120.104741 -59.736565 L 119.896989 -59.709368 L 119.689237 -59.682408 L 119.481486 -59.655683 L 119.273734 -59.629191 L 119.065982 -59.602932 L 118.85823 -59.576903 L 118.650479 -59.551103 L 118.442727 -59.52553 L 118.234975 -59.500182 L 118.027224 -59.475059 L 117.819472 -59.450158 L 117.61172 -59.425477 L 117.403968 -59.401016 L 117.196217 -59.376772 L 116.988465 -59.352745 L 116.780713 -59.328931 L 116.572962 -59.305331 L 116.36521 -59.281942 L 116.157458 -59.258763 L 115.949706 -59.235792 L 115.741955 -59.213028 L 115.534203 -59.190468 L 115.326451 -59.168113 L 115.1187 -59.14596 L 114.910948 -59.124007 L 114.703196 -59.102254 L 114.495445 -59.080699 L 114.287693 -59.059339 L 114.079941 -59.038175 L 113.872189 -59.017204 L 113.664438 -58.996424 L 113.456686 -58.975835 L 113.248934 -58.955436 L 113.041183 -58.935223 L 112.833431 -58.915197 L 112.625679 -58.895355 L 112.417927 -58.875697 L 112.210176 -58.856221 L 112.002424 -58.836925 L 111.794672 -58.817808 L 111.586921 -58.798869 L 111.379169 -58.780107 L 111.171417 -58.761519 L 110.963665 -58.743106 L 110.755914 -58.724864 L 110.548162 -58.706793 L 110.34041 -58.688893 L 110.132659 -58.67116 L 109.924907 -58.653594 L 109.717155 -58.636194 L 109.509403 -58.618959 L 109.301652 -58.601886 L 109.0939 -58.584975 L 108.886148 -58.568225 L 108.678397 -58.551634 L 108.470645 -58.535201 L 108.262893 -58.518925 L 108.055142 -58.502804 L 107.84739 -58.486837 L 107.639638 -58.471024 L 107.431886 -58.455362 L 107.224135 -58.43985 L 107.016383 -58.424488 L 106.808631 -58.409274 L 106.60088 -58.394207 L 106.393128 -58.379285 L 106.185376 -58.364508 L 105.977624 -58.349875 L 105.769873 -58.335383 L 105.562121 -58.321033 L 105.354369 -58.306822 L 105.146618 -58.29275 L 104.938866 -58.278815 L 104.731114 -58.265017 L 104.523362 -58.251354 L 104.315611 -58.237825 L 104.107859 -58.224429 L 103.900107 -58.211165 L 103.692356 -58.198032 L 103.484604 -58.185029 L 103.276852 -58.172154 L 103.0691 -58.159407 L 102.861349 -58.146786 L 102.653597 -58.134291 L 102.445845 -58.121919 L 102.238094 -58.109672 L 102.030342 -58.097546 L 101.82259 -58.085542 L 101.614839 -58.073657 L 101.407087 -58.061892 L 101.199335 -58.050245 L 100.991583 -58.038715 L 100.783832 -58.027301 L 100.57608 -58.016002 L 100.368328 -58.004817 L 100.160577 -57.993745 L 99.952825 -57.982786 L 99.745073 -57.971937 L 99.537321 -57.961199 L 99.32957 -57.95057 L 99.121818 -57.940049 L 98.914066 -57.929636 L 98.706315 -57.919328 L 98.498563 -57.909127 L 98.290811 -57.899029 L 98.083059 -57.889036 L 97.875308 -57.879145 L 97.667556 -57.869355 L 97.459804 -57.859667 L 97.252053 -57.850078 L 97.044301 -57.840589 L 96.836549 -57.831198 L 96.628797 -57.821904 L 96.421046 -57.812706 L 96.213294 -57.803604 L 96.005542 -57.794597 L 95.797791 -57.785683 L 95.590039 -57.776863 L 95.382287 -57.768135 L 95.174536 -57.759498 L 94.966784 -57.750951 L 94.759032 -57.742494 L 94.55128 -57.734126 L 94.343529 -57.725846 L 94.135777 -57.717653 L 93.928025 -57.709547 L 93.720274 -57.701526 L 93.512522 -57.693591 L 93.30477 -57.685739 L 93.097018 -57.67797 L 92.889267 -57.670284 L 92.681515 -57.66268 L 92.473763 -57.655157 L 92.266012 -57.647714 L 92.05826 -57.640351 L 91.850508 -57.633066 L 91.642756 -57.625859 L 91.435005 -57.61873 L 91.227253 -57.611677 L 91.019501 -57.6047 L 90.81175 -57.597798 L 90.603998 -57.590971 L 90.396246 -57.584217 L 90.188494 -57.577536 L 89.980743 -57.570928 L 89.772991 -57.564391 L 89.565239 -57.557926 L 89.357488 -57.55153 L 89.149736 -57.545204 L 88.941984 -57.538947 L 88.734233 -57.532759 L 88.526481 -57.526638 L 88.318729 -57.520584 L 88.110977 -57.514596 L 87.903226 -57.508674 L 87.695474 -57.502817 L 87.487722 -57.497024 L 87.279971 -57.491296 L 87.072219 -57.48563 L 86.864467 -57.480027 L 86.656715 -57.474486 L 86.448964 -57.469006 L 86.241212 -57.463587 L 86.03346 -57.458229 L 85.825709 -57.452929 L 85.617957 -57.447689 L 85.410205 -57.442507 L 85.202453 -57.437383 L 84.994702 -57.432317 L 84.78695 -57.427307 L 84.579198 -57.422353 L 84.371447 -57.417454 L 84.163695 -57.412611 L 83.955943 -57.407822 L 83.748191 -57.403087 L 83.54044 -57.398405 L 83.332688 -57.393777 L 83.124936 -57.3892 L 82.917185 -57.384676 L 82.709433 -57.380202 L 82.501681 -57.37578 L 82.29393 -57.371408 L 82.086178 -57.367085 L 81.878426 -57.362812 L 81.670674 -57.358587 L 81.462923 -57.354411 L 81.255171 -57.350282 L 81.047419 -57.346201 L 80.839668 -57.342166 L 80.631916 -57.338178 L 80.424164 -57.334235 L 80.216412 -57.330338 L 80.008661 -57.326486 L 79.800909 -57.322678 L 79.593157 -57.318914 L 79.385406 -57.315194 L 79.177654 -57.311517 L 78.969902 -57.307882 L 78.76215 -57.30429 L 78.554399 -57.300739 L 78.346647 -57.29723 L 78.138895 -57.293762 L 77.931144 -57.290334 L 77.723392 -57.286946 L 77.51564 -57.283597 L 77.307888 -57.280288 L 77.100137 -57.277018 L 76.892385 -57.273786 L 76.684633 -57.270592 L 76.476882 -57.267435 L 76.26913 -57.264316 L 76.061378 -57.261234 L 75.853627 -57.258187 L 75.645875 -57.255177 L 75.438123 -57.252203 L 75.230371 -57.249264 L 75.02262 -57.246359 L 74.814868 -57.243489 L 74.607116 -57.240654 L 74.399365 -57.237852 L 74.191613 -57.235083 L 73.983861 -57.232348 L 73.776109 -57.229645 L 73.568358 -57.226974 L 73.360606 -57.224336 L 73.152854 -57.221729 L 72.945103 -57.219154 L 72.737351 -57.216609 L 72.529599 -57.214095 L 72.321847 -57.211611 L 72.114096 -57.209158 L 71.906344 -57.206734 L 71.698592 -57.204339 L 71.490841 -57.201973 L 71.283089 -57.199636 L 71.075337 -57.197327 L 70.867585 -57.195047 L 70.659834 -57.192794 L 70.452082 -57.190568 L 70.24433 -57.18837 L 70.036579 -57.186199 L 69.828827 -57.184054 L 69.621075 -57.181935 L 69.413324 -57.179842 L 69.205572 -57.177775 L 68.99782 -57.175733 L 68.790068 -57.173717 L 68.582317 -57.171725 L 68.374565 -57.169758 L 68.166813 -57.167815 L 67.959062 -57.165896 L 67.75131 -57.164 L 67.543558 -57.162129 L 67.335806 -57.16028 L 67.128055 -57.158454 L 66.920303 -57.156651 L 66.712551 -57.154871 L 66.5048 -57.153112 L 66.297048 -57.151376 L 66.089296 -57.149661 L 65.881544 -57.147967 L 65.673793 -57.146295 L 65.466041 -57.144644 L 65.258289 -57.143013 L 65.050538 -57.141403 L 64.842786 -57.139813 L 64.635034 -57.138243 L 64.427282 -57.136693 L 64.219531 -57.135163 L 64.011779 -57.133651 L 63.804027 -57.132159 L 63.596276 -57.130686 L 63.388524 -57.129231 L 63.180772 -57.127795 L 62.973021 -57.126377 L 62.765269 -57.124977 L 62.557517 -57.123595 L 62.349765 -57.12223 L 62.142014 -57.120883 L 61.934262 -57.119553 L 61.72651 -57.11824 L 61.518759 -57.116944 L 61.311007 -57.115664 L 61.103255 -57.114401 L 60.895503 -57.113154 L 60.687752 -57.111923 L 60.48 -57.110708 z" style="stroke: #c9dedd"/>
+    </defs>
+    <g clip-path="url(#w7-reading-null-p000d22f2aa)">
+     <use xlink:href="#w7-reading-null-m7442a1313d" x="0" y="237.6" style="fill: #c9dedd; stroke: #c9dedd"/>
+    </g>
+   </g>
+   <g id="w7-reading-null-FillBetweenPolyCollection_2">
+    <defs>
+     <path id="w7-reading-null-m7b7d176890" d="M 387.731897 -73.988359 L 387.731897 -57.024 L 387.939649 -57.024 L 388.1474 -57.024 L 388.355152 -57.024 L 388.562904 -57.024 L 388.770655 -57.024 L 388.978407 -57.024 L 389.186159 -57.024 L 389.393911 -57.024 L 389.601662 -57.024 L 389.809414 -57.024 L 390.017166 -57.024 L 390.224917 -57.024 L 390.432669 -57.024 L 390.640421 -57.024 L 390.848173 -57.024 L 391.055924 -57.024 L 391.263676 -57.024 L 391.471428 -57.024 L 391.679179 -57.024 L 391.886931 -57.024 L 392.094683 -57.024 L 392.302434 -57.024 L 392.510186 -57.024 L 392.717938 -57.024 L 392.92569 -57.024 L 393.133441 -57.024 L 393.341193 -57.024 L 393.548945 -57.024 L 393.756696 -57.024 L 393.964448 -57.024 L 394.1722 -57.024 L 394.379952 -57.024 L 394.587703 -57.024 L 394.795455 -57.024 L 395.003207 -57.024 L 395.210958 -57.024 L 395.41871 -57.024 L 395.626462 -57.024 L 395.834214 -57.024 L 396.041965 -57.024 L 396.249717 -57.024 L 396.457469 -57.024 L 396.66522 -57.024 L 396.872972 -57.024 L 397.080724 -57.024 L 397.288476 -57.024 L 397.496227 -57.024 L 397.703979 -57.024 L 397.911731 -57.024 L 398.119482 -57.024 L 398.327234 -57.024 L 398.534986 -57.024 L 398.742737 -57.024 L 398.950489 -57.024 L 399.158241 -57.024 L 399.365993 -57.024 L 399.573744 -57.024 L 399.781496 -57.024 L 399.989248 -57.024 L 400.196999 -57.024 L 400.404751 -57.024 L 400.612503 -57.024 L 400.820255 -57.024 L 401.028006 -57.024 L 401.235758 -57.024 L 401.44351 -57.024 L 401.651261 -57.024 L 401.859013 -57.024 L 402.066765 -57.024 L 402.274517 -57.024 L 402.482268 -57.024 L 402.69002 -57.024 L 402.897772 -57.024 L 403.105523 -57.024 L 403.313275 -57.024 L 403.521027 -57.024 L 403.728779 -57.024 L 403.93653 -57.024 L 404.144282 -57.024 L 404.352034 -57.024 L 404.559785 -57.024 L 404.767537 -57.024 L 404.975289 -57.024 L 405.18304 -57.024 L 405.390792 -57.024 L 405.598544 -57.024 L 405.806296 -57.024 L 406.014047 -57.024 L 406.221799 -57.024 L 406.429551 -57.024 L 406.637302 -57.024 L 406.845054 -57.024 L 407.052806 -57.024 L 407.260558 -57.024 L 407.468309 -57.024 L 407.676061 -57.024 L 407.883813 -57.024 L 408.091564 -57.024 L 408.299316 -57.024 L 408.507068 -57.024 L 408.71482 -57.024 L 408.922571 -57.024 L 409.130323 -57.024 L 409.338075 -57.024 L 409.545826 -57.024 L 409.753578 -57.024 L 409.96133 -57.024 L 410.169082 -57.024 L 410.376833 -57.024 L 410.584585 -57.024 L 410.792337 -57.024 L 411.000088 -57.024 L 411.20784 -57.024 L 411.415592 -57.024 L 411.623343 -57.024 L 411.831095 -57.024 L 412.038847 -57.024 L 412.246599 -57.024 L 412.45435 -57.024 L 412.662102 -57.024 L 412.869854 -57.024 L 413.077605 -57.024 L 413.285357 -57.024 L 413.493109 -57.024 L 413.700861 -57.024 L 413.908612 -57.024 L 414.116364 -57.024 L 414.324116 -57.024 L 414.531867 -57.024 L 414.739619 -57.024 L 414.947371 -57.024 L 415.155123 -57.024 L 415.362874 -57.024 L 415.570626 -57.024 L 415.778378 -57.024 L 415.986129 -57.024 L 416.193881 -57.024 L 416.401633 -57.024 L 416.609385 -57.024 L 416.817136 -57.024 L 417.024888 -57.024 L 417.23264 -57.024 L 417.440391 -57.024 L 417.648143 -57.024 L 417.855895 -57.024 L 418.063646 -57.024 L 418.271398 -57.024 L 418.47915 -57.024 L 418.686902 -57.024 L 418.894653 -57.024 L 419.102405 -57.024 L 419.310157 -57.024 L 419.517908 -57.024 L 419.72566 -57.024 L 419.933412 -57.024 L 420.141164 -57.024 L 420.348915 -57.024 L 420.556667 -57.024 L 420.764419 -57.024 L 420.97217 -57.024 L 421.179922 -57.024 L 421.387674 -57.024 L 421.595426 -57.024 L 421.803177 -57.024 L 422.010929 -57.024 L 422.218681 -57.024 L 422.426432 -57.024 L 422.634184 -57.024 L 422.841936 -57.024 L 423.049688 -57.024 L 423.257439 -57.024 L 423.465191 -57.024 L 423.672943 -57.024 L 423.880694 -57.024 L 424.088446 -57.024 L 424.296198 -57.024 L 424.503949 -57.024 L 424.711701 -57.024 L 424.919453 -57.024 L 425.127205 -57.024 L 425.334956 -57.024 L 425.542708 -57.024 L 425.75046 -57.024 L 425.958211 -57.024 L 426.165963 -57.024 L 426.373715 -57.024 L 426.581467 -57.024 L 426.789218 -57.024 L 426.99697 -57.024 L 427.204722 -57.024 L 427.412473 -57.024 L 427.620225 -57.024 L 427.827977 -57.024 L 428.035729 -57.024 L 428.24348 -57.024 L 428.451232 -57.024 L 428.658984 -57.024 L 428.866735 -57.024 L 429.074487 -57.024 L 429.282239 -57.024 L 429.489991 -57.024 L 429.697742 -57.024 L 429.905494 -57.024 L 430.113246 -57.024 L 430.320997 -57.024 L 430.528749 -57.024 L 430.736501 -57.024 L 430.944252 -57.024 L 431.152004 -57.024 L 431.359756 -57.024 L 431.567508 -57.024 L 431.775259 -57.024 L 431.983011 -57.024 L 432.190763 -57.024 L 432.398514 -57.024 L 432.606266 -57.024 L 432.814018 -57.024 L 433.02177 -57.024 L 433.229521 -57.024 L 433.437273 -57.024 L 433.645025 -57.024 L 433.852776 -57.024 L 434.060528 -57.024 L 434.26828 -57.024 L 434.476032 -57.024 L 434.683783 -57.024 L 434.891535 -57.024 L 435.099287 -57.024 L 435.307038 -57.024 L 435.51479 -57.024 L 435.722542 -57.024 L 435.930294 -57.024 L 436.138045 -57.024 L 436.345797 -57.024 L 436.553549 -57.024 L 436.7613 -57.024 L 436.969052 -57.024 L 437.176804 -57.024 L 437.384555 -57.024 L 437.592307 -57.024 L 437.800059 -57.024 L 438.007811 -57.024 L 438.215562 -57.024 L 438.423314 -57.024 L 438.631066 -57.024 L 438.838817 -57.024 L 439.046569 -57.024 L 439.254321 -57.024 L 439.462073 -57.024 L 439.669824 -57.024 L 439.877576 -57.024 L 440.085328 -57.024 L 440.293079 -57.024 L 440.500831 -57.024 L 440.708583 -57.024 L 440.916335 -57.024 L 441.124086 -57.024 L 441.331838 -57.024 L 441.53959 -57.024 L 441.747341 -57.024 L 441.955093 -57.024 L 442.162845 -57.024 L 442.370597 -57.024 L 442.578348 -57.024 L 442.7861 -57.024 L 442.993852 -57.024 L 443.201603 -57.024 L 443.409355 -57.024 L 443.617107 -57.024 L 443.824858 -57.024 L 444.03261 -57.024 L 444.240362 -57.024 L 444.448114 -57.024 L 444.655865 -57.024 L 444.863617 -57.024 L 445.071369 -57.024 L 445.27912 -57.024 L 445.486872 -57.024 L 445.694624 -57.024 L 445.902376 -57.024 L 446.110127 -57.024 L 446.317879 -57.024 L 446.525631 -57.024 L 446.733382 -57.024 L 446.941134 -57.024 L 447.148886 -57.024 L 447.356638 -57.024 L 447.564389 -57.024 L 447.772141 -57.024 L 447.979893 -57.024 L 448.187644 -57.024 L 448.395396 -57.024 L 448.603148 -57.024 L 448.8109 -57.024 L 449.018651 -57.024 L 449.226403 -57.024 L 449.434155 -57.024 L 449.641906 -57.024 L 449.849658 -57.024 L 450.05741 -57.024 L 450.265161 -57.024 L 450.472913 -57.024 L 450.680665 -57.024 L 450.888417 -57.024 L 451.096168 -57.024 L 451.30392 -57.024 L 451.511672 -57.024 L 451.719423 -57.024 L 451.927175 -57.024 L 452.134927 -57.024 L 452.342679 -57.024 L 452.55043 -57.024 L 452.758182 -57.024 L 452.965934 -57.024 L 453.173685 -57.024 L 453.381437 -57.024 L 453.589189 -57.024 L 453.796941 -57.024 L 454.004692 -57.024 L 454.212444 -57.024 L 454.420196 -57.024 L 454.627947 -57.024 L 454.835699 -57.024 L 455.043451 -57.024 L 455.251203 -57.024 L 455.458954 -57.024 L 455.666706 -57.024 L 455.874458 -57.024 L 456.082209 -57.024 L 456.289961 -57.024 L 456.497713 -57.024 L 456.705464 -57.024 L 456.913216 -57.024 L 457.120968 -57.024 L 457.32872 -57.024 L 457.536471 -57.024 L 457.744223 -57.024 L 457.951975 -57.024 L 458.159726 -57.024 L 458.367478 -57.024 L 458.57523 -57.024 L 458.782982 -57.024 L 458.990733 -57.024 L 459.198485 -57.024 L 459.406237 -57.024 L 459.613988 -57.024 L 459.82174 -57.024 L 460.029492 -57.024 L 460.237244 -57.024 L 460.444995 -57.024 L 460.652747 -57.024 L 460.860499 -57.024 L 461.06825 -57.024 L 461.276002 -57.024 L 461.483754 -57.024 L 461.691506 -57.024 L 461.899257 -57.024 L 462.107009 -57.024 L 462.314761 -57.024 L 462.522512 -57.024 L 462.730264 -57.024 L 462.938016 -57.024 L 463.145767 -57.024 L 463.353519 -57.024 L 463.561271 -57.024 L 463.769023 -57.024 L 463.976774 -57.024 L 464.184526 -57.024 L 464.392278 -57.024 L 464.600029 -57.024 L 464.807781 -57.024 L 465.015533 -57.024 L 465.223285 -57.024 L 465.431036 -57.024 L 465.638788 -57.024 L 465.84654 -57.024 L 466.054291 -57.024 L 466.262043 -57.024 L 466.469795 -57.024 L 466.677547 -57.024 L 466.885298 -57.024 L 467.09305 -57.024 L 467.300802 -57.024 L 467.508553 -57.024 L 467.716305 -57.024 L 467.924057 -57.024 L 468.131809 -57.024 L 468.33956 -57.024 L 468.547312 -57.024 L 468.755064 -57.024 L 468.962815 -57.024 L 469.170567 -57.024 L 469.378319 -57.024 L 469.58607 -57.024 L 469.793822 -57.024 L 470.001574 -57.024 L 470.209326 -57.024 L 470.417077 -57.024 L 470.624829 -57.024 L 470.832581 -57.024 L 471.040332 -57.024 L 471.248084 -57.024 L 471.455836 -57.024 L 471.663588 -57.024 L 471.871339 -57.024 L 472.079091 -57.024 L 472.286843 -57.024 L 472.494594 -57.024 L 472.702346 -57.024 L 472.910098 -57.024 L 473.11785 -57.024 L 473.325601 -57.024 L 473.533353 -57.024 L 473.741105 -57.024 L 473.948856 -57.024 L 474.156608 -57.024 L 474.36436 -57.024 L 474.572112 -57.024 L 474.779863 -57.024 L 474.987615 -57.024 L 475.195367 -57.024 L 475.403118 -57.024 L 475.61087 -57.024 L 475.818622 -57.024 L 476.026373 -57.024 L 476.234125 -57.024 L 476.441877 -57.024 L 476.649629 -57.024 L 476.85738 -57.024 L 477.065132 -57.024 L 477.272884 -57.024 L 477.480635 -57.024 L 477.688387 -57.024 L 477.896139 -57.024 L 478.103891 -57.024 L 478.311642 -57.024 L 478.519394 -57.024 L 478.727146 -57.024 L 478.934897 -57.024 L 479.142649 -57.024 L 479.350401 -57.024 L 479.558153 -57.024 L 479.765904 -57.024 L 479.973656 -57.024 L 480.181408 -57.024 L 480.389159 -57.024 L 480.596911 -57.024 L 480.804663 -57.024 L 481.012415 -57.024 L 481.220166 -57.024 L 481.427918 -57.024 L 481.63567 -57.024 L 481.843421 -57.024 L 482.051173 -57.024 L 482.258925 -57.024 L 482.466676 -57.024 L 482.674428 -57.024 L 482.88218 -57.024 L 483.089932 -57.024 L 483.297683 -57.024 L 483.505435 -57.024 L 483.713187 -57.024 L 483.920938 -57.024 L 484.12869 -57.024 L 484.336442 -57.024 L 484.544194 -57.024 L 484.751945 -57.024 L 484.959697 -57.024 L 485.167449 -57.024 L 485.3752 -57.024 L 485.582952 -57.024 L 485.790704 -57.024 L 485.998456 -57.024 L 486.206207 -57.024 L 486.413959 -57.024 L 486.621711 -57.024 L 486.829462 -57.024 L 487.037214 -57.024 L 487.244966 -57.024 L 487.452718 -57.024 L 487.660469 -57.024 L 487.868221 -57.024 L 488.075973 -57.024 L 488.283724 -57.024 L 488.491476 -57.024 L 488.699228 -57.024 L 488.906979 -57.024 L 489.114731 -57.024 L 489.322483 -57.024 L 489.530235 -57.024 L 489.737986 -57.024 L 489.945738 -57.024 L 490.15349 -57.024 L 490.361241 -57.024 L 490.568993 -57.024 L 490.776745 -57.024 L 490.984497 -57.024 L 491.192248 -57.024 L 491.4 -57.024 L 491.4 -57.110708 L 491.4 -57.110708 L 491.192248 -57.111923 L 490.984497 -57.113154 L 490.776745 -57.114401 L 490.568993 -57.115664 L 490.361241 -57.116944 L 490.15349 -57.11824 L 489.945738 -57.119553 L 489.737986 -57.120883 L 489.530235 -57.12223 L 489.322483 -57.123595 L 489.114731 -57.124977 L 488.906979 -57.126377 L 488.699228 -57.127795 L 488.491476 -57.129231 L 488.283724 -57.130686 L 488.075973 -57.132159 L 487.868221 -57.133651 L 487.660469 -57.135163 L 487.452718 -57.136693 L 487.244966 -57.138243 L 487.037214 -57.139813 L 486.829462 -57.141403 L 486.621711 -57.143013 L 486.413959 -57.144644 L 486.206207 -57.146295 L 485.998456 -57.147967 L 485.790704 -57.149661 L 485.582952 -57.151376 L 485.3752 -57.153112 L 485.167449 -57.154871 L 484.959697 -57.156651 L 484.751945 -57.158454 L 484.544194 -57.16028 L 484.336442 -57.162129 L 484.12869 -57.164 L 483.920938 -57.165896 L 483.713187 -57.167815 L 483.505435 -57.169758 L 483.297683 -57.171725 L 483.089932 -57.173717 L 482.88218 -57.175733 L 482.674428 -57.177775 L 482.466676 -57.179842 L 482.258925 -57.181935 L 482.051173 -57.184054 L 481.843421 -57.186199 L 481.63567 -57.18837 L 481.427918 -57.190568 L 481.220166 -57.192794 L 481.012415 -57.195047 L 480.804663 -57.197327 L 480.596911 -57.199636 L 480.389159 -57.201973 L 480.181408 -57.204339 L 479.973656 -57.206734 L 479.765904 -57.209158 L 479.558153 -57.211611 L 479.350401 -57.214095 L 479.142649 -57.216609 L 478.934897 -57.219154 L 478.727146 -57.221729 L 478.519394 -57.224336 L 478.311642 -57.226974 L 478.103891 -57.229645 L 477.896139 -57.232348 L 477.688387 -57.235083 L 477.480635 -57.237852 L 477.272884 -57.240654 L 477.065132 -57.243489 L 476.85738 -57.246359 L 476.649629 -57.249264 L 476.441877 -57.252203 L 476.234125 -57.255177 L 476.026373 -57.258187 L 475.818622 -57.261234 L 475.61087 -57.264316 L 475.403118 -57.267435 L 475.195367 -57.270592 L 474.987615 -57.273786 L 474.779863 -57.277018 L 474.572112 -57.280288 L 474.36436 -57.283597 L 474.156608 -57.286946 L 473.948856 -57.290334 L 473.741105 -57.293762 L 473.533353 -57.29723 L 473.325601 -57.300739 L 473.11785 -57.30429 L 472.910098 -57.307882 L 472.702346 -57.311517 L 472.494594 -57.315194 L 472.286843 -57.318914 L 472.079091 -57.322678 L 471.871339 -57.326486 L 471.663588 -57.330338 L 471.455836 -57.334235 L 471.248084 -57.338178 L 471.040332 -57.342166 L 470.832581 -57.346201 L 470.624829 -57.350282 L 470.417077 -57.354411 L 470.209326 -57.358587 L 470.001574 -57.362812 L 469.793822 -57.367085 L 469.58607 -57.371408 L 469.378319 -57.37578 L 469.170567 -57.380202 L 468.962815 -57.384676 L 468.755064 -57.3892 L 468.547312 -57.393777 L 468.33956 -57.398405 L 468.131809 -57.403087 L 467.924057 -57.407822 L 467.716305 -57.412611 L 467.508553 -57.417454 L 467.300802 -57.422353 L 467.09305 -57.427307 L 466.885298 -57.432317 L 466.677547 -57.437383 L 466.469795 -57.442507 L 466.262043 -57.447689 L 466.054291 -57.452929 L 465.84654 -57.458229 L 465.638788 -57.463587 L 465.431036 -57.469006 L 465.223285 -57.474486 L 465.015533 -57.480027 L 464.807781 -57.48563 L 464.600029 -57.491296 L 464.392278 -57.497024 L 464.184526 -57.502817 L 463.976774 -57.508674 L 463.769023 -57.514596 L 463.561271 -57.520584 L 463.353519 -57.526638 L 463.145767 -57.532759 L 462.938016 -57.538947 L 462.730264 -57.545204 L 462.522512 -57.55153 L 462.314761 -57.557926 L 462.107009 -57.564391 L 461.899257 -57.570928 L 461.691506 -57.577536 L 461.483754 -57.584217 L 461.276002 -57.590971 L 461.06825 -57.597798 L 460.860499 -57.6047 L 460.652747 -57.611677 L 460.444995 -57.61873 L 460.237244 -57.625859 L 460.029492 -57.633066 L 459.82174 -57.640351 L 459.613988 -57.647714 L 459.406237 -57.655157 L 459.198485 -57.66268 L 458.990733 -57.670284 L 458.782982 -57.67797 L 458.57523 -57.685739 L 458.367478 -57.693591 L 458.159726 -57.701526 L 457.951975 -57.709547 L 457.744223 -57.717653 L 457.536471 -57.725846 L 457.32872 -57.734126 L 457.120968 -57.742494 L 456.913216 -57.750951 L 456.705464 -57.759498 L 456.497713 -57.768135 L 456.289961 -57.776863 L 456.082209 -57.785683 L 455.874458 -57.794597 L 455.666706 -57.803604 L 455.458954 -57.812706 L 455.251203 -57.821904 L 455.043451 -57.831198 L 454.835699 -57.840589 L 454.627947 -57.850078 L 454.420196 -57.859667 L 454.212444 -57.869355 L 454.004692 -57.879145 L 453.796941 -57.889036 L 453.589189 -57.899029 L 453.381437 -57.909127 L 453.173685 -57.919328 L 452.965934 -57.929636 L 452.758182 -57.940049 L 452.55043 -57.95057 L 452.342679 -57.961199 L 452.134927 -57.971937 L 451.927175 -57.982786 L 451.719423 -57.993745 L 451.511672 -58.004817 L 451.30392 -58.016002 L 451.096168 -58.027301 L 450.888417 -58.038715 L 450.680665 -58.050245 L 450.472913 -58.061892 L 450.265161 -58.073657 L 450.05741 -58.085542 L 449.849658 -58.097546 L 449.641906 -58.109672 L 449.434155 -58.121919 L 449.226403 -58.134291 L 449.018651 -58.146786 L 448.8109 -58.159407 L 448.603148 -58.172154 L 448.395396 -58.185029 L 448.187644 -58.198032 L 447.979893 -58.211165 L 447.772141 -58.224429 L 447.564389 -58.237825 L 447.356638 -58.251354 L 447.148886 -58.265017 L 446.941134 -58.278815 L 446.733382 -58.29275 L 446.525631 -58.306822 L 446.317879 -58.321033 L 446.110127 -58.335383 L 445.902376 -58.349875 L 445.694624 -58.364508 L 445.486872 -58.379285 L 445.27912 -58.394207 L 445.071369 -58.409274 L 444.863617 -58.424488 L 444.655865 -58.43985 L 444.448114 -58.455362 L 444.240362 -58.471024 L 444.03261 -58.486837 L 443.824858 -58.502804 L 443.617107 -58.518925 L 443.409355 -58.535201 L 443.201603 -58.551634 L 442.993852 -58.568225 L 442.7861 -58.584975 L 442.578348 -58.601886 L 442.370597 -58.618959 L 442.162845 -58.636194 L 441.955093 -58.653594 L 441.747341 -58.67116 L 441.53959 -58.688893 L 441.331838 -58.706793 L 441.124086 -58.724864 L 440.916335 -58.743106 L 440.708583 -58.761519 L 440.500831 -58.780107 L 440.293079 -58.798869 L 440.085328 -58.817808 L 439.877576 -58.836925 L 439.669824 -58.856221 L 439.462073 -58.875697 L 439.254321 -58.895355 L 439.046569 -58.915197 L 438.838817 -58.935223 L 438.631066 -58.955436 L 438.423314 -58.975835 L 438.215562 -58.996424 L 438.007811 -59.017204 L 437.800059 -59.038175 L 437.592307 -59.059339 L 437.384555 -59.080699 L 437.176804 -59.102254 L 436.969052 -59.124007 L 436.7613 -59.14596 L 436.553549 -59.168113 L 436.345797 -59.190468 L 436.138045 -59.213028 L 435.930294 -59.235792 L 435.722542 -59.258763 L 435.51479 -59.281942 L 435.307038 -59.305331 L 435.099287 -59.328931 L 434.891535 -59.352745 L 434.683783 -59.376772 L 434.476032 -59.401016 L 434.26828 -59.425477 L 434.060528 -59.450158 L 433.852776 -59.475059 L 433.645025 -59.500182 L 433.437273 -59.52553 L 433.229521 -59.551103 L 433.02177 -59.576903 L 432.814018 -59.602932 L 432.606266 -59.629191 L 432.398514 -59.655683 L 432.190763 -59.682408 L 431.983011 -59.709368 L 431.775259 -59.736565 L 431.567508 -59.764002 L 431.359756 -59.791678 L 431.152004 -59.819596 L 430.944252 -59.847759 L 430.736501 -59.876166 L 430.528749 -59.904821 L 430.320997 -59.933724 L 430.113246 -59.962878 L 429.905494 -59.992285 L 429.697742 -60.021945 L 429.489991 -60.051861 L 429.282239 -60.082034 L 429.074487 -60.112467 L 428.866735 -60.143161 L 428.658984 -60.174117 L 428.451232 -60.205338 L 428.24348 -60.236825 L 428.035729 -60.268581 L 427.827977 -60.300606 L 427.620225 -60.332903 L 427.412473 -60.365473 L 427.204722 -60.398319 L 426.99697 -60.431442 L 426.789218 -60.464843 L 426.581467 -60.498526 L 426.373715 -60.532491 L 426.165963 -60.56674 L 425.958211 -60.601276 L 425.75046 -60.6361 L 425.542708 -60.671215 L 425.334956 -60.706621 L 425.127205 -60.74232 L 424.919453 -60.778316 L 424.711701 -60.814609 L 424.503949 -60.851201 L 424.296198 -60.888095 L 424.088446 -60.925292 L 423.880694 -60.962795 L 423.672943 -61.000604 L 423.465191 -61.038723 L 423.257439 -61.077152 L 423.049688 -61.115895 L 422.841936 -61.154952 L 422.634184 -61.194326 L 422.426432 -61.234019 L 422.218681 -61.274033 L 422.010929 -61.314369 L 421.803177 -61.35503 L 421.595426 -61.396017 L 421.387674 -61.437334 L 421.179922 -61.478981 L 420.97217 -61.52096 L 420.764419 -61.563274 L 420.556667 -61.605925 L 420.348915 -61.648915 L 420.141164 -61.692245 L 419.933412 -61.735918 L 419.72566 -61.779935 L 419.517908 -61.8243 L 419.310157 -61.869013 L 419.102405 -61.914077 L 418.894653 -61.959494 L 418.686902 -62.005265 L 418.47915 -62.051394 L 418.271398 -62.097882 L 418.063646 -62.144731 L 417.855895 -62.191943 L 417.648143 -62.23952 L 417.440391 -62.287465 L 417.23264 -62.335779 L 417.024888 -62.384465 L 416.817136 -62.433524 L 416.609385 -62.482959 L 416.401633 -62.532772 L 416.193881 -62.582965 L 415.986129 -62.63354 L 415.778378 -62.684499 L 415.570626 -62.735844 L 415.362874 -62.787577 L 415.155123 -62.839701 L 414.947371 -62.892218 L 414.739619 -62.945129 L 414.531867 -62.998437 L 414.324116 -63.052144 L 414.116364 -63.106253 L 413.908612 -63.160764 L 413.700861 -63.215681 L 413.493109 -63.271006 L 413.285357 -63.32674 L 413.077605 -63.382886 L 412.869854 -63.439447 L 412.662102 -63.496423 L 412.45435 -63.553818 L 412.246599 -63.611633 L 412.038847 -63.669871 L 411.831095 -63.728534 L 411.623343 -63.787624 L 411.415592 -63.847143 L 411.20784 -63.907093 L 411.000088 -63.967477 L 410.792337 -64.028297 L 410.584585 -64.089554 L 410.376833 -64.151252 L 410.169082 -64.213392 L 409.96133 -64.275976 L 409.753578 -64.339006 L 409.545826 -64.402486 L 409.338075 -64.466417 L 409.130323 -64.5308 L 408.922571 -64.595639 L 408.71482 -64.660936 L 408.507068 -64.726692 L 408.299316 -64.79291 L 408.091564 -64.859592 L 407.883813 -64.92674 L 407.676061 -64.994357 L 407.468309 -65.062444 L 407.260558 -65.131005 L 407.052806 -65.20004 L 406.845054 -65.269552 L 406.637302 -65.339544 L 406.429551 -65.410017 L 406.221799 -65.480974 L 406.014047 -65.552417 L 405.806296 -65.624348 L 405.598544 -65.696769 L 405.390792 -65.769683 L 405.18304 -65.843091 L 404.975289 -65.916996 L 404.767537 -65.9914 L 404.559785 -66.066305 L 404.352034 -66.141713 L 404.144282 -66.217627 L 403.93653 -66.294048 L 403.728779 -66.370979 L 403.521027 -66.448422 L 403.313275 -66.526379 L 403.105523 -66.604853 L 402.897772 -66.683844 L 402.69002 -66.763357 L 402.482268 -66.843391 L 402.274517 -66.923951 L 402.066765 -67.005038 L 401.859013 -67.086653 L 401.651261 -67.1688 L 401.44351 -67.25148 L 401.235758 -67.334696 L 401.028006 -67.418449 L 400.820255 -67.502741 L 400.612503 -67.587576 L 400.404751 -67.672954 L 400.196999 -67.758878 L 399.989248 -67.84535 L 399.781496 -67.932373 L 399.573744 -68.019947 L 399.365993 -68.108076 L 399.158241 -68.196761 L 398.950489 -68.286005 L 398.742737 -68.375808 L 398.534986 -68.466175 L 398.327234 -68.557106 L 398.119482 -68.648603 L 397.911731 -68.740669 L 397.703979 -68.833306 L 397.496227 -68.926515 L 397.288476 -69.020299 L 397.080724 -69.11466 L 396.872972 -69.209599 L 396.66522 -69.305119 L 396.457469 -69.401221 L 396.249717 -69.497908 L 396.041965 -69.595182 L 395.834214 -69.693044 L 395.626462 -69.791496 L 395.41871 -69.890541 L 395.210958 -69.99018 L 395.003207 -70.090415 L 394.795455 -70.191248 L 394.587703 -70.292682 L 394.379952 -70.394717 L 394.1722 -70.497356 L 393.964448 -70.6006 L 393.756696 -70.704452 L 393.548945 -70.808913 L 393.341193 -70.913986 L 393.133441 -71.019671 L 392.92569 -71.125972 L 392.717938 -71.232889 L 392.510186 -71.340424 L 392.302434 -71.448579 L 392.094683 -71.557357 L 391.886931 -71.666758 L 391.679179 -71.776785 L 391.471428 -71.887439 L 391.263676 -71.998721 L 391.055924 -72.110635 L 390.848173 -72.223181 L 390.640421 -72.33636 L 390.432669 -72.450176 L 390.224917 -72.564629 L 390.017166 -72.67972 L 389.809414 -72.795453 L 389.601662 -72.911827 L 389.393911 -73.028846 L 389.186159 -73.14651 L 388.978407 -73.264821 L 388.770655 -73.38378 L 388.562904 -73.50339 L 388.355152 -73.623651 L 388.1474 -73.744565 L 387.939649 -73.866134 L 387.731897 -73.988359 z" style="stroke: #c9dedd"/>
+    </defs>
+    <g clip-path="url(#w7-reading-null-p000d22f2aa)">
+     <use xlink:href="#w7-reading-null-m7b7d176890" x="0" y="237.6" style="fill: #c9dedd; stroke: #c9dedd"/>
+    </g>
+   </g>
+   <g id="w7-reading-null-line2d_12">
+    <path d="M 275.94 180.576 L 275.94 38.016" clip-path="url(#w7-reading-null-p000d22f2aa)" style="fill: none; stroke-dasharray: 1,1.65; stroke-dashoffset: 0; stroke: #536675"/>
+   </g>
+   <g id="w7-reading-null-patch_3">
+    <path d="M 60.48 180.576 L 60.48 38.016" style="fill: none; stroke: #80919c; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="w7-reading-null-patch_4">
+    <path d="M 60.48 180.576 L 491.4 180.576" style="fill: none; stroke: #80919c; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="w7-reading-null-line2d_13">
+    <path d="M 164.148103 180.576 L 164.148103 163.611641" clip-path="url(#w7-reading-null-p000d22f2aa)" style="fill: none; stroke-dasharray: 5.55,2.4; stroke-dashoffset: 0; stroke: #287d76; stroke-width: 1.5"/>
+   </g>
+   <g id="w7-reading-null-line2d_14">
+    <path d="M 387.731897 180.576 L 387.731897 163.611641" clip-path="url(#w7-reading-null-p000d22f2aa)" style="fill: none; stroke-dasharray: 5.55,2.4; stroke-dashoffset: 0; stroke: #287d76; stroke-width: 1.5"/>
+   </g>
+   <g id="w7-reading-null-text_11">
+    <text style="font-size: 12px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #287d76" x="487.0908" y="19.4832" transform="rotate(-0 487.0908 19.4832)">observed difference = 4.6;  z ≈ 1.972</text>
+   </g>
+   <g id="w7-reading-null-line2d_15">
+    <path d="M 60.48 180.489292 L 80.325 180.26763 L 93.366 179.911956 L 103.005 179.444501 L 110.943 178.858717 L 118.314 178.090202 L 124.551 177.221363 L 130.221 176.21656 L 135.324 175.104277 L 140.427 173.763606 L 144.963 172.354575 L 149.499 170.717406 L 154.035 168.829638 L 158.004 166.95526 L 161.973 164.858989 L 165.942 162.528745 L 169.911 159.954306 L 173.88 157.127803 L 177.849 154.044211 L 181.818 150.701849 L 186.354 146.568074 L 190.89 142.109274 L 195.426 137.343453 L 200.529 131.648305 L 206.199 124.967081 L 213.003 116.584926 L 233.415 91.138183 L 238.518 85.27945 L 243.054 80.433557 L 247.023 76.539312 L 250.425 73.499492 L 253.827 70.766878 L 256.662 68.744463 L 259.497 66.969173 L 262.332 65.453865 L 265.167 64.209627 L 268.002 63.245633 L 270.27 62.681093 L 272.538 62.303225 L 274.806 62.113838 L 277.074 62.113838 L 279.342 62.303225 L 281.61 62.681093 L 283.878 63.245633 L 286.713 64.209627 L 289.548 65.453865 L 292.383 66.969173 L 295.218 68.744463 L 298.053 70.766878 L 301.455 73.499492 L 304.857 76.539312 L 308.259 79.856079 L 312.228 84.032508 L 316.764 89.144176 L 321.867 95.227438 L 329.238 104.404026 L 344.547 123.593534 L 350.784 130.995699 L 355.887 136.727364 L 360.99 142.109274 L 365.526 146.568074 L 370.062 150.701849 L 374.031 154.044211 L 378 157.127803 L 381.969 159.954306 L 385.938 162.528745 L 389.907 164.858989 L 393.876 166.95526 L 398.412 169.080064 L 402.948 170.935301 L 407.484 172.542714 L 412.02 173.924825 L 417.123 175.238574 L 422.226 176.327383 L 427.896 177.30991 L 434.133 178.158477 L 440.937 178.858717 L 448.875 179.444501 L 458.514 179.911956 L 470.421 180.245668 L 486.864 180.458862 L 491.4 180.489292 L 491.4 180.489292" clip-path="url(#w7-reading-null-p000d22f2aa)" style="fill: none; stroke: #245a81; stroke-width: 2.3; stroke-linecap: square"/>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="w7-reading-null-p000d22f2aa">
+   <rect x="60.48" y="38.016" width="430.92" height="142.56"/>
+  </clipPath>
+ </defs>
+</svg></div><figcaption><b>Equal population means predict differences centered at zero</b>The curve describes repeated differences of sample means under H₀. Shade both tails at least 4.6 points from zero. Full precision gives p ≈ 0.0487; rounding z to 1.97 before a table lookup gives 0.0488.</figcaption></figure>
+<p>At α = 0.05, reject equality under the stated model. This is a result close to the threshold, so include the estimated difference and its uncertainty. A causal claim about the teaching methods also needs a suitable experimental design.</p><div class="bridge"><b>When the standard deviations are estimated.</b><p>The usual independent-samples mean procedure uses Welch’s t-method with \(SE=\sqrt{s_1^2/n_1+s_2^2/n_2}\) and an appropriate degrees-of-freedom calculation. A large-sample z approximation using these sample SDs is an approximation, not the known-σ procedure.</p></div></section><section id="s3"><h2>4. An interval adds magnitude and direction</h2><p>For the same known-σ setting, the confidence interval estimates the population difference. Keep the units and group order in the interpretation.</p><div class="eq">\[(\bar x_1-\bar x_2)\pm z^*\sqrt{\sigma_1^2/n_1+\sigma_2^2/n_2}\]</div><div class="example"><b>Worked example.</b><p>The teaching-method 95% interval is \(4.6\pm1.96(2.333)\), approximately (0.03, 9.17) points for Method 1 minus Method 2.</p></div>
+<figure class="w7-visual" data-visual="w7-reading-interval"><div class="w7-plot" tabindex="0" role="group" aria-label="The interval shows direction and plausible magnitude; scroll horizontally on narrow screens"><svg id="w7-reading-interval" role="img" aria-labelledby="w7-reading-interval-title w7-reading-interval-desc" xmlns:xlink="http://www.w3.org/1999/xlink" width="504pt" height="252pt" viewBox="0 0 504 252" xmlns="http://www.w3.org/2000/svg" version="1.1">
+<title id="w7-reading-interval-title">The interval shows direction and plausible magnitude</title><desc id="w7-reading-interval-desc">A 95 percent interval for the difference is 0.0271534 to 9.17285, centered at the observed difference 4.6. Zero is outside the interval.</desc>
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">#w7-reading-interval *{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="w7-reading-interval-figure_1">
+  <g id="w7-reading-interval-patch_1">
+   <path d="M 0 252 L 504 252 L 504 0 L 0 0 z" style="fill: #ffffff"/>
+  </g>
+  <g id="w7-reading-interval-axes_1">
+   <g id="w7-reading-interval-patch_2">
+    <path d="M 50.4 191.52 L 488.88 191.52 L 488.88 25.2 L 50.4 25.2 z" style="fill: #ffffff"/>
+   </g>
+   <g id="w7-reading-interval-matplotlib.axis_1">
+    <g id="w7-reading-interval-xtick_1">
+     <g id="w7-reading-interval-line2d_1">
+      <defs>
+       <path id="w7-reading-interval-m3e1303cb67" d="M 0 0 L 0 3.5" style="stroke: #536675; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#w7-reading-interval-m3e1303cb67" x="95.64" y="191.52" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w7-reading-interval-text_1">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="95.64" y="206.878281" transform="rotate(-0 95.64 206.878281)">0</text>
+     </g>
+    </g>
+    <g id="w7-reading-interval-xtick_2">
+     <g id="w7-reading-interval-line2d_2">
+      <g>
+       <use xlink:href="#w7-reading-interval-m3e1303cb67" x="171.516119" y="191.52" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w7-reading-interval-text_2">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="171.516119" y="206.878281" transform="rotate(-0 171.516119 206.878281)">2</text>
+     </g>
+    </g>
+    <g id="w7-reading-interval-xtick_3">
+     <g id="w7-reading-interval-line2d_3">
+      <g>
+       <use xlink:href="#w7-reading-interval-m3e1303cb67" x="247.392237" y="191.52" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w7-reading-interval-text_3">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="247.392237" y="206.878281" transform="rotate(-0 247.392237 206.878281)">4</text>
+     </g>
+    </g>
+    <g id="w7-reading-interval-xtick_4">
+     <g id="w7-reading-interval-line2d_4">
+      <g>
+       <use xlink:href="#w7-reading-interval-m3e1303cb67" x="323.268356" y="191.52" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w7-reading-interval-text_4">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="323.268356" y="206.878281" transform="rotate(-0 323.268356 206.878281)">6</text>
+     </g>
+    </g>
+    <g id="w7-reading-interval-xtick_5">
+     <g id="w7-reading-interval-line2d_5">
+      <g>
+       <use xlink:href="#w7-reading-interval-m3e1303cb67" x="399.144475" y="191.52" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w7-reading-interval-text_5">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="399.144475" y="206.878281" transform="rotate(-0 399.144475 206.878281)">8</text>
+     </g>
+    </g>
+    <g id="w7-reading-interval-xtick_6">
+     <g id="w7-reading-interval-line2d_6">
+      <g>
+       <use xlink:href="#w7-reading-interval-m3e1303cb67" x="475.020593" y="191.52" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w7-reading-interval-text_6">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="475.020593" y="206.878281" transform="rotate(-0 475.020593 206.878281)">10</text>
+     </g>
+    </g>
+    <g id="w7-reading-interval-text_7">
+     <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="269.64" y="222.663984" transform="rotate(-0 269.64 222.663984)">Method 1 − Method 2 (points)</text>
+    </g>
+   </g>
+   <g id="w7-reading-interval-matplotlib.axis_2"/>
+   <g id="w7-reading-interval-line2d_7">
+    <path d="M 95.64 191.52 L 95.64 88.4016" clip-path="url(#w7-reading-interval-pb6963fe7f1)" style="fill: none; stroke-dasharray: 4.81,2.08; stroke-dashoffset: 0; stroke: #536675; stroke-width: 1.3"/>
+   </g>
+   <g id="w7-reading-interval-line2d_8">
+    <path d="M 96.670146 129.92 L 443.64 129.92" clip-path="url(#w7-reading-interval-pb6963fe7f1)" style="fill: none; stroke: #245a81; stroke-width: 5"/>
+   </g>
+   <g id="w7-reading-interval-line2d_9">
+    <defs>
+     <path id="w7-reading-interval-m6430923ed5" d="M 0 9 L 0 -9" style="stroke: #245a81; stroke-width: 2"/>
+    </defs>
+    <g clip-path="url(#w7-reading-interval-pb6963fe7f1)">
+     <use xlink:href="#w7-reading-interval-m6430923ed5" x="96.670146" y="129.92" style="fill: #245a81; stroke: #245a81; stroke-width: 2"/>
+     <use xlink:href="#w7-reading-interval-m6430923ed5" x="443.64" y="129.92" style="fill: #245a81; stroke: #245a81; stroke-width: 2"/>
+    </g>
+   </g>
+   <g id="w7-reading-interval-line2d_10">
+    <defs>
+     <path id="w7-reading-interval-mbb726639a2" d="M 0 4 C 1.060812 4 2.078319 3.578535 2.828427 2.828427 C 3.578535 2.078319 4 1.060812 4 0 C 4 -1.060812 3.578535 -2.078319 2.828427 -2.828427 C 2.078319 -3.578535 1.060812 -4 0 -4 C -1.060812 -4 -2.078319 -3.578535 -2.828427 -2.828427 C -3.578535 -2.078319 -4 -1.060812 -4 0 C -4 1.060812 -3.578535 2.078319 -2.828427 2.828427 C -2.078319 3.578535 -1.060812 4 0 4 z" style="stroke: #245a81"/>
+    </defs>
+    <g clip-path="url(#w7-reading-interval-pb6963fe7f1)">
+     <use xlink:href="#w7-reading-interval-mbb726639a2" x="270.155073" y="129.92" style="fill: #245a81; stroke: #245a81"/>
+    </g>
+   </g>
+   <g id="w7-reading-interval-patch_3">
+    <path d="M 50.4 191.52 L 488.88 191.52" style="fill: none; stroke: #80919c; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="w7-reading-interval-text_8">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: start; fill: #182e40" x="104.670146" y="155.92" transform="rotate(-0 104.670146 155.92)">0.027</text>
+   </g>
+   <g id="w7-reading-interval-text_9">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="443.64" y="155.92" transform="rotate(-0 443.64 155.92)">9.17</text>
+   </g>
+   <g id="w7-reading-interval-text_10">
+    <text style="font-size: 11.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #245a81" x="270.155073" y="95.424" transform="rotate(-0 270.155073 95.424)">estimate = 4.6</text>
+   </g>
+   <g id="w7-reading-interval-text_11">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #287d76" x="480.1104" y="55.1376" transform="rotate(-0 480.1104 55.1376)">0 is just outside this interval</text>
+   </g>
+   <g id="w7-reading-interval-axes_2">
+    <g id="w7-reading-interval-patch_4">
+     <path d="M 81.0936 76.7592 L 225.792 76.7592 L 225.792 36.8424 L 81.0936 36.8424 z" style="fill: #ffffff"/>
+    </g>
+    <g id="w7-reading-interval-matplotlib.axis_3">
+     <g id="w7-reading-interval-xtick_7">
+      <g id="w7-reading-interval-line2d_11">
+       <g>
+        <use xlink:href="#w7-reading-interval-m3e1303cb67" x="126.31185" y="76.7592" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+       </g>
+      </g>
+      <g id="w7-reading-interval-text_12">
+       <text style="font-size: 8px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="126.31185" y="89.83795" transform="rotate(-0 126.31185 89.83795)">0</text>
+      </g>
+     </g>
+     <g id="w7-reading-interval-xtick_8">
+      <g id="w7-reading-interval-line2d_12">
+       <g>
+        <use xlink:href="#w7-reading-interval-m3e1303cb67" x="150.729705" y="76.7592" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+       </g>
+      </g>
+      <g id="w7-reading-interval-text_13">
+       <text style="font-size: 8px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="150.729705" y="89.83795" transform="rotate(-0 150.729705 89.83795)">0.027</text>
+      </g>
+     </g>
+    </g>
+    <g id="w7-reading-interval-matplotlib.axis_4"/>
+    <g id="w7-reading-interval-line2d_13">
+     <path d="M 126.31185 76.7592 L 126.31185 36.8424" clip-path="url(#w7-reading-interval-pf2fabb5270)" style="fill: none; stroke-dasharray: 5.55,2.4; stroke-dashoffset: 0; stroke: #536675; stroke-width: 1.5"/>
+    </g>
+    <g id="w7-reading-interval-line2d_14">
+     <path d="M 150.868398 56.8008 L 225.792 56.8008" clip-path="url(#w7-reading-interval-pf2fabb5270)" style="fill: none; stroke: #245a81; stroke-width: 3"/>
+    </g>
+    <g id="w7-reading-interval-line2d_15">
+     <defs>
+      <path id="w7-reading-interval-m5a02b805d8" d="M 0 6.5 L 0 -6.5" style="stroke: #245a81; stroke-width: 1.5"/>
+     </defs>
+     <g clip-path="url(#w7-reading-interval-pf2fabb5270)">
+      <use xlink:href="#w7-reading-interval-m5a02b805d8" x="150.868398" y="56.8008" style="fill: #245a81; stroke: #245a81; stroke-width: 1.5"/>
+     </g>
+    </g>
+    <g id="w7-reading-interval-patch_5">
+     <path d="M 81.0936 76.7592 L 225.792 76.7592" style="fill: none; stroke: #80919c; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+    </g>
+    <g id="w7-reading-interval-text_14">
+     <text style="font-size: 10px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="153.4428" y="31.8424" transform="rotate(-0 153.4428 31.8424)">Zoom near 0</text>
+    </g>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="w7-reading-interval-pb6963fe7f1">
+   <rect x="50.4" y="25.2" width="438.48" height="166.32"/>
+  </clipPath>
+  <clipPath id="w7-reading-interval-pf2fabb5270">
+   <rect x="81.0936" y="36.8424" width="144.6984" height="39.9168"/>
+  </clipPath>
+ </defs>
+</svg></div><figcaption><b>The interval shows direction and plausible magnitude</b>The lower endpoint is only about +0.027 points. The inset magnifies that small gap above zero. The same interval also includes differences near 9 points, so report this uncertainty alongside the reject/fail-to-reject decision.</figcaption></figure>
+<p>This interval excludes zero but includes effects ranging from almost negligible to several points. A statistical decision alone does not describe that range. An interval crossing zero is consistent with differences in either direction; it does not establish exact equality.</p><div class="practice"><b>Check your understanding.</b><p>An interval for μ₁ − μ₂ is (−3.2, 8.6). Which direction is supported decisively?</p><details><summary>Show explanation</summary><p>Neither direction is established by this interval, because it includes zero and both signs. Its midpoint is 2.7, indicating the sample difference is positive.</p></details></div></section><section id="s4"><h2>5. Two-sample proportion testing: why pool?</h2><p>Now the response is binary in each group. Compute \(\hat p_1=x_1/n_1\) and \(\hat p_2=x_2/n_2\). Under \(H_0:p_1=p_2\), estimate the common proportion from the combined counts:</p><div class="eq">\[\hat p_{\mathrm{pool}}=\frac{x_1+x_2}{n_1+n_2},\qquad z=\frac{\hat p_1-\hat p_2}{\sqrt{\hat p_{\mathrm{pool}}(1-\hat p_{\mathrm{pool}})(1/n_1+1/n_2)}}\]</div><p>Pooling uses total successes divided by total observations, not an unweighted average of percentages from unequal groups. Check the expected success and failure counts in each group under the pooled null; use at least 10 of each for the normal approximation. The chapter also asks you to inspect the four observed counts.</p><div class="example"><b>Worked example.</b><p>Group 1 has 18 of 120 with a side effect; Group 2 has 31 of 110. Proportions are 0.1500 and about 0.2818. The pooled estimate is \(49/230\approx0.2130\). The null standard error is about 0.05405, so z is about −2.44. A left-tailed alternative gives p-value about 0.0074.</p></div>
+<figure class="w7-visual" data-visual="w7-reading-pool"><div class="w7-plot" tabindex="0" role="group" aria-label="Pool counts before dividing; scroll horizontally on narrow screens"><svg id="w7-reading-pool" role="img" aria-labelledby="w7-reading-pool-title w7-reading-pool-desc" xmlns:xlink="http://www.w3.org/1999/xlink" width="504pt" height="252pt" viewBox="0 0 504 252" xmlns="http://www.w3.org/2000/svg" version="1.1">
+<title id="w7-reading-pool-title">Pool counts before dividing</title><desc id="w7-reading-pool-desc">Group 1 has 18 successes out of 120; Group 2 has 31 out of 110. Combining gives 49 out of 230, a pooled proportion of 0.2130.</desc>
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">#w7-reading-pool *{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="w7-reading-pool-figure_1">
+  <g id="w7-reading-pool-patch_1">
+   <path d="M 0 252 L 504 252 L 504 0 L 0 0 z" style="fill: #ffffff"/>
+  </g>
+  <g id="w7-reading-pool-axes_1">
+   <g id="w7-reading-pool-patch_2">
+    <path d="M 85.68 196.56 L 488.88 196.56 L 488.88 35.28 L 85.68 35.28 z" style="fill: #ffffff"/>
+   </g>
+   <g id="w7-reading-pool-patch_3">
+    <path d="M 85.68 70.988622 L 107.746282 70.988622 L 107.746282 42.610909 L 85.68 42.610909 z" clip-path="url(#w7-reading-pool-p84fe87a08a)" style="fill: #b9d8d4"/>
+   </g>
+   <g id="w7-reading-pool-patch_4">
+    <path d="M 107.746282 70.988622 L 232.788544 70.988622 L 232.788544 42.610909 L 107.746282 42.610909 z" clip-path="url(#w7-reading-pool-p84fe87a08a)" style="fill: #e4eaf0"/>
+   </g>
+   <g id="w7-reading-pool-patch_5">
+    <path d="M 85.68 130.108856 L 123.68304 130.108856 L 123.68304 101.731144 L 85.68 101.731144 z" clip-path="url(#w7-reading-pool-p84fe87a08a)" style="fill: #b9d8d4"/>
+   </g>
+   <g id="w7-reading-pool-patch_6">
+    <path d="M 123.68304 130.108856 L 220.529498 130.108856 L 220.529498 101.731144 L 123.68304 101.731144 z" clip-path="url(#w7-reading-pool-p84fe87a08a)" style="fill: #e4eaf0"/>
+   </g>
+   <g id="w7-reading-pool-patch_7">
+    <path d="M 85.68 189.229091 L 145.749322 189.229091 L 145.749322 160.851378 L 85.68 160.851378 z" clip-path="url(#w7-reading-pool-p84fe87a08a)" style="fill: #b9d8d4"/>
+   </g>
+   <g id="w7-reading-pool-patch_8">
+    <path d="M 145.749322 189.229091 L 367.638042 189.229091 L 367.638042 160.851378 L 145.749322 160.851378 z" clip-path="url(#w7-reading-pool-p84fe87a08a)" style="fill: #e4eaf0"/>
+   </g>
+   <g id="w7-reading-pool-matplotlib.axis_1">
+    <g id="w7-reading-pool-xtick_1">
+     <g id="w7-reading-pool-line2d_1">
+      <defs>
+       <path id="w7-reading-pool-me76a872805" d="M 0 0 L 0 3.5" style="stroke: #536675; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#w7-reading-pool-me76a872805" x="85.68" y="196.56" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w7-reading-pool-text_1">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="85.68" y="211.918281" transform="rotate(-0 85.68 211.918281)">0</text>
+     </g>
+    </g>
+    <g id="w7-reading-pool-xtick_2">
+     <g id="w7-reading-pool-line2d_2">
+      <g>
+       <use xlink:href="#w7-reading-pool-me76a872805" x="146.975227" y="196.56" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w7-reading-pool-text_2">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="146.975227" y="211.918281" transform="rotate(-0 146.975227 211.918281)">50</text>
+     </g>
+    </g>
+    <g id="w7-reading-pool-xtick_3">
+     <g id="w7-reading-pool-line2d_3">
+      <g>
+       <use xlink:href="#w7-reading-pool-me76a872805" x="208.270453" y="196.56" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w7-reading-pool-text_3">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="208.270453" y="211.918281" transform="rotate(-0 208.270453 211.918281)">100</text>
+     </g>
+    </g>
+    <g id="w7-reading-pool-xtick_4">
+     <g id="w7-reading-pool-line2d_4">
+      <g>
+       <use xlink:href="#w7-reading-pool-me76a872805" x="269.56568" y="196.56" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w7-reading-pool-text_4">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="269.56568" y="211.918281" transform="rotate(-0 269.56568 211.918281)">150</text>
+     </g>
+    </g>
+    <g id="w7-reading-pool-xtick_5">
+     <g id="w7-reading-pool-line2d_5">
+      <g>
+       <use xlink:href="#w7-reading-pool-me76a872805" x="330.860906" y="196.56" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w7-reading-pool-text_5">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="330.860906" y="211.918281" transform="rotate(-0 330.860906 211.918281)">200</text>
+     </g>
+    </g>
+    <g id="w7-reading-pool-xtick_6">
+     <g id="w7-reading-pool-line2d_6">
+      <g>
+       <use xlink:href="#w7-reading-pool-me76a872805" x="392.156133" y="196.56" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w7-reading-pool-text_6">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="392.156133" y="211.918281" transform="rotate(-0 392.156133 211.918281)">250</text>
+     </g>
+    </g>
+    <g id="w7-reading-pool-xtick_7">
+     <g id="w7-reading-pool-line2d_7">
+      <g>
+       <use xlink:href="#w7-reading-pool-me76a872805" x="453.451359" y="196.56" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w7-reading-pool-text_7">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="453.451359" y="211.918281" transform="rotate(-0 453.451359 211.918281)">300</text>
+     </g>
+    </g>
+    <g id="w7-reading-pool-text_8">
+     <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="287.28" y="227.703984" transform="rotate(-0 287.28 227.703984)">Number of observations (teal: successes)</text>
+    </g>
+   </g>
+   <g id="w7-reading-pool-matplotlib.axis_2">
+    <g id="w7-reading-pool-ytick_1">
+     <g id="w7-reading-pool-line2d_8">
+      <defs>
+       <path id="w7-reading-pool-m58d22b0bc6" d="M 0 0 L -3.5 0" style="stroke: #536675; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#w7-reading-pool-m58d22b0bc6" x="85.68" y="56.799765" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w7-reading-pool-text_9">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #536675" x="78.68" y="60.978906" transform="rotate(-0 78.68 60.978906)">Group 1</text>
+     </g>
+    </g>
+    <g id="w7-reading-pool-ytick_2">
+     <g id="w7-reading-pool-line2d_9">
+      <g>
+       <use xlink:href="#w7-reading-pool-m58d22b0bc6" x="85.68" y="115.92" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w7-reading-pool-text_10">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #536675" x="78.68" y="120.099141" transform="rotate(-0 78.68 120.099141)">Group 2</text>
+     </g>
+    </g>
+    <g id="w7-reading-pool-ytick_3">
+     <g id="w7-reading-pool-line2d_10">
+      <g>
+       <use xlink:href="#w7-reading-pool-m58d22b0bc6" x="85.68" y="175.040235" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w7-reading-pool-text_11">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #536675" x="78.68" y="179.219375" transform="rotate(-0 78.68 179.219375)">Combined</text>
+     </g>
+    </g>
+   </g>
+   <g id="w7-reading-pool-patch_9">
+    <path d="M 85.68 196.56 L 488.88 196.56" style="fill: none; stroke: #80919c; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="w7-reading-pool-text_12">
+    <text style="font-size: 11.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="96.713141" y="59.973047" transform="rotate(-0 96.713141 59.973047)">18</text>
+   </g>
+   <g id="w7-reading-pool-text_13">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: start; fill: #182e40" x="239.837495" y="59.835078" transform="rotate(-0 239.837495 59.835078)">18/120 = 0.1500</text>
+   </g>
+   <g id="w7-reading-pool-text_14">
+    <text style="font-size: 11.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="104.68152" y="119.093281" transform="rotate(-0 104.68152 119.093281)">31</text>
+   </g>
+   <g id="w7-reading-pool-text_15">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: start; fill: #182e40" x="227.578449" y="118.955313" transform="rotate(-0 227.578449 118.955313)">31/110 = 0.2818</text>
+   </g>
+   <g id="w7-reading-pool-text_16">
+    <text style="font-size: 11.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="115.714661" y="178.213516" transform="rotate(-0 115.714661 178.213516)">49</text>
+   </g>
+   <g id="w7-reading-pool-text_17">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: start; fill: #182e40" x="374.686993" y="178.075547" transform="rotate(-0 374.686993 178.075547)">49/230 = 0.2130</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="w7-reading-pool-p84fe87a08a">
+   <rect x="85.68" y="35.28" width="403.2" height="161.28"/>
+  </clipPath>
+ </defs>
+</svg></div><figcaption><b>Pool counts before dividing</b>Under H₀, both groups share a common success probability. Estimate it from the 49 side-effect cases among all 230 observations. The group sample sizes supply the weights.</figcaption></figure>
+
+<figure class="w7-visual" data-visual="w7-reading-proportion"><div class="w7-plot" tabindex="0" role="group" aria-label="A lower side-effect rate is a left-tailed comparison; scroll horizontally on narrow screens"><svg id="w7-reading-proportion" role="img" aria-labelledby="w7-reading-proportion-title w7-reading-proportion-desc" xmlns:xlink="http://www.w3.org/1999/xlink" width="504pt" height="237.6pt" viewBox="0 0 504 237.6" xmlns="http://www.w3.org/2000/svg" version="1.1">
+<title id="w7-reading-proportion-title">A lower side-effect rate is a left-tailed comparison</title><desc id="w7-reading-proportion-desc">Normal null distribution of a difference, centered at zero with standard error 0.0540488; the observed difference is -0.131818. Group 1 − Group 2 is approximately −0.1318, or −13.18 percentage points. Under the pooled equal-rate model, the shaded left tail has probability about 0.0074. Keep the chosen group order in the conclusion.</desc>
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">#w7-reading-proportion *{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="w7-reading-proportion-figure_1">
+  <g id="w7-reading-proportion-patch_1">
+   <path d="M 0 237.6 L 504 237.6 L 504 0 L 0 0 z" style="fill: #ffffff"/>
+  </g>
+  <g id="w7-reading-proportion-axes_1">
+   <g id="w7-reading-proportion-patch_2">
+    <path d="M 60.48 180.576 L 491.4 180.576 L 491.4 38.016 L 60.48 38.016 z" style="fill: #ffffff"/>
+   </g>
+   <g id="w7-reading-proportion-matplotlib.axis_1">
+    <g id="w7-reading-proportion-xtick_1">
+     <g id="w7-reading-proportion-line2d_1">
+      <defs>
+       <path id="w7-reading-proportion-m8db7a39090" d="M 0 0 L 0 3.5" style="stroke: #536675; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#w7-reading-proportion-m8db7a39090" x="137.656" y="180.576" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w7-reading-proportion-text_1">
+      <text style="font-size: 11.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="137.656" y="196.314203" transform="rotate(-0 137.656 196.314203)">−0.132</text>
+     </g>
+    </g>
+    <g id="w7-reading-proportion-xtick_2">
+     <g id="w7-reading-proportion-line2d_2">
+      <g>
+       <use xlink:href="#w7-reading-proportion-m8db7a39090" x="275.94" y="180.576" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w7-reading-proportion-text_2">
+      <text style="font-size: 11.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="275.94" y="196.314203" transform="rotate(-0 275.94 196.314203)">0</text>
+     </g>
+    </g>
+    <g id="w7-reading-proportion-xtick_3">
+     <g id="w7-reading-proportion-line2d_3">
+      <g>
+       <use xlink:href="#w7-reading-proportion-m8db7a39090" x="446.04" y="180.576" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w7-reading-proportion-text_3">
+      <text style="font-size: 11.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="446.04" y="196.314203" transform="rotate(-0 446.04 196.314203)">0.162</text>
+     </g>
+    </g>
+    <g id="w7-reading-proportion-text_4">
+     <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="275.94" y="216.703891" transform="rotate(-0 275.94 216.703891)">Difference in sample proportions: p̂₁ − p̂₂</text>
+    </g>
+   </g>
+   <g id="w7-reading-proportion-matplotlib.axis_2">
+    <g id="w7-reading-proportion-ytick_1">
+     <g id="w7-reading-proportion-line2d_4">
+      <path d="M 60.48 180.576 L 491.4 180.576" clip-path="url(#w7-reading-proportion-p72dda1b08c)" style="fill: none; stroke: #e7edf0; stroke-width: 0.7; stroke-linecap: square"/>
+     </g>
+     <g id="w7-reading-proportion-line2d_5">
+      <defs>
+       <path id="w7-reading-proportion-mbf5278aa02" d="M 0 0 L -3.5 0" style="stroke: #536675; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#w7-reading-proportion-mbf5278aa02" x="60.48" y="180.576" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w7-reading-proportion-text_5">
+      <text style="font-size: 11.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #536675" x="53.48" y="184.945102" transform="rotate(-0 53.48 184.945102)">0</text>
+     </g>
+    </g>
+    <g id="w7-reading-proportion-ytick_2">
+     <g id="w7-reading-proportion-line2d_6">
+      <path d="M 60.48 121.176 L 491.4 121.176" clip-path="url(#w7-reading-proportion-p72dda1b08c)" style="fill: none; stroke: #e7edf0; stroke-width: 0.7; stroke-linecap: square"/>
+     </g>
+     <g id="w7-reading-proportion-line2d_7">
+      <g>
+       <use xlink:href="#w7-reading-proportion-mbf5278aa02" x="60.48" y="121.176" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w7-reading-proportion-text_6">
+      <text style="font-size: 11.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #536675" x="53.48" y="125.545102" transform="rotate(-0 53.48 125.545102)">3.7</text>
+     </g>
+    </g>
+    <g id="w7-reading-proportion-ytick_3">
+     <g id="w7-reading-proportion-line2d_8">
+      <path d="M 60.48 61.776 L 491.4 61.776" clip-path="url(#w7-reading-proportion-p72dda1b08c)" style="fill: none; stroke: #e7edf0; stroke-width: 0.7; stroke-linecap: square"/>
+     </g>
+     <g id="w7-reading-proportion-line2d_9">
+      <g>
+       <use xlink:href="#w7-reading-proportion-mbf5278aa02" x="60.48" y="61.776" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w7-reading-proportion-text_7">
+      <text style="font-size: 11.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #536675" x="53.48" y="66.145102" transform="rotate(-0 53.48 66.145102)">7.4</text>
+     </g>
+    </g>
+    <g id="w7-reading-proportion-text_8">
+     <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="24.591797" y="109.296" transform="rotate(-90 24.591797 109.296)">Density</text>
+    </g>
+   </g>
+   <g id="w7-reading-proportion-FillBetweenPolyCollection_1">
+    <defs>
+     <path id="w7-reading-proportion-m3f532f3ef1" d="M 60.48 -57.110708 L 60.48 -57.024 L 60.634661 -57.024 L 60.789323 -57.024 L 60.943984 -57.024 L 61.098645 -57.024 L 61.253307 -57.024 L 61.407968 -57.024 L 61.562629 -57.024 L 61.717291 -57.024 L 61.871952 -57.024 L 62.026613 -57.024 L 62.181275 -57.024 L 62.335936 -57.024 L 62.490597 -57.024 L 62.645259 -57.024 L 62.79992 -57.024 L 62.954581 -57.024 L 63.109242 -57.024 L 63.263904 -57.024 L 63.418565 -57.024 L 63.573226 -57.024 L 63.727888 -57.024 L 63.882549 -57.024 L 64.03721 -57.024 L 64.191872 -57.024 L 64.346533 -57.024 L 64.501194 -57.024 L 64.655856 -57.024 L 64.810517 -57.024 L 64.965178 -57.024 L 65.11984 -57.024 L 65.274501 -57.024 L 65.429162 -57.024 L 65.583824 -57.024 L 65.738485 -57.024 L 65.893146 -57.024 L 66.047808 -57.024 L 66.202469 -57.024 L 66.35713 -57.024 L 66.511792 -57.024 L 66.666453 -57.024 L 66.821114 -57.024 L 66.975776 -57.024 L 67.130437 -57.024 L 67.285098 -57.024 L 67.43976 -57.024 L 67.594421 -57.024 L 67.749082 -57.024 L 67.903744 -57.024 L 68.058405 -57.024 L 68.213066 -57.024 L 68.367727 -57.024 L 68.522389 -57.024 L 68.67705 -57.024 L 68.831711 -57.024 L 68.986373 -57.024 L 69.141034 -57.024 L 69.295695 -57.024 L 69.450357 -57.024 L 69.605018 -57.024 L 69.759679 -57.024 L 69.914341 -57.024 L 70.069002 -57.024 L 70.223663 -57.024 L 70.378325 -57.024 L 70.532986 -57.024 L 70.687647 -57.024 L 70.842309 -57.024 L 70.99697 -57.024 L 71.151631 -57.024 L 71.306293 -57.024 L 71.460954 -57.024 L 71.615615 -57.024 L 71.770277 -57.024 L 71.924938 -57.024 L 72.079599 -57.024 L 72.234261 -57.024 L 72.388922 -57.024 L 72.543583 -57.024 L 72.698245 -57.024 L 72.852906 -57.024 L 73.007567 -57.024 L 73.162229 -57.024 L 73.31689 -57.024 L 73.471551 -57.024 L 73.626212 -57.024 L 73.780874 -57.024 L 73.935535 -57.024 L 74.090196 -57.024 L 74.244858 -57.024 L 74.399519 -57.024 L 74.55418 -57.024 L 74.708842 -57.024 L 74.863503 -57.024 L 75.018164 -57.024 L 75.172826 -57.024 L 75.327487 -57.024 L 75.482148 -57.024 L 75.63681 -57.024 L 75.791471 -57.024 L 75.946132 -57.024 L 76.100794 -57.024 L 76.255455 -57.024 L 76.410116 -57.024 L 76.564778 -57.024 L 76.719439 -57.024 L 76.8741 -57.024 L 77.028762 -57.024 L 77.183423 -57.024 L 77.338084 -57.024 L 77.492746 -57.024 L 77.647407 -57.024 L 77.802068 -57.024 L 77.95673 -57.024 L 78.111391 -57.024 L 78.266052 -57.024 L 78.420714 -57.024 L 78.575375 -57.024 L 78.730036 -57.024 L 78.884697 -57.024 L 79.039359 -57.024 L 79.19402 -57.024 L 79.348681 -57.024 L 79.503343 -57.024 L 79.658004 -57.024 L 79.812665 -57.024 L 79.967327 -57.024 L 80.121988 -57.024 L 80.276649 -57.024 L 80.431311 -57.024 L 80.585972 -57.024 L 80.740633 -57.024 L 80.895295 -57.024 L 81.049956 -57.024 L 81.204617 -57.024 L 81.359279 -57.024 L 81.51394 -57.024 L 81.668601 -57.024 L 81.823263 -57.024 L 81.977924 -57.024 L 82.132585 -57.024 L 82.287247 -57.024 L 82.441908 -57.024 L 82.596569 -57.024 L 82.751231 -57.024 L 82.905892 -57.024 L 83.060553 -57.024 L 83.215215 -57.024 L 83.369876 -57.024 L 83.524537 -57.024 L 83.679199 -57.024 L 83.83386 -57.024 L 83.988521 -57.024 L 84.143182 -57.024 L 84.297844 -57.024 L 84.452505 -57.024 L 84.607166 -57.024 L 84.761828 -57.024 L 84.916489 -57.024 L 85.07115 -57.024 L 85.225812 -57.024 L 85.380473 -57.024 L 85.535134 -57.024 L 85.689796 -57.024 L 85.844457 -57.024 L 85.999118 -57.024 L 86.15378 -57.024 L 86.308441 -57.024 L 86.463102 -57.024 L 86.617764 -57.024 L 86.772425 -57.024 L 86.927086 -57.024 L 87.081748 -57.024 L 87.236409 -57.024 L 87.39107 -57.024 L 87.545732 -57.024 L 87.700393 -57.024 L 87.855054 -57.024 L 88.009716 -57.024 L 88.164377 -57.024 L 88.319038 -57.024 L 88.4737 -57.024 L 88.628361 -57.024 L 88.783022 -57.024 L 88.937684 -57.024 L 89.092345 -57.024 L 89.247006 -57.024 L 89.401667 -57.024 L 89.556329 -57.024 L 89.71099 -57.024 L 89.865651 -57.024 L 90.020313 -57.024 L 90.174974 -57.024 L 90.329635 -57.024 L 90.484297 -57.024 L 90.638958 -57.024 L 90.793619 -57.024 L 90.948281 -57.024 L 91.102942 -57.024 L 91.257603 -57.024 L 91.412265 -57.024 L 91.566926 -57.024 L 91.721587 -57.024 L 91.876249 -57.024 L 92.03091 -57.024 L 92.185571 -57.024 L 92.340233 -57.024 L 92.494894 -57.024 L 92.649555 -57.024 L 92.804217 -57.024 L 92.958878 -57.024 L 93.113539 -57.024 L 93.268201 -57.024 L 93.422862 -57.024 L 93.577523 -57.024 L 93.732185 -57.024 L 93.886846 -57.024 L 94.041507 -57.024 L 94.196169 -57.024 L 94.35083 -57.024 L 94.505491 -57.024 L 94.660152 -57.024 L 94.814814 -57.024 L 94.969475 -57.024 L 95.124136 -57.024 L 95.278798 -57.024 L 95.433459 -57.024 L 95.58812 -57.024 L 95.742782 -57.024 L 95.897443 -57.024 L 96.052104 -57.024 L 96.206766 -57.024 L 96.361427 -57.024 L 96.516088 -57.024 L 96.67075 -57.024 L 96.825411 -57.024 L 96.980072 -57.024 L 97.134734 -57.024 L 97.289395 -57.024 L 97.444056 -57.024 L 97.598718 -57.024 L 97.753379 -57.024 L 97.90804 -57.024 L 98.062702 -57.024 L 98.217363 -57.024 L 98.372024 -57.024 L 98.526686 -57.024 L 98.681347 -57.024 L 98.836008 -57.024 L 98.99067 -57.024 L 99.145331 -57.024 L 99.299992 -57.024 L 99.454654 -57.024 L 99.609315 -57.024 L 99.763976 -57.024 L 99.918637 -57.024 L 100.073299 -57.024 L 100.22796 -57.024 L 100.382621 -57.024 L 100.537283 -57.024 L 100.691944 -57.024 L 100.846605 -57.024 L 101.001267 -57.024 L 101.155928 -57.024 L 101.310589 -57.024 L 101.465251 -57.024 L 101.619912 -57.024 L 101.774573 -57.024 L 101.929235 -57.024 L 102.083896 -57.024 L 102.238557 -57.024 L 102.393219 -57.024 L 102.54788 -57.024 L 102.702541 -57.024 L 102.857203 -57.024 L 103.011864 -57.024 L 103.166525 -57.024 L 103.321187 -57.024 L 103.475848 -57.024 L 103.630509 -57.024 L 103.785171 -57.024 L 103.939832 -57.024 L 104.094493 -57.024 L 104.249155 -57.024 L 104.403816 -57.024 L 104.558477 -57.024 L 104.713139 -57.024 L 104.8678 -57.024 L 105.022461 -57.024 L 105.177122 -57.024 L 105.331784 -57.024 L 105.486445 -57.024 L 105.641106 -57.024 L 105.795768 -57.024 L 105.950429 -57.024 L 106.10509 -57.024 L 106.259752 -57.024 L 106.414413 -57.024 L 106.569074 -57.024 L 106.723736 -57.024 L 106.878397 -57.024 L 107.033058 -57.024 L 107.18772 -57.024 L 107.342381 -57.024 L 107.497042 -57.024 L 107.651704 -57.024 L 107.806365 -57.024 L 107.961026 -57.024 L 108.115688 -57.024 L 108.270349 -57.024 L 108.42501 -57.024 L 108.579672 -57.024 L 108.734333 -57.024 L 108.888994 -57.024 L 109.043656 -57.024 L 109.198317 -57.024 L 109.352978 -57.024 L 109.50764 -57.024 L 109.662301 -57.024 L 109.816962 -57.024 L 109.971624 -57.024 L 110.126285 -57.024 L 110.280946 -57.024 L 110.435607 -57.024 L 110.590269 -57.024 L 110.74493 -57.024 L 110.899591 -57.024 L 111.054253 -57.024 L 111.208914 -57.024 L 111.363575 -57.024 L 111.518237 -57.024 L 111.672898 -57.024 L 111.827559 -57.024 L 111.982221 -57.024 L 112.136882 -57.024 L 112.291543 -57.024 L 112.446205 -57.024 L 112.600866 -57.024 L 112.755527 -57.024 L 112.910189 -57.024 L 113.06485 -57.024 L 113.219511 -57.024 L 113.374173 -57.024 L 113.528834 -57.024 L 113.683495 -57.024 L 113.838157 -57.024 L 113.992818 -57.024 L 114.147479 -57.024 L 114.302141 -57.024 L 114.456802 -57.024 L 114.611463 -57.024 L 114.766125 -57.024 L 114.920786 -57.024 L 115.075447 -57.024 L 115.230109 -57.024 L 115.38477 -57.024 L 115.539431 -57.024 L 115.694092 -57.024 L 115.848754 -57.024 L 116.003415 -57.024 L 116.158076 -57.024 L 116.312738 -57.024 L 116.467399 -57.024 L 116.62206 -57.024 L 116.776722 -57.024 L 116.931383 -57.024 L 117.086044 -57.024 L 117.240706 -57.024 L 117.395367 -57.024 L 117.550028 -57.024 L 117.70469 -57.024 L 117.859351 -57.024 L 118.014012 -57.024 L 118.168674 -57.024 L 118.323335 -57.024 L 118.477996 -57.024 L 118.632658 -57.024 L 118.787319 -57.024 L 118.94198 -57.024 L 119.096642 -57.024 L 119.251303 -57.024 L 119.405964 -57.024 L 119.560626 -57.024 L 119.715287 -57.024 L 119.869948 -57.024 L 120.02461 -57.024 L 120.179271 -57.024 L 120.333932 -57.024 L 120.488594 -57.024 L 120.643255 -57.024 L 120.797916 -57.024 L 120.952577 -57.024 L 121.107239 -57.024 L 121.2619 -57.024 L 121.416561 -57.024 L 121.571223 -57.024 L 121.725884 -57.024 L 121.880545 -57.024 L 122.035207 -57.024 L 122.189868 -57.024 L 122.344529 -57.024 L 122.499191 -57.024 L 122.653852 -57.024 L 122.808513 -57.024 L 122.963175 -57.024 L 123.117836 -57.024 L 123.272497 -57.024 L 123.427159 -57.024 L 123.58182 -57.024 L 123.736481 -57.024 L 123.891143 -57.024 L 124.045804 -57.024 L 124.200465 -57.024 L 124.355127 -57.024 L 124.509788 -57.024 L 124.664449 -57.024 L 124.819111 -57.024 L 124.973772 -57.024 L 125.128433 -57.024 L 125.283095 -57.024 L 125.437756 -57.024 L 125.592417 -57.024 L 125.747079 -57.024 L 125.90174 -57.024 L 126.056401 -57.024 L 126.211062 -57.024 L 126.365724 -57.024 L 126.520385 -57.024 L 126.675046 -57.024 L 126.829708 -57.024 L 126.984369 -57.024 L 127.13903 -57.024 L 127.293692 -57.024 L 127.448353 -57.024 L 127.603014 -57.024 L 127.757676 -57.024 L 127.912337 -57.024 L 128.066998 -57.024 L 128.22166 -57.024 L 128.376321 -57.024 L 128.530982 -57.024 L 128.685644 -57.024 L 128.840305 -57.024 L 128.994966 -57.024 L 129.149628 -57.024 L 129.304289 -57.024 L 129.45895 -57.024 L 129.613612 -57.024 L 129.768273 -57.024 L 129.922934 -57.024 L 130.077596 -57.024 L 130.232257 -57.024 L 130.386918 -57.024 L 130.54158 -57.024 L 130.696241 -57.024 L 130.850902 -57.024 L 131.005564 -57.024 L 131.160225 -57.024 L 131.314886 -57.024 L 131.469547 -57.024 L 131.624209 -57.024 L 131.77887 -57.024 L 131.933531 -57.024 L 132.088193 -57.024 L 132.242854 -57.024 L 132.397515 -57.024 L 132.552177 -57.024 L 132.706838 -57.024 L 132.861499 -57.024 L 133.016161 -57.024 L 133.170822 -57.024 L 133.325483 -57.024 L 133.480145 -57.024 L 133.634806 -57.024 L 133.789467 -57.024 L 133.944129 -57.024 L 134.09879 -57.024 L 134.253451 -57.024 L 134.408113 -57.024 L 134.562774 -57.024 L 134.717435 -57.024 L 134.872097 -57.024 L 135.026758 -57.024 L 135.181419 -57.024 L 135.336081 -57.024 L 135.490742 -57.024 L 135.645403 -57.024 L 135.800065 -57.024 L 135.954726 -57.024 L 136.109387 -57.024 L 136.264049 -57.024 L 136.41871 -57.024 L 136.573371 -57.024 L 136.728032 -57.024 L 136.882694 -57.024 L 137.037355 -57.024 L 137.192016 -57.024 L 137.346678 -57.024 L 137.501339 -57.024 L 137.656 -57.024 L 137.656 -63.078169 L 137.656 -63.078169 L 137.501339 -63.038005 L 137.346678 -62.998062 L 137.192016 -62.958341 L 137.037355 -62.91884 L 136.882694 -62.879559 L 136.728032 -62.840496 L 136.573371 -62.80165 L 136.41871 -62.763021 L 136.264049 -62.724609 L 136.109387 -62.686411 L 135.954726 -62.648427 L 135.800065 -62.610656 L 135.645403 -62.573098 L 135.490742 -62.535751 L 135.336081 -62.498615 L 135.181419 -62.461689 L 135.026758 -62.424971 L 134.872097 -62.388462 L 134.717435 -62.352159 L 134.562774 -62.316063 L 134.408113 -62.280173 L 134.253451 -62.244487 L 134.09879 -62.209004 L 133.944129 -62.173725 L 133.789467 -62.138648 L 133.634806 -62.103771 L 133.480145 -62.069095 L 133.325483 -62.034618 L 133.170822 -62.00034 L 133.016161 -61.96626 L 132.861499 -61.932377 L 132.706838 -61.898689 L 132.552177 -61.865197 L 132.397515 -61.831899 L 132.242854 -61.798795 L 132.088193 -61.765883 L 131.933531 -61.733163 L 131.77887 -61.700634 L 131.624209 -61.668295 L 131.469547 -61.636146 L 131.314886 -61.604185 L 131.160225 -61.572411 L 131.005564 -61.540825 L 130.850902 -61.509424 L 130.696241 -61.478208 L 130.54158 -61.447177 L 130.386918 -61.41633 L 130.232257 -61.385665 L 130.077596 -61.355182 L 129.922934 -61.32488 L 129.768273 -61.294758 L 129.613612 -61.264815 L 129.45895 -61.235052 L 129.304289 -61.205466 L 129.149628 -61.176057 L 128.994966 -61.146824 L 128.840305 -61.117766 L 128.685644 -61.088883 L 128.530982 -61.060174 L 128.376321 -61.031638 L 128.22166 -61.003273 L 128.066998 -60.975081 L 127.912337 -60.947058 L 127.757676 -60.919206 L 127.603014 -60.891522 L 127.448353 -60.864007 L 127.293692 -60.836659 L 127.13903 -60.809478 L 126.984369 -60.782462 L 126.829708 -60.755612 L 126.675046 -60.728926 L 126.520385 -60.702403 L 126.365724 -60.676043 L 126.211062 -60.649845 L 126.056401 -60.623808 L 125.90174 -60.597931 L 125.747079 -60.572214 L 125.592417 -60.546656 L 125.437756 -60.521256 L 125.283095 -60.496013 L 125.128433 -60.470927 L 124.973772 -60.445996 L 124.819111 -60.421221 L 124.664449 -60.3966 L 124.509788 -60.372132 L 124.355127 -60.347817 L 124.200465 -60.323655 L 124.045804 -60.299643 L 123.891143 -60.275782 L 123.736481 -60.252071 L 123.58182 -60.228509 L 123.427159 -60.205095 L 123.272497 -60.181829 L 123.117836 -60.15871 L 122.963175 -60.135736 L 122.808513 -60.112908 L 122.653852 -60.090225 L 122.499191 -60.067686 L 122.344529 -60.04529 L 122.189868 -60.023036 L 122.035207 -60.000924 L 121.880545 -59.978954 L 121.725884 -59.957123 L 121.571223 -59.935432 L 121.416561 -59.91388 L 121.2619 -59.892466 L 121.107239 -59.87119 L 120.952577 -59.850051 L 120.797916 -59.829047 L 120.643255 -59.808179 L 120.488594 -59.787446 L 120.333932 -59.766847 L 120.179271 -59.746381 L 120.02461 -59.726047 L 119.869948 -59.705846 L 119.715287 -59.685775 L 119.560626 -59.665835 L 119.405964 -59.646026 L 119.251303 -59.626345 L 119.096642 -59.606793 L 118.94198 -59.587368 L 118.787319 -59.568071 L 118.632658 -59.5489 L 118.477996 -59.529855 L 118.323335 -59.510936 L 118.168674 -59.49214 L 118.014012 -59.473469 L 117.859351 -59.454921 L 117.70469 -59.436495 L 117.550028 -59.418191 L 117.395367 -59.400008 L 117.240706 -59.381946 L 117.086044 -59.364004 L 116.931383 -59.34618 L 116.776722 -59.328476 L 116.62206 -59.31089 L 116.467399 -59.29342 L 116.312738 -59.276068 L 116.158076 -59.258831 L 116.003415 -59.24171 L 115.848754 -59.224704 L 115.694092 -59.207812 L 115.539431 -59.191034 L 115.38477 -59.174368 L 115.230109 -59.157815 L 115.075447 -59.141373 L 114.920786 -59.125043 L 114.766125 -59.108822 L 114.611463 -59.092712 L 114.456802 -59.076711 L 114.302141 -59.060818 L 114.147479 -59.045034 L 113.992818 -59.029357 L 113.838157 -59.013787 L 113.683495 -58.998323 L 113.528834 -58.982964 L 113.374173 -58.967711 L 113.219511 -58.952562 L 113.06485 -58.937516 L 112.910189 -58.922574 L 112.755527 -58.907735 L 112.600866 -58.892998 L 112.446205 -58.878362 L 112.291543 -58.863827 L 112.136882 -58.849393 L 111.982221 -58.835058 L 111.827559 -58.820823 L 111.672898 -58.806686 L 111.518237 -58.792647 L 111.363575 -58.778706 L 111.208914 -58.764861 L 111.054253 -58.751113 L 110.899591 -58.737461 L 110.74493 -58.723904 L 110.590269 -58.710442 L 110.435607 -58.697074 L 110.280946 -58.6838 L 110.126285 -58.670619 L 109.971624 -58.65753 L 109.816962 -58.644533 L 109.662301 -58.631628 L 109.50764 -58.618813 L 109.352978 -58.606089 L 109.198317 -58.593455 L 109.043656 -58.58091 L 108.888994 -58.568454 L 108.734333 -58.556086 L 108.579672 -58.543806 L 108.42501 -58.531613 L 108.270349 -58.519506 L 108.115688 -58.507486 L 107.961026 -58.495552 L 107.806365 -58.483703 L 107.651704 -58.471938 L 107.497042 -58.460257 L 107.342381 -58.448661 L 107.18772 -58.437147 L 107.033058 -58.425716 L 106.878397 -58.414367 L 106.723736 -58.403099 L 106.569074 -58.391913 L 106.414413 -58.380808 L 106.259752 -58.369782 L 106.10509 -58.358836 L 105.950429 -58.34797 L 105.795768 -58.337182 L 105.641106 -58.326472 L 105.486445 -58.31584 L 105.331784 -58.305285 L 105.177122 -58.294807 L 105.022461 -58.284406 L 104.8678 -58.27408 L 104.713139 -58.263829 L 104.558477 -58.253654 L 104.403816 -58.243553 L 104.249155 -58.233526 L 104.094493 -58.223572 L 103.939832 -58.213692 L 103.785171 -58.203884 L 103.630509 -58.194148 L 103.475848 -58.184484 L 103.321187 -58.174891 L 103.166525 -58.165369 L 103.011864 -58.155917 L 102.857203 -58.146535 L 102.702541 -58.137223 L 102.54788 -58.12798 L 102.393219 -58.118805 L 102.238557 -58.109699 L 102.083896 -58.10066 L 101.929235 -58.091689 L 101.774573 -58.082784 L 101.619912 -58.073946 L 101.465251 -58.065174 L 101.310589 -58.056467 L 101.155928 -58.047826 L 101.001267 -58.03925 L 100.846605 -58.030738 L 100.691944 -58.022289 L 100.537283 -58.013905 L 100.382621 -58.005583 L 100.22796 -57.997324 L 100.073299 -57.989128 L 99.918637 -57.980993 L 99.763976 -57.97292 L 99.609315 -57.964908 L 99.454654 -57.956957 L 99.299992 -57.949066 L 99.145331 -57.941234 L 98.99067 -57.933463 L 98.836008 -57.92575 L 98.681347 -57.918097 L 98.526686 -57.910501 L 98.372024 -57.902964 L 98.217363 -57.895484 L 98.062702 -57.888062 L 97.90804 -57.880696 L 97.753379 -57.873387 L 97.598718 -57.866134 L 97.444056 -57.858937 L 97.289395 -57.851795 L 97.134734 -57.844707 L 96.980072 -57.837675 L 96.825411 -57.830697 L 96.67075 -57.823773 L 96.516088 -57.816902 L 96.361427 -57.810084 L 96.206766 -57.80332 L 96.052104 -57.796607 L 95.897443 -57.789947 L 95.742782 -57.783339 L 95.58812 -57.776782 L 95.433459 -57.770276 L 95.278798 -57.763821 L 95.124136 -57.757416 L 94.969475 -57.751061 L 94.814814 -57.744756 L 94.660152 -57.7385 L 94.505491 -57.732294 L 94.35083 -57.726136 L 94.196169 -57.720026 L 94.041507 -57.713964 L 93.886846 -57.707951 L 93.732185 -57.701984 L 93.577523 -57.696065 L 93.422862 -57.690192 L 93.268201 -57.684365 L 93.113539 -57.678585 L 92.958878 -57.672851 L 92.804217 -57.667162 L 92.649555 -57.661518 L 92.494894 -57.655919 L 92.340233 -57.650364 L 92.185571 -57.644854 L 92.03091 -57.639387 L 91.876249 -57.633964 L 91.721587 -57.628585 L 91.566926 -57.623248 L 91.412265 -57.617954 L 91.257603 -57.612703 L 91.102942 -57.607493 L 90.948281 -57.602326 L 90.793619 -57.5972 L 90.638958 -57.592115 L 90.484297 -57.587071 L 90.329635 -57.582067 L 90.174974 -57.577104 L 90.020313 -57.572181 L 89.865651 -57.567298 L 89.71099 -57.562454 L 89.556329 -57.55765 L 89.401667 -57.552884 L 89.247006 -57.548157 L 89.092345 -57.543469 L 88.937684 -57.538818 L 88.783022 -57.534206 L 88.628361 -57.529631 L 88.4737 -57.525093 L 88.319038 -57.520592 L 88.164377 -57.516129 L 88.009716 -57.511701 L 87.855054 -57.50731 L 87.700393 -57.502955 L 87.545732 -57.498635 L 87.39107 -57.494351 L 87.236409 -57.490102 L 87.081748 -57.485888 L 86.927086 -57.481709 L 86.772425 -57.477564 L 86.617764 -57.473454 L 86.463102 -57.469377 L 86.308441 -57.465334 L 86.15378 -57.461325 L 85.999118 -57.457348 L 85.844457 -57.453405 L 85.689796 -57.449495 L 85.535134 -57.445616 L 85.380473 -57.44177 L 85.225812 -57.437957 L 85.07115 -57.434174 L 84.916489 -57.430424 L 84.761828 -57.426704 L 84.607166 -57.423016 L 84.452505 -57.419359 L 84.297844 -57.415732 L 84.143182 -57.412136 L 83.988521 -57.408569 L 83.83386 -57.405033 L 83.679199 -57.401526 L 83.524537 -57.398049 L 83.369876 -57.394601 L 83.215215 -57.391183 L 83.060553 -57.387793 L 82.905892 -57.384431 L 82.751231 -57.381098 L 82.596569 -57.377794 L 82.441908 -57.374517 L 82.287247 -57.371268 L 82.132585 -57.368046 L 81.977924 -57.364852 L 81.823263 -57.361685 L 81.668601 -57.358545 L 81.51394 -57.355432 L 81.359279 -57.352345 L 81.204617 -57.349285 L 81.049956 -57.34625 L 80.895295 -57.343242 L 80.740633 -57.340259 L 80.585972 -57.337302 L 80.431311 -57.33437 L 80.276649 -57.331464 L 80.121988 -57.328582 L 79.967327 -57.325725 L 79.812665 -57.322893 L 79.658004 -57.320085 L 79.503343 -57.317301 L 79.348681 -57.314541 L 79.19402 -57.311805 L 79.039359 -57.309093 L 78.884697 -57.306404 L 78.730036 -57.303738 L 78.575375 -57.301096 L 78.420714 -57.298476 L 78.266052 -57.29588 L 78.111391 -57.293305 L 77.95673 -57.290754 L 77.802068 -57.288224 L 77.647407 -57.285716 L 77.492746 -57.283231 L 77.338084 -57.280767 L 77.183423 -57.278324 L 77.028762 -57.275903 L 76.8741 -57.273503 L 76.719439 -57.271124 L 76.564778 -57.268766 L 76.410116 -57.266429 L 76.255455 -57.264112 L 76.100794 -57.261816 L 75.946132 -57.259539 L 75.791471 -57.257283 L 75.63681 -57.255047 L 75.482148 -57.25283 L 75.327487 -57.250633 L 75.172826 -57.248456 L 75.018164 -57.246297 L 74.863503 -57.244158 L 74.708842 -57.242038 L 74.55418 -57.239937 L 74.399519 -57.237854 L 74.244858 -57.23579 L 74.090196 -57.233744 L 73.935535 -57.231716 L 73.780874 -57.229707 L 73.626212 -57.227715 L 73.471551 -57.225741 L 73.31689 -57.223785 L 73.162229 -57.221846 L 73.007567 -57.219925 L 72.852906 -57.218021 L 72.698245 -57.216134 L 72.543583 -57.214263 L 72.388922 -57.21241 L 72.234261 -57.210573 L 72.079599 -57.208753 L 71.924938 -57.206949 L 71.770277 -57.205162 L 71.615615 -57.203391 L 71.460954 -57.201635 L 71.306293 -57.199896 L 71.151631 -57.198172 L 70.99697 -57.196464 L 70.842309 -57.194771 L 70.687647 -57.193094 L 70.532986 -57.191432 L 70.378325 -57.189785 L 70.223663 -57.188153 L 70.069002 -57.186536 L 69.914341 -57.184933 L 69.759679 -57.183345 L 69.605018 -57.181772 L 69.450357 -57.180213 L 69.295695 -57.178669 L 69.141034 -57.177138 L 68.986373 -57.175621 L 68.831711 -57.174119 L 68.67705 -57.17263 L 68.522389 -57.171155 L 68.367727 -57.169693 L 68.213066 -57.168245 L 68.058405 -57.16681 L 67.903744 -57.165389 L 67.749082 -57.16398 L 67.594421 -57.162585 L 67.43976 -57.161202 L 67.285098 -57.159832 L 67.130437 -57.158475 L 66.975776 -57.15713 L 66.821114 -57.155798 L 66.666453 -57.154479 L 66.511792 -57.153171 L 66.35713 -57.151876 L 66.202469 -57.150592 L 66.047808 -57.149321 L 65.893146 -57.148062 L 65.738485 -57.146814 L 65.583824 -57.145578 L 65.429162 -57.144353 L 65.274501 -57.14314 L 65.11984 -57.141938 L 64.965178 -57.140748 L 64.810517 -57.139568 L 64.655856 -57.1384 L 64.501194 -57.137243 L 64.346533 -57.136096 L 64.191872 -57.13496 L 64.03721 -57.133835 L 63.882549 -57.132721 L 63.727888 -57.131617 L 63.573226 -57.130524 L 63.418565 -57.12944 L 63.263904 -57.128368 L 63.109242 -57.127305 L 62.954581 -57.126252 L 62.79992 -57.125209 L 62.645259 -57.124177 L 62.490597 -57.123154 L 62.335936 -57.12214 L 62.181275 -57.121136 L 62.026613 -57.120142 L 61.871952 -57.119158 L 61.717291 -57.118182 L 61.562629 -57.117216 L 61.407968 -57.11626 L 61.253307 -57.115312 L 61.098645 -57.114373 L 60.943984 -57.113444 L 60.789323 -57.112523 L 60.634661 -57.111611 L 60.48 -57.110708 z" style="stroke: #c9dedd"/>
+    </defs>
+    <g clip-path="url(#w7-reading-proportion-p72dda1b08c)">
+     <use xlink:href="#w7-reading-proportion-m3f532f3ef1" x="0" y="237.6" style="fill: #c9dedd; stroke: #c9dedd"/>
+    </g>
+   </g>
+   <g id="w7-reading-proportion-line2d_10">
+    <path d="M 275.94 180.576 L 275.94 38.016" clip-path="url(#w7-reading-proportion-p72dda1b08c)" style="fill: none; stroke-dasharray: 1,1.65; stroke-dashoffset: 0; stroke: #536675"/>
+   </g>
+   <g id="w7-reading-proportion-patch_3">
+    <path d="M 60.48 180.576 L 60.48 38.016" style="fill: none; stroke: #80919c; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="w7-reading-proportion-patch_4">
+    <path d="M 60.48 180.576 L 491.4 180.576" style="fill: none; stroke: #80919c; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="w7-reading-proportion-line2d_11">
+    <path d="M 137.656 180.576 L 137.656 174.521831" clip-path="url(#w7-reading-proportion-p72dda1b08c)" style="fill: none; stroke-dasharray: 5.55,2.4; stroke-dashoffset: 0; stroke: #287d76; stroke-width: 1.5"/>
+   </g>
+   <g id="w7-reading-proportion-text_9">
+    <text style="font-size: 12px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #287d76" x="487.0908" y="19.4832" transform="rotate(-0 487.0908 19.4832)">left-tail p ≈ 0.0074</text>
+   </g>
+   <g id="w7-reading-proportion-line2d_12">
+    <path d="M 60.48 180.489292 L 80.325 180.26763 L 93.366 179.911956 L 103.005 179.444501 L 110.943 178.858717 L 118.314 178.090202 L 124.551 177.221363 L 130.221 176.21656 L 135.324 175.104277 L 140.427 173.763606 L 144.963 172.354575 L 149.499 170.717406 L 154.035 168.829638 L 158.004 166.95526 L 161.973 164.858989 L 165.942 162.528745 L 169.911 159.954306 L 173.88 157.127803 L 177.849 154.044211 L 181.818 150.701849 L 186.354 146.568074 L 190.89 142.109274 L 195.426 137.343453 L 200.529 131.648305 L 206.199 124.967081 L 213.003 116.584926 L 233.415 91.138183 L 238.518 85.27945 L 243.054 80.433557 L 247.023 76.539312 L 250.425 73.499492 L 253.827 70.766878 L 256.662 68.744463 L 259.497 66.969173 L 262.332 65.453865 L 265.167 64.209627 L 268.002 63.245633 L 270.27 62.681093 L 272.538 62.303225 L 274.806 62.113838 L 277.074 62.113838 L 279.342 62.303225 L 281.61 62.681093 L 283.878 63.245633 L 286.713 64.209627 L 289.548 65.453865 L 292.383 66.969173 L 295.218 68.744463 L 298.053 70.766878 L 301.455 73.499492 L 304.857 76.539312 L 308.259 79.856079 L 312.228 84.032508 L 316.764 89.144176 L 321.867 95.227438 L 329.238 104.404026 L 344.547 123.593534 L 350.784 130.995699 L 355.887 136.727364 L 360.99 142.109274 L 365.526 146.568074 L 370.062 150.701849 L 374.031 154.044211 L 378 157.127803 L 381.969 159.954306 L 385.938 162.528745 L 389.907 164.858989 L 393.876 166.95526 L 398.412 169.080064 L 402.948 170.935301 L 407.484 172.542714 L 412.02 173.924825 L 417.123 175.238574 L 422.226 176.327383 L 427.896 177.30991 L 434.133 178.158477 L 440.937 178.858717 L 448.875 179.444501 L 458.514 179.911956 L 470.421 180.245668 L 486.864 180.458862 L 491.4 180.489292 L 491.4 180.489292" clip-path="url(#w7-reading-proportion-p72dda1b08c)" style="fill: none; stroke: #245a81; stroke-width: 2.3; stroke-linecap: square"/>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="w7-reading-proportion-p72dda1b08c">
+   <rect x="60.48" y="38.016" width="430.92" height="142.56"/>
+  </clipPath>
+ </defs>
+</svg></div><figcaption><b>A lower side-effect rate is a left-tailed comparison</b>Group 1 − Group 2 is approximately −0.1318, or −13.18 percentage points. Under the pooled equal-rate model, the shaded left tail has probability about 0.0074. Keep the chosen group order in the conclusion.</figcaption></figure>
+<p>For an interval estimating \(p_1-p_2\), use an unpooled standard error \(\sqrt{\hat p_1(1-\hat p_1)/n_1+\hat p_2(1-\hat p_2)/n_2}\). Equality is assumed for the pooled test, not for estimating the difference.</p><div class="w7-table-lookup" role="region" tabindex="0" aria-label="Choosing a two-proportion standard error"><table><caption>Different questions require different standard errors</caption><thead><tr><th scope="col">Question</th><th scope="col">Proportions in the SE</th><th scope="col">Reason</th></tr></thead><tbody><tr><th scope="row">Test H₀: p₁ = p₂</th><td>Use the same pooled estimate in both terms</td><td>Build variation under the equality claim</td></tr><tr><th scope="row">Estimate p₁ − p₂ with an interval</th><td>Use each group’s own sample proportion</td><td>Estimate uncertainty without assuming equality</td></tr></tbody></table></div><div class="practice"><b>Check your understanding.</b><p>Group 1 has 10 successes in 20 observations and Group 2 has 90 in 100. Find the pooled estimate.</p><details><summary>Show explanation</summary><p>\((10+90)/(20+100)=100/120\approx0.8333\), not the average of 0.50 and 0.90.</p></details></div></section><section id="references"><h2>Continue practicing</h2><p>Continue with this week’s course activities, and use the PDF chapter for additional practice.</p><a class="pdf-link" href="../textbook/Math146_Ch7.pdf">Original PDF: Chapter 7</a><a class="pdf-link" href="../labs/Math146_Week7_Lab.html">Week 7 laboratory</a><a class="pdf-link" href="../demos/two_sample_demo.html">Two-Sample Difference Explorer</a><p class="footer-nav"><a href="week6_reading.html">← Previous reading</a><a href="week8_reading.html">Next reading →</a></p></section></article></main></body></html>

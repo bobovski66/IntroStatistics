@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Draw independent normal samples, combine their sampling uncertainty, and stack confidence intervals for the difference of population means.">
+<title>Two-Sample Difference Explorer | MATH&amp; 146</title>
+<style>
+:root{color-scheme:light;--bg:#eef1f3;--paper:#fffdf8;--ink:#182e40;--muted:#536675;--blue:#245a81;--teal:#287d76;--gold:#ad6b15;--red:#9c3b42;--line:#cdd9df}
+*{box-sizing:border-box}body{margin:0;font:16px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--bg);color:var(--ink)}a{color:var(--blue)}header{background:#183149;color:white;padding:24px max(18px,calc((100vw - 1120px)/2))}header a{color:#d4e9f5}header h1{font-size:clamp(1.7rem,4vw,2.5rem);line-height:1.15;margin:12px 0}header p{max-width:85ch;margin:8px 0;color:#dbe7ef}main{max-width:1160px;margin:auto;padding:20px 18px 60px}h2{font-size:1.25rem;margin:0 0 8px}h3{font-size:1.05rem;margin:0 0 8px}.panel{padding:20px;margin:16px 0;background:var(--paper);border:1px solid var(--line);border-radius:12px}.panel>p{margin:8px 0 16px;max-width:95ch}.model-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.model-card{border:1px solid var(--line);border-top:4px solid var(--blue);border-radius:8px;background:white;padding:14px}.model-card.group2{border-top-color:var(--teal)}.input-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}label{display:block;font-size:.9rem}input,select,button{font:inherit}input,select{padding:8px;border:1px solid #90a6b4;border-radius:6px;background:white;color:var(--ink);max-width:100%}input{width:100%;margin-top:4px}button{border:1px solid var(--blue);border-radius:7px;padding:8px 12px;background:white;color:var(--blue);cursor:pointer}button.primary{background:var(--blue);color:white}button:disabled{opacity:.5;cursor:default}button:hover:enabled{filter:brightness(.94)}button:focus-visible,input:focus-visible,select:focus-visible,[tabindex]:focus-visible{outline:3px solid #c18a2f;outline-offset:3px}.controls,.actions,.legend{display:flex;gap:10px 16px;flex-wrap:wrap;align-items:center}.controls{justify-content:space-between;margin-top:16px}.controls label{display:flex;align-items:center;gap:8px}.actions{margin:14px 0}.small,.legend{font-size:.88rem;color:var(--muted)}.legend{margin:8px 0}.legend span:before{content:"";display:inline-block;width:19px;height:4px;vertical-align:middle;margin-right:7px;background:var(--blue)}.legend .miss:before{background:var(--gold)}.legend .zero:before{background:none;height:0;border-top:2px dashed #657987}.legend .truth:before{background:none;height:0;border-top:2px dashed var(--teal)}.readout{padding:13px 15px;background:#edf3f6;border-left:4px solid var(--blue);border-radius:6px;margin:12px 0;font-variant-numeric:tabular-nums}.readout p{margin:5px 0}.warning{border-left:4px solid var(--red);background:#faece9;padding:12px;margin:12px 0}.chart{overflow:auto;max-width:100%}.chart svg{display:block;width:100%;height:auto;min-width:650px}.stack{max-height:580px;overflow:auto;border:1px solid var(--line);border-radius:7px}.stack svg{min-width:850px}.empty{padding:25px;color:var(--muted)}.stats{font-variant-numeric:tabular-nums;color:var(--ink);font-weight:650}.tips li{margin:8px 0}[hidden]{display:none!important}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+@media(max-width:650px){.model-grid{grid-template-columns:1fr}.input-grid{gap:8px}.panel{padding:14px}.controls{align-items:flex-start}.controls label{align-items:flex-start;flex-direction:column}.input-grid label{font-size:.83rem}}
+@media print{body{background:white}header{background:white;color:black;padding:0}header a,.actions,.controls,.model-grid{display:none}header p{color:#333}main{max-width:none;padding:0}.panel{box-shadow:none;border:1px solid #aaa;break-inside:avoid}.chart,.stack{overflow:visible;max-height:none}.chart svg,.stack svg{min-width:0}svg{print-color-adjust:exact;-webkit-print-color-adjust:exact}}
+</style>
+</head>
+<body>
+<a class="sr-only" href="#explorer">Skip to explorer</a>
+<header><a href="../index.html">← MATH&amp; 146 course</a> · <a href="../readings/week7_reading.html">Week 7 reading</a><h1>Two-Sample Difference Explorer</h1><p>Draw two independent samples, then estimate the difference between their population means. Watch intervals accumulate and compare coverage of the true difference with a test of equal means.</p></header>
+<main id="explorer">
+<section class="panel" aria-labelledby="model-heading"><h2 id="model-heading">1. Choose the populations for this simulation</h2><p>Both populations are normal, and their standard deviations are known. These are specified population parameters for generating data. Every draw takes fresh, independent observations from each group; the groups are not paired.</p>
+<div class="actions"><button type="button" data-preset="equal">Equal means</button><button type="button" data-preset="different">Group 1 has a larger mean</button><button type="button" data-preset="unequal">Unequal sampling precision</button></div>
+<div class="model-grid">
+<div class="model-card"><h3>Group 1</h3><div class="input-grid"><label for="mu1">Population mean μ₁<input id="mu1" type="number" step="1" value="80"></label><label for="sigma1">Known SD σ₁<input id="sigma1" type="number" min="0.01" step="1" value="10"></label><label for="n1">Sample size n₁<input id="n1" type="number" min="2" max="500" step="1" value="40"></label></div></div>
+<div class="model-card group2"><h3>Group 2</h3><div class="input-grid"><label for="mu2">Population mean μ₂<input id="mu2" type="number" step="1" value="80"></label><label for="sigma2">Known SD σ₂<input id="sigma2" type="number" min="0.01" step="1" value="10"></label><label for="n2">Sample size n₂<input id="n2" type="number" min="2" max="500" step="1" value="40"></label></div></div>
+</div>
+<div class="controls"><label for="order">Difference order <select id="order"><option value="1">Group 1 − Group 2</option><option value="-1">Group 2 − Group 1</option></select></label><label for="level">Confidence level <select id="level"><option value="0.90">90%</option><option value="0.95" selected>95%</option><option value="0.99">99%</option></select></label></div>
+<p id="model-note" class="small"></p><div id="input-warning" class="warning" role="status" hidden></div><div class="chart" id="variance-plot" tabindex="0" role="group" aria-label="Sampling variance contributions"></div>
+<div class="actions"><button type="button" class="primary" id="draw-one">Draw two samples</button><button type="button" id="draw-many">Draw 20 sample pairs</button><button type="button" id="reset">Clear the stack</button></div>
+<p class="small">Changing a population parameter or sample size starts a new run. Changing the subtraction order or confidence level redraws the same stored samples.</p></section>
+<section class="panel" aria-labelledby="sample-heading"><h2 id="sample-heading">2. Inspect the latest two samples</h2><p class="small">Each small dot is one observed value. A diamond marks its group’s sample mean. Vertical jitter separates dots; it has no statistical meaning.</p><div class="chart" id="sample-plot" tabindex="0" role="group" aria-label="Latest independent observations"></div><div id="latest-readout" class="readout" aria-live="polite"></div></section>
+<section class="panel" aria-labelledby="null-heading"><h2 id="null-heading">3. Compare the difference with the equality model</h2><p>The test is two-sided: H₀ says the population difference is 0; Hₐ allows either sign. The curve below is the distribution of the difference <em>under H₀</em>. Dark shading counts results at least as far from 0 as the observed difference. Pale shading marks the prechosen rejection regions.</p><div class="chart" id="null-plot" tabindex="0" role="group" aria-label="Null distribution and two-sided p-value"></div><p id="test-note" class="small"></p></section>
+<section class="panel" aria-labelledby="stack-heading"><h2 id="stack-heading">4. Let the difference intervals pile up</h2><p>Every row comes from a fresh pair of independent samples. The bar estimates the population difference; the dot is the observed difference. The true value is visible here because we specified the simulation model.</p><div class="legend"><span>Interval contains the true difference</span><span class="miss">Interval misses the true difference</span><span class="zero">Zero: equal means</span><span class="truth">True population difference</span></div><p class="small">The decision text is red when the test rejects equality. An interval can contain the true difference while excluding zero when the population means differ.</p><p id="stack-stats" class="stats" aria-live="polite"></p><div class="chart stack" id="stack-plot" tabindex="0" role="group" aria-label="Accumulating confidence intervals for the difference"></div></section>
+<section class="panel"><h2>Try a comparison</h2><ol class="tips"><li>Start with equal means and draw many sample pairs. Compare the fraction of intervals that miss the true difference with α = 1 − confidence level.</li><li>Choose unequal sampling precision. Increase only the smaller, noisier sample. Watch which variance contribution shrinks and how the interval width changes.</li><li>Reverse the subtraction order. The same differences and intervals reflect across 0, while two-sided p-values and decisions stay the same.</li><li>Change 95% to 99% while keeping the same draws. Intervals widen; the p-values stay fixed, but the rejection threshold changes.</li></ol><p class="small">These exact normal-model results use known population SDs. For real data with estimated SDs, use an appropriate method such as Welch’s t procedure. Proportion tests require their own pooled null standard error, as explained in the reading. At an exact interval endpoint, the test’s equality convention and numerical rounding matter.</p></section>
+</main>
+<script>
+'use strict';
+const COLORS={blue:'#245a81',teal:'#287d76',gold:'#ad6b15',red:'#9c3b42',muted:'#536675',line:'#cdd9df'};
+const CRIT={'0.90':1.6448536269514722,'0.95':1.959963984540054,'0.99':2.5758293035489004};
+const PRESETS={equal:{mu1:80,mu2:80,sigma1:10,sigma2:10,n1:40,n2:40},different:{mu1:84,mu2:80,sigma1:10,sigma2:10,n1:40,n2:40},unequal:{mu1:84,mu2:80,sigma1:14,sigma2:5,n1:20,n2:80}};
+const state={model:{...PRESETS.equal},level:.95,order:1,trials:[],last:null};
+const $=id=>document.getElementById(id);
+const fmt=(x,d=3)=>Number.isFinite(x)?x.toFixed(d).replace(/^-0\.000$/,'0.000'):'—';
+const xml=s=>String(s).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;');
+function normalPDF(z){return Math.exp(-z*z/2)/Math.sqrt(2*Math.PI);}
+function normalCDF(z){const sign=z<0?-1:1,x=Math.abs(z)/Math.sqrt(2),t=1/(1+.3275911*x);const y=1-(((((1.061405429*t-1.453152027)*t)+1.421413741)*t-.284496736)*t+.254829592)*t*Math.exp(-x*x);return .5*(1+sign*y);}
+function randomNormal(){const u=Math.max(Number.MIN_VALUE,Math.random());return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*Math.random());}
+function mean(values){return values.reduce((a,b)=>a+b,0)/values.length;}
+function standardError(m=state.model){return Math.sqrt(m.sigma1*m.sigma1/m.n1+m.sigma2*m.sigma2/m.n2);}
+function trueDifference(){return state.order*(state.model.mu1-state.model.mu2);}
+function viewTrial(t){const d=state.order*(t.mean1-t.mean2),margin=CRIT[state.level.toFixed(2)]*t.se,z=d/t.se,p=2*normalCDF(-Math.abs(z));return {d,lo:d-margin,hi:d+margin,z,p,reject:p<=1-state.level,captured:d-margin<=trueDifference()&&trueDifference()<=d+margin};}
+function validation(m){if(!Object.values(m).every(Number.isFinite))return 'Enter a number in each population field.';if(![m.n1,m.n2].every(n=>Number.isInteger(n)&&n>=2&&n<=500))return 'Each sample size must be a whole number from 2 to 500.';if(m.sigma1<=0||m.sigma2<=0)return 'Both population standard deviations must be positive.';if(!Number.isFinite(standardError(m))||standardError(m)<=0||Math.abs(m.mu1)>1e8||Math.abs(m.mu2)>1e8||m.sigma1<1e-6||m.sigma2<1e-6)return 'Use means within ±100,000,000 and positive SDs of at least 0.000001 for this graph.';return '';}
+function svg(body,height,label){return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 ${height}" role="img" aria-label="${xml(label)}" font-family="Arial,sans-serif" font-size="14" fill="#182e40"><title>${xml(label)}</title><rect width="1000" height="${height}" fill="#fffdf8"/>${body}</svg>`;}
+function text(x,y,value,fill=COLORS.muted,anchor='start',size=14){return `<text x="${x}" y="${y}" fill="${fill}" text-anchor="${anchor}" font-size="${size}">${xml(value)}</text>`;}
+function clearRun(){state.trials=[];state.last=null;}
+function drawSamples(count){
+  if(validation(state.model))return;
+  const m=state.model;
+  for(let k=0;k<count;k++){
+    const a=Array.from({length:m.n1},()=>m.mu1+m.sigma1*randomNormal()),b=Array.from({length:m.n2},()=>m.mu2+m.sigma2*randomNormal());
+    const trial={index:state.trials.length+1,mean1:mean(a),mean2:mean(b),se:standardError(m)};
+    state.trials.push(trial);state.last={...trial,a,b};
+  }
+  render();const stack=$('stack-plot');stack.scrollTop=stack.scrollHeight;
+}
+function renderVariance(){
+  const m=state.model,v1=m.sigma1*m.sigma1/m.n1,v2=m.sigma2*m.sigma2/m.n2,total=v1+v2,width1=800*v1/total;
+  const body=`<rect x="90" y="42" width="${width1}" height="33" fill="#bcd0e1"/><rect x="${90+width1}" y="42" width="${800-width1}" height="33" fill="#b9d8d4"/>`+text(90,27,`Group 1: σ₁²/n₁ = ${fmt(v1)}`,COLORS.blue)+text(890,27,`Group 2: σ₂²/n₂ = ${fmt(v2)}`,COLORS.teal,'end')+text(490,103,`SE² = ${fmt(total)};  SE = √${fmt(total)} = ${fmt(standardError())}`,'#182e40','middle',15);
+  $('variance-plot').innerHTML=svg(body,125,'Independent variance contributions: '+fmt(v1)+' plus '+fmt(v2)+', standard error '+fmt(standardError()));
+}
+function renderSample(){
+  if(!state.last){$('sample-plot').innerHTML='<div class="empty">Draw a pair of samples to see its observations and sample means.</div>';$('latest-readout').textContent='No samples drawn yet.';return;}
+  const last=state.last,m=state.model,values=[...last.a,...last.b],min=Math.min(...values),max=Math.max(...values),pad=Math.max((max-min)*.07,standardError()),lo=min-pad,hi=max+pad,xp=x=>110+(x-lo)/(hi-lo)*800;
+  let body='';
+  for(const [row,arr,avg,color,name] of [[0,last.a,last.mean1,COLORS.blue,'Group 1'],[1,last.b,last.mean2,COLORS.teal,'Group 2']]){
+    const y=65+row*94;body+=text(30,y+5,name,color)+text(930,y-32,`n = ${arr.length}; sample mean = ${fmt(avg)}`,color,'end');
+    body+=`<path d="M110 ${y}H910" stroke="#d9e2e8"/>`;
+    arr.forEach((x,i)=>{const jitter=((i*37)%23-11)*1.45;body+=`<circle cx="${xp(x)}" cy="${y+jitter}" r="3" fill="${color}" fill-opacity=".48"/>`;});
+    const x=xp(avg);body+=`<path d="M${x} ${y-10}l8 10-8 10-8-10Z" fill="${color}" stroke="#fffdf8" stroke-width="1.5"/>`;
+  }
+  body+='<path d="M110 197H910" stroke="#80919c"/>';
+  for(let i=0;i<=5;i++){const v=lo+(hi-lo)*i/5;body+=text(xp(v),219,fmt(v,1),COLORS.muted,'middle',12);}
+  body+=text(510,243,'Individual observations in the original measurement units',COLORS.muted,'middle');
+  $('sample-plot').innerHTML=svg(body,260,`Latest samples: group 1 mean ${fmt(last.mean1)}, n ${m.n1}; group 2 mean ${fmt(last.mean2)}, n ${m.n2}`);
+  const v=viewTrial(last),order=state.order===1?'1 − 2':'2 − 1',conf=fmt(100*state.level,0),reject=v.reject?'Reject equal means':'Fail to reject equal means';
+  $('latest-readout').innerHTML=`<p>Draw #${last.index}: difference (${order}) = <strong>${fmt(v.d)}</strong>; SE = ${fmt(last.se)}; z = ${fmt(v.z)}.</p><p>${conf}% CI: [${fmt(v.lo)}, ${fmt(v.hi)}]. Two-sided p-value = ${fmt(v.p,4)}. <strong style="color:${v.reject?COLORS.red:COLORS.blue}">${reject}</strong> at α = ${fmt(1-state.level,2)}.</p>`;
+}
+function differenceRange(){
+  const se=standardError(),truth=trueDifference(),recent=state.trials.slice(-60).map(viewTrial);
+  let lo=Math.min(-3.8*se,truth-2*se,...recent.map(v=>v.lo)),hi=Math.max(3.8*se,truth+2*se,...recent.map(v=>v.hi));const pad=(hi-lo)*.04;return {lo:lo-pad,hi:hi+pad};
+}
+function renderNull(){
+  const se=standardError(),{lo,hi}=differenceRange(),xp=x=>100+(x-lo)/(hi-lo)*620,base=145,yp=x=>base-108*normalPDF(x/se)/normalPDF(0);
+  const points=(a,b)=>Array.from({length:241},(_,i)=>{const x=a+(b-a)*i/240;return `${xp(x)},${yp(x)}`;}).join(' ');
+  const area=(a,b,color)=>{a=Math.max(a,lo);b=Math.min(b,hi);return b>a?`<polygon points="${xp(a)},${base} ${points(a,b)} ${xp(b)},${base}" fill="${color}"/>`:'';};
+  const cutoff=CRIT[state.level.toFixed(2)]*se;
+  let body=area(lo,-cutoff,'#f5e3e6')+area(cutoff,hi,'#f5e3e6');
+  if(state.last){const v=viewTrial(state.last);body+=area(lo,-Math.abs(v.d),'#dca7b1')+area(Math.abs(v.d),hi,'#dca7b1');body+=`<path d="M${xp(v.d)} ${base}V25" stroke="${COLORS.red}" stroke-width="2"/>`;body+=text(760,60,`z = ${fmt(v.z)}`,COLORS.blue)+text(760,88,`p = ${fmt(v.p,4)}`,COLORS.red)+text(760,116,'Dark area = both tails',COLORS.muted,'start',13);}
+  body+=`<polyline points="${points(lo,hi)}" fill="none" stroke="${COLORS.blue}" stroke-width="2.3"/><path d="M100 ${base}H720" stroke="#80919c"/><path d="M${xp(0)} 25V${base}" stroke="#657987" stroke-dasharray="4 4"/>`;
+  for(const cut of [-cutoff,cutoff])body+=`<path d="M${xp(cut)} ${base}V${yp(cut)}" stroke="${COLORS.gold}" stroke-dasharray="4 3"/>`;
+  const ticks=[-3*se,0,3*se];for(const v of ticks)body+=text(xp(v),168,fmt(v,2),COLORS.muted,'middle',12);
+  body+=text(410,194,'Difference of sample means in the selected order',COLORS.muted,'middle')+text(760,144,`α = ${fmt(1-state.level,2)}`,COLORS.muted);
+  $('null-plot').innerHTML=svg(body,212,'Two-sided equality null distribution centered at zero; standard error '+fmt(se)+(state.last?'; p-value '+fmt(viewTrial(state.last).p,4):'; no observed sample yet'));
+  $('test-note').textContent=`The simulation’s true difference is ${fmt(trueDifference())}; H₀ nevertheless asks about 0. This known-SD two-sided test at α = ${fmt(1-state.level,2)} matches the ${fmt(state.level*100,0)}% interval. Changing the confidence level moves the rejection cutoffs and interval endpoints; it does not change a stored sample’s p-value.`;
+}
+function renderStack(){
+  const views=state.trials.map(viewTrial),total=views.length,covered=views.filter(v=>v.captured).length,rejected=views.filter(v=>v.reject).length,truth=trueDifference();
+  $('stack-stats').textContent=total?`${covered}/${total} intervals contain the true difference (${fmt(100*covered/total,1)}%); ${rejected}/${total} tests reject equality. True difference = ${fmt(truth)}. Showing the latest ${Math.min(60,total)} draws.`:`No intervals drawn. True population difference = ${fmt(truth)}.`;
+  if(!total){$('stack-plot').innerHTML='<div class="empty">Intervals from successive sample pairs will stack here.</div>';return;}
+  const recent=state.trials.slice(-60),{lo,hi}=differenceRange(),xp=x=>100+(x-lo)/(hi-lo)*620,H=70+recent.length*27;
+  let body=text(20,20,'Draw #')+text(410,20,`${fmt(100*state.level,0)}% CI for the population difference`,COLORS.blue,'middle')+text(760,20,'p-value · equality decision');
+  for(let i=0;i<=6;i++){const x=lo+(hi-lo)*i/6;body+=`<path d="M${xp(x)} 47V${H-8}" stroke="#e3e9ed"/>`+text(xp(x),40,fmt(x,1),COLORS.muted,'middle',12);}
+  body+=`<path d="M${xp(0)} 47V${H-8}" stroke="#657987" stroke-width="1.5" stroke-dasharray="5 4"/>`;
+  body+=`<path d="M${xp(truth)} 47V${H-8}" stroke="${COLORS.teal}" stroke-width="2" stroke-dasharray="2 4"/>`;
+  recent.forEach((t,i)=>{const v=viewTrial(t),y=64+i*27,color=v.captured?COLORS.blue:COLORS.gold;
+    body+=text(20,y+4,t.index)+`<path d="M${xp(v.lo)} ${y}H${xp(v.hi)}M${xp(v.lo)} ${y-5}V${y+5}M${xp(v.hi)} ${y-5}V${y+5}" stroke="${color}" stroke-width="2"/><circle cx="${xp(v.d)}" cy="${y}" r="4" fill="${color}"/>`+text(760,y+4,`${fmt(v.p,4)} · ${v.reject?'reject':'fail to reject'}`,v.reject?COLORS.red:COLORS.muted,'start',13);
+  });
+  $('stack-plot').innerHTML=svg(body,H,`${total} intervals: ${covered} contain the true population difference ${fmt(truth)}, ${rejected} reject a zero difference; latest ${recent.length} shown`);
+}
+function render(){
+  const error=validation(state.model);$('input-warning').hidden=!error;$('input-warning').textContent=error;['draw-one','draw-many'].forEach(id=>$(id).disabled=Boolean(error));
+  if(error){['variance-plot','sample-plot','null-plot','stack-plot'].forEach(id=>$(id).innerHTML='');$('latest-readout').textContent=error;$('stack-stats').textContent='';return;}
+  $('model-note').textContent=`Known normal populations; true difference in the selected order = ${fmt(trueDifference())}. Confidence ${fmt(100*state.level,0)}%; corresponding two-sided α = ${fmt(1-state.level,2)}.`;
+  renderVariance();renderSample();renderNull();renderStack();
+}
+function setPreset(name){state.model={...PRESETS[name]};Object.entries(state.model).forEach(([key,value])=>$(key).value=value);clearRun();render();}
+Object.keys(state.model).forEach(key=>$(key).addEventListener('input',()=>{state.model[key]=parseFloat($(key).value);clearRun();render();}));
+$('order').addEventListener('change',()=>{state.order=Number($('order').value);render();});
+$('level').addEventListener('change',()=>{state.level=Number($('level').value);render();});
+$('draw-one').addEventListener('click',()=>drawSamples(1));$('draw-many').addEventListener('click',()=>drawSamples(20));$('reset').addEventListener('click',()=>{clearRun();render();});
+document.querySelectorAll('[data-preset]').forEach(button=>button.addEventListener('click',()=>setPreset(button.dataset.preset)));
+render();
+</script>
+</body>
+</html>
