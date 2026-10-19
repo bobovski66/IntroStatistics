@@ -149,7 +149,27 @@ details summary{line-height:1.35;}
 @media(max-width:700px){.student-topbar-inner{padding:8px 10px}.student-topbar .status{width:100%;margin-left:0}.student-topbar button{padding:8px 10px}}
 @media print{.student-topbar{display:none!important}}
 </style>
-</head>
+<style id="regression-workbench-styles">.regression-workbench{--rw-blue:#245a81;--rw-teal:#287d76;--rw-orange:#a74c20;--rw-ink:#182e40;background:#fff;color:var(--rw-ink);border:1px solid #c6d5de;border-radius:14px;padding:18px;margin:18px 0;min-width:0;font:16px/1.55 system-ui,sans-serif}.regression-workbench *{box-sizing:border-box}.regression-workbench [hidden]{display:none!important}.regression-workbench h3{margin:4px 0 10px;color:var(--rw-ink);font:700 1.2rem/1.35 system-ui,sans-serif}.regression-workbench h4{margin:13px 0 5px}.regression-workbench p{margin:9px 0}
+.rw-tabs,.rw-actions{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.regression-workbench button{font:650 14px system-ui,sans-serif;border:1px solid #a8bdca;border-radius:7px;background:#f2f7fa;color:var(--rw-ink);padding:8px 11px;cursor:pointer}.regression-workbench button[aria-pressed=true],.regression-workbench .rw-primary{background:#245a81;color:#fff;border-color:#245a81}.regression-workbench button:disabled{opacity:.55;cursor:default}.regression-workbench button:focus-visible,.regression-workbench input:focus-visible,.regression-workbench select:focus-visible{outline:3px solid #9b6b18;outline-offset:3px}
+.rw-controls{display:flex;gap:15px;flex-wrap:wrap;align-items:end;margin:13px 0}.regression-workbench label{font-size:14px;font-weight:600;display:block;margin:0}.rw-controls label{flex:1 1 150px}.regression-workbench select,.regression-workbench input[type=number]{display:block;width:100%;border:1px solid #a8bdca;border-radius:6px;background:#fff;color:var(--rw-ink);padding:7px;font:inherit;margin-top:5px}.regression-workbench input[type=range]{display:block;width:100%;accent-color:#245a81;margin:10px 0}.regression-workbench input[type=checkbox]{accent-color:#245a81;width:auto;margin-right:7px}.rw-slider-value{font-variant-numeric:tabular-nums;color:#245a81}.rw-prompt{background:#edf7f4;border-left:4px solid #287d76;padding:10px 13px;margin:12px 0}.rw-note{font-size:14px;color:#435e70}.rw-warning{background:#fff5dc;border-left:4px solid #9b6b18;padding:10px 13px;margin:12px 0}
+.rw-plots{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px}.rw-plot{border:1px solid #d1dfe6;background:#fff;border-radius:9px;overflow-x:auto;margin:12px 0}.rw-plot svg{display:block;width:100%;height:auto;min-width:420px;max-width:none}.rw-wide svg{min-width:620px}.rw-metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:12px 0}.rw-metric{padding:10px;border:1px solid #cbdbe2;border-radius:8px;background:#f5f9fb}.rw-metric span{font-size:12px;display:block;color:#526b7c}.rw-metric strong{font-size:18px;color:#245a81;font-variant-numeric:tabular-nums}.rw-table{overflow:auto;max-height:350px;border:1px solid #d1dfe6;border-radius:8px;margin:12px 0}.regression-workbench table{width:100%;border-collapse:collapse;margin:0;background:#fff;font-size:14px;color:#182e40}.regression-workbench th,.regression-workbench td{padding:8px;border-bottom:1px solid #d1dfe6;white-space:nowrap;text-align:right}.regression-workbench th{font-size:13px;background:#edf3f6;text-transform:none;letter-spacing:0;color:#34536a}.regression-workbench th:first-child,.regression-workbench td:first-child{text-align:left}.rw-selected{background:#fff0df}.rw-legend{font-size:14px;color:#435e70}.rw-legend span{display:inline-block;margin-right:15px}.rw-legend span:before{content:'';display:inline-block;width:14px;height:4px;background:#a74c20;margin:0 6px 3px 0}.rw-legend span+span:before{background:#245a81}.rw-range{border:1px solid #cbdbe2;border-radius:8px;padding:10px;background:#f5f9fb;margin:12px 0}
+@media(max-width:850px){.rw-plots{grid-template-columns:1fr}.rw-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:520px){.regression-workbench{padding:11px}.rw-tabs button{font-size:13px}.rw-controls{gap:9px}}
+@media print{.rw-tabs,.rw-actions,.rw-controls,.rw-no-print{display:none!important}.regression-workbench{box-shadow:none;border:1px solid #aaa;padding:9px;break-inside:auto;print-color-adjust:exact;-webkit-print-color-adjust:exact}.rw-plots{grid-template-columns:1fr}.rw-plot{overflow:visible;break-inside:avoid}.rw-plot svg,.rw-wide svg{min-width:0;width:100%}.rw-table{max-height:none}.rw-metric strong{font-size:13px}}
+</style><script defer src="../demos/assets/regression-workbench.js"></script><style id="week10-visual-styles">
+/* Week 10 diagrams are embedded so saved pages retain their graphs. */
+.w10-visual{margin:20px 0;padding:14px 14px 12px;background:#fff;border:1px solid #cdd9df;border-radius:11px;break-inside:avoid;color:#182e40;font:16px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif;min-width:0;max-width:100%}
+.w10-visual .w10-plot{overflow-x:auto;max-width:100%;border-radius:5px}
+.w10-visual svg{display:block;width:100%;height:auto;min-width:420px;max-width:none}
+.w10-visual figcaption{font-size:.92em;margin-top:9px;color:#435969}
+.w10-visual figcaption b{display:block;color:#245a81;margin-bottom:3px}
+.w10-visual .w10-key{font-size:.85em;color:#536675;margin:8px 0 0}
+.w10-table-lookup{max-width:100%;overflow:auto;margin:16px 0}
+.w10-table-lookup table{border-collapse:collapse;background:#fff;font:15px/1.5 system-ui,sans-serif;width:100%}
+.w10-table-lookup th,.w10-table-lookup td{padding:9px;border:1px solid #cdd9df;text-align:center;color:#182e40}
+.w10-table-lookup .w10-selected{background:#dcefe9;font-weight:750;border:2px solid #287d76}
+@media(max-width:540px){.w10-visual{padding:10px 8px}.w10-visual figcaption{font-size:14px}.w10-visual .w10-key{font-size:12px}}
+@media print{.w10-visual{box-shadow:none;border:1px solid #aab6bf;break-inside:avoid;padding:8px;margin:12px 0;print-color-adjust:exact;-webkit-print-color-adjust:exact}.w10-visual .w10-plot{overflow:visible}.w10-visual svg{min-width:0;width:100%}.w10-visual figcaption{font-size:10pt}.w10-table-lookup{break-inside:avoid}.w10-table-lookup .w10-selected{print-color-adjust:exact;-webkit-print-color-adjust:exact}}
+</style></head>
 <body>
 <div class="wrap">
 <header>
@@ -173,19 +193,14 @@ details summary{line-height:1.35;}
 <div class="objectives">
 <h2>What you’ll practice</h2>
 <ul>
-<li>Compute a least-squares regression line from summary statistics using \(b=r\,s_y/s_x\) and \(a=\bar{y}-b\bar{x}\).</li>
+<li>Explain the mean anchor and squared-error minimum, then compute a regression line from summary statistics using \(b=r\,s_y/s_x\) and \(a=\bar{y}-b\bar{x}\).</li>
 <li>Use a regression line to make a prediction and interpret the slope in context.</li>
 <li>Compute \(r^2\) and interpret it as the proportion of variability in \(y\) explained by \(x\).</li>
 <li>Find a regression line from raw bivariate data and recognize the limits of correlation and extrapolation.</li>
 </ul>
 </div>
 <div class="scenario lab-question-card"><strong>Lab question:</strong> How much can one quantitative variable tell us about another, and where does a straight-line model stop being trustworthy?<p style="margin:8px 0 0"><strong>Why this matters:</strong> Regression is useful because it turns association into a prediction rule, but the equation is only part of the analysis. A useful model also requires context, residual checks, attention to extrapolation, and restraint about causal claims.</p></div>
-<div class="formulas">
-<h2>Reference Formulas</h2>
-<p>Regression slope and intercept: \[b=r\cdot\frac{s_y}{s_x} \qquad a=\bar{y}-b\bar{x} \qquad \hat{y}=a+bx\]</p>
-<p>Residual: \(e_i=y_i-\hat{y}_i\)  ·  \(r^2\) = proportion of variability in \(y\) explained by the linear relationship with \(x\).</p>
-<p>The regression line always passes through \((\bar{x},\,\bar{y})\).</p>
-</div>
+
 <div aria-label="Lab controls" class="toolbar student-toolbar no-print">
 <div class="toolbar-main">
 <div class="submission-name-control"><label for="submissionStudentName">Student name</label><input id="submissionStudentName" autocomplete="name" placeholder="Your name" type="text"/></div>
@@ -194,12 +209,498 @@ details summary{line-height:1.35;}
 <button class="danger-soft" onclick="clearData()" type="button">Clear answers</button>
 </div>
 <div class="status-row"><span aria-hidden="true" class="save-dot"></span><span>Saved automatically on this device</span><div aria-hidden="true" class="progress-track"><div class="progress-fill" id="studentProgressFill"></div></div><span aria-live="polite" id="studentProgressText"></span></div>
-<nav aria-label="Jump to a problem" class="problem-nav"><a href="#p1">Problem 1</a><a href="#p2">Problem 2</a><a href="#p3">Problem 3</a><a href="#p4">Problem 4</a><a href="#p5">Problem 5</a></nav>
+<nav aria-label="Jump to a problem" class="problem-nav"><a href="#p0">Start with the data</a><a href="#p1">Problem 1</a><a href="#p2">Problem 2</a><a href="#p3">Problem 3</a><a href="#p4">Problem 4</a><a href="#p5">Problem 5</a></nav>
 </div>
-<!-- PROBLEM 1 -->
+<div class="problem" id="p0"><h2>Start with the data — Why this line?</h2><p class="problem-goal">Connect the mean and variance from the first weeks to a line that predicts a response. Use the eight invented practice records from the reading and Python module.</p><p><a href="../readings/week10_reading.html">Read the derivation alongside this lab</a>. Begin with “Eight invented practice records,” and restore that dataset before checking the numbers below.</p><div class="part"><div class="text-answer"><label for="w10_0_predict">Before using a regression formula, predict whether knowing preparation hours will help more than predicting the mean score for every record. What pattern in a scatterplot would support your prediction?</label><textarea id="w10_0_predict"></textarea></div></div><div class="regression-workbench" data-preset="practice"><p>Loading the guided line-fitting investigation.</p></div><div class="part"><h3>Try a line before fitting it</h3><ol><li>Start with “Use the response mean only.” Record its SSE.</li><li>Keep the line through the point of means. Move the slope and record one trial slope and its SSE.</li><li>Choose “Fit least squares.” Compare the fitted error with your trial and the horizontal prediction.</li></ol><div class="text-answer"><label for="w10_0_trial">Record your mean-only SSE, trial slope and SSE, and fitted SSE. Explain why a zero sum of signed residuals would not settle which line fits best.</label><textarea id="w10_0_trial"></textarea></div></div><div class="part"><h3>Reconstruct the calculation</h3><p>For these records, x̄ = 4.5 and ȳ = 7. Use the centered table in the reading or the explorer’s summary. Fractions such as 8/7 are accepted. Keep full precision until the final display.</p><div class="answer-row"><label for="w10_0_sxx">Sxx = sum of (x − x̄)²</label><input id="w10_0_sxx" type="text" data-ans="42" data-tol=".02" /><label for="w10_0_sxy">Sxy = sum of (x − x̄)(y − ȳ)</label><input id="w10_0_sxy" type="text" data-ans="48" data-tol=".02" /><label for="w10_0_b">Slope b = Sxy/Sxx</label><input id="w10_0_b" type="text" data-ans="1.1428571428571428" data-tol=".003" /><label for="w10_0_a">Intercept a = ȳ − bx̄</label><input id="w10_0_a" type="text" data-ans="1.8571428571428572" data-tol=".003" /><label for="w10_0_sse">Fitted SSE</label><input id="w10_0_sse" type="text" data-ans="5.142857142857143" data-tol=".015" /><label for="w10_0_r2">R² = 1 − SSE/60</label><input id="w10_0_r2" type="text" data-ans="0.9142857142857143" data-tol=".001" /></div><button class="check-btn" onclick="checkNum(['w10_0_sxx','w10_0_sxy','w10_0_b','w10_0_a','w10_0_sse','w10_0_r2'],'w10_0_v')">Check the reconstruction</button><span id="w10_0_v" class="verdict"></span><div class="text-answer"><label for="w10_0_explain">Explain why the line must pass through the two means and why the minimum of the squared-error curve occurs at Sxy/Sxx. Interpret the reduction from the mean-only error in the units of this example.</label><textarea id="w10_0_explain"></textarea></div></div>
+<figure class="w10-visual" data-visual="w10-minimum"><div class="w10-plot" tabindex="0" role="group" aria-label="Completing the square identifies the best slope; scroll horizontally on narrow screens"><svg id="w10-minimum" role="img" aria-labelledby="w10-minimum-title w10-minimum-desc" xmlns:xlink="http://www.w3.org/1999/xlink" width="525.6pt" height="266.4pt" viewBox="0 0 525.6 266.4" xmlns="http://www.w3.org/2000/svg" version="1.1">
+<title id="w10-minimum-title">Completing the square identifies the best slope</title><desc id="w10-minimum-desc">Here SSE(b) = 36/7 + 42(b − 8/7)². The fixed term is the minimum error. The added square measures the penalty for choosing a different slope. The curve is the algebra behind the explorer’s line-tilting experiment.</desc>
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">#w10-minimum *{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="w10-minimum-figure_1">
+  <g id="w10-minimum-patch_1">
+   <path d="M 0 266.4 L 525.6 266.4 L 525.6 0 L 0 0 z" style="fill: #ffffff"/>
+  </g>
+  <g id="w10-minimum-axes_1">
+   <g id="w10-minimum-patch_2">
+    <path d="M 68.328 205.128 L 509.832 205.128 L 509.832 37.296 L 68.328 37.296 z" style="fill: #ffffff"/>
+   </g>
+   <g id="w10-minimum-matplotlib.axis_1">
+    <g id="w10-minimum-xtick_1">
+     <g id="w10-minimum-line2d_1">
+      <path d="M 112.006203 205.128 L 112.006203 37.296" clip-path="url(#w10-minimum-p0d5d17c56f)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.18; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="w10-minimum-line2d_2">
+      <defs>
+       <path id="w10-minimum-m28b4b00956" d="M 0 0 L 0 3.5" style="stroke: #536675; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#w10-minimum-m28b4b00956" x="112.006203" y="205.128" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w10-minimum-text_1">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="112.006203" y="221.626047" transform="rotate(-0 112.006203 221.626047)">0.0</text>
+     </g>
+    </g>
+    <g id="w10-minimum-xtick_2">
+     <g id="w10-minimum-line2d_3">
+      <path d="M 190.705668 205.128 L 190.705668 37.296" clip-path="url(#w10-minimum-p0d5d17c56f)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.18; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="w10-minimum-line2d_4">
+      <g>
+       <use xlink:href="#w10-minimum-m28b4b00956" x="190.705668" y="205.128" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w10-minimum-text_2">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="190.705668" y="221.626047" transform="rotate(-0 190.705668 221.626047)">0.5</text>
+     </g>
+    </g>
+    <g id="w10-minimum-xtick_3">
+     <g id="w10-minimum-line2d_5">
+      <path d="M 269.405134 205.128 L 269.405134 37.296" clip-path="url(#w10-minimum-p0d5d17c56f)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.18; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="w10-minimum-line2d_6">
+      <g>
+       <use xlink:href="#w10-minimum-m28b4b00956" x="269.405134" y="205.128" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w10-minimum-text_3">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="269.405134" y="221.626047" transform="rotate(-0 269.405134 221.626047)">1.0</text>
+     </g>
+    </g>
+    <g id="w10-minimum-xtick_4">
+     <g id="w10-minimum-line2d_7">
+      <path d="M 348.104599 205.128 L 348.104599 37.296" clip-path="url(#w10-minimum-p0d5d17c56f)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.18; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="w10-minimum-line2d_8">
+      <g>
+       <use xlink:href="#w10-minimum-m28b4b00956" x="348.104599" y="205.128" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w10-minimum-text_4">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="348.104599" y="221.626047" transform="rotate(-0 348.104599 221.626047)">1.5</text>
+     </g>
+    </g>
+    <g id="w10-minimum-xtick_5">
+     <g id="w10-minimum-line2d_9">
+      <path d="M 426.804064 205.128 L 426.804064 37.296" clip-path="url(#w10-minimum-p0d5d17c56f)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.18; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="w10-minimum-line2d_10">
+      <g>
+       <use xlink:href="#w10-minimum-m28b4b00956" x="426.804064" y="205.128" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w10-minimum-text_5">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="426.804064" y="221.626047" transform="rotate(-0 426.804064 221.626047)">2.0</text>
+     </g>
+    </g>
+    <g id="w10-minimum-xtick_6">
+     <g id="w10-minimum-line2d_11">
+      <path d="M 505.503529 205.128 L 505.503529 37.296" clip-path="url(#w10-minimum-p0d5d17c56f)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.18; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="w10-minimum-line2d_12">
+      <g>
+       <use xlink:href="#w10-minimum-m28b4b00956" x="505.503529" y="205.128" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w10-minimum-text_6">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="505.503529" y="221.626047" transform="rotate(-0 505.503529 221.626047)">2.5</text>
+     </g>
+    </g>
+    <g id="w10-minimum-text_7">
+     <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="289.08" y="237.723703" transform="rotate(-0 289.08 237.723703)">Slope b, with intercept a = 7 − 4.5b</text>
+    </g>
+   </g>
+   <g id="w10-minimum-matplotlib.axis_2">
+    <g id="w10-minimum-ytick_1">
+     <g id="w10-minimum-line2d_13">
+      <path d="M 68.328 205.128 L 509.832 205.128" clip-path="url(#w10-minimum-p0d5d17c56f)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.18; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="w10-minimum-line2d_14">
+      <defs>
+       <path id="w10-minimum-m98706df114" d="M 0 0 L -3.5 0" style="stroke: #536675; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#w10-minimum-m98706df114" x="68.328" y="205.128" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w10-minimum-text_8">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #536675" x="61.328" y="209.877023" transform="rotate(-0 61.328 209.877023)">0</text>
+     </g>
+    </g>
+    <g id="w10-minimum-ytick_2">
+     <g id="w10-minimum-line2d_15">
+      <path d="M 68.328 174.613091 L 509.832 174.613091" clip-path="url(#w10-minimum-p0d5d17c56f)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.18; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="w10-minimum-line2d_16">
+      <g>
+       <use xlink:href="#w10-minimum-m98706df114" x="68.328" y="174.613091" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w10-minimum-text_9">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #536675" x="61.328" y="179.362114" transform="rotate(-0 61.328 179.362114)">20</text>
+     </g>
+    </g>
+    <g id="w10-minimum-ytick_3">
+     <g id="w10-minimum-line2d_17">
+      <path d="M 68.328 144.098182 L 509.832 144.098182" clip-path="url(#w10-minimum-p0d5d17c56f)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.18; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="w10-minimum-line2d_18">
+      <g>
+       <use xlink:href="#w10-minimum-m98706df114" x="68.328" y="144.098182" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w10-minimum-text_10">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #536675" x="61.328" y="148.847205" transform="rotate(-0 61.328 148.847205)">40</text>
+     </g>
+    </g>
+    <g id="w10-minimum-ytick_4">
+     <g id="w10-minimum-line2d_19">
+      <path d="M 68.328 113.583273 L 509.832 113.583273" clip-path="url(#w10-minimum-p0d5d17c56f)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.18; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="w10-minimum-line2d_20">
+      <g>
+       <use xlink:href="#w10-minimum-m98706df114" x="68.328" y="113.583273" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w10-minimum-text_11">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #536675" x="61.328" y="118.332296" transform="rotate(-0 61.328 118.332296)">60</text>
+     </g>
+    </g>
+    <g id="w10-minimum-ytick_5">
+     <g id="w10-minimum-line2d_21">
+      <path d="M 68.328 83.068364 L 509.832 83.068364" clip-path="url(#w10-minimum-p0d5d17c56f)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.18; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="w10-minimum-line2d_22">
+      <g>
+       <use xlink:href="#w10-minimum-m98706df114" x="68.328" y="83.068364" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w10-minimum-text_12">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #536675" x="61.328" y="87.817387" transform="rotate(-0 61.328 87.817387)">80</text>
+     </g>
+    </g>
+    <g id="w10-minimum-ytick_6">
+     <g id="w10-minimum-line2d_23">
+      <path d="M 68.328 52.553455 L 509.832 52.553455" clip-path="url(#w10-minimum-p0d5d17c56f)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.18; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="w10-minimum-line2d_24">
+      <g>
+       <use xlink:href="#w10-minimum-m98706df114" x="68.328" y="52.553455" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w10-minimum-text_13">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #536675" x="61.328" y="57.302478" transform="rotate(-0 61.328 57.302478)">100</text>
+     </g>
+    </g>
+    <g id="w10-minimum-text_14">
+     <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="30.869016" y="121.212" transform="rotate(-90 30.869016 121.212)">Squared error SSE (points²)</text>
+    </g>
+   </g>
+   <g id="w10-minimum-line2d_25">
+    <path d="M 88.396364 90.170709 L 96.455947 98.487123 L 104.515531 106.467504 L 112.575115 114.111851 L 120.634699 121.420164 L 128.694283 128.392443 L 136.753866 135.028688 L 144.81345 141.3289 L 152.873034 147.293077 L 160.932618 152.921221 L 167.380285 157.181791 L 173.827952 161.2273 L 180.275619 165.057747 L 186.723286 168.673133 L 193.170953 172.073457 L 199.61862 175.258719 L 206.066287 178.228919 L 212.513954 180.984058 L 218.961621 183.524135 L 225.409288 185.849151 L 231.856955 187.959105 L 238.304622 189.853997 L 244.752289 191.533827 L 251.199956 192.998596 L 257.647623 194.248303 L 264.09529 195.282949 L 270.542957 196.102532 L 276.990624 196.707054 L 283.438291 197.096515 L 289.885958 197.270914 L 296.333625 197.230251 L 302.781292 196.974526 L 309.228959 196.50374 L 315.676627 195.817892 L 322.124294 194.916982 L 328.571961 193.801011 L 335.019628 192.469978 L 341.467295 190.923883 L 347.914962 189.162727 L 354.362629 187.186509 L 360.810296 184.99523 L 367.257963 182.588888 L 373.70563 179.967485 L 380.153297 177.131021 L 386.600964 174.079494 L 393.048631 170.812906 L 399.496298 167.331256 L 405.943965 163.634545 L 412.391632 159.722772 L 418.839299 155.595937 L 425.286966 151.254041 L 433.34655 145.52424 L 441.406134 139.458405 L 449.465717 133.056536 L 457.525301 126.318634 L 465.584885 119.244698 L 473.644469 111.834727 L 481.704053 104.088723 L 489.763636 96.006685 L 489.763636 96.006685" clip-path="url(#w10-minimum-p0d5d17c56f)" style="fill: none; stroke: #245a81; stroke-width: 2.5; stroke-linecap: square"/>
+   </g>
+   <g id="w10-minimum-patch_3">
+    <path d="M 68.328 205.128 L 68.328 37.296" style="fill: none; stroke: #80919c; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="w10-minimum-patch_4">
+    <path d="M 68.328 205.128 L 509.832 205.128" style="fill: none; stroke: #80919c; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="w10-minimum-patch_5">
+    <path d="M 197.305058 72.959034 Q 155.55761 92.841579 114.819564 112.243388" style="fill: none; stroke: #a74c20; stroke-linecap: round"/>
+    <path d="M 119.738009 112.337704 L 114.819564 112.243388 L 117.846084 108.365221" style="fill: none; stroke: #a74c20; stroke-linecap: round"/>
+   </g>
+   <g id="w10-minimum-text_15">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: start; fill: #a74c20" x="138.764021" y="67.810909" transform="rotate(-0 138.764021 67.810909)">Mean only: b = 0, SSE = 60</text>
+   </g>
+   <g id="w10-minimum-patch_6">
+    <path d="M 367.604934 141.939833 Q 330.555375 169.020305 294.408439 195.441026" style="fill: none; stroke: #287d76; stroke-linecap: round"/>
+    <path d="M 299.258913 194.620719 L 294.408439 195.441026 L 296.662477 191.068463" style="fill: none; stroke: #287d76; stroke-linecap: round"/>
+   </g>
+   <g id="w10-minimum-text_16">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; fill: #287d76" transform="translate(308.754866 124.151861)">Minimum at b = 48/42 = 8/7</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; fill: #287d76" transform="translate(308.754866 136.469455)">SSE = 36/7 ≈ 5.143</text>
+   </g>
+   <g id="w10-minimum-PathCollection_1">
+    <defs>
+     <path id="w10-minimum-C0_0_8fa04f2a8c" d="M 0 3.872983 C 1.027127 3.872983 2.012324 3.464901 2.738613 2.738613 C 3.464901 2.012324 3.872983 1.027127 3.872983 -0 C 3.872983 -1.027127 3.464901 -2.012324 2.738613 -2.738613 C 2.012324 -3.464901 1.027127 -3.872983 0 -3.872983 C -1.027127 -3.872983 -2.012324 -3.464901 -2.738613 -2.738613 C -3.464901 -2.012324 -3.872983 -1.027127 -3.872983 0 C -3.872983 1.027127 -3.464901 2.012324 -2.738613 2.738613 C -2.012324 3.464901 -1.027127 3.872983 0 3.872983 z"/>
+    </defs>
+    <g clip-path="url(#w10-minimum-p0d5d17c56f)">
+     <use xlink:href="#w10-minimum-C0_0_8fa04f2a8c" x="112.006203" y="113.583273" style="fill: #a74c20; stroke: #a74c20"/>
+    </g>
+    <g clip-path="url(#w10-minimum-p0d5d17c56f)">
+     <use xlink:href="#w10-minimum-C0_0_8fa04f2a8c" x="291.890695" y="197.281309" style="fill: #287d76; stroke: #287d76"/>
+    </g>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="w10-minimum-p0d5d17c56f">
+   <rect x="68.328" y="37.296" width="441.504" height="167.832"/>
+  </clipPath>
+ </defs>
+</svg></div><figcaption><b>Completing the square identifies the best slope</b>Here SSE(b) = 36/7 + 42(b − 8/7)². The fixed term is the minimum error. The added square measures the penalty for choosing a different slope. The curve is the algebra behind the explorer’s line-tilting experiment.</figcaption></figure>
+</div><div class="formulas"><h2>Reference: formulas we have now motivated</h2><p>First anchor the line at the means; then minimize the centered squared errors.</p><p>\[b=\frac{S_{xy}}{S_{xx}}=r\frac{s_y}{s_x},\qquad a=\bar y-b\bar x,\qquad \hat y=a+bx.\]</p><p>Residual: \(e_i=y_i-\hat y_i\). With an intercept, \(R^2=1-SSE/SST=r^2\), where SST is the squared error of predicting the mean response. The connection to sample standard deviations explains the scale conversion in the slope.</p></div><!-- PROBLEM 1 -->
 <div class="problem" id="p1">
 <h2>Problem 1 — Computing the Regression Line from Summary Statistics</h2><p class="problem-goal"><strong>Goal:</strong> Compute a least-squares regression line from summary statistics and use it for prediction.</p>
 <div class="scenario">A physical therapist records weeks of therapy \(x\) and an improvement score \(y\) for 10 patients. The summary statistics are given below. Use them to construct the least-squares line, then interpret the slope as a change in predicted improvement per additional week of therapy.<br><br><table class="data-table"><thead><tr><th>\(\bar{x}\)</th><th>\(s_x\)</th><th>\(\bar{y}\)</th><th>\(s_y\)</th><th>\(r\)</th></tr></thead><tbody><tr><td>6</td><td>2.5</td><td>40</td><td>12</td><td>0.85</td></tr></tbody></table></div>
+
+<figure class="w10-visual" data-visual="w10-lab-summary"><div class="w10-plot" tabindex="0" role="group" aria-label="Recover the same line from summaries; scroll horizontally on narrow screens"><svg id="w10-lab-summary" role="img" aria-labelledby="w10-lab-summary-title w10-lab-summary-desc" xmlns:xlink="http://www.w3.org/1999/xlink" width="525.6pt" height="252pt" viewBox="0 0 525.6 252" xmlns="http://www.w3.org/2000/svg" version="1.1">
+<title id="w10-lab-summary-title">Recover the same line from summaries</title><desc id="w10-lab-summary-desc">This is a graph of the fitted equation, not a fabricated raw-patient scatterplot. With r = 0.85, sx = 2.5, and sy = 12, the slope is 4.08 score points per week. The means (6, 40) determine the intercept 15.52. Displaying the line from 2 to 10 is illustrative; the summary table alone does not establish an observed x-range.</desc>
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">#w10-lab-summary *{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="w10-lab-summary-figure_1">
+  <g id="w10-lab-summary-patch_1">
+   <path d="M 0 252 L 525.6 252 L 525.6 0 L 0 0 z" style="fill: #ffffff"/>
+  </g>
+  <g id="w10-lab-summary-axes_1">
+   <g id="w10-lab-summary-patch_2">
+    <path d="M 52.56 194.04 L 509.832 194.04 L 509.832 35.28 L 52.56 35.28 z" style="fill: #ffffff"/>
+   </g>
+   <g id="w10-lab-summary-matplotlib.axis_1">
+    <g id="w10-lab-summary-xtick_1">
+     <g id="w10-lab-summary-line2d_1">
+      <path d="M 73.345091 194.04 L 73.345091 35.28" clip-path="url(#w10-lab-summary-pfb766b7f1d)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.18; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="w10-lab-summary-line2d_2">
+      <defs>
+       <path id="w10-lab-summary-m27be8d3334" d="M 0 0 L 0 3.5" style="stroke: #536675; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#w10-lab-summary-m27be8d3334" x="73.345091" y="194.04" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w10-lab-summary-text_1">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="73.345091" y="210.538047" transform="rotate(-0 73.345091 210.538047)">2</text>
+     </g>
+    </g>
+    <g id="w10-lab-summary-xtick_2">
+     <g id="w10-lab-summary-line2d_3">
+      <path d="M 125.307818 194.04 L 125.307818 35.28" clip-path="url(#w10-lab-summary-pfb766b7f1d)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.18; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="w10-lab-summary-line2d_4">
+      <g>
+       <use xlink:href="#w10-lab-summary-m27be8d3334" x="125.307818" y="194.04" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w10-lab-summary-text_2">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="125.307818" y="210.538047" transform="rotate(-0 125.307818 210.538047)">3</text>
+     </g>
+    </g>
+    <g id="w10-lab-summary-xtick_3">
+     <g id="w10-lab-summary-line2d_5">
+      <path d="M 177.270545 194.04 L 177.270545 35.28" clip-path="url(#w10-lab-summary-pfb766b7f1d)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.18; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="w10-lab-summary-line2d_6">
+      <g>
+       <use xlink:href="#w10-lab-summary-m27be8d3334" x="177.270545" y="194.04" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w10-lab-summary-text_3">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="177.270545" y="210.538047" transform="rotate(-0 177.270545 210.538047)">4</text>
+     </g>
+    </g>
+    <g id="w10-lab-summary-xtick_4">
+     <g id="w10-lab-summary-line2d_7">
+      <path d="M 229.233273 194.04 L 229.233273 35.28" clip-path="url(#w10-lab-summary-pfb766b7f1d)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.18; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="w10-lab-summary-line2d_8">
+      <g>
+       <use xlink:href="#w10-lab-summary-m27be8d3334" x="229.233273" y="194.04" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w10-lab-summary-text_4">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="229.233273" y="210.538047" transform="rotate(-0 229.233273 210.538047)">5</text>
+     </g>
+    </g>
+    <g id="w10-lab-summary-xtick_5">
+     <g id="w10-lab-summary-line2d_9">
+      <path d="M 281.196 194.04 L 281.196 35.28" clip-path="url(#w10-lab-summary-pfb766b7f1d)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.18; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="w10-lab-summary-line2d_10">
+      <g>
+       <use xlink:href="#w10-lab-summary-m27be8d3334" x="281.196" y="194.04" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w10-lab-summary-text_5">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="281.196" y="210.538047" transform="rotate(-0 281.196 210.538047)">6</text>
+     </g>
+    </g>
+    <g id="w10-lab-summary-xtick_6">
+     <g id="w10-lab-summary-line2d_11">
+      <path d="M 333.158727 194.04 L 333.158727 35.28" clip-path="url(#w10-lab-summary-pfb766b7f1d)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.18; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="w10-lab-summary-line2d_12">
+      <g>
+       <use xlink:href="#w10-lab-summary-m27be8d3334" x="333.158727" y="194.04" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w10-lab-summary-text_6">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="333.158727" y="210.538047" transform="rotate(-0 333.158727 210.538047)">7</text>
+     </g>
+    </g>
+    <g id="w10-lab-summary-xtick_7">
+     <g id="w10-lab-summary-line2d_13">
+      <path d="M 385.121455 194.04 L 385.121455 35.28" clip-path="url(#w10-lab-summary-pfb766b7f1d)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.18; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="w10-lab-summary-line2d_14">
+      <g>
+       <use xlink:href="#w10-lab-summary-m27be8d3334" x="385.121455" y="194.04" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w10-lab-summary-text_7">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="385.121455" y="210.538047" transform="rotate(-0 385.121455 210.538047)">8</text>
+     </g>
+    </g>
+    <g id="w10-lab-summary-xtick_8">
+     <g id="w10-lab-summary-line2d_15">
+      <path d="M 437.084182 194.04 L 437.084182 35.28" clip-path="url(#w10-lab-summary-pfb766b7f1d)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.18; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="w10-lab-summary-line2d_16">
+      <g>
+       <use xlink:href="#w10-lab-summary-m27be8d3334" x="437.084182" y="194.04" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w10-lab-summary-text_8">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="437.084182" y="210.538047" transform="rotate(-0 437.084182 210.538047)">9</text>
+     </g>
+    </g>
+    <g id="w10-lab-summary-xtick_9">
+     <g id="w10-lab-summary-line2d_17">
+      <path d="M 489.046909 194.04 L 489.046909 35.28" clip-path="url(#w10-lab-summary-pfb766b7f1d)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.18; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="w10-lab-summary-line2d_18">
+      <g>
+       <use xlink:href="#w10-lab-summary-m27be8d3334" x="489.046909" y="194.04" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w10-lab-summary-text_9">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="489.046909" y="210.538047" transform="rotate(-0 489.046909 210.538047)">10</text>
+     </g>
+    </g>
+    <g id="w10-lab-summary-text_10">
+     <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="281.196" y="226.635703" transform="rotate(-0 281.196 226.635703)">Weeks of therapy x</text>
+    </g>
+   </g>
+   <g id="w10-lab-summary-matplotlib.axis_2">
+    <g id="w10-lab-summary-ytick_1">
+     <g id="w10-lab-summary-line2d_19">
+      <path d="M 52.56 158.877914 L 509.832 158.877914" clip-path="url(#w10-lab-summary-pfb766b7f1d)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.18; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="w10-lab-summary-line2d_20">
+      <defs>
+       <path id="w10-lab-summary-mb6c88bb67f" d="M 0 0 L -3.5 0" style="stroke: #536675; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#w10-lab-summary-mb6c88bb67f" x="52.56" y="158.877914" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w10-lab-summary-text_11">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #536675" x="45.56" y="163.626938" transform="rotate(-0 45.56 163.626938)">30</text>
+     </g>
+    </g>
+    <g id="w10-lab-summary-ytick_2">
+     <g id="w10-lab-summary-line2d_21">
+      <path d="M 52.56 114.66 L 509.832 114.66" clip-path="url(#w10-lab-summary-pfb766b7f1d)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.18; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="w10-lab-summary-line2d_22">
+      <g>
+       <use xlink:href="#w10-lab-summary-mb6c88bb67f" x="52.56" y="114.66" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w10-lab-summary-text_12">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #536675" x="45.56" y="119.409023" transform="rotate(-0 45.56 119.409023)">40</text>
+     </g>
+    </g>
+    <g id="w10-lab-summary-ytick_3">
+     <g id="w10-lab-summary-line2d_23">
+      <path d="M 52.56 70.442086 L 509.832 70.442086" clip-path="url(#w10-lab-summary-pfb766b7f1d)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.18; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="w10-lab-summary-line2d_24">
+      <g>
+       <use xlink:href="#w10-lab-summary-mb6c88bb67f" x="52.56" y="70.442086" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w10-lab-summary-text_13">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #536675" x="45.56" y="75.191109" transform="rotate(-0 45.56 75.191109)">50</text>
+     </g>
+    </g>
+    <g id="w10-lab-summary-text_14">
+     <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="23.054141" y="114.66" transform="rotate(-90 23.054141 114.66)">Predicted improvement score</text>
+    </g>
+   </g>
+   <g id="w10-lab-summary-line2d_25">
+    <path d="M 73.345091 186.823636 L 77.544099 185.365785 L 81.743107 183.907934 L 85.942116 182.450083 L 90.141124 180.992231 L 94.340132 179.53438 L 98.53914 178.076529 L 102.738149 176.618678 L 106.937157 175.160826 L 111.136165 173.702975 L 115.335174 172.245124 L 119.534182 170.787273 L 123.73319 169.329421 L 127.932198 167.87157 L 132.131207 166.413719 L 136.330215 164.955868 L 140.529223 163.498017 L 144.728231 162.040165 L 148.92724 160.582314 L 153.126248 159.124463 L 157.325256 157.666612 L 161.524264 156.20876 L 165.723273 154.750909 L 169.922281 153.293058 L 174.121289 151.835207 L 178.320298 150.377355 L 182.519306 148.919504 L 186.718314 147.461653 L 190.917322 146.003802 L 195.116331 144.54595 L 199.315339 143.088099 L 203.514347 141.630248 L 207.713355 140.172397 L 211.912364 138.714545 L 216.111372 137.256694 L 220.31038 135.798843 L 224.509388 134.340992 L 228.708397 132.88314 L 232.907405 131.425289 L 237.106413 129.967438 L 241.305421 128.509587 L 245.50443 127.051736 L 249.703438 125.593884 L 253.902446 124.136033 L 258.101455 122.678182 L 262.300463 121.220331 L 266.499471 119.762479 L 270.698479 118.304628 L 274.897488 116.846777 L 279.096496 115.388926 L 283.295504 113.931074 L 287.494512 112.473223 L 291.693521 111.015372 L 295.892529 109.557521 L 300.091537 108.099669 L 304.290545 106.641818 L 308.489554 105.183967 L 312.688562 103.726116 L 316.88757 102.268264 L 321.086579 100.810413 L 325.285587 99.352562 L 329.484595 97.894711 L 333.683603 96.43686 L 337.882612 94.979008 L 342.08162 93.521157 L 346.280628 92.063306 L 350.479636 90.605455 L 354.678645 89.147603 L 358.877653 87.689752 L 363.076661 86.231901 L 367.275669 84.77405 L 371.474678 83.316198 L 375.673686 81.858347 L 379.872694 80.400496 L 384.071702 78.942645 L 388.270711 77.484793 L 392.469719 76.026942 L 396.668727 74.569091 L 400.867736 73.11124 L 405.066744 71.653388 L 409.265752 70.195537 L 413.46476 68.737686 L 417.663769 67.279835 L 421.862777 65.821983 L 426.061785 64.364132 L 430.260793 62.906281 L 434.459802 61.44843 L 438.65881 59.990579 L 442.857818 58.532727 L 447.056826 57.074876 L 451.255835 55.617025 L 455.454843 54.159174 L 459.653851 52.701322 L 463.85286 51.243471 L 468.051868 49.78562 L 472.250876 48.327769 L 476.449884 46.869917 L 480.648893 45.412066 L 484.847901 43.954215 L 489.046909 42.496364" clip-path="url(#w10-lab-summary-pfb766b7f1d)" style="fill: none; stroke: #245a81; stroke-width: 2.3; stroke-linecap: square"/>
+   </g>
+   <g id="w10-lab-summary-patch_3">
+    <path d="M 52.56 194.04 L 52.56 35.28" style="fill: none; stroke: #80919c; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="w10-lab-summary-patch_4">
+    <path d="M 52.56 194.04 L 509.832 194.04" style="fill: none; stroke: #80919c; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="w10-lab-summary-patch_5">
+    <path d="M 152.109993 79.675694 Q 215.685876 96.905742 278.182652 113.843336" style="fill: none; stroke: #287d76; stroke-linecap: round"/>
+    <path d="M 274.511326 110.568987 L 278.182652 113.843336 L 273.360377 114.815788" style="fill: none; stroke: #287d76; stroke-linecap: round"/>
+   </g>
+   <g id="w10-lab-summary-text_15">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: start; fill: #287d76" x="83.737636" y="74.863877" transform="rotate(-0 83.737636 74.863877)">Anchor (6, 40)</text>
+   </g>
+   <g id="w10-lab-summary-patch_6">
+    <path d="M 305.898758 177.912363 Q 344.887552 129.025868 383.17923 81.01346" style="fill: none; stroke: #a74c20; stroke-linecap: round"/>
+    <path d="M 378.715765 83.081667 L 383.17923 81.01346 L 382.155717 85.825156" style="fill: none; stroke: #a74c20; stroke-linecap: round"/>
+   </g>
+   <g id="w10-lab-summary-text_16">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: start; fill: #a74c20" x="239.625818" y="189.830455" transform="rotate(-0 239.625818 189.830455)">Prediction at 8: 48.16</text>
+   </g>
+   <g id="w10-lab-summary-text_17">
+    <text style="font-size: 12px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="281.196" y="29.28" transform="rotate(-0 281.196 29.28)">Line reconstructed from the supplied summaries</text>
+   </g>
+   <g id="w10-lab-summary-PathCollection_1">
+    <defs>
+     <path id="w10-lab-summary-C0_0_1fbcda69b4" d="M 0 4.031129 C 1.069068 4.031129 2.094493 3.606384 2.850439 2.850439 C 3.606384 2.094493 4.031129 1.069068 4.031129 -0 C 4.031129 -1.069068 3.606384 -2.094493 2.850439 -2.850439 C 2.094493 -3.606384 1.069068 -4.031129 0 -4.031129 C -1.069068 -4.031129 -2.094493 -3.606384 -2.850439 -2.850439 C -3.606384 -2.094493 -4.031129 -1.069068 -4.031129 0 C -4.031129 1.069068 -3.606384 2.094493 -2.850439 2.850439 C -2.094493 3.606384 -1.069068 4.031129 0 4.031129 z"/>
+    </defs>
+    <g clip-path="url(#w10-lab-summary-pfb766b7f1d)">
+     <use xlink:href="#w10-lab-summary-C0_0_1fbcda69b4" x="281.196" y="114.66" style="fill: #287d76; stroke: #287d76"/>
+    </g>
+    <g clip-path="url(#w10-lab-summary-pfb766b7f1d)">
+     <use xlink:href="#w10-lab-summary-C0_0_1fbcda69b4" x="385.121455" y="78.578182" style="fill: #a74c20; stroke: #a74c20"/>
+    </g>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="w10-lab-summary-pfb766b7f1d">
+   <rect x="52.56" y="35.28" width="457.272" height="158.76"/>
+  </clipPath>
+ </defs>
+</svg></div><figcaption><b>Recover the same line from summaries</b>This is a graph of the fitted equation, not a fabricated raw-patient scatterplot. With r = 0.85, sx = 2.5, and sy = 12, the slope is 4.08 score points per week. The means (6, 40) determine the intercept 15.52. Displaying the line from 2 to 10 is illustrative; the summary table alone does not establish an observed x-range.</figcaption></figure>
 <div class="part">
 <div class="part-stem"><span class="part-label">(a)</span>
 <span class="part-text">Compute the regression line \(\hat{y}=a+bx\).</span></div>
@@ -228,7 +729,7 @@ details summary{line-height:1.35;}
 <div class="part">
 <div class="part-stem"><span class="part-label">(c)</span>
 <span class="part-text">Compute \(r^2\) and interpret it: what percentage of
-      variability is explained, and what explains the rest?</span></div>
+      variability is accounted for by this fit, and what can you say about the rest?</span></div>
 <div class="answer-row"><label>\(r^2=(0.85)^2=\)</label><input class="wide" data-ans="0.7225" data-tol="0.005" id="w10_1c" type="text"/>
 <button class="check-btn" onclick="checkNum(['w10_1c'],'w10_1c_v')">Check</button><span class="verdict" id="w10_1c_v"></span></div>
 <div class="text-answer"><label>Your interpretation.</label>
@@ -236,14 +737,12 @@ details summary{line-height:1.35;}
 <details><summary>Compare with a worked solution</summary><div class="solution">
 <p><span class="ans">\(r^2=0.7225\) (72.25%).</span></p>
 <p>\(r^2=0.85^2=0.7225\): 72.25% of the variability in improvement score is explained
-      by the linear relationship with weeks of therapy. The remaining 27.75% reflects
-      other factors — individual healing rates, therapy intensity, injury type — not
-      captured by this simple linear model.</p>
+      by the linear relationship with weeks of therapy. The remaining 27.75% is residual variation. It could include measurement error, omitted variables, or a missed pattern; r² alone does not identify those sources.</p>
 </div></details>
 </div>
 <div class="part">
 <div class="part-stem"><span class="part-label">(d)</span>
-<span class="part-text">The residual plot shows a curved pattern. Is the linear
+<span class="part-text">Suppose a residual plot shows a curved pattern. Is the linear
       model appropriate? What might fit better?</span></div>
 <div class="text-answer"><label>Your answer.</label>
 <textarea id="w10_1d" placeholder="A curved residual plot suggests the linearity condition is violated…"></textarea></div>
@@ -275,14 +774,12 @@ details summary{line-height:1.35;}
 <div class="part">
 <div class="part-stem"><span class="part-label">(b)</span>
 <span class="part-text">Interpret \(r^2=0.61\) in context: what percentage of
-      variability is explained? What explains the rest?</span></div>
+      variability is accounted for? What can you say about the rest?</span></div>
 <div class="text-answer"><label>Your answer.</label>
 <textarea id="w10_2b" placeholder="61% of the variability in ice cream sales is explained by…"></textarea></div>
 <details><summary>Compare with a worked solution</summary><div class="solution">
 <p><span class="ans">61% of the variability in ice cream sales is explained by average summer temperature.</span></p>
-<p>The remaining 39% comes from other factors — local prices, population
-      demographics, availability of ice cream shops, and so on — that aren't captured by
-      temperature alone.</p>
+<p>The remaining 39% is variation not accounted for by this fitted line. Prices, reporting differences, other variables, and model mismatch are possibilities, not causes identified by r².</p>
 </div></details>
 </div>
 <div class="part">
@@ -301,15 +798,12 @@ details summary{line-height:1.35;}
 <div class="part">
 <div class="part-stem"><span class="part-label">(d)</span>
 <span class="part-text">A journalist says "Eating ice cream raises body
-      temperature." What is wrong? Name the reasoning error and identify the underlying
-      cause.</span></div>
+      temperature." What is wrong? Identify the measurements actually collected and the causal evidence that is missing.</span></div>
 <div class="text-answer"><label>Your answer.</label>
 <textarea id="w10_2d" placeholder="This confuses correlation with causation…"></textarea></div>
 <details><summary>Compare with a worked solution</summary><div class="solution">
 <p><span class="ans">This confuses correlation with causation.</span></p>
-<p>Temperature and ice cream sales move together, but that doesn't mean one causes
-      the other. The underlying cause is a lurking variable — the season — that drives
-      both hot weather and higher ice cream demand at the same time.</p>
+<p>These records pair a city’s average summer temperature with its annual per-capita sales. They do not measure an individual’s body temperature after eating ice cream. The claim changes both the observational unit and the variables, and the association does not establish a causal direction. A lurking variable is possible, but this dataset does not identify the cause.</p>
 </div></details>
 </div>
 </div>
@@ -320,11 +814,11 @@ details summary{line-height:1.35;}
 <div class="part">
 <div class="part-stem"><span class="part-label">(a)</span>
 <span class="part-text">Match each \(r\) to its description: strong negative linear
-      · weak positive linear · no linear relationship.</span></div>
+      · positive linear association of modest strength · no linear relationship.</span></div>
 <div class="text-answer"><label>Your answer.</label>
 <textarea id="w10_3a" placeholder="r = −0.92: …   r = 0.45: …   r = 0.01: …"></textarea></div>
 <details><summary>Compare with a worked solution</summary><div class="solution">
-<p><span class="ans">\(r=-0.92\): strong negative. \(r=0.45\): weak positive. \(r=0.01\): no linear relationship.</span></p>
+<p><span class="ans">\(r=-0.92\): strong negative. \(r=0.45\): positive, of modest strength. \(r=0.01\): no linear relationship.</span></p>
 <p>The sign gives the direction and the magnitude (distance from 0) gives the
       strength of the linear association.</p>
 </div></details>
@@ -338,8 +832,7 @@ details summary{line-height:1.35;}
 <button class="check-btn" onclick="checkNum(['w10_3b_1','w10_3b_2','w10_3b_3'],'w10_3b_v')">Check</button><span class="verdict" id="w10_3b_v"></span></div>
 <details><summary>Compare with a worked solution</summary><div class="solution">
 <p><span class="ans">\(0.8464\) (84.64%), \(0.2025\) (20.25%), \(0.0001\) (0.01%).</span></p>
-<p>Squaring \(r\) removes the sign, which is why \(r^2\) tells you the strength of
-      the relationship regardless of its direction.</p>
+<p>Squaring r removes direction. For a least-squares line with an intercept, r² is the fraction of squared variation around the response mean accounted for by that line.</p>
 </div></details>
 </div>
 <div class="part">
@@ -360,8 +853,7 @@ details summary{line-height:1.35;}
 <div class="problem" id="p4">
 <h2>Problem 4 — Regression Without Context</h2><p class="problem-goal"><strong>Goal:</strong> Compute a regression line from raw paired data and inspect how the model behaves.</p>
 <div class="scenario">The 19 pairs below are intentionally unlabeled. That is the point of the exercise: a computer can calculate a regression line without knowing what the variables mean, but a scientifically useful interpretation cannot. Fit the line mechanically first. When you reach the interpretation, notice exactly what can—and cannot—be said without units, variable names, or a data-collection story.</div>
-<div class="calc-note">This problem requires a calculator or statistical software — enter
-  the data, run linear regression, and read off the slope and intercept.</div>
+<div class="calc-note">Choose “Lab Problem 4: 19 unlabeled pairs” in the explorer, or enter the pairs in the calculator. Inspect both the scatterplot and residual plot, then retain full precision for prediction. These are the original 19 data pairs.</div>
 <div style="display:flex;justify-content:center;">
 <table class="data-table">
 <thead><tr><th>\(x\)</th><th>\(y\)</th></tr></thead>
@@ -388,11 +880,359 @@ details summary{line-height:1.35;}
 </tbody>
 </table>
 </div>
+
+<figure class="w10-visual" data-visual="w10-lab19"><div class="w10-plot" tabindex="0" role="group" aria-label="Software can fit the unlabeled data; interpretation still needs context; scroll horizontally on narrow screens"><svg id="w10-lab19" role="img" aria-labelledby="w10-lab19-title w10-lab19-desc" xmlns:xlink="http://www.w3.org/1999/xlink" width="540pt" height="273.6pt" viewBox="0 0 540 273.6" xmlns="http://www.w3.org/2000/svg" version="1.1">
+<title id="w10-lab19-title">Software can fit the unlabeled data; interpretation still needs context</title><desc id="w10-lab19-desc">Using full precision gives slope −2.905896, intercept 238.150589, and prediction 92.855801 at x = 50. Keep coefficients unrounded during calculation, then report about 92.86. The picture cannot supply missing variable names, units, or a data-collection design.</desc>
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">#w10-lab19 *{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="w10-lab19-figure_1">
+  <g id="w10-lab19-patch_1">
+   <path d="M 0 273.6 L 540 273.6 L 540 0 L 0 0 z" style="fill: #ffffff"/>
+  </g>
+  <g id="w10-lab19-axes_1">
+   <g id="w10-lab19-patch_2">
+    <path d="M 54 207.936 L 253.067797 207.936 L 253.067797 46.512 L 54 46.512 z" style="fill: #ffffff"/>
+   </g>
+   <g id="w10-lab19-matplotlib.axis_1">
+    <g id="w10-lab19-xtick_1">
+     <g id="w10-lab19-line2d_1">
+      <path d="M 98.926114 207.936 L 98.926114 46.512" clip-path="url(#w10-lab19-p172322a529)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.18; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="w10-lab19-line2d_2">
+      <defs>
+       <path id="w10-lab19-m1118f2b665" d="M 0 0 L 0 3.5" style="stroke: #536675; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#w10-lab19-m1118f2b665" x="98.926114" y="207.936" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w10-lab19-text_1">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="98.926114" y="224.434047" transform="rotate(-0 98.926114 224.434047)">40</text>
+     </g>
+    </g>
+    <g id="w10-lab19-xtick_2">
+     <g id="w10-lab19-line2d_3">
+      <path d="M 151.687258 207.936 L 151.687258 46.512" clip-path="url(#w10-lab19-p172322a529)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.18; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="w10-lab19-line2d_4">
+      <g>
+       <use xlink:href="#w10-lab19-m1118f2b665" x="151.687258" y="207.936" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w10-lab19-text_2">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="151.687258" y="224.434047" transform="rotate(-0 151.687258 224.434047)">60</text>
+     </g>
+    </g>
+    <g id="w10-lab19-xtick_3">
+     <g id="w10-lab19-line2d_5">
+      <path d="M 204.448402 207.936 L 204.448402 46.512" clip-path="url(#w10-lab19-p172322a529)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.18; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="w10-lab19-line2d_6">
+      <g>
+       <use xlink:href="#w10-lab19-m1118f2b665" x="204.448402" y="207.936" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w10-lab19-text_3">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="204.448402" y="224.434047" transform="rotate(-0 204.448402 224.434047)">80</text>
+     </g>
+    </g>
+    <g id="w10-lab19-text_4">
+     <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="153.533898" y="240.531703" transform="rotate(-0 153.533898 240.531703)">x (units unspecified)</text>
+    </g>
+   </g>
+   <g id="w10-lab19-matplotlib.axis_2">
+    <g id="w10-lab19-ytick_1">
+     <g id="w10-lab19-line2d_7">
+      <path d="M 54 202.710702 L 253.067797 202.710702" clip-path="url(#w10-lab19-p172322a529)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.18; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="w10-lab19-line2d_8">
+      <defs>
+       <path id="w10-lab19-me03f8519a1" d="M 0 0 L -3.5 0" style="stroke: #536675; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#w10-lab19-me03f8519a1" x="54" y="202.710702" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w10-lab19-text_5">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #536675" x="47" y="207.459726" transform="rotate(-0 47 207.459726)">−50</text>
+     </g>
+    </g>
+    <g id="w10-lab19-ytick_2">
+     <g id="w10-lab19-line2d_9">
+      <path d="M 54 167.508089 L 253.067797 167.508089" clip-path="url(#w10-lab19-p172322a529)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.18; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="w10-lab19-line2d_10">
+      <g>
+       <use xlink:href="#w10-lab19-me03f8519a1" x="54" y="167.508089" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w10-lab19-text_6">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #536675" x="47" y="172.257113" transform="rotate(-0 47 172.257113)">0</text>
+     </g>
+    </g>
+    <g id="w10-lab19-ytick_3">
+     <g id="w10-lab19-line2d_11">
+      <path d="M 54 132.305476 L 253.067797 132.305476" clip-path="url(#w10-lab19-p172322a529)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.18; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="w10-lab19-line2d_12">
+      <g>
+       <use xlink:href="#w10-lab19-me03f8519a1" x="54" y="132.305476" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w10-lab19-text_7">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #536675" x="47" y="137.0545" transform="rotate(-0 47 137.0545)">50</text>
+     </g>
+    </g>
+    <g id="w10-lab19-ytick_4">
+     <g id="w10-lab19-line2d_13">
+      <path d="M 54 97.102863 L 253.067797 97.102863" clip-path="url(#w10-lab19-p172322a529)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.18; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="w10-lab19-line2d_14">
+      <g>
+       <use xlink:href="#w10-lab19-me03f8519a1" x="54" y="97.102863" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w10-lab19-text_8">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #536675" x="47" y="101.851887" transform="rotate(-0 47 101.851887)">100</text>
+     </g>
+    </g>
+    <g id="w10-lab19-ytick_5">
+     <g id="w10-lab19-line2d_15">
+      <path d="M 54 61.90025 L 253.067797 61.90025" clip-path="url(#w10-lab19-p172322a529)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.18; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="w10-lab19-line2d_16">
+      <g>
+       <use xlink:href="#w10-lab19-me03f8519a1" x="54" y="61.90025" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w10-lab19-text_9">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #536675" x="47" y="66.649274" transform="rotate(-0 47 66.649274)">150</text>
+     </g>
+    </g>
+    <g id="w10-lab19-text_10">
+     <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="14.019531" y="127.224" transform="rotate(-90 14.019531 127.224)">y (units unspecified)</text>
+    </g>
+   </g>
+   <g id="w10-lab19-patch_3">
+    <path d="M 54 207.936 L 54 46.512" style="fill: none; stroke: #80919c; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="w10-lab19-patch_4">
+    <path d="M 54 207.936 L 253.067797 207.936" style="fill: none; stroke: #80919c; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="w10-lab19-line2d_17">
+    <path d="M 63.048536 53.849455 L 244.01926 194.198365" clip-path="url(#w10-lab19-p172322a529)" style="fill: none; stroke: #a74c20; stroke-width: 2.2; stroke-linecap: square"/>
+   </g>
+   <g id="w10-lab19-text_11">
+    <text style="font-size: 11.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="153.533898" y="40.512" transform="rotate(-0 153.533898 40.512)">Nineteen original lab pairs</text>
+   </g>
+   <g id="w10-lab19-PathCollection_1">
+    <defs>
+     <path id="w10-lab19-m5b617a3c39" d="M 0 2.738613 C 0.726289 2.738613 1.422928 2.450055 1.936492 1.936492 C 2.450055 1.422928 2.738613 0.726289 2.738613 0 C 2.738613 -0.726289 2.450055 -1.422928 1.936492 -1.936492 C 1.422928 -2.450055 0.726289 -2.738613 0 -2.738613 C -0.726289 -2.738613 -1.422928 -2.450055 -1.936492 -1.936492 C -2.450055 -1.422928 -2.738613 -0.726289 -2.738613 0 C -2.738613 0.726289 -2.450055 1.422928 -1.936492 1.936492 C -1.422928 2.450055 -0.726289 2.738613 0 2.738613 z" style="stroke: #ffffff; stroke-width: 0.6"/>
+    </defs>
+    <g clip-path="url(#w10-lab19-p172322a529)">
+     <use xlink:href="#w10-lab19-m5b617a3c39" x="63.048536" y="59.647283" style="fill: #245a81; stroke: #ffffff; stroke-width: 0.6"/>
+     <use xlink:href="#w10-lab19-m5b617a3c39" x="83.889188" y="82.740197" style="fill: #245a81; stroke: #ffffff; stroke-width: 0.6"/>
+     <use xlink:href="#w10-lab19-m5b617a3c39" x="111.852594" y="100.83434" style="fill: #245a81; stroke: #ffffff; stroke-width: 0.6"/>
+     <use xlink:href="#w10-lab19-m5b617a3c39" x="104.72984" y="64.434839" style="fill: #245a81; stroke: #ffffff; stroke-width: 0.6"/>
+     <use xlink:href="#w10-lab19-m5b617a3c39" x="218.957717" y="168.704978" style="fill: #245a81; stroke: #ffffff; stroke-width: 0.6"/>
+     <use xlink:href="#w10-lab19-m5b617a3c39" x="244.01926" y="195.881395" style="fill: #245a81; stroke: #ffffff; stroke-width: 0.6"/>
+     <use xlink:href="#w10-lab19-m5b617a3c39" x="170.417464" y="119.069294" style="fill: #245a81; stroke: #ffffff; stroke-width: 0.6"/>
+     <use xlink:href="#w10-lab19-m5b617a3c39" x="159.60143" y="110.057425" style="fill: #245a81; stroke: #ffffff; stroke-width: 0.6"/>
+     <use xlink:href="#w10-lab19-m5b617a3c39" x="177.012607" y="140.402077" style="fill: #245a81; stroke: #ffffff; stroke-width: 0.6"/>
+     <use xlink:href="#w10-lab19-m5b617a3c39" x="107.631703" y="83.655465" style="fill: #245a81; stroke: #ffffff; stroke-width: 0.6"/>
+     <use xlink:href="#w10-lab19-m5b617a3c39" x="218.1663" y="200.598545" style="fill: #245a81; stroke: #ffffff; stroke-width: 0.6"/>
+     <use xlink:href="#w10-lab19-m5b617a3c39" x="149.840618" y="137.515463" style="fill: #245a81; stroke: #ffffff; stroke-width: 0.6"/>
+     <use xlink:href="#w10-lab19-m5b617a3c39" x="142.454058" y="135.684927" style="fill: #245a81; stroke: #ffffff; stroke-width: 0.6"/>
+     <use xlink:href="#w10-lab19-m5b617a3c39" x="84.680605" y="87.175726" style="fill: #245a81; stroke: #ffffff; stroke-width: 0.6"/>
+     <use xlink:href="#w10-lab19-m5b617a3c39" x="120.558183" y="83.514655" style="fill: #245a81; stroke: #ffffff; stroke-width: 0.6"/>
+     <use xlink:href="#w10-lab19-m5b617a3c39" x="155.90815" y="101.115961" style="fill: #245a81; stroke: #ffffff; stroke-width: 0.6"/>
+     <use xlink:href="#w10-lab19-m5b617a3c39" x="117.920126" y="93.793818" style="fill: #245a81; stroke: #ffffff; stroke-width: 0.6"/>
+     <use xlink:href="#w10-lab19-m5b617a3c39" x="134.539886" y="124.420091" style="fill: #245a81; stroke: #ffffff; stroke-width: 0.6"/>
+     <use xlink:href="#w10-lab19-m5b617a3c39" x="88.637691" y="63.026734" style="fill: #245a81; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w10-lab19-PathCollection_2">
+    <defs>
+     <path id="w10-lab19-m5e32078407" d="M -0 5.244044 L 5.244044 0 L 0 -5.244044 L -5.244044 -0 z" style="stroke: #287d76"/>
+    </defs>
+    <g clip-path="url(#w10-lab19-p172322a529)">
+     <use xlink:href="#w10-lab19-m5e32078407" x="125.306686" y="102.132753" style="fill: #287d76; stroke: #287d76"/>
+    </g>
+   </g>
+  </g>
+  <g id="w10-lab19-axes_2">
+   <g id="w10-lab19-patch_5">
+    <path d="M 324.732203 207.936 L 523.8 207.936 L 523.8 46.512 L 324.732203 46.512 z" style="fill: #ffffff"/>
+   </g>
+   <g id="w10-lab19-PathCollection_3">
+    <defs>
+     <path id="w10-lab19-m59c53490ce" d="M 0 2.5 C 0.663008 2.5 1.29895 2.236584 1.767767 1.767767 C 2.236584 1.29895 2.5 0.663008 2.5 0 C 2.5 -0.663008 2.236584 -1.29895 1.767767 -1.767767 C 1.29895 -2.236584 0.663008 -2.5 0 -2.5 C -0.663008 -2.5 -1.29895 -2.236584 -1.767767 -1.767767 C -2.236584 -1.29895 -2.5 -0.663008 -2.5 0 C -2.5 0.663008 -2.236584 1.29895 -1.767767 1.767767 C -1.29895 2.236584 -0.663008 2.5 0 2.5 z" style="stroke: #245a81"/>
+    </defs>
+    <g clip-path="url(#w10-lab19-p122e7170dd)">
+     <use xlink:href="#w10-lab19-m59c53490ce" x="333.78074" y="141.404535" style="fill: #245a81; stroke: #245a81"/>
+     <use xlink:href="#w10-lab19-m59c53490ce" x="354.621392" y="161.268346" style="fill: #245a81; stroke: #245a81"/>
+     <use xlink:href="#w10-lab19-m59c53490ce" x="382.584798" y="150.971624" style="fill: #245a81; stroke: #245a81"/>
+     <use xlink:href="#w10-lab19-m59c53490ce" x="375.462043" y="62.475055" style="fill: #245a81; stroke: #245a81"/>
+     <use xlink:href="#w10-lab19-m59c53490ce" x="489.68992" y="107.424935" style="fill: #245a81; stroke: #245a81"/>
+     <use xlink:href="#w10-lab19-m59c53490ce" x="514.751464" y="129.610565" style="fill: #245a81; stroke: #245a81"/>
+     <use xlink:href="#w10-lab19-m59c53490ce" x="441.149668" y="73.055707" style="fill: #245a81; stroke: #245a81"/>
+     <use xlink:href="#w10-lab19-m59c53490ce" x="430.333633" y="71.268127" style="fill: #245a81; stroke: #245a81"/>
+     <use xlink:href="#w10-lab19-m59c53490ce" x="447.744811" y="119.540355" style="fill: #245a81; stroke: #245a81"/>
+     <use xlink:href="#w10-lab19-m59c53490ce" x="378.363906" y="111.115416" style="fill: #245a81; stroke: #245a81"/>
+     <use xlink:href="#w10-lab19-m59c53490ce" x="488.898503" y="200.598545" style="fill: #245a81; stroke: #245a81"/>
+     <use xlink:href="#w10-lab19-m59c53490ce" x="420.572822" y="171.666191" style="fill: #245a81; stroke: #245a81"/>
+     <use xlink:href="#w10-lab19-m59c53490ce" x="413.186261" y="182.838742" style="fill: #245a81; stroke: #245a81"/>
+     <use xlink:href="#w10-lab19-m59c53490ce" x="355.412809" y="172.222397" style="fill: #245a81; stroke: #245a81"/>
+     <use xlink:href="#w10-lab19-m59c53490ce" x="391.290387" y="81.978056" style="fill: #245a81; stroke: #245a81"/>
+     <use xlink:href="#w10-lab19-m59c53490ce" x="426.640353" y="53.849455" style="fill: #245a81; stroke: #245a81"/>
+     <use xlink:href="#w10-lab19-m59c53490ce" x="388.652329" y="117.304567" style="fill: #245a81; stroke: #245a81"/>
+     <use xlink:href="#w10-lab19-m59c53490ce" x="405.27209" y="168.143196" style="fill: #245a81; stroke: #245a81"/>
+     <use xlink:href="#w10-lab19-m59c53490ce" x="359.369894" y="94.209704" style="fill: #245a81; stroke: #245a81"/>
+    </g>
+   </g>
+   <g id="w10-lab19-matplotlib.axis_3">
+    <g id="w10-lab19-xtick_4">
+     <g id="w10-lab19-line2d_18">
+      <path d="M 369.658318 207.936 L 369.658318 46.512" clip-path="url(#w10-lab19-p122e7170dd)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.18; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="w10-lab19-line2d_19">
+      <g>
+       <use xlink:href="#w10-lab19-m1118f2b665" x="369.658318" y="207.936" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w10-lab19-text_12">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="369.658318" y="224.434047" transform="rotate(-0 369.658318 224.434047)">40</text>
+     </g>
+    </g>
+    <g id="w10-lab19-xtick_5">
+     <g id="w10-lab19-line2d_20">
+      <path d="M 422.419462 207.936 L 422.419462 46.512" clip-path="url(#w10-lab19-p122e7170dd)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.18; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="w10-lab19-line2d_21">
+      <g>
+       <use xlink:href="#w10-lab19-m1118f2b665" x="422.419462" y="207.936" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w10-lab19-text_13">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="422.419462" y="224.434047" transform="rotate(-0 422.419462 224.434047)">60</text>
+     </g>
+    </g>
+    <g id="w10-lab19-xtick_6">
+     <g id="w10-lab19-line2d_22">
+      <path d="M 475.180606 207.936 L 475.180606 46.512" clip-path="url(#w10-lab19-p122e7170dd)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.18; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="w10-lab19-line2d_23">
+      <g>
+       <use xlink:href="#w10-lab19-m1118f2b665" x="475.180606" y="207.936" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w10-lab19-text_14">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="475.180606" y="224.434047" transform="rotate(-0 475.180606 224.434047)">80</text>
+     </g>
+    </g>
+    <g id="w10-lab19-text_15">
+     <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="424.266102" y="240.531703" transform="rotate(-0 424.266102 240.531703)">x (units unspecified)</text>
+    </g>
+   </g>
+   <g id="w10-lab19-matplotlib.axis_4">
+    <g id="w10-lab19-ytick_6">
+     <g id="w10-lab19-line2d_24">
+      <path d="M 324.732203 205.505724 L 523.8 205.505724" clip-path="url(#w10-lab19-p122e7170dd)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.18; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="w10-lab19-line2d_25">
+      <g>
+       <use xlink:href="#w10-lab19-me03f8519a1" x="324.732203" y="205.505724" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w10-lab19-text_16">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #536675" x="317.732203" y="210.254747" transform="rotate(-0 317.732203 210.254747)">−40</text>
+     </g>
+    </g>
+    <g id="w10-lab19-ytick_7">
+     <g id="w10-lab19-line2d_26">
+      <path d="M 324.732203 165.146165 L 523.8 165.146165" clip-path="url(#w10-lab19-p122e7170dd)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.18; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="w10-lab19-line2d_27">
+      <g>
+       <use xlink:href="#w10-lab19-me03f8519a1" x="324.732203" y="165.146165" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w10-lab19-text_17">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #536675" x="317.732203" y="169.895188" transform="rotate(-0 317.732203 169.895188)">−20</text>
+     </g>
+    </g>
+    <g id="w10-lab19-ytick_8">
+     <g id="w10-lab19-line2d_28">
+      <path d="M 324.732203 124.786606 L 523.8 124.786606" clip-path="url(#w10-lab19-p122e7170dd)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.18; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="w10-lab19-line2d_29">
+      <g>
+       <use xlink:href="#w10-lab19-me03f8519a1" x="324.732203" y="124.786606" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w10-lab19-text_18">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #536675" x="317.732203" y="129.53563" transform="rotate(-0 317.732203 129.53563)">0</text>
+     </g>
+    </g>
+    <g id="w10-lab19-ytick_9">
+     <g id="w10-lab19-line2d_30">
+      <path d="M 324.732203 84.427047 L 523.8 84.427047" clip-path="url(#w10-lab19-p122e7170dd)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.18; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="w10-lab19-line2d_31">
+      <g>
+       <use xlink:href="#w10-lab19-me03f8519a1" x="324.732203" y="84.427047" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w10-lab19-text_19">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #536675" x="317.732203" y="89.176071" transform="rotate(-0 317.732203 89.176071)">20</text>
+     </g>
+    </g>
+    <g id="w10-lab19-text_20">
+     <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="284.751735" y="127.224" transform="rotate(-90 284.751735 127.224)">Residual</text>
+    </g>
+   </g>
+   <g id="w10-lab19-line2d_32">
+    <path d="M 324.732203 124.786606 L 523.8 124.786606" clip-path="url(#w10-lab19-p122e7170dd)" style="fill: none; stroke-dasharray: 5.55,2.4; stroke-dashoffset: 0; stroke: #536675; stroke-width: 1.5"/>
+   </g>
+   <g id="w10-lab19-patch_6">
+    <path d="M 324.732203 207.936 L 324.732203 46.512" style="fill: none; stroke: #80919c; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="w10-lab19-patch_7">
+    <path d="M 324.732203 207.936 L 523.8 207.936" style="fill: none; stroke: #80919c; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="w10-lab19-text_21">
+    <text style="font-size: 11.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="424.266102" y="40.512" transform="rotate(-0 424.266102 40.512)">Inspect what the fit misses</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="w10-lab19-p172322a529">
+   <rect x="54" y="46.512" width="199.067797" height="161.424"/>
+  </clipPath>
+  <clipPath id="w10-lab19-p122e7170dd">
+   <rect x="324.732203" y="46.512" width="199.067797" height="161.424"/>
+  </clipPath>
+ </defs>
+</svg></div><figcaption><b>Software can fit the unlabeled data; interpretation still needs context</b>Using full precision gives slope −2.905896, intercept 238.150589, and prediction 92.855801 at x = 50. Keep coefficients unrounded during calculation, then report about 92.86. The picture cannot supply missing variable names, units, or a data-collection design.</figcaption></figure>
 <div class="part">
 <div class="part-stem"><span class="part-label">(a)</span>
 <span class="part-text">Find the slope \(b\) and intercept \(a\).</span></div>
 <div class="answer-row"><label>slope \(b=\)</label><input class="wide" data-ans="-2.906" data-tol="0.03" id="w10_4a_b" type="text"/>
-<label>intercept \(a=\)</label><input class="wide" data-ans="238.15" data-tol="1" id="w10_4a_a" type="text"/>
+<label>intercept \(a=\)</label><input class="wide" data-ans="238.15" data-tol="0.1" id="w10_4a_a" type="text"/>
 <button class="check-btn" onclick="checkNum(['w10_4a_b','w10_4a_a'],'w10_4a_v')">Check</button><span class="verdict" id="w10_4a_v"></span></div>
 <div class="text-answer"><label>Write the regression equation.</label>
 <textarea id="w10_4a_eq" placeholder="ŷ = …"></textarea></div>
@@ -403,16 +1243,7 @@ details summary{line-height:1.35;}
       \(x\) values are associated with substantially lower \(y\) values.</p>
 </div></details>
 </div>
-<div class="part">
-<div class="part-stem"><span class="part-label">(b)</span>
-<span class="part-text">Predict \(\hat{y}\) for \(x=50\).</span></div>
-<div class="answer-row"><label>\(\hat{y}(50)=a+b(50)=\)</label><input class="wide" data-ans="92.65" data-tol="2" id="w10_4b" type="text"/>
-<button class="check-btn" onclick="checkNum(['w10_4b'],'w10_4b_v')">Check</button><span class="verdict" id="w10_4b_v"></span></div>
-<details><summary>Compare with a worked solution</summary><div class="solution">
-<p><span class="ans">\(\hat{y}(50)\approx92.65\).</span></p>
-<p>\(\hat{y}(50)=238.15-2.91(50)=238.15-145.50=92.65\).</p>
-</div></details>
-</div>
+<div class="part"><div class="part-stem"><span class="part-label">(b)</span><span class="part-text">Predict the response at x = 50 using the unrounded fitted coefficients. Round the final prediction to two decimals.</span></div><div class="answer-row"><label for="w10_4b">Predicted y at x = 50</label><input id="w10_4b" type="text" data-ans="92.85580062050394" data-tol=".05" /><button class="check-btn" onclick="checkNum(['w10_4b'],'w10_4b_v')">Check</button><span class="verdict" id="w10_4b_v"></span></div><details><summary>Compare with a worked solution</summary><div class="solution"><p>Using a ≈ 238.1505889 and b ≈ −2.9058958 gives a + b(50) ≈ 92.8558006, or 92.86. Rounding the slope to −2.91 before multiplying by 50 changes the result noticeably. Keep the calculator’s full coefficients during prediction.</p></div></details></div>
 <div class="part">
 <div class="part-stem"><span class="part-label">(c)</span>
 <span class="part-text">Interpret the slope in context. The variables are
@@ -429,16 +1260,15 @@ details summary{line-height:1.35;}
 <!-- PROBLEM 5 -->
 <div class="problem" id="p5">
 <h2>Problem 5 — The Closing Thread</h2><p class="problem-goal"><strong>Goal:</strong> Bring the main ideas of regression together in one final interpretation.</p>
-<div class="scenario">Use the final response to connect the course rather than merely list formulas. Trace how statistics moved from describing one variable to estimating population quantities, comparing groups, and finally modeling a relationship between two quantitative variables.</div>
+<div class="scenario">Use the final response to connect the course rather than list formulas. In the explorer’s sampling view, collect at least 20 samples with n = 8, then repeat with n = 32 at the same error spread. Record what happened to the fitted slopes. Explain how that variability differs from residual spread within one sample. Then connect the mean-only prediction, the least-squares improvement, r², model checks, and the limits of generalizing from a sample.</div>
 <div class="part">
 <div class="part-stem"><span class="part-label"></span>
-<span class="part-text">Include: standard deviation, correlation, regression line,
-      \(r^2\), and at least one more.</span></div>
+<span class="part-text">Include standard deviation, correlation, the regression line, r², sampling variability, and one specific observation from your explorer work.</span></div>
 <div class="text-answer"><label>Your paragraph.</label>
 <textarea class="tall" id="w10_5" placeholder="This course begins with a single variable…"></textarea></div>
 <details><summary>Compare with a worked solution</summary><div class="solution">
 <p><span class="ans">There's no single correct paragraph here — use this checklist instead.</span></p>
-<p>A strong response should: describe standard deviation as measuring spread within
+<p>A strong response should distinguish residual variation from sampling variation, use one numerical example from the explorer, and describe standard deviation as measuring spread within
       one variable; introduce correlation \(r\) as measuring the direction and strength of
       a linear relationship between two variables; describe the regression line as the
       best-fitting summary of that relationship, used for prediction; explain \(r^2\) as
@@ -476,7 +1306,7 @@ details summary{line-height:1.35;}
 (function(){
   const WEEK = 10;
   function responseControls(){
-    return Array.from(document.querySelectorAll('input[type="text"], textarea, select')).filter(el=>{
+    return Array.from(document.querySelectorAll('input[type="text"], textarea, select')).filter(el=>!el.closest('.regression-workbench')).filter(el=>{
       if(el.readOnly || el.disabled) return false;
       return !/_name$|_date$/.test(el.id||'');
     });
@@ -587,7 +1417,7 @@ details summary{line-height:1.35;}
   }
 
   function responseControls(){
-    return Array.from(document.querySelectorAll('input,select,textarea')).filter(el=>{
+    return Array.from(document.querySelectorAll('input,select,textarea')).filter(el=>!el.closest('.regression-workbench')).filter(el=>{
       if(el.closest('.solution,.submission-name-control,.submission-toolbar')) return false;
       if(el.readOnly || el.disabled) return false;
       const t=(el.type||'').toLowerCase();
@@ -784,7 +1614,7 @@ details summary{line-height:1.35;}
   }
   function responseControls(){
     const name=primaryNameField(),date=dateField();
-    return Array.from(document.querySelectorAll('input,textarea,select')).filter(el=>{
+    return Array.from(document.querySelectorAll('input,textarea,select')).filter(el=>!el.closest('.regression-workbench')).filter(el=>{
       if(el.closest('.solution,.submission-toolbar,.student-topbar')) return false;
       if(el===name||el===date||el.readOnly||el.disabled) return false;
       const t=(el.type||'').toLowerCase();

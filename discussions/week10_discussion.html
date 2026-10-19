@@ -18,7 +18,21 @@ code{background:var(--soft);padding:.08rem .28rem;border-radius:5px}button{borde
 </style>
 <script>window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]],processEscapes:true},options:{skipHtmlTags:["script","noscript","style","textarea","pre","code"]}};</script>
 <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
-</head>
+<style id="week10-visual-styles">
+/* Week 10 diagrams are embedded so saved pages retain their graphs. */
+.w10-visual{margin:20px 0;padding:14px 14px 12px;background:#fff;border:1px solid #cdd9df;border-radius:11px;break-inside:avoid;color:#182e40;font:16px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif;min-width:0;max-width:100%}
+.w10-visual .w10-plot{overflow-x:auto;max-width:100%;border-radius:5px}
+.w10-visual svg{display:block;width:100%;height:auto;min-width:420px;max-width:none}
+.w10-visual figcaption{font-size:.92em;margin-top:9px;color:#435969}
+.w10-visual figcaption b{display:block;color:#245a81;margin-bottom:3px}
+.w10-visual .w10-key{font-size:.85em;color:#536675;margin:8px 0 0}
+.w10-table-lookup{max-width:100%;overflow:auto;margin:16px 0}
+.w10-table-lookup table{border-collapse:collapse;background:#fff;font:15px/1.5 system-ui,sans-serif;width:100%}
+.w10-table-lookup th,.w10-table-lookup td{padding:9px;border:1px solid #cdd9df;text-align:center;color:#182e40}
+.w10-table-lookup .w10-selected{background:#dcefe9;font-weight:750;border:2px solid #287d76}
+@media(max-width:540px){.w10-visual{padding:10px 8px}.w10-visual figcaption{font-size:14px}.w10-visual .w10-key{font-size:12px}}
+@media print{.w10-visual{box-shadow:none;border:1px solid #aab6bf;break-inside:avoid;padding:8px;margin:12px 0;print-color-adjust:exact;-webkit-print-color-adjust:exact}.w10-visual .w10-plot{overflow:visible}.w10-visual svg{min-width:0;width:100%}.w10-visual figcaption{font-size:10pt}.w10-table-lookup{break-inside:avoid}.w10-table-lookup .w10-selected{print-color-adjust:exact;-webkit-print-color-adjust:exact}}
+</style></head>
 <body>
 <header><a href="../index.html">← MATH&amp; 146 course</a><h1>Week 10 Discussion — Can a Track Predict a Stride?</h1><p>Fit a regression line to a hypothetical trackway and decide what the line can—and cannot—tell you.</p></header>
 <main>
@@ -33,8 +47,251 @@ code{background:var(--soft);padding:.08rem .28rem;border-radius:5px}button{borde
 <tbody><tr><th>y</th><td>112</td><td>118</td><td>123</td><td>132</td><td>136</td><td>145</td><td>149</td></tr></tbody></table>
 <p>A scatterplot lets us see whether a roughly linear pattern is plausible. If it is, a least-squares regression line summarizes the average relationship between the two variables. The fitted line can then be used for prediction within the range of the observed data, while residuals tell us how far individual observations fall above or below those predictions.</p>
 <p>Regression can describe association very effectively, but it has limits. A strong correlation does not establish a causal mechanism, and a line fitted to footprints between 28 cm and 40 cm has not been tested on tracks far outside that range.</p>
+
+<figure class="w10-visual" data-visual="w10-track"><div class="w10-plot" tabindex="0" role="group" aria-label="Move from a calculation to an evidence-based explanation; scroll horizontally on narrow screens"><svg id="w10-track" role="img" aria-labelledby="w10-track-title w10-track-desc" xmlns:xlink="http://www.w3.org/1999/xlink" width="525.6pt" height="252pt" viewBox="0 0 525.6 252" xmlns="http://www.w3.org/2000/svg" version="1.1">
+<title id="w10-track-title">Move from a calculation to an evidence-based explanation</title><desc id="w10-track-desc">These are the seven fabricated pairs supplied in the discussion, with their least-squares line. Compare the response predicted at x = 35 with an actual residual at x = 34. A strong fitted association does not identify an animal or a causal mechanism.</desc>
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">#w10-track *{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="w10-track-figure_1">
+  <g id="w10-track-patch_1">
+   <path d="M 0 252 L 525.6 252 L 525.6 0 L 0 0 z" style="fill: #ffffff"/>
+  </g>
+  <g id="w10-track-axes_1">
+   <g id="w10-track-patch_2">
+    <path d="M 68.328 191.52 L 509.832 191.52 L 509.832 35.28 L 68.328 35.28 z" style="fill: #ffffff"/>
+   </g>
+   <g id="w10-track-matplotlib.axis_1">
+    <g id="w10-track-xtick_1">
+     <g id="w10-track-line2d_1">
+      <path d="M 88.396364 191.52 L 88.396364 35.28" clip-path="url(#w10-track-pf6ba7af7ed)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.18; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="w10-track-line2d_2">
+      <defs>
+       <path id="w10-track-m61b5e3c1b7" d="M 0 0 L 0 3.5" style="stroke: #536675; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#w10-track-m61b5e3c1b7" x="88.396364" y="191.52" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w10-track-text_1">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="88.396364" y="208.018047" transform="rotate(-0 88.396364 208.018047)">28</text>
+     </g>
+    </g>
+    <g id="w10-track-xtick_2">
+     <g id="w10-track-line2d_3">
+      <path d="M 155.290909 191.52 L 155.290909 35.28" clip-path="url(#w10-track-pf6ba7af7ed)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.18; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="w10-track-line2d_4">
+      <g>
+       <use xlink:href="#w10-track-m61b5e3c1b7" x="155.290909" y="191.52" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w10-track-text_2">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="155.290909" y="208.018047" transform="rotate(-0 155.290909 208.018047)">30</text>
+     </g>
+    </g>
+    <g id="w10-track-xtick_3">
+     <g id="w10-track-line2d_5">
+      <path d="M 222.185455 191.52 L 222.185455 35.28" clip-path="url(#w10-track-pf6ba7af7ed)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.18; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="w10-track-line2d_6">
+      <g>
+       <use xlink:href="#w10-track-m61b5e3c1b7" x="222.185455" y="191.52" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w10-track-text_3">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="222.185455" y="208.018047" transform="rotate(-0 222.185455 208.018047)">32</text>
+     </g>
+    </g>
+    <g id="w10-track-xtick_4">
+     <g id="w10-track-line2d_7">
+      <path d="M 289.08 191.52 L 289.08 35.28" clip-path="url(#w10-track-pf6ba7af7ed)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.18; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="w10-track-line2d_8">
+      <g>
+       <use xlink:href="#w10-track-m61b5e3c1b7" x="289.08" y="191.52" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w10-track-text_4">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="289.08" y="208.018047" transform="rotate(-0 289.08 208.018047)">34</text>
+     </g>
+    </g>
+    <g id="w10-track-xtick_5">
+     <g id="w10-track-line2d_9">
+      <path d="M 355.974545 191.52 L 355.974545 35.28" clip-path="url(#w10-track-pf6ba7af7ed)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.18; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="w10-track-line2d_10">
+      <g>
+       <use xlink:href="#w10-track-m61b5e3c1b7" x="355.974545" y="191.52" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w10-track-text_5">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="355.974545" y="208.018047" transform="rotate(-0 355.974545 208.018047)">36</text>
+     </g>
+    </g>
+    <g id="w10-track-xtick_6">
+     <g id="w10-track-line2d_11">
+      <path d="M 422.869091 191.52 L 422.869091 35.28" clip-path="url(#w10-track-pf6ba7af7ed)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.18; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="w10-track-line2d_12">
+      <g>
+       <use xlink:href="#w10-track-m61b5e3c1b7" x="422.869091" y="191.52" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w10-track-text_6">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="422.869091" y="208.018047" transform="rotate(-0 422.869091 208.018047)">38</text>
+     </g>
+    </g>
+    <g id="w10-track-xtick_7">
+     <g id="w10-track-line2d_13">
+      <path d="M 489.763636 191.52 L 489.763636 35.28" clip-path="url(#w10-track-pf6ba7af7ed)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.18; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="w10-track-line2d_14">
+      <g>
+       <use xlink:href="#w10-track-m61b5e3c1b7" x="489.763636" y="191.52" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w10-track-text_7">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="489.763636" y="208.018047" transform="rotate(-0 489.763636 208.018047)">40</text>
+     </g>
+    </g>
+    <g id="w10-track-text_8">
+     <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="289.08" y="224.115703" transform="rotate(-0 289.08 224.115703)">Footprint length (cm)</text>
+    </g>
+   </g>
+   <g id="w10-track-matplotlib.axis_2">
+    <g id="w10-track-ytick_1">
+     <g id="w10-track-line2d_15">
+      <path d="M 68.328 190.535853 L 509.832 190.535853" clip-path="url(#w10-track-pf6ba7af7ed)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.18; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="w10-track-line2d_16">
+      <defs>
+       <path id="w10-track-mfd4e7a0103" d="M 0 0 L -3.5 0" style="stroke: #536675; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#w10-track-mfd4e7a0103" x="68.328" y="190.535853" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w10-track-text_9">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #536675" x="61.328" y="195.284876" transform="rotate(-0 61.328 195.284876)">110</text>
+     </g>
+    </g>
+    <g id="w10-track-ytick_2">
+     <g id="w10-track-line2d_17">
+      <path d="M 68.328 153.297855 L 509.832 153.297855" clip-path="url(#w10-track-pf6ba7af7ed)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.18; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="w10-track-line2d_18">
+      <g>
+       <use xlink:href="#w10-track-mfd4e7a0103" x="68.328" y="153.297855" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w10-track-text_10">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #536675" x="61.328" y="158.046878" transform="rotate(-0 61.328 158.046878)">120</text>
+     </g>
+    </g>
+    <g id="w10-track-ytick_3">
+     <g id="w10-track-line2d_19">
+      <path d="M 68.328 116.059857 L 509.832 116.059857" clip-path="url(#w10-track-pf6ba7af7ed)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.18; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="w10-track-line2d_20">
+      <g>
+       <use xlink:href="#w10-track-mfd4e7a0103" x="68.328" y="116.059857" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w10-track-text_11">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #536675" x="61.328" y="120.80888" transform="rotate(-0 61.328 120.80888)">130</text>
+     </g>
+    </g>
+    <g id="w10-track-ytick_4">
+     <g id="w10-track-line2d_21">
+      <path d="M 68.328 78.821859 L 509.832 78.821859" clip-path="url(#w10-track-pf6ba7af7ed)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.18; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="w10-track-line2d_22">
+      <g>
+       <use xlink:href="#w10-track-mfd4e7a0103" x="68.328" y="78.821859" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w10-track-text_12">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #536675" x="61.328" y="83.570882" transform="rotate(-0 61.328 83.570882)">140</text>
+     </g>
+    </g>
+    <g id="w10-track-ytick_5">
+     <g id="w10-track-line2d_23">
+      <path d="M 68.328 41.583861 L 509.832 41.583861" clip-path="url(#w10-track-pf6ba7af7ed)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.18; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="w10-track-line2d_24">
+      <g>
+       <use xlink:href="#w10-track-mfd4e7a0103" x="68.328" y="41.583861" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w10-track-text_13">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #536675" x="61.328" y="46.332885" transform="rotate(-0 61.328 46.332885)">150</text>
+     </g>
+    </g>
+    <g id="w10-track-text_14">
+     <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="30.869016" y="113.4" transform="rotate(-90 30.869016 113.4)">Stride length (cm)</text>
+    </g>
+   </g>
+   <g id="w10-track-LineCollection_1">
+    <path d="M 289.08 113.4 L 289.08 108.612257" clip-path="url(#w10-track-pf6ba7af7ed)" style="fill: none; stroke: #287d76; stroke-width: 2.5"/>
+   </g>
+   <g id="w10-track-patch_3">
+    <path d="M 68.328 191.52 L 68.328 35.28" style="fill: none; stroke: #80919c; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="w10-track-patch_4">
+    <path d="M 68.328 191.52 L 509.832 191.52" style="fill: none; stroke: #80919c; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="w10-track-line2d_25">
+    <path d="M 88.396364 184.418182 L 489.763636 42.381818" clip-path="url(#w10-track-pf6ba7af7ed)" style="fill: none; stroke: #a74c20; stroke-width: 2.2; stroke-linecap: square"/>
+   </g>
+   <g id="w10-track-patch_5">
+    <path d="M 213.332104 65.418289 Q 250.349589 87.696758 286.409144 109.39871" style="fill: none; stroke: #287d76; stroke-linecap: round"/>
+    <path d="M 283.893462 105.433695 L 286.409144 109.39871 L 281.727723 109.032247" style="fill: none; stroke: #287d76; stroke-linecap: round"/>
+   </g>
+   <g id="w10-track-text_15">
+    <text style="font-size: 10.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: start; fill: #287d76" x="121.843636" y="60.20286" transform="rotate(-0 121.843636 60.20286)">Inspect the residual at x = 34</text>
+   </g>
+   <g id="w10-track-text_16">
+    <text style="font-size: 11.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="289.08" y="29.28" transform="rotate(-0 289.08 29.28)">Fabricated discussion records; one point per paired measurement</text>
+   </g>
+   <g id="w10-track-PathCollection_1">
+    <defs>
+     <path id="w10-track-md4d39d619a" d="M 0 2.738613 C 0.726289 2.738613 1.422928 2.450055 1.936492 1.936492 C 2.450055 1.422928 2.738613 0.726289 2.738613 0 C 2.738613 -0.726289 2.450055 -1.422928 1.936492 -1.936492 C 1.422928 -2.450055 0.726289 -2.738613 0 -2.738613 C -0.726289 -2.738613 -1.422928 -2.450055 -1.936492 -1.936492 C -2.450055 -1.422928 -2.738613 -0.726289 -2.738613 0 C -2.738613 0.726289 -2.450055 1.422928 -1.936492 1.936492 C -1.422928 2.450055 -0.726289 2.738613 0 2.738613 z" style="stroke: #ffffff; stroke-width: 0.6"/>
+    </defs>
+    <g clip-path="url(#w10-track-pf6ba7af7ed)">
+     <use xlink:href="#w10-track-md4d39d619a" x="88.396364" y="183.088253" style="fill: #245a81; stroke: #ffffff; stroke-width: 0.6"/>
+     <use xlink:href="#w10-track-md4d39d619a" x="155.290909" y="160.745455" style="fill: #245a81; stroke: #ffffff; stroke-width: 0.6"/>
+     <use xlink:href="#w10-track-md4d39d619a" x="222.185455" y="142.126456" style="fill: #245a81; stroke: #ffffff; stroke-width: 0.6"/>
+     <use xlink:href="#w10-track-md4d39d619a" x="289.08" y="108.612257" style="fill: #245a81; stroke: #ffffff; stroke-width: 0.6"/>
+     <use xlink:href="#w10-track-md4d39d619a" x="355.974545" y="93.717058" style="fill: #245a81; stroke: #ffffff; stroke-width: 0.6"/>
+     <use xlink:href="#w10-track-md4d39d619a" x="422.869091" y="60.20286" style="fill: #245a81; stroke: #ffffff; stroke-width: 0.6"/>
+     <use xlink:href="#w10-track-md4d39d619a" x="489.763636" y="45.307661" style="fill: #245a81; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="w10-track-pf6ba7af7ed">
+   <rect x="68.328" y="35.28" width="441.504" height="156.24"/>
+  </clipPath>
+ </defs>
+</svg></div><figcaption><b>Move from a calculation to an evidence-based explanation</b>These are the seven fabricated pairs supplied in the discussion, with their least-squares line. Compare the response predicted at x = 35 with an actual residual at x = 34. A strong fitted association does not identify an animal or a causal mechanism.</figcaption></figure>
 <p><strong>The statistical question:</strong> How well does a linear model summarize the relationship between footprint length and stride length in this dataset, and what would be unsafe to conclude or predict from that model?</p></section>
-<section class="panel"><div class="kicker">Initial post</div><h2>What to include</h2><ol class="tasks"><li>Make a scatterplot and describe the direction, form, and strength of the association.</li><li>Find the least-squares regression line and the correlation r.</li><li>Use the fitted line to predict stride length for a 35 cm footprint.</li><li>For the observation x = 34, y = 132, compute the residual as observed minus predicted.</li><li>Interpret r² in context. Then explain why even a very strong linear association would not prove that footprint length alone determines stride length, and why extrapolating far beyond 28–40 cm would be risky.</li></ol></section>
+<section class="panel"><div class="kicker">Initial post</div><h2>What to include</h2><p>Use the <a href="../demos/Regression_Explorer.html">Regression Explorer</a> with the trackway preset, or the calculator. Keep the original seven fabricated pairs for your reported fit. Build your post from picture to prediction to model check.</p><ol class="tasks"><li>Make a scatterplot and describe the direction, form, and strength of the association.</li><li>Find the least-squares line and correlation r. Explain why its line passes through the two sample means, rather than just quoting the formulas.</li><li>Use the fitted line to predict stride length for a 35 cm footprint.</li><li>For the observation x = 34, y = 132, compute the residual as observed minus predicted.</li><li>Interpret r² in context. Then explain why even a very strong linear association would not prove that footprint length alone determines stride length, and why extrapolating far beyond 28–40 cm would be risky. Connect one limitation to the course’s earlier work on sampling, influential observations, or the distinction between association and cause.</li></ol></section>
 <section class="panel"><div class="kicker">Replies</div><h2>Engage with classmates’ statistics</h2><div class="reply">Check a classmate’s prediction or residual. Then compare your interpretations of r² and extrapolation: does the regression model summarize the observed range without being treated as a universal law?</div><p class="small">A useful reply checks a calculation, compares methods or assumptions, or asks a statistically specific question. Avoid replies that only say that you agree.</p></section>
 <section class="panel"><button onclick="window.print()">Print this discussion prompt</button></section>
 </main></body></html>

@@ -82,8 +82,14 @@ table.res td{padding:5px 12px;text-align:right;border-bottom:1px solid #f3f4f6;}
   .metric-grid{grid-template-columns:repeat(2,1fr);}
 }
 </style>
-</head>
-<body>
+<style id="regression-workbench-styles">.regression-workbench{--rw-blue:#245a81;--rw-teal:#287d76;--rw-orange:#a74c20;--rw-ink:#182e40;background:#fff;color:var(--rw-ink);border:1px solid #c6d5de;border-radius:14px;padding:18px;margin:18px 0;min-width:0;font:16px/1.55 system-ui,sans-serif}.regression-workbench *{box-sizing:border-box}.regression-workbench [hidden]{display:none!important}.regression-workbench h3{margin:4px 0 10px;color:var(--rw-ink);font:700 1.2rem/1.35 system-ui,sans-serif}.regression-workbench h4{margin:13px 0 5px}.regression-workbench p{margin:9px 0}
+.rw-tabs,.rw-actions{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.regression-workbench button{font:650 14px system-ui,sans-serif;border:1px solid #a8bdca;border-radius:7px;background:#f2f7fa;color:var(--rw-ink);padding:8px 11px;cursor:pointer}.regression-workbench button[aria-pressed=true],.regression-workbench .rw-primary{background:#245a81;color:#fff;border-color:#245a81}.regression-workbench button:disabled{opacity:.55;cursor:default}.regression-workbench button:focus-visible,.regression-workbench input:focus-visible,.regression-workbench select:focus-visible{outline:3px solid #9b6b18;outline-offset:3px}
+.rw-controls{display:flex;gap:15px;flex-wrap:wrap;align-items:end;margin:13px 0}.regression-workbench label{font-size:14px;font-weight:600;display:block;margin:0}.rw-controls label{flex:1 1 150px}.regression-workbench select,.regression-workbench input[type=number]{display:block;width:100%;border:1px solid #a8bdca;border-radius:6px;background:#fff;color:var(--rw-ink);padding:7px;font:inherit;margin-top:5px}.regression-workbench input[type=range]{display:block;width:100%;accent-color:#245a81;margin:10px 0}.regression-workbench input[type=checkbox]{accent-color:#245a81;width:auto;margin-right:7px}.rw-slider-value{font-variant-numeric:tabular-nums;color:#245a81}.rw-prompt{background:#edf7f4;border-left:4px solid #287d76;padding:10px 13px;margin:12px 0}.rw-note{font-size:14px;color:#435e70}.rw-warning{background:#fff5dc;border-left:4px solid #9b6b18;padding:10px 13px;margin:12px 0}
+.rw-plots{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px}.rw-plot{border:1px solid #d1dfe6;background:#fff;border-radius:9px;overflow-x:auto;margin:12px 0}.rw-plot svg{display:block;width:100%;height:auto;min-width:420px;max-width:none}.rw-wide svg{min-width:620px}.rw-metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:12px 0}.rw-metric{padding:10px;border:1px solid #cbdbe2;border-radius:8px;background:#f5f9fb}.rw-metric span{font-size:12px;display:block;color:#526b7c}.rw-metric strong{font-size:18px;color:#245a81;font-variant-numeric:tabular-nums}.rw-table{overflow:auto;max-height:350px;border:1px solid #d1dfe6;border-radius:8px;margin:12px 0}.regression-workbench table{width:100%;border-collapse:collapse;margin:0;background:#fff;font-size:14px;color:#182e40}.regression-workbench th,.regression-workbench td{padding:8px;border-bottom:1px solid #d1dfe6;white-space:nowrap;text-align:right}.regression-workbench th{font-size:13px;background:#edf3f6;text-transform:none;letter-spacing:0;color:#34536a}.regression-workbench th:first-child,.regression-workbench td:first-child{text-align:left}.rw-selected{background:#fff0df}.rw-legend{font-size:14px;color:#435e70}.rw-legend span{display:inline-block;margin-right:15px}.rw-legend span:before{content:'';display:inline-block;width:14px;height:4px;background:#a74c20;margin:0 6px 3px 0}.rw-legend span+span:before{background:#245a81}.rw-range{border:1px solid #cbdbe2;border-radius:8px;padding:10px;background:#f5f9fb;margin:12px 0}
+@media(max-width:850px){.rw-plots{grid-template-columns:1fr}.rw-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:520px){.regression-workbench{padding:11px}.rw-tabs button{font-size:13px}.rw-controls{gap:9px}}
+@media print{.rw-tabs,.rw-actions,.rw-controls,.rw-no-print{display:none!important}.regression-workbench{box-shadow:none;border:1px solid #aaa;padding:9px;break-inside:auto;print-color-adjust:exact;-webkit-print-color-adjust:exact}.rw-plots{grid-template-columns:1fr}.rw-plot{overflow:visible;break-inside:avoid}.rw-plot svg,.rw-wide svg{min-width:0;width:100%}.rw-table{max-height:none}.rw-metric strong{font-size:13px}}
+</style><script src="assets/regression-workbench.js"></script></head>
+<body><p style="max-width:1100px;margin:15px auto;padding:0 16px;font:15px/1.5 system-ui,sans-serif">MATH&amp; 146 · <a href="../readings/week10_reading.html">Why these formulas work</a> · <a href="Regression_Explorer.html">Guided Regression Explorer</a> · <a href="../labs/Math146_Week10_Lab.html">Weekly lab</a></p>
 <div class="wrap">
 
   <div class="top-bar">
@@ -127,7 +133,7 @@ table.res td{padding:5px 12px;text-align:right;border-bottom:1px solid #f3f4f6;}
   <!-- Chart -->
   <div id="chart-section" class="chart-wrap" style="display:none;">
     <div class="chart-title">Scatterplot with regression line</div>
-    <svg id="scatter-svg" viewBox="0 0 640 300"></svg>
+    <svg id="scatter-svg" role="img" aria-label="Scatterplot with the fitted regression line and residuals" viewBox="0 0 640 300"></svg><h3 style="font:600 16px system-ui;margin-top:18px">Residuals: what the fitted line misses</h3><div id="residual-plot" class="rw-plot rw-wide" tabindex="0" aria-label="Residual plot"></div><p style="font:14px/1.5 system-ui;color:#536675">Look for a curved pattern, changing spread, and unusual points. A large r² alone does not settle model adequacy. The plotted fitted line stops at the observed x-range.</p>
   </div>
 
   <!-- Residuals -->
@@ -248,21 +254,13 @@ function toggleResiduals() {
 
 // ── Statistics ────────────────────────────────────────────────
 function compute() {
-  const pts = rows
-    .filter(r => r.x !== '' && r.y !== '' && !isNaN(+r.x) && !isNaN(+r.y))
-    .map(r => ({ x: +r.x, y: +r.y }));
-  const n = pts.length;
-  if (n < 2) return null;
-
-  const xs = pts.map(p => p.x), ys = pts.map(p => p.y);
-  const xb = xs.reduce((a,b)=>a+b,0)/n;
-  const yb = ys.reduce((a,b)=>a+b,0)/n;
-  const sx = Math.sqrt(xs.reduce((s,x)=>s+(x-xb)**2,0)/(n-1));
-  const sy = Math.sqrt(ys.reduce((s,y)=>s+(y-yb)**2,0)/(n-1));
-  if (sx === 0) return null;
-  const r = xs.reduce((s,x,i)=>s+(x-xb)*(ys[i]-yb),0)/((n-1)*sx*sy);
-  const b = r*sy/sx, a = yb-b*xb, r2 = r*r;
-  return { n, xb, yb, sx, sy, r, r2, b, a, pts };
+  const pts=rows.filter(r=>r.x!==''&&r.y!==''&&Number.isFinite(Number(r.x))&&Number.isFinite(Number(r.y))).map(r=>({x:Number(r.x),y:Number(r.y)}));
+  const n=pts.length;if(n<2)return null;
+  const xs=pts.map(p=>p.x),ys=pts.map(p=>p.y),xb=xs.reduce((s,x)=>s+x,0)/n,yb=ys.reduce((s,y)=>s+y,0)/n;
+  const sxx=xs.reduce((s,x)=>s+(x-xb)**2,0),sxy=pts.reduce((s,p)=>s+(p.x-xb)*(p.y-yb),0),sst=ys.reduce((s,y)=>s+(y-yb)**2,0);
+  if(!(sxx>0))return null;
+  const sx=Math.sqrt(sxx/(n-1)),sy=Math.sqrt(sst/(n-1)),b=sxy/sxx,a=yb-b*xb,res=pts.map(p=>p.y-a-b*p.x),sse=res.reduce((s,e)=>s+e*e,0),r=sst>0?sxy/Math.sqrt(sxx*sst):null,r2=sst>0?Math.max(0,Math.min(1,1-sse/sst)):null;
+  return {n,xb,yb,sx,sy,sxx,sxy,sst,sse,res,r,r2,b,a,pts};
 }
 
 function f(v, d=4) {
@@ -278,12 +276,12 @@ function fmtEq(a, b) {
 // ── Main update ───────────────────────────────────────────────
 function recalc() {
   const st = compute();
-  const pts = rows.filter(r=>r.x!==''&&r.y!==''&&!isNaN(+r.x)&&!isNaN(+r.y));
+  const pts = rows.filter(r=>r.x!==''&&r.y!==''&&Number.isFinite(Number(r.x))&&Number.isFinite(Number(r.y)));
   const hint = document.getElementById('hint');
   hint.textContent = pts.length < 2 ? `${pts.length} valid point${pts.length===1?'':'s'} — need at least 2.` : `${pts.length} data points loaded.`;
 
   if (!st) {
-    document.getElementById('stats-panel').innerHTML = `<div class="empty-state">Results appear here once you enter at least 2 complete data points.</div>`;
+    document.getElementById('stats-panel').innerHTML = `<div class="empty-state">${pts.length>=2?'These x-values do not vary, so the data do not identify a unique slope.':'Enter at least two complete, finite pairs with different x-values.'}</div>`;
     document.getElementById('chart-section').style.display = 'none';
     document.getElementById('res-section').style.display = 'none';
     return;
@@ -300,7 +298,7 @@ function recalc() {
 function renderStats(st) {
   const metrics = [
     ['n', st.n, 0], ['x̄', st.xb, 2], ['ȳ', st.yb, 2],
-    ['sₓ', st.sx, 3], ['sᵧ', st.sy, 3], ['r', st.r, 4]
+    ['sₓ', st.sx, 3], ['sᵧ', st.sy, 3], ['r', st.r, 4], ['Sxx', st.sxx, 3], ['Sxy', st.sxy, 3], ['SSE', st.sse, 3], ['SST', st.sst, 3]
   ];
 
   const metricCards = metrics.map(([l,v,d]) => `
@@ -313,12 +311,12 @@ function renderStats(st) {
     <div class="metric-grid">${metricCards}</div>
     <div class="r2-box">
       <div class="lbl">r² — variability explained</div>
-      <div class="val">${f(st.r2,4)} = ${f(st.r2*100,1)}%</div>
+      <div class="val">${st.r2===null?'Undefined: the response has no variation':f(st.r2,4)+' = '+f(st.r2*100,1)+'%'}</div>
     </div>
     <div class="eq-box">
       <div class="lbl">regression equation</div>
       <div class="val">${fmtEq(st.a, st.b)}</div>
-      <div class="sub">b = ${f(st.b,4)} &nbsp;·&nbsp; a = ${f(st.a,4)}</div>
+      <div class="sub">b = Sxy/Sxx = ${f(st.b,6)} &nbsp;·&nbsp; a = ȳ − bx̄ = ${f(st.a,6)}<br>Keep these full coefficients for prediction. R² compares SSE with mean-only SST.</div>
     </div>
     <div class="pred-box">
       <div class="lbl">predict ŷ for a given x</div>
@@ -327,7 +325,7 @@ function renderStats(st) {
         <input type="number" step="any" id="pred-x" placeholder="enter x"
           oninput="updatePred(this.value, ${st.a}, ${st.b})"/>
         <span>→ ŷ =</span>
-        <span id="pred-result">—</span>
+        <span id="pred-result">—</span><span id="pred-context" style="display:block;font-size:13px"></span>
       </div>
     </div>`;
 }
@@ -335,8 +333,9 @@ function renderStats(st) {
 function updatePred(val, a, b) {
   const el = document.getElementById('pred-result');
   if (!el) return;
-  if (val === '' || isNaN(+val)) { el.textContent = '—'; return; }
+  if (val === '' || !Number.isFinite(Number(val))) { el.textContent = '—'; const note=document.getElementById('pred-context');if(note)note.textContent='';return; }
   el.textContent = f(a + b*(+val), 2);
+  const st=compute(),note=document.getElementById('pred-context');if(st&&note){const min=Math.min(...st.pts.map(p=>p.x)),max=Math.max(...st.pts.map(p=>p.x));note.textContent=(+val<min||+val>max?'Extrapolation: outside':'Interpolation: within')+' the observed x-range '+f(min,2)+' to '+f(max,2)+'. A predicted response is not an exact individual outcome.';}
 }
 
 // ── Chart ─────────────────────────────────────────────────────
@@ -347,7 +346,7 @@ function renderChart(st) {
 
   const xs = st.pts.map(p=>p.x), ys = st.pts.map(p=>p.y);
   const xMin = Math.min(...xs), xMax = Math.max(...xs);
-  const yMin = Math.min(...ys), yMax = Math.max(...ys);
+  const yMin = Math.min(...ys,st.a+st.b*xMin,st.a+st.b*xMax), yMax = Math.max(...ys,st.a+st.b*xMin,st.a+st.b*xMax);
   const xPad = (xMax-xMin)*0.08 || 1, yPad = (yMax-yMin)*0.12 || 1;
   const x1 = xMin-xPad, x2 = xMax+xPad;
   const y1 = yMin-yPad, y2 = yMax+yPad;
@@ -382,11 +381,13 @@ function renderChart(st) {
   });
 
   // Regression line
-  const lx1 = x1, lx2 = x2;
+  const lx1 = xMin, lx2 = xMax;
   const ly1 = st.a + st.b*lx1, ly2 = st.a + st.b*lx2;
   svg += `<line x1="${px(lx1)}" y1="${py(ly1)}" x2="${px(lx2)}" y2="${py(ly2)}"
     stroke="#dc2626" stroke-width="2.5" stroke-linecap="round"/>`;
 
+  // Vertical residuals from the fitted line to each observation.
+  st.pts.forEach(p=>{svg+=`<line x1="${px(p.x)}" y1="${py(p.y)}" x2="${px(p.x)}" y2="${py(st.a+st.b*p.x)}" stroke="#287d76" stroke-width="1.5" opacity=".7"/>`});
   // Data points
   st.pts.forEach(p => {
     const cx = px(p.x), cy = py(p.y);
@@ -431,7 +432,8 @@ function renderChart(st) {
   svg += `<text x="${ml+pw-4}" y="${mt+14}" text-anchor="end"
     font-size="12" fill="#1e40af" font-family="monospace" font-weight="600">${eq}</text>`;
 
-  document.getElementById('scatter-svg').innerHTML = svg;
+  document.getElementById('scatter-svg').innerHTML = '<title>Scatterplot with fitted line and vertical residuals</title>'+svg;
+  document.getElementById('residual-plot').innerHTML=RegressionWorkbench.residualPlot(st.pts.map(p=>[p.x,p.y]),st);
 }
 
 // ── Residuals ─────────────────────────────────────────────────
