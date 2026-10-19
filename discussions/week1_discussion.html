@@ -18,7 +18,21 @@ code{background:var(--soft);padding:.08rem .28rem;border-radius:5px}button{borde
 </style>
 <script>window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]],processEscapes:true},options:{skipHtmlTags:["script","noscript","style","textarea","pre","code"]}};</script>
 <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
-</head>
+<style id="week1-visual-styles">
+/* Week 1 diagrams are embedded so saved pages retain their graphs. */
+.w1-visual{margin:20px 0;padding:14px 14px 12px;background:#fff;border:1px solid #cdd9df;border-radius:11px;break-inside:avoid;color:#182e40;font:16px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif;min-width:0;max-width:100%}
+.w1-visual .w1-plot{overflow-x:auto;max-width:100%;border-radius:5px}
+.w1-visual svg{display:block;width:100%;height:auto;min-width:420px;max-width:none}
+.w1-visual figcaption{font-size:.92em;margin-top:9px;color:#435969}
+.w1-visual figcaption b{display:block;color:#245a81;margin-bottom:3px}
+.w1-visual .w1-key{font-size:.85em;color:#536675;margin:8px 0 0}
+.w1-table-lookup{max-width:100%;overflow:auto;margin:16px 0}
+.w1-table-lookup table{border-collapse:collapse;background:#fff;font:15px/1.5 system-ui,sans-serif;width:100%}
+.w1-table-lookup th,.w1-table-lookup td{padding:9px;border:1px solid #cdd9df;text-align:center;color:#182e40}
+.w1-table-lookup .w1-selected{background:#dcefe9;font-weight:750;border:2px solid #287d76}
+@media(max-width:540px){.w1-visual{padding:10px 8px}.w1-visual figcaption{font-size:14px}.w1-visual .w1-key{font-size:12px}}
+@media print{.w1-visual{box-shadow:none;border:1px solid #aab6bf;break-inside:avoid;padding:8px;margin:12px 0;print-color-adjust:exact;-webkit-print-color-adjust:exact}.w1-visual .w1-plot{overflow:visible}.w1-visual svg{min-width:0;width:100%}.w1-visual figcaption{font-size:10pt}.w1-table-lookup{break-inside:avoid}.w1-table-lookup .w1-selected{print-color-adjust:exact;-webkit-print-color-adjust:exact}}
+.w1-records{overflow-x:auto;margin:15px 0}.w1-records table{width:100%;border-collapse:collapse;font:14px/1.5 system-ui,sans-serif;background:#fff;color:#182e40}.w1-records th,.w1-records td{padding:9px;border:1px solid #cbd8df;text-align:center}.w1-records th{background:#edf3f6;color:#245a81}.w1-records caption{font:600 15px/1.5 system-ui,sans-serif;padding:6px;text-align:left}.w1-reading-note{border-left:4px solid #287d76;background:#eef7f4;padding:12px 16px;margin:16px 0}.w1-reading-note p{margin:5px 0}@media print{.w1-records{overflow:visible}}</style></head>
 <body>
 <header><a href="../index.html">← MATH&amp; 146 course</a><h1>Week 1 Discussion — The Sasquatch Trackway</h1><p>Describe a strange sample without letting one dramatic observation tell the whole story.</p></header>
 <main>
@@ -33,7 +47,187 @@ code{background:var(--soft);padding:.08rem .28rem;border-radius:5px}button{borde
 <p>For every print, the investigators also record other information, including the substrate in which it was found (mud, sand, gravel, or leaf litter), its GPS region, and whether the impression was complete enough to preserve. Notice that some of these measurements are numerical while others describe categories. That distinction determines what kinds of summaries make sense.</p>
 <p>The team would eventually like to say something about the larger collection of castable impressions that might be found in the region during the season, but they have only these 12 observations in hand. One footprint, at <strong>52 cm</strong>, is much longer than the others. It may be a perfectly genuine observation, a measurement problem, a print from a different source, or simply an unusually large value. The data alone do not yet tell us which.</p>
 <p><strong>The statistical question:</strong> How should we describe this sample fairly, and how much does one unusually large observation change the numerical story told by the data?</p></section>
-<section class="panel"><div class="kicker">Initial post</div><h2>What to include</h2><ol class="tasks"><li>State the population the team would like to learn about and identify the sample actually observed.</li><li>Classify footprint length and substrate type as quantitative or categorical variables.</li><li>Find the mean and median footprint length for the 12-print sample.</li><li>Recompute the mean after temporarily setting aside the 52 cm print. Which summary, mean or median, is more affected by the extreme value?</li><li>Would it be statistically responsible to delete the 52 cm print merely because it is unusual? Explain what you would want to check before deciding how to treat it.</li></ol></section>
-<section class="panel"><div class="kicker">Replies</div><h2>Engage with classmates’ statistics</h2><div class="reply">Check one classmate’s mean or median calculation, then compare how each of you handled the 52 cm observation. If you disagree about whether it should remain in the analysis, identify the statistical reason for the disagreement rather than debating the creature.</div><p class="small">A useful reply checks a calculation, compares methods or assumptions, or asks a statistically specific question. Avoid replies that only say that you agree.</p></section>
+
+<figure class="w1-visual" data-visual="w1-trackway"><div class="w1-plot" tabindex="0" role="group" aria-label="Describe the gap before deciding what produced it; scroll horizontally on narrow screens"><svg id="w1-trackway" role="img" aria-labelledby="w1-trackway-title w1-trackway-desc" xmlns:xlink="http://www.w3.org/1999/xlink" width="504pt" height="208.8pt" viewBox="0 0 504 208.8" xmlns="http://www.w3.org/2000/svg" version="1.1">
+<title id="w1-trackway-title">Describe the gap before deciding what produced it</title><desc id="w1-trackway-desc">Twelve footprint lengths cluster from31to38cm, with one at52cm. Repeated values are stacked.</desc>
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">#w1-trackway *{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="w1-trackway-figure_1">
+  <g id="w1-trackway-patch_1">
+   <path d="M 0 208.8 L 504 208.8 L 504 0 L 0 0 z" style="fill: #ffffff"/>
+  </g>
+  <g id="w1-trackway-axes_1">
+   <g id="w1-trackway-patch_2">
+    <path d="M 50.4 158.688 L 488.88 158.688 L 488.88 33.408 L 50.4 33.408 z" style="fill: #ffffff"/>
+   </g>
+   <g id="w1-trackway-matplotlib.axis_1">
+    <g id="w1-trackway-xtick_1">
+     <g id="w1-trackway-line2d_1">
+      <defs>
+       <path id="w1-trackway-m56c6f09768" d="M 0 0 L 0 3.5" style="stroke: #536675; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#w1-trackway-m56c6f09768" x="67.264615" y="158.688" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w1-trackway-text_1">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="67.264615" y="174.046281" transform="rotate(-0 67.264615 174.046281)">30</text>
+     </g>
+    </g>
+    <g id="w1-trackway-xtick_2">
+     <g id="w1-trackway-line2d_2">
+      <g>
+       <use xlink:href="#w1-trackway-m56c6f09768" x="151.587692" y="158.688" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w1-trackway-text_2">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="151.587692" y="174.046281" transform="rotate(-0 151.587692 174.046281)">35</text>
+     </g>
+    </g>
+    <g id="w1-trackway-xtick_3">
+     <g id="w1-trackway-line2d_3">
+      <g>
+       <use xlink:href="#w1-trackway-m56c6f09768" x="235.910769" y="158.688" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w1-trackway-text_3">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="235.910769" y="174.046281" transform="rotate(-0 235.910769 174.046281)">40</text>
+     </g>
+    </g>
+    <g id="w1-trackway-xtick_4">
+     <g id="w1-trackway-line2d_4">
+      <g>
+       <use xlink:href="#w1-trackway-m56c6f09768" x="320.233846" y="158.688" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w1-trackway-text_4">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="320.233846" y="174.046281" transform="rotate(-0 320.233846 174.046281)">45</text>
+     </g>
+    </g>
+    <g id="w1-trackway-xtick_5">
+     <g id="w1-trackway-line2d_5">
+      <g>
+       <use xlink:href="#w1-trackway-m56c6f09768" x="404.556923" y="158.688" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w1-trackway-text_5">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="404.556923" y="174.046281" transform="rotate(-0 404.556923 174.046281)">50</text>
+     </g>
+    </g>
+    <g id="w1-trackway-xtick_6">
+     <g id="w1-trackway-line2d_6">
+      <g>
+       <use xlink:href="#w1-trackway-m56c6f09768" x="488.88" y="158.688" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w1-trackway-text_6">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="488.88" y="174.046281" transform="rotate(-0 488.88 174.046281)">55</text>
+     </g>
+    </g>
+    <g id="w1-trackway-text_7">
+     <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="269.64" y="189.831984" transform="rotate(-0 269.64 189.831984)">Footprint length (cm)</text>
+    </g>
+   </g>
+   <g id="w1-trackway-matplotlib.axis_2"/>
+   <g id="w1-trackway-patch_3">
+    <path d="M 50.4 158.688 L 488.88 158.688" style="fill: none; stroke: #80919c; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="w1-trackway-patch_4">
+    <path d="M 242.107709 69.369491 Q 339.252499 102.963859 435.340653 136.192823" style="fill: none; stroke: #ad6b15; stroke-linecap: round"/>
+    <path d="M 431.901301 132.6756 L 435.340653 136.192823 L 430.463264 136.833971" style="fill: none; stroke: #ad6b15; stroke-linecap: round"/>
+   </g>
+   <g id="w1-trackway-text_8">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #ad6b15" x="219.046154" y="64.429714" transform="rotate(-0 219.046154 64.429714)">52 cm: inspect the record and its context</text>
+   </g>
+   <g id="w1-trackway-PathCollection_1">
+    <defs>
+     <path id="w1-trackway-mfde078da78" d="M 0 3.937004 C 1.044106 3.937004 2.045588 3.522176 2.783882 2.783882 C 3.522176 2.045588 3.937004 1.044106 3.937004 0 C 3.937004 -1.044106 3.522176 -2.045588 2.783882 -2.783882 C 2.045588 -3.522176 1.044106 -3.937004 0 -3.937004 C -1.044106 -3.937004 -2.045588 -3.522176 -2.783882 -2.783882 C -3.522176 -2.045588 -3.937004 -1.044106 -3.937004 0 C -3.937004 1.044106 -3.522176 2.045588 -2.783882 2.783882 C -2.045588 3.522176 -1.044106 3.937004 0 3.937004 z" style="stroke: #ffffff; stroke-width: 0.6"/>
+    </defs>
+    <g clip-path="url(#w1-trackway-pb8cfc071b5)">
+     <use xlink:href="#w1-trackway-mfde078da78" x="84.129231" y="140.790857" style="fill: #245a81; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w1-trackway-PathCollection_2">
+    <g clip-path="url(#w1-trackway-pb8cfc071b5)">
+     <use xlink:href="#w1-trackway-mfde078da78" x="100.993846" y="140.790857" style="fill: #245a81; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w1-trackway-PathCollection_3">
+    <g clip-path="url(#w1-trackway-pb8cfc071b5)">
+     <use xlink:href="#w1-trackway-mfde078da78" x="100.993846" y="125.28" style="fill: #245a81; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w1-trackway-PathCollection_4">
+    <g clip-path="url(#w1-trackway-pb8cfc071b5)">
+     <use xlink:href="#w1-trackway-mfde078da78" x="117.858462" y="140.790857" style="fill: #245a81; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w1-trackway-PathCollection_5">
+    <g clip-path="url(#w1-trackway-pb8cfc071b5)">
+     <use xlink:href="#w1-trackway-mfde078da78" x="134.723077" y="140.790857" style="fill: #245a81; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w1-trackway-PathCollection_6">
+    <g clip-path="url(#w1-trackway-pb8cfc071b5)">
+     <use xlink:href="#w1-trackway-mfde078da78" x="134.723077" y="125.28" style="fill: #245a81; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w1-trackway-PathCollection_7">
+    <g clip-path="url(#w1-trackway-pb8cfc071b5)">
+     <use xlink:href="#w1-trackway-mfde078da78" x="151.587692" y="140.790857" style="fill: #245a81; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w1-trackway-PathCollection_8">
+    <g clip-path="url(#w1-trackway-pb8cfc071b5)">
+     <use xlink:href="#w1-trackway-mfde078da78" x="151.587692" y="125.28" style="fill: #245a81; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w1-trackway-PathCollection_9">
+    <g clip-path="url(#w1-trackway-pb8cfc071b5)">
+     <use xlink:href="#w1-trackway-mfde078da78" x="168.452308" y="140.790857" style="fill: #245a81; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w1-trackway-PathCollection_10">
+    <g clip-path="url(#w1-trackway-pb8cfc071b5)">
+     <use xlink:href="#w1-trackway-mfde078da78" x="185.316923" y="140.790857" style="fill: #245a81; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w1-trackway-PathCollection_11">
+    <g clip-path="url(#w1-trackway-pb8cfc071b5)">
+     <use xlink:href="#w1-trackway-mfde078da78" x="202.181538" y="140.790857" style="fill: #245a81; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w1-trackway-PathCollection_12">
+    <defs>
+     <path id="w1-trackway-m485f43148e" d="M 0 4.123106 C 1.09346 4.123106 2.142283 3.688669 2.915476 2.915476 C 3.688669 2.142283 4.123106 1.09346 4.123106 0 C 4.123106 -1.09346 3.688669 -2.142283 2.915476 -2.915476 C 2.142283 -3.688669 1.09346 -4.123106 0 -4.123106 C -1.09346 -4.123106 -2.142283 -3.688669 -2.915476 -2.915476 C -3.688669 -2.142283 -4.123106 -1.09346 -4.123106 0 C -4.123106 1.09346 -3.688669 2.142283 -2.915476 2.915476 C -2.142283 3.688669 -1.09346 4.123106 0 4.123106 z" style="stroke: #ffffff; stroke-width: 0.6"/>
+    </defs>
+    <g clip-path="url(#w1-trackway-pb8cfc071b5)">
+     <use xlink:href="#w1-trackway-m485f43148e" x="438.286154" y="140.790857" style="fill: #ad6b15; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="w1-trackway-pb8cfc071b5">
+   <rect x="50.4" y="33.408" width="438.48" height="125.28"/>
+  </clipPath>
+ </defs>
+</svg></div><figcaption><b>Describe the gap before deciding what produced it</b>This is the full twelve-impression sample. The graph makes the unusual length visible without identifying its source or declaring it invalid. Several impressions might belong to one trackway, so twelve impressions need not mean twelve independent animals.</figcaption></figure>
+<section class="panel"><div class="kicker">Read the records first</div><h2>What does one observation represent?</h2><p>One case is one measurable impression, rather than one identified animal. Repeated lengths still count as separate impressions. Several impressions could have come from the same source, so twelve observations need not be twelve independent animals.</p><p>The sample includes impressions that were found and clear enough to cast. Hidden, damaged, inaccessible, or uncastable impressions have no representation here. Consider that selection process when describing what this sample can tell us about the region during the season.</p><p>Make a dot plot or use the one above, label centimeters, and keep the original twelve values visible. Predict the effect of the 52 cm impression before comparing numerical summaries.</p></section><section class="panel"><div class="kicker">Initial post</div><h2>What to include</h2><ol class="tasks"><li>State the population the team would like to learn about and identify the sample actually observed.</li><li>Classify footprint length and substrate type as quantitative or categorical variables.</li><li>Find the mean and median footprint length for the 12-print sample.</li><li>Temporarily set aside the 52 cm impression and recompute both the mean and median. Report the change in each, with units. Which summary is more affected? Restore the full sample after this sensitivity comparison.</li><li>Would it be statistically responsible to delete the 52 cm print merely because it is unusual? Explain what you would want to check before deciding how to treat it.</li></ol></section>
+<section class="panel"><div class="kicker">After your first calculation</div><h2>Check the sensitivity, then explain it</h2><p>Open the <a href="../demos/Sample_Explorer.html" target="_blank" rel="noopener">Week 1 Explorer</a>, choose the footprint dataset, and use <em>Center &amp; spread</em>. Uncheck <em>Include the 52 cm impression</em> to compare, then restore the original sample. Check the two middle positions for the even twelve-value list and the single middle position for the eleven-value list.</p><p>Use the output as a check on your work. Explain why the mean and median respond differently, and why this comparison does not identify the source of the impression or authorize deleting it. The page’s numbers describe the sample; the collection method limits a claim about a larger population.</p></section><section class="panel"><div class="kicker">Replies</div><h2>Engage with classmates’ statistics</h2><div class="reply">Check one classmate’s mean or median calculation, then compare how each of you handled the 52 cm observation. If you disagree about whether it should remain in the analysis, identify the statistical reason for the disagreement rather than debating the creature.</div><p class="small">A useful reply checks a calculation, compares methods or assumptions, or asks a statistically specific question. Avoid replies that only say that you agree.</p></section>
 <section class="panel"><button onclick="window.print()">Print this discussion prompt</button></section>
 </main></body></html>

@@ -8,15 +8,142 @@ main{max-width:900px;margin:auto;padding:28px 16px 80px}.head{margin-bottom:20px
 .q{background:var(--card);border:1px solid var(--line);border-radius:15px;padding:18px;margin:13px 0;box-shadow:var(--shadow)}.q.mastered{border-color:color-mix(in srgb,var(--good) 55%,var(--line));background:color-mix(in srgb,var(--goodsoft) 45%,var(--card))}.qnum{font-size:.76rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:850}.prompt{font-size:1.03rem;font-weight:680;margin:7px 0 12px}.options{display:grid;gap:8px}.opt{display:flex;gap:9px;align-items:flex-start;border:1px solid var(--line);border-radius:10px;padding:10px;background:var(--card2)}.opt input{margin-top:3px;accent-color:var(--accent)}.num{max-width:290px;border:1px solid var(--line);background:var(--card2);color:var(--ink);border-radius:9px;padding:9px 10px}.fb{min-height:1.25em;margin-top:9px;font-size:.91rem}.fb.good{color:var(--good)}.fb.bad{color:var(--bad)}.fb.warn{color:var(--warn)}
 .footer{position:sticky;bottom:12px;display:flex;justify-content:space-between;gap:10px;align-items:center;background:color-mix(in srgb,var(--panel) 95%,transparent);backdrop-filter:blur(10px);border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin-top:18px;box-shadow:var(--shadow)}.primary,.secondary{border-radius:9px;padding:9px 13px;font-weight:780;cursor:pointer}.primary{border:1px solid var(--accent);background:var(--accent);color:#fff}.secondary{border:1px solid var(--line);background:var(--card);color:var(--ink)}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}.small{color:var(--muted);font-size:.86rem}
 @media(max-width:650px){.progressbox{grid-template-columns:1fr}.footer{align-items:flex-start;flex-direction:column}.top .spacer{display:none}.topin{gap:7px}}@media print{.top,.footer,.actions,.theme{display:none!important}body{background:#fff}main{max-width:none;padding:0}.q{box-shadow:none;break-inside:avoid}.notice{border:1px solid #bbb}}
-</style></head><body>
+</style><style id="week1-visual-styles">
+/* Week 1 diagrams are embedded so saved pages retain their graphs. */
+.w1-visual{margin:20px 0;padding:14px 14px 12px;background:#fff;border:1px solid #cdd9df;border-radius:11px;break-inside:avoid;color:#182e40;font:16px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif;min-width:0;max-width:100%}
+.w1-visual .w1-plot{overflow-x:auto;max-width:100%;border-radius:5px}
+.w1-visual svg{display:block;width:100%;height:auto;min-width:420px;max-width:none}
+.w1-visual figcaption{font-size:.92em;margin-top:9px;color:#435969}
+.w1-visual figcaption b{display:block;color:#245a81;margin-bottom:3px}
+.w1-visual .w1-key{font-size:.85em;color:#536675;margin:8px 0 0}
+.w1-table-lookup{max-width:100%;overflow:auto;margin:16px 0}
+.w1-table-lookup table{border-collapse:collapse;background:#fff;font:15px/1.5 system-ui,sans-serif;width:100%}
+.w1-table-lookup th,.w1-table-lookup td{padding:9px;border:1px solid #cdd9df;text-align:center;color:#182e40}
+.w1-table-lookup .w1-selected{background:#dcefe9;font-weight:750;border:2px solid #287d76}
+@media(max-width:540px){.w1-visual{padding:10px 8px}.w1-visual figcaption{font-size:14px}.w1-visual .w1-key{font-size:12px}}
+@media print{.w1-visual{box-shadow:none;border:1px solid #aab6bf;break-inside:avoid;padding:8px;margin:12px 0;print-color-adjust:exact;-webkit-print-color-adjust:exact}.w1-visual .w1-plot{overflow:visible}.w1-visual svg{min-width:0;width:100%}.w1-visual figcaption{font-size:10pt}.w1-table-lookup{break-inside:avoid}.w1-table-lookup .w1-selected{print-color-adjust:exact;-webkit-print-color-adjust:exact}}
+.w1-records{overflow-x:auto;margin:15px 0}.w1-records table{width:100%;border-collapse:collapse;font:14px/1.5 system-ui,sans-serif;background:#fff;color:#182e40}.w1-records th,.w1-records td{padding:9px;border:1px solid #cbd8df;text-align:center}.w1-records th{background:#edf3f6;color:#245a81}.w1-records caption{font:600 15px/1.5 system-ui,sans-serif;padding:6px;text-align:left}.w1-reading-note{border-left:4px solid #287d76;background:#eef7f4;padding:12px 16px;margin:16px 0}.w1-reading-note p{margin:5px 0}@media print{.w1-records{overflow:visible}}</style></head><body>
 <div class="top"><div class="topin"><a href="../index.html">← MATH&amp; 146 course</a><span class="spacer"></span><a href="index.html">All Assessed Practice</a><button class="theme" id="themeBtn">☾ Theme</button></div></div>
 <main><header class="head"><div class="eyebrow">MATH&amp; 146 · Assessed Practice</div><h1>Week 1 Assessed Practice — Describing a Sample</h1><p>Five questions. Correct items are saved and locked; anything else stays open for another try.</p><div class="namebox"><label for="studentName">Student name</label><input id="studentName" type="text" placeholder="Enter your name"></div></header>
 <div class="notice">Work until each question is correct. You may check as often as needed. A correct response locks in; a missed response stays open and gives a small hint rather than the answer. Numerical responses accept the same gentle rounding tolerance used on the course page.</div>
-<div class="progressbox"><div class="track"><div class="fill" id="fill"></div></div><div class="score" id="score">0 of 5 correct</div></div><div id="questions"></div>
+<div class="progressbox"><div class="track"><div class="fill" id="fill"></div></div><div class="score" id="score">0 of 5 correct</div></div><div class="w1-reading-note"><p>Sketch or predict first, then calculate. <a href="../demos/Sample_Explorer.html">Use the explorer for additional practice</a>. These five questions use the same reasoning with their own small datasets.</p></div>
+<figure class="w1-visual" data-visual="w1-practice"><div class="w1-plot" tabindex="0" role="group" aria-label="A sketch can guide a standard-deviation calculation; scroll horizontally on narrow screens"><svg id="w1-practice" role="img" aria-labelledby="w1-practice-title w1-practice-desc" xmlns:xlink="http://www.w3.org/1999/xlink" width="504pt" height="201.6pt" viewBox="0 0 504 201.6" xmlns="http://www.w3.org/2000/svg" version="1.1">
+<title id="w1-practice-title">A sketch can guide a standard-deviation calculation</title><desc id="w1-practice-desc">The values2,4,6 are plotted on a number line with a dashed reference at4.</desc>
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">#w1-practice *{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="w1-practice-figure_1">
+  <g id="w1-practice-patch_1">
+   <path d="M 0 201.6 L 504 201.6 L 504 0 L 0 0 z" style="fill: #ffffff"/>
+  </g>
+  <g id="w1-practice-axes_1">
+   <g id="w1-practice-patch_2">
+    <path d="M 50.4 155.232 L 488.88 155.232 L 488.88 32.256 L 50.4 32.256 z" style="fill: #ffffff"/>
+   </g>
+   <g id="w1-practice-matplotlib.axis_1">
+    <g id="w1-practice-xtick_1">
+     <g id="w1-practice-line2d_1">
+      <defs>
+       <path id="w1-practice-m1755edc2db" d="M 0 0 L 0 3.5" style="stroke: #536675; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#w1-practice-m1755edc2db" x="50.4" y="155.232" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w1-practice-text_1">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="50.4" y="170.590281" transform="rotate(-0 50.4 170.590281)">0</text>
+     </g>
+    </g>
+    <g id="w1-practice-xtick_2">
+     <g id="w1-practice-line2d_2">
+      <g>
+       <use xlink:href="#w1-practice-m1755edc2db" x="160.02" y="155.232" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w1-practice-text_2">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="160.02" y="170.590281" transform="rotate(-0 160.02 170.590281)">2</text>
+     </g>
+    </g>
+    <g id="w1-practice-xtick_3">
+     <g id="w1-practice-line2d_3">
+      <g>
+       <use xlink:href="#w1-practice-m1755edc2db" x="269.64" y="155.232" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w1-practice-text_3">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="269.64" y="170.590281" transform="rotate(-0 269.64 170.590281)">4</text>
+     </g>
+    </g>
+    <g id="w1-practice-xtick_4">
+     <g id="w1-practice-line2d_4">
+      <g>
+       <use xlink:href="#w1-practice-m1755edc2db" x="379.26" y="155.232" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w1-practice-text_4">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="379.26" y="170.590281" transform="rotate(-0 379.26 170.590281)">6</text>
+     </g>
+    </g>
+    <g id="w1-practice-xtick_5">
+     <g id="w1-practice-line2d_5">
+      <g>
+       <use xlink:href="#w1-practice-m1755edc2db" x="488.88" y="155.232" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w1-practice-text_5">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="488.88" y="170.590281" transform="rotate(-0 488.88 170.590281)">8</text>
+     </g>
+    </g>
+    <g id="w1-practice-text_6">
+     <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="269.64" y="186.375984" transform="rotate(-0 269.64 186.375984)">Measured value</text>
+    </g>
+   </g>
+   <g id="w1-practice-matplotlib.axis_2"/>
+   <g id="w1-practice-line2d_6">
+    <path d="M 269.64 155.232 L 269.64 32.256" clip-path="url(#w1-practice-p72e687905b)" style="fill: none; stroke-dasharray: 5.55,2.4; stroke-dashoffset: 0; stroke: #287d76; stroke-width: 1.5"/>
+   </g>
+   <g id="w1-practice-patch_3">
+    <path d="M 50.4 155.232 L 488.88 155.232" style="fill: none; stroke: #80919c; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="w1-practice-text_7">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="269.64" y="60.13056" transform="rotate(-0 269.64 60.13056)">Three observations; locate the center, then measure each gap.</text>
+   </g>
+   <g id="w1-practice-PathCollection_1">
+    <defs>
+     <path id="w1-practice-mf4fec4b64f" d="M 0 4.472136 C 1.186024 4.472136 2.323632 4.000923 3.162278 3.162278 C 4.000923 2.323632 4.472136 1.186024 4.472136 0 C 4.472136 -1.186024 4.000923 -2.323632 3.162278 -3.162278 C 2.323632 -4.000923 1.186024 -4.472136 0 -4.472136 C -1.186024 -4.472136 -2.323632 -4.000923 -3.162278 -3.162278 C -4.000923 -2.323632 -4.472136 -1.186024 -4.472136 0 C -4.472136 1.186024 -4.000923 2.323632 -3.162278 3.162278 C -2.323632 4.000923 -1.186024 4.472136 0 4.472136 z" style="stroke: #245a81"/>
+    </defs>
+    <g clip-path="url(#w1-practice-p72e687905b)">
+     <use xlink:href="#w1-practice-mf4fec4b64f" x="160.02" y="130.6368" style="fill: #245a81; stroke: #245a81"/>
+     <use xlink:href="#w1-practice-mf4fec4b64f" x="269.64" y="130.6368" style="fill: #245a81; stroke: #245a81"/>
+     <use xlink:href="#w1-practice-mf4fec4b64f" x="379.26" y="130.6368" style="fill: #245a81; stroke: #245a81"/>
+    </g>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="w1-practice-p72e687905b">
+   <rect x="50.4" y="32.256" width="438.48" height="122.976"/>
+  </clipPath>
+ </defs>
+</svg></div><figcaption><b>A sketch can guide a standard-deviation calculation</b>For Question 4, calculate each deviation from the mean, square it, add, divide by n − 1, and take the square root. Include the observation at the mean: it still counts toward n.</figcaption></figure>
+<div id="questions"></div>
 <div class="footer"><span id="foot">Enter what you know, then check your current answers.</span><button class="primary" id="check">Check my current answers</button></div>
 <div class="actions"><button class="secondary" onclick="window.print()">Print / Save PDF</button><button class="secondary" id="reset">Reset this practice</button><a class="secondary" style="text-decoration:none" href="../index.html">Return to course</a></div><p class="small">Progress is saved in this browser and uses the same course record as the main MATH&amp; 146 page. Nothing is submitted automatically.</p></main>
 <script>
-const PRACTICE={"title": "Week 1 Assessed Practice — Describing a Sample", "subtitle": "Five questions. Correct items are saved and locked; anything else stays open for another try.", "questions": [{"id": "w1q1", "type": "mc", "prompt": "A college wants the average commute time of all enrolled students and surveys 80 students. What is the sample?", "options": ["All enrolled students", "The 80 surveyed students", "The average commute time", "Every college student in the state"], "answer": "The 80 surveyed students", "hint": "The sample is the group actually observed.", "success": "Correct."}, {"id": "w1q2", "type": "mc", "prompt": "Which variable is categorical?", "options": ["Number of credits", "Height in centimeters", "Primary mode of transportation", "Minutes spent studying"], "answer": "Primary mode of transportation", "hint": "A categorical variable places observations into named groups.", "success": "Correct."}, {"id": "w1q3", "type": "num", "prompt": "Find the mean of 4, 6, 8, and 12.", "answer": 7.5, "tolerance": 0.01, "hint": "Add the four values and divide by 4.", "success": "Correct — the total is 30, so the mean is 7.5.", "placeholder": "Enter a number"}, {"id": "w1q4", "type": "num", "prompt": "Find the sample standard deviation of 2, 4, and 6. Round to two decimals.", "answer": 2.0, "tolerance": 0.03, "hint": "Use deviations from the mean and divide the squared-deviation sum by n − 1 before taking the square root.", "success": "Correct.", "placeholder": "Enter a number"}, {"id": "w1q5", "type": "num", "prompt": "Eight of 20 observations fall in one category. Enter the relative frequency as a decimal.", "answer": 0.4, "tolerance": 0.005, "hint": "Relative frequency is frequency divided by the total.", "success": "Correct.", "placeholder": "Enter a number"}]}; const ID='week1'; const KEY='math146_lms_state_v1';
+const PRACTICE={"title":"Week 1 Assessed Practice — Describing a Sample","subtitle":"Five questions. Correct items are saved and locked; anything else stays open for another try.","questions":[{"id":"w1q1","type":"mc","prompt":"A college wants the average commute time of all enrolled students and surveys 80 students. What is the sample?","options":["All enrolled students","The 80 surveyed students","The average commute time","Every college student in the state"],"answer":"The 80 surveyed students","hint":"Identify the cases that actually supplied observations; the target group is the population.","success":"Correct. The sample is the observed group; the population is all enrolled students addressed by the question."},{"id":"w1q2","type":"mc","prompt":"Which variable is categorical?","options":["Number of credits","Height in centimeters","Primary mode of transportation","Minutes spent studying"],"answer":"Primary mode of transportation","hint":"Ask whether the values name groups or measure counts or amounts. Numeric IDs are labels too.","success":"Correct. Transportation mode names categories. Averaging numerical codes assigned to those names would not give a meaningful average mode."},{"id":"w1q3","type":"num","prompt":"Find the mean of 4, 6, 8, and 12.","answer":7.5,"tolerance":0.01,"hint":"Find the total first, then share it equally across all four observations.","success":"Correct — 30 / 4 = 7.5. The mean preserves the total when it shares that total equally.","placeholder":"Enter a number"},{"id":"w1q4","type":"num","prompt":"Find the sample standard deviation of 2, 4, and 6. Round to two decimals.","answer":2.0,"tolerance":0.03,"hint":"Use the plotted center to find each gap. Square the gaps, add them, divide by 3 − 1, then take the square root.","success":"Correct — deviations −2, 0, 2 give squares 4, 0, 4. Sample variance is 8 / 2 = 4 and sample SD is 2 in the original units.","placeholder":"Enter a number"},{"id":"w1q5","type":"num","prompt":"Eight of 20 observations fall in one category. Enter the relative frequency as a decimal.","answer":0.4,"tolerance":0.005,"hint":"Count observations in the category and divide by all 20 observations; enter a fraction as a decimal.","success":"Correct — 8 / 20 = 0.40 = 40% of the observed sample. A population claim also depends on selection.","placeholder":"Enter a number"}]}; const ID='week1'; const KEY='math146_lms_state_v1';
 function load(){try{return JSON.parse(localStorage.getItem(KEY))||{}}catch(e){return {}}}
 let state=load(); state.tasks=state.tasks||{}; state.assessments=state.assessments||{}; state.assessments[ID]=state.assessments[ID]||{answers:{},mastered:[],checks:0,lastScore:0}; state.studentName=state.studentName||''; state.theme=state.theme||'light';
 const ps=()=>state.assessments[ID]; const save=()=>localStorage.setItem(KEY,JSON.stringify(state));

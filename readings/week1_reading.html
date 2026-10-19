@@ -1,3 +1,2445 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="What can a smaller group tell us about a larger one? Begin by identifying what was measured, then describe what the observations show."><title>Week 1 Reading — Samples, Variables, and Descriptive Statistics | MATH&amp; 146</title><link rel="stylesheet" href="readings.css"><script>window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]]},options:{skipHtmlTags:["script","style","textarea","pre","code"]}};</script><script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script></head>
-<body><a class="skip" href="#reading">Skip to reading</a><header><a href="../index.html">← MATH&amp; 146: Course Home</a><div class="eyebrow">Week 1 · Online Reading</div><h1>Samples, Variables, and Descriptive Statistics</h1><p>What can a smaller group tell us about a larger one? Begin by identifying what was measured, then describe what the observations show.</p></header><main><nav aria-label="On this page"><b>In this reading</b><a href="#s0">1. The question comes before the calculation</a><a href="#s1">2. What kind of variable are you measuring?</a><a href="#s2">3. Organize the observations: counts, proportions, and graphs</a><a href="#s3">4. Read the notation and find the center</a><a href="#s4">5. Spread: why we square deviations</a><a href="#s5">6. Describe shape together with center and spread</a><a href="#references">PDF and course activities</a></nav><article id="reading"><section><h2>How to use this reading</h2><p>Read the explanations in order and pause at the worked examples. Try each check on paper before opening its explanation. Use the original PDF for more examples, exercises, and reference tables.</p><ul><li>Distinguish populations, samples, parameters, and statistics.</li><li>Classify variables and organize observations.</li><li>Compute and interpret center, spread, and shape.</li></ul></section><section id="s0"><h2>1. The question comes before the calculation</h2><p>A college wants to know how long its students commute. Measuring every student may be impractical, so 150 randomly selected students are surveyed. The <b>population</b> is all students at that college; the <b>sample</b> is the 150 surveyed. A population is the complete group addressed by the question, not automatically everyone in the world.</p><p>A <b>parameter</b> describes the population. A <b>statistic</b> is calculated from the sample. The population mean commute time is fixed for the population being studied, even though we do not know it. The sample mean changes when we select a different sample.</p><div class="table-wrap"><table><thead><tr><th scope="col">Quantity</th><th scope="col">Population</th><th scope="col">Sample</th></tr></thead><tbody><tr><td>Mean</td><td>\(\mu\), “mu”</td><td>\(\bar x\), “x-bar”</td></tr><tr><td>Standard deviation</td><td>\(\sigma\), “sigma”</td><td>\(s\)</td></tr><tr><td>Proportion</td><td>\(p\)</td><td>\(\hat p\), “p-hat”</td></tr><tr><td>Size</td><td>\(N\)</td><td>\(n\)</td></tr></tbody></table></div><p>Random selection helps make a sample informative about its population. A large convenience sample can still systematically miss some groups. Numerical summaries describe the observations we have; generalizing beyond them also requires attention to how those observations were collected.</p><div class="practice"><b>Check your understanding.</b><p>The 150 surveyed students have a mean commute of 18 minutes. Is 18 a parameter or a statistic?</p><details><summary>Show explanation</summary><p>It is the statistic \(\bar x=18\). The unknown population mean is \(\mu\).</p></details></div></section><section id="s1"><h2>2. What kind of variable are you measuring?</h2><p>A <b>variable</b> is a characteristic recorded for each individual. Categorical variables place observations into groups; quantitative variables measure amounts or counts. A number used only as a label, such as a student ID, is not a quantitative measurement.</p><div class="table-wrap"><table><thead><tr><th scope="col">Type</th><th scope="col">Example</th><th scope="col">What the values mean</th></tr></thead><tbody><tr><td>Categorical</td><td>Bus, car, bicycle, walking</td><td>A category of transportation</td></tr><tr><td>Discrete quantitative</td><td>Number of courses</td><td>A count</td></tr><tr><td>Continuous quantitative</td><td>Commute time</td><td>A measurement along a scale</td></tr></tbody></table></div><p>Continuous measurements may be rounded when recorded. A commute reported as 18 minutes is still a time measurement, rather than a count. Choose summaries that match the variable: an average commute time makes sense; an average transportation category does not.</p><div class="practice"><b>Check your understanding.</b><p>Classify blood type, number of pets, and height.</p><details><summary>Show explanation</summary><p>Blood type is categorical; number of pets is discrete quantitative; height is continuous quantitative.</p></details></div></section><section id="s2"><h2>3. Organize the observations: counts, proportions, and graphs</h2><p>The <b>frequency</b> of a value or category is its count. Divide by the sample size to get its <b>relative frequency</b>. Relative frequencies total 1, apart from rounding. They make groups of different sizes easier to compare.</p><div class="eq">\[\text{relative frequency}=\frac{\text{frequency}}{n}\]</div><div class="example"><b>Worked example.</b><p>Ten students report 5, 6, 6, 7, 7, 7, 7, 8, 8, 9 hours of sleep.</p><div class="table-wrap"><table><thead><tr><th scope="col">Hours</th><th scope="col">Frequency</th><th scope="col">Relative frequency</th></tr></thead><tbody><tr><td>5</td><td>1</td><td>0.10</td></tr><tr><td>6</td><td>2</td><td>0.20</td></tr><tr><td>7</td><td>4</td><td>0.40</td></tr><tr><td>8</td><td>2</td><td>0.20</td></tr><tr><td>9</td><td>1</td><td>0.10</td></tr></tbody></table></div><p>Four of the ten students reported seven hours: 40% of this sample.</p></div><p>A bar chart compares categories. A <b>histogram</b> groups numerical observations into intervals, called bins, and shows their counts or relative frequencies. Look for clusters, gaps, unusually distant observations, and the direction of a long tail. Bin choices can affect the appearance, so keep the axes and interval boundaries visible.</p></section><section id="s3"><h2>4. Read the notation and find the center</h2><p>The symbol \(\sum\), capital sigma, means “add.” In \(\sum_{i=1}^n x_i\), the index \(i\) visits each observation, from the first through the \(n\)th. The sample mean divides that total equally among the observations.</p><div class="eq">\[\bar x=\frac{\sum_{i=1}^n x_i}{n}=\frac{x_1+\cdots+x_n}{n}\]</div><div class="example"><b>Worked example.</b><p>For \(3,7,7,2,6\), the total is 25 and \(\bar x=25/5=5\). Sorted values are \(2,3,6,7,7\), so the median is 6.</p></div><p>The <b>median</b> is the middle of the sorted list; with an even number of observations, average the two middle values. The mean uses the magnitude of every observation and can be pulled strongly by an extreme value. The median is less sensitive to the magnitude of extremes.</p><div class="practice"><b>Check your understanding.</b><p>For \(1,2,3\), compare \(\sum x_i^2\) with \((\sum x_i)^2\).</p><details><summary>Show explanation</summary><p>\(\sum x_i^2=1+4+9=14\), while \((1+2+3)^2=36\). Square before adding in the first expression.</p></details></div></section><section id="s4"><h2>5. Spread: why we square deviations</h2><p>A deviation \(x_i-\bar x\) is positive above the mean and negative below it. Signed deviations sum to zero, so adding them cannot measure spread. Squaring prevents cancellation. The sample variance \(s^2\) divides their squared total by \(n-1\); the sample standard deviation \(s\) takes a square root to return to the original units.</p><div class="eq">\[s^2=\frac{\sum_{i=1}^n(x_i-\bar x)^2}{n-1},\qquad s=\sqrt{s^2}\]</div><div class="example"><b>Worked example.</b><p>For \(3,7,7,2,6\), use the mean 5. Deviations are \(-2,2,2,-3,1\); their squares sum to \(4+4+4+9+1=22\). Thus \(s^2=22/4=5.5\) and \(s\approx2.35\).</p></div><p>The denominator accounts for estimating the population mean from the same sample: once the mean is fitted, only n−1 deviations can vary freely. Under ordinary independent sampling, this adjustment makes sample variance an unbiased estimate of population variance. Standard deviation describes spread; it is not literally the average absolute distance from the mean.</p><div class="practice"><b>Check your understanding.</b><p>What does s = 0 tell you?</p><details><summary>Show explanation</summary><p>Every observation equals the sample mean. There is no observed spread.</p></details></div></section><section id="s5"><h2>6. Describe shape together with center and spread</h2><p>Two groups can share a mean but differ greatly in variation. The observations 8, 9, 10, 11, 12 cluster around 10; the observations 2, 6, 10, 14, 18 have the same mean but much greater spread. Always interpret a measure of center together with spread and a graph.</p><p>A symmetric distribution has matching sides. A right-skewed distribution has a long right tail; a left-skewed one has a long left tail. The mean is often drawn toward the tail, but mean–median comparisons alone do not determine shape. Equal mean and median do not guarantee symmetry.</p><div class="bridge"><b>Looking ahead.</b><p>Next week, a probability distribution will describe what a random process might produce before the observations are collected.</p></div></section><section id="references"><h2>Continue practicing</h2><p>Continue with this week’s course activities, and use the PDF chapter for additional practice.</p><a class="pdf-link" href="../textbook/Math146_Ch1.pdf">Original PDF: Chapter 1</a><a class="pdf-link" href="../labs/Math146_Week1_Lab.html">Week 1 laboratory</a><a class="pdf-link" href="https://bobovski66.github.io/IntroStatistics/demos/Sample_Statistics.html">Histogram and Sample Statistics Tool</a><p class="footer-nav"><a href="../index.html">← Course home</a><a href="week2_reading.html">Next reading →</a></p></section></article></main></body></html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="What can a smaller group tell us about a larger one? Begin by identifying what was measured, then describe what the observations show."><title>Week 1 Reading — Samples, Variables, and Descriptive Statistics | MATH&amp; 146</title><link rel="stylesheet" href="readings.css"><script>window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]]},options:{skipHtmlTags:["script","style","textarea","pre","code"]}};</script><script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><style id="week1-visual-styles">
+/* Week 1 diagrams are embedded so saved pages retain their graphs. */
+.w1-visual{margin:20px 0;padding:14px 14px 12px;background:#fff;border:1px solid #cdd9df;border-radius:11px;break-inside:avoid;color:#182e40;font:16px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif;min-width:0;max-width:100%}
+.w1-visual .w1-plot{overflow-x:auto;max-width:100%;border-radius:5px}
+.w1-visual svg{display:block;width:100%;height:auto;min-width:420px;max-width:none}
+.w1-visual figcaption{font-size:.92em;margin-top:9px;color:#435969}
+.w1-visual figcaption b{display:block;color:#245a81;margin-bottom:3px}
+.w1-visual .w1-key{font-size:.85em;color:#536675;margin:8px 0 0}
+.w1-table-lookup{max-width:100%;overflow:auto;margin:16px 0}
+.w1-table-lookup table{border-collapse:collapse;background:#fff;font:15px/1.5 system-ui,sans-serif;width:100%}
+.w1-table-lookup th,.w1-table-lookup td{padding:9px;border:1px solid #cdd9df;text-align:center;color:#182e40}
+.w1-table-lookup .w1-selected{background:#dcefe9;font-weight:750;border:2px solid #287d76}
+@media(max-width:540px){.w1-visual{padding:10px 8px}.w1-visual figcaption{font-size:14px}.w1-visual .w1-key{font-size:12px}}
+@media print{.w1-visual{box-shadow:none;border:1px solid #aab6bf;break-inside:avoid;padding:8px;margin:12px 0;print-color-adjust:exact;-webkit-print-color-adjust:exact}.w1-visual .w1-plot{overflow:visible}.w1-visual svg{min-width:0;width:100%}.w1-visual figcaption{font-size:10pt}.w1-table-lookup{break-inside:avoid}.w1-table-lookup .w1-selected{print-color-adjust:exact;-webkit-print-color-adjust:exact}}
+.w1-records{overflow-x:auto;margin:15px 0}.w1-records table{width:100%;border-collapse:collapse;font:14px/1.5 system-ui,sans-serif;background:#fff;color:#182e40}.w1-records th,.w1-records td{padding:9px;border:1px solid #cbd8df;text-align:center}.w1-records th{background:#edf3f6;color:#245a81}.w1-records caption{font:600 15px/1.5 system-ui,sans-serif;padding:6px;text-align:left}.w1-reading-note{border-left:4px solid #287d76;background:#eef7f4;padding:12px 16px;margin:16px 0}.w1-reading-note p{margin:5px 0}@media print{.w1-records{overflow:visible}}</style><style id="week1-explorer-styles">.sample-explorer{box-sizing:border-box;background:#fff;border:1px solid #bdced8;border-radius:12px;padding:18px;margin:20px 0;color:#182e40;font:16px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif;min-width:0;max-width:100%}.sample-explorer *{box-sizing:border-box}.sample-explorer [hidden]{display:none!important}.sample-explorer h3{font-size:1.25rem;margin:0 0 8px;color:#182e40}.sample-explorer h4{font-size:1.05rem;margin:17px 0 7px}.sample-explorer p{margin:9px 0}.se-tabs,.se-actions{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.sample-explorer button{font:650 14px/1.4 system-ui,sans-serif;border:1px solid #9cb3c2;border-radius:7px;background:#f0f6f9;color:#182e40;padding:9px 12px;cursor:pointer}.sample-explorer button[aria-pressed=true],.sample-explorer .se-primary{background:#245a81;border-color:#245a81;color:#fff}.sample-explorer button:disabled{cursor:default;opacity:.55}.sample-explorer button:focus-visible,.sample-explorer input:focus-visible,.sample-explorer select:focus-visible,.se-plot:focus-visible{outline:3px solid #a16a13;outline-offset:3px}.se-controls{display:flex;gap:15px;align-items:end;flex-wrap:wrap;margin:12px 0}.se-controls label{display:block;flex:1 1 180px;font-size:14px;font-weight:650}.sample-explorer select{display:block;width:100%;font:inherit;padding:8px;border:1px solid #9cb3c2;border-radius:6px;background:#fff;color:#182e40;margin:5px 0 0}.sample-explorer input[type=range]{width:100%;display:block;accent-color:#245a81;margin:10px 0}.sample-explorer input[type=checkbox]{accent-color:#245a81;margin-right:7px;width:auto}.se-toggle{font-size:14px;font-weight:650;display:block;margin:10px 0}.se-prompt{background:#edf7f4;border-left:4px solid #287d76;padding:10px 13px}.se-note{font-size:14px;color:#435e70}.se-data{background:#f4f7fa;border:1px solid #d4e0e7;border-radius:7px;padding:9px 12px;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}.se-plot{overflow:auto;background:#fff;border:1px solid #d4e0e7;border-radius:8px;margin:12px 0}.se-plot svg{display:block;width:100%;min-width:620px;max-width:none;height:auto}.se-metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:12px 0}.se-metric{border:1px solid #cbdbe3;border-radius:8px;padding:10px;background:#f4f8fb;min-width:0}.se-metric span{font-size:12px;display:block;color:#435e70}.se-metric strong{font-size:20px;color:#245a81;font-variant-numeric:tabular-nums}.se-table{overflow:auto;max-height:390px;border:1px solid #ccdce4;border-radius:8px;margin:12px 0}.sample-explorer table{width:100%;margin:0;border-collapse:collapse;background:#fff;font:14px/1.5 system-ui,sans-serif}.sample-explorer th,.sample-explorer td{border-bottom:1px solid #d7e1e7;padding:8px;text-align:right;white-space:nowrap;color:#182e40}.sample-explorer th{background:#edf3f6;text-transform:none;letter-spacing:0;font-weight:650}.sample-explorer th:first-child,.sample-explorer td:first-child{text-align:left}.se-sorted{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0;padding:0;list-style:none;counter-reset:se-order}.se-sorted li{border:1px solid #c4d3dc;border-radius:6px;min-width:44px;padding:7px;text-align:center;counter-increment:se-order;font-variant-numeric:tabular-nums}.se-sorted li::before{content:counter(se-order);display:block;font-size:11px;color:#536675}.se-sorted li.se-middle{background:#e0f0eb;border:2px solid #287d76}.se-summary{font-variant-numeric:tabular-nums}.se-readout{font-size:14px;color:#435e70;min-height:1.5em}
+@media(max-width:650px){.sample-explorer{padding:12px}.se-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.se-controls{gap:8px}.se-tabs button{font-size:13px}}
+@media print{.se-tabs,.se-controls,.se-actions,.se-toggle{display:none!important}.sample-explorer{border:1px solid #aaa;box-shadow:none;break-inside:auto;padding:9px;print-color-adjust:exact;-webkit-print-color-adjust:exact}.se-plot{overflow:visible;break-inside:avoid}.se-plot svg{width:100%;min-width:0}.se-table{max-height:none;overflow:visible}.se-metric strong{font-size:14px}.se-sorted li{padding:4px;min-width:32px}}
+</style><script defer src="../demos/assets/sample-explorer.js"></script></head>
+<body><a class="skip" href="#reading">Skip to reading</a><header><a href="../index.html">← MATH&amp; 146: Course Home</a><div class="eyebrow">Week 1 · Online Reading</div><h1>Samples, Variables, and Descriptive Statistics</h1><p>Start with the observations. Learn what each graph and number tells us—and how far that description can travel.</p></header><main><nav aria-label="On this page"><b>In this reading</b><a href="#s0">1. Define the question and the cases</a><a href="#s1">2. Read rows, columns, and variable types</a><a href="#s2">3. Turn counts into a distribution</a><a href="#s3">4. Build the mean and find the median</a><a href="#s4">5. Make variation visible</a><a href="#investigate">Try the linked explorer</a><a href="#s5">6. Put the description together</a><a href="#references">Guided course activities</a></nav><article id="reading">
+<section><h2>Begin with a question you can investigate</h2><p>A college wants to understand students’ commute times. A list of numbers alone will not answer that question: we need to know who the numbers belong to, how those people were selected, and what was measured. Then a graph, a measure of center, and a measure of spread can describe the evidence.</p><p>Read in order. Predict what each graph will show before studying it. Try the short checks before opening their explanations. The explorer lets you change one thing and watch the records, graphs, and calculations change together.</p><ul><li>Identify the population, sample, and observational unit.</li><li>Choose summaries that match the variable.</li><li>Explain center and spread in the original units.</li><li>Distinguish a description of the sample from a claim about the population.</li></ul></section>
+<section id="s0"><h2>1. Define the question and the cases</h2><p>Suppose the college asks: “What is the average one-way commute time for students enrolled this term?” The <b>population</b> is all students enrolled at that college in that term. It is defined by the question, rather than automatically meaning everyone in the world. The <b>observational unit</b> is one student; the variable is that student’s one-way commute time, in minutes, measured using a stated rule.</p><p>Measuring everyone may be impractical, so the college surveys 150 randomly selected students. Those 150 students form the <b>sample</b>. A <b>statistic</b> is calculated from the sample. A <b>parameter</b> describes the population. If the sample’s mean commute is 18 minutes, 18 is a statistic; it is an estimate of the population mean.</p>
+<figure class="w1-visual" data-visual="w1-population"><div class="w1-plot" tabindex="0" role="group" aria-label="The population is defined by the question; the sample contains the observed cases; scroll horizontally on narrow screens"><svg id="w1-population" role="img" aria-labelledby="w1-population-title w1-population-desc" xmlns:xlink="http://www.w3.org/1999/xlink" width="504pt" height="244.8pt" viewBox="0 0 504 244.8" xmlns="http://www.w3.org/2000/svg" version="1.1">
+<title id="w1-population-title">The population is defined by the question; the sample contains the observed cases</title><desc id="w1-population-desc">An invented population of 24 commute times has mean 19.0. Eight selected values [2, 5, 9, 10, 16, 24, 32, 38] have sample mean 17.0.</desc>
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">#w1-population *{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="w1-population-figure_1">
+  <g id="w1-population-patch_1">
+   <path d="M 0 244.8 L 504 244.8 L 504 0 L 0 0 z" style="fill: #ffffff"/>
+  </g>
+  <g id="w1-population-axes_1">
+   <g id="w1-population-patch_2">
+    <path d="M 27.048889 87.982162 L 54.604444 87.982162 L 54.604444 63.944885 L 27.048889 63.944885 z" clip-path="url(#w1-population-pdcf1563b1a)" style="fill: #c8dfdc; stroke: #287d76; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="w1-population-patch_3">
+    <path d="M 61.493333 87.982162 L 89.048889 87.982162 L 89.048889 63.944885 L 61.493333 63.944885 z" clip-path="url(#w1-population-pdcf1563b1a)" style="fill: #f1f5f8; stroke: #adbfcc; stroke-width: 0.7; stroke-linejoin: miter"/>
+   </g>
+   <g id="w1-population-patch_4">
+    <path d="M 95.937778 87.982162 L 123.493333 87.982162 L 123.493333 63.944885 L 95.937778 63.944885 z" clip-path="url(#w1-population-pdcf1563b1a)" style="fill: #f1f5f8; stroke: #adbfcc; stroke-width: 0.7; stroke-linejoin: miter"/>
+   </g>
+   <g id="w1-population-patch_5">
+    <path d="M 130.382222 87.982162 L 157.937778 87.982162 L 157.937778 63.944885 L 130.382222 63.944885 z" clip-path="url(#w1-population-pdcf1563b1a)" style="fill: #c8dfdc; stroke: #287d76; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="w1-population-patch_6">
+    <path d="M 164.826667 87.982162 L 192.382222 87.982162 L 192.382222 63.944885 L 164.826667 63.944885 z" clip-path="url(#w1-population-pdcf1563b1a)" style="fill: #f1f5f8; stroke: #adbfcc; stroke-width: 0.7; stroke-linejoin: miter"/>
+   </g>
+   <g id="w1-population-patch_7">
+    <path d="M 199.271111 87.982162 L 226.826667 87.982162 L 226.826667 63.944885 L 199.271111 63.944885 z" clip-path="url(#w1-population-pdcf1563b1a)" style="fill: #f1f5f8; stroke: #adbfcc; stroke-width: 0.7; stroke-linejoin: miter"/>
+   </g>
+   <g id="w1-population-patch_8">
+    <path d="M 27.048889 124.962587 L 54.604444 124.962587 L 54.604444 100.925311 L 27.048889 100.925311 z" clip-path="url(#w1-population-pdcf1563b1a)" style="fill: #f1f5f8; stroke: #adbfcc; stroke-width: 0.7; stroke-linejoin: miter"/>
+   </g>
+   <g id="w1-population-patch_9">
+    <path d="M 61.493333 124.962587 L 89.048889 124.962587 L 89.048889 100.925311 L 61.493333 100.925311 z" clip-path="url(#w1-population-pdcf1563b1a)" style="fill: #c8dfdc; stroke: #287d76; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="w1-population-patch_10">
+    <path d="M 95.937778 124.962587 L 123.493333 124.962587 L 123.493333 100.925311 L 95.937778 100.925311 z" clip-path="url(#w1-population-pdcf1563b1a)" style="fill: #c8dfdc; stroke: #287d76; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="w1-population-patch_11">
+    <path d="M 130.382222 124.962587 L 157.937778 124.962587 L 157.937778 100.925311 L 130.382222 100.925311 z" clip-path="url(#w1-population-pdcf1563b1a)" style="fill: #f1f5f8; stroke: #adbfcc; stroke-width: 0.7; stroke-linejoin: miter"/>
+   </g>
+   <g id="w1-population-patch_12">
+    <path d="M 164.826667 124.962587 L 192.382222 124.962587 L 192.382222 100.925311 L 164.826667 100.925311 z" clip-path="url(#w1-population-pdcf1563b1a)" style="fill: #f1f5f8; stroke: #adbfcc; stroke-width: 0.7; stroke-linejoin: miter"/>
+   </g>
+   <g id="w1-population-patch_13">
+    <path d="M 199.271111 124.962587 L 226.826667 124.962587 L 226.826667 100.925311 L 199.271111 100.925311 z" clip-path="url(#w1-population-pdcf1563b1a)" style="fill: #c8dfdc; stroke: #287d76; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="w1-population-patch_14">
+    <path d="M 27.048889 161.943013 L 54.604444 161.943013 L 54.604444 137.905736 L 27.048889 137.905736 z" clip-path="url(#w1-population-pdcf1563b1a)" style="fill: #f1f5f8; stroke: #adbfcc; stroke-width: 0.7; stroke-linejoin: miter"/>
+   </g>
+   <g id="w1-population-patch_15">
+    <path d="M 61.493333 161.943013 L 89.048889 161.943013 L 89.048889 137.905736 L 61.493333 137.905736 z" clip-path="url(#w1-population-pdcf1563b1a)" style="fill: #f1f5f8; stroke: #adbfcc; stroke-width: 0.7; stroke-linejoin: miter"/>
+   </g>
+   <g id="w1-population-patch_16">
+    <path d="M 95.937778 161.943013 L 123.493333 161.943013 L 123.493333 137.905736 L 95.937778 137.905736 z" clip-path="url(#w1-population-pdcf1563b1a)" style="fill: #f1f5f8; stroke: #adbfcc; stroke-width: 0.7; stroke-linejoin: miter"/>
+   </g>
+   <g id="w1-population-patch_17">
+    <path d="M 130.382222 161.943013 L 157.937778 161.943013 L 157.937778 137.905736 L 130.382222 137.905736 z" clip-path="url(#w1-population-pdcf1563b1a)" style="fill: #c8dfdc; stroke: #287d76; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="w1-population-patch_18">
+    <path d="M 164.826667 161.943013 L 192.382222 161.943013 L 192.382222 137.905736 L 164.826667 137.905736 z" clip-path="url(#w1-population-pdcf1563b1a)" style="fill: #f1f5f8; stroke: #adbfcc; stroke-width: 0.7; stroke-linejoin: miter"/>
+   </g>
+   <g id="w1-population-patch_19">
+    <path d="M 199.271111 161.943013 L 226.826667 161.943013 L 226.826667 137.905736 L 199.271111 137.905736 z" clip-path="url(#w1-population-pdcf1563b1a)" style="fill: #f1f5f8; stroke: #adbfcc; stroke-width: 0.7; stroke-linejoin: miter"/>
+   </g>
+   <g id="w1-population-patch_20">
+    <path d="M 27.048889 198.923438 L 54.604444 198.923438 L 54.604444 174.886162 L 27.048889 174.886162 z" clip-path="url(#w1-population-pdcf1563b1a)" style="fill: #f1f5f8; stroke: #adbfcc; stroke-width: 0.7; stroke-linejoin: miter"/>
+   </g>
+   <g id="w1-population-patch_21">
+    <path d="M 61.493333 198.923438 L 89.048889 198.923438 L 89.048889 174.886162 L 61.493333 174.886162 z" clip-path="url(#w1-population-pdcf1563b1a)" style="fill: #c8dfdc; stroke: #287d76; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="w1-population-patch_22">
+    <path d="M 95.937778 198.923438 L 123.493333 198.923438 L 123.493333 174.886162 L 95.937778 174.886162 z" clip-path="url(#w1-population-pdcf1563b1a)" style="fill: #f1f5f8; stroke: #adbfcc; stroke-width: 0.7; stroke-linejoin: miter"/>
+   </g>
+   <g id="w1-population-patch_23">
+    <path d="M 130.382222 198.923438 L 157.937778 198.923438 L 157.937778 174.886162 L 130.382222 174.886162 z" clip-path="url(#w1-population-pdcf1563b1a)" style="fill: #c8dfdc; stroke: #287d76; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="w1-population-patch_24">
+    <path d="M 164.826667 198.923438 L 192.382222 198.923438 L 192.382222 174.886162 L 164.826667 174.886162 z" clip-path="url(#w1-population-pdcf1563b1a)" style="fill: #f1f5f8; stroke: #adbfcc; stroke-width: 0.7; stroke-linejoin: miter"/>
+   </g>
+   <g id="w1-population-patch_25">
+    <path d="M 199.271111 198.923438 L 226.826667 198.923438 L 226.826667 174.886162 L 199.271111 174.886162 z" clip-path="url(#w1-population-pdcf1563b1a)" style="fill: #f1f5f8; stroke: #adbfcc; stroke-width: 0.7; stroke-linejoin: miter"/>
+   </g>
+   <g id="w1-population-text_1">
+    <text style="font-size: 10.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="40.826667" y="79.045769" transform="rotate(-0 40.826667 79.045769)">2</text>
+   </g>
+   <g id="w1-population-text_2">
+    <text style="font-size: 10.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="75.271111" y="79.045769" transform="rotate(-0 75.271111 79.045769)">3</text>
+   </g>
+   <g id="w1-population-text_3">
+    <text style="font-size: 10.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="109.715556" y="79.045769" transform="rotate(-0 109.715556 79.045769)">4</text>
+   </g>
+   <g id="w1-population-text_4">
+    <text style="font-size: 10.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="144.16" y="79.045769" transform="rotate(-0 144.16 79.045769)">5</text>
+   </g>
+   <g id="w1-population-text_5">
+    <text style="font-size: 10.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="178.604444" y="79.045769" transform="rotate(-0 178.604444 79.045769)">6</text>
+   </g>
+   <g id="w1-population-text_6">
+    <text style="font-size: 10.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="213.048889" y="79.045769" transform="rotate(-0 213.048889 79.045769)">7</text>
+   </g>
+   <g id="w1-population-text_7">
+    <text style="font-size: 10.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="40.826667" y="116.026195" transform="rotate(-0 40.826667 116.026195)">8</text>
+   </g>
+   <g id="w1-population-text_8">
+    <text style="font-size: 10.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="75.271111" y="116.026195" transform="rotate(-0 75.271111 116.026195)">9</text>
+   </g>
+   <g id="w1-population-text_9">
+    <text style="font-size: 10.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="109.715556" y="116.026195" transform="rotate(-0 109.715556 116.026195)">10</text>
+   </g>
+   <g id="w1-population-text_10">
+    <text style="font-size: 10.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="144.16" y="116.026195" transform="rotate(-0 144.16 116.026195)">12</text>
+   </g>
+   <g id="w1-population-text_11">
+    <text style="font-size: 10.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="178.604444" y="116.026195" transform="rotate(-0 178.604444 116.026195)">14</text>
+   </g>
+   <g id="w1-population-text_12">
+    <text style="font-size: 10.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="213.048889" y="116.026195" transform="rotate(-0 213.048889 116.026195)">16</text>
+   </g>
+   <g id="w1-population-text_13">
+    <text style="font-size: 10.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="40.826667" y="153.00662" transform="rotate(-0 40.826667 153.00662)">18</text>
+   </g>
+   <g id="w1-population-text_14">
+    <text style="font-size: 10.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="75.271111" y="153.00662" transform="rotate(-0 75.271111 153.00662)">20</text>
+   </g>
+   <g id="w1-population-text_15">
+    <text style="font-size: 10.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="109.715556" y="153.00662" transform="rotate(-0 109.715556 153.00662)">22</text>
+   </g>
+   <g id="w1-population-text_16">
+    <text style="font-size: 10.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="144.16" y="153.00662" transform="rotate(-0 144.16 153.00662)">24</text>
+   </g>
+   <g id="w1-population-text_17">
+    <text style="font-size: 10.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="178.604444" y="153.00662" transform="rotate(-0 178.604444 153.00662)">26</text>
+   </g>
+   <g id="w1-population-text_18">
+    <text style="font-size: 10.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="213.048889" y="153.00662" transform="rotate(-0 213.048889 153.00662)">28</text>
+   </g>
+   <g id="w1-population-text_19">
+    <text style="font-size: 10.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="40.826667" y="189.987046" transform="rotate(-0 40.826667 189.987046)">30</text>
+   </g>
+   <g id="w1-population-text_20">
+    <text style="font-size: 10.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="75.271111" y="189.987046" transform="rotate(-0 75.271111 189.987046)">32</text>
+   </g>
+   <g id="w1-population-text_21">
+    <text style="font-size: 10.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="109.715556" y="189.987046" transform="rotate(-0 109.715556 189.987046)">35</text>
+   </g>
+   <g id="w1-population-text_22">
+    <text style="font-size: 10.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="144.16" y="189.987046" transform="rotate(-0 144.16 189.987046)">38</text>
+   </g>
+   <g id="w1-population-text_23">
+    <text style="font-size: 10.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="178.604444" y="189.987046" transform="rotate(-0 178.604444 189.987046)">42</text>
+   </g>
+   <g id="w1-population-text_24">
+    <text style="font-size: 10.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="213.048889" y="189.987046" transform="rotate(-0 213.048889 189.987046)">45</text>
+   </g>
+   <g id="w1-population-text_25">
+    <text style="font-size: 10.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #287d76" x="126.937778" y="212.236391" transform="rotate(-0 126.937778 212.236391)">Known here: μ = 19.000 minutes</text>
+   </g>
+   <g id="w1-population-text_26">
+    <text style="font-size: 11.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="128.66" y="27.168" transform="rotate(-0 128.66 27.168)">Population: N = 24 students</text>
+   </g>
+  </g>
+  <g id="w1-population-axes_2">
+   <g id="w1-population-patch_26">
+    <path d="M 279.475 103.47696 L 320.705 103.47696 L 320.705 68.71536 L 279.475 68.71536 z" clip-path="url(#w1-population-p63f103bbaf)" style="fill: #c8dfdc; stroke: #287d76; stroke-linejoin: miter"/>
+   </g>
+   <g id="w1-population-patch_27">
+    <path d="M 331.555 103.47696 L 372.785 103.47696 L 372.785 68.71536 L 331.555 68.71536 z" clip-path="url(#w1-population-p63f103bbaf)" style="fill: #c8dfdc; stroke: #287d76; stroke-linejoin: miter"/>
+   </g>
+   <g id="w1-population-patch_28">
+    <path d="M 383.635 103.47696 L 424.865 103.47696 L 424.865 68.71536 L 383.635 68.71536 z" clip-path="url(#w1-population-p63f103bbaf)" style="fill: #c8dfdc; stroke: #287d76; stroke-linejoin: miter"/>
+   </g>
+   <g id="w1-population-patch_29">
+    <path d="M 435.715 103.47696 L 476.945 103.47696 L 476.945 68.71536 L 435.715 68.71536 z" clip-path="url(#w1-population-p63f103bbaf)" style="fill: #c8dfdc; stroke: #287d76; stroke-linejoin: miter"/>
+   </g>
+   <g id="w1-population-patch_30">
+    <path d="M 279.475 155.61936 L 320.705 155.61936 L 320.705 120.85776 L 279.475 120.85776 z" clip-path="url(#w1-population-p63f103bbaf)" style="fill: #c8dfdc; stroke: #287d76; stroke-linejoin: miter"/>
+   </g>
+   <g id="w1-population-patch_31">
+    <path d="M 331.555 155.61936 L 372.785 155.61936 L 372.785 120.85776 L 331.555 120.85776 z" clip-path="url(#w1-population-p63f103bbaf)" style="fill: #c8dfdc; stroke: #287d76; stroke-linejoin: miter"/>
+   </g>
+   <g id="w1-population-patch_32">
+    <path d="M 383.635 155.61936 L 424.865 155.61936 L 424.865 120.85776 L 383.635 120.85776 z" clip-path="url(#w1-population-p63f103bbaf)" style="fill: #c8dfdc; stroke: #287d76; stroke-linejoin: miter"/>
+   </g>
+   <g id="w1-population-patch_33">
+    <path d="M 435.715 155.61936 L 476.945 155.61936 L 476.945 120.85776 L 435.715 120.85776 z" clip-path="url(#w1-population-p63f103bbaf)" style="fill: #c8dfdc; stroke: #287d76; stroke-linejoin: miter"/>
+   </g>
+   <g id="w1-population-text_27">
+    <text style="font-size: 11.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="380.38" y="39.168" transform="rotate(-0 380.38 39.168)">Selected sample: n = 8</text>
+   </g>
+   <g id="w1-population-text_28">
+    <text style="font-size: 12px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="300.09" y="89.40741" transform="rotate(-0 300.09 89.40741)">2</text>
+   </g>
+   <g id="w1-population-text_29">
+    <text style="font-size: 12px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="352.17" y="89.40741" transform="rotate(-0 352.17 89.40741)">5</text>
+   </g>
+   <g id="w1-population-text_30">
+    <text style="font-size: 12px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="404.25" y="89.40741" transform="rotate(-0 404.25 89.40741)">9</text>
+   </g>
+   <g id="w1-population-text_31">
+    <text style="font-size: 12px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="456.33" y="89.40741" transform="rotate(-0 456.33 89.40741)">10</text>
+   </g>
+   <g id="w1-population-text_32">
+    <text style="font-size: 12px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="300.09" y="141.54981" transform="rotate(-0 300.09 141.54981)">16</text>
+   </g>
+   <g id="w1-population-text_33">
+    <text style="font-size: 12px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="352.17" y="141.54981" transform="rotate(-0 352.17 141.54981)">24</text>
+   </g>
+   <g id="w1-population-text_34">
+    <text style="font-size: 12px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="404.25" y="141.54981" transform="rotate(-0 404.25 141.54981)">32</text>
+   </g>
+   <g id="w1-population-text_35">
+    <text style="font-size: 12px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="456.33" y="141.54981" transform="rotate(-0 456.33 141.54981)">38</text>
+   </g>
+   <g id="w1-population-text_36">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #245a81" x="380.38" y="192.11904" transform="rotate(-0 380.38 192.11904)">Sample statistic: x̄ = 17 minutes</text>
+   </g>
+  </g>
+  <g id="w1-population-text_37">
+   <text style="font-size: 10.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="262.08" y="231.336" transform="rotate(-0 262.08 231.336)">Each card is one student’s commute time, in minutes.</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="w1-population-pdcf1563b1a">
+   <rect x="20.16" y="39.168" width="217" height="173.808"/>
+  </clipPath>
+  <clipPath id="w1-population-p63f103bbaf">
+   <rect x="271.88" y="39.168" width="217" height="173.808"/>
+  </clipPath>
+ </defs>
+</svg></div><figcaption><b>The population is defined by the question; the sample contains the observed cases</b>Green cards identify one possible sample. The population mean is known only because this is a teaching model. A different selection can give a different sample mean even when the population stays fixed.</figcaption></figure>
+
+<p>The diagram uses a much smaller, invented population so that every case can fit on the page. The distinction is the same: the parameter belongs to the entire defined population; the statistic belongs to the selected observations. A population parameter stays fixed while that population and measurement rule stay fixed. A sample statistic can change when the sample changes.</p><div class="table-wrap"><table><thead><tr><th scope="col">Quantity</th><th scope="col">Population</th><th scope="col">Sample</th></tr></thead><tbody><tr><td>Mean</td><td>\(\mu\), “mu”</td><td>\(\bar x\), “x-bar”</td></tr><tr><td>Standard deviation</td><td>\(\sigma\), “sigma”</td><td>\(s\)</td></tr><tr><td>Proportion</td><td>\(p\)</td><td>\(\hat p\), “p-hat”</td></tr><tr><td>Number of cases</td><td>\(N\)</td><td>\(n\)</td></tr></tbody></table></div>
+<p>Random selection gives each eligible case a known chance of entering the sample. It does not guarantee that a particular sample will match its population perfectly. Surveying only people standing near a campus entrance can also systematically miss students who arrive another way. A large sample does not repair a selection process that leaves part of the population out.</p><div class="practice"><b>Check your understanding.</b><p>A student says, “The mean is 18 minutes, so every student commutes about 18 minutes.” What has been left out?</p><details><summary>Show explanation</summary><p>Eighteen minutes summarizes the 150 observed students; their individual times can vary widely. The population mean is still unknown. To judge a claim about all students, we also need the selection process and the variability in the observations.</p></details></div><p><a href="../demos/Sample_Explorer.html#sampling">In the sampling investigation</a>, collect several samples from the fixed 24-student population. Watch sample means accumulate underneath. Then restrict selection to students living near campus and explain what has changed.</p></section>
+<section id="s1"><h2>2. Read rows, columns, and variable types</h2><p>A data table makes the observational unit visible: one row is one case, and one column is one variable. Here are five invented student records. The ID numbers are labels that keep the cases distinct.</p>
+<div class="w1-records"><table><caption>Five teaching records, rather than a survey of the college</caption><thead><tr><th scope="col">Student ID</th><th scope="col">Main transport</th><th scope="col">Courses enrolled</th><th scope="col">Commute (minutes)</th></tr></thead><tbody><tr><th scope="row">101</th><td>Walk</td><td>3</td><td>5</td></tr><tr><th scope="row">102</th><td>Bus</td><td>2</td><td>18</td></tr><tr><th scope="row">103</th><td>Car</td><td>3</td><td>32</td></tr><tr><th scope="row">104</th><td>Bus</td><td>1</td><td>24</td></tr><tr><th scope="row">105</th><td>Bike</td><td>2</td><td>12</td></tr></tbody></table></div>
+<p><b>Categorical</b> variables name groups, such as main transport. <b>Quantitative</b> variables measure an amount or count. A discrete quantitative variable, such as courses enrolled, takes countable values. A continuous quantitative variable, such as commute duration, lies along a measurement scale. Rounding a time to whole minutes does not turn the underlying duration into a count.</p>
+<figure class="w1-visual" data-visual="w1-variable-types"><div class="w1-plot" tabindex="0" role="group" aria-label="The kind of variable determines which graph and calculation make sense; scroll horizontally on narrow screens"><svg id="w1-variable-types" role="img" aria-labelledby="w1-variable-types-title w1-variable-types-desc" xmlns:xlink="http://www.w3.org/1999/xlink" width="504pt" height="230.4pt" viewBox="0 0 504 230.4" xmlns="http://www.w3.org/2000/svg" version="1.1">
+<title id="w1-variable-types-title">The kind of variable determines which graph and calculation make sense</title><desc id="w1-variable-types-desc">The same five invented student records produce a categorical bar chart for transport, a dot plot for course counts 3,2,3,1,2, and a dot plot for commute times 5,18,32,24,12.</desc>
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">#w1-variable-types *{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="w1-variable-types-figure_1">
+  <g id="w1-variable-types-patch_1">
+   <path d="M 0 230.4 L 504 230.4 L 504 0 L 0 0 z" style="fill: #ffffff"/>
+  </g>
+  <g id="w1-variable-types-axes_1">
+   <g id="w1-variable-types-patch_2">
+    <path d="M 40.32 168.192 L 156.627692 168.192 L 156.627692 46.08 L 40.32 46.08 z" style="fill: #ffffff"/>
+   </g>
+   <g id="w1-variable-types-patch_3">
+    <path d="M 45.606713 168.192 L 64.436103 168.192 L 64.436103 119.3472 L 45.606713 119.3472 z" clip-path="url(#w1-variable-types-pa308a4e711)" style="fill: #c8dfdc; stroke: #287d76; stroke-linejoin: miter"/>
+   </g>
+   <g id="w1-variable-types-patch_4">
+    <path d="M 74.575005 168.192 L 93.404395 168.192 L 93.404395 70.5024 L 74.575005 70.5024 z" clip-path="url(#w1-variable-types-pa308a4e711)" style="fill: #c8dfdc; stroke: #287d76; stroke-linejoin: miter"/>
+   </g>
+   <g id="w1-variable-types-patch_5">
+    <path d="M 103.543297 168.192 L 122.372687 168.192 L 122.372687 119.3472 L 103.543297 119.3472 z" clip-path="url(#w1-variable-types-pa308a4e711)" style="fill: #c8dfdc; stroke: #287d76; stroke-linejoin: miter"/>
+   </g>
+   <g id="w1-variable-types-patch_6">
+    <path d="M 132.511589 168.192 L 151.340979 168.192 L 151.340979 119.3472 L 132.511589 119.3472 z" clip-path="url(#w1-variable-types-pa308a4e711)" style="fill: #c8dfdc; stroke: #287d76; stroke-linejoin: miter"/>
+   </g>
+   <g id="w1-variable-types-matplotlib.axis_1">
+    <g id="w1-variable-types-xtick_1">
+     <g id="w1-variable-types-line2d_1">
+      <defs>
+       <path id="w1-variable-types-m25feb27045" d="M 0 0 L 0 3.5" style="stroke: #536675; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#w1-variable-types-m25feb27045" x="55.021408" y="168.192" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w1-variable-types-text_1">
+      <text style="font-size: 9px; font-family: 'DejaVu Sans', Arial, sans-serif; fill: #536675" transform="translate(46.930756 191.89049) rotate(-30)">Walk</text>
+     </g>
+    </g>
+    <g id="w1-variable-types-xtick_2">
+     <g id="w1-variable-types-line2d_2">
+      <g>
+       <use xlink:href="#w1-variable-types-m25feb27045" x="83.9897" y="168.192" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w1-variable-types-text_2">
+      <text style="font-size: 9px; font-family: 'DejaVu Sans', Arial, sans-serif; fill: #536675" transform="translate(78.057684 189.397912) rotate(-30)">Bus</text>
+     </g>
+    </g>
+    <g id="w1-variable-types-xtick_3">
+     <g id="w1-variable-types-line2d_3">
+      <g>
+       <use xlink:href="#w1-variable-types-m25feb27045" x="112.957992" y="168.192" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w1-variable-types-text_3">
+      <text style="font-size: 9px; font-family: 'DejaVu Sans', Arial, sans-serif; fill: #536675" transform="translate(107.488149 188.86424) rotate(-30)">Car</text>
+     </g>
+    </g>
+    <g id="w1-variable-types-xtick_4">
+     <g id="w1-variable-types-line2d_4">
+      <g>
+       <use xlink:href="#w1-variable-types-m25feb27045" x="141.926284" y="168.192" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w1-variable-types-text_4">
+      <text style="font-size: 9px; font-family: 'DejaVu Sans', Arial, sans-serif; fill: #536675" transform="translate(134.898205 190.663537) rotate(-30)">Bike</text>
+     </g>
+    </g>
+   </g>
+   <g id="w1-variable-types-matplotlib.axis_2">
+    <g id="w1-variable-types-ytick_1">
+     <g id="w1-variable-types-line2d_5">
+      <defs>
+       <path id="w1-variable-types-m1a4179a9f1" d="M 0 0 L -3.5 0" style="stroke: #536675; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#w1-variable-types-m1a4179a9f1" x="40.32" y="168.192" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w1-variable-types-text_5">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #536675" x="33.32" y="172.941023" transform="rotate(-0 33.32 172.941023)">0</text>
+     </g>
+    </g>
+    <g id="w1-variable-types-ytick_2">
+     <g id="w1-variable-types-line2d_6">
+      <g>
+       <use xlink:href="#w1-variable-types-m1a4179a9f1" x="40.32" y="119.3472" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w1-variable-types-text_6">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #536675" x="33.32" y="124.096223" transform="rotate(-0 33.32 124.096223)">1</text>
+     </g>
+    </g>
+    <g id="w1-variable-types-ytick_3">
+     <g id="w1-variable-types-line2d_7">
+      <g>
+       <use xlink:href="#w1-variable-types-m1a4179a9f1" x="40.32" y="70.5024" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w1-variable-types-text_7">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #536675" x="33.32" y="75.251423" transform="rotate(-0 33.32 75.251423)">2</text>
+     </g>
+    </g>
+    <g id="w1-variable-types-text_8">
+     <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="18.767266" y="107.136" transform="rotate(-90 18.767266 107.136)">Students</text>
+    </g>
+   </g>
+   <g id="w1-variable-types-patch_7">
+    <path d="M 40.32 168.192 L 40.32 46.08" style="fill: none; stroke: #80919c; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="w1-variable-types-patch_8">
+    <path d="M 40.32 168.192 L 156.627692 168.192" style="fill: none; stroke: #80919c; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="w1-variable-types-text_9">
+    <text style="font-size: 11.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="98.473846" y="40.08" transform="rotate(-0 98.473846 40.08)">Categories</text>
+   </g>
+  </g>
+  <g id="w1-variable-types-axes_2">
+   <g id="w1-variable-types-patch_9">
+    <path d="M 208.966154 168.192 L 325.273846 168.192 L 325.273846 46.08 L 208.966154 46.08 z" style="fill: #ffffff"/>
+   </g>
+   <g id="w1-variable-types-matplotlib.axis_3">
+    <g id="w1-variable-types-xtick_5">
+     <g id="w1-variable-types-line2d_8">
+      <g>
+       <use xlink:href="#w1-variable-types-m25feb27045" x="228.350769" y="168.192" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w1-variable-types-text_10">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="228.350769" y="183.550281" transform="rotate(-0 228.350769 183.550281)">1</text>
+     </g>
+    </g>
+    <g id="w1-variable-types-xtick_6">
+     <g id="w1-variable-types-line2d_9">
+      <g>
+       <use xlink:href="#w1-variable-types-m25feb27045" x="267.12" y="168.192" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w1-variable-types-text_11">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="267.12" y="183.550281" transform="rotate(-0 267.12 183.550281)">2</text>
+     </g>
+    </g>
+    <g id="w1-variable-types-xtick_7">
+     <g id="w1-variable-types-line2d_10">
+      <g>
+       <use xlink:href="#w1-variable-types-m25feb27045" x="305.889231" y="168.192" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w1-variable-types-text_12">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="305.889231" y="183.550281" transform="rotate(-0 305.889231 183.550281)">3</text>
+     </g>
+    </g>
+    <g id="w1-variable-types-text_13">
+     <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="267.12" y="199.335984" transform="rotate(-0 267.12 199.335984)">Courses enrolled</text>
+    </g>
+   </g>
+   <g id="w1-variable-types-matplotlib.axis_4"/>
+   <g id="w1-variable-types-patch_10">
+    <path d="M 208.966154 168.192 L 325.273846 168.192" style="fill: none; stroke: #80919c; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="w1-variable-types-text_14">
+    <text style="font-size: 11.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="267.12" y="40.08" transform="rotate(-0 267.12 40.08)">Counts</text>
+   </g>
+   <g id="w1-variable-types-PathCollection_1">
+    <defs>
+     <path id="w1-variable-types-m7e287a8292" d="M 0 3.464102 C 0.91869 3.464102 1.799877 3.099102 2.44949 2.44949 C 3.099102 1.799877 3.464102 0.91869 3.464102 0 C 3.464102 -0.91869 3.099102 -1.799877 2.44949 -2.44949 C 1.799877 -3.099102 0.91869 -3.464102 0 -3.464102 C -0.91869 -3.464102 -1.799877 -3.099102 -2.44949 -2.44949 C -3.099102 -1.799877 -3.464102 -0.91869 -3.464102 0 C -3.464102 0.91869 -3.099102 1.799877 -2.44949 2.44949 C -1.799877 3.099102 -0.91869 3.464102 0 3.464102 z" style="stroke: #ffffff; stroke-width: 0.6"/>
+    </defs>
+    <g clip-path="url(#w1-variable-types-pc844994bb6)">
+     <use xlink:href="#w1-variable-types-m7e287a8292" x="305.889231" y="140.012308" style="fill: #245a81; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w1-variable-types-PathCollection_2">
+    <g clip-path="url(#w1-variable-types-pc844994bb6)">
+     <use xlink:href="#w1-variable-types-m7e287a8292" x="267.12" y="140.012308" style="fill: #245a81; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w1-variable-types-PathCollection_3">
+    <g clip-path="url(#w1-variable-types-pc844994bb6)">
+     <use xlink:href="#w1-variable-types-m7e287a8292" x="305.889231" y="115.589908" style="fill: #245a81; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w1-variable-types-PathCollection_4">
+    <g clip-path="url(#w1-variable-types-pc844994bb6)">
+     <use xlink:href="#w1-variable-types-m7e287a8292" x="228.350769" y="140.012308" style="fill: #245a81; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w1-variable-types-PathCollection_5">
+    <g clip-path="url(#w1-variable-types-pc844994bb6)">
+     <use xlink:href="#w1-variable-types-m7e287a8292" x="267.12" y="115.589908" style="fill: #245a81; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+  </g>
+  <g id="w1-variable-types-axes_3">
+   <g id="w1-variable-types-patch_11">
+    <path d="M 377.612308 168.192 L 493.92 168.192 L 493.92 46.08 L 377.612308 46.08 z" style="fill: #ffffff"/>
+   </g>
+   <g id="w1-variable-types-matplotlib.axis_5">
+    <g id="w1-variable-types-xtick_8">
+     <g id="w1-variable-types-line2d_11">
+      <g>
+       <use xlink:href="#w1-variable-types-m25feb27045" x="377.612308" y="168.192" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w1-variable-types-text_15">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="377.612308" y="183.550281" transform="rotate(-0 377.612308 183.550281)">0</text>
+     </g>
+    </g>
+    <g id="w1-variable-types-xtick_9">
+     <g id="w1-variable-types-line2d_12">
+      <g>
+       <use xlink:href="#w1-variable-types-m25feb27045" x="426.073846" y="168.192" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w1-variable-types-text_16">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="426.073846" y="183.550281" transform="rotate(-0 426.073846 183.550281)">15</text>
+     </g>
+    </g>
+    <g id="w1-variable-types-xtick_10">
+     <g id="w1-variable-types-line2d_13">
+      <g>
+       <use xlink:href="#w1-variable-types-m25feb27045" x="474.535385" y="168.192" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w1-variable-types-text_17">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="474.535385" y="183.550281" transform="rotate(-0 474.535385 183.550281)">30</text>
+     </g>
+    </g>
+    <g id="w1-variable-types-text_18">
+     <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="435.766154" y="199.335984" transform="rotate(-0 435.766154 199.335984)">Commute minutes</text>
+    </g>
+   </g>
+   <g id="w1-variable-types-matplotlib.axis_6"/>
+   <g id="w1-variable-types-patch_12">
+    <path d="M 377.612308 168.192 L 493.92 168.192" style="fill: none; stroke: #80919c; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="w1-variable-types-text_19">
+    <text style="font-size: 11.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="435.766154" y="40.08" transform="rotate(-0 435.766154 40.08)">Measurements</text>
+   </g>
+   <g id="w1-variable-types-PathCollection_6">
+    <g clip-path="url(#w1-variable-types-p3b703365d7)">
+     <use xlink:href="#w1-variable-types-m7e287a8292" x="393.766154" y="140.012308" style="fill: #245a81; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w1-variable-types-PathCollection_7">
+    <g clip-path="url(#w1-variable-types-p3b703365d7)">
+     <use xlink:href="#w1-variable-types-m7e287a8292" x="435.766154" y="140.012308" style="fill: #245a81; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w1-variable-types-PathCollection_8">
+    <g clip-path="url(#w1-variable-types-p3b703365d7)">
+     <use xlink:href="#w1-variable-types-m7e287a8292" x="480.996923" y="140.012308" style="fill: #245a81; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w1-variable-types-PathCollection_9">
+    <g clip-path="url(#w1-variable-types-p3b703365d7)">
+     <use xlink:href="#w1-variable-types-m7e287a8292" x="455.150769" y="140.012308" style="fill: #245a81; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w1-variable-types-PathCollection_10">
+    <g clip-path="url(#w1-variable-types-p3b703365d7)">
+     <use xlink:href="#w1-variable-types-m7e287a8292" x="416.381538" y="140.012308" style="fill: #245a81; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="w1-variable-types-pa308a4e711">
+   <rect x="40.32" y="46.08" width="116.307692" height="122.112"/>
+  </clipPath>
+  <clipPath id="w1-variable-types-pc844994bb6">
+   <rect x="208.966154" y="46.08" width="116.307692" height="122.112"/>
+  </clipPath>
+  <clipPath id="w1-variable-types-p3b703365d7">
+   <rect x="377.612308" y="46.08" width="116.307692" height="122.112"/>
+  </clipPath>
+ </defs>
+</svg></div><figcaption><b>The kind of variable determines which graph and calculation make sense</b>Transport categories have no numerical distances between them. Course counts occupy whole numbers. Commute time lies on a measurement scale even when it is rounded to whole minutes. Each graph still represents five students.</figcaption></figure>
+
+<p>The numerical appearance of an ID does not make averaging it meaningful. Ask what the values mean before choosing a calculation: an average commute time has units of minutes; an average transport category does not have a useful numerical interpretation. Repeated values are separate observations when they belong to separate cases.</p><div class="practice"><b>Check your understanding.</b><p>Classify blood type, number of pets, and height. If two students have the same height, do we keep both rows?</p><details><summary>Show explanation</summary><p>Blood type is categorical; number of pets is discrete quantitative; height is continuous quantitative. Keep both students’ records. Equal values do not make their cases duplicates.</p></details></div></section>
+<section id="s2"><h2>3. Turn counts into a distribution</h2><p>A <b>distribution</b> describes which values or categories occur and how often. The <b>frequency</b> is a count. The <b>relative frequency</b> divides that count by the total number of observations, making the size of the group visible as a fraction of the sample.</p><div class="eq">\[\text{relative frequency}=\frac{\text{count in the group}}{\text{total number of observations}}=\frac{\text{frequency}}{n}.\]</div>
+<div class="example"><b>Worked example: ten reports of sleep.</b><p>The recorded hours are 5, 6, 6, 7, 7, 7, 7, 8, 8, 9. There are ten students, even though there are only five distinct recorded values.</p><div class="table-wrap"><table><thead><tr><th scope="col">Recorded hours</th><th scope="col">Frequency</th><th scope="col">Relative frequency</th><th scope="col">Percent</th></tr></thead><tbody><tr><td>5</td><td>1</td><td>1/10 = 0.10</td><td>10%</td></tr><tr><td>6</td><td>2</td><td>2/10 = 0.20</td><td>20%</td></tr><tr><td>7</td><td>4</td><td>4/10 = 0.40</td><td>40%</td></tr><tr><td>8</td><td>2</td><td>2/10 = 0.20</td><td>20%</td></tr><tr><td>9</td><td>1</td><td>1/10 = 0.10</td><td>10%</td></tr><tr><th scope="row">Total</th><td>10</td><td>1.00</td><td>100%</td></tr></tbody></table></div></div>
+<figure class="w1-visual" data-visual="w1-sleep-frequency"><div class="w1-plot" tabindex="0" role="group" aria-label="A frequency graph counts the observations you can see; scroll horizontally on narrow screens"><svg id="w1-sleep-frequency" role="img" aria-labelledby="w1-sleep-frequency-title w1-sleep-frequency-desc" xmlns:xlink="http://www.w3.org/1999/xlink" width="504pt" height="298.8pt" viewBox="0 0 504 298.8" xmlns="http://www.w3.org/2000/svg" version="1.1">
+<title id="w1-sleep-frequency-title">A frequency graph counts the observations you can see</title><desc id="w1-sleep-frequency-desc">Ten sleep reports are shown as stacked dots and equal-width histogram bins. Frequencies for 5,6,7,8,9 hours are 1,2,4,2,1. The seven-hour group is green.</desc>
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">#w1-sleep-frequency *{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="w1-sleep-frequency-figure_1">
+  <g id="w1-sleep-frequency-patch_1">
+   <path d="M 0 298.8 L 504 298.8 L 504 0 L 0 0 z" style="fill: #ffffff"/>
+  </g>
+  <g id="w1-sleep-frequency-axes_1">
+   <g id="w1-sleep-frequency-patch_2">
+    <path d="M 60.48 93.899489 L 488.88 93.899489 L 488.88 32.868 L 60.48 32.868 z" style="fill: #ffffff"/>
+   </g>
+   <g id="w1-sleep-frequency-matplotlib.axis_1">
+    <g id="w1-sleep-frequency-xtick_1">
+     <g id="w1-sleep-frequency-line2d_1">
+      <defs>
+       <path id="w1-sleep-frequency-m589e96648a" d="M 0 0 L 0 3.5" style="stroke: #536675; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#w1-sleep-frequency-m589e96648a" x="76.346667" y="93.899489" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+    </g>
+    <g id="w1-sleep-frequency-xtick_2">
+     <g id="w1-sleep-frequency-line2d_2">
+      <g>
+       <use xlink:href="#w1-sleep-frequency-m589e96648a" x="155.68" y="93.899489" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+    </g>
+    <g id="w1-sleep-frequency-xtick_3">
+     <g id="w1-sleep-frequency-line2d_3">
+      <g>
+       <use xlink:href="#w1-sleep-frequency-m589e96648a" x="235.013333" y="93.899489" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+    </g>
+    <g id="w1-sleep-frequency-xtick_4">
+     <g id="w1-sleep-frequency-line2d_4">
+      <g>
+       <use xlink:href="#w1-sleep-frequency-m589e96648a" x="314.346667" y="93.899489" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+    </g>
+    <g id="w1-sleep-frequency-xtick_5">
+     <g id="w1-sleep-frequency-line2d_5">
+      <g>
+       <use xlink:href="#w1-sleep-frequency-m589e96648a" x="393.68" y="93.899489" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+    </g>
+    <g id="w1-sleep-frequency-xtick_6">
+     <g id="w1-sleep-frequency-line2d_6">
+      <g>
+       <use xlink:href="#w1-sleep-frequency-m589e96648a" x="473.013333" y="93.899489" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+    </g>
+   </g>
+   <g id="w1-sleep-frequency-matplotlib.axis_2">
+    <g id="w1-sleep-frequency-ytick_1">
+     <g id="w1-sleep-frequency-line2d_7">
+      <defs>
+       <path id="w1-sleep-frequency-m6398f57cba" d="M 0 0 L -3.5 0" style="stroke: #536675; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#w1-sleep-frequency-m6398f57cba" x="60.48" y="85.838727" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w1-sleep-frequency-text_1">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #536675" x="53.48" y="90.58775" transform="rotate(-0 53.48 90.58775)">1</text>
+     </g>
+    </g>
+    <g id="w1-sleep-frequency-ytick_2">
+     <g id="w1-sleep-frequency-line2d_8">
+      <g>
+       <use xlink:href="#w1-sleep-frequency-m6398f57cba" x="60.48" y="74.323351" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w1-sleep-frequency-text_2">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #536675" x="53.48" y="79.072375" transform="rotate(-0 53.48 79.072375)">2</text>
+     </g>
+    </g>
+    <g id="w1-sleep-frequency-ytick_3">
+     <g id="w1-sleep-frequency-line2d_9">
+      <g>
+       <use xlink:href="#w1-sleep-frequency-m6398f57cba" x="60.48" y="62.807976" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w1-sleep-frequency-text_3">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #536675" x="53.48" y="67.556999" transform="rotate(-0 53.48 67.556999)">3</text>
+     </g>
+    </g>
+    <g id="w1-sleep-frequency-ytick_4">
+     <g id="w1-sleep-frequency-line2d_10">
+      <g>
+       <use xlink:href="#w1-sleep-frequency-m6398f57cba" x="60.48" y="51.292601" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w1-sleep-frequency-text_4">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #536675" x="53.48" y="56.041624" transform="rotate(-0 53.48 56.041624)">4</text>
+     </g>
+    </g>
+    <g id="w1-sleep-frequency-text_5">
+     <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="39.239219" y="63.383745" transform="rotate(-90 39.239219 63.383745)">Stacked dots</text>
+    </g>
+   </g>
+   <g id="w1-sleep-frequency-patch_3">
+    <path d="M 60.48 93.899489 L 488.88 93.899489" style="fill: none; stroke: #80919c; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="w1-sleep-frequency-text_6">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #287d76" x="274.68" y="39.777225" transform="rotate(-0 274.68 39.777225)">4 observations</text>
+   </g>
+   <g id="w1-sleep-frequency-PathCollection_1">
+    <defs>
+     <path id="w1-sleep-frequency-m13198bc4ca" d="M 0 3.741657 C 0.992299 3.741657 1.94409 3.347413 2.645751 2.645751 C 3.347413 1.94409 3.741657 0.992299 3.741657 0 C 3.741657 -0.992299 3.347413 -1.94409 2.645751 -2.645751 C 1.94409 -3.347413 0.992299 -3.741657 0 -3.741657 C -0.992299 -3.741657 -1.94409 -3.347413 -2.645751 -2.645751 C -3.347413 -1.94409 -3.741657 -0.992299 -3.741657 0 C -3.741657 0.992299 -3.347413 1.94409 -2.645751 2.645751 C -1.94409 3.347413 -0.992299 3.741657 0 3.741657 z" style="stroke: #245a81"/>
+    </defs>
+    <g clip-path="url(#w1-sleep-frequency-pc4d579bf05)">
+     <use xlink:href="#w1-sleep-frequency-m13198bc4ca" x="116.013333" y="85.838727" style="fill: #245a81; stroke: #245a81"/>
+    </g>
+   </g>
+   <g id="w1-sleep-frequency-PathCollection_2">
+    <g clip-path="url(#w1-sleep-frequency-pc4d579bf05)">
+     <use xlink:href="#w1-sleep-frequency-m13198bc4ca" x="195.346667" y="85.838727" style="fill: #245a81; stroke: #245a81"/>
+    </g>
+   </g>
+   <g id="w1-sleep-frequency-PathCollection_3">
+    <g clip-path="url(#w1-sleep-frequency-pc4d579bf05)">
+     <use xlink:href="#w1-sleep-frequency-m13198bc4ca" x="195.346667" y="74.323351" style="fill: #245a81; stroke: #245a81"/>
+    </g>
+   </g>
+   <g id="w1-sleep-frequency-PathCollection_4">
+    <defs>
+     <path id="w1-sleep-frequency-m8e80326a52" d="M 0 3.741657 C 0.992299 3.741657 1.94409 3.347413 2.645751 2.645751 C 3.347413 1.94409 3.741657 0.992299 3.741657 0 C 3.741657 -0.992299 3.347413 -1.94409 2.645751 -2.645751 C 1.94409 -3.347413 0.992299 -3.741657 0 -3.741657 C -0.992299 -3.741657 -1.94409 -3.347413 -2.645751 -2.645751 C -3.347413 -1.94409 -3.741657 -0.992299 -3.741657 0 C -3.741657 0.992299 -3.347413 1.94409 -2.645751 2.645751 C -1.94409 3.347413 -0.992299 3.741657 0 3.741657 z" style="stroke: #287d76"/>
+    </defs>
+    <g clip-path="url(#w1-sleep-frequency-pc4d579bf05)">
+     <use xlink:href="#w1-sleep-frequency-m8e80326a52" x="274.68" y="85.838727" style="fill: #287d76; stroke: #287d76"/>
+    </g>
+   </g>
+   <g id="w1-sleep-frequency-PathCollection_5">
+    <g clip-path="url(#w1-sleep-frequency-pc4d579bf05)">
+     <use xlink:href="#w1-sleep-frequency-m8e80326a52" x="274.68" y="74.323351" style="fill: #287d76; stroke: #287d76"/>
+    </g>
+   </g>
+   <g id="w1-sleep-frequency-PathCollection_6">
+    <g clip-path="url(#w1-sleep-frequency-pc4d579bf05)">
+     <use xlink:href="#w1-sleep-frequency-m8e80326a52" x="274.68" y="62.807976" style="fill: #287d76; stroke: #287d76"/>
+    </g>
+   </g>
+   <g id="w1-sleep-frequency-PathCollection_7">
+    <g clip-path="url(#w1-sleep-frequency-pc4d579bf05)">
+     <use xlink:href="#w1-sleep-frequency-m8e80326a52" x="274.68" y="51.292601" style="fill: #287d76; stroke: #287d76"/>
+    </g>
+   </g>
+   <g id="w1-sleep-frequency-PathCollection_8">
+    <g clip-path="url(#w1-sleep-frequency-pc4d579bf05)">
+     <use xlink:href="#w1-sleep-frequency-m13198bc4ca" x="354.013333" y="85.838727" style="fill: #245a81; stroke: #245a81"/>
+    </g>
+   </g>
+   <g id="w1-sleep-frequency-PathCollection_9">
+    <g clip-path="url(#w1-sleep-frequency-pc4d579bf05)">
+     <use xlink:href="#w1-sleep-frequency-m13198bc4ca" x="354.013333" y="74.323351" style="fill: #245a81; stroke: #245a81"/>
+    </g>
+   </g>
+   <g id="w1-sleep-frequency-PathCollection_10">
+    <g clip-path="url(#w1-sleep-frequency-pc4d579bf05)">
+     <use xlink:href="#w1-sleep-frequency-m13198bc4ca" x="433.346667" y="85.838727" style="fill: #245a81; stroke: #245a81"/>
+    </g>
+   </g>
+  </g>
+  <g id="w1-sleep-frequency-axes_2">
+   <g id="w1-sleep-frequency-patch_4">
+    <path d="M 60.48 248.004 L 488.88 248.004 L 488.88 125.941021 L 60.48 125.941021 z" style="fill: #ffffff"/>
+   </g>
+   <g id="w1-sleep-frequency-patch_5">
+    <path d="M 76.346667 248.004 L 155.68 248.004 L 155.68 223.591404 L 76.346667 223.591404 z" clip-path="url(#w1-sleep-frequency-pc8930363bb)" style="fill: #cbdce9; stroke: #182e40; stroke-linejoin: miter"/>
+   </g>
+   <g id="w1-sleep-frequency-patch_6">
+    <path d="M 155.68 248.004 L 235.013333 248.004 L 235.013333 199.178809 L 155.68 199.178809 z" clip-path="url(#w1-sleep-frequency-pc8930363bb)" style="fill: #cbdce9; stroke: #182e40; stroke-linejoin: miter"/>
+   </g>
+   <g id="w1-sleep-frequency-patch_7">
+    <path d="M 235.013333 248.004 L 314.346667 248.004 L 314.346667 150.353617 L 235.013333 150.353617 z" clip-path="url(#w1-sleep-frequency-pc8930363bb)" style="fill: #c8dfdc; stroke: #182e40; stroke-linejoin: miter"/>
+   </g>
+   <g id="w1-sleep-frequency-patch_8">
+    <path d="M 314.346667 248.004 L 393.68 248.004 L 393.68 199.178809 L 314.346667 199.178809 z" clip-path="url(#w1-sleep-frequency-pc8930363bb)" style="fill: #cbdce9; stroke: #182e40; stroke-linejoin: miter"/>
+   </g>
+   <g id="w1-sleep-frequency-patch_9">
+    <path d="M 393.68 248.004 L 473.013333 248.004 L 473.013333 223.591404 L 393.68 223.591404 z" clip-path="url(#w1-sleep-frequency-pc8930363bb)" style="fill: #cbdce9; stroke: #182e40; stroke-linejoin: miter"/>
+   </g>
+   <g id="w1-sleep-frequency-matplotlib.axis_3">
+    <g id="w1-sleep-frequency-xtick_7">
+     <g id="w1-sleep-frequency-line2d_11">
+      <g>
+       <use xlink:href="#w1-sleep-frequency-m589e96648a" x="76.346667" y="248.004" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w1-sleep-frequency-text_7">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="76.346667" y="264.502047" transform="rotate(-0 76.346667 264.502047)">4.5</text>
+     </g>
+    </g>
+    <g id="w1-sleep-frequency-xtick_8">
+     <g id="w1-sleep-frequency-line2d_12">
+      <g>
+       <use xlink:href="#w1-sleep-frequency-m589e96648a" x="155.68" y="248.004" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w1-sleep-frequency-text_8">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="155.68" y="264.502047" transform="rotate(-0 155.68 264.502047)">5.5</text>
+     </g>
+    </g>
+    <g id="w1-sleep-frequency-xtick_9">
+     <g id="w1-sleep-frequency-line2d_13">
+      <g>
+       <use xlink:href="#w1-sleep-frequency-m589e96648a" x="235.013333" y="248.004" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w1-sleep-frequency-text_9">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="235.013333" y="264.502047" transform="rotate(-0 235.013333 264.502047)">6.5</text>
+     </g>
+    </g>
+    <g id="w1-sleep-frequency-xtick_10">
+     <g id="w1-sleep-frequency-line2d_14">
+      <g>
+       <use xlink:href="#w1-sleep-frequency-m589e96648a" x="314.346667" y="248.004" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w1-sleep-frequency-text_10">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="314.346667" y="264.502047" transform="rotate(-0 314.346667 264.502047)">7.5</text>
+     </g>
+    </g>
+    <g id="w1-sleep-frequency-xtick_11">
+     <g id="w1-sleep-frequency-line2d_15">
+      <g>
+       <use xlink:href="#w1-sleep-frequency-m589e96648a" x="393.68" y="248.004" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w1-sleep-frequency-text_11">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="393.68" y="264.502047" transform="rotate(-0 393.68 264.502047)">8.5</text>
+     </g>
+    </g>
+    <g id="w1-sleep-frequency-xtick_12">
+     <g id="w1-sleep-frequency-line2d_16">
+      <g>
+       <use xlink:href="#w1-sleep-frequency-m589e96648a" x="473.013333" y="248.004" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w1-sleep-frequency-text_12">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="473.013333" y="264.502047" transform="rotate(-0 473.013333 264.502047)">9.5</text>
+     </g>
+    </g>
+    <g id="w1-sleep-frequency-text_13">
+     <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="274.68" y="280.599703" transform="rotate(-0 274.68 280.599703)">Hours of sleep (recorded to the nearest hour)</text>
+    </g>
+   </g>
+   <g id="w1-sleep-frequency-matplotlib.axis_4">
+    <g id="w1-sleep-frequency-ytick_5">
+     <g id="w1-sleep-frequency-line2d_17">
+      <path d="M 60.48 248.004 L 488.88 248.004" clip-path="url(#w1-sleep-frequency-pc8930363bb)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.25; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="w1-sleep-frequency-line2d_18">
+      <g>
+       <use xlink:href="#w1-sleep-frequency-m6398f57cba" x="60.48" y="248.004" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w1-sleep-frequency-text_14">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #536675" x="53.48" y="252.753023" transform="rotate(-0 53.48 252.753023)">0</text>
+     </g>
+    </g>
+    <g id="w1-sleep-frequency-ytick_6">
+     <g id="w1-sleep-frequency-line2d_19">
+      <path d="M 60.48 223.591404 L 488.88 223.591404" clip-path="url(#w1-sleep-frequency-pc8930363bb)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.25; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="w1-sleep-frequency-line2d_20">
+      <g>
+       <use xlink:href="#w1-sleep-frequency-m6398f57cba" x="60.48" y="223.591404" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w1-sleep-frequency-text_15">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #536675" x="53.48" y="228.340428" transform="rotate(-0 53.48 228.340428)">1</text>
+     </g>
+    </g>
+    <g id="w1-sleep-frequency-ytick_7">
+     <g id="w1-sleep-frequency-line2d_21">
+      <path d="M 60.48 199.178809 L 488.88 199.178809" clip-path="url(#w1-sleep-frequency-pc8930363bb)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.25; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="w1-sleep-frequency-line2d_22">
+      <g>
+       <use xlink:href="#w1-sleep-frequency-m6398f57cba" x="60.48" y="199.178809" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w1-sleep-frequency-text_16">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #536675" x="53.48" y="203.927832" transform="rotate(-0 53.48 203.927832)">2</text>
+     </g>
+    </g>
+    <g id="w1-sleep-frequency-ytick_8">
+     <g id="w1-sleep-frequency-line2d_23">
+      <path d="M 60.48 174.766213 L 488.88 174.766213" clip-path="url(#w1-sleep-frequency-pc8930363bb)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.25; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="w1-sleep-frequency-line2d_24">
+      <g>
+       <use xlink:href="#w1-sleep-frequency-m6398f57cba" x="60.48" y="174.766213" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w1-sleep-frequency-text_17">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #536675" x="53.48" y="179.515236" transform="rotate(-0 53.48 179.515236)">3</text>
+     </g>
+    </g>
+    <g id="w1-sleep-frequency-ytick_9">
+     <g id="w1-sleep-frequency-line2d_25">
+      <path d="M 60.48 150.353617 L 488.88 150.353617" clip-path="url(#w1-sleep-frequency-pc8930363bb)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.25; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="w1-sleep-frequency-line2d_26">
+      <g>
+       <use xlink:href="#w1-sleep-frequency-m6398f57cba" x="60.48" y="150.353617" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w1-sleep-frequency-text_18">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #536675" x="53.48" y="155.10264" transform="rotate(-0 53.48 155.10264)">4</text>
+     </g>
+    </g>
+    <g id="w1-sleep-frequency-text_19">
+     <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="38.927266" y="186.972511" transform="rotate(-90 38.927266 186.972511)">Frequency</text>
+    </g>
+   </g>
+   <g id="w1-sleep-frequency-patch_10">
+    <path d="M 60.48 248.004 L 60.48 125.941021" style="fill: none; stroke: #80919c; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="w1-sleep-frequency-patch_11">
+    <path d="M 60.48 248.004 L 488.88 248.004" style="fill: none; stroke: #80919c; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="w1-sleep-frequency-pc4d579bf05">
+   <rect x="60.48" y="32.868" width="428.4" height="61.031489"/>
+  </clipPath>
+  <clipPath id="w1-sleep-frequency-pc8930363bb">
+   <rect x="60.48" y="125.941021" width="428.4" height="122.062979"/>
+  </clipPath>
+ </defs>
+</svg></div><figcaption><b>A frequency graph counts the observations you can see</b>The green column contains four of the ten observations: 4/10 = 0.40 = 40%. A dot represents one student; a histogram bar represents a count in a numerical interval. The lower graph uses edges 4.5, 5.5, …, 9.5.</figcaption></figure>
+
+<p>A <b>bar chart</b> compares categories or distinct recorded outcomes. A <b>histogram</b> groups numerical values into intervals, called bins, on a numerical scale. In an equal-width frequency histogram, the height of a bar is the number of observations in its interval. Adjacent bins touch because their numerical intervals are adjacent. The empty space between categorical bars does not represent a measured gap.</p><p>State a boundary rule so that every observation is counted once. One convention includes the left boundary and excludes the right: \([6.5,7.5)\) means 6.5 up to, but not including, 7.5. The final interval can include its right boundary so that the largest value is retained. Changing bin widths can reveal or conceal a cluster or gap; it does not change the underlying data, mean, or standard deviation.</p><p>Counts total \(n\), and relative frequencies total 1, apart from rounding. These are useful checks. A sample relative frequency describes the observed sample; treating it as an estimate of a population proportion also requires attention to selection.</p><div class="practice"><b>Check your understanding.</b><p>What percentage of these ten students reported at least eight hours? What belongs in the numerator?</p><details><summary>Show explanation</summary><p>There are two reports of eight hours and one of nine hours: \((2+1)/10=0.30=30\%\). Count students meeting the condition. Adding 8 + 8 + 9 would total hours, answering a different question.</p></details></div></section>
+<section id="s3"><h2>4. Build the mean and find the median</h2><p>Use one small dataset to make each step visible. Five invented students report 3, 7, 7, 2, and 6 hours of study during a week. The sample mean answers: “If we shared this total equally across these five records, how many hours would each receive?”</p>
+<figure class="w1-visual" data-visual="w1-mean-share"><div class="w1-plot" tabindex="0" role="group" aria-label="The mean redistributes a total into equal shares; scroll horizontally on narrow screens"><svg id="w1-mean-share" role="img" aria-labelledby="w1-mean-share-title w1-mean-share-desc" xmlns:xlink="http://www.w3.org/1999/xlink" width="504pt" height="252pt" viewBox="0 0 504 252" xmlns="http://www.w3.org/2000/svg" version="1.1">
+<title id="w1-mean-share-title">The mean redistributes a total into equal shares</title><desc id="w1-mean-share-desc">The five values 3,7,7,2,6 total25. A second bar chart shows five values of5, preserving the total.</desc>
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">#w1-mean-share *{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="w1-mean-share-figure_1">
+  <g id="w1-mean-share-patch_1">
+   <path d="M 0 252 L 504 252 L 504 0 L 0 0 z" style="fill: #ffffff"/>
+  </g>
+  <g id="w1-mean-share-axes_1">
+   <g id="w1-mean-share-patch_2">
+    <path d="M 45.36 201.6 L 240.386087 201.6 L 240.386087 50.4 L 45.36 50.4 z" style="fill: #ffffff"/>
+   </g>
+   <g id="w1-mean-share-patch_3">
+    <path d="M 54.224822 201.6 L 79.008196 201.6 L 79.008196 148.855814 L 54.224822 148.855814 z" clip-path="url(#w1-mean-share-p8c1fee0dc2)" style="fill: #bfd4e4; stroke: #245a81; stroke-linejoin: miter"/>
+   </g>
+   <g id="w1-mean-share-patch_4">
+    <path d="M 92.353089 201.6 L 117.136463 201.6 L 117.136463 78.530233 L 92.353089 78.530233 z" clip-path="url(#w1-mean-share-p8c1fee0dc2)" style="fill: #bfd4e4; stroke: #245a81; stroke-linejoin: miter"/>
+   </g>
+   <g id="w1-mean-share-patch_5">
+    <path d="M 130.481357 201.6 L 155.26473 201.6 L 155.26473 78.530233 L 130.481357 78.530233 z" clip-path="url(#w1-mean-share-p8c1fee0dc2)" style="fill: #bfd4e4; stroke: #245a81; stroke-linejoin: miter"/>
+   </g>
+   <g id="w1-mean-share-patch_6">
+    <path d="M 168.609624 201.6 L 193.392998 201.6 L 193.392998 166.437209 L 168.609624 166.437209 z" clip-path="url(#w1-mean-share-p8c1fee0dc2)" style="fill: #bfd4e4; stroke: #245a81; stroke-linejoin: miter"/>
+   </g>
+   <g id="w1-mean-share-patch_7">
+    <path d="M 206.737891 201.6 L 231.521265 201.6 L 231.521265 96.111628 L 206.737891 96.111628 z" clip-path="url(#w1-mean-share-p8c1fee0dc2)" style="fill: #bfd4e4; stroke: #245a81; stroke-linejoin: miter"/>
+   </g>
+   <g id="w1-mean-share-matplotlib.axis_1">
+    <g id="w1-mean-share-xtick_1">
+     <g id="w1-mean-share-line2d_1">
+      <defs>
+       <path id="w1-mean-share-m94bc1ed31f" d="M 0 0 L 0 3.5" style="stroke: #536675; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#w1-mean-share-m94bc1ed31f" x="66.616509" y="201.6" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w1-mean-share-text_1">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="66.616509" y="218.098047" transform="rotate(-0 66.616509 218.098047)">1</text>
+     </g>
+    </g>
+    <g id="w1-mean-share-xtick_2">
+     <g id="w1-mean-share-line2d_2">
+      <g>
+       <use xlink:href="#w1-mean-share-m94bc1ed31f" x="104.744776" y="201.6" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w1-mean-share-text_2">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="104.744776" y="218.098047" transform="rotate(-0 104.744776 218.098047)">2</text>
+     </g>
+    </g>
+    <g id="w1-mean-share-xtick_3">
+     <g id="w1-mean-share-line2d_3">
+      <g>
+       <use xlink:href="#w1-mean-share-m94bc1ed31f" x="142.873043" y="201.6" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w1-mean-share-text_3">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="142.873043" y="218.098047" transform="rotate(-0 142.873043 218.098047)">3</text>
+     </g>
+    </g>
+    <g id="w1-mean-share-xtick_4">
+     <g id="w1-mean-share-line2d_4">
+      <g>
+       <use xlink:href="#w1-mean-share-m94bc1ed31f" x="181.001311" y="201.6" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w1-mean-share-text_4">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="181.001311" y="218.098047" transform="rotate(-0 181.001311 218.098047)">4</text>
+     </g>
+    </g>
+    <g id="w1-mean-share-xtick_5">
+     <g id="w1-mean-share-line2d_5">
+      <g>
+       <use xlink:href="#w1-mean-share-m94bc1ed31f" x="219.129578" y="201.6" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w1-mean-share-text_5">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="219.129578" y="218.098047" transform="rotate(-0 219.129578 218.098047)">5</text>
+     </g>
+    </g>
+    <g id="w1-mean-share-text_6">
+     <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="142.873043" y="234.195703" transform="rotate(-0 142.873043 234.195703)">Student record</text>
+    </g>
+   </g>
+   <g id="w1-mean-share-matplotlib.axis_2">
+    <g id="w1-mean-share-ytick_1">
+     <g id="w1-mean-share-line2d_6">
+      <defs>
+       <path id="w1-mean-share-mec136feb11" d="M 0 0 L -3.5 0" style="stroke: #536675; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#w1-mean-share-mec136feb11" x="45.36" y="201.6" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w1-mean-share-text_7">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #536675" x="38.36" y="206.349023" transform="rotate(-0 38.36 206.349023)">0</text>
+     </g>
+    </g>
+    <g id="w1-mean-share-ytick_2">
+     <g id="w1-mean-share-line2d_7">
+      <g>
+       <use xlink:href="#w1-mean-share-mec136feb11" x="45.36" y="166.437209" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w1-mean-share-text_8">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #536675" x="38.36" y="171.186233" transform="rotate(-0 38.36 171.186233)">2</text>
+     </g>
+    </g>
+    <g id="w1-mean-share-ytick_3">
+     <g id="w1-mean-share-line2d_8">
+      <g>
+       <use xlink:href="#w1-mean-share-mec136feb11" x="45.36" y="131.274419" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w1-mean-share-text_9">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #536675" x="38.36" y="136.023442" transform="rotate(-0 38.36 136.023442)">4</text>
+     </g>
+    </g>
+    <g id="w1-mean-share-ytick_4">
+     <g id="w1-mean-share-line2d_9">
+      <g>
+       <use xlink:href="#w1-mean-share-mec136feb11" x="45.36" y="96.111628" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w1-mean-share-text_10">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #536675" x="38.36" y="100.860651" transform="rotate(-0 38.36 100.860651)">6</text>
+     </g>
+    </g>
+    <g id="w1-mean-share-ytick_5">
+     <g id="w1-mean-share-line2d_10">
+      <g>
+       <use xlink:href="#w1-mean-share-mec136feb11" x="45.36" y="60.948837" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w1-mean-share-text_11">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #536675" x="38.36" y="65.697861" transform="rotate(-0 38.36 65.697861)">8</text>
+     </g>
+    </g>
+    <g id="w1-mean-share-text_12">
+     <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="23.807266" y="126" transform="rotate(-90 23.807266 126)">Study hours</text>
+    </g>
+   </g>
+   <g id="w1-mean-share-line2d_11">
+    <path d="M 45.36 113.693023 L 240.386087 113.693023" clip-path="url(#w1-mean-share-p8c1fee0dc2)" style="fill: none; stroke-dasharray: 5.92,2.56; stroke-dashoffset: 0; stroke: #287d76; stroke-width: 1.6"/>
+   </g>
+   <g id="w1-mean-share-patch_8">
+    <path d="M 45.36 201.6 L 45.36 50.4" style="fill: none; stroke: #80919c; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="w1-mean-share-patch_9">
+    <path d="M 45.36 201.6 L 240.386087 201.6" style="fill: none; stroke: #80919c; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="w1-mean-share-text_13">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="66.616509" y="145.339535" transform="rotate(-0 66.616509 145.339535)">3</text>
+   </g>
+   <g id="w1-mean-share-text_14">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="104.744776" y="75.013953" transform="rotate(-0 104.744776 75.013953)">7</text>
+   </g>
+   <g id="w1-mean-share-text_15">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="142.873043" y="75.013953" transform="rotate(-0 142.873043 75.013953)">7</text>
+   </g>
+   <g id="w1-mean-share-text_16">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="181.001311" y="162.92093" transform="rotate(-0 181.001311 162.92093)">2</text>
+   </g>
+   <g id="w1-mean-share-text_17">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="219.129578" y="92.595349" transform="rotate(-0 219.129578 92.595349)">6</text>
+   </g>
+   <g id="w1-mean-share-text_18">
+    <text style="font-size: 11.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="142.873043" y="44.4" transform="rotate(-0 142.873043 44.4)">Recorded study hours</text>
+   </g>
+  </g>
+  <g id="w1-mean-share-axes_2">
+   <g id="w1-mean-share-patch_10">
+    <path d="M 298.893913 201.6 L 493.92 201.6 L 493.92 50.4 L 298.893913 50.4 z" style="fill: #ffffff"/>
+   </g>
+   <g id="w1-mean-share-patch_11">
+    <path d="M 307.758735 201.6 L 332.542109 201.6 L 332.542109 113.693023 L 307.758735 113.693023 z" clip-path="url(#w1-mean-share-p3701965563)" style="fill: #bfd4e4; stroke: #245a81; stroke-linejoin: miter"/>
+   </g>
+   <g id="w1-mean-share-patch_12">
+    <path d="M 345.887002 201.6 L 370.670376 201.6 L 370.670376 113.693023 L 345.887002 113.693023 z" clip-path="url(#w1-mean-share-p3701965563)" style="fill: #bfd4e4; stroke: #245a81; stroke-linejoin: miter"/>
+   </g>
+   <g id="w1-mean-share-patch_13">
+    <path d="M 384.01527 201.6 L 408.798643 201.6 L 408.798643 113.693023 L 384.01527 113.693023 z" clip-path="url(#w1-mean-share-p3701965563)" style="fill: #bfd4e4; stroke: #245a81; stroke-linejoin: miter"/>
+   </g>
+   <g id="w1-mean-share-patch_14">
+    <path d="M 422.143537 201.6 L 446.926911 201.6 L 446.926911 113.693023 L 422.143537 113.693023 z" clip-path="url(#w1-mean-share-p3701965563)" style="fill: #bfd4e4; stroke: #245a81; stroke-linejoin: miter"/>
+   </g>
+   <g id="w1-mean-share-patch_15">
+    <path d="M 460.271804 201.6 L 485.055178 201.6 L 485.055178 113.693023 L 460.271804 113.693023 z" clip-path="url(#w1-mean-share-p3701965563)" style="fill: #bfd4e4; stroke: #245a81; stroke-linejoin: miter"/>
+   </g>
+   <g id="w1-mean-share-matplotlib.axis_3">
+    <g id="w1-mean-share-xtick_6">
+     <g id="w1-mean-share-line2d_12">
+      <g>
+       <use xlink:href="#w1-mean-share-m94bc1ed31f" x="320.150422" y="201.6" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w1-mean-share-text_19">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="320.150422" y="218.098047" transform="rotate(-0 320.150422 218.098047)">1</text>
+     </g>
+    </g>
+    <g id="w1-mean-share-xtick_7">
+     <g id="w1-mean-share-line2d_13">
+      <g>
+       <use xlink:href="#w1-mean-share-m94bc1ed31f" x="358.278689" y="201.6" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w1-mean-share-text_20">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="358.278689" y="218.098047" transform="rotate(-0 358.278689 218.098047)">2</text>
+     </g>
+    </g>
+    <g id="w1-mean-share-xtick_8">
+     <g id="w1-mean-share-line2d_14">
+      <g>
+       <use xlink:href="#w1-mean-share-m94bc1ed31f" x="396.406957" y="201.6" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w1-mean-share-text_21">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="396.406957" y="218.098047" transform="rotate(-0 396.406957 218.098047)">3</text>
+     </g>
+    </g>
+    <g id="w1-mean-share-xtick_9">
+     <g id="w1-mean-share-line2d_15">
+      <g>
+       <use xlink:href="#w1-mean-share-m94bc1ed31f" x="434.535224" y="201.6" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w1-mean-share-text_22">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="434.535224" y="218.098047" transform="rotate(-0 434.535224 218.098047)">4</text>
+     </g>
+    </g>
+    <g id="w1-mean-share-xtick_10">
+     <g id="w1-mean-share-line2d_16">
+      <g>
+       <use xlink:href="#w1-mean-share-m94bc1ed31f" x="472.663491" y="201.6" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w1-mean-share-text_23">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="472.663491" y="218.098047" transform="rotate(-0 472.663491 218.098047)">5</text>
+     </g>
+    </g>
+    <g id="w1-mean-share-text_24">
+     <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="396.406957" y="234.195703" transform="rotate(-0 396.406957 234.195703)">Student record</text>
+    </g>
+   </g>
+   <g id="w1-mean-share-matplotlib.axis_4">
+    <g id="w1-mean-share-ytick_6">
+     <g id="w1-mean-share-line2d_17">
+      <g>
+       <use xlink:href="#w1-mean-share-mec136feb11" x="298.893913" y="201.6" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w1-mean-share-text_25">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #536675" x="291.893913" y="206.349023" transform="rotate(-0 291.893913 206.349023)">0</text>
+     </g>
+    </g>
+    <g id="w1-mean-share-ytick_7">
+     <g id="w1-mean-share-line2d_18">
+      <g>
+       <use xlink:href="#w1-mean-share-mec136feb11" x="298.893913" y="166.437209" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w1-mean-share-text_26">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #536675" x="291.893913" y="171.186233" transform="rotate(-0 291.893913 171.186233)">2</text>
+     </g>
+    </g>
+    <g id="w1-mean-share-ytick_8">
+     <g id="w1-mean-share-line2d_19">
+      <g>
+       <use xlink:href="#w1-mean-share-mec136feb11" x="298.893913" y="131.274419" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w1-mean-share-text_27">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #536675" x="291.893913" y="136.023442" transform="rotate(-0 291.893913 136.023442)">4</text>
+     </g>
+    </g>
+    <g id="w1-mean-share-ytick_9">
+     <g id="w1-mean-share-line2d_20">
+      <g>
+       <use xlink:href="#w1-mean-share-mec136feb11" x="298.893913" y="96.111628" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w1-mean-share-text_28">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #536675" x="291.893913" y="100.860651" transform="rotate(-0 291.893913 100.860651)">6</text>
+     </g>
+    </g>
+    <g id="w1-mean-share-ytick_10">
+     <g id="w1-mean-share-line2d_21">
+      <g>
+       <use xlink:href="#w1-mean-share-mec136feb11" x="298.893913" y="60.948837" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w1-mean-share-text_29">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #536675" x="291.893913" y="65.697861" transform="rotate(-0 291.893913 65.697861)">8</text>
+     </g>
+    </g>
+   </g>
+   <g id="w1-mean-share-line2d_22">
+    <path d="M 298.893913 113.693023 L 493.92 113.693023" clip-path="url(#w1-mean-share-p3701965563)" style="fill: none; stroke-dasharray: 5.92,2.56; stroke-dashoffset: 0; stroke: #287d76; stroke-width: 1.6"/>
+   </g>
+   <g id="w1-mean-share-patch_16">
+    <path d="M 298.893913 201.6 L 298.893913 50.4" style="fill: none; stroke: #80919c; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="w1-mean-share-patch_17">
+    <path d="M 298.893913 201.6 L 493.92 201.6" style="fill: none; stroke: #80919c; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="w1-mean-share-text_30">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="320.150422" y="110.176744" transform="rotate(-0 320.150422 110.176744)">5</text>
+   </g>
+   <g id="w1-mean-share-text_31">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="358.278689" y="110.176744" transform="rotate(-0 358.278689 110.176744)">5</text>
+   </g>
+   <g id="w1-mean-share-text_32">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="396.406957" y="110.176744" transform="rotate(-0 396.406957 110.176744)">5</text>
+   </g>
+   <g id="w1-mean-share-text_33">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="434.535224" y="110.176744" transform="rotate(-0 434.535224 110.176744)">5</text>
+   </g>
+   <g id="w1-mean-share-text_34">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="472.663491" y="110.176744" transform="rotate(-0 472.663491 110.176744)">5</text>
+   </g>
+   <g id="w1-mean-share-text_35">
+    <text style="font-size: 11.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="396.406957" y="44.4" transform="rotate(-0 396.406957 44.4)">Equal share of the same total</text>
+   </g>
+  </g>
+  <g id="w1-mean-share-text_36">
+   <text style="font-size: 11.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #287d76" x="277.2" y="15.12" transform="rotate(-0 277.2 15.12)">3 + 7 + 7 + 2 + 6 = 25 hours; 25 ÷ 5 = 5 hours per student</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="w1-mean-share-p8c1fee0dc2">
+   <rect x="45.36" y="50.4" width="195.026087" height="151.2"/>
+  </clipPath>
+  <clipPath id="w1-mean-share-p3701965563">
+   <rect x="298.893913" y="50.4" width="195.026087" height="151.2"/>
+  </clipPath>
+ </defs>
+</svg></div><figcaption><b>The mean redistributes a total into equal shares</b>The equal-height bars are a way to understand the mean, rather than new observations. The recorded students did not each study five hours. The total is preserved when we divide it equally.</figcaption></figure>
+
+<p>The symbol \(\sum\), capital sigma, means “add.” In \(\sum_{i=1}^{n}x_i\), the index \(i\) visits every observation in order. Here \(x_1=3\), \(x_2=7\), \(x_3=7\), \(x_4=2\), and \(x_5=6\). Both sevens are included.</p><div class="eq">\[\bar x=\frac{\sum_{i=1}^{n}x_i}{n}=\frac{3+7+7+2+6}{5}=\frac{25}{5}=5\text{ hours}.\]</div>
+<p>The <b>median</b> answers a different question: “What value occupies the middle of the ordered observations?” Sort the list first. For an odd number of observations, use the single middle value. For an even number, average the two middle values.</p>
+<figure class="w1-visual" data-visual="w1-median-order"><div class="w1-plot" tabindex="0" role="group" aria-label="The median follows positions in an ordered list; scroll horizontally on narrow screens"><svg id="w1-median-order" role="img" aria-labelledby="w1-median-order-title w1-median-order-desc" xmlns:xlink="http://www.w3.org/1999/xlink" width="504pt" height="230.4pt" viewBox="0 0 504 230.4" xmlns="http://www.w3.org/2000/svg" version="1.1">
+<title id="w1-median-order-title">The median follows positions in an ordered list</title><desc id="w1-median-order-desc">Sorted five-value list2,3,6,7,7 has middle6. A separate four-value example2,3,6,7 has median4.5, the average of3 and6.</desc>
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">#w1-median-order *{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="w1-median-order-figure_1">
+  <g id="w1-median-order-patch_1">
+   <path d="M 0 230.4 L 504 230.4 L 504 0 L 0 0 z" style="fill: #ffffff"/>
+  </g>
+  <g id="w1-median-order-axes_1">
+   <g id="w1-median-order-patch_2">
+    <path d="M 60.619034 73.704665 L 111.783724 73.704665 L 111.783724 46.071403 L 60.619034 46.071403 z" clip-path="url(#w1-median-order-pb546fe339b)" style="fill: #eff4f7; stroke: #a6bdcd; stroke-linejoin: miter"/>
+   </g>
+   <g id="w1-median-order-patch_3">
+    <path d="M 140.563862 73.704665 L 191.728552 73.704665 L 191.728552 46.071403 L 140.563862 46.071403 z" clip-path="url(#w1-median-order-pb546fe339b)" style="fill: #eff4f7; stroke: #a6bdcd; stroke-linejoin: miter"/>
+   </g>
+   <g id="w1-median-order-patch_4">
+    <path d="M 220.50869 73.704665 L 271.673379 73.704665 L 271.673379 46.071403 L 220.50869 46.071403 z" clip-path="url(#w1-median-order-pb546fe339b)" style="fill: #c8dfdc; stroke: #287d76; stroke-width: 2; stroke-linejoin: miter"/>
+   </g>
+   <g id="w1-median-order-patch_5">
+    <path d="M 300.453517 73.704665 L 351.618207 73.704665 L 351.618207 46.071403 L 300.453517 46.071403 z" clip-path="url(#w1-median-order-pb546fe339b)" style="fill: #eff4f7; stroke: #a6bdcd; stroke-linejoin: miter"/>
+   </g>
+   <g id="w1-median-order-patch_6">
+    <path d="M 380.398345 73.704665 L 431.563034 73.704665 L 431.563034 46.071403 L 380.398345 46.071403 z" clip-path="url(#w1-median-order-pb546fe339b)" style="fill: #eff4f7; stroke: #a6bdcd; stroke-linejoin: miter"/>
+   </g>
+   <g id="w1-median-order-text_1">
+    <text style="font-size: 14px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="86.201379" y="63.751159" transform="rotate(-0 86.201379 63.751159)">2</text>
+   </g>
+   <g id="w1-median-order-text_2">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="86.201379" y="85.679079" transform="rotate(-0 86.201379 85.679079)">#1</text>
+   </g>
+   <g id="w1-median-order-text_3">
+    <text style="font-size: 14px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="166.146207" y="63.751159" transform="rotate(-0 166.146207 63.751159)">3</text>
+   </g>
+   <g id="w1-median-order-text_4">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="166.146207" y="85.679079" transform="rotate(-0 166.146207 85.679079)">#2</text>
+   </g>
+   <g id="w1-median-order-text_5">
+    <text style="font-size: 14px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="246.091034" y="63.751159" transform="rotate(-0 246.091034 63.751159)">6</text>
+   </g>
+   <g id="w1-median-order-text_6">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="246.091034" y="85.679079" transform="rotate(-0 246.091034 85.679079)">#3</text>
+   </g>
+   <g id="w1-median-order-text_7">
+    <text style="font-size: 14px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="326.035862" y="63.751159" transform="rotate(-0 326.035862 63.751159)">7</text>
+   </g>
+   <g id="w1-median-order-text_8">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="326.035862" y="85.679079" transform="rotate(-0 326.035862 85.679079)">#4</text>
+   </g>
+   <g id="w1-median-order-text_9">
+    <text style="font-size: 14px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="405.98069" y="63.751159" transform="rotate(-0 405.98069 63.751159)">7</text>
+   </g>
+   <g id="w1-median-order-text_10">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="405.98069" y="85.679079" transform="rotate(-0 405.98069 85.679079)">#5</text>
+   </g>
+   <g id="w1-median-order-text_11">
+    <text style="font-size: 11.2px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: start; fill: #182e40" x="30.24" y="23.952" transform="rotate(-0 30.24 23.952)">Five values: middle position is 3 → median 6</text>
+   </g>
+  </g>
+  <g id="w1-median-order-axes_2">
+   <g id="w1-median-order-patch_7">
+    <path d="M 60.619034 182.027053 L 111.783724 182.027053 L 111.783724 154.393791 L 60.619034 154.393791 z" clip-path="url(#w1-median-order-pa30a718938)" style="fill: #eff4f7; stroke: #a6bdcd; stroke-linejoin: miter"/>
+   </g>
+   <g id="w1-median-order-patch_8">
+    <path d="M 140.563862 182.027053 L 191.728552 182.027053 L 191.728552 154.393791 L 140.563862 154.393791 z" clip-path="url(#w1-median-order-pa30a718938)" style="fill: #c8dfdc; stroke: #287d76; stroke-width: 2; stroke-linejoin: miter"/>
+   </g>
+   <g id="w1-median-order-patch_9">
+    <path d="M 220.50869 182.027053 L 271.673379 182.027053 L 271.673379 154.393791 L 220.50869 154.393791 z" clip-path="url(#w1-median-order-pa30a718938)" style="fill: #c8dfdc; stroke: #287d76; stroke-width: 2; stroke-linejoin: miter"/>
+   </g>
+   <g id="w1-median-order-patch_10">
+    <path d="M 300.453517 182.027053 L 351.618207 182.027053 L 351.618207 154.393791 L 300.453517 154.393791 z" clip-path="url(#w1-median-order-pa30a718938)" style="fill: #eff4f7; stroke: #a6bdcd; stroke-linejoin: miter"/>
+   </g>
+   <g id="w1-median-order-text_12">
+    <text style="font-size: 14px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="86.201379" y="172.073547" transform="rotate(-0 86.201379 172.073547)">2</text>
+   </g>
+   <g id="w1-median-order-text_13">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="86.201379" y="194.001467" transform="rotate(-0 86.201379 194.001467)">#1</text>
+   </g>
+   <g id="w1-median-order-text_14">
+    <text style="font-size: 14px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="166.146207" y="172.073547" transform="rotate(-0 166.146207 172.073547)">3</text>
+   </g>
+   <g id="w1-median-order-text_15">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="166.146207" y="194.001467" transform="rotate(-0 166.146207 194.001467)">#2</text>
+   </g>
+   <g id="w1-median-order-text_16">
+    <text style="font-size: 14px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="246.091034" y="172.073547" transform="rotate(-0 246.091034 172.073547)">6</text>
+   </g>
+   <g id="w1-median-order-text_17">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="246.091034" y="194.001467" transform="rotate(-0 246.091034 194.001467)">#3</text>
+   </g>
+   <g id="w1-median-order-text_18">
+    <text style="font-size: 14px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="326.035862" y="172.073547" transform="rotate(-0 326.035862 172.073547)">7</text>
+   </g>
+   <g id="w1-median-order-text_19">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="326.035862" y="194.001467" transform="rotate(-0 326.035862 194.001467)">#4</text>
+   </g>
+   <g id="w1-median-order-text_20">
+    <text style="font-size: 11.2px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: start; fill: #182e40" x="30.24" y="132.274388" transform="rotate(-0 30.24 132.274388)">Four values: middle positions are 2 and 3 → median (3 + 6)/2 = 4.5</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="w1-median-order-pb546fe339b">
+   <rect x="30.24" y="29.952" width="463.68" height="64.477612"/>
+  </clipPath>
+  <clipPath id="w1-median-order-pa30a718938">
+   <rect x="30.24" y="138.274388" width="463.68" height="64.477612"/>
+  </clipPath>
+ </defs>
+</svg></div><figcaption><b>The median follows positions in an ordered list</b>Sort first and count observations, including repeats. With even n, the median can lie between two recorded values. “Middle” refers to position in the list, rather than halfway between the minimum and maximum.</figcaption></figure>
+
+<p>Our five study times have mean 5 hours and median 6 hours. Both describe center, using different rules. The mean responds to the magnitude of every observation. The median depends on order and middle positions, so changing an already largest value to something even larger may leave the median unchanged. Adding a new observation can change those positions and move the median too.</p><p>Neither summary replaces the graph. An extreme observation is a reason to investigate the record and the measurement process, rather than an automatic reason to delete it. Compare summaries with and without a value as a sensitivity experiment, then explain whether it belongs in the intended analysis.</p><div class="practice"><b>Check your understanding.</b><p>Replace the second study time, 7, with 27, keeping five observations. Predict what happens to the mean and median. Then compare \(\sum x_i^2\) with \((\sum x_i)^2\) for the separate list 1, 2, 3.</p><details><summary>Show explanation</summary><p>The total increases by 20, so the mean increases by \(20/5=4\) hours, from 5 to 9. The sorted replacement list is 2, 3, 6, 7, 27, so the median remains 6. For 1, 2, 3, squaring each value before adding gives \(1+4+9=14\); squaring the total gives \(6^2=36\). Parentheses change the operation.</p></details></div></section>
+<section id="s4"><h2>5. Make variation visible</h2><p>A center tells us where the observations sit, but it cannot tell us how closely they cluster. The <b>deviation</b> \(x_i-\bar x\) measures each observation from the mean. It is negative below the mean, positive above it, and zero at the mean.</p>
+<figure class="w1-visual" data-visual="w1-deviations"><div class="w1-plot" tabindex="0" role="group" aria-label="Squaring prevents positive and negative deviations from cancelling; scroll horizontally on narrow screens"><svg id="w1-deviations" role="img" aria-labelledby="w1-deviations-title w1-deviations-desc" xmlns:xlink="http://www.w3.org/1999/xlink" width="504pt" height="252pt" viewBox="0 0 504 252" xmlns="http://www.w3.org/2000/svg" version="1.1">
+<title id="w1-deviations-title">Squaring prevents positive and negative deviations from cancelling</title><desc id="w1-deviations-desc">Around mean5, deviations for3,7,7,2,6 are minus2,2,2,minus3,1, summing0. Squared deviations4,4,4,9,1 sum22.</desc>
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">#w1-deviations *{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="w1-deviations-figure_1">
+  <g id="w1-deviations-patch_1">
+   <path d="M 0 252 L 504 252 L 504 0 L 0 0 z" style="fill: #ffffff"/>
+  </g>
+  <g id="w1-deviations-axes_1">
+   <g id="w1-deviations-patch_2">
+    <path d="M 50.4 199.08 L 241.043478 199.08 L 241.043478 52.92 L 50.4 52.92 z" style="fill: #ffffff"/>
+   </g>
+   <g id="w1-deviations-patch_3">
+    <path d="M 156.313043 59.563636 L 103.356522 59.563636 L 103.356522 75.625175 L 156.313043 75.625175 z" clip-path="url(#w1-deviations-pa48964c976)" style="fill: #287d76"/>
+   </g>
+   <g id="w1-deviations-patch_4">
+    <path d="M 156.313043 88.766434 L 209.269565 88.766434 L 209.269565 104.827972 L 156.313043 104.827972 z" clip-path="url(#w1-deviations-pa48964c976)" style="fill: #245a81"/>
+   </g>
+   <g id="w1-deviations-patch_5">
+    <path d="M 156.313043 117.969231 L 209.269565 117.969231 L 209.269565 134.030769 L 156.313043 134.030769 z" clip-path="url(#w1-deviations-pa48964c976)" style="fill: #245a81"/>
+   </g>
+   <g id="w1-deviations-patch_6">
+    <path d="M 156.313043 147.172028 L 76.878261 147.172028 L 76.878261 163.233566 L 156.313043 163.233566 z" clip-path="url(#w1-deviations-pa48964c976)" style="fill: #287d76"/>
+   </g>
+   <g id="w1-deviations-patch_7">
+    <path d="M 156.313043 176.374825 L 182.791304 176.374825 L 182.791304 192.436364 L 156.313043 192.436364 z" clip-path="url(#w1-deviations-pa48964c976)" style="fill: #245a81"/>
+   </g>
+   <g id="w1-deviations-matplotlib.axis_1">
+    <g id="w1-deviations-xtick_1">
+     <g id="w1-deviations-line2d_1">
+      <defs>
+       <path id="w1-deviations-m2f2fdf84c2" d="M 0 0 L 0 3.5" style="stroke: #536675; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#w1-deviations-m2f2fdf84c2" x="76.878261" y="199.08" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w1-deviations-text_1">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="76.878261" y="215.578047" transform="rotate(-0 76.878261 215.578047)">−3</text>
+     </g>
+    </g>
+    <g id="w1-deviations-xtick_2">
+     <g id="w1-deviations-line2d_2">
+      <g>
+       <use xlink:href="#w1-deviations-m2f2fdf84c2" x="156.313043" y="199.08" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w1-deviations-text_2">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="156.313043" y="215.578047" transform="rotate(-0 156.313043 215.578047)">0</text>
+     </g>
+    </g>
+    <g id="w1-deviations-xtick_3">
+     <g id="w1-deviations-line2d_3">
+      <g>
+       <use xlink:href="#w1-deviations-m2f2fdf84c2" x="209.269565" y="199.08" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w1-deviations-text_3">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="209.269565" y="215.578047" transform="rotate(-0 209.269565 215.578047)">2</text>
+     </g>
+    </g>
+    <g id="w1-deviations-text_4">
+     <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="145.721739" y="231.675703" transform="rotate(-0 145.721739 231.675703)">Deviation: x − 5</text>
+    </g>
+   </g>
+   <g id="w1-deviations-matplotlib.axis_2">
+    <g id="w1-deviations-ytick_1">
+     <g id="w1-deviations-line2d_4">
+      <defs>
+       <path id="w1-deviations-m00964cb844" d="M 0 0 L -3.5 0" style="stroke: #536675; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#w1-deviations-m00964cb844" x="50.4" y="67.594406" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w1-deviations-text_5">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #536675" x="43.4" y="72.343429" transform="rotate(-0 43.4 72.343429)">x = 3</text>
+     </g>
+    </g>
+    <g id="w1-deviations-ytick_2">
+     <g id="w1-deviations-line2d_5">
+      <g>
+       <use xlink:href="#w1-deviations-m00964cb844" x="50.4" y="96.797203" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w1-deviations-text_6">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #536675" x="43.4" y="101.546226" transform="rotate(-0 43.4 101.546226)">x = 7</text>
+     </g>
+    </g>
+    <g id="w1-deviations-ytick_3">
+     <g id="w1-deviations-line2d_6">
+      <g>
+       <use xlink:href="#w1-deviations-m00964cb844" x="50.4" y="126" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w1-deviations-text_7">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #536675" x="43.4" y="130.749023" transform="rotate(-0 43.4 130.749023)">x = 7</text>
+     </g>
+    </g>
+    <g id="w1-deviations-ytick_4">
+     <g id="w1-deviations-line2d_7">
+      <g>
+       <use xlink:href="#w1-deviations-m00964cb844" x="50.4" y="155.202797" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w1-deviations-text_8">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #536675" x="43.4" y="159.951821" transform="rotate(-0 43.4 159.951821)">x = 2</text>
+     </g>
+    </g>
+    <g id="w1-deviations-ytick_5">
+     <g id="w1-deviations-line2d_8">
+      <g>
+       <use xlink:href="#w1-deviations-m00964cb844" x="50.4" y="184.405594" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w1-deviations-text_9">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #536675" x="43.4" y="189.154618" transform="rotate(-0 43.4 189.154618)">x = 6</text>
+     </g>
+    </g>
+   </g>
+   <g id="w1-deviations-line2d_9">
+    <path d="M 156.313043 199.08 L 156.313043 52.92" clip-path="url(#w1-deviations-pa48964c976)" style="fill: none; stroke: #182e40; stroke-linecap: square"/>
+   </g>
+   <g id="w1-deviations-patch_8">
+    <path d="M 50.4 199.08 L 50.4 52.92" style="fill: none; stroke: #80919c; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="w1-deviations-patch_9">
+    <path d="M 50.4 199.08 L 241.043478 199.08" style="fill: none; stroke: #80919c; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="w1-deviations-text_10">
+    <text style="font-size: 10.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #182e40" x="99.384783" y="70.491749" transform="rotate(-0 99.384783 70.491749)">-2</text>
+   </g>
+   <g id="w1-deviations-text_11">
+    <text style="font-size: 10.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: start; fill: #182e40" x="213.241304" y="99.694547" transform="rotate(-0 213.241304 99.694547)">+2</text>
+   </g>
+   <g id="w1-deviations-text_12">
+    <text style="font-size: 10.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: start; fill: #182e40" x="213.241304" y="128.897344" transform="rotate(-0 213.241304 128.897344)">+2</text>
+   </g>
+   <g id="w1-deviations-text_13">
+    <text style="font-size: 10.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #182e40" x="72.906522" y="158.100141" transform="rotate(-0 72.906522 158.100141)">-3</text>
+   </g>
+   <g id="w1-deviations-text_14">
+    <text style="font-size: 10.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: start; fill: #182e40" x="186.763043" y="187.302938" transform="rotate(-0 186.763043 187.302938)">+1</text>
+   </g>
+   <g id="w1-deviations-text_15">
+    <text style="font-size: 11.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="145.721739" y="46.92" transform="rotate(-0 145.721739 46.92)">Signed gaps cancel</text>
+   </g>
+  </g>
+  <g id="w1-deviations-axes_2">
+   <g id="w1-deviations-patch_10">
+    <path d="M 298.236522 199.08 L 488.88 199.08 L 488.88 52.92 L 298.236522 52.92 z" style="fill: #ffffff"/>
+   </g>
+   <g id="w1-deviations-patch_11">
+    <path d="M 298.236522 59.563636 L 361.784348 59.563636 L 361.784348 75.625175 L 298.236522 75.625175 z" clip-path="url(#w1-deviations-p422e007e22)" style="fill: #d7e8e4; stroke: #287d76; stroke-linejoin: miter"/>
+   </g>
+   <g id="w1-deviations-patch_12">
+    <path d="M 298.236522 88.766434 L 361.784348 88.766434 L 361.784348 104.827972 L 298.236522 104.827972 z" clip-path="url(#w1-deviations-p422e007e22)" style="fill: #d7e8e4; stroke: #287d76; stroke-linejoin: miter"/>
+   </g>
+   <g id="w1-deviations-patch_13">
+    <path d="M 298.236522 117.969231 L 361.784348 117.969231 L 361.784348 134.030769 L 298.236522 134.030769 z" clip-path="url(#w1-deviations-p422e007e22)" style="fill: #d7e8e4; stroke: #287d76; stroke-linejoin: miter"/>
+   </g>
+   <g id="w1-deviations-patch_14">
+    <path d="M 298.236522 147.172028 L 441.21913 147.172028 L 441.21913 163.233566 L 298.236522 163.233566 z" clip-path="url(#w1-deviations-p422e007e22)" style="fill: #d7e8e4; stroke: #287d76; stroke-linejoin: miter"/>
+   </g>
+   <g id="w1-deviations-patch_15">
+    <path d="M 298.236522 176.374825 L 314.123478 176.374825 L 314.123478 192.436364 L 298.236522 192.436364 z" clip-path="url(#w1-deviations-p422e007e22)" style="fill: #d7e8e4; stroke: #287d76; stroke-linejoin: miter"/>
+   </g>
+   <g id="w1-deviations-matplotlib.axis_3">
+    <g id="w1-deviations-xtick_4">
+     <g id="w1-deviations-line2d_10">
+      <g>
+       <use xlink:href="#w1-deviations-m2f2fdf84c2" x="298.236522" y="199.08" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w1-deviations-text_16">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="298.236522" y="215.578047" transform="rotate(-0 298.236522 215.578047)">0.0</text>
+     </g>
+    </g>
+    <g id="w1-deviations-xtick_5">
+     <g id="w1-deviations-line2d_11">
+      <g>
+       <use xlink:href="#w1-deviations-m2f2fdf84c2" x="337.953913" y="199.08" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w1-deviations-text_17">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="337.953913" y="215.578047" transform="rotate(-0 337.953913 215.578047)">2.5</text>
+     </g>
+    </g>
+    <g id="w1-deviations-xtick_6">
+     <g id="w1-deviations-line2d_12">
+      <g>
+       <use xlink:href="#w1-deviations-m2f2fdf84c2" x="377.671304" y="199.08" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w1-deviations-text_18">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="377.671304" y="215.578047" transform="rotate(-0 377.671304 215.578047)">5.0</text>
+     </g>
+    </g>
+    <g id="w1-deviations-xtick_7">
+     <g id="w1-deviations-line2d_13">
+      <g>
+       <use xlink:href="#w1-deviations-m2f2fdf84c2" x="417.388696" y="199.08" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w1-deviations-text_19">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="417.388696" y="215.578047" transform="rotate(-0 417.388696 215.578047)">7.5</text>
+     </g>
+    </g>
+    <g id="w1-deviations-xtick_8">
+     <g id="w1-deviations-line2d_14">
+      <g>
+       <use xlink:href="#w1-deviations-m2f2fdf84c2" x="457.106087" y="199.08" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w1-deviations-text_20">
+      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="457.106087" y="215.578047" transform="rotate(-0 457.106087 215.578047)">10.0</text>
+     </g>
+    </g>
+    <g id="w1-deviations-text_21">
+     <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="393.558261" y="231.675703" transform="rotate(-0 393.558261 231.675703)">Squared deviation (hours²)</text>
+    </g>
+   </g>
+   <g id="w1-deviations-matplotlib.axis_4">
+    <g id="w1-deviations-ytick_6">
+     <g id="w1-deviations-line2d_15">
+      <g>
+       <use xlink:href="#w1-deviations-m00964cb844" x="298.236522" y="67.594406" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+    </g>
+    <g id="w1-deviations-ytick_7">
+     <g id="w1-deviations-line2d_16">
+      <g>
+       <use xlink:href="#w1-deviations-m00964cb844" x="298.236522" y="96.797203" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+    </g>
+    <g id="w1-deviations-ytick_8">
+     <g id="w1-deviations-line2d_17">
+      <g>
+       <use xlink:href="#w1-deviations-m00964cb844" x="298.236522" y="126" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+    </g>
+    <g id="w1-deviations-ytick_9">
+     <g id="w1-deviations-line2d_18">
+      <g>
+       <use xlink:href="#w1-deviations-m00964cb844" x="298.236522" y="155.202797" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+    </g>
+    <g id="w1-deviations-ytick_10">
+     <g id="w1-deviations-line2d_19">
+      <g>
+       <use xlink:href="#w1-deviations-m00964cb844" x="298.236522" y="184.405594" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+    </g>
+   </g>
+   <g id="w1-deviations-patch_16">
+    <path d="M 298.236522 199.08 L 298.236522 52.92" style="fill: none; stroke: #80919c; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="w1-deviations-patch_17">
+    <path d="M 298.236522 199.08 L 488.88 199.08" style="fill: none; stroke: #80919c; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="w1-deviations-text_22">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: start; fill: #182e40" x="365.756087" y="70.629718" transform="rotate(-0 365.756087 70.629718)">4</text>
+   </g>
+   <g id="w1-deviations-text_23">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: start; fill: #182e40" x="365.756087" y="99.832515" transform="rotate(-0 365.756087 99.832515)">4</text>
+   </g>
+   <g id="w1-deviations-text_24">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: start; fill: #182e40" x="365.756087" y="129.035312" transform="rotate(-0 365.756087 129.035312)">4</text>
+   </g>
+   <g id="w1-deviations-text_25">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: start; fill: #182e40" x="445.19087" y="158.23811" transform="rotate(-0 445.19087 158.23811)">9</text>
+   </g>
+   <g id="w1-deviations-text_26">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: start; fill: #182e40" x="318.095217" y="187.440907" transform="rotate(-0 318.095217 187.440907)">1</text>
+   </g>
+   <g id="w1-deviations-text_27">
+    <text style="font-size: 11.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="393.558261" y="46.92" transform="rotate(-0 393.558261 46.92)">Squares accumulate spread</text>
+   </g>
+  </g>
+  <g id="w1-deviations-text_28">
+   <text style="font-size: 11.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #287d76" x="272.16" y="15.12" transform="rotate(-0 272.16 15.12)">Signed total = 0 hours; squared total = 22 hours²</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="w1-deviations-pa48964c976">
+   <rect x="50.4" y="52.92" width="190.643478" height="146.16"/>
+  </clipPath>
+  <clipPath id="w1-deviations-p422e007e22">
+   <rect x="298.236522" y="52.92" width="190.643478" height="146.16"/>
+  </clipPath>
+ </defs>
+</svg></div><figcaption><b>Squaring prevents positive and negative deviations from cancelling</b>The signed sum is zero even though the observations vary. Squaring gives every gap a nonnegative contribution and gives larger gaps more weight. Dividing 22 by n − 1 = 4 gives s² = 5.5 hours²; taking the square root gives s ≈ 2.35 hours.</figcaption></figure>
+
+<p>For 3, 7, 7, 2, 6, the deviations from 5 are −2, +2, +2, −3, +1 hours. Adding those signed gaps gives zero. That cancellation is built into the definition of the mean:</p><div class="eq">\[\sum_{i=1}^{n}(x_i-\bar x)=\sum_{i=1}^{n}x_i-n\bar x=0.\]</div><p>Zero total deviation does not mean zero variation. To make departures accumulate, square each gap. Larger gaps then contribute more strongly. The <b>sample variance</b> \(s^2\) divides the squared total by \(n-1\), and the <b>sample standard deviation</b> \(s\) takes a square root to restore the original units.</p><div class="eq">\[s^2=\frac{\sum_{i=1}^{n}(x_i-\bar x)^2}{n-1}=\frac{4+4+4+9+1}{4}=5.5\text{ hours}^2,\qquad s=\sqrt{5.5}\approx2.35\text{ hours}.\]</div>
+<p>The sample standard deviation describes the scale of variation among the observed study times. It is not literally their average absolute distance from the mean. Variance is in squared units, and standard deviation is in the original units. Report the units when interpreting either.</p>
+<figure class="w1-visual" data-visual="w1-n-minus-one"><div class="w1-plot" tabindex="0" role="group" aria-label="Fitting the mean creates a constraint among the deviations; scroll horizontally on narrow screens"><svg id="w1-n-minus-one" role="img" aria-labelledby="w1-n-minus-one-title w1-n-minus-one-desc" xmlns:xlink="http://www.w3.org/1999/xlink" width="504pt" height="180pt" viewBox="0 0 504 180" xmlns="http://www.w3.org/2000/svg" version="1.1">
+<title id="w1-n-minus-one-title">Fitting the mean creates a constraint among the deviations</title><desc id="w1-n-minus-one-desc">Five boxes show deviations minus2,plus2,plus2,minus3,and unknown. The sum-to-zero constraint forces the final value to be plus1.</desc>
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">#w1-n-minus-one *{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="w1-n-minus-one-figure_1">
+  <g id="w1-n-minus-one-patch_1">
+   <path d="M 0 180 L 504 180 L 504 0 L 0 0 z" style="fill: #ffffff"/>
+  </g>
+  <g id="w1-n-minus-one-axes_1">
+   <g id="w1-n-minus-one-patch_2">
+    <path d="M 19.908 112.32 L 65.052 112.32 L 65.052 69.228 L 19.908 69.228 z" clip-path="url(#w1-n-minus-one-p1b5677a3a9)" style="fill: #eef4f8; stroke: #abc0ce; stroke-linejoin: miter"/>
+   </g>
+   <g id="w1-n-minus-one-patch_3">
+    <path d="M 101.988 112.32 L 147.132 112.32 L 147.132 69.228 L 101.988 69.228 z" clip-path="url(#w1-n-minus-one-p1b5677a3a9)" style="fill: #eef4f8; stroke: #abc0ce; stroke-linejoin: miter"/>
+   </g>
+   <g id="w1-n-minus-one-patch_4">
+    <path d="M 184.068 112.32 L 229.212 112.32 L 229.212 69.228 L 184.068 69.228 z" clip-path="url(#w1-n-minus-one-p1b5677a3a9)" style="fill: #eef4f8; stroke: #abc0ce; stroke-linejoin: miter"/>
+   </g>
+   <g id="w1-n-minus-one-patch_5">
+    <path d="M 266.148 112.32 L 311.292 112.32 L 311.292 69.228 L 266.148 69.228 z" clip-path="url(#w1-n-minus-one-p1b5677a3a9)" style="fill: #eef4f8; stroke: #abc0ce; stroke-linejoin: miter"/>
+   </g>
+   <g id="w1-n-minus-one-patch_6">
+    <path d="M 348.228 112.32 L 393.372 112.32 L 393.372 69.228 L 348.228 69.228 z" clip-path="url(#w1-n-minus-one-p1b5677a3a9)" style="fill: #e4eee9; stroke: #287d76; stroke-linejoin: miter"/>
+   </g>
+   <g id="w1-n-minus-one-text_1">
+    <text style="font-size: 17px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="42.48" y="95.806938" transform="rotate(-0 42.48 95.806938)">−2</text>
+   </g>
+   <g id="w1-n-minus-one-text_2">
+    <text style="font-size: 17px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="124.56" y="95.806938" transform="rotate(-0 124.56 95.806938)">+2</text>
+   </g>
+   <g id="w1-n-minus-one-text_3">
+    <text style="font-size: 17px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="206.64" y="95.806938" transform="rotate(-0 206.64 95.806938)">+2</text>
+   </g>
+   <g id="w1-n-minus-one-text_4">
+    <text style="font-size: 17px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="288.72" y="95.806938" transform="rotate(-0 288.72 95.806938)">−3</text>
+   </g>
+   <g id="w1-n-minus-one-text_5">
+    <text style="font-size: 17px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="370.8" y="95.806938" transform="rotate(-0 370.8 95.806938)">?</text>
+   </g>
+   <g id="w1-n-minus-one-text_6">
+    <text style="font-size: 12px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="206.64" y="47.34" transform="rotate(-0 206.64 47.34)">Once the mean is fixed at 5, the deviations must total zero.</text>
+   </g>
+   <g id="w1-n-minus-one-text_7">
+    <text style="font-size: 11.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #287d76" x="206.64" y="139.68" transform="rotate(-0 206.64 139.68)">The first four total −1, so the final deviation must be +1.</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="w1-n-minus-one-p1b5677a3a9">
+   <rect x="15.12" y="23.4" width="478.8" height="136.8"/>
+  </clipPath>
+ </defs>
+</svg></div><figcaption><b>Fitting the mean creates a constraint among the deviations</b>Only four deviations are free once the sample mean has been fitted. This gives intuition for n − 1. The statistical reason for the adjustment is that the sample mean tends to sit closer to its own observations than an unknown population mean does.</figcaption></figure>
+
+<p>Why \(n-1\)? We used the same observations to estimate their center. Once that mean is fitted, their deviations must sum to zero, so only \(n-1\) can vary freely. This constraint gives intuition for the denominator. Under independent random sampling from a population with finite variance, dividing by \(n-1\) makes sample variance an unbiased estimator of population variance. That claim concerns variance; it does not say that the square root is itself unbiased.</p><p>If the listed observations are the entire population being described, population variance instead divides by \(N\). The choice follows the statistical task. For a sample standard deviation we need at least two observations; for \(n=1\), the denominator would be zero.</p><div class="practice"><b>Check your understanding.</b><p>What does \(s=0\) tell you? Would changing the histogram’s bins change \(s\)?</p><details><summary>Show explanation</summary><p>All observed values equal their sample mean. For a valid sample size of at least two, every squared deviation is then zero. Changing the graph’s bins does not change the original observations or their standard deviation.</p></details></div></section>
+<section id="investigate"><h2>Try it: one set of observations, several representations</h2><p>Start with the five study times. Before adding the extra observation, predict which measure of center will move farther. Check the box, then compare the two plots on the same axis. Read the ordered values and deviation table to explain the changes.</p><div class="sample-explorer" data-preset="study" data-view="center"><p>The linked explorer requires JavaScript. The worked examples and static graphs above show the same calculations.</p></div><p>Then choose <em>Count &amp; graph</em> and the ten sleep reports. Change only the number of bins. Finally choose <em>Collect samples</em> and keep several sample means. Write a sentence distinguishing variation among students from variation among sample means.</p></section>
+<section id="s5"><h2>6. Put the description together</h2><p>Two samples can have the same mean and very different spread. These two five-value samples both have mean 10; the common axis shows what a single center cannot reveal.</p>
+<figure class="w1-visual" data-visual="w1-same-center"><div class="w1-plot" tabindex="0" role="group" aria-label="A measure of center does not tell you how much observations vary; scroll horizontally on narrow screens"><svg id="w1-same-center" role="img" aria-labelledby="w1-same-center-title w1-same-center-desc" xmlns:xlink="http://www.w3.org/1999/xlink" width="504pt" height="230.4pt" viewBox="0 0 504 230.4" xmlns="http://www.w3.org/2000/svg" version="1.1">
+<title id="w1-same-center-title">A measure of center does not tell you how much observations vary</title><desc id="w1-same-center-desc">Two samples share mean10. Values8,9,10,11,12 have sample standard deviation about1.58. Values2,6,10,14,18 have sample standard deviation about6.32.</desc>
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">#w1-same-center *{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="w1-same-center-figure_1">
+  <g id="w1-same-center-patch_1">
+   <path d="M 0 230.4 L 504 230.4 L 504 0 L 0 0 z" style="fill: #ffffff"/>
+  </g>
+  <g id="w1-same-center-axes_1">
+   <g id="w1-same-center-patch_2">
+    <path d="M 55.44 93.820372 L 488.88 93.820372 L 488.88 32.256 L 55.44 32.256 z" style="fill: #ffffff"/>
+   </g>
+   <g id="w1-same-center-matplotlib.axis_1">
+    <g id="w1-same-center-xtick_1">
+     <g id="w1-same-center-line2d_1">
+      <defs>
+       <path id="w1-same-center-m4cbf92ed02" d="M 0 0 L 0 3.5" style="stroke: #536675; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#w1-same-center-m4cbf92ed02" x="55.44" y="93.820372" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+    </g>
+    <g id="w1-same-center-xtick_2">
+     <g id="w1-same-center-line2d_2">
+      <g>
+       <use xlink:href="#w1-same-center-m4cbf92ed02" x="98.784" y="93.820372" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+    </g>
+    <g id="w1-same-center-xtick_3">
+     <g id="w1-same-center-line2d_3">
+      <g>
+       <use xlink:href="#w1-same-center-m4cbf92ed02" x="142.128" y="93.820372" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+    </g>
+    <g id="w1-same-center-xtick_4">
+     <g id="w1-same-center-line2d_4">
+      <g>
+       <use xlink:href="#w1-same-center-m4cbf92ed02" x="185.472" y="93.820372" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+    </g>
+    <g id="w1-same-center-xtick_5">
+     <g id="w1-same-center-line2d_5">
+      <g>
+       <use xlink:href="#w1-same-center-m4cbf92ed02" x="228.816" y="93.820372" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+    </g>
+    <g id="w1-same-center-xtick_6">
+     <g id="w1-same-center-line2d_6">
+      <g>
+       <use xlink:href="#w1-same-center-m4cbf92ed02" x="272.16" y="93.820372" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+    </g>
+    <g id="w1-same-center-xtick_7">
+     <g id="w1-same-center-line2d_7">
+      <g>
+       <use xlink:href="#w1-same-center-m4cbf92ed02" x="315.504" y="93.820372" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+    </g>
+    <g id="w1-same-center-xtick_8">
+     <g id="w1-same-center-line2d_8">
+      <g>
+       <use xlink:href="#w1-same-center-m4cbf92ed02" x="358.848" y="93.820372" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+    </g>
+    <g id="w1-same-center-xtick_9">
+     <g id="w1-same-center-line2d_9">
+      <g>
+       <use xlink:href="#w1-same-center-m4cbf92ed02" x="402.192" y="93.820372" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+    </g>
+    <g id="w1-same-center-xtick_10">
+     <g id="w1-same-center-line2d_10">
+      <g>
+       <use xlink:href="#w1-same-center-m4cbf92ed02" x="445.536" y="93.820372" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+    </g>
+    <g id="w1-same-center-xtick_11">
+     <g id="w1-same-center-line2d_11">
+      <g>
+       <use xlink:href="#w1-same-center-m4cbf92ed02" x="488.88" y="93.820372" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+    </g>
+   </g>
+   <g id="w1-same-center-matplotlib.axis_2"/>
+   <g id="w1-same-center-line2d_12">
+    <path d="M 272.16 93.820372 L 272.16 32.256" clip-path="url(#w1-same-center-p5e16aec2df)" style="fill: none; stroke-dasharray: 5.55,2.4; stroke-dashoffset: 0; stroke: #287d76; stroke-width: 1.5"/>
+   </g>
+   <g id="w1-same-center-patch_3">
+    <path d="M 55.44 93.820372 L 488.88 93.820372" style="fill: none; stroke: #80919c; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="w1-same-center-text_1">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: start; fill: #182e40" x="64.1088" y="44.568874" transform="rotate(-0 64.1088 44.568874)">Tightly clustered</text>
+   </g>
+   <g id="w1-same-center-text_2">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #287d76" x="484.5456" y="44.568874" transform="rotate(-0 484.5456 44.568874)">mean = 10; s ≈ 1.58</text>
+   </g>
+   <g id="w1-same-center-PathCollection_1">
+    <defs>
+     <path id="w1-same-center-m5fc7deb4f5" d="M 0 4.1833 C 1.109424 4.1833 2.173559 3.742521 2.95804 2.95804 C 3.742521 2.173559 4.1833 1.109424 4.1833 0 C 4.1833 -1.109424 3.742521 -2.173559 2.95804 -2.95804 C 2.173559 -3.742521 1.109424 -4.1833 0 -4.1833 C -1.109424 -4.1833 -2.173559 -3.742521 -2.95804 -2.95804 C -3.742521 -2.173559 -4.1833 -1.109424 -4.1833 0 C -4.1833 1.109424 -3.742521 2.173559 -2.95804 2.95804 C -2.173559 3.742521 -1.109424 4.1833 0 4.1833 z" style="stroke: #ffffff; stroke-width: 0.6"/>
+    </defs>
+    <g clip-path="url(#w1-same-center-p5e16aec2df)">
+     <use xlink:href="#w1-same-center-m5fc7deb4f5" x="228.816" y="75.946845" style="fill: #245a81; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w1-same-center-PathCollection_2">
+    <g clip-path="url(#w1-same-center-p5e16aec2df)">
+     <use xlink:href="#w1-same-center-m5fc7deb4f5" x="250.488" y="75.946845" style="fill: #245a81; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w1-same-center-PathCollection_3">
+    <g clip-path="url(#w1-same-center-p5e16aec2df)">
+     <use xlink:href="#w1-same-center-m5fc7deb4f5" x="272.16" y="75.946845" style="fill: #245a81; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w1-same-center-PathCollection_4">
+    <g clip-path="url(#w1-same-center-p5e16aec2df)">
+     <use xlink:href="#w1-same-center-m5fc7deb4f5" x="293.832" y="75.946845" style="fill: #245a81; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w1-same-center-PathCollection_5">
+    <g clip-path="url(#w1-same-center-p5e16aec2df)">
+     <use xlink:href="#w1-same-center-m5fc7deb4f5" x="315.504" y="75.946845" style="fill: #245a81; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+  </g>
+  <g id="w1-same-center-axes_2">
+   <g id="w1-same-center-patch_4">
+    <path d="M 55.44 184.32 L 488.88 184.32 L 488.88 122.755628 L 55.44 122.755628 z" style="fill: #ffffff"/>
+   </g>
+   <g id="w1-same-center-matplotlib.axis_3">
+    <g id="w1-same-center-xtick_12">
+     <g id="w1-same-center-line2d_13">
+      <g>
+       <use xlink:href="#w1-same-center-m4cbf92ed02" x="55.44" y="184.32" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w1-same-center-text_3">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="55.44" y="199.678281" transform="rotate(-0 55.44 199.678281)">0</text>
+     </g>
+    </g>
+    <g id="w1-same-center-xtick_13">
+     <g id="w1-same-center-line2d_14">
+      <g>
+       <use xlink:href="#w1-same-center-m4cbf92ed02" x="98.784" y="184.32" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w1-same-center-text_4">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="98.784" y="199.678281" transform="rotate(-0 98.784 199.678281)">2</text>
+     </g>
+    </g>
+    <g id="w1-same-center-xtick_14">
+     <g id="w1-same-center-line2d_15">
+      <g>
+       <use xlink:href="#w1-same-center-m4cbf92ed02" x="142.128" y="184.32" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w1-same-center-text_5">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="142.128" y="199.678281" transform="rotate(-0 142.128 199.678281)">4</text>
+     </g>
+    </g>
+    <g id="w1-same-center-xtick_15">
+     <g id="w1-same-center-line2d_16">
+      <g>
+       <use xlink:href="#w1-same-center-m4cbf92ed02" x="185.472" y="184.32" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w1-same-center-text_6">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="185.472" y="199.678281" transform="rotate(-0 185.472 199.678281)">6</text>
+     </g>
+    </g>
+    <g id="w1-same-center-xtick_16">
+     <g id="w1-same-center-line2d_17">
+      <g>
+       <use xlink:href="#w1-same-center-m4cbf92ed02" x="228.816" y="184.32" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w1-same-center-text_7">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="228.816" y="199.678281" transform="rotate(-0 228.816 199.678281)">8</text>
+     </g>
+    </g>
+    <g id="w1-same-center-xtick_17">
+     <g id="w1-same-center-line2d_18">
+      <g>
+       <use xlink:href="#w1-same-center-m4cbf92ed02" x="272.16" y="184.32" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w1-same-center-text_8">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="272.16" y="199.678281" transform="rotate(-0 272.16 199.678281)">10</text>
+     </g>
+    </g>
+    <g id="w1-same-center-xtick_18">
+     <g id="w1-same-center-line2d_19">
+      <g>
+       <use xlink:href="#w1-same-center-m4cbf92ed02" x="315.504" y="184.32" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w1-same-center-text_9">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="315.504" y="199.678281" transform="rotate(-0 315.504 199.678281)">12</text>
+     </g>
+    </g>
+    <g id="w1-same-center-xtick_19">
+     <g id="w1-same-center-line2d_20">
+      <g>
+       <use xlink:href="#w1-same-center-m4cbf92ed02" x="358.848" y="184.32" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w1-same-center-text_10">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="358.848" y="199.678281" transform="rotate(-0 358.848 199.678281)">14</text>
+     </g>
+    </g>
+    <g id="w1-same-center-xtick_20">
+     <g id="w1-same-center-line2d_21">
+      <g>
+       <use xlink:href="#w1-same-center-m4cbf92ed02" x="402.192" y="184.32" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w1-same-center-text_11">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="402.192" y="199.678281" transform="rotate(-0 402.192 199.678281)">16</text>
+     </g>
+    </g>
+    <g id="w1-same-center-xtick_21">
+     <g id="w1-same-center-line2d_22">
+      <g>
+       <use xlink:href="#w1-same-center-m4cbf92ed02" x="445.536" y="184.32" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w1-same-center-text_12">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="445.536" y="199.678281" transform="rotate(-0 445.536 199.678281)">18</text>
+     </g>
+    </g>
+    <g id="w1-same-center-xtick_22">
+     <g id="w1-same-center-line2d_23">
+      <g>
+       <use xlink:href="#w1-same-center-m4cbf92ed02" x="488.88" y="184.32" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w1-same-center-text_13">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="488.88" y="199.678281" transform="rotate(-0 488.88 199.678281)">20</text>
+     </g>
+    </g>
+    <g id="w1-same-center-text_14">
+     <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="272.16" y="215.463984" transform="rotate(-0 272.16 215.463984)">Measured value (same units and scale in both rows)</text>
+    </g>
+   </g>
+   <g id="w1-same-center-matplotlib.axis_4"/>
+   <g id="w1-same-center-line2d_24">
+    <path d="M 272.16 184.32 L 272.16 122.755628" clip-path="url(#w1-same-center-p05f18b47a9)" style="fill: none; stroke-dasharray: 5.55,2.4; stroke-dashoffset: 0; stroke: #287d76; stroke-width: 1.5"/>
+   </g>
+   <g id="w1-same-center-patch_5">
+    <path d="M 55.44 184.32 L 488.88 184.32" style="fill: none; stroke: #80919c; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="w1-same-center-text_15">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: start; fill: #182e40" x="64.1088" y="135.068502" transform="rotate(-0 64.1088 135.068502)">More spread out</text>
+   </g>
+   <g id="w1-same-center-text_16">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #287d76" x="484.5456" y="135.068502" transform="rotate(-0 484.5456 135.068502)">mean = 10; s ≈ 6.32</text>
+   </g>
+   <g id="w1-same-center-PathCollection_6">
+    <g clip-path="url(#w1-same-center-p05f18b47a9)">
+     <use xlink:href="#w1-same-center-m5fc7deb4f5" x="98.784" y="166.446473" style="fill: #245a81; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w1-same-center-PathCollection_7">
+    <g clip-path="url(#w1-same-center-p05f18b47a9)">
+     <use xlink:href="#w1-same-center-m5fc7deb4f5" x="185.472" y="166.446473" style="fill: #245a81; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w1-same-center-PathCollection_8">
+    <g clip-path="url(#w1-same-center-p05f18b47a9)">
+     <use xlink:href="#w1-same-center-m5fc7deb4f5" x="272.16" y="166.446473" style="fill: #245a81; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w1-same-center-PathCollection_9">
+    <g clip-path="url(#w1-same-center-p05f18b47a9)">
+     <use xlink:href="#w1-same-center-m5fc7deb4f5" x="358.848" y="166.446473" style="fill: #245a81; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w1-same-center-PathCollection_10">
+    <g clip-path="url(#w1-same-center-p05f18b47a9)">
+     <use xlink:href="#w1-same-center-m5fc7deb4f5" x="445.536" y="166.446473" style="fill: #245a81; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="w1-same-center-p5e16aec2df">
+   <rect x="55.44" y="32.256" width="433.44" height="61.564372"/>
+  </clipPath>
+  <clipPath id="w1-same-center-p05f18b47a9">
+   <rect x="55.44" y="122.755628" width="433.44" height="61.564372"/>
+  </clipPath>
+ </defs>
+</svg></div><figcaption><b>A measure of center does not tell you how much observations vary</b>A common axis makes the comparison fair. Both means are 10, yet the second sample’s standard deviation is four times the first. Each plot and each standard deviation describes the variation among individual observations.</figcaption></figure>
+
+<p>Describe the <b>shape</b> too: where do observations cluster, are there gaps, and does one side extend farther? A roughly symmetric distribution has similar sides. A right-skewed distribution has a longer right tail; a left-skewed one has a longer left tail.</p>
+<figure class="w1-visual" data-visual="w1-shape"><div class="w1-plot" tabindex="0" role="group" aria-label="Name skewness by the direction of the longer tail; scroll horizontally on narrow screens"><svg id="w1-shape" role="img" aria-labelledby="w1-shape-title w1-shape-desc" xmlns:xlink="http://www.w3.org/1999/xlink" width="504pt" height="226.8pt" viewBox="0 0 504 226.8" xmlns="http://www.w3.org/2000/svg" version="1.1">
+<title id="w1-shape-title">Name skewness by the direction of the longer tail</title><desc id="w1-shape-desc">Three invented nine-value samples show roughly symmetric shape, a tail extending right to9, and a tail extending left to1.</desc>
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">#w1-shape *{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="w1-shape-figure_1">
+  <g id="w1-shape-patch_1">
+   <path d="M 0 226.8 L 504 226.8 L 504 0 L 0 0 z" style="fill: #ffffff"/>
+  </g>
+  <g id="w1-shape-axes_1">
+   <g id="w1-shape-patch_2">
+    <path d="M 30.24 174.636 L 161.967273 174.636 L 161.967273 47.628 L 30.24 47.628 z" style="fill: #ffffff"/>
+   </g>
+   <g id="w1-shape-matplotlib.axis_1">
+    <g id="w1-shape-xtick_1">
+     <g id="w1-shape-line2d_1">
+      <defs>
+       <path id="w1-shape-m7fbaf3149e" d="M 0 0 L 0 3.5" style="stroke: #536675; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#w1-shape-m7fbaf3149e" x="30.24" y="174.636" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w1-shape-text_1">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="30.24" y="189.994281" transform="rotate(-0 30.24 189.994281)">0</text>
+     </g>
+    </g>
+    <g id="w1-shape-xtick_2">
+     <g id="w1-shape-line2d_2">
+      <g>
+       <use xlink:href="#w1-shape-m7fbaf3149e" x="96.103636" y="174.636" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w1-shape-text_2">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="96.103636" y="189.994281" transform="rotate(-0 96.103636 189.994281)">5</text>
+     </g>
+    </g>
+    <g id="w1-shape-xtick_3">
+     <g id="w1-shape-line2d_3">
+      <g>
+       <use xlink:href="#w1-shape-m7fbaf3149e" x="161.967273" y="174.636" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w1-shape-text_3">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="161.967273" y="189.994281" transform="rotate(-0 161.967273 189.994281)">10</text>
+     </g>
+    </g>
+    <g id="w1-shape-text_4">
+     <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="96.103636" y="205.779984" transform="rotate(-0 96.103636 205.779984)">Measured value</text>
+    </g>
+   </g>
+   <g id="w1-shape-matplotlib.axis_2"/>
+   <g id="w1-shape-patch_3">
+    <path d="M 30.24 174.636 L 161.967273 174.636" style="fill: none; stroke: #80919c; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="w1-shape-text_5">
+    <text style="font-size: 11.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="96.103636" y="35.628" transform="rotate(-0 96.103636 35.628)">Roughly symmetric</text>
+   </g>
+   <g id="w1-shape-PathCollection_1">
+    <defs>
+     <path id="w1-shape-m9a7a9cf39e" d="M 0 3.464102 C 0.91869 3.464102 1.799877 3.099102 2.44949 2.44949 C 3.099102 1.799877 3.464102 0.91869 3.464102 0 C 3.464102 -0.91869 3.099102 -1.799877 2.44949 -2.44949 C 1.799877 -3.099102 0.91869 -3.464102 0 -3.464102 C -0.91869 -3.464102 -1.799877 -3.099102 -2.44949 -2.44949 C -3.099102 -1.799877 -3.464102 -0.91869 -3.464102 0 C -3.464102 0.91869 -3.099102 1.799877 -2.44949 2.44949 C -1.799877 3.099102 -0.91869 3.464102 0 3.464102 z" style="stroke: #ffffff; stroke-width: 0.6"/>
+    </defs>
+    <g clip-path="url(#w1-shape-paaf11115db)">
+     <use xlink:href="#w1-shape-m9a7a9cf39e" x="43.412727" y="155.096308" style="fill: #245a81; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w1-shape-PathCollection_2">
+    <g clip-path="url(#w1-shape-paaf11115db)">
+     <use xlink:href="#w1-shape-m9a7a9cf39e" x="56.585455" y="155.096308" style="fill: #245a81; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w1-shape-PathCollection_3">
+    <g clip-path="url(#w1-shape-paaf11115db)">
+     <use xlink:href="#w1-shape-m9a7a9cf39e" x="56.585455" y="129.694708" style="fill: #245a81; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w1-shape-PathCollection_4">
+    <g clip-path="url(#w1-shape-paaf11115db)">
+     <use xlink:href="#w1-shape-m9a7a9cf39e" x="69.758182" y="155.096308" style="fill: #245a81; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w1-shape-PathCollection_5">
+    <g clip-path="url(#w1-shape-paaf11115db)">
+     <use xlink:href="#w1-shape-m9a7a9cf39e" x="69.758182" y="129.694708" style="fill: #245a81; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w1-shape-PathCollection_6">
+    <g clip-path="url(#w1-shape-paaf11115db)">
+     <use xlink:href="#w1-shape-m9a7a9cf39e" x="69.758182" y="104.293108" style="fill: #245a81; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w1-shape-PathCollection_7">
+    <g clip-path="url(#w1-shape-paaf11115db)">
+     <use xlink:href="#w1-shape-m9a7a9cf39e" x="82.930909" y="155.096308" style="fill: #245a81; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w1-shape-PathCollection_8">
+    <g clip-path="url(#w1-shape-paaf11115db)">
+     <use xlink:href="#w1-shape-m9a7a9cf39e" x="82.930909" y="129.694708" style="fill: #245a81; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w1-shape-PathCollection_9">
+    <g clip-path="url(#w1-shape-paaf11115db)">
+     <use xlink:href="#w1-shape-m9a7a9cf39e" x="96.103636" y="155.096308" style="fill: #245a81; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+  </g>
+  <g id="w1-shape-axes_2">
+   <g id="w1-shape-patch_4">
+    <path d="M 196.216364 174.636 L 327.943636 174.636 L 327.943636 47.628 L 196.216364 47.628 z" style="fill: #ffffff"/>
+   </g>
+   <g id="w1-shape-matplotlib.axis_3">
+    <g id="w1-shape-xtick_4">
+     <g id="w1-shape-line2d_4">
+      <g>
+       <use xlink:href="#w1-shape-m7fbaf3149e" x="196.216364" y="174.636" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w1-shape-text_6">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="196.216364" y="189.994281" transform="rotate(-0 196.216364 189.994281)">0</text>
+     </g>
+    </g>
+    <g id="w1-shape-xtick_5">
+     <g id="w1-shape-line2d_5">
+      <g>
+       <use xlink:href="#w1-shape-m7fbaf3149e" x="262.08" y="174.636" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w1-shape-text_7">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="262.08" y="189.994281" transform="rotate(-0 262.08 189.994281)">5</text>
+     </g>
+    </g>
+    <g id="w1-shape-xtick_6">
+     <g id="w1-shape-line2d_6">
+      <g>
+       <use xlink:href="#w1-shape-m7fbaf3149e" x="327.943636" y="174.636" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w1-shape-text_8">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="327.943636" y="189.994281" transform="rotate(-0 327.943636 189.994281)">10</text>
+     </g>
+    </g>
+    <g id="w1-shape-text_9">
+     <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="262.08" y="205.779984" transform="rotate(-0 262.08 205.779984)">Measured value</text>
+    </g>
+   </g>
+   <g id="w1-shape-matplotlib.axis_4"/>
+   <g id="w1-shape-patch_5">
+    <path d="M 196.216364 174.636 L 327.943636 174.636" style="fill: none; stroke: #80919c; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="w1-shape-patch_6">
+    <path d="M 274.475444 90.599006 Q 292.753081 118.107694 310.411986 144.685163" style="fill: none; stroke: #ad6b15; stroke-linecap: round"/>
+    <path d="M 309.836769 140.024784 L 310.411986 144.685163 L 306.338553 142.349109" style="fill: none; stroke: #ad6b15; stroke-linecap: round"/>
+   </g>
+   <g id="w1-shape-text_10">
+    <text style="font-size: 10.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #ad6b15" x="268.666364" y="84.753415" transform="rotate(-0 268.666364 84.753415)">tail</text>
+   </g>
+   <g id="w1-shape-text_11">
+    <text style="font-size: 11.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="262.08" y="35.628" transform="rotate(-0 262.08 35.628)">Right tail</text>
+   </g>
+   <g id="w1-shape-PathCollection_10">
+    <g clip-path="url(#w1-shape-pd4de17e41e)">
+     <use xlink:href="#w1-shape-m9a7a9cf39e" x="209.389091" y="155.096308" style="fill: #245a81; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w1-shape-PathCollection_11">
+    <g clip-path="url(#w1-shape-pd4de17e41e)">
+     <use xlink:href="#w1-shape-m9a7a9cf39e" x="209.389091" y="129.694708" style="fill: #245a81; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w1-shape-PathCollection_12">
+    <g clip-path="url(#w1-shape-pd4de17e41e)">
+     <use xlink:href="#w1-shape-m9a7a9cf39e" x="209.389091" y="104.293108" style="fill: #245a81; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w1-shape-PathCollection_13">
+    <g clip-path="url(#w1-shape-pd4de17e41e)">
+     <use xlink:href="#w1-shape-m9a7a9cf39e" x="222.561818" y="155.096308" style="fill: #245a81; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w1-shape-PathCollection_14">
+    <g clip-path="url(#w1-shape-pd4de17e41e)">
+     <use xlink:href="#w1-shape-m9a7a9cf39e" x="222.561818" y="129.694708" style="fill: #245a81; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w1-shape-PathCollection_15">
+    <g clip-path="url(#w1-shape-pd4de17e41e)">
+     <use xlink:href="#w1-shape-m9a7a9cf39e" x="235.734545" y="155.096308" style="fill: #245a81; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w1-shape-PathCollection_16">
+    <g clip-path="url(#w1-shape-pd4de17e41e)">
+     <use xlink:href="#w1-shape-m9a7a9cf39e" x="248.907273" y="155.096308" style="fill: #245a81; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w1-shape-PathCollection_17">
+    <g clip-path="url(#w1-shape-pd4de17e41e)">
+     <use xlink:href="#w1-shape-m9a7a9cf39e" x="275.252727" y="155.096308" style="fill: #245a81; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w1-shape-PathCollection_18">
+    <g clip-path="url(#w1-shape-pd4de17e41e)">
+     <use xlink:href="#w1-shape-m9a7a9cf39e" x="314.770909" y="155.096308" style="fill: #245a81; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+  </g>
+  <g id="w1-shape-axes_3">
+   <g id="w1-shape-patch_7">
+    <path d="M 362.192727 174.636 L 493.92 174.636 L 493.92 47.628 L 362.192727 47.628 z" style="fill: #ffffff"/>
+   </g>
+   <g id="w1-shape-matplotlib.axis_5">
+    <g id="w1-shape-xtick_7">
+     <g id="w1-shape-line2d_7">
+      <g>
+       <use xlink:href="#w1-shape-m7fbaf3149e" x="362.192727" y="174.636" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w1-shape-text_12">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="362.192727" y="189.994281" transform="rotate(-0 362.192727 189.994281)">0</text>
+     </g>
+    </g>
+    <g id="w1-shape-xtick_8">
+     <g id="w1-shape-line2d_8">
+      <g>
+       <use xlink:href="#w1-shape-m7fbaf3149e" x="428.056364" y="174.636" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w1-shape-text_13">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="428.056364" y="189.994281" transform="rotate(-0 428.056364 189.994281)">5</text>
+     </g>
+    </g>
+    <g id="w1-shape-xtick_9">
+     <g id="w1-shape-line2d_9">
+      <g>
+       <use xlink:href="#w1-shape-m7fbaf3149e" x="493.92" y="174.636" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="w1-shape-text_14">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="493.92" y="189.994281" transform="rotate(-0 493.92 189.994281)">10</text>
+     </g>
+    </g>
+    <g id="w1-shape-text_15">
+     <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="428.056364" y="205.779984" transform="rotate(-0 428.056364 205.779984)">Measured value</text>
+    </g>
+   </g>
+   <g id="w1-shape-matplotlib.axis_6"/>
+   <g id="w1-shape-patch_8">
+    <path d="M 362.192727 174.636 L 493.92 174.636" style="fill: none; stroke: #80919c; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="w1-shape-patch_9">
+    <path d="M 415.494638 90.584762 Q 396.653663 118.107284 378.444247 144.707237" style="fill: none; stroke: #ad6b15; stroke-linecap: round"/>
+    <path d="M 382.549616 142.427776 L 378.444247 144.707237 L 379.0839 140.055265" style="fill: none; stroke: #ad6b15; stroke-linecap: round"/>
+   </g>
+   <g id="w1-shape-text_16">
+    <text style="font-size: 10.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #ad6b15" x="421.47" y="84.753415" transform="rotate(-0 421.47 84.753415)">tail</text>
+   </g>
+   <g id="w1-shape-text_17">
+    <text style="font-size: 11.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="428.056364" y="35.628" transform="rotate(-0 428.056364 35.628)">Left tail</text>
+   </g>
+   <g id="w1-shape-PathCollection_19">
+    <g clip-path="url(#w1-shape-peddaaa6e43)">
+     <use xlink:href="#w1-shape-m9a7a9cf39e" x="375.365455" y="155.096308" style="fill: #245a81; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w1-shape-PathCollection_20">
+    <g clip-path="url(#w1-shape-peddaaa6e43)">
+     <use xlink:href="#w1-shape-m9a7a9cf39e" x="414.883636" y="155.096308" style="fill: #245a81; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w1-shape-PathCollection_21">
+    <g clip-path="url(#w1-shape-peddaaa6e43)">
+     <use xlink:href="#w1-shape-m9a7a9cf39e" x="441.229091" y="155.096308" style="fill: #245a81; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w1-shape-PathCollection_22">
+    <g clip-path="url(#w1-shape-peddaaa6e43)">
+     <use xlink:href="#w1-shape-m9a7a9cf39e" x="454.401818" y="155.096308" style="fill: #245a81; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w1-shape-PathCollection_23">
+    <g clip-path="url(#w1-shape-peddaaa6e43)">
+     <use xlink:href="#w1-shape-m9a7a9cf39e" x="467.574545" y="155.096308" style="fill: #245a81; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w1-shape-PathCollection_24">
+    <g clip-path="url(#w1-shape-peddaaa6e43)">
+     <use xlink:href="#w1-shape-m9a7a9cf39e" x="467.574545" y="129.694708" style="fill: #245a81; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w1-shape-PathCollection_25">
+    <g clip-path="url(#w1-shape-peddaaa6e43)">
+     <use xlink:href="#w1-shape-m9a7a9cf39e" x="480.747273" y="155.096308" style="fill: #245a81; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w1-shape-PathCollection_26">
+    <g clip-path="url(#w1-shape-peddaaa6e43)">
+     <use xlink:href="#w1-shape-m9a7a9cf39e" x="480.747273" y="129.694708" style="fill: #245a81; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+   <g id="w1-shape-PathCollection_27">
+    <g clip-path="url(#w1-shape-peddaaa6e43)">
+     <use xlink:href="#w1-shape-m9a7a9cf39e" x="480.747273" y="104.293108" style="fill: #245a81; stroke: #ffffff; stroke-width: 0.6"/>
+    </g>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="w1-shape-paaf11115db">
+   <rect x="30.24" y="47.628" width="131.727273" height="127.008"/>
+  </clipPath>
+  <clipPath id="w1-shape-pd4de17e41e">
+   <rect x="196.216364" y="47.628" width="131.727273" height="127.008"/>
+  </clipPath>
+  <clipPath id="w1-shape-peddaaa6e43">
+   <rect x="362.192727" y="47.628" width="131.727273" height="127.008"/>
+  </clipPath>
+ </defs>
+</svg></div><figcaption><b>Name skewness by the direction of the longer tail</b>A tail is a thinning extension of the distribution, not the side with the most observations. Use the graph to describe shape; the relative positions of the mean and median alone do not establish it.</figcaption></figure>
+
+<p>The mean is often pulled toward a long tail or extreme value, but comparing mean and median alone does not determine shape. Equal mean and median do not guarantee symmetry. Standard deviation is also sensitive to extreme values, so describe the graph and context along with the numbers.</p><div class="example"><b>Write a statistical description.</b><p>“In this invented five-student sample, weekly study time ranges from 2 to 7 hours, with mean 5 hours, median 6 hours, and sample standard deviation about 2.35 hours. Two students reported 7 hours. These summaries describe the five records; without a selection process connecting them to the college, they do not establish the college-wide average.”</p></div>
+<div class="bridge"><b>The habit we will keep using.</b><p>Define what one observation represents, inspect the distribution, explain the number in context, and state the scope of the evidence. Next week, probability distributions describe what a random process might produce. Later, repeated samples and confidence intervals help us judge the uncertainty of an estimate. The fixed-population sampling view gives a first picture of why that uncertainty exists.</p></div></section>
+<section id="references"><h2>Continue with the guided activities</h2><p>Use the explorer to investigate, the lab to record your reasoning, and the PDF chapter for additional examples and exercises.</p><a class="pdf-link" href="../demos/Sample_Explorer.html">Week 1 Explorer: count, describe, and sample</a><a class="pdf-link" href="../labs/Math146_Week1_Lab.html">Guided Week 1 laboratory</a><a class="pdf-link" href="../demos/Sample_Statistics.html">Histogram and Sample Statistics Tool: enter your own values</a><a class="pdf-link" href="../PythonStats/python_for_statistics.html#module-1">Python Module 1: records, lists, and sums</a><a class="pdf-link" href="../PythonStats/python_for_statistics.html#module-2">Python Module 2: describe a sample</a><a class="pdf-link" href="../discussions/week1_discussion.html">Discussion: describe the trackway sample</a><a class="pdf-link" href="../textbook/Math146_Ch1.pdf">Chapter 1 PDF: further examples and practice</a><p class="footer-nav"><a href="../index.html">← Course home</a><a href="week2_reading.html">Next reading →</a></p></section></article></main></body></html>

@@ -345,10 +345,10 @@
     </div>
 
     <header class="tool-header">
-      <h1>Math 146 — Histogram and Frequency Table Tool</h1>
+      <p><a href="../index.html">Course home</a> · <a href="../readings/week1_reading.html">Week 1 reading</a> · <a href="Sample_Explorer.html">Guided explorer</a></p><h1>Math 146 — Histogram and Frequency Table Tool</h1>
       <p class="subtitle">Paste data or upload a CSV file, then build a frequency table, histogram, and one-variable statistics summary.</p>
       <div class="notice">
-        Use this page for one quantitative variable at a time. For a CSV file with several columns, choose the column you want to analyze after uploading the file.
+        Use this page for one quantitative variable at a time. First identify the observational unit and units. For a CSV file with several columns, choose the measurement column after uploading; a numeric ID is still a label.
       </div>
     </header>
 
@@ -367,7 +367,7 @@
       </div>
       <div class="button-row">
         <button onclick="processTextInput()">Analyze Pasted Data</button>
-        <button class="ghost" onclick="loadExampleData()">Load Example Data</button>
+        <button class="ghost" onclick="loadExampleData()">Load Example Data</button><button class="ghost" onclick="loadWeek1Data('coffee')">Week 1 coffee data</button><button class="ghost" onclick="loadWeek1Data('texts')">Week 1 message data</button>
         <button class="ghost" onclick="clearAll()">Clear</button>
       </div>
       <div id="status" class="status"></div>
@@ -401,15 +401,12 @@
           </select>
         </div>
       </div>
-      <div class="check-row">
-        <input type="checkbox" id="includeUpperBound" checked onchange="rebuildOutputs()" />
-        <span>Include the right endpoint in the last class interval.</span>
-      </div>
-      <p class="small-note">For most class labs, use “Histogram with class intervals.” Use “Exact-value frequency table” when the data are small whole-number outcomes, like quiz scores from 0 to 10.</p>
+      <p class="small-note">Each histogram bin includes its left endpoint and excludes its right endpoint; the final bin includes both endpoints. Every numerical observation is counted exactly once.</p>
+      <p class="small-note">Use exact frequencies to inspect distinct recorded values and histogram intervals to see a grouped numerical distribution. Changing bins changes the picture, rather than the underlying observations, mean, or standard deviation. Boundary labels retain enough precision to distinguish adjacent bins.</p>
     </section>
 
     <section id="summaryCard" class="card hidden">
-      <h2>Data Summary</h2>
+      <h2>Data Summary</h2><p class="small-note">Read the graph with the summaries. The mean and sample standard deviation are sensitive to extreme values; the median depends on ordered positions. Sample variance has squared units, and standard deviation has the original measurement units. One observation is insufficient for a sample standard deviation.</p>
       <div id="datasetNote" class="small-note"></div>
       <div class="summary-grid" id="statsGrid"></div>
     </section>
@@ -418,7 +415,7 @@
       <h2 id="chartTitle">Histogram</h2>
       <div class="chart-card">
         <div class="chart-wrap">
-          <canvas id="histogram"></canvas>
+          <canvas id="histogram" role="img" aria-label="Frequency graph; the counts are also listed in the frequency table below."></canvas><p id="chartUnavailable" class="small-note" hidden>The chart library did not load. The summary and frequency table below still describe the observations.</p>
         </div>
       </div>
       <div class="button-row no-print">
@@ -469,6 +466,8 @@
     let numericData = [];
     let tableRows = [];
     let chart = null;
+    let selectionLabel = '';
+    let excludedCount = 0;
 
     fileInput.addEventListener('change', handleFile);
 
@@ -519,8 +518,9 @@
       const bestIndex = findBestNumericColumn(csvRows);
       columnSelect.value = String(bestIndex);
       columnControl.classList.remove('hidden');
+      controlsCard.classList.remove('hidden');
       processSelectedColumn();
-      showStatus(`Loaded ${fileName}. Choose the column you want to analyze.`, 'good');
+      if(numericData.length) showStatus('Loaded '+fileName+'. Choose the column to analyze. '+excludedCount+' blank or nonnumerical entries excluded from this column.', 'good');
     }
 
     function processTextInput() {
@@ -537,23 +537,27 @@
 
     function processSelectedColumn() {
       const colIndex = Number(columnSelect.value || 0);
-      const values = csvRows.map(row => row[colIndex]).filter(value => value !== undefined && value !== null && String(value).trim() !== '');
+      const values = csvRows.map(row => row[colIndex]);
       const colName = csvHeaders[colIndex] || `Column ${colIndex + 1}`;
-      setNumericData(values, colName, false);
+      setNumericData(values, colName);
     }
 
     function setNumericData(values, label, showMessage = true) {
       const converted = values.map(cleanNumber).filter(value => Number.isFinite(value));
       if (!converted.length) {
+        numericData=[];tableRows=[];tableBody.innerHTML='';statsGrid.innerHTML='';
+        summaryCard.classList.add('hidden');chartCard.classList.add('hidden');tableCard.classList.add('hidden');
+        if(chart){chart.destroy();chart=null;}
         showStatus('No numerical values were found. Check that the selected column contains numbers.', 'bad');
         return;
       }
       numericData = converted.sort((a, b) => a - b);
+      selectionLabel=label;excludedCount=values.length-converted.length;
       controlsCard.classList.remove('hidden');
       summaryCard.classList.remove('hidden');
       chartCard.classList.remove('hidden');
       tableCard.classList.remove('hidden');
-      if (showMessage) showStatus(`Loaded ${numericData.length} numerical values from ${label}.`, 'good');
+      if (showMessage) showStatus('Loaded '+numericData.length+' numerical values from '+label+'. '+excludedCount+' blank or nonnumerical entries excluded.', 'good');
       autoChooseDisplayMode();
       rebuildOutputs();
     }
@@ -578,45 +582,32 @@
       if (window.MathJax) MathJax.typesetPromise?.();
     }
 
+    function labelDigits(step, preferred) {
+      return Math.min(12,Math.max(preferred,Number.isFinite(step)&&step>0?Math.ceil(-Math.log10(step))+1:preferred));
+    }
+
     function buildHistogramRows() {
       const count = Number(document.getElementById('classCount').value);
-      const decimals = Number(document.getElementById('decimals').value);
-      const min = numericData[0];
-      const max = numericData[numericData.length - 1];
-      const includeUpper = document.getElementById('includeUpperBound').checked;
-      if (min === max) {
-        return [{ label: String(roundTo(min, decimals)), frequency: numericData.length, relative: 1, cumulative: 1 }];
-      }
-
-      const rawWidth = (max - min) / count;
-      const width = niceWidth(rawWidth);
-      const start = Math.floor(min / width) * width;
-      const rows = [];
-      let cumulative = 0;
-
-      for (let i = 0; i < count; i++) {
-        const lower = start + i * width;
-        const upper = lower + width;
-        const isLast = i === count - 1;
-        const frequency = numericData.filter(x => {
-          if (isLast && includeUpper) return x >= lower && x <= upper;
-          return x >= lower && x < upper;
-        }).length;
-        if (frequency === 0 && lower > max) continue;
-        cumulative += frequency;
-        rows.push({
-          label: `${formatNumber(lower, decimals)} to ${formatNumber(upper, decimals)}${isLast && includeUpper ? '' : ' (not incl.)'}`,
-          shortLabel: `${formatNumber(lower, decimals)}–${formatNumber(upper, decimals)}`,
-          frequency,
-          relative: frequency / numericData.length,
-          cumulative: cumulative / numericData.length
-        });
-      }
-      return rows.filter(row => row.frequency > 0 || rows.length <= count);
+      const preferred = Number(document.getElementById('decimals').value);
+      const min = numericData[0], max = numericData[numericData.length-1];
+      const lo = min===max ? min-.5 : min, hi = min===max ? max+.5 : max;
+      const bins = min===max ? 1 : count, width = (hi-lo)/bins;
+      const digits=labelDigits(width,preferred);
+      const counts=Array(bins).fill(0);
+      numericData.forEach(x=>counts[Math.min(bins-1,Math.max(0,Math.floor((x-lo)/width))) ]++);
+      let cumulative=0;
+      return counts.map((frequency,i)=>{
+        cumulative+=frequency;
+        const lower=lo+i*width,upper=i===bins-1?hi:lo+(i+1)*width;
+        const label='['+formatNumber(lower,digits)+', '+formatNumber(upper,digits)+(i===bins-1?']':')');
+        return {label,shortLabel:label,frequency,relative:frequency/numericData.length,cumulative:cumulative/numericData.length};
+      });
     }
 
     function buildExactRows() {
-      const decimals = Number(document.getElementById('decimals').value);
+      const preferred = Number(document.getElementById('decimals').value);
+      const gaps=numericData.slice(1).map((x,i)=>x-numericData[i]).filter(x=>x>0);
+      const decimals=labelDigits(gaps.length?Math.min(...gaps):1,preferred);
       const counts = new Map();
       numericData.forEach(value => counts.set(value, (counts.get(value) || 0) + 1));
       let cumulative = 0;
@@ -647,7 +638,7 @@
 
     function renderStats() {
       const stats = calculateStatistics(numericData);
-      datasetNote.textContent = `Dataset: ${sourceName}. Numerical values used: n = ${stats.n}.`;
+      datasetNote.textContent = 'Dataset: '+sourceName+'; selected measurement: '+selectionLabel+'. Numerical values used: n = '+stats.n+'. Blank or nonnumerical entries excluded: '+excludedCount+'.';
       const cards = [
         ['n', stats.n],
         ['Mean', formatNumber(stats.mean, 2)],
@@ -679,6 +670,11 @@
     }
 
     function renderChart(mode) {
+      const fallback=document.getElementById('chartUnavailable');
+      if(typeof Chart==='undefined'){if(fallback)fallback.hidden=false;return;}
+      if(fallback)fallback.hidden=true;
+      document.getElementById('histogram').setAttribute('aria-label',(mode==='histogram'?'Frequency histogram':'Exact-value frequency chart')+' for '+numericData.length+' observations. '+tableRows.map(r=>r.label+': '+r.frequency).join('; '));
+
       const ctx = document.getElementById('histogram').getContext('2d');
       if (chart) chart.destroy();
       chart = new Chart(ctx, {
@@ -774,6 +770,11 @@
       rebuildOutputs();
     }
 
+    function loadWeek1Data(name) {
+      textInput.value=name==='coffee'?'0, 1, 2, 1, 3, 0, 2, 1, 0, 2':'12, 25, 8, 31, 14';
+      processTextInput();
+    }
+
     function loadExampleData() {
       textInput.value = '42, 38, 47, 51, 44, 39, 56, 49, 45, 52, 41, 48, 55, 43, 50, 46, 54, 40, 53, 47, 45, 58, 37, 49, 51';
       processTextInput();
@@ -787,6 +788,7 @@
       csvHeaders = [];
       numericData = [];
       tableRows = [];
+      selectionLabel='';excludedCount=0;
       tableBody.innerHTML = '';
       statsGrid.innerHTML = '';
       columnSelect.innerHTML = '';
