@@ -172,508 +172,61 @@ details summary{line-height:1.35;}
 <label>Date <input id="w1_date" placeholder="mm/dd/yyyy" type="text"/></label>
 </div>
 </header>
-<section aria-labelledby="how-title" class="student-start">
-<h2 id="how-title">How to complete this lab</h2>
-<p>Work through the problems in order. Your goal is not just to get a number, but to connect each calculation to the statistical idea it represents.</p>
-<div class="workflow">
-<div class="step"><strong>1 · Work</strong>Enter your calculation or explanation directly in the page.</div>
-<div class="step"><strong>2 · Check</strong>Use <em>Check</em> for numerical answers. For written work, make an attempt before opening the comparison solution.</div>
-<div class="step"><strong>3 · Prepare</strong>When your work is ready, choose <em>Prepare Submission</em>. Review the clean copy, then save it as a PDF or download the HTML file for submission.</div>
-</div>
-<p class="privacy">Your work autosaves in this browser. <strong>Prepare Submission</strong> creates a read-only copy with your answers written into the page and the worked solutions removed. Nothing is submitted automatically.</p>
-</section>
-<div class="objectives">
-<h2>What you’ll practice</h2>
-<ul>
-<li>Distinguish a population from a sample and match each to the correct symbol (\(\mu\) vs. \(\bar{x}\), \(\sigma\) vs. \(s\)).</li>
-<li>Evaluate summation expressions such as \(\sum x_i\) and \(\sum x_i^2\) for a small data set.</li>
-<li>Build a frequency and relative-frequency table and read percentages from it.</li>
-<li>Compute a sample mean and sample standard deviation by hand, and predict how an outlier changes each.</li>
-</ul>
-</div>
-<div class="scenario lab-question-card"><strong>Lab question:</strong> How can a small set of observations be used to describe a larger group without confusing a sample with the population it represents?<p style="margin:8px 0 0"><strong>Why this matters:</strong> Nearly every inferential method later in the course begins here. A sample gives us statistics we can calculate; the population has parameters we usually cannot observe directly. Descriptive statistics are the first attempt to summarize what the sample is telling us.</p></div>
+<section aria-labelledby="how-title" class="student-start"><h2 id="how-title">Lab instructions</h2><p>Answer the questions below. Your answers save in this browser. Choose <strong>Prepare Submission</strong> when you are ready to save a PDF or HTML copy.</p></section>
+
+
 <div aria-label="Lab controls" class="toolbar student-toolbar no-print">
 <div class="toolbar-main">
 <div class="submission-name-control"><label for="submissionStudentName">Student name</label><input id="submissionStudentName" autocomplete="name" placeholder="Your name" type="text"/></div>
 <button class="primary-action" onclick="createSubmissionCopy()" type="button">Prepare Submission</button>
-<span class="submission-help">Creates a clean copy for PDF or HTML upload.</span>
+
 <button class="danger-soft" onclick="clearData()" type="button">Clear answers</button>
 </div>
 <div class="status-row"><span aria-hidden="true" class="save-dot"></span><span>Saved automatically on this device</span><div aria-hidden="true" class="progress-track"><div class="progress-fill" id="studentProgressFill"></div></div><span aria-live="polite" id="studentProgressText"></span></div>
 <nav aria-label="Jump to a problem" class="problem-nav"><a href="#p0">Sampling investigation</a><a href="#p1">Problem 1</a><a href="#p2">Problem 2</a><a href="#p3">Problem 3</a><a href="#p4">Verify &amp; explain</a></nav>
 </div>
-<div class="problem" id="p0"><h2>Start here — What changes when the sample changes?</h2><p class="problem-goal"><strong>Goal:</strong> Separate variation among individuals from variation among samples.</p><p>The reading’s small commute-time population is an invented teaching model. It is separate from the county sleep survey in Problem 1.</p>
-<figure class="w1-visual" data-visual="w1-population"><div class="w1-plot" tabindex="0" role="group" aria-label="The population is defined by the question; the sample contains the observed cases; scroll horizontally on narrow screens"><svg id="w1-population" role="img" aria-labelledby="w1-population-title w1-population-desc" xmlns:xlink="http://www.w3.org/1999/xlink" width="504pt" height="244.8pt" viewBox="0 0 504 244.8" xmlns="http://www.w3.org/2000/svg" version="1.1">
-<title id="w1-population-title">The population is defined by the question; the sample contains the observed cases</title><desc id="w1-population-desc">An invented population of 24 commute times has mean 19.0. Eight selected values [2, 5, 9, 10, 16, 24, 32, 38] have sample mean 17.0.</desc>
- <metadata>
-  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-   <cc:Work>
-    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
-    <dc:format>image/svg+xml</dc:format>
-    <dc:creator>
-     <cc:Agent>
-      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
-     </cc:Agent>
-    </dc:creator>
-   </cc:Work>
-  </rdf:RDF>
- </metadata>
- <defs>
-  <style type="text/css">#w1-population *{stroke-linejoin: round; stroke-linecap: butt}</style>
- </defs>
- <g id="w1-population-figure_1">
-  <g id="w1-population-patch_1">
-   <path d="M 0 244.8 L 504 244.8 L 504 0 L 0 0 z" style="fill: #ffffff"/>
-  </g>
-  <g id="w1-population-axes_1">
-   <g id="w1-population-patch_2">
-    <path d="M 27.048889 87.982162 L 54.604444 87.982162 L 54.604444 63.944885 L 27.048889 63.944885 z" clip-path="url(#w1-population-pdcf1563b1a)" style="fill: #c8dfdc; stroke: #287d76; stroke-width: 1.5; stroke-linejoin: miter"/>
-   </g>
-   <g id="w1-population-patch_3">
-    <path d="M 61.493333 87.982162 L 89.048889 87.982162 L 89.048889 63.944885 L 61.493333 63.944885 z" clip-path="url(#w1-population-pdcf1563b1a)" style="fill: #f1f5f8; stroke: #adbfcc; stroke-width: 0.7; stroke-linejoin: miter"/>
-   </g>
-   <g id="w1-population-patch_4">
-    <path d="M 95.937778 87.982162 L 123.493333 87.982162 L 123.493333 63.944885 L 95.937778 63.944885 z" clip-path="url(#w1-population-pdcf1563b1a)" style="fill: #f1f5f8; stroke: #adbfcc; stroke-width: 0.7; stroke-linejoin: miter"/>
-   </g>
-   <g id="w1-population-patch_5">
-    <path d="M 130.382222 87.982162 L 157.937778 87.982162 L 157.937778 63.944885 L 130.382222 63.944885 z" clip-path="url(#w1-population-pdcf1563b1a)" style="fill: #c8dfdc; stroke: #287d76; stroke-width: 1.5; stroke-linejoin: miter"/>
-   </g>
-   <g id="w1-population-patch_6">
-    <path d="M 164.826667 87.982162 L 192.382222 87.982162 L 192.382222 63.944885 L 164.826667 63.944885 z" clip-path="url(#w1-population-pdcf1563b1a)" style="fill: #f1f5f8; stroke: #adbfcc; stroke-width: 0.7; stroke-linejoin: miter"/>
-   </g>
-   <g id="w1-population-patch_7">
-    <path d="M 199.271111 87.982162 L 226.826667 87.982162 L 226.826667 63.944885 L 199.271111 63.944885 z" clip-path="url(#w1-population-pdcf1563b1a)" style="fill: #f1f5f8; stroke: #adbfcc; stroke-width: 0.7; stroke-linejoin: miter"/>
-   </g>
-   <g id="w1-population-patch_8">
-    <path d="M 27.048889 124.962587 L 54.604444 124.962587 L 54.604444 100.925311 L 27.048889 100.925311 z" clip-path="url(#w1-population-pdcf1563b1a)" style="fill: #f1f5f8; stroke: #adbfcc; stroke-width: 0.7; stroke-linejoin: miter"/>
-   </g>
-   <g id="w1-population-patch_9">
-    <path d="M 61.493333 124.962587 L 89.048889 124.962587 L 89.048889 100.925311 L 61.493333 100.925311 z" clip-path="url(#w1-population-pdcf1563b1a)" style="fill: #c8dfdc; stroke: #287d76; stroke-width: 1.5; stroke-linejoin: miter"/>
-   </g>
-   <g id="w1-population-patch_10">
-    <path d="M 95.937778 124.962587 L 123.493333 124.962587 L 123.493333 100.925311 L 95.937778 100.925311 z" clip-path="url(#w1-population-pdcf1563b1a)" style="fill: #c8dfdc; stroke: #287d76; stroke-width: 1.5; stroke-linejoin: miter"/>
-   </g>
-   <g id="w1-population-patch_11">
-    <path d="M 130.382222 124.962587 L 157.937778 124.962587 L 157.937778 100.925311 L 130.382222 100.925311 z" clip-path="url(#w1-population-pdcf1563b1a)" style="fill: #f1f5f8; stroke: #adbfcc; stroke-width: 0.7; stroke-linejoin: miter"/>
-   </g>
-   <g id="w1-population-patch_12">
-    <path d="M 164.826667 124.962587 L 192.382222 124.962587 L 192.382222 100.925311 L 164.826667 100.925311 z" clip-path="url(#w1-population-pdcf1563b1a)" style="fill: #f1f5f8; stroke: #adbfcc; stroke-width: 0.7; stroke-linejoin: miter"/>
-   </g>
-   <g id="w1-population-patch_13">
-    <path d="M 199.271111 124.962587 L 226.826667 124.962587 L 226.826667 100.925311 L 199.271111 100.925311 z" clip-path="url(#w1-population-pdcf1563b1a)" style="fill: #c8dfdc; stroke: #287d76; stroke-width: 1.5; stroke-linejoin: miter"/>
-   </g>
-   <g id="w1-population-patch_14">
-    <path d="M 27.048889 161.943013 L 54.604444 161.943013 L 54.604444 137.905736 L 27.048889 137.905736 z" clip-path="url(#w1-population-pdcf1563b1a)" style="fill: #f1f5f8; stroke: #adbfcc; stroke-width: 0.7; stroke-linejoin: miter"/>
-   </g>
-   <g id="w1-population-patch_15">
-    <path d="M 61.493333 161.943013 L 89.048889 161.943013 L 89.048889 137.905736 L 61.493333 137.905736 z" clip-path="url(#w1-population-pdcf1563b1a)" style="fill: #f1f5f8; stroke: #adbfcc; stroke-width: 0.7; stroke-linejoin: miter"/>
-   </g>
-   <g id="w1-population-patch_16">
-    <path d="M 95.937778 161.943013 L 123.493333 161.943013 L 123.493333 137.905736 L 95.937778 137.905736 z" clip-path="url(#w1-population-pdcf1563b1a)" style="fill: #f1f5f8; stroke: #adbfcc; stroke-width: 0.7; stroke-linejoin: miter"/>
-   </g>
-   <g id="w1-population-patch_17">
-    <path d="M 130.382222 161.943013 L 157.937778 161.943013 L 157.937778 137.905736 L 130.382222 137.905736 z" clip-path="url(#w1-population-pdcf1563b1a)" style="fill: #c8dfdc; stroke: #287d76; stroke-width: 1.5; stroke-linejoin: miter"/>
-   </g>
-   <g id="w1-population-patch_18">
-    <path d="M 164.826667 161.943013 L 192.382222 161.943013 L 192.382222 137.905736 L 164.826667 137.905736 z" clip-path="url(#w1-population-pdcf1563b1a)" style="fill: #f1f5f8; stroke: #adbfcc; stroke-width: 0.7; stroke-linejoin: miter"/>
-   </g>
-   <g id="w1-population-patch_19">
-    <path d="M 199.271111 161.943013 L 226.826667 161.943013 L 226.826667 137.905736 L 199.271111 137.905736 z" clip-path="url(#w1-population-pdcf1563b1a)" style="fill: #f1f5f8; stroke: #adbfcc; stroke-width: 0.7; stroke-linejoin: miter"/>
-   </g>
-   <g id="w1-population-patch_20">
-    <path d="M 27.048889 198.923438 L 54.604444 198.923438 L 54.604444 174.886162 L 27.048889 174.886162 z" clip-path="url(#w1-population-pdcf1563b1a)" style="fill: #f1f5f8; stroke: #adbfcc; stroke-width: 0.7; stroke-linejoin: miter"/>
-   </g>
-   <g id="w1-population-patch_21">
-    <path d="M 61.493333 198.923438 L 89.048889 198.923438 L 89.048889 174.886162 L 61.493333 174.886162 z" clip-path="url(#w1-population-pdcf1563b1a)" style="fill: #c8dfdc; stroke: #287d76; stroke-width: 1.5; stroke-linejoin: miter"/>
-   </g>
-   <g id="w1-population-patch_22">
-    <path d="M 95.937778 198.923438 L 123.493333 198.923438 L 123.493333 174.886162 L 95.937778 174.886162 z" clip-path="url(#w1-population-pdcf1563b1a)" style="fill: #f1f5f8; stroke: #adbfcc; stroke-width: 0.7; stroke-linejoin: miter"/>
-   </g>
-   <g id="w1-population-patch_23">
-    <path d="M 130.382222 198.923438 L 157.937778 198.923438 L 157.937778 174.886162 L 130.382222 174.886162 z" clip-path="url(#w1-population-pdcf1563b1a)" style="fill: #c8dfdc; stroke: #287d76; stroke-width: 1.5; stroke-linejoin: miter"/>
-   </g>
-   <g id="w1-population-patch_24">
-    <path d="M 164.826667 198.923438 L 192.382222 198.923438 L 192.382222 174.886162 L 164.826667 174.886162 z" clip-path="url(#w1-population-pdcf1563b1a)" style="fill: #f1f5f8; stroke: #adbfcc; stroke-width: 0.7; stroke-linejoin: miter"/>
-   </g>
-   <g id="w1-population-patch_25">
-    <path d="M 199.271111 198.923438 L 226.826667 198.923438 L 226.826667 174.886162 L 199.271111 174.886162 z" clip-path="url(#w1-population-pdcf1563b1a)" style="fill: #f1f5f8; stroke: #adbfcc; stroke-width: 0.7; stroke-linejoin: miter"/>
-   </g>
-   <g id="w1-population-text_1">
-    <text style="font-size: 10.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="40.826667" y="79.045769" transform="rotate(-0 40.826667 79.045769)">2</text>
-   </g>
-   <g id="w1-population-text_2">
-    <text style="font-size: 10.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="75.271111" y="79.045769" transform="rotate(-0 75.271111 79.045769)">3</text>
-   </g>
-   <g id="w1-population-text_3">
-    <text style="font-size: 10.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="109.715556" y="79.045769" transform="rotate(-0 109.715556 79.045769)">4</text>
-   </g>
-   <g id="w1-population-text_4">
-    <text style="font-size: 10.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="144.16" y="79.045769" transform="rotate(-0 144.16 79.045769)">5</text>
-   </g>
-   <g id="w1-population-text_5">
-    <text style="font-size: 10.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="178.604444" y="79.045769" transform="rotate(-0 178.604444 79.045769)">6</text>
-   </g>
-   <g id="w1-population-text_6">
-    <text style="font-size: 10.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="213.048889" y="79.045769" transform="rotate(-0 213.048889 79.045769)">7</text>
-   </g>
-   <g id="w1-population-text_7">
-    <text style="font-size: 10.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="40.826667" y="116.026195" transform="rotate(-0 40.826667 116.026195)">8</text>
-   </g>
-   <g id="w1-population-text_8">
-    <text style="font-size: 10.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="75.271111" y="116.026195" transform="rotate(-0 75.271111 116.026195)">9</text>
-   </g>
-   <g id="w1-population-text_9">
-    <text style="font-size: 10.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="109.715556" y="116.026195" transform="rotate(-0 109.715556 116.026195)">10</text>
-   </g>
-   <g id="w1-population-text_10">
-    <text style="font-size: 10.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="144.16" y="116.026195" transform="rotate(-0 144.16 116.026195)">12</text>
-   </g>
-   <g id="w1-population-text_11">
-    <text style="font-size: 10.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="178.604444" y="116.026195" transform="rotate(-0 178.604444 116.026195)">14</text>
-   </g>
-   <g id="w1-population-text_12">
-    <text style="font-size: 10.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="213.048889" y="116.026195" transform="rotate(-0 213.048889 116.026195)">16</text>
-   </g>
-   <g id="w1-population-text_13">
-    <text style="font-size: 10.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="40.826667" y="153.00662" transform="rotate(-0 40.826667 153.00662)">18</text>
-   </g>
-   <g id="w1-population-text_14">
-    <text style="font-size: 10.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="75.271111" y="153.00662" transform="rotate(-0 75.271111 153.00662)">20</text>
-   </g>
-   <g id="w1-population-text_15">
-    <text style="font-size: 10.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="109.715556" y="153.00662" transform="rotate(-0 109.715556 153.00662)">22</text>
-   </g>
-   <g id="w1-population-text_16">
-    <text style="font-size: 10.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="144.16" y="153.00662" transform="rotate(-0 144.16 153.00662)">24</text>
-   </g>
-   <g id="w1-population-text_17">
-    <text style="font-size: 10.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="178.604444" y="153.00662" transform="rotate(-0 178.604444 153.00662)">26</text>
-   </g>
-   <g id="w1-population-text_18">
-    <text style="font-size: 10.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="213.048889" y="153.00662" transform="rotate(-0 213.048889 153.00662)">28</text>
-   </g>
-   <g id="w1-population-text_19">
-    <text style="font-size: 10.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="40.826667" y="189.987046" transform="rotate(-0 40.826667 189.987046)">30</text>
-   </g>
-   <g id="w1-population-text_20">
-    <text style="font-size: 10.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="75.271111" y="189.987046" transform="rotate(-0 75.271111 189.987046)">32</text>
-   </g>
-   <g id="w1-population-text_21">
-    <text style="font-size: 10.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="109.715556" y="189.987046" transform="rotate(-0 109.715556 189.987046)">35</text>
-   </g>
-   <g id="w1-population-text_22">
-    <text style="font-size: 10.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="144.16" y="189.987046" transform="rotate(-0 144.16 189.987046)">38</text>
-   </g>
-   <g id="w1-population-text_23">
-    <text style="font-size: 10.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="178.604444" y="189.987046" transform="rotate(-0 178.604444 189.987046)">42</text>
-   </g>
-   <g id="w1-population-text_24">
-    <text style="font-size: 10.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="213.048889" y="189.987046" transform="rotate(-0 213.048889 189.987046)">45</text>
-   </g>
-   <g id="w1-population-text_25">
-    <text style="font-size: 10.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #287d76" x="126.937778" y="212.236391" transform="rotate(-0 126.937778 212.236391)">Known here: μ = 19.000 minutes</text>
-   </g>
-   <g id="w1-population-text_26">
-    <text style="font-size: 11.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="128.66" y="27.168" transform="rotate(-0 128.66 27.168)">Population: N = 24 students</text>
-   </g>
-  </g>
-  <g id="w1-population-axes_2">
-   <g id="w1-population-patch_26">
-    <path d="M 279.475 103.47696 L 320.705 103.47696 L 320.705 68.71536 L 279.475 68.71536 z" clip-path="url(#w1-population-p63f103bbaf)" style="fill: #c8dfdc; stroke: #287d76; stroke-linejoin: miter"/>
-   </g>
-   <g id="w1-population-patch_27">
-    <path d="M 331.555 103.47696 L 372.785 103.47696 L 372.785 68.71536 L 331.555 68.71536 z" clip-path="url(#w1-population-p63f103bbaf)" style="fill: #c8dfdc; stroke: #287d76; stroke-linejoin: miter"/>
-   </g>
-   <g id="w1-population-patch_28">
-    <path d="M 383.635 103.47696 L 424.865 103.47696 L 424.865 68.71536 L 383.635 68.71536 z" clip-path="url(#w1-population-p63f103bbaf)" style="fill: #c8dfdc; stroke: #287d76; stroke-linejoin: miter"/>
-   </g>
-   <g id="w1-population-patch_29">
-    <path d="M 435.715 103.47696 L 476.945 103.47696 L 476.945 68.71536 L 435.715 68.71536 z" clip-path="url(#w1-population-p63f103bbaf)" style="fill: #c8dfdc; stroke: #287d76; stroke-linejoin: miter"/>
-   </g>
-   <g id="w1-population-patch_30">
-    <path d="M 279.475 155.61936 L 320.705 155.61936 L 320.705 120.85776 L 279.475 120.85776 z" clip-path="url(#w1-population-p63f103bbaf)" style="fill: #c8dfdc; stroke: #287d76; stroke-linejoin: miter"/>
-   </g>
-   <g id="w1-population-patch_31">
-    <path d="M 331.555 155.61936 L 372.785 155.61936 L 372.785 120.85776 L 331.555 120.85776 z" clip-path="url(#w1-population-p63f103bbaf)" style="fill: #c8dfdc; stroke: #287d76; stroke-linejoin: miter"/>
-   </g>
-   <g id="w1-population-patch_32">
-    <path d="M 383.635 155.61936 L 424.865 155.61936 L 424.865 120.85776 L 383.635 120.85776 z" clip-path="url(#w1-population-p63f103bbaf)" style="fill: #c8dfdc; stroke: #287d76; stroke-linejoin: miter"/>
-   </g>
-   <g id="w1-population-patch_33">
-    <path d="M 435.715 155.61936 L 476.945 155.61936 L 476.945 120.85776 L 435.715 120.85776 z" clip-path="url(#w1-population-p63f103bbaf)" style="fill: #c8dfdc; stroke: #287d76; stroke-linejoin: miter"/>
-   </g>
-   <g id="w1-population-text_27">
-    <text style="font-size: 11.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="380.38" y="39.168" transform="rotate(-0 380.38 39.168)">Selected sample: n = 8</text>
-   </g>
-   <g id="w1-population-text_28">
-    <text style="font-size: 12px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="300.09" y="89.40741" transform="rotate(-0 300.09 89.40741)">2</text>
-   </g>
-   <g id="w1-population-text_29">
-    <text style="font-size: 12px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="352.17" y="89.40741" transform="rotate(-0 352.17 89.40741)">5</text>
-   </g>
-   <g id="w1-population-text_30">
-    <text style="font-size: 12px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="404.25" y="89.40741" transform="rotate(-0 404.25 89.40741)">9</text>
-   </g>
-   <g id="w1-population-text_31">
-    <text style="font-size: 12px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="456.33" y="89.40741" transform="rotate(-0 456.33 89.40741)">10</text>
-   </g>
-   <g id="w1-population-text_32">
-    <text style="font-size: 12px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="300.09" y="141.54981" transform="rotate(-0 300.09 141.54981)">16</text>
-   </g>
-   <g id="w1-population-text_33">
-    <text style="font-size: 12px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="352.17" y="141.54981" transform="rotate(-0 352.17 141.54981)">24</text>
-   </g>
-   <g id="w1-population-text_34">
-    <text style="font-size: 12px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="404.25" y="141.54981" transform="rotate(-0 404.25 141.54981)">32</text>
-   </g>
-   <g id="w1-population-text_35">
-    <text style="font-size: 12px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="456.33" y="141.54981" transform="rotate(-0 456.33 141.54981)">38</text>
-   </g>
-   <g id="w1-population-text_36">
-    <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #245a81" x="380.38" y="192.11904" transform="rotate(-0 380.38 192.11904)">Sample statistic: x̄ = 17 minutes</text>
-   </g>
-  </g>
-  <g id="w1-population-text_37">
-   <text style="font-size: 10.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="262.08" y="231.336" transform="rotate(-0 262.08 231.336)">Each card is one student’s commute time, in minutes.</text>
-  </g>
- </g>
- <defs>
-  <clipPath id="w1-population-pdcf1563b1a">
-   <rect x="20.16" y="39.168" width="217" height="173.808"/>
-  </clipPath>
-  <clipPath id="w1-population-p63f103bbaf">
-   <rect x="271.88" y="39.168" width="217" height="173.808"/>
-  </clipPath>
- </defs>
-</svg></div><figcaption><b>The population is defined by the question; the sample contains the observed cases</b>Green cards identify one possible sample. The population mean is known only because this is a teaching model. A different selection can give a different sample mean even when the population stays fixed.</figcaption></figure>
+<div class="problem" id="p0"><h2>Start here — What changes when the sample changes?</h2>
+
 <div class="part"><p>Open the <a href="../demos/Sample_Explorer.html#sampling" target="_blank" rel="noopener">sampling investigation</a>. Use all 24 students, keep n = 8, and collect at least five samples. Record three sample means and the fixed population mean. Explain what one card represents, what one row in the accumulated stack represents, and why the two kinds of variation differ.</p><div class="text-answer"><label for="w1_0_samples">Record the means and distinguish individual observations from sample means.</label><textarea id="w1_0_samples" placeholder="Record your reasoning here."></textarea></div></div><div class="part"><p>Start a new stack using the near-campus frame. Predict the direction of the sample means before collecting ten samples. Explain why random selection from that restricted frame still leaves a problem for a claim about all 24 students. State the settings so another student could repeat your investigation.</p><div class="text-answer"><label for="w1_0_frame">Record your prediction, observations, and explanation of the selection problem.</label><textarea id="w1_0_frame" placeholder="Record your reasoning here."></textarea></div></div></div><!-- PROBLEM 1 -->
 <div class="problem" id="p1">
-<h2>Problem 1 — Population, Sample, and Notation</h2><p class="problem-goal"><strong>Goal:</strong> Identify the population, the sample, and the notation that belongs to each.</p>
+<h2>Problem 1 — Population, Sample, and Notation</h2>
 <div class="scenario">A county health department wants to learn about sleep habits among adults in the county. Measuring every adult is unrealistic, so 120 adults are randomly selected and asked how many hours they slept last night. Their mean is 6.8 hours. The sample is the group actually measured; the population is the larger group the department wants to understand. Use this setting to keep those two ideas—and their notation—separate.</div>
 <div class="part">
 <div class="part-stem"><span class="part-label">(a)</span>
 <span class="part-text">Identify the population.</span></div>
 <div class="text-answer"><label>Write one sentence.</label>
 <textarea id="w1_1a" placeholder="The population is…"></textarea></div>
-<details><summary>Compare with a worked solution</summary><div class="solution">
-<p><span class="ans">The population is all adults in the county.</span></p>
-<p>The population is the entire group the health department wants to learn about,
-      whether or not every member was actually measured.</p>
-</div></details>
+
 </div>
 <div class="part">
 <div class="part-stem"><span class="part-label">(b)</span>
 <span class="part-text">Identify the sample.</span></div>
 <div class="text-answer"><label>Write one sentence.</label>
 <textarea id="w1_1b" placeholder="The sample is…"></textarea></div>
-<details><summary>Compare with a worked solution</summary><div class="solution">
-<p><span class="ans">The sample is the 120 adults who were randomly selected and measured.</span></p>
-<p>The sample is the subset actually observed; it is used to estimate facts about
-      the population.</p>
-</div></details>
+
 </div>
 <div class="part">
 <div class="part-stem"><span class="part-label">(c)</span>
 <span class="part-text">Which symbol, \(\mu\) or \(\bar{x}\), represents 6.8 hours? Explain.</span></div>
 <div class="text-answer"><label>Name the symbol and explain why.</label>
 <textarea id="w1_1c" placeholder="The symbol is … because…"></textarea></div>
-<details><summary>Compare with a worked solution</summary><div class="solution">
-<p><span class="ans">\(\bar{x}\), the sample mean.</span></p>
-<p>6.8 hours was computed from the sample of 120 adults, not from every adult in the
-      county, so it is a statistic (\(\bar{x}\)) rather than a parameter (\(\mu\)).</p>
-</div></details>
+
 </div>
 <div class="part">
 <div class="part-stem"><span class="part-label">(d)</span>
 <span class="part-text">Which Greek letter represents the unknown true average?</span></div>
 <div class="text-answer"><label>Name it and state what it represents.</label>
 <textarea id="w1_1d" placeholder="The symbol is…"></textarea></div>
-<details><summary>Compare with a worked solution</summary><div class="solution">
-<p><span class="ans">\(\mu\), the population mean.</span></p>
-<p>\(\mu\) is the true average sleep time across every adult in the county. It is
-      unknown from the sample alone; \(\bar{x}\) is an estimate of it. A census could in principle measure the whole population, but these 120 observations do not.</p>
-</div></details>
+
 </div>
 </div>
 <!-- PROBLEM 2 -->
 <div class="problem" id="p2">
-<h2>Problem 2 — Summation Notation and Frequency</h2><p class="problem-goal"><strong>Goal:</strong> Translate a small dataset into summations, frequencies, relative frequencies, and percentages.</p>
+<h2>Problem 2 — Summation Notation and Frequency</h2>
 <div class="scenario">Ten students at a campus café report how many cups of coffee they drank yesterday: <strong>0, 1, 2, 1, 3, 0, 2, 1, 0, 2</strong>. Before a dataset can be modeled, it has to be organized. Use these ten observations to translate raw data into summation notation, frequencies, relative frequencies, and percentages.</div>
 
-<figure class="w1-visual" data-visual="w1-coffee"><div class="w1-plot" tabindex="0" role="group" aria-label="Translate “at least one” into the groups being counted; scroll horizontally on narrow screens"><svg id="w1-coffee" role="img" aria-labelledby="w1-coffee-title w1-coffee-desc" xmlns:xlink="http://www.w3.org/1999/xlink" width="504pt" height="223.2pt" viewBox="0 0 504 223.2" xmlns="http://www.w3.org/2000/svg" version="1.1">
-<title id="w1-coffee-title">Translate “at least one” into the groups being counted</title><desc id="w1-coffee-desc">For ten students, coffee frequencies are zero cups3,one cup3,two cups3,three cups1. Bars for one,two,andthree cups are green.</desc>
- <metadata>
-  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-   <cc:Work>
-    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
-    <dc:format>image/svg+xml</dc:format>
-    <dc:creator>
-     <cc:Agent>
-      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
-     </cc:Agent>
-    </dc:creator>
-   </cc:Work>
-  </rdf:RDF>
- </metadata>
- <defs>
-  <style type="text/css">#w1-coffee *{stroke-linejoin: round; stroke-linecap: butt}</style>
- </defs>
- <g id="w1-coffee-figure_1">
-  <g id="w1-coffee-patch_1">
-   <path d="M 0 223.2 L 504 223.2 L 504 0 L 0 0 z" style="fill: #ffffff"/>
-  </g>
-  <g id="w1-coffee-axes_1">
-   <g id="w1-coffee-patch_2">
-    <path d="M 50.4 171.864 L 488.88 171.864 L 488.88 42.408 L 50.4 42.408 z" style="fill: #ffffff"/>
-   </g>
-   <g id="w1-coffee-patch_3">
-    <path d="M 70.330909 171.864 L 141.317709 171.864 L 141.317709 74.772 L 70.330909 74.772 z" clip-path="url(#w1-coffee-p9634f37874)" style="fill: #dfe8ee; stroke: #182e40; stroke-linejoin: miter"/>
-   </g>
-   <g id="w1-coffee-patch_4">
-    <path d="M 179.54137 171.864 L 250.528169 171.864 L 250.528169 74.772 L 179.54137 74.772 z" clip-path="url(#w1-coffee-p9634f37874)" style="fill: #c8dfdc; stroke: #182e40; stroke-linejoin: miter"/>
-   </g>
-   <g id="w1-coffee-patch_5">
-    <path d="M 288.751831 171.864 L 359.73863 171.864 L 359.73863 74.772 L 288.751831 74.772 z" clip-path="url(#w1-coffee-p9634f37874)" style="fill: #c8dfdc; stroke: #182e40; stroke-linejoin: miter"/>
-   </g>
-   <g id="w1-coffee-patch_6">
-    <path d="M 397.962291 171.864 L 468.949091 171.864 L 468.949091 139.5 L 397.962291 139.5 z" clip-path="url(#w1-coffee-p9634f37874)" style="fill: #c8dfdc; stroke: #182e40; stroke-linejoin: miter"/>
-   </g>
-   <g id="w1-coffee-matplotlib.axis_1">
-    <g id="w1-coffee-xtick_1">
-     <g id="w1-coffee-line2d_1">
-      <defs>
-       <path id="w1-coffee-m822575a466" d="M 0 0 L 0 3.5" style="stroke: #536675; stroke-width: 0.8"/>
-      </defs>
-      <g>
-       <use xlink:href="#w1-coffee-m822575a466" x="105.824309" y="171.864" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
-      </g>
-     </g>
-     <g id="w1-coffee-text_1">
-      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="105.824309" y="188.362047" transform="rotate(-0 105.824309 188.362047)">0</text>
-     </g>
-    </g>
-    <g id="w1-coffee-xtick_2">
-     <g id="w1-coffee-line2d_2">
-      <g>
-       <use xlink:href="#w1-coffee-m822575a466" x="215.03477" y="171.864" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
-      </g>
-     </g>
-     <g id="w1-coffee-text_2">
-      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="215.03477" y="188.362047" transform="rotate(-0 215.03477 188.362047)">1</text>
-     </g>
-    </g>
-    <g id="w1-coffee-xtick_3">
-     <g id="w1-coffee-line2d_3">
-      <g>
-       <use xlink:href="#w1-coffee-m822575a466" x="324.24523" y="171.864" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
-      </g>
-     </g>
-     <g id="w1-coffee-text_3">
-      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="324.24523" y="188.362047" transform="rotate(-0 324.24523 188.362047)">2</text>
-     </g>
-    </g>
-    <g id="w1-coffee-xtick_4">
-     <g id="w1-coffee-line2d_4">
-      <g>
-       <use xlink:href="#w1-coffee-m822575a466" x="433.455691" y="171.864" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
-      </g>
-     </g>
-     <g id="w1-coffee-text_4">
-      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="433.455691" y="188.362047" transform="rotate(-0 433.455691 188.362047)">3</text>
-     </g>
-    </g>
-    <g id="w1-coffee-text_5">
-     <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="269.64" y="204.459703" transform="rotate(-0 269.64 204.459703)">Cups of coffee yesterday</text>
-    </g>
-   </g>
-   <g id="w1-coffee-matplotlib.axis_2">
-    <g id="w1-coffee-ytick_1">
-     <g id="w1-coffee-line2d_5">
-      <defs>
-       <path id="w1-coffee-me0e1f6fd8a" d="M 0 0 L -3.5 0" style="stroke: #536675; stroke-width: 0.8"/>
-      </defs>
-      <g>
-       <use xlink:href="#w1-coffee-me0e1f6fd8a" x="50.4" y="171.864" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
-      </g>
-     </g>
-     <g id="w1-coffee-text_6">
-      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #536675" x="43.4" y="176.613023" transform="rotate(-0 43.4 176.613023)">0</text>
-     </g>
-    </g>
-    <g id="w1-coffee-ytick_2">
-     <g id="w1-coffee-line2d_6">
-      <g>
-       <use xlink:href="#w1-coffee-me0e1f6fd8a" x="50.4" y="139.5" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
-      </g>
-     </g>
-     <g id="w1-coffee-text_7">
-      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #536675" x="43.4" y="144.249023" transform="rotate(-0 43.4 144.249023)">1</text>
-     </g>
-    </g>
-    <g id="w1-coffee-ytick_3">
-     <g id="w1-coffee-line2d_7">
-      <g>
-       <use xlink:href="#w1-coffee-me0e1f6fd8a" x="50.4" y="107.136" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
-      </g>
-     </g>
-     <g id="w1-coffee-text_8">
-      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #536675" x="43.4" y="111.885023" transform="rotate(-0 43.4 111.885023)">2</text>
-     </g>
-    </g>
-    <g id="w1-coffee-ytick_4">
-     <g id="w1-coffee-line2d_8">
-      <g>
-       <use xlink:href="#w1-coffee-me0e1f6fd8a" x="50.4" y="74.772" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
-      </g>
-     </g>
-     <g id="w1-coffee-text_9">
-      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #536675" x="43.4" y="79.521023" transform="rotate(-0 43.4 79.521023)">3</text>
-     </g>
-    </g>
-    <g id="w1-coffee-ytick_5">
-     <g id="w1-coffee-line2d_9">
-      <g>
-       <use xlink:href="#w1-coffee-me0e1f6fd8a" x="50.4" y="42.408" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
-      </g>
-     </g>
-     <g id="w1-coffee-text_10">
-      <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: end; fill: #536675" x="43.4" y="47.157023" transform="rotate(-0 43.4 47.157023)">4</text>
-     </g>
-    </g>
-    <g id="w1-coffee-text_11">
-     <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="28.847266" y="107.136" transform="rotate(-90 28.847266 107.136)">Student count</text>
-    </g>
-   </g>
-   <g id="w1-coffee-patch_7">
-    <path d="M 50.4 171.864 L 50.4 42.408" style="fill: none; stroke: #80919c; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
-   </g>
-   <g id="w1-coffee-patch_8">
-    <path d="M 50.4 171.864 L 488.88 171.864" style="fill: none; stroke: #80919c; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
-   </g>
-   <g id="w1-coffee-text_12">
-    <text style="font-size: 12px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="105.824309" y="71.5356" transform="rotate(-0 105.824309 71.5356)">3</text>
-   </g>
-   <g id="w1-coffee-text_13">
-    <text style="font-size: 12px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="215.03477" y="71.5356" transform="rotate(-0 215.03477 71.5356)">3</text>
-   </g>
-   <g id="w1-coffee-text_14">
-    <text style="font-size: 12px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="324.24523" y="71.5356" transform="rotate(-0 324.24523 71.5356)">3</text>
-   </g>
-   <g id="w1-coffee-text_15">
-    <text style="font-size: 12px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="433.455691" y="136.2636" transform="rotate(-0 433.455691 136.2636)">1</text>
-   </g>
-  </g>
-  <g id="w1-coffee-text_16">
-   <text style="font-size: 11.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #287d76" x="267.12" y="13.392" transform="rotate(-0 267.12 13.392)">The shaded groups meet the event “at least one cup.”</text>
-  </g>
- </g>
- <defs>
-  <clipPath id="w1-coffee-p9634f37874">
-   <rect x="50.4" y="42.408" width="438.48" height="129.456"/>
-  </clipPath>
- </defs>
-</svg></div><figcaption><b>Translate “at least one” into the groups being counted</b>Keep the three zero-cup observations in the denominator. The numerator counts students in the green groups; adding the cup values would answer a different question. The graph describes these ten café respondents.</figcaption></figure>
-<div class="part"><p>Before calculating: identify the observational unit and variable type. Point to the bars that count students who drank at least one cup. Why must the zero-cup reports remain in the denominator? Does surveying people at a café establish the percentage for the entire college?</p><div class="text-answer"><label for="w1_2_describe">Explain the units, counted groups, and scope of this café sample.</label><textarea id="w1_2_describe" placeholder="Record your reasoning here."></textarea></div></div><div class="part">
+
+<div class="part"><p>Before calculating: identify the observational unit and variable type. Count the students who drank at least one cup. Why must the zero-cup reports remain in the denominator? Does surveying people at a café establish the percentage for the entire college?</p><div class="text-answer"><label for="w1_2_describe">Explain the units, counted groups, and scope of this café sample.</label><textarea id="w1_2_describe" placeholder="Record your reasoning here."></textarea></div></div><div class="part">
 <div class="part-stem"><span class="part-label">(a)</span>
 <span class="part-text">Compute \(\displaystyle\sum_{i=1}^{10} x_i\) (add all ten values).</span></div>
 <div class="answer-row"><label>\(\sum x_i=\)</label><input data-ans="12" data-tol="0.01" id="w1_2a" type="text"/>
@@ -706,19 +259,12 @@ details summary{line-height:1.35;}
 <span class="part-text">What percentage of students drank at least one cup?</span></div>
 <div class="answer-row"><label>percentage</label><input data-ans="70" data-tol="0.5" id="w1_2d" type="text"/><label>%</label>
 <button class="check-btn" onclick="checkNum(['w1_2d'],'w1_2d_v')">Check</button><span class="verdict" id="w1_2d_v"></span></div>
-<details><summary>Compare with a worked solution</summary><div class="solution">
-<p><span class="ans">\(\sum x_i=12\), \(\sum x_i^2=24\), frequencies 3/3/3/1, and 70% drank at least one cup.</span></p>
-<p>\(\sum x_i = 0+1+2+1+3+0+2+1+0+2=12\), and squaring first gives
-      \(\sum x_i^2=0+1+4+1+9+0+4+1+0+4=24\). Cups \(0,1,2,3\) occur \(3,3,3,1\) times out
-      of 10, so the relative frequencies are \(0.30,0.30,0.30,0.10\), summing to 1.00.
-      Seven of the ten students drank at least one cup (everyone except the three who
-      drank 0), so \(7/10=70\%\).</p>
-</div></details>
+
 </div>
 </div>
 <!-- PROBLEM 3 -->
 <div class="problem" id="p3">
-<h2>Problem 3 — Mean and Standard Deviation</h2><p class="problem-goal"><strong>Goal:</strong> Compute and interpret the sample mean and sample standard deviation, including the effect of an outlier.</p>
+<h2>Problem 3 — Mean and Standard Deviation</h2>
 <div class="scenario">Five friends report how many text messages they sent yesterday: <strong>12, 25, 8, 31, 14</strong>. The dataset is deliberately small so every deviation from the mean can be seen. Compute the sample mean and sample standard deviation, then investigate what happens when one unusually large observation is added.</div>
 <div class="part">
 <div class="part-stem"><span class="part-label">(a)</span>
@@ -744,12 +290,7 @@ details summary{line-height:1.35;}
 </table>
 <div class="answer-row"><label>\(s=\sqrt{\sum(x_i-\bar{x})^2/(n-1)}=\)</label><input class="wide" data-ans="9.62" data-tol="0.05" id="w1_3b_s" type="text"/>
 <button class="check-btn" onclick="checkNum(['w1_3b_d1','w1_3b_sq1','w1_3b_d2','w1_3b_sq2','w1_3b_d3','w1_3b_sq3','w1_3b_d4','w1_3b_sq4','w1_3b_d5','w1_3b_sq5','w1_3b_dsum','w1_3b_sqsum','w1_3b_s'],'w1_3b_v')">Check</button><span class="verdict" id="w1_3b_v"></span></div>
-<details><summary>Compare with a worked solution</summary><div class="solution">
-<p><span class="ans">\(\bar{x}=90/5=18\); deviations \(-6,7,-10,13,-4\) (sum \(0\)); squared deviations \(36,49,100,169,16\) (sum \(370\)); \(s=\sqrt{370/4}=\sqrt{92.5}\approx9.62\).</span></p>
-<p>The deviations always sum to zero — that is a built-in check. Dividing the sum
-      of squared deviations by \(n-1=4\) and taking the square root gives the sample
-      standard deviation, \(s\approx9.62\).</p>
-</div></details>
+
 </div>
 <div class="part">
 <div class="part-stem"><span class="part-label">(c)</span>
@@ -757,257 +298,11 @@ details summary{line-height:1.35;}
       happens to \(\bar{x}\) and \(s\)?</span></div>
 <div class="text-answer"><label>Explain both changes in one or two sentences.</label>
 <textarea id="w1_3c" placeholder="Adding 500 will…"></textarea></div>
-<details><summary>Compare with a worked solution</summary><div class="solution">
-<p><span class="ans">Both \(\bar{x}\) and \(s\) increase sharply.</span></p>
-<p>500 is far above the other five values, so it pulls the mean upward substantially.
-      It also sits very far from the new mean, so its squared deviation dominates the sum,
-      making \(s\) much larger too. A single extreme value can strongly change both statistics —
-      this is why the mean and standard deviation are called non-resistant measures.</p>
-</div></details>
+
 </div>
 </div>
-<div class="problem" id="p4"><h2>Finish the message investigation — Predict, then verify</h2><p>Keep your prediction from Problem 3(c). In the explorer, choose <em>Center &amp; spread</em>, keep the message dataset, and add the sixth friend. The static graph shows the comparison on a common axis.</p>
-<figure class="w1-visual" data-visual="w1-texts-outlier"><div class="w1-plot" tabindex="0" role="group" aria-label="One new observation can change the numerical story; scroll horizontally on narrow screens"><svg id="w1-texts-outlier" role="img" aria-labelledby="w1-texts-outlier-title w1-texts-outlier-desc" xmlns:xlink="http://www.w3.org/1999/xlink" width="504pt" height="266.4pt" viewBox="0 0 504 266.4" xmlns="http://www.w3.org/2000/svg" version="1.1">
-<title id="w1-texts-outlier-title">One new observation can change the numerical story</title><desc id="w1-texts-outlier-desc">The original text counts12,25,8,31,14 are shown above the same sample with500 added. Both rows share an axis from0to500. Mean and median are marked.</desc>
- <metadata>
-  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-   <cc:Work>
-    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
-    <dc:format>image/svg+xml</dc:format>
-    <dc:creator>
-     <cc:Agent>
-      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
-     </cc:Agent>
-    </dc:creator>
-   </cc:Work>
-  </rdf:RDF>
- </metadata>
- <defs>
-  <style type="text/css">#w1-texts-outlier *{stroke-linejoin: round; stroke-linecap: butt}</style>
- </defs>
- <g id="w1-texts-outlier-figure_1">
-  <g id="w1-texts-outlier-patch_1">
-   <path d="M 0 266.4 L 504 266.4 L 504 0 L 0 0 z" style="fill: #ffffff"/>
-  </g>
-  <g id="w1-texts-outlier-axes_1">
-   <g id="w1-texts-outlier-patch_2">
-    <path d="M 60.48 105.945231 L 488.88 105.945231 L 488.88 37.296 L 60.48 37.296 z" style="fill: #ffffff"/>
-   </g>
-   <g id="w1-texts-outlier-matplotlib.axis_1">
-    <g id="w1-texts-outlier-xtick_1">
-     <g id="w1-texts-outlier-line2d_1">
-      <defs>
-       <path id="w1-texts-outlier-m3ddddeb107" d="M 0 0 L 0 3.5" style="stroke: #536675; stroke-width: 0.8"/>
-      </defs>
-      <g>
-       <use xlink:href="#w1-texts-outlier-m3ddddeb107" x="68.413333" y="105.945231" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
-      </g>
-     </g>
-    </g>
-    <g id="w1-texts-outlier-xtick_2">
-     <g id="w1-texts-outlier-line2d_2">
-      <g>
-       <use xlink:href="#w1-texts-outlier-m3ddddeb107" x="147.746667" y="105.945231" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
-      </g>
-     </g>
-    </g>
-    <g id="w1-texts-outlier-xtick_3">
-     <g id="w1-texts-outlier-line2d_3">
-      <g>
-       <use xlink:href="#w1-texts-outlier-m3ddddeb107" x="227.08" y="105.945231" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
-      </g>
-     </g>
-    </g>
-    <g id="w1-texts-outlier-xtick_4">
-     <g id="w1-texts-outlier-line2d_4">
-      <g>
-       <use xlink:href="#w1-texts-outlier-m3ddddeb107" x="306.413333" y="105.945231" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
-      </g>
-     </g>
-    </g>
-    <g id="w1-texts-outlier-xtick_5">
-     <g id="w1-texts-outlier-line2d_5">
-      <g>
-       <use xlink:href="#w1-texts-outlier-m3ddddeb107" x="385.746667" y="105.945231" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
-      </g>
-     </g>
-    </g>
-    <g id="w1-texts-outlier-xtick_6">
-     <g id="w1-texts-outlier-line2d_6">
-      <g>
-       <use xlink:href="#w1-texts-outlier-m3ddddeb107" x="465.08" y="105.945231" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
-      </g>
-     </g>
-    </g>
-   </g>
-   <g id="w1-texts-outlier-matplotlib.axis_2"/>
-   <g id="w1-texts-outlier-line2d_7">
-    <path d="M 82.693333 105.945231 L 82.693333 37.296" clip-path="url(#w1-texts-outlier-pb6b28d3fbc)" style="fill: none; stroke: #245a81; stroke-width: 1.8; stroke-linecap: square"/>
-   </g>
-   <g id="w1-texts-outlier-line2d_8">
-    <path d="M 79.52 105.945231 L 79.52 37.296" clip-path="url(#w1-texts-outlier-pb6b28d3fbc)" style="fill: none; stroke-dasharray: 6.66,2.88; stroke-dashoffset: 0; stroke: #287d76; stroke-width: 1.8"/>
-   </g>
-   <g id="w1-texts-outlier-patch_3">
-    <path d="M 60.48 105.945231 L 488.88 105.945231" style="fill: none; stroke: #80919c; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
-   </g>
-   <g id="w1-texts-outlier-text_1">
-    <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: start; fill: #182e40" x="64.764" y="48.279877" transform="rotate(-0 64.764 48.279877)">Five friends</text>
-   </g>
-   <g id="w1-texts-outlier-PathCollection_1">
-    <defs>
-     <path id="w1-texts-outlier-m126200804c" d="M 0 3.807887 C 1.009863 3.807887 1.978501 3.406664 2.692582 2.692582 C 3.406664 1.978501 3.807887 1.009863 3.807887 0 C 3.807887 -1.009863 3.406664 -1.978501 2.692582 -2.692582 C 1.978501 -3.406664 1.009863 -3.807887 0 -3.807887 C -1.009863 -3.807887 -1.978501 -3.406664 -2.692582 -2.692582 C -3.406664 -1.978501 -3.807887 -1.009863 -3.807887 0 C -3.807887 1.009863 -3.406664 1.978501 -2.692582 2.692582 C -1.978501 3.406664 -1.009863 3.807887 0 3.807887 z" style="stroke: #ffffff; stroke-width: 0.6"/>
-    </defs>
-    <g clip-path="url(#w1-texts-outlier-pb6b28d3fbc)">
-     <use xlink:href="#w1-texts-outlier-m126200804c" x="77.933333" y="90.103101" style="fill: #245a81; stroke: #ffffff; stroke-width: 0.6"/>
-    </g>
-   </g>
-   <g id="w1-texts-outlier-PathCollection_2">
-    <g clip-path="url(#w1-texts-outlier-pb6b28d3fbc)">
-     <use xlink:href="#w1-texts-outlier-m126200804c" x="88.246667" y="90.103101" style="fill: #245a81; stroke: #ffffff; stroke-width: 0.6"/>
-    </g>
-   </g>
-   <g id="w1-texts-outlier-PathCollection_3">
-    <g clip-path="url(#w1-texts-outlier-pb6b28d3fbc)">
-     <use xlink:href="#w1-texts-outlier-m126200804c" x="74.76" y="90.103101" style="fill: #245a81; stroke: #ffffff; stroke-width: 0.6"/>
-    </g>
-   </g>
-   <g id="w1-texts-outlier-PathCollection_4">
-    <g clip-path="url(#w1-texts-outlier-pb6b28d3fbc)">
-     <use xlink:href="#w1-texts-outlier-m126200804c" x="93.006667" y="90.103101" style="fill: #245a81; stroke: #ffffff; stroke-width: 0.6"/>
-    </g>
-   </g>
-   <g id="w1-texts-outlier-PathCollection_5">
-    <g clip-path="url(#w1-texts-outlier-pb6b28d3fbc)">
-     <use xlink:href="#w1-texts-outlier-m126200804c" x="79.52" y="90.103101" style="fill: #245a81; stroke: #ffffff; stroke-width: 0.6"/>
-    </g>
-   </g>
-  </g>
-  <g id="w1-texts-outlier-axes_2">
-   <g id="w1-texts-outlier-patch_4">
-    <path d="M 60.48 215.784 L 488.88 215.784 L 488.88 147.134769 L 60.48 147.134769 z" style="fill: #ffffff"/>
-   </g>
-   <g id="w1-texts-outlier-matplotlib.axis_3">
-    <g id="w1-texts-outlier-xtick_7">
-     <g id="w1-texts-outlier-line2d_9">
-      <g>
-       <use xlink:href="#w1-texts-outlier-m3ddddeb107" x="68.413333" y="215.784" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
-      </g>
-     </g>
-     <g id="w1-texts-outlier-text_2">
-      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="68.413333" y="231.142281" transform="rotate(-0 68.413333 231.142281)">0</text>
-     </g>
-    </g>
-    <g id="w1-texts-outlier-xtick_8">
-     <g id="w1-texts-outlier-line2d_10">
-      <g>
-       <use xlink:href="#w1-texts-outlier-m3ddddeb107" x="147.746667" y="215.784" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
-      </g>
-     </g>
-     <g id="w1-texts-outlier-text_3">
-      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="147.746667" y="231.142281" transform="rotate(-0 147.746667 231.142281)">100</text>
-     </g>
-    </g>
-    <g id="w1-texts-outlier-xtick_9">
-     <g id="w1-texts-outlier-line2d_11">
-      <g>
-       <use xlink:href="#w1-texts-outlier-m3ddddeb107" x="227.08" y="215.784" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
-      </g>
-     </g>
-     <g id="w1-texts-outlier-text_4">
-      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="227.08" y="231.142281" transform="rotate(-0 227.08 231.142281)">200</text>
-     </g>
-    </g>
-    <g id="w1-texts-outlier-xtick_10">
-     <g id="w1-texts-outlier-line2d_12">
-      <g>
-       <use xlink:href="#w1-texts-outlier-m3ddddeb107" x="306.413333" y="215.784" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
-      </g>
-     </g>
-     <g id="w1-texts-outlier-text_5">
-      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="306.413333" y="231.142281" transform="rotate(-0 306.413333 231.142281)">300</text>
-     </g>
-    </g>
-    <g id="w1-texts-outlier-xtick_11">
-     <g id="w1-texts-outlier-line2d_13">
-      <g>
-       <use xlink:href="#w1-texts-outlier-m3ddddeb107" x="385.746667" y="215.784" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
-      </g>
-     </g>
-     <g id="w1-texts-outlier-text_6">
-      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="385.746667" y="231.142281" transform="rotate(-0 385.746667 231.142281)">400</text>
-     </g>
-    </g>
-    <g id="w1-texts-outlier-xtick_12">
-     <g id="w1-texts-outlier-line2d_14">
-      <g>
-       <use xlink:href="#w1-texts-outlier-m3ddddeb107" x="465.08" y="215.784" style="fill: #536675; stroke: #536675; stroke-width: 0.8"/>
-      </g>
-     </g>
-     <g id="w1-texts-outlier-text_7">
-      <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="465.08" y="231.142281" transform="rotate(-0 465.08 231.142281)">500</text>
-     </g>
-    </g>
-    <g id="w1-texts-outlier-text_8">
-     <text style="font-size: 12.5px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #182e40" x="274.68" y="246.927984" transform="rotate(-0 274.68 246.927984)">Text messages (same scale in both rows)</text>
-    </g>
-   </g>
-   <g id="w1-texts-outlier-matplotlib.axis_4"/>
-   <g id="w1-texts-outlier-line2d_15">
-    <path d="M 146.424444 215.784 L 146.424444 147.134769" clip-path="url(#w1-texts-outlier-p3ced23c22e)" style="fill: none; stroke: #245a81; stroke-width: 1.8; stroke-linecap: square"/>
-   </g>
-   <g id="w1-texts-outlier-line2d_16">
-    <path d="M 83.883333 215.784 L 83.883333 147.134769" clip-path="url(#w1-texts-outlier-p3ced23c22e)" style="fill: none; stroke-dasharray: 6.66,2.88; stroke-dashoffset: 0; stroke: #287d76; stroke-width: 1.8"/>
-   </g>
-   <g id="w1-texts-outlier-patch_5">
-    <path d="M 60.48 215.784 L 488.88 215.784" style="fill: none; stroke: #80919c; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
-   </g>
-   <g id="w1-texts-outlier-text_9">
-    <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: start; fill: #182e40" x="64.764" y="158.118646" transform="rotate(-0 64.764 158.118646)">Add a sixth friend with 500 messages</text>
-   </g>
-   <g id="w1-texts-outlier-PathCollection_6">
-    <g clip-path="url(#w1-texts-outlier-p3ced23c22e)">
-     <use xlink:href="#w1-texts-outlier-m126200804c" x="77.933333" y="199.94187" style="fill: #245a81; stroke: #ffffff; stroke-width: 0.6"/>
-    </g>
-   </g>
-   <g id="w1-texts-outlier-PathCollection_7">
-    <g clip-path="url(#w1-texts-outlier-p3ced23c22e)">
-     <use xlink:href="#w1-texts-outlier-m126200804c" x="88.246667" y="199.94187" style="fill: #245a81; stroke: #ffffff; stroke-width: 0.6"/>
-    </g>
-   </g>
-   <g id="w1-texts-outlier-PathCollection_8">
-    <g clip-path="url(#w1-texts-outlier-p3ced23c22e)">
-     <use xlink:href="#w1-texts-outlier-m126200804c" x="74.76" y="199.94187" style="fill: #245a81; stroke: #ffffff; stroke-width: 0.6"/>
-    </g>
-   </g>
-   <g id="w1-texts-outlier-PathCollection_9">
-    <g clip-path="url(#w1-texts-outlier-p3ced23c22e)">
-     <use xlink:href="#w1-texts-outlier-m126200804c" x="93.006667" y="199.94187" style="fill: #245a81; stroke: #ffffff; stroke-width: 0.6"/>
-    </g>
-   </g>
-   <g id="w1-texts-outlier-PathCollection_10">
-    <g clip-path="url(#w1-texts-outlier-p3ced23c22e)">
-     <use xlink:href="#w1-texts-outlier-m126200804c" x="79.52" y="199.94187" style="fill: #245a81; stroke: #ffffff; stroke-width: 0.6"/>
-    </g>
-   </g>
-   <g id="w1-texts-outlier-PathCollection_11">
-    <g clip-path="url(#w1-texts-outlier-p3ced23c22e)">
-     <use xlink:href="#w1-texts-outlier-m126200804c" x="465.08" y="199.94187" style="fill: #245a81; stroke: #ffffff; stroke-width: 0.6"/>
-    </g>
-   </g>
-  </g>
-  <g id="w1-texts-outlier-text_10">
-   <text style="font-size: 11px; font-family: 'DejaVu Sans', Arial, sans-serif; text-anchor: middle; fill: #536675" x="272.16" y="10.656" transform="rotate(-0 272.16 10.656)">Solid blue = mean; dashed green = median</text>
-  </g>
- </g>
- <defs>
-  <clipPath id="w1-texts-outlier-pb6b28d3fbc">
-   <rect x="60.48" y="37.296" width="428.4" height="68.649231"/>
-  </clipPath>
-  <clipPath id="w1-texts-outlier-p3ced23c22e">
-   <rect x="60.48" y="147.134769" width="428.4" height="68.649231"/>
-  </clipPath>
- </defs>
-</svg></div><figcaption><b>One new observation can change the numerical story</b>Predict first, then use the explorer to measure the change. The extra value raises n from five to six, so the median follows a different middle-position rule. An influential value can be valid; its size alone does not establish a data error.</figcaption></figure>
+<div class="problem" id="p4"><h2>Finish the message investigation — Predict, then verify</h2><p>Keep your prediction from Problem 3(c). In the explorer, choose <em>Center &amp; spread</em>, keep the message dataset, and add the sixth friend. </p>
+
 <div class="sample-explorer" data-preset="texts" data-view="center"><p>JavaScript is needed for the explorer. You can also calculate from the original five values and the added value 500.</p></div><div class="part"><p>Record the original and new mean, median, and sample standard deviation, with units. Explain why the median can change even though it is more resistant than the mean. Use the new sample size when identifying the middle positions.</p><div class="text-answer"><label for="w1_4_compare">Compare the summaries and explain their different sensitivity.</label><textarea id="w1_4_compare" placeholder="Record your reasoning here."></textarea></div></div><div class="part"><p>Restore the original sample. Explain why the signed deviations sum to zero while the squared deviations show spread. State the denominator for the original sample variance and explain why standard deviation returns to message units. Finally, what would you check before deciding that the 500-message observation should be excluded?</p><div class="text-answer"><label for="w1_4_explain">Connect the calculations to variation and the status of the unusual observation.</label><textarea id="w1_4_explain" placeholder="Record your reasoning here."></textarea></div></div></div><div class="footer">MATH&amp; 146 · Centralia College · Week 1 Lab</div>
 <section aria-labelledby="finish-title" class="completion-panel">
 <h2 id="finish-title">Before you finish</h2>
