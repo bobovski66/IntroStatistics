@@ -419,7 +419,118 @@
       .stat-strip { grid-template-columns: 1fr; }
     }
   </style>
-<style id="week2-lln-guide-styles">body{overflow:auto}.app{height:auto;min-height:100vh}.chart-region{flex:none}.canvas-wrap{height:clamp(340px,52vh,580px);min-height:340px}.lln-course-links{display:flex;gap:15px;flex-wrap:wrap;font-size:14px;margin:3px 0}.lln-course-links a,.lln-guide a{color:var(--accent)}.lln-guide{padding:17px 20px;line-height:1.6}.lln-guide h2{font-size:1.15rem;margin:0 0 8px}.lln-guide h3{font-size:1rem;margin:16px 0 7px}.lln-guide p{margin:8px 0}.lln-table{overflow:auto}.lln-guide table{border-collapse:collapse;width:100%;font-size:14px;font-variant-numeric:tabular-nums}.lln-guide th,.lln-guide td{border:1px solid var(--panel-border);padding:7px;text-align:right}.lln-guide th:first-child,.lln-guide td:first-child{text-align:left}.lln-guide li{margin:7px 0}@media print{body{background:white;color:#182e40}.topbar-actions,.control-strip{display:none}.app{height:auto}.lln-guide{box-shadow:none}}</style></head>
+<style id="week2-lln-guide-styles">body{overflow:auto}.app{height:auto;min-height:100vh}.chart-region{flex:none}.canvas-wrap{height:clamp(340px,52vh,580px);min-height:340px}.lln-course-links{display:flex;gap:15px;flex-wrap:wrap;font-size:14px;margin:3px 0}.lln-course-links a,.lln-guide a{color:var(--accent)}.lln-guide{padding:17px 20px;line-height:1.6}.lln-guide h2{font-size:1.15rem;margin:0 0 8px}.lln-guide h3{font-size:1rem;margin:16px 0 7px}.lln-guide p{margin:8px 0}.lln-table{overflow:auto}.lln-guide table{border-collapse:collapse;width:100%;font-size:14px;font-variant-numeric:tabular-nums}.lln-guide th,.lln-guide td{border:1px solid var(--panel-border);padding:7px;text-align:right}.lln-guide th:first-child,.lln-guide td:first-child{text-align:left}.lln-guide li{margin:7px 0}@media print{body{background:white;color:#182e40}.topbar-actions,.control-strip{display:none}.app{height:auto}.lln-guide{box-shadow:none}}</style>
+<style id="lln-side-rail-styles">
+  /* Keep the experiment controls and the plotted experiment in the same view. */
+  .app { max-width: 1540px; }
+  .demo-workspace {
+    display: grid;
+    grid-template-columns: minmax(260px, 310px) minmax(0, 1fr);
+    align-items: stretch;
+    gap: 14px;
+    min-width: 0;
+  }
+  .demo-rail {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-width: 0;
+  }
+  .demo-rail .control-strip {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 17px;
+    padding: 16px;
+  }
+  .demo-rail .ctrl { width: 100%; gap: 7px; }
+  .demo-rail .ctrl-buttons {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    margin-top: 2px;
+  }
+  .demo-rail .ctrl-buttons button {
+    flex: none;
+    min-width: 0;
+    padding: 10px 6px;
+  }
+  .demo-rail .stat-strip {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    padding: 10px;
+    align-items: stretch;
+  }
+  .demo-rail .stat { padding: 8px 10px; }
+  .demo-rail .stat-value {
+    font-size: 1.06rem;
+    overflow-wrap: anywhere;
+    font-variant-numeric: tabular-nums;
+  }
+  .demo-rail .stat:nth-child(5) { grid-column: 1 / -1; }
+  .demo-rail .legend-pills {
+    grid-column: 1 / -1;
+    justify-content: flex-start;
+    gap: 5px;
+  }
+  .demo-rail .pill { font-size: 0.72rem; }
+  .demo-workspace .chart-region {
+    flex: none;
+    min-width: 0;
+    min-height: clamp(510px, calc(100dvh - 205px), 690px);
+    padding: 12px;
+  }
+  .demo-workspace .canvas-wrap {
+    height: auto;
+    min-height: 0;
+    flex: 1 1 auto;
+  }
+  @media (max-width: 950px) {
+    .demo-workspace { grid-template-columns: minmax(0, 1fr); }
+    .demo-rail .control-strip {
+      display: grid;
+      grid-template-columns: minmax(190px, 1.4fr) repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      align-items: center;
+    }
+    .demo-rail .ctrl-buttons {
+      grid-column: 1 / -1;
+      display: flex;
+      margin-top: 0;
+    }
+    .demo-rail .ctrl-buttons button { flex: 1 1 0; }
+    .demo-rail .stat-strip {
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+    .demo-rail .stat:nth-child(5) { grid-column: auto; }
+    .demo-workspace .chart-region { min-height: 455px; }
+  }
+  @media (max-width: 620px) {
+    .demo-rail .control-strip {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .demo-rail .control-strip .ctrl:first-child { grid-column: 1 / -1; }
+    .demo-rail .ctrl-buttons {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .demo-rail .stat-strip {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .demo-rail .stat:nth-child(5) { grid-column: 1 / -1; }
+    .demo-workspace .chart-region {
+      min-height: 355px;
+      padding: 8px;
+    }
+    .demo-workspace .canvas-wrap { min-height: 340px; }
+  }
+  @media print {
+    .demo-workspace { display: block; }
+    .demo-workspace .chart-region { min-height: 350px; }
+  }
+</style>
+</head>
 <body>
   <div class="app"><nav class="lln-course-links"><a href="../index.html">Course home</a><a href="../readings/week2_reading.html#s5">Week 2 explanation</a><a href="binomial_vs_geometric.html">Probability and trial explorer</a><a href="../labs/Math146_Week2_Lab.html">Guided lab</a></nav>
     <header>
@@ -435,6 +546,8 @@
       </div>
     </header>
 
+    <main class="demo-workspace" aria-label="Law of Large Numbers experiment">
+      <aside class="demo-rail" aria-label="Experiment controls and statistics">
     <section class="card control-strip">
       <div class="ctrl">
         <div class="ctrl-head">
@@ -500,11 +613,14 @@
       </div>
     </section>
 
+      </aside>
     <section class="chart-region card">
       <div class="canvas-wrap">
         <canvas id="chartCanvas" role="img" aria-label="Individual outcomes, their running average, and the fixed model expectation. The table below lists recent values."></canvas>
       </div>
-    </section><section class="card lln-guide"><h2>Read the model, then watch the evidence</h2><div class="lln-table" id="modelTable"></div><p class="mini" id="modelExplanation"></p><h3>Predict, run, and compare</h3><ol><li>Choose the fair die. Can one roll equal its expected value? Predict which will settle down: individual outcomes or their average.</li><li>Record the running average at 10, 100, and 1,000 rolls. Reset and repeat. Does a new roll always move the average closer to the expectation?</li><li>Try the prize spinner and use its visible probability weights to calculate the expected payout. It is a different spinner from the four-value spinner in the lab.</li><li>Explain why a run of low outcomes does not make a high next outcome “due” under the independent model.</li></ol><p class="mini">The graph can show a recent portion of the experiment. The running total, trial count, and running average use every trial since Reset. Changing the experiment starts over.</p><h3>Recent observations and their running averages</h3><div class="lln-table" id="recentTable"></div><p class="mini">Each row is one observation. Its running mean uses all observations through that row, rather than only the recent rows displayed here.</p></section>
+    </section>
+    </main>
+    <section class="card lln-guide"><h2>Read the model, then watch the evidence</h2><div class="lln-table" id="modelTable"></div><p class="mini" id="modelExplanation"></p><h3>Predict, run, and compare</h3><ol><li>Choose the fair die. Can one roll equal its expected value? Predict which will settle down: individual outcomes or their average.</li><li>Record the running average at 10, 100, and 1,000 rolls. Reset and repeat. Does a new roll always move the average closer to the expectation?</li><li>Try the prize spinner and use its visible probability weights to calculate the expected payout. It is a different spinner from the four-value spinner in the lab.</li><li>Explain why a run of low outcomes does not make a high next outcome “due” under the independent model.</li></ol><p class="mini">The graph can show a recent portion of the experiment. The running total, trial count, and running average use every trial since Reset. Changing the experiment starts over.</p><h3>Recent observations and their running averages</h3><div class="lln-table" id="recentTable"></div><p class="mini">Each row is one observation. Its running mean uses all observations through that row, rather than only the recent rows displayed here.</p></section>
   </div>
 
   <!-- Info modal -->
