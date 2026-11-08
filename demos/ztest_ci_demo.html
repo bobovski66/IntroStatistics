@@ -435,6 +435,78 @@ footer p {
 .btn:focus-visible{outline:3px solid var(--accent-soft);outline-offset:3px}.btn:disabled{opacity:.5;cursor:default}
 @media(max-width:650px){.page{padding:20px 12px 35px}.tail-cards{grid-template-columns:1fr}.tail-card svg{max-width:360px}.tail-section,.trial-section{padding:14px}}
 @media print{.page{max-width:none;padding:0}body{background:white}.controls,.topbar,.trial-actions{display:none}.main-grid{display:block}.plot-panel,.tail-section,.trial-section{break-inside:avoid}.tail-cards{grid-template-columns:repeat(3,minmax(0,1fr))}.trial-scroll{max-height:none;overflow:visible}.trial-scroll svg{min-width:0}.tail-card.selected{outline:1px solid #1d3557}canvas{print-color-adjust:exact;-webkit-print-color-adjust:exact}}
+
+/* Explorer side rail and results */
+.page{max-width:1540px;padding:1.6rem 1.6rem 3rem}
+header{margin-bottom:1.25rem;padding-bottom:1.1rem}
+.preamble{max-width:980px}
+.main-grid{grid-template-columns:minmax(250px,300px) minmax(0,1fr);gap:1.15rem;align-items:start}
+.controls{position:sticky;top:12px;max-height:calc(100dvh - 24px);overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;padding:1.2rem}
+.rail-heading{font:600 1.65rem 'Cormorant Garamond',Georgia,serif;margin:0 0 .8rem}
+.controls .topbar{display:block;background:none;border:0;padding:0;margin:0 0 1.1rem}
+.controls .topbar-section{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.4rem;margin-bottom:.8rem}
+.controls .topbar-label{grid-column:1/-1;font-size:.93rem}
+.controls .topbar .btn{padding:.4rem .35rem;font-size:.9rem;line-height:1.2}
+.controls .topbar .btn-example{font-family:'Crimson Pro',serif;font-style:normal}
+.controls h3{margin-bottom:.55rem}
+.control-row{margin-bottom:.85rem}
+.input-help{font:normal .82rem/1.35 'Crimson Pro',serif;color:var(--ink-soft);margin:.25rem 0 .7rem}
+.input-help a{color:var(--accent)}
+.trial-actions{display:grid;grid-template-columns:1fr 1fr;gap:.4rem;margin:.5rem 0 0}
+.trial-actions .btn{padding:.4rem .25rem;line-height:1.15}
+.trial-actions #trial-reset{grid-column:1/-1}
+.work-area{min-width:0;display:flex;flex-direction:column;gap:0}
+.study-context,.result-summary{padding:.8rem 1.2rem;border:1px solid var(--rule);background:var(--paper)}
+.study-context{border-bottom:0}
+.study-context .section-kicker{font:600 .74rem 'Cormorant Garamond',serif;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-soft);margin:0}
+.study-context h2{font:600 1.45rem 'Cormorant Garamond',Georgia,serif;margin:0}
+.study-context p{margin:.12rem 0 .4rem}
+.study-context .study-question{color:var(--accent);font-weight:600;margin-bottom:0}
+.result-summary{display:flex;flex-direction:column;gap:.2rem;margin-bottom:1rem;border-left:4px solid var(--accent);line-height:1.35}
+.result-summary strong{font:600 1.35rem 'Cormorant Garamond',Georgia,serif}
+.result-summary.reject{border-left-color:var(--reject)}
+.result-summary.fail{border-left-color:var(--ok)}
+.plot-panel{padding:1.2rem;min-width:0}
+.plot-title{font-size:1.4rem}
+.plot-subtitle{font-style:normal;line-height:1.4}
+.plot-key{gap:.45rem 1.1rem;font-size:.82rem}
+.plot-key .key-null:before,.plot-key .key-sample:before{width:20px;height:0;border:0;border-top:3px solid var(--accent);vertical-align:middle}
+.plot-key .key-sample:before{border-top-color:var(--reject)}
+.plot-reading{margin:.3rem 0;color:var(--ink-soft);font-size:.9rem}
+.connection-note{margin-top:.8rem;line-height:1.4}
+.readouts{margin-top:1rem;padding:1.1rem;gap:1rem;min-width:0}
+.readout{min-width:0}
+.readout-formula{overflow-wrap:anywhere}
+.verdict{flex-wrap:wrap;text-align:center;gap:.2rem;padding:.7rem;font-size:1.2rem}
+.verdict-detail{margin-left:0}
+.tail-section,.trial-section{margin-top:1rem}
+.trial-scroll{max-height:520px}
+@media(max-width:940px){
+  .page{padding:1.2rem}
+  .main-grid{grid-template-columns:1fr}
+  .controls{position:static;max-height:none;overflow:visible}
+  .controls .topbar{display:grid;grid-template-columns:1fr 1fr;gap:.9rem}
+  .controls .topbar-section{align-content:start}
+  .trial-actions{display:flex;flex-wrap:wrap}
+  .trial-actions #trial-reset{grid-column:auto}
+}
+@media(max-width:600px){
+  .page{padding:.8rem}
+  .controls{padding:1rem}
+  .controls .topbar{display:block}
+  .plot-panel{padding:.85rem}
+  .readouts{grid-template-columns:1fr}
+  .tail-cards{grid-template-columns:1fr}
+  .study-context,.result-summary{padding:.8rem}
+  .verdict{font-size:1.12rem}
+}
+@media print{
+  .controls{display:none}
+  .work-area{display:block}
+  .main-grid{display:block}
+  .study-context,.result-summary{break-inside:avoid}
+  .plot-panel,.readouts,.tail-section,.trial-section{margin-top:.8rem}
+}
 </style>
 </head>
 <body>
@@ -444,11 +516,14 @@ footer p {
   <h1>z-Test and Confidence Interval Explorer</h1>
   <p class="subtitle">Chapter 6 &middot; The Connection Between Hypothesis Tests and Confidence Intervals</p>
   <p class="preamble">
-    Compare the observed sample statistic with the sampling distribution predicted by the null claim. Shaded tails turn that departure into a p-value. The interval below gives a second view of the same sample; the note beneath it explains when its relationship to the selected test is exact.
+    Choose an example, then change the sample, the hypothesis, or the significance level. Watch the p-value, confidence interval, and decision update together.
   </p>
 </header>
 
-<div class="topbar">
+<div class="main-grid">
+  <aside class="controls" aria-label="Explorer controls">
+    <h2 class="rail-heading">Explore the data</h2>
+    <div class="topbar" aria-label="Parameter and examples">
   <div class="topbar-section">
     <span class="topbar-label">Parameter:</span>
     <button class="btn active" data-mode="mean">Mean (&mu;)</button>
@@ -462,9 +537,6 @@ footer p {
     <button class="btn btn-example" data-example="calories">Fast-Food Calories</button>
   </div>
 </div>
-
-<div class="main-grid">
-  <aside class="controls">
     <h3>Sample &amp; Hypothesis</h3>
 
     <div class="control-row">
@@ -484,9 +556,10 @@ footer p {
 
     <div class="control-row" id="row-sigma">
       <label for="inp-sigma">
-        <span class="control-name">Population SD <span class="sym">&sigma;</span></span>
+        <span class="control-name">Known population SD <span class="sym">&sigma;</span></span>
       </label>
       <input type="number" id="inp-sigma" step="0.01" min="0.01" value="0.50">
+      <p class="input-help">Use the population standard deviation, when known.</p>
     </div>
 
     <div class="control-row">
@@ -498,7 +571,8 @@ footer p {
 
     <div id="warning" class="condition-warning hidden"></div>
 
-    <h3 style="margin-top:1.5rem;">Test Type</h3>
+    <h3 style="margin-top:1.5rem;">Alternative hypothesis</h3>
+    <p class="input-help">What are you trying to find evidence for?</p>
     <div class="radio-group">
       <label class="radio-row">
         <input type="radio" name="tail" value="left">
@@ -515,20 +589,34 @@ footer p {
     </div>
 
     <h3 style="margin-top:1.5rem;">Significance <span class="sym">&alpha;</span></h3>
+    <p class="input-help">Reject H₀ when the p-value is at most α.</p>
     <div class="alpha-group">
       <button class="btn" data-alpha="0.10">0.10</button>
       <button class="btn active" data-alpha="0.05">0.05</button>
       <button class="btn" data-alpha="0.01">0.01</button>
     </div>
+    <h3 style="margin-top:1.5rem;">Try repeated tests</h3>
+    <p class="input-help">Simulate tests when the null hypothesis is true. <a href="#trial-heading">See the results below</a>.</p>
+    <div class="trial-actions"><button class="btn" id="trial-one" type="button">Draw one test</button><button class="btn" id="trial-many" type="button">Draw 20 tests</button><button class="btn" id="trial-reset" type="button">Reset</button></div>
   </aside>
-
+  <main class="work-area" id="results">
+    <section class="study-context" aria-labelledby="study-title">
+      <p class="section-kicker">Current situation</p>
+      <h2 id="study-title">Coffee machine</h2>
+      <p id="study-description"></p>
+      <p class="study-question" id="study-question"></p>
+    </section>
+    <section class="result-summary" aria-live="polite" aria-atomic="true">
+      <strong id="summary-label"></strong>
+      <span id="summary-text"></span>
+    </section>
   <section class="plot-panel">
     <h2 class="plot-title">Null sampling distribution</h2>
     <p class="plot-subtitle" id="plot-subtitle-top">
       Distribution of <span class="sym bar">x</span> under <span class="sym">H<span class="sub">0</span></span>: <span class="sym">&mu; = &mu;<span class="sub">0</span></span>. Shaded area is the p-value.
     </p>
     <canvas id="plot-top" width="780" height="320" role="img" aria-describedby="plot-subtitle-top">Null sampling distribution; numerical results appear below.</canvas>
-<div class="plot-key"><span class="key-alpha">Pale: rejection region, total area α</span><span class="key-p">Dark: p-value area</span></div>
+<div class="plot-key"><span class="key-null">Blue: null claim</span><span class="key-sample">Red: sample statistic</span><span class="key-alpha">Pale: rejection region</span><span class="key-p">Dark: p-value area</span></div>
 
     <div class="plot-divider"></div>
 
@@ -536,15 +624,9 @@ footer p {
     <p class="plot-subtitle" id="plot-subtitle-bot">
       A two-sided interval at confidence level 1 − α. Its center and width come from the observed sample.
     </p>
-    <canvas id="plot-bot" width="780" height="160" role="img" aria-describedby="plot-subtitle-bot connection-note">Two-sided confidence interval; endpoints appear below.</canvas><div id="connection-note" class="connection-note"></div>
+    <canvas id="plot-bot" width="780" height="160" role="img" aria-describedby="plot-subtitle-bot connection-note">Two-sided confidence interval; endpoints appear below.</canvas><p class="plot-reading">The horizontal interval is based on the sample. The vertical mark indicates the claimed value.</p><div id="connection-note" class="connection-note"></div>
   </section>
-</div>
 
-<section class="tail-section" aria-labelledby="tail-heading">
-  <h2 id="tail-heading">Same result, three possible questions</h2>
-  <p>Compare the shaded areas for the same z-score. The outlined card is the selected alternative. Choose the alternative from the research question before examining the data; α changes the decision threshold, not these p-values.</p>
-  <div class="tail-cards" id="tail-cards"></div>
-</section>
 <div class="readouts">
   <div class="readout">
     <div class="readout-label">Test statistic</div>
@@ -565,14 +647,20 @@ footer p {
   <div class="verdict" id="verdict"></div>
 </div>
 
+<section class="tail-section" aria-labelledby="tail-heading">
+  <h2 id="tail-heading">Same result, three possible questions</h2>
+  <p>Compare the shaded areas for the same z-score. The outlined card is the selected alternative. Choose the alternative from the research question before examining the data; α changes the decision threshold, not these p-values.</p>
+  <div class="tail-cards" id="tail-cards"></div>
+</section>
 <section class="trial-section" aria-labelledby="trial-heading">
   <h2 id="trial-heading">Repeat the test when H₀ is true</h2>
-  <p>Each row is a new simulated <em>standardized</em> statistic from N(0, 1), the reference model used above. Red points are false rejections. The dashed cutoffs and pale rejection regions are fixed by the selected alternative and α. This simulation uses the normal reference model, rather than resampling the entered data.</p>
-  <div class="trial-actions"><button class="btn" id="trial-one" type="button">Draw one test</button><button class="btn" id="trial-many" type="button">Draw 20 tests</button><button class="btn" id="trial-reset" type="button">Reset</button></div>
+  <p>Use the rail buttons to generate tests when the null hypothesis is true. Each row gives a simulated z-score from the standard normal distribution. A red point means the test rejected a true null hypothesis—a false rejection.</p>
   <p id="trial-status" class="trial-status" aria-live="polite"></p>
   <div class="trial-scroll" id="trial-stack" tabindex="0" role="group" aria-label="Recent simulated null test statistics; scroll to inspect rows"></div>
-  <p>Over many valid tests with H₀ true, the rejection fraction approaches α. A short run will vary. This rate is not the probability that a particular rejected claim is true. Changing the alternative, α, or null model starts a fresh run.</p>
+  <p>The pale regions show the rejection cutoffs chosen by α and the alternative hypothesis. With many tests, the fraction of false rejections approaches α; a short run will vary. This is not the probability that a particular null hypothesis is true. Changing the test setup starts a fresh run.</p>
 </section>
+  </main>
+</div>
 <footer>
   <p>Use independent, representative observations. Mean z-procedures require known σ and a normal population or an adequate CLT approximation; n ≥ 30 alone is not a guarantee. Proportion tests require expected null counts np₀ ≥ 10 and n(1 − p₀) ≥ 10; the elementary proportion interval instead checks observed success and failure counts. The proportion test uses <span class="sym">SE = &radic;(p<span class="sub">0</span>(1 &minus; p<span class="sub">0</span>)/n)</span>; the proportion CI uses <span class="sym">SE = &radic;(p&#770;(1 &minus; p&#770;)/n)</span>.</p>
 </footer>
@@ -640,8 +728,9 @@ const state = {
   claim: 8.00,           // mu_0 or p_0
   sigma: 0.50,           // for mean mode only
   n: 36,
-  tail: 'two',           // 'left', 'right', 'two'
-  alpha: 0.05
+  tail: 'left',          // 'left', 'right', 'two'
+  alpha: 0.05,
+  example: 'coffee'
 };
 
 //============================================================
@@ -667,8 +756,8 @@ function zScore(s) {
 function pValue(s) {
   const z = zScore(s);
   if (s.tail === 'left') return normalCDF(z);
-  if (s.tail === 'right') return 1 - normalCDF(z);
-  return 2 * (1 - normalCDF(Math.abs(z)));
+  if (s.tail === 'right') return normalCDF(-z);
+  return 2 * normalCDF(-Math.abs(z));
 }
 
 function ciBounds(s) {
@@ -1026,7 +1115,32 @@ function renderNullTrials(){
   box.scrollTop=box.scrollHeight;
 }
 
+
+function updateStory(){
+  const param=state.mode==='mean'?'population mean':'population proportion';
+  const direction=state.tail==='left'?'less than':state.tail==='right'?'greater than':'different from';
+  const symbol=state.mode==='mean'?'μ₀':'p₀';
+  const samples={
+    coffee:['Coffee machine',`A machine is claimed to pour ${fmtSig(state.claim,4)} ounces on average. In a sample of ${state.n} cups, the mean fill was ${fmtSig(state.stat,4)} ounces.`],
+    exam:['Exam scores',`The average of ${state.n} exam scores was ${fmtSig(state.stat,4)} points, compared with a claimed population mean of ${fmtSig(state.claim,4)}.`],
+    seeds:['Seed germination',`In a study of ${state.n} seeds, the observed germination proportion was ${fmtSig(state.stat,4)}. The claimed population proportion is ${fmtSig(state.claim,4)}.`],
+    calories:['Fast-food calories',`A sample of ${state.n} meals averaged ${fmtSig(state.stat,4)} calories, compared with a claimed population mean of ${fmtSig(state.claim,4)}.`]
+  };
+  const study=samples[state.example]||['Your own values',`Your sample statistic is ${fmtSig(state.stat,4)} and the claimed value is ${fmtSig(state.claim,4)}.`];
+  document.getElementById('study-title').textContent=study[0];
+  document.getElementById('study-description').textContent=study[1];
+  document.getElementById('study-question').textContent=`Selected question: Is the ${param} ${direction} the claimed value ${symbol}?`;
+  const label=document.getElementById('summary-label'),detail=document.getElementById('summary-text'),panel=label.parentElement;
+  const error=inputError(state);
+  if(error){label.textContent='Check the inputs';detail.textContent=error;panel.classList.remove('reject','fail');return;}
+  const p=pValue(state),reject=p<=state.alpha,diff=state.stat-state.claim;
+  const relative=diff===0?'equal to the claim':`${fmtSig(Math.abs(diff),4)} ${diff>0?'above':'below'} the claim`;
+  label.textContent=reject?'Reject H₀':'Fail to reject H₀';
+  detail.textContent=`The sample statistic is ${relative}. The selected p-value is ${fmt(p,4)}, ${reject?'at most':'greater than'} α = ${fmt(state.alpha,2)}. The sample ${reject?'provides':'does not provide'} sufficient evidence for the selected alternative at this level.`;
+  panel.classList.toggle('reject',reject);panel.classList.toggle('fail',!reject);
+}
 function render() {
+  updateStory();
   const invalid=inputError(state);
   ['trial-one','trial-many'].forEach(id=>document.getElementById(id).disabled=Boolean(invalid));
   updateWarning();
@@ -1124,6 +1238,12 @@ const EXAMPLES = {
 function loadExample(name) {
   const ex = EXAMPLES[name];
   Object.assign(state, ex);
+  state.example = name;
+  document.querySelectorAll('[data-example]').forEach(b => {
+    const active = b.dataset.example === name;
+    b.classList.toggle('active',active);
+    b.setAttribute('aria-pressed',active?'true':'false');
+  });
   setMode(ex.mode);
   document.getElementById('inp-stat').value = ex.stat;
   document.getElementById('inp-claim').value = ex.claim;
@@ -1180,6 +1300,8 @@ function wireEvents() {
   document.querySelectorAll('[data-mode]').forEach(b => {
     b.addEventListener('click', () => {
       setMode(b.dataset.mode);
+      state.example = null;
+      document.querySelectorAll('[data-example]').forEach(x=>{x.classList.remove('active');x.setAttribute('aria-pressed','false');});
       render();
     });
   });
@@ -1194,9 +1316,8 @@ function wireEvents() {
 //============================================================
 
 window.addEventListener('DOMContentLoaded', () => {
-  setMode('mean');
   wireEvents();
-  render();
+  loadExample('coffee');
 });
 
 window.addEventListener('resize', () => {
