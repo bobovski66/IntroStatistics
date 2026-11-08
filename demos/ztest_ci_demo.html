@@ -1,1329 +1,326 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>z-Test and Confidence Interval Explorer</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Crimson+Pro:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hypothesis Testing: The Coffee Machine</title>
 <style>
-:root {
-  --bg: #f7f3ea;
-  --paper: #fdfbf5;
-  --ink: #1a1d1c;
-  --ink-soft: #5a5d5a;
-  --ink-faint: #9a9d96;
-  --rule: #d8d2c5;
-  --rule-soft: #ebe6d8;
-  --accent: #1d3557;
-  --accent-soft: #4a6fa5;
-  --reject: #9c1f2e;
-  --reject-soft: #e8c5cb;
-  --reject-bg: #fbeef0;
-  --ok: #2f5d3f;
-  --ok-bg: #eef4ee;
-  --shade-tail: rgba(156, 31, 46, 0.25);
-  --shade-curve: rgba(29, 53, 87, 0.08);
-}
-
-* { box-sizing: border-box; }
-
-body {
-  margin: 0;
-  padding: 0;
-  background: var(--bg);
-  color: var(--ink);
-  font-family: 'Crimson Pro', Georgia, 'Times New Roman', serif;
-  font-size: 17px;
-  line-height: 1.55;
-}
-
-.page {
-  max-width: 1180px;
-  margin: 0 auto;
-  padding: 2.5rem 2rem 4rem;
-}
-
-header {
-  border-bottom: 1px solid var(--rule);
-  padding-bottom: 1.5rem;
-  margin-bottom: 2rem;
-}
-
-h1 {
-  font-family: 'Cormorant Garamond', Georgia, serif;
-  font-weight: 600;
-  font-size: 2.6rem;
-  margin: 0 0 0.3rem 0;
-  letter-spacing: -0.01em;
-  color: var(--ink);
-}
-
-.subtitle {
-  font-family: 'Cormorant Garamond', Georgia, serif;
-  font-style: italic;
-  font-size: 1.15rem;
-  color: var(--ink-soft);
-  margin: 0;
-}
-
-.preamble {
-  margin: 0.8rem 0 0 0;
-  color: var(--ink-soft);
-  max-width: 720px;
-  font-size: 1.02rem;
-}
-
-/* Top bar with mode toggle and examples */
-.topbar {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.5rem;
-  align-items: center;
-  padding: 1rem 1.25rem;
-  background: var(--paper);
-  border: 1px solid var(--rule);
-  border-radius: 4px;
-  margin-bottom: 1.5rem;
-}
-
-.topbar-section {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-}
-
-.topbar-label {
-  font-family: 'Cormorant Garamond', serif;
-  font-weight: 600;
-  font-size: 1.05rem;
-  color: var(--ink-soft);
-  letter-spacing: 0.02em;
-}
-
-.btn {
-  font-family: 'Crimson Pro', serif;
-  font-size: 0.95rem;
-  background: transparent;
-  border: 1px solid var(--rule);
-  color: var(--ink);
-  padding: 0.4rem 0.9rem;
-  cursor: pointer;
-  transition: all 0.15s ease;
-  border-radius: 2px;
-}
-
-.btn:hover {
-  background: var(--accent);
-  color: var(--paper);
-  border-color: var(--accent);
-}
-
-.btn.active {
-  background: var(--ink);
-  color: var(--paper);
-  border-color: var(--ink);
-}
-
-.btn-example {
-  font-style: italic;
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1rem;
-}
-
-/* Main grid */
-.main-grid {
-  display: grid;
-  grid-template-columns: 280px 1fr;
-  gap: 1.5rem;
-}
-
-@media (max-width: 880px) {
-  .main-grid {
-    grid-template-columns: 1fr;
+  :root {
+    --page: #f6f3ec; --paper: #fffefa; --ink: #202a33; --muted: #596571;
+    --line: #d9dfdf; --blue: #275d8b; --red: #b24b58; --gold: #b27a32;
+    --red-pale: #fbf0ef; --ok-pale: #f0f6f0; --green: #32644d;
   }
-}
-
-/* Controls panel */
-.controls {
-  background: var(--paper);
-  border: 1px solid var(--rule);
-  border-radius: 4px;
-  padding: 1.5rem 1.25rem;
-}
-
-.controls h3 {
-  font-family: 'Cormorant Garamond', serif;
-  font-weight: 600;
-  font-size: 1.1rem;
-  margin: 0 0 1rem 0;
-  padding-bottom: 0.5rem;
-  border-bottom: 1px solid var(--rule-soft);
-  color: var(--ink-soft);
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  font-size: 0.85rem;
-}
-
-.control-row {
-  margin-bottom: 1.1rem;
-}
-
-.control-row label {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  margin-bottom: 0.3rem;
-  font-size: 0.95rem;
-}
-
-.control-name {
-  color: var(--ink);
-  font-weight: 500;
-}
-
-.control-name .sym {
-  font-family: 'Crimson Pro', Georgia, serif;
-  font-style: italic;
-  font-size: 1.05rem;
-  margin-right: 0.2em;
-}
-
-.control-row input[type="number"] {
-  width: 100%;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.95rem;
-  padding: 0.45rem 0.6rem;
-  border: 1px solid var(--rule);
-  background: #fff;
-  color: var(--ink);
-  border-radius: 2px;
-}
-
-.control-row input[type="number"]:focus {
-  outline: none;
-  border-color: var(--accent);
-  box-shadow: 0 0 0 2px rgba(29, 53, 87, 0.15);
-}
-
-.control-row input[type="number"]:disabled {
-  background: var(--rule-soft);
-  color: var(--ink-faint);
-  cursor: not-allowed;
-}
-
-.radio-group, .alpha-group {
-  display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
-}
-
-.alpha-group {
-  flex-direction: row;
-  gap: 0.4rem;
-}
-
-.alpha-group .btn {
-  flex: 1;
-  padding: 0.35rem 0.5rem;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.85rem;
-}
-
-.radio-row {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  cursor: pointer;
-  padding: 0.25rem 0.4rem;
-  border-radius: 2px;
-  transition: background 0.1s;
-}
-
-.radio-row:hover {
-  background: var(--rule-soft);
-}
-
-.radio-row input[type="radio"] {
-  margin: 0;
-  cursor: pointer;
-  accent-color: var(--accent);
-}
-
-.radio-row span {
-  font-size: 0.92rem;
-}
-
-.condition-warning {
-  margin-top: 0.5rem;
-  padding: 0.5rem 0.7rem;
-  background: var(--reject-bg);
-  border-left: 2px solid var(--reject);
-  font-size: 0.82rem;
-  color: var(--reject);
-  font-style: italic;
-}
-
-.condition-warning.hidden {
-  display: none;
-}
-
-/* Plot panel */
-.plot-panel {
-  background: var(--paper);
-  border: 1px solid var(--rule);
-  border-radius: 4px;
-  padding: 1.5rem;
-  display: flex;
-  flex-direction: column;
-}
-
-.plot-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-weight: 600;
-  font-size: 1.05rem;
-  color: var(--ink);
-  margin: 0 0 0.3rem 0;
-}
-
-.plot-subtitle {
-  font-style: italic;
-  color: var(--ink-soft);
-  font-size: 0.9rem;
-  margin: 0 0 0.8rem 0;
-}
-
-canvas {
-  display: block;
-  width: 100%;
-  height: auto;
-  background: #fdfbf5;
-}
-
-.plot-divider {
-  height: 1px;
-  background: var(--rule-soft);
-  margin: 1.4rem 0 1.2rem 0;
-}
-
-/* Readouts */
-.readouts {
-  margin-top: 1.5rem;
-  background: var(--paper);
-  border: 1px solid var(--rule);
-  border-radius: 4px;
-  padding: 1.5rem 1.75rem;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.4rem 2rem;
-}
-
-@media (max-width: 720px) {
-  .readouts {
-    grid-template-columns: 1fr;
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--page); color: var(--ink); font-family: system-ui, -apple-system, "Segoe UI", sans-serif; line-height: 1.48; }
+  .page { max-width: 1370px; margin: auto; padding: 28px 25px 58px; }
+  .heading { margin-bottom: 24px; }
+  .back { color: var(--blue); font-size: .88rem; text-decoration: none; }
+  .back:hover { text-decoration: underline; }
+  h1 { margin: .35rem 0 .5rem; font: 650 clamp(1.8rem,3vw,2.6rem)/1.12 Georgia, serif; letter-spacing: -.02em; }
+  .intro { margin: 0; max-width: 880px; color: var(--muted); font-size: 1.03rem; }
+  .workspace { display: grid; grid-template-columns: minmax(255px, 300px) minmax(0,1fr); align-items: start; gap: 18px; }
+  .rail, .visual, .conclusion { border: 1px solid var(--line); border-radius: 12px; background: var(--paper); box-shadow: 0 2px 12px rgba(31,51,66,.035); }
+  .rail { position: sticky; top: 14px; max-height: calc(100dvh - 28px); overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; padding: 19px; }
+  .rail h2 { font: 600 1.22rem Georgia, serif; margin: 0 0 5px; }
+  .rail p { color: var(--muted); font-size: .89rem; margin: 0 0 15px; }
+  .field { padding: 14px 0; border-top: 1px solid var(--line); }
+  .field label { display: flex; justify-content: space-between; gap: 10px; align-items: baseline; font-size: .91rem; font-weight: 600; }
+  .value { font-variant-numeric: tabular-nums; color: var(--blue); white-space: nowrap; font-size: 1rem; }
+  .field input[type=range] { appearance: none; width: 100%; background: transparent; margin: 15px 0 8px; cursor: pointer; }
+  .field input[type=range]::-webkit-slider-runnable-track { height: 6px; border-radius: 10px; background: #dce6ed; }
+  .field input[type=range]::-webkit-slider-thumb { appearance: none; width: 18px; height: 18px; border-radius: 50%; background: var(--blue); border: 3px solid #fff; box-shadow: 0 0 0 1px var(--blue); margin-top: -6px; }
+  .field input[type=range]::-moz-range-track { height: 6px; border-radius: 10px; background: #dce6ed; }
+  .field input[type=range]::-moz-range-thumb { width: 14px; height: 14px; border-radius: 50%; background: var(--blue); border: 3px solid #fff; box-shadow: 0 0 0 1px var(--blue); }
+  .ends { display: flex; justify-content: space-between; font-size: .75rem; color: var(--muted); }
+  .segmented { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 5px; margin-top: 10px; }
+  .choice { border: 1px solid var(--line); border-radius: 7px; background: #fff; color: var(--ink); padding: 9px 4px; font: 600 .9rem system-ui,sans-serif; cursor: pointer; }
+  .choice.active { color: #fff; background: var(--blue); border-color: var(--blue); }
+  .choice:hover:not(.active) { border-color: var(--blue); }
+  .note { margin-top: 7px; font-size: .82rem; color: var(--muted); }
+  .simulate { padding-top: 16px; border-top: 1px solid var(--line); }
+  .simulate button { width: 100%; background: var(--ink); color: #fff; border: 1px solid var(--ink); border-radius: 8px; cursor: pointer; padding: 12px 8px; font: 600 .94rem system-ui, sans-serif; }
+  .simulate button:hover { background: var(--blue); border-color: var(--blue); }
+  .clear { margin-top: 9px; background: transparent!important; color: var(--muted)!important; border: 1px solid var(--line)!important; padding: 8px!important; }
+  .clear:hover { color: var(--blue)!important; }
+  button:focus-visible, input:focus-visible, a:focus-visible { outline: 3px solid #6c9cc6; outline-offset: 3px; }
+  .main { min-width: 0; display: grid; gap: 14px; }
+  .visual { padding: clamp(16px, 2.4vw, 27px); }
+  .problem { margin: 0 0 14px; background: #eef3f7; border-left: 4px solid var(--blue); border-radius: 6px; padding: 13px 16px; }
+  .problem p { margin: 0; font-size: .97rem; }
+  .problem strong { display: block; margin-bottom: 5px; font: 600 1.12rem Georgia, serif; }
+  .hypotheses { margin: 13px 0 18px; color: var(--blue); font-size: .92rem; font-weight: 550; }
+  .chart-title { font: 600 1.35rem Georgia,serif; margin: 0 0 4px; }
+  .chart-subtitle { margin: 0 0 8px; color: var(--muted); font-size: .87rem; }
+  #graph { display: block; width: 100%; height: auto; min-height: 230px; overflow: visible; }
+  .key { display: flex; flex-wrap: wrap; gap: 8px 19px; color: var(--muted); font-size: .82rem; margin: 5px 0 1px; }
+  .swatch { display: inline-block; height: 0; width: 21px; border-top: 3px solid; margin-right: 6px; vertical-align: middle; }
+  .swatch.blue { border-color: var(--blue); }
+  .swatch.red { border-color: var(--red); }
+  .swatch.gold { border-color: var(--gold); border-top-style: dashed; }
+  .key .shade { display: inline-block; width: 16px; height: 10px; background: #ecc9ce; border-radius: 2px; margin-right: 6px; }
+  .conclusion { padding: 20px 24px; }
+  .stathead { color: var(--muted); text-transform: uppercase; font-size: .74rem; font-weight: 650; letter-spacing: .07em; }
+  .answer { display: flex; justify-content: space-between; align-items: center; gap: 18px; margin: 8px 0 14px; }
+  .pnumber { font: 650 clamp(2rem, 3vw, 2.8rem)/1 Georgia,serif; font-variant-numeric: tabular-nums; color: var(--ink); }
+  .decision { font: 600 1.16rem Georgia,serif; text-align: right; border-radius: 8px; padding: 10px 12px; }
+  .decision.reject { background: var(--red-pale); color: #923441; }
+  .decision.keep { background: var(--ok-pale); color: var(--green); }
+  .interpretation { margin: 0; font-size: .98rem; }
+  #simulation-results { border-top: 1px solid var(--line); padding-top: 13px; margin-top: 17px; }
+  #simulation-results[hidden] { display: none; }
+  #simulation-results p { margin: 3px 0 0; font-size: .9rem; color: var(--muted); }
+  #simulation-results strong { color: var(--ink); font-size: 1rem; }
+  .lesson { margin: 4px 0 0; padding: 0 5px; color: var(--muted); font-size: .89rem; }
+  .lesson strong { color: var(--ink); }
+  .assumptions { font-size: .8rem; color: var(--muted); margin-top: 25px; max-width: 900px; }
+  @media (max-width: 900px) {
+    .workspace { grid-template-columns: 1fr; }
+    .rail { position: static; max-height: none; overflow: visible; }
+    .rail .controls-wrap { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 14px; }
+    .field { border-top: 1px solid var(--line); }
   }
-}
-
-.readout {
-  display: flex;
-  flex-direction: column;
-}
-
-.readout-label {
-  font-family: 'Cormorant Garamond', serif;
-  font-weight: 600;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  font-size: 0.78rem;
-  color: var(--ink-soft);
-  margin-bottom: 0.3rem;
-}
-
-.readout-formula {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.92rem;
-  color: var(--ink);
-  line-height: 1.6;
-}
-
-.readout-formula .num {
-  color: var(--accent);
-}
-
-.readout-formula .op {
-  color: var(--ink-faint);
-}
-
-.verdict {
-  grid-column: 1 / -1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.9rem 1.5rem;
-  border-radius: 2px;
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.35rem;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  margin-top: 0.5rem;
-}
-
-.verdict.reject {
-  background: var(--reject-bg);
-  color: var(--reject);
-  border: 1px solid var(--reject-soft);
-}
-
-.verdict.fail {
-  background: var(--ok-bg);
-  color: var(--ok);
-  border: 1px solid #c5d4c5;
-}
-
-.verdict-detail {
-  font-style: italic;
-  font-weight: 400;
-  font-size: 0.95rem;
-  margin-left: 0.7rem;
-  color: var(--ink-soft);
-}
-
-/* Sym (mathematical symbols inline) */
-.sym {
-  font-family: 'Crimson Pro', Georgia, serif;
-  font-style: italic;
-}
-
-.sub {
-  font-size: 0.75em;
-  vertical-align: sub;
-  font-style: normal;
-}
-
-.sup {
-  font-size: 0.75em;
-  vertical-align: super;
-  font-style: normal;
-}
-
-.bar {
-  text-decoration: overline;
-  font-style: italic;
-}
-
-/* Footer note */
-footer {
-  margin-top: 2rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid var(--rule);
-  font-size: 0.88rem;
-  color: var(--ink-soft);
-  font-style: italic;
-}
-
-footer p {
-  margin: 0.3rem 0;
-}
-
-.plot-panel{min-width:0}.plot-panel canvas{max-width:100%;height:auto}
-.plot-key{display:flex;flex-wrap:wrap;gap:14px;font-size:.9rem;color:var(--ink-soft);margin:8px 0 14px}.plot-key span:before{content:"";display:inline-block;width:19px;height:11px;margin-right:6px;border:1px solid #9c1f2e;vertical-align:middle}.key-alpha:before{background:#f7e9e9}.key-p:before{background:#dfb4bb}
-.connection-note{padding:12px 14px;border-left:3px solid var(--accent);background:#edf1f5;font-size:.95rem;margin-top:12px}
-.tail-section,.trial-section{margin-top:24px;padding:20px;background:var(--paper);border:1px solid var(--rule);border-radius:4px}.tail-section h2,.trial-section h2{font:600 1.5rem 'Cormorant Garamond',Georgia,serif;margin:0 0 6px}.tail-section>p,.trial-section>p{margin:6px 0 16px;color:var(--ink-soft)}
-.tail-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.tail-card{padding:12px;border:1px solid var(--rule);border-radius:4px;background:white}.tail-card.selected{outline:2px solid var(--accent);outline-offset:-2px;background:#f1f5f8}.tail-card h3{margin:0;font-size:1rem}.tail-card .tail-value{font:14px 'JetBrains Mono',monospace}.tail-card svg{width:100%;height:auto;display:block;margin:9px 0}.tail-card p{font-size:.9rem;margin:4px 0;color:var(--ink-soft)}
-.trial-actions{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:12px 0}.trial-status{font-family:'JetBrains Mono',monospace;font-size:.85rem;margin:8px 0}.trial-scroll{overflow:auto;max-height:600px;border-top:1px solid var(--rule);margin-top:12px}.trial-scroll svg{display:block;width:100%;min-width:600px;height:auto}.trial-empty{padding:18px;color:var(--ink-soft)}
-.btn:focus-visible{outline:3px solid var(--accent-soft);outline-offset:3px}.btn:disabled{opacity:.5;cursor:default}
-@media(max-width:650px){.page{padding:20px 12px 35px}.tail-cards{grid-template-columns:1fr}.tail-card svg{max-width:360px}.tail-section,.trial-section{padding:14px}}
-@media print{.page{max-width:none;padding:0}body{background:white}.controls,.topbar,.trial-actions{display:none}.main-grid{display:block}.plot-panel,.tail-section,.trial-section{break-inside:avoid}.tail-cards{grid-template-columns:repeat(3,minmax(0,1fr))}.trial-scroll{max-height:none;overflow:visible}.trial-scroll svg{min-width:0}.tail-card.selected{outline:1px solid #1d3557}canvas{print-color-adjust:exact;-webkit-print-color-adjust:exact}}
-
-/* Explorer side rail and results */
-.page{max-width:1540px;padding:1.6rem 1.6rem 3rem}
-header{margin-bottom:1.25rem;padding-bottom:1.1rem}
-.preamble{max-width:980px}
-.main-grid{grid-template-columns:minmax(250px,300px) minmax(0,1fr);gap:1.15rem;align-items:start}
-.controls{position:sticky;top:12px;max-height:calc(100dvh - 24px);overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;padding:1.2rem}
-.rail-heading{font:600 1.65rem 'Cormorant Garamond',Georgia,serif;margin:0 0 .8rem}
-.controls .topbar{display:block;background:none;border:0;padding:0;margin:0 0 1.1rem}
-.controls .topbar-section{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.4rem;margin-bottom:.8rem}
-.controls .topbar-label{grid-column:1/-1;font-size:.93rem}
-.controls .topbar .btn{padding:.4rem .35rem;font-size:.9rem;line-height:1.2}
-.controls .topbar .btn-example{font-family:'Crimson Pro',serif;font-style:normal}
-.controls h3{margin-bottom:.55rem}
-.control-row{margin-bottom:.85rem}
-.input-help{font:normal .82rem/1.35 'Crimson Pro',serif;color:var(--ink-soft);margin:.25rem 0 .7rem}
-.input-help a{color:var(--accent)}
-.trial-actions{display:grid;grid-template-columns:1fr 1fr;gap:.4rem;margin:.5rem 0 0}
-.trial-actions .btn{padding:.4rem .25rem;line-height:1.15}
-.trial-actions #trial-reset{grid-column:1/-1}
-.work-area{min-width:0;display:flex;flex-direction:column;gap:0}
-.study-context,.result-summary{padding:.8rem 1.2rem;border:1px solid var(--rule);background:var(--paper)}
-.study-context{border-bottom:0}
-.study-context .section-kicker{font:600 .74rem 'Cormorant Garamond',serif;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-soft);margin:0}
-.study-context h2{font:600 1.45rem 'Cormorant Garamond',Georgia,serif;margin:0}
-.study-context p{margin:.12rem 0 .4rem}
-.study-context .study-question{color:var(--accent);font-weight:600;margin-bottom:0}
-.result-summary{display:flex;flex-direction:column;gap:.2rem;margin-bottom:1rem;border-left:4px solid var(--accent);line-height:1.35}
-.result-summary strong{font:600 1.35rem 'Cormorant Garamond',Georgia,serif}
-.result-summary.reject{border-left-color:var(--reject)}
-.result-summary.fail{border-left-color:var(--ok)}
-.plot-panel{padding:1.2rem;min-width:0}
-.plot-title{font-size:1.4rem}
-.plot-subtitle{font-style:normal;line-height:1.4}
-.plot-key{gap:.45rem 1.1rem;font-size:.82rem}
-.plot-key .key-null:before,.plot-key .key-sample:before{width:20px;height:0;border:0;border-top:3px solid var(--accent);vertical-align:middle}
-.plot-key .key-sample:before{border-top-color:var(--reject)}
-.plot-reading{margin:.3rem 0;color:var(--ink-soft);font-size:.9rem}
-.connection-note{margin-top:.8rem;line-height:1.4}
-.readouts{margin-top:1rem;padding:1.1rem;gap:1rem;min-width:0}
-.readout{min-width:0}
-.readout-formula{overflow-wrap:anywhere}
-.verdict{flex-wrap:wrap;text-align:center;gap:.2rem;padding:.7rem;font-size:1.2rem}
-.verdict-detail{margin-left:0}
-.tail-section,.trial-section{margin-top:1rem}
-.trial-scroll{max-height:520px}
-@media(max-width:940px){
-  .page{padding:1.2rem}
-  .main-grid{grid-template-columns:1fr}
-  .controls{position:static;max-height:none;overflow:visible}
-  .controls .topbar{display:grid;grid-template-columns:1fr 1fr;gap:.9rem}
-  .controls .topbar-section{align-content:start}
-  .trial-actions{display:flex;flex-wrap:wrap}
-  .trial-actions #trial-reset{grid-column:auto}
-}
-@media(max-width:600px){
-  .page{padding:.8rem}
-  .controls{padding:1rem}
-  .controls .topbar{display:block}
-  .plot-panel{padding:.85rem}
-  .readouts{grid-template-columns:1fr}
-  .tail-cards{grid-template-columns:1fr}
-  .study-context,.result-summary{padding:.8rem}
-  .verdict{font-size:1.12rem}
-}
-@media print{
-  .controls{display:none}
-  .work-area{display:block}
-  .main-grid{display:block}
-  .study-context,.result-summary{break-inside:avoid}
-  .plot-panel,.readouts,.tail-section,.trial-section{margin-top:.8rem}
-}
+  @media (max-width: 660px) {
+    .page { padding: 16px 11px 36px; }
+    .rail .controls-wrap { display: block; }
+    .visual, .conclusion { padding: 15px; }
+    .answer { align-items: flex-start; }
+    .decision { font-size: 1rem; max-width: 50%; }
+    .problem { padding: 12px; }
+    #graph { min-height: 185px; }
+  }
+  @media print { body { background:#fff; } .rail,.back { display:none; } .workspace { display:block; } .main {display:block;} .visual,.conclusion {box-shadow:none;break-inside:avoid;margin-bottom:12px;} }
 </style>
 </head>
 <body>
 <div class="page">
-
-<header>
-  <h1>z-Test and Confidence Interval Explorer</h1>
-  <p class="subtitle">Chapter 6 &middot; The Connection Between Hypothesis Tests and Confidence Intervals</p>
-  <p class="preamble">
-    Choose an example, then change the sample, the hypothesis, or the significance level. Watch the p-value, confidence interval, and decision update together.
-  </p>
+<header class="heading">
+  <a class="back" href="../index.html">Intro Statistics</a>
+  <h1>How surprising is our sample?</h1>
+  <p class="intro">A hypothesis test starts by imagining that a claim is true. Then we ask how unusual our actual sample would be under that assumption. Change the sample and watch the evidence change.</p>
 </header>
 
-<div class="main-grid">
-  <aside class="controls" aria-label="Explorer controls">
-    <h2 class="rail-heading">Explore the data</h2>
-    <div class="topbar" aria-label="Parameter and examples">
-  <div class="topbar-section">
-    <span class="topbar-label">Parameter:</span>
-    <button class="btn active" data-mode="mean">Mean (&mu;)</button>
-    <button class="btn" data-mode="prop">Proportion (p)</button>
-  </div>
-  <div class="topbar-section">
-    <span class="topbar-label">Examples:</span>
-    <button class="btn btn-example" data-example="coffee">Coffee Machine</button>
-    <button class="btn btn-example" data-example="exam">Exam Scores</button>
-    <button class="btn btn-example" data-example="seeds">Seed Germination</button>
-    <button class="btn btn-example" data-example="calories">Fast-Food Calories</button>
-  </div>
-</div>
-    <h3>Sample &amp; Hypothesis</h3>
-
-    <div class="control-row">
-      <label for="inp-stat">
-        <span class="control-name" id="lbl-stat">Sample mean <span class="sym bar">x</span></span>
-        <span class="ink-faint" id="hint-stat"></span>
-      </label>
-      <input type="number" id="inp-stat" step="0.01" value="7.82">
+<div class="workspace">
+  <aside class="rail" aria-label="Experiment controls">
+    <h2>Change the experiment</h2>
+    <p>Move a slider and compare the sample with what the machine claims.</p>
+    <div class="controls-wrap">
+      <div class="field">
+        <label for="mean-slider"><span>Observed sample mean</span><output class="value" id="mean-value" for="mean-slider">7.82 oz</output></label>
+        <input id="mean-slider" type="range" min="7.45" max="8.35" step=".01" value="7.82">
+        <div class="ends"><span>7.45 oz</span><span>8.35 oz</span></div>
+      </div>
+      <div class="field">
+        <label for="n-slider"><span>Sample size</span><output class="value" id="n-value" for="n-slider">25</output></label>
+        <input id="n-slider" type="range" min="10" max="100" step="5" value="25">
+        <div class="ends"><span>10 cups</span><span>100 cups</span></div>
+      </div>
+      <div class="field">
+        <label id="alpha-label">Significance level (α)</label>
+        <div class="segmented" role="group" aria-labelledby="alpha-label">
+          <button class="choice" type="button" data-alpha="0.01" aria-pressed="false">1%</button>
+          <button class="choice active" type="button" data-alpha="0.05" aria-pressed="true">5%</button>
+          <button class="choice" type="button" data-alpha="0.10" aria-pressed="false">10%</button>
+        </div>
+        <div class="note">This sets the cutoff for rejecting the claim. It does not change the p-value.</div>
+      </div>
     </div>
-
-    <div class="control-row">
-      <label for="inp-claim">
-        <span class="control-name" id="lbl-claim">Claimed value <span class="sym">&mu;<span class="sub">0</span></span></span>
-      </label>
-      <input type="number" id="inp-claim" step="0.01" value="8.00">
+    <div class="simulate">
+      <button type="button" id="generate">Generate 100 samples</button>
+      <button type="button" id="clear" class="clear" hidden>Clear simulated samples</button>
+      <p class="note" style="margin:10px 0 0">Each simulated sample comes from a machine whose true mean is exactly 8 ounces.</p>
     </div>
-
-    <div class="control-row" id="row-sigma">
-      <label for="inp-sigma">
-        <span class="control-name">Known population SD <span class="sym">&sigma;</span></span>
-      </label>
-      <input type="number" id="inp-sigma" step="0.01" min="0.01" value="0.50">
-      <p class="input-help">Use the population standard deviation, when known.</p>
-    </div>
-
-    <div class="control-row">
-      <label for="inp-n">
-        <span class="control-name">Sample size <span class="sym">n</span></span>
-      </label>
-      <input type="number" id="inp-n" step="1" min="2" value="36">
-    </div>
-
-    <div id="warning" class="condition-warning hidden"></div>
-
-    <h3 style="margin-top:1.5rem;">Alternative hypothesis</h3>
-    <p class="input-help">What are you trying to find evidence for?</p>
-    <div class="radio-group">
-      <label class="radio-row">
-        <input type="radio" name="tail" value="left">
-        <span>Left-tailed &nbsp; <span class="sym">H<span class="sub">a</span></span> : <span class="sym">&mu; &lt; &mu;<span class="sub">0</span></span></span>
-      </label>
-      <label class="radio-row">
-        <input type="radio" name="tail" value="two" checked>
-        <span>Two-tailed &nbsp; <span class="sym">H<span class="sub">a</span></span> : <span class="sym">&mu; &ne; &mu;<span class="sub">0</span></span></span>
-      </label>
-      <label class="radio-row">
-        <input type="radio" name="tail" value="right">
-        <span>Right-tailed &nbsp; <span class="sym">H<span class="sub">a</span></span> : <span class="sym">&mu; &gt; &mu;<span class="sub">0</span></span></span>
-      </label>
-    </div>
-
-    <h3 style="margin-top:1.5rem;">Significance <span class="sym">&alpha;</span></h3>
-    <p class="input-help">Reject H₀ when the p-value is at most α.</p>
-    <div class="alpha-group">
-      <button class="btn" data-alpha="0.10">0.10</button>
-      <button class="btn active" data-alpha="0.05">0.05</button>
-      <button class="btn" data-alpha="0.01">0.01</button>
-    </div>
-    <h3 style="margin-top:1.5rem;">Try repeated tests</h3>
-    <p class="input-help">Simulate tests when the null hypothesis is true. <a href="#trial-heading">See the results below</a>.</p>
-    <div class="trial-actions"><button class="btn" id="trial-one" type="button">Draw one test</button><button class="btn" id="trial-many" type="button">Draw 20 tests</button><button class="btn" id="trial-reset" type="button">Reset</button></div>
   </aside>
-  <main class="work-area" id="results">
-    <section class="study-context" aria-labelledby="study-title">
-      <p class="section-kicker">Current situation</p>
-      <h2 id="study-title">Coffee machine</h2>
-      <p id="study-description"></p>
-      <p class="study-question" id="study-question"></p>
+
+  <main class="main">
+    <section class="visual" aria-labelledby="chart-title">
+      <div class="problem">
+        <strong>The coffee machine</strong>
+        <p>A machine claims to pour <strong style="display:inline;font:inherit;font-weight:700">8 ounces on average</strong>. Its population standard deviation is known to be 0.5 ounce. Suppose individual fills are normally distributed. Can the sample convince us that the machine is underfilling?</p>
+      </div>
+      <div class="hypotheses">H₀: μ = 8 ounces &nbsp; · &nbsp; Hₐ: μ &lt; 8 ounces</div>
+      <h2 id="chart-title" class="chart-title">If the claim is true...</h2>
+      <p class="chart-subtitle">This curve shows the distribution of sample means for the selected sample size.</p>
+      <svg id="graph" viewBox="0 0 920 410" role="img" aria-label="Normal sampling distribution of the sample mean, showing the claimed mean, observed sample mean, significance cutoff, and shaded left-tail p-value."></svg>
+      <div class="key" aria-hidden="true">
+        <span><i class="swatch blue"></i>Claimed mean</span>
+        <span><i class="swatch red"></i>Observed mean</span>
+        <span><i class="swatch gold"></i>Decision cutoff</span>
+        <span><i class="shade"></i>p-value area</span>
+      </div>
     </section>
-    <section class="result-summary" aria-live="polite" aria-atomic="true">
-      <strong id="summary-label"></strong>
-      <span id="summary-text"></span>
+    <section class="conclusion" aria-labelledby="result-title">
+      <div id="result-title" class="stathead">Probability of a sample this low or lower, if H₀ is true</div>
+      <div class="answer">
+        <div class="pnumber" id="p-value">0.0359</div>
+        <div id="decision" class="decision reject">Reject H₀</div>
+      </div>
+      <p class="interpretation" id="interpretation" aria-live="polite"></p>
+      <div id="simulation-results" hidden aria-live="polite">
+        <strong id="simulation-count"></strong>
+        <p id="simulation-caption"></p>
+      </div>
     </section>
-  <section class="plot-panel">
-    <h2 class="plot-title">Null sampling distribution</h2>
-    <p class="plot-subtitle" id="plot-subtitle-top">
-      Distribution of <span class="sym bar">x</span> under <span class="sym">H<span class="sub">0</span></span>: <span class="sym">&mu; = &mu;<span class="sub">0</span></span>. Shaded area is the p-value.
-    </p>
-    <canvas id="plot-top" width="780" height="320" role="img" aria-describedby="plot-subtitle-top">Null sampling distribution; numerical results appear below.</canvas>
-<div class="plot-key"><span class="key-null">Blue: null claim</span><span class="key-sample">Red: sample statistic</span><span class="key-alpha">Pale: rejection region</span><span class="key-p">Dark: p-value area</span></div>
-
-    <div class="plot-divider"></div>
-
-    <h2 class="plot-title">Confidence interval for <span id="param-name" class="sym">&mu;</span></h2>
-    <p class="plot-subtitle" id="plot-subtitle-bot">
-      A two-sided interval at confidence level 1 − α. Its center and width come from the observed sample.
-    </p>
-    <canvas id="plot-bot" width="780" height="160" role="img" aria-describedby="plot-subtitle-bot connection-note">Two-sided confidence interval; endpoints appear below.</canvas><p class="plot-reading">The horizontal interval is based on the sample. The vertical mark indicates the claimed value.</p><div id="connection-note" class="connection-note"></div>
-  </section>
-
-<div class="readouts">
-  <div class="readout">
-    <div class="readout-label">Test statistic</div>
-    <div class="readout-formula" id="rd-z"></div>
-  </div>
-  <div class="readout">
-    <div class="readout-label">p-value</div>
-    <div class="readout-formula" id="rd-p"></div>
-  </div>
-  <div class="readout">
-    <div class="readout-label">Confidence interval</div>
-    <div class="readout-formula" id="rd-ci"></div>
-  </div>
-  <div class="readout">
-    <div class="readout-label">Decision rule</div>
-    <div class="readout-formula" id="rd-rule"></div>
-  </div>
-  <div class="verdict" id="verdict"></div>
-</div>
-
-<section class="tail-section" aria-labelledby="tail-heading">
-  <h2 id="tail-heading">Same result, three possible questions</h2>
-  <p>Compare the shaded areas for the same z-score. The outlined card is the selected alternative. Choose the alternative from the research question before examining the data; α changes the decision threshold, not these p-values.</p>
-  <div class="tail-cards" id="tail-cards"></div>
-</section>
-<section class="trial-section" aria-labelledby="trial-heading">
-  <h2 id="trial-heading">Repeat the test when H₀ is true</h2>
-  <p>Use the rail buttons to generate tests when the null hypothesis is true. Each row gives a simulated z-score from the standard normal distribution. A red point means the test rejected a true null hypothesis—a false rejection.</p>
-  <p id="trial-status" class="trial-status" aria-live="polite"></p>
-  <div class="trial-scroll" id="trial-stack" tabindex="0" role="group" aria-label="Recent simulated null test statistics; scroll to inspect rows"></div>
-  <p>The pale regions show the rejection cutoffs chosen by α and the alternative hypothesis. With many tests, the fraction of false rejections approaches α; a short run will vary. This is not the probability that a particular null hypothesis is true. Changing the test setup starts a fresh run.</p>
-</section>
+    <p class="lesson"><strong>Try this:</strong> Move the observed mean closer to 8. Then hold the mean still and increase the sample size. Finally change α. What changes—and what stays the same?</p>
   </main>
 </div>
-<footer>
-  <p>Use independent, representative observations. Mean z-procedures require known σ and a normal population or an adequate CLT approximation; n ≥ 30 alone is not a guarantee. Proportion tests require expected null counts np₀ ≥ 10 and n(1 − p₀) ≥ 10; the elementary proportion interval instead checks observed success and failure counts. The proportion test uses <span class="sym">SE = &radic;(p<span class="sub">0</span>(1 &minus; p<span class="sub">0</span>)/n)</span>; the proportion CI uses <span class="sym">SE = &radic;(p&#770;(1 &minus; p&#770;)/n)</span>.</p>
-</footer>
-
+<footer class="assumptions">Model: independent, normally distributed individual fill amounts with known population standard deviation σ = 0.5 ounce. The sampling distribution of the sample mean is therefore normal with standard error 0.5/√n. This is a left-tailed z-test for a population mean. The simulation samples from that null distribution; it does not resample the observed data.</footer>
 </div>
 
 <script>
-//============================================================
-// MATH UTILITIES
-//============================================================
-
-// Standard normal CDF via Abramowitz & Stegun 7.1.26
-function normalCDF(z) {
-  const a1 =  0.254829592;
-  const a2 = -0.284496736;
-  const a3 =  1.421413741;
-  const a4 = -1.453152027;
-  const a5 =  1.061405429;
-  const p  =  0.3275911;
-  const sign = z < 0 ? -1 : 1;
-  const x = Math.abs(z) / Math.sqrt(2);
-  const t = 1.0 / (1.0 + p * x);
-  const y = 1.0 - (((((a5 * t + a4) * t) + a3) * t + a2) * t + a1) * t * Math.exp(-x * x);
-  return 0.5 * (1.0 + sign * y);
-}
-
-function normalPDF(z) {
-  return Math.exp(-0.5 * z * z) / Math.sqrt(2 * Math.PI);
-}
-
-// z-critical values for the standard alpha levels
-const Z_CRIT = {
-  '0.10': 1.6448536269514722,  // for two-tailed 90% CI; one-tailed 0.10 also = 1.2816 but we report 2-sided CI
-  '0.05': 1.959963984540054,
-  '0.01': 2.5758293035489004
-};
-
-// One-tailed critical values for rejection regions and matching bounds
-const Z_CRIT_ONE = {
-  '0.10': 1.2815515655446004,
-  '0.05': 1.6448536269514722,
-  '0.01': 2.3263478740408408
-};
-
-function fmt(x, digits = 4) {
-  if (!isFinite(x)) return '\u2014';
-  if (Math.abs(x) >= 10000 || (Math.abs(x) < 0.0001 && x !== 0)) {
-    return x.toExponential(2);
-  }
-  return x.toFixed(digits);
-}
-
-function fmtSig(x, sig = 4) {
-  if (!isFinite(x)) return '\u2014';
-  return Number(x.toPrecision(sig)).toString();
-}
-
-//============================================================
-// STATE
-//============================================================
-
-const state = {
-  mode: 'mean',          // 'mean' or 'prop'
-  stat: 7.82,            // x-bar or p-hat
-  claim: 8.00,           // mu_0 or p_0
-  sigma: 0.50,           // for mean mode only
-  n: 36,
-  tail: 'left',          // 'left', 'right', 'two'
-  alpha: 0.05,
-  example: 'coffee'
-};
-
-//============================================================
-// DERIVED QUANTITIES
-//============================================================
-
-function seNull(s) {
-  if (s.mode === 'mean') return s.sigma / Math.sqrt(s.n);
-  return Math.sqrt(s.claim * (1 - s.claim) / s.n);
-}
-
-function seCI(s) {
-  if (s.mode === 'mean') return s.sigma / Math.sqrt(s.n);
-  // Wald CI for proportion uses p-hat
-  const ph = s.stat;
-  return Math.sqrt(ph * (1 - ph) / s.n);
-}
-
-function zScore(s) {
-  return (s.stat - s.claim) / seNull(s);
-}
-
-function pValue(s) {
-  const z = zScore(s);
-  if (s.tail === 'left') return normalCDF(z);
-  if (s.tail === 'right') return normalCDF(-z);
-  return 2 * normalCDF(-Math.abs(z));
-}
-
-function ciBounds(s) {
-  const zc = Z_CRIT[s.alpha.toFixed(2)];
-  const se = seCI(s);
-  return [s.stat - zc * se, s.stat + zc * se];
-}
-
-function isReject(s) {
-  return pValue(s) <= s.alpha;
-}
-
-function inputError(s) {
-  if (![s.stat,s.claim,s.n].every(Number.isFinite)) return 'Enter a statistic, a null claim, and a sample size to draw the graphs.';
-  if (s.n < 2 || !Number.isInteger(s.n)) return 'Sample size must be a whole number of at least 2.';
-  if (s.mode === 'mean' && (!Number.isFinite(s.sigma) || s.sigma <= 0)) return 'The known population standard deviation must be positive.';
-  if (s.mode === 'prop' && (s.claim <= 0 || s.claim >= 1)) return 'The null proportion p₀ must be strictly between 0 and 1.';
-  if (s.mode === 'prop' && (s.stat < 0 || s.stat > 1)) return 'The sample proportion must be between 0 and 1.';
-  return null;
-}
-
-function checkConditions(s) {
-  if (s.mode === 'mean') return s.n < 30 ? 'Small sample: a normal population is needed for an exact mean z-test. Justify any normal approximation; sample size alone cannot establish the sampling conditions.' : null;
-  const messages=[];
-  const np=s.n*s.claim, nq=s.n*(1-s.claim);
-  if(np<10 || nq<10) messages.push(`Test approximation: expected null counts are ${fmt(np,1)} and ${fmt(nq,1)}; both should be at least 10.`);
-  const x=s.n*s.stat, nx=s.n*(1-s.stat);
-  if(x<10 || nx<10) messages.push(`Interval approximation: observed counts are ${fmt(x,1)} and ${fmt(nx,1)}; the elementary Wald interval is unsuitable when either is below 10.`);
-  return messages.join(' ') || null;
-}
-
-//============================================================
-// PLOT: SHARED X-RANGE
-//============================================================
-
-function xRange(s) {
-  const seN = seNull(s);
-  const seC = seCI(s);
-  const zc = Z_CRIT[s.alpha.toFixed(2)];
-  const left  = Math.min(s.claim - 4 * seN, s.stat - 1.5 * zc * seC);
-  const right = Math.max(s.claim + 4 * seN, s.stat + 1.5 * zc * seC);
-  const w = right - left;
-  return { lo: left - 0.04 * w, hi: right + 0.04 * w };
-}
-
-//============================================================
-// PLOT: TOP CANVAS (NULL DISTRIBUTION)
-//============================================================
-
-function plotTop() {
-  const cv=document.getElementById('plot-top'),ctx=cv.getContext('2d'),W=cv.width,H=cv.height;
-  const M={l:50,r:30,t:38,b:62},pw=W-M.l-M.r,ph=H-M.t-M.b;
-  ctx.clearRect(0,0,W,H);
-  const {lo,hi}=xRange(state),se=seNull(state),claim=state.claim,z=zScore(state);
-  const xp=x=>M.l+(x-lo)/(hi-lo)*pw;
-  const yp=x=>M.t+ph-normalPDF((x-claim)/se)/normalPDF(0)*(ph-20);
-  const base=M.t+ph;
-  function area(a,b,color){
-    a=Math.max(lo,a);b=Math.min(hi,b);if(b<=a)return;
-    ctx.fillStyle=color;ctx.beginPath();ctx.moveTo(xp(a),base);
-    for(let i=0;i<=250;i++){const x=a+(b-a)*i/250;ctx.lineTo(xp(x),yp(x));}
-    ctx.lineTo(xp(b),base);ctx.closePath();ctx.fill();
-  }
-  const critical=state.tail==='two'?Z_CRIT[state.alpha.toFixed(2)]:Z_CRIT_ONE[state.alpha.toFixed(2)];
-  const cuts=[];
-  if(state.tail!=='right'){area(lo,claim-critical*se,'#f5e3e6');cuts.push(claim-critical*se);}
-  if(state.tail!=='left'){area(claim+critical*se,hi,'#f5e3e6');cuts.push(claim+critical*se);}
-  if(state.tail==='left')area(lo,state.stat,'#dca7b1');
-  else if(state.tail==='right')area(state.stat,hi,'#dca7b1');
-  else{area(lo,claim-Math.abs(z)*se,'#dca7b1');area(claim+Math.abs(z)*se,hi,'#dca7b1');}
-  ctx.strokeStyle='#1d3557';ctx.lineWidth=2;ctx.beginPath();
-  for(let i=0;i<=400;i++){const x=lo+(hi-lo)*i/400;i?ctx.lineTo(xp(x),yp(x)):ctx.moveTo(xp(x),yp(x));}ctx.stroke();
-  ctx.strokeStyle='#5a5d5a';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(M.l,base);ctx.lineTo(M.l+pw,base);ctx.stroke();
-  ctx.font="12px 'JetBrains Mono', monospace";ctx.fillStyle='#5a5d5a';ctx.textAlign='center';
-  for(let k=-3;k<=3;k++){const x=claim+k*se;ctx.beginPath();ctx.moveTo(xp(x),base);ctx.lineTo(xp(x),base+4);ctx.stroke();ctx.fillText(fmtSig(x,4),xp(x),base+18);}
-  ctx.setLineDash([4,4]);ctx.strokeStyle='#ad6b15';
-  for(const cut of cuts){ctx.beginPath();ctx.moveTo(xp(cut),base);ctx.lineTo(xp(cut),yp(cut));ctx.stroke();}
-  ctx.strokeStyle='#1d3557';ctx.beginPath();ctx.moveTo(xp(claim),base);ctx.lineTo(xp(claim),M.t+4);ctx.stroke();ctx.setLineDash([]);
-  const sym=state.mode==='mean'?'μ₀':'p₀',obs=state.mode==='mean'?'x̄':'p̂';
-  ctx.fillStyle='#1d3557';ctx.fillText(`${sym} = ${fmtSig(claim,4)}`,xp(claim),M.t-19);
-  ctx.strokeStyle='#9c1f2e';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(xp(state.stat),base);ctx.lineTo(xp(state.stat),M.t+7);ctx.stroke();
-  ctx.fillStyle='#9c1f2e';ctx.fillText(`${obs} = ${fmtSig(state.stat,4)}`,xp(state.stat),M.t-3);
-  ctx.fillStyle='#5a5d5a';ctx.fillText(state.mode==='mean'?'Sample mean under H₀':'Sample proportion under H₀',M.l+pw/2,base+40);
-  ctx.textAlign='left';ctx.fillStyle='#1d3557';ctx.fillText(`z = ${fmt(z,3)}`,M.l+6,M.t+15);
-  ctx.textAlign='right';ctx.fillStyle='#9c1f2e';ctx.fillText(`p = ${fmt(pValue(state),4)}`,M.l+pw-6,M.t+15);
-  cv.setAttribute('aria-label',`Null model centered at ${claim}; observed ${state.stat}; ${state.tail}-tailed z ${fmt(z,3)}, p-value ${fmt(pValue(state),4)}. Pale regions have total probability alpha ${state.alpha}.`);
-}
-
-//============================================================
-// PLOT: BOTTOM CANVAS (CONFIDENCE INTERVAL)
-//============================================================
-
-function plotBot() {
-  const cv = document.getElementById('plot-bot');
-  const ctx = cv.getContext('2d');
-  const W = cv.width, H = cv.height;
-  const M = { l: 50, r: 30, t: 22, b: 44 };
-  const pw = W - M.l - M.r;
-  const ph = H - M.t - M.b;
-
-  ctx.clearRect(0, 0, W, H);
-
-  const { lo, hi } = xRange(state);
-  const xPx = x => M.l + ((x - lo) / (hi - lo)) * pw;
-  const [ciLo, ciHi] = ciBounds(state);
-  const isOutside = state.claim < ciLo || state.claim > ciHi;
-  const cy = M.t + ph / 2;
-  const barH = 18;
-
-  // x-axis line
-  ctx.strokeStyle = '#5a5d5a';
-  ctx.lineWidth = 1;
-  ctx.beginPath();
-  ctx.moveTo(M.l, M.t + ph);
-  ctx.lineTo(M.l + pw, M.t + ph);
-  ctx.stroke();
-
-  // Background line through the CI range (shows axis scale)
-  ctx.strokeStyle = '#d8d2c5';
-  ctx.lineWidth = 1;
-  ctx.beginPath();
-  ctx.moveTo(M.l, cy);
-  ctx.lineTo(M.l + pw, cy);
-  ctx.stroke();
-
-  // CI bar
-  const xLoPx = xPx(ciLo);
-  const xHiPx = xPx(ciHi);
-  ctx.fillStyle = isOutside ? 'rgba(156, 31, 46, 0.18)' : 'rgba(29, 53, 87, 0.16)';
-  ctx.strokeStyle = isOutside ? '#9c1f2e' : '#1d3557';
-  ctx.lineWidth = 1.5;
-  ctx.beginPath();
-  ctx.rect(xLoPx, cy - barH/2, xHiPx - xLoPx, barH);
-  ctx.fill();
-  ctx.stroke();
-
-  // CI endpoints (vertical bars)
-  ctx.strokeStyle = isOutside ? '#9c1f2e' : '#1d3557';
-  ctx.lineWidth = 2;
-  ctx.beginPath();
-  ctx.moveTo(xLoPx, cy - barH/2 - 4);
-  ctx.lineTo(xLoPx, cy + barH/2 + 4);
-  ctx.moveTo(xHiPx, cy - barH/2 - 4);
-  ctx.lineTo(xHiPx, cy + barH/2 + 4);
-  ctx.stroke();
-
-  // observed (x-bar / p-hat) tick at center
-  const xobsPx = xPx(state.stat);
-  ctx.strokeStyle = '#1d3557';
-  ctx.lineWidth = 2;
-  ctx.beginPath();
-  ctx.moveTo(xobsPx, cy - barH/2 - 8);
-  ctx.lineTo(xobsPx, cy + barH/2 + 8);
-  ctx.stroke();
-  ctx.fillStyle = '#1d3557';
-  ctx.font = "italic 13px 'Crimson Pro', serif";
-  ctx.textAlign = 'center';
-  const obsLabel = state.mode === 'mean' ? 'x\u0304' : 'p\u0302';
-  ctx.fillText(obsLabel, xobsPx, cy - barH/2 - 12);
-
-  // mu_0 tick
-  const muPx = xPx(state.claim);
-  ctx.strokeStyle = isOutside ? '#9c1f2e' : '#5a5d5a';
-  ctx.lineWidth = 2;
-  ctx.setLineDash(isOutside ? [] : [3, 3]);
-  ctx.beginPath();
-  ctx.moveTo(muPx, cy - barH/2 - 8);
-  ctx.lineTo(muPx, cy + barH/2 + 8);
-  ctx.stroke();
-  ctx.setLineDash([]);
-  ctx.fillStyle = isOutside ? '#9c1f2e' : '#5a5d5a';
-  ctx.fillText((state.mode === 'mean' ? 'μ₀' : 'p₀') + ' = ' + fmtSig(state.claim,4), muPx, cy + barH/2 + 60);
-
-  // CI endpoint labels
-  ctx.fillStyle = '#5a5d5a';
-  ctx.font = "11px 'JetBrains Mono', monospace";
-  ctx.textAlign = 'center';
-  ctx.fillText(fmtSig(ciLo, 4), xLoPx, cy + barH/2 + 22);
-  ctx.fillText(fmtSig(ciHi, 4), xHiPx, cy + barH/2 + 22);
-
-  // CI label (top center)
-  ctx.fillStyle = isOutside ? '#9c1f2e' : '#1d3557';
-  ctx.font = "12px 'JetBrains Mono', monospace";
-  ctx.textAlign = 'left';
-  const conf = (1 - state.alpha) * 100;
-  ctx.fillText(`${fmt(conf,0)}% two-sided CI`, M.l + 4, M.t + 14);
-
-  // Outside indicator
-  if (isOutside) {
-    ctx.fillStyle = '#9c1f2e';
-    ctx.font = "italic 12px 'Crimson Pro', serif";
-    ctx.textAlign = 'right';
-    ctx.fillText((state.mode === 'mean' ? 'μ₀' : 'p₀') + ' lies outside the interval', M.l + pw - 4, M.t + 14);
-  } else {
-    ctx.fillStyle = '#2f5d3f';
-    ctx.font = "italic 12px 'Crimson Pro', serif";
-    ctx.textAlign = 'right';
-    ctx.fillText((state.mode === 'mean' ? 'μ₀' : 'p₀') + ' lies inside the interval', M.l + pw - 4, M.t + 14);
-  }
-}
-
-//============================================================
-// READOUTS
-//============================================================
-
-function updateReadouts() {
-  const z = zScore(state);
-  const p = pValue(state);
-  const [lo, hi] = ciBounds(state);
-  const se = seCI(state);
-  const seN = seNull(state);
-  const reject = isReject(state);
-  const conf = (1 - state.alpha) * 100;
-  const zc = Z_CRIT[state.alpha.toFixed(2)];
-  const obsSym = state.mode === 'mean' ? 'x\u0304' : 'p\u0302';
-  const claimSym = state.mode === 'mean' ? '\u03bc\u2080' : 'p\u2080';
-
-  // Test statistic formula
-  let zForm;
-  if (state.mode === 'mean') {
-    zForm = `z = (${obsSym} \u2212 ${claimSym}) / (\u03c3/\u221an)
-    = (${fmt(state.stat,4)} \u2212 ${fmt(state.claim,4)}) / (${fmt(state.sigma,4)}/\u221a${state.n})
-    = <span class="num">${fmt(z,3)}</span>`;
-  } else {
-    zForm = `z = (${obsSym} \u2212 ${claimSym}) / \u221a(${claimSym}(1\u2212${claimSym})/n)
-    = (${fmt(state.stat,4)} \u2212 ${fmt(state.claim,4)}) / ${fmt(seN,5)}
-    = <span class="num">${fmt(z,3)}</span>`;
-  }
-  document.getElementById('rd-z').innerHTML = zForm.replace(/\n/g, '<br>');
-
-  // p-value formula
-  let pForm;
-  if (state.tail === 'left')       pForm = `P(Z \u2264 ${fmt(z,3)}) = <span class="num">${fmt(p,4)}</span>`;
-  else if (state.tail === 'right') pForm = `P(Z \u2265 ${fmt(z,3)}) = <span class="num">${fmt(p,4)}</span>`;
-  else                              pForm = `2 \u00b7 P(Z \u2265 |${fmt(z,3)}|) = 2 \u00b7 ${fmt(p/2,4)} = <span class="num">${fmt(p,4)}</span>`;
-  document.getElementById('rd-p').innerHTML = pForm;
-
-  // CI formula
-  let ciForm;
-  if (state.mode === 'mean') {
-    ciForm = `${obsSym} \u00b1 z* \u00b7 (\u03c3/\u221an)
-    = ${fmt(state.stat,4)} \u00b1 ${fmt(zc,3)} \u00b7 ${fmt(se,5)}
-    = (<span class="num">${fmt(lo,4)}</span>, <span class="num">${fmt(hi,4)}</span>)`;
-  } else {
-    ciForm = `${obsSym} \u00b1 z* \u00b7 \u221a(${obsSym}(1\u2212${obsSym})/n)
-    = ${fmt(state.stat,4)} \u00b1 ${fmt(zc,3)} \u00b7 ${fmt(se,5)}
-    = (<span class="num">${fmt(lo,4)}</span>, <span class="num">${fmt(hi,4)}</span>)`;
-  }
-  document.getElementById('rd-ci').innerHTML = ciForm.replace(/\n/g, '<br>');
-
-  // Decision rule
-  const cmp = reject ? '\u2264' : '>';
-  document.getElementById('rd-rule').innerHTML =
-    `Reject H\u2080 if p \u2264 \u03b1.<br>
-     Here p = ${fmt(p,4)} ${cmp} \u03b1 = ${fmt(state.alpha,2)}.`;
-
-  // Verdict
-  const v = document.getElementById('verdict');
-  if (reject) {
-    v.className = 'verdict reject';
-    v.innerHTML = `Reject H\u2080 <span class="verdict-detail">at the ${fmt(state.alpha*100,0)}% significance level</span>`;
-  } else {
-    v.className = 'verdict fail';
-    v.innerHTML = `Fail to reject H\u2080 <span class="verdict-detail">at the ${fmt(state.alpha*100,0)}% significance level</span>`;
-  }
-}
-
-//============================================================
-// CONDITION WARNINGS
-//============================================================
-
-function updateWarning() {
-  const w = document.getElementById('warning');
-  const msg = inputError(state) || checkConditions(state);
-  if (msg) {
-    w.textContent = msg;
-    w.classList.remove('hidden');
-  } else {
-    w.classList.add('hidden');
-  }
-}
-
-//============================================================
-// FULL RENDER
-//============================================================
-
-
-function tailProbability(z,tail){return tail==='left'?normalCDF(z):tail==='right'?normalCDF(-z):2*normalCDF(-Math.abs(z));}
-
-function smallTailSVG(z,tail){
-  const lo=-Math.max(3.8,Math.abs(z)+.4),hi=-lo,W=300,H=128,left=16,right=284,base=98;
-  const xp=x=>left+(x-lo)/(hi-lo)*(right-left),yp=x=>base-76*normalPDF(x)/normalPDF(0);
-  const points=(a,b)=>Array.from({length:161},(_,i)=>{const x=a+(b-a)*i/160;return `${xp(x).toFixed(2)},${yp(x).toFixed(2)}`;}).join(' ');
-  const fill=(a,b)=>`<polygon points="${xp(a)},${base} ${points(a,b)} ${xp(b)},${base}" fill="#dca7b1"/>`;
-  let regions=tail==='left'?fill(lo,z):tail==='right'?fill(z,hi):fill(lo,-Math.abs(z))+fill(Math.abs(z),hi);
-  const title=`${tail}-tailed p-value ${fmt(tailProbability(z,tail),4)} for z ${fmt(z,3)}`;
-  return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${title}" xmlns="http://www.w3.org/2000/svg"><title>${title}</title>${regions}<polyline points="${points(lo,hi)}" fill="none" stroke="#1d3557" stroke-width="2"/><path d="M${left} ${base}H${right}" stroke="#80919c"/><path d="M${xp(z)} ${base}V16" stroke="#9c1f2e" stroke-width="1.5"/><text x="${xp(z)}" y="119" text-anchor="middle" font-family="Arial,sans-serif" font-size="12" fill="#9c1f2e">${fmt(z,2)}</text><text x="${xp(0)}" y="12" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#536675">null center: z = 0</text></svg>`;
-}
-
-function updateTailComparison(){
-  const z=zScore(state),symbol=state.mode==='mean'?'μ':'p',claim=state.mode==='mean'?'μ₀':'p₀';
-  document.getElementById('tail-cards').innerHTML=[['left','Left-tailed','<'],['two','Two-tailed','≠'],['right','Right-tailed','>']].map(([tail,name,op])=>`<article class="tail-card ${state.tail===tail?'selected':''}"><h3>${name}${state.tail===tail?' · selected':''}</h3><p>Hₐ: ${symbol} ${op==='<'?'&lt;':op==='>'?'&gt;':op} ${claim}</p>${smallTailSVG(z,tail)}<div class="tail-value">p = ${fmt(tailProbability(z,tail),4)}</div></article>`).join('');
-}
-
-function updateConnection(){
-  const conf=fmt((1-state.alpha)*100,0),[lo,hi]=ciBounds(state),inside=state.claim>=lo&&state.claim<=hi;
-  document.getElementById('plot-subtitle-top').textContent=`Reference distribution of the ${state.mode==='mean'?'sample mean':'sample proportion'} under H₀. Dark shading is the selected ${state.tail==='two'?'two-sided':state.tail+'-tailed'} p-value; pale shading marks the α rejection region.`;
-  let text;
-  if(state.mode==='prop') text=`The ${conf}% interval is the elementary two-sided Wald interval, using p̂ in its standard error. The proportion test uses p₀ instead. They are different procedures: whether p₀ falls inside this interval need not match the test decision, even for a two-sided test. Use the p-value for the selected test.`;
-  else if(state.tail==='two')text=`These are matching known-σ procedures: the ${conf}% two-sided z-interval and the two-sided test at α = ${state.alpha}. The claim is ${inside?'inside':'outside'} the interval. Strictly outside claims are rejected; exact endpoints depend on the equality convention (this test uses p ≤ α).`;
-  else{
-    const delta=Z_CRIT_ONE[state.alpha.toFixed(2)]*seNull(state),isLeft=state.tail==='left',bound=state.stat+(isLeft?delta:-delta);
-    text=`The plotted ${conf}% interval is two-sided, so its endpoints do not give the selected one-sided test rule. The matching ${conf}% one-sided ${isLeft?'upper':'lower'} bound is ${fmt(bound,4)}: reject for ${isLeft?'μ₀ ≥ upper bound':'μ₀ ≤ lower bound'} (subject to numerical rounding).`;
-  }
-  document.getElementById('connection-note').textContent=text;
-  document.getElementById('plot-subtitle-bot').textContent=`Two-sided ${conf}% ${state.mode==='mean'?'known-σ z':'Wald'} interval, centered at the observed ${state.mode==='mean'?'sample mean':'sample proportion'}.`;
-  document.getElementById('plot-bot').setAttribute('aria-label',`Two-sided ${conf}% confidence interval from ${fmt(lo,4)} to ${fmt(hi,4)}. The null claim ${state.claim} lies ${inside?'inside':'outside'}.`);
-}
-
-const nullTrials={rows:[],total:0,rejected:0,key:''};
-function resetNullTrials(){nullTrials.rows=[];nullTrials.total=0;nullTrials.rejected=0;}
-function syncNullTrials(){
-  const key=[state.mode,state.claim,state.sigma,state.n,state.tail,state.alpha].join('|');
-  if(key!==nullTrials.key){resetNullTrials();nullTrials.key=key;}
-}
-function drawNullTrials(n){
-  if(inputError(state))return;syncNullTrials();
-  for(let i=0;i<n;i++){
-    const u=Math.max(Number.MIN_VALUE,Math.random()),v=Math.random();
-    const z=Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v),p=tailProbability(z,state.tail),reject=p<=state.alpha;
-    nullTrials.total++;if(reject)nullTrials.rejected++;
-    nullTrials.rows.push({index:nullTrials.total,z,p,reject});if(nullTrials.rows.length>40)nullTrials.rows.shift();
-  }
-  renderNullTrials();
-}
-function renderNullTrials(){
-  syncNullTrials();
-  const {total,rejected,rows}=nullTrials;
-  document.getElementById('trial-status').textContent=total?`${rejected} false rejection${rejected===1?'':'s'} / ${total} tests = ${fmt(100*rejected/total,1)}%; reference rate α = ${fmt(100*state.alpha,0)}%. Showing the latest ${rows.length}.`:`No tests drawn. Reference false-rejection rate α = ${fmt(100*state.alpha,0)}%.`;
-  const box=document.getElementById('trial-stack');
-  if(!total){box.innerHTML='<div class="trial-empty">Draw tests to build the stack. Every row is generated with H₀ true.</div>';return;}
-  const extent=Math.max(3.5,...rows.map(r=>Math.abs(r.z)+.2)),left=75,right=570,top=64,H=top+rows.length*25+18;
-  const xp=z=>left+(z+extent)/(2*extent)*(right-left),critical=state.tail==='two'?Z_CRIT[state.alpha.toFixed(2)]:Z_CRIT_ONE[state.alpha.toFixed(2)];
-  let body=`<rect width="780" height="${H}" fill="#fffdf8"/>`;
-  if(state.tail!=='right')body+=`<rect x="${left}" y="40" width="${xp(-critical)-left}" height="${H-48}" fill="#f5e3e6"/>`;
-  if(state.tail!=='left')body+=`<rect x="${xp(critical)}" y="40" width="${right-xp(critical)}" height="${H-48}" fill="#f5e3e6"/>`;
-  for(const z of [-3,-2,-1,0,1,2,3])body+=`<path d="M${xp(z)} 40V${H-8}" stroke="${z===0?'#1d3557':'#e1e7eb'}"/><text x="${xp(z)}" y="31" text-anchor="middle">${z}</text>`;
-  for(const z of state.tail==='two'?[-critical,critical]:[state.tail==='left'?-critical:critical])body+=`<path d="M${xp(z)} 40V${H-8}" stroke="#ad6b15" stroke-dasharray="4 4"/>`;
-  body+='<text x="10" y="17">Test</text><text x="322" y="17" text-anchor="middle">Simulated z under H₀</text><text x="605" y="17">p-value · decision</text>';
-  for(let i=0;i<rows.length;i++){
-    const r=rows[i],y=top+i*25,color=r.reject?'#9c1f2e':'#1d3557';
-    body+=`<text x="10" y="${y+4}">#${r.index}</text><path d="M${xp(0)} ${y}H${xp(r.z)}" stroke="${color}" stroke-width="1.3"/><circle cx="${xp(r.z)}" cy="${y}" r="4.5" fill="${color}"/><text x="605" y="${y+4}" fill="${color}">${fmt(r.p,4)} · ${r.reject?'reject':'fail to reject'}</text>`;
-  }
-  box.innerHTML=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 ${H}" role="img" aria-label="${rejected} false rejections in ${total} independent standard-normal null tests; most recent ${rows.length} plotted" font-family="Arial,sans-serif" font-size="12" fill="#182e40"><title>Repeated testing under a true null hypothesis</title>${body}</svg>`;
-  box.scrollTop=box.scrollHeight;
-}
-
-
-function updateStory(){
-  const param=state.mode==='mean'?'population mean':'population proportion';
-  const direction=state.tail==='left'?'less than':state.tail==='right'?'greater than':'different from';
-  const symbol=state.mode==='mean'?'μ₀':'p₀';
-  const samples={
-    coffee:['Coffee machine',`A machine is claimed to pour ${fmtSig(state.claim,4)} ounces on average. In a sample of ${state.n} cups, the mean fill was ${fmtSig(state.stat,4)} ounces.`],
-    exam:['Exam scores',`The average of ${state.n} exam scores was ${fmtSig(state.stat,4)} points, compared with a claimed population mean of ${fmtSig(state.claim,4)}.`],
-    seeds:['Seed germination',`In a study of ${state.n} seeds, the observed germination proportion was ${fmtSig(state.stat,4)}. The claimed population proportion is ${fmtSig(state.claim,4)}.`],
-    calories:['Fast-food calories',`A sample of ${state.n} meals averaged ${fmtSig(state.stat,4)} calories, compared with a claimed population mean of ${fmtSig(state.claim,4)}.`]
+(function () {
+  'use strict';
+  const claim = 8, sigma = 0.5;
+  const state = { mean: 7.82, n: 25, alpha: 0.05, samples: [] };
+  const ui = {
+    mean: document.getElementById('mean-slider'),
+    meanValue: document.getElementById('mean-value'),
+    n: document.getElementById('n-slider'),
+    nValue: document.getElementById('n-value'),
+    graph: document.getElementById('graph'),
+    pValue: document.getElementById('p-value'),
+    decision: document.getElementById('decision'),
+    interpretation: document.getElementById('interpretation'),
+    simulation: document.getElementById('simulation-results'),
+    count: document.getElementById('simulation-count'),
+    caption: document.getElementById('simulation-caption'),
+    clear: document.getElementById('clear')
   };
-  const study=samples[state.example]||['Your own values',`Your sample statistic is ${fmtSig(state.stat,4)} and the claimed value is ${fmtSig(state.claim,4)}.`];
-  document.getElementById('study-title').textContent=study[0];
-  document.getElementById('study-description').textContent=study[1];
-  document.getElementById('study-question').textContent=`Selected question: Is the ${param} ${direction} the claimed value ${symbol}?`;
-  const label=document.getElementById('summary-label'),detail=document.getElementById('summary-text'),panel=label.parentElement;
-  const error=inputError(state);
-  if(error){label.textContent='Check the inputs';detail.textContent=error;panel.classList.remove('reject','fail');return;}
-  const p=pValue(state),reject=p<=state.alpha,diff=state.stat-state.claim;
-  const relative=diff===0?'equal to the claim':`${fmtSig(Math.abs(diff),4)} ${diff>0?'above':'below'} the claim`;
-  label.textContent=reject?'Reject H₀':'Fail to reject H₀';
-  detail.textContent=`The sample statistic is ${relative}. The selected p-value is ${fmt(p,4)}, ${reject?'at most':'greater than'} α = ${fmt(state.alpha,2)}. The sample ${reject?'provides':'does not provide'} sufficient evidence for the selected alternative at this level.`;
-  panel.classList.toggle('reject',reject);panel.classList.toggle('fail',!reject);
-}
-function render() {
-  updateStory();
-  const invalid=inputError(state);
-  ['trial-one','trial-many'].forEach(id=>document.getElementById(id).disabled=Boolean(invalid));
-  updateWarning();
-  if(invalid){
-    ['plot-top','plot-bot'].forEach(id=>{const c=document.getElementById(id);c.getContext('2d').clearRect(0,0,c.width,c.height);c.setAttribute('aria-label',invalid);});
-    ['rd-z','rd-p','rd-ci','rd-rule','verdict'].forEach(id=>document.getElementById(id).textContent='—');
-    document.getElementById('tail-cards').innerHTML='';document.getElementById('connection-note').textContent=invalid;return;
-  }
-  plotTop();plotBot();updateReadouts();updateTailComparison();updateConnection();renderNullTrials();
-}
 
-//============================================================
-// MODE SWITCHING
-//============================================================
-
-function setMode(mode) {
-  state.mode = mode;
-  const lblStat = document.getElementById('lbl-stat');
-  const lblClaim = document.getElementById('lbl-claim');
-  const rowSigma = document.getElementById('row-sigma');
-  const paramName = document.getElementById('param-name');
-  const inpStat = document.getElementById('inp-stat');
-  const inpClaim = document.getElementById('inp-claim');
-
-  if (mode === 'mean') {
-    lblStat.innerHTML = '<span class="control-name">Sample mean <span class="sym bar">x</span></span>';
-    lblClaim.innerHTML = '<span class="control-name">Claimed value <span class="sym">&mu;<span class="sub">0</span></span></span>';
-    rowSigma.style.display = '';
-    paramName.innerHTML = '&mu;';
-    inpStat.step = '0.01';
-    inpClaim.step = '0.01';
-    inpStat.removeAttribute('min');
-    inpStat.removeAttribute('max');
-    inpClaim.removeAttribute('min');
-    inpClaim.removeAttribute('max');
-    // If values look like proportions (0..1), reset to coffee defaults
-    if (state.stat <= 1 && state.claim <= 1) {
-      state.stat = 7.82;
-      state.claim = 8.00;
-      state.sigma = 0.50;
-      state.n = 36;
-      inpStat.value = state.stat;
-      inpClaim.value = state.claim;
-      document.getElementById('inp-sigma').value = state.sigma;
-      document.getElementById('inp-n').value = state.n;
-    }
-  } else {
-    lblStat.innerHTML = '<span class="control-name">Sample proportion <span class="sym">p&#770;</span></span>';
-    lblClaim.innerHTML = '<span class="control-name">Claimed value <span class="sym">p<span class="sub">0</span></span></span>';
-    rowSigma.style.display = 'none';
-    paramName.innerHTML = 'p';
-    inpStat.step = '0.001';
-    inpClaim.step = '0.001';
-    inpStat.min = '0';
-    inpStat.max = '1';
-    inpClaim.min = '0.001';
-    inpClaim.max = '0.999';
-    // If values are out of [0,1], reset to seeds defaults
-    if (state.stat < 0.001 || state.stat > 0.999 ||
-        state.claim < 0.001 || state.claim > 0.999) {
-      state.stat = 0.79;
-      state.claim = 0.85;
-      state.n = 200;
-      inpStat.value = state.stat;
-      inpClaim.value = state.claim;
-      document.getElementById('inp-n').value = state.n;
-    }
+  function cdf(z) {
+    // Normal CDF approximation based on Abramowitz and Stegun 7.1.26.
+    const sign = z < 0 ? -1 : 1;
+    const x = Math.abs(z) / Math.SQRT2;
+    const t = 1 / (1 + 0.3275911 * x);
+    const erf = 1 - (((((1.061405429 * t - 1.453152027) * t + 1.421413741) * t - 0.284496736) * t + 0.254829592) * t) * Math.exp(-x*x);
+    return Math.max(0, Math.min(1, 0.5 * (1 + sign * erf)));
   }
 
-  document.querySelectorAll('[data-mode]').forEach(b => {
-    b.classList.toggle('active', b.dataset.mode === mode);
-  });
-  // Also update Hₐ symbol displays in radio labels
-  document.querySelectorAll('input[name="tail"]').forEach((r, i) => {
-    const sym = mode === 'mean' ? '\u03bc' : 'p';
-    const sub = mode === 'mean' ? '\u03bc\u2080' : 'p\u2080';
-    const op = ['<', '\u2260', '>'][i];
-    const label = r.parentElement.querySelector('span');
-    const tail = ['Left-tailed', 'Two-tailed', 'Right-tailed'][i];
-    label.innerHTML = `${tail} &nbsp; <span class="sym">H<span class="sub">a</span></span> : <span class="sym">${sym} ${op} ${sub}</span>`;
-  });
-}
+  function gauss(z) { return Math.exp(-0.5*z*z); }
+  function se() { return sigma / Math.sqrt(state.n); }
+  function currentZ() { return (state.mean - claim) / se(); }
+  function currentP() { return cdf(currentZ()); }
+  function cutoff() {
+    const z = state.alpha === 0.01 ? -2.326347874 : state.alpha === 0.10 ? -1.281551566 : -1.644853627;
+    return claim + z * se();
+  }
+  function fmtP(p) {
+    if (p < 0.0001) return '< 0.0001';
+    if (p > 0.9999) return '> 0.9999';
+    return p.toFixed(4);
+  }
 
-//============================================================
-// EXAMPLES
-//============================================================
+  // A single curve; the simulated means, when requested, appear beneath it.
+  function draw() {
+    const xmin=7.35, xmax=8.65, left=52, right=868, top=53, baseline=264;
+    const width=right-left, sd=se(), obs=state.mean;
+    const xpx=x=>left+(x-xmin)/(xmax-xmin)*width;
+    const ypx=x=>baseline-182*gauss((x-claim)/sd);
+    const f=x=>Number(x).toFixed(2);
+    const esc=x=>String(x).replaceAll('&','&amp;').replaceAll('<','&lt;');
+    let path='', shaded='M '+f(xpx(xmin))+' '+f(baseline);
+    for(let i=0;i<=300;i++) {
+      const x=xmin+(xmax-xmin)*i/300;
+      path+=(i===0?'M ':' L ')+f(xpx(x))+' '+f(ypx(x));
+    }
+    const end=Math.min(xmax,Math.max(xmin,obs));
+    for(let i=0;i<=200;i++) {
+      const x=xmin+(end-xmin)*i/200;
+      shaded+=' L '+f(xpx(x))+' '+f(ypx(x));
+    }
+    shaded+=' L '+f(xpx(end))+' '+f(baseline)+' Z';
 
-const EXAMPLES = {
-  coffee:   { mode: 'mean', stat: 7.82, claim: 8.00, sigma: 0.50, n: 36,  tail: 'left',  alpha: 0.05 },
-  exam:     { mode: 'mean', stat: 511,  claim: 500,  sigma: 80,   n: 64,  tail: 'two',   alpha: 0.05 },
-  seeds:    { mode: 'prop', stat: 0.79, claim: 0.85, sigma: 0,    n: 200, tail: 'left',  alpha: 0.05 },
-  calories: { mode: 'mean', stat: 562,  claim: 540,  sigma: 60,   n: 36,  tail: 'two',   alpha: 0.05 }
-};
+    let out='<title>Sample means when the null hypothesis is true</title>';
+    out+='<rect width="920" height="410" rx="9" fill="#fffefa"/>';
+    out+='<line x1="'+left+'" x2="'+right+'" y1="'+baseline+'" y2="'+baseline+'" stroke="#aab4bd" stroke-width="1.5"/>';
+    out+='<path d="'+shaded+'" fill="#e7aeb6" opacity=".62"/>';
+    out+='<path d="'+path+'" fill="none" stroke="#275d8b" stroke-width="3" stroke-linejoin="round"/>';
+    const claimX=xpx(claim), observedX=xpx(obs), cutoffX=xpx(cutoff());
+    out+='<line x1="'+f(cutoffX)+'" y1="'+top+'" x2="'+f(cutoffX)+'" y2="'+baseline+'" stroke="#b27a32" stroke-width="2" stroke-dasharray="7 6"/>';
+    out+='<line x1="'+f(claimX)+'" y1="'+top+'" x2="'+f(claimX)+'" y2="'+baseline+'" stroke="#275d8b" stroke-width="2" stroke-dasharray="4 5"/>';
+    out+='<line x1="'+f(observedX)+'" y1="'+top+'" x2="'+f(observedX)+'" y2="'+baseline+'" stroke="#b24b58" stroke-width="3"/>';
+    out+='<circle cx="'+f(observedX)+'" cy="'+top+'" r="5" fill="#b24b58"/>';
+    for(let i=0;i<=6;i++) {
+      const x=7.4+i*.2, px=xpx(x);
+      out+='<line x1="'+f(px)+'" y1="'+baseline+'" x2="'+f(px)+'" y2="'+(baseline+6)+'" stroke="#aab4bd"/>';
+      out+='<text x="'+f(px)+'" y="291" fill="#596571" text-anchor="middle" font-size="15" font-family="system-ui,sans-serif">'+x.toFixed(1)+'</text>';
+    }
+    out+='<text x="460" y="315" text-anchor="middle" fill="#596571" font-family="system-ui,sans-serif" font-size="15">Sample mean (ounces)</text>';
+    out+='<text x="'+f(claimX)+'" y="39" text-anchor="middle" font-weight="600" fill="#275d8b" font-family="system-ui,sans-serif" font-size="14">μ₀ = 8</text>';
+    // A compact observation label is kept separate to avoid collision with the claim label.
+    out+='<text x="58" y="20" fill="#b24b58" font-weight="600" font-family="system-ui,sans-serif" font-size="15">Observed mean: '+obs.toFixed(2)+' oz</text>';
+    if(state.samples.length) {
+      out+='<line x1="'+left+'" x2="'+right+'" y1="330" y2="330" stroke="#e1e6ea"/>';
+      let low=0;
+      for(let i=0;i<state.samples.length;i++) {
+        const val=state.samples[i];
+        const isLow=val<=obs;
+        if(isLow) low++;
+        const cx=xpx(val), cy=342+(i%3)*9;
+        if(cx<left||cx>right) continue;
+        out+='<circle cx="'+f(cx)+'" cy="'+cy+'" r="3.1" opacity=".72" fill="'+(isLow?'#b24b58':'#7592aa')+'"/>';
+      }
+      out+='<text x="460" y="395" text-anchor="middle" fill="#596571" font-family="system-ui,sans-serif" font-size="14">100 sample means generated under H₀ · red = as low or lower than observed</text>';
+    } else {
+      out+='<text x="460" y="364" text-anchor="middle" fill="#596571" font-family="system-ui,sans-serif" font-size="14">Generate 100 samples to see how often this result happens by chance.</text>';
+    }
+    ui.graph.innerHTML=out;
+    ui.graph.setAttribute('aria-label','Null distribution centered at 8 ounces; observed mean '+obs.toFixed(2)+'; significance cutoff '+cutoff().toFixed(3)+'; left-tail p-value '+currentP().toFixed(5)+'. '+(state.samples.length?'100 simulated null sample means are plotted below the axis.':'No simulated samples yet.'));
+  }
 
-function loadExample(name) {
-  const ex = EXAMPLES[name];
-  Object.assign(state, ex);
-  state.example = name;
-  document.querySelectorAll('[data-example]').forEach(b => {
-    const active = b.dataset.example === name;
-    b.classList.toggle('active',active);
-    b.setAttribute('aria-pressed',active?'true':'false');
+  function render() {
+    const p=currentP(), reject=p<=state.alpha;
+    ui.meanValue.textContent=state.mean.toFixed(2)+' oz';
+    ui.nValue.textContent=String(state.n);
+    ui.pValue.textContent=fmtP(p);
+    ui.decision.textContent=reject?'Reject H₀':'Fail to reject H₀';
+    ui.decision.className='decision '+(reject?'reject':'keep');
+    const chance=p<.0001?'less than 0.01%':(p*100).toFixed(2)+'%';
+    ui.interpretation.textContent='If the claimed mean is really 8 ounces, the chance of getting a sample mean of '+state.mean.toFixed(2)+' ounces or lower is '+chance+'. Since this p-value is '+(reject?'at most':'greater than')+' α = '+state.alpha.toFixed(2)+', we '+(reject?'have evidence that the machine underfills':'do not have enough evidence to conclude that it underfills')+' at this significance level.';
+    document.querySelectorAll('[data-alpha]').forEach(button=>{
+      const selected=Number(button.dataset.alpha)===state.alpha;
+      button.classList.toggle('active',selected);
+      button.setAttribute('aria-pressed',selected?'true':'false');
+    });
+    if(state.samples.length) {
+      const count=state.samples.filter(x=>x<=state.mean).length;
+      ui.simulation.hidden=false;
+      ui.count.textContent=count+' out of 100 simulated sample means were this low or lower.';
+      ui.caption.textContent='That is '+count+'%. The curve gives a theoretical probability of '+chance+'. The simulated percentage changes from one batch to the next, especially when the p-value is small.';
+      ui.clear.hidden=false;
+    } else {
+      ui.simulation.hidden=true;
+      ui.clear.hidden=true;
+    }
+    draw();
+  }
+
+  function sampleZ() {
+    // Box–Muller; each draw is a fresh standard-normal random variable.
+    const u=Math.max(Number.MIN_VALUE,Math.random()),v=Math.random();
+    return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v);
+  }
+  document.getElementById('generate').addEventListener('click',()=>{
+    state.samples=Array.from({length:100},()=>claim+se()*sampleZ());
+    render();
   });
-  setMode(ex.mode);
-  document.getElementById('inp-stat').value = ex.stat;
-  document.getElementById('inp-claim').value = ex.claim;
-  document.getElementById('inp-sigma').value = ex.sigma;
-  document.getElementById('inp-n').value = ex.n;
-  document.querySelector(`input[name="tail"][value="${ex.tail}"]`).checked = true;
-  document.querySelectorAll('[data-alpha]').forEach(b => {
-    b.classList.toggle('active', parseFloat(b.dataset.alpha) === ex.alpha);
+  ui.clear.addEventListener('click',()=>{state.samples=[];render();});
+  ui.mean.addEventListener('input',()=>{
+    state.mean=Number(ui.mean.value);
+    // Keep existing simulated samples: students can compare them with a new observed mean.
+    render();
+  });
+  ui.n.addEventListener('input',()=>{
+    state.n=Number(ui.n.value);
+    // A changed sample size means a different null sampling distribution.
+    state.samples=[];
+    render();
+  });
+  document.querySelectorAll('[data-alpha]').forEach(button=>{
+    button.addEventListener('click',()=>{state.alpha=Number(button.dataset.alpha);render();});
   });
   render();
-}
-
-//============================================================
-// EVENT WIRING
-//============================================================
-
-function wireEvents() {
-  document.getElementById('trial-one').addEventListener('click',()=>drawNullTrials(1));
-  document.getElementById('trial-many').addEventListener('click',()=>drawNullTrials(20));
-  document.getElementById('trial-reset').addEventListener('click',()=>{resetNullTrials();renderNullTrials();});
-  document.getElementById('inp-stat').addEventListener('input', e => {
-    state.stat = parseFloat(e.target.value);
-    render();
-  });
-  document.getElementById('inp-claim').addEventListener('input', e => {
-    state.claim = parseFloat(e.target.value);
-    render();
-  });
-  document.getElementById('inp-sigma').addEventListener('input', e => {
-    state.sigma = parseFloat(e.target.value);
-    render();
-  });
-  document.getElementById('inp-n').addEventListener('input', e => {
-    state.n = parseFloat(e.target.value);
-    render();
-  });
-
-  document.querySelectorAll('input[name="tail"]').forEach(r => {
-    r.addEventListener('change', e => {
-      state.tail = e.target.value;
-      render();
-    });
-  });
-
-  document.querySelectorAll('[data-alpha]').forEach(b => {
-    b.addEventListener('click', () => {
-      state.alpha = parseFloat(b.dataset.alpha);
-      document.querySelectorAll('[data-alpha]').forEach(x => x.classList.remove('active'));
-      b.classList.add('active');
-      render();
-    });
-  });
-
-  document.querySelectorAll('[data-mode]').forEach(b => {
-    b.addEventListener('click', () => {
-      setMode(b.dataset.mode);
-      state.example = null;
-      document.querySelectorAll('[data-example]').forEach(x=>{x.classList.remove('active');x.setAttribute('aria-pressed','false');});
-      render();
-    });
-  });
-
-  document.querySelectorAll('[data-example]').forEach(b => {
-    b.addEventListener('click', () => loadExample(b.dataset.example));
-  });
-}
-
-//============================================================
-// INIT
-//============================================================
-
-window.addEventListener('DOMContentLoaded', () => {
-  wireEvents();
-  loadExample('coffee');
-});
-
-window.addEventListener('resize', () => {
-  render();
-});
+})();
 </script>
-
 </body>
 </html>
