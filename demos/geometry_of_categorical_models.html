@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Geometry of Categorical Models</title>
+  <title>Chi-Squared Explorer</title>
   <style>
     :root{
       --bg:#f7f8fc;
@@ -75,105 +75,172 @@
     .chi-plot,.null-stack{overflow:auto;max-width:100%}.chi-plot svg,.null-stack svg{display:block;width:100%;height:auto;min-width:650px}.null-stack{max-height:570px;border:1px solid var(--line);border-radius:8px}.null-stack svg{min-width:750px}.sim-actions{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin:14px 0}.sim-actions label{display:flex;align-items:center;gap:8px}.sim-empty{padding:20px;color:var(--muted)}.sim-status{font-variant-numeric:tabular-nums}.approx-warning{border-left:4px solid #ad6b15;background:#fff5df;padding:10px 12px;margin:12px 0}button:focus-visible,select:focus-visible,input:focus-visible,[tabindex]:focus-visible{outline:3px solid #ad6b15;outline-offset:3px}
     @media print{body{background:white}header,main{max-width:none;padding:0}.layout,.twocol{display:block}.panel{box-shadow:none;break-inside:avoid;border:1px solid #aaa}.sim-actions,button,#controls,select{display:none}.chi-plot,.null-stack{overflow:visible;max-height:none}.chi-plot svg,.null-stack svg{min-width:0}svg,canvas{print-color-adjust:exact;-webkit-print-color-adjust:exact}}
   </style>
-</head>
+<style id="chi-student-centered-layout">
+header,main{max-width:1500px;padding-left:clamp(14px,2.8vw,35px);padding-right:clamp(14px,2.8vw,35px)}
+header{padding-top:20px;padding-bottom:15px}header h1{font-size:clamp(1.9rem,3vw,2.8rem)}
+.layout{grid-template-columns:minmax(284px,320px) minmax(0,1fr);gap:22px}
+.chi-rail{position:sticky;top:14px;max-height:calc(100dvh - 28px);overflow-y:auto;overscroll-behavior:contain;border-radius:14px;border:1px solid #d7dfeb;background:#fff;box-shadow:var(--shadow);padding:17px}
+.rail-group{border-bottom:1px solid var(--line);padding-bottom:13px;margin-bottom:16px}
+.rail-group h2{font-size:1.25rem;margin-bottom:8px}
+.rail-group h3{font-size:1.01rem;margin-bottom:6px}
+.rail-group p,.chi-rail p{font-size:.88rem;line-height:1.5;margin:6px 0 11px;color:var(--muted)}
+.rail-kicker,.step-kicker{font-size:.73rem!important;font-weight:800!important;letter-spacing:.07em;text-transform:uppercase;color:var(--blue)!important;margin:0 0 10px!important}
+.rail-selects{display:grid;gap:10px}
+.rail-selects label,.chi-rail label{display:block;font-size:.83rem;font-weight:650}
+.rail-selects select,.chi-rail select{display:block;width:100%;margin-top:5px;font-size:.86rem;padding:8px}
+.chi-rail .rail-button{display:block;width:100%;text-align:center;font-weight:650;font-size:.87rem;padding:9px 10px;margin:8px 0}
+.chi-rail .control{margin:10px 0;padding:10px;border-radius:10px}
+.chi-rail .control-top{margin-bottom:4px}
+.chi-rail .count{color:var(--blue)}
+.rail-advanced{margin:12px 0;padding:13px;background:#f5f8fb;border:1px solid #cfdae5;border-radius:9px}
+.rail-advanced summary{cursor:pointer;font-weight:750;color:#245a81;font-size:.87rem}
+.rail-advanced[open] summary{margin-bottom:12px}
+.rail-subsection{border-top:1px solid #cfdae5;margin-top:15px;padding-top:12px}
+.rail-reminder{background:#eff6ff;border-radius:10px;padding:12px;font-size:.86rem;line-height:1.55}
+.chi-results{min-width:0}
+.chi-results>.panel{padding:22px 25px}
+.chi-results h2{font-size:clamp(1.16rem,1.8vw,1.42rem);line-height:1.3}
+.chi-results p{max-width:90ch}
+.intro-panel{background:#f4f8fd}
+.chi-results .metrics{grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:15px 0}
+.chi-results .metric{padding:11px;border-radius:10px;min-width:0}
+.chi-results .metric .label{font-size:.68rem;line-height:1.3}
+.chi-results .metric .value{font-size:clamp(1.03rem,1.9vw,1.35rem);overflow-wrap:anywhere}
+.chi-results .formula{padding:14px;font-size:1.11rem;text-align:center}
+.lesson-readout{border-left:3px solid #3a6f91;border-radius:6px;background:#edf4f8;padding:11px 14px;font-size:.93rem;line-height:1.55;margin:16px 0!important}
+.chi-results table{margin:14px 0}
+.chi-results table td,.chi-results table th{padding:9px 8px}
+.chi-results .chi-plot svg{min-width:640px}
+.chi-results .note{margin-top:16px;font-size:.91rem}
+.explain-details{border:1px solid #cbdbe8;background:#f7fafd;border-radius:9px;padding:13px 16px;margin:17px 0 0}
+.explain-details>summary{cursor:pointer;font-weight:750;color:#245a81}
+.explain-details[open]>summary{margin-bottom:13px}
+.explain-details canvas{max-height:600px;object-fit:contain}
+.try-next{padding-top:14px;margin-top:18px;border-top:1px solid var(--line)}
+.try-next li{margin:8px 0}
+@media(max-width:980px){.layout{grid-template-columns:1fr}.chi-rail{position:relative;top:auto;max-height:none;overflow:visible}.chi-results>.panel{padding:19px}.chi-results .metrics{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){header,main{padding-left:10px;padding-right:10px}.chi-rail{padding:14px}.chi-results>.panel{padding:15px}.chi-results .metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.chi-results table{font-size:.78rem}.chi-results table td,.chi-results table th{padding:7px 5px}.chi-results .chi-plot svg{min-width:580px}}
+@media print{.layout{display:block}.chi-rail{display:none}.chi-results .panel{break-inside:auto}.chi-results .chi-plot svg{min-width:0}}
+</style></head>
 <body>
 <header>
   <p><a href="../index.html">← MATH&amp; 146 course</a> · <a href="../readings/week8_reading.html">Week 8 reading</a></p>
-  <h1>Geometry of Categorical Models</h1>
-  <p class="subtitle">A categorical model is a point in a shape. With 2 categories the shape is a line segment, with 3 categories it is a triangle, and with 4 categories it is a tetrahedron. This demo shows the expected model point, the observed data point, and their weighted squared departure, measured by chi-squared.</p>
+  <h1>Chi-Squared Explorer: When Counts Don't Match</h1>
+  <p class="subtitle">Compare observed counts with what a model predicts. Change the sample, see the contributions, and work through the same hypothesis-testing steps you've already learned.</p>
 </header>
-<main>
-  <div class="layout">
-    <section>
-      <div class="panel">
-        <h2>1. Choose the model size</h2>
-        <div class="row">
-          <select id="kSelect" aria-label="Number of categories">
-            <option value="2">2 categories</option>
-            <option value="3" selected>3 categories</option>
-            <option value="4">4 categories</option>
-          </select>
-          <select id="scenarioSelect" aria-label="Category labels"></select>
-        </div>
-        <div class="row" style="margin-top:10px;">
-          <button class="orange" id="newExpectedBtn">New expected model</button>
-          <button class="secondary" id="newObservedBtn">Explore a count allocation</button>
-        </div>
-        <div class="row" style="margin-top:10px;">
-          <button class="primary" id="matchBtn">Round expected counts</button>
-          <button class="secondary" id="resetBtn">Reset example</button>
-        </div>
-        <div id="controls"></div>
-        <div class="note">
-          The total sample size is fixed at <strong id="nLabel">60</strong>. That is why one count is always dependent on the others. Sliders and “Explore” choose possible allocations; “Draw under H₀” below samples from the expected model. Rounding expected counts gives a whole-number approximation and may leave χ² above zero.
-        </div>
-      </div>
-      <div class="panel">
-        <h2>2. What the picture means</h2>
-        <p class="small" id="shapeText"></p>
-        <div class="formula">
-          <div><strong>Chi-squared:</strong> &chi;<sup>2</sup> = &Sigma; (O - E)<sup>2</sup> / E</div>
-          <div style="margin-top:8px;"><strong>Degrees of freedom:</strong> df = k - 1</div>
-        </div>
-        <p class="small">The expected counts define a target point in the shape. The observed counts define another point. The chi-squared statistic is a weighted squared departure: χ² = N Σ(p̂ − p)²/p. Its value is not ordinary screen distance between the points.</p>
-      </div>
-    </section>
-
-    <section>
-      <div class="panel">
-        <h2>3. Geometry view</h2>
-        <div class="metrics">
-          <div class="metric"><div class="label">Shape</div><div class="value" id="shapeLabel">Triangle</div></div>
-          <div class="metric"><div class="label">df</div><div class="value" id="dfLabel">2</div></div>
-          <div class="metric"><div class="label">&chi;<sup>2</sup></div><div class="value" id="chiLabel">0.00</div></div>
-          <div class="metric"><div class="label">p-value</div><div class="value" id="pLabel">1.000</div></div>
-        </div>
-        <div id="decision" class="decision good">Small weighted distance: the observed counts look compatible with the expected model.</div>
-        <canvas id="geomCanvas" width="900" height="630" role="img" aria-label="Categorical probability model geometry">The counts table and residuals describe the model and observed data.</canvas>
-        <p class="small">Colored rings keep the markers visible when they share a projected location. Use the legend to identify the model points.</p>
-        <div class="legend">
-          <span><span class="swatch sw-black"></span>equal model</span>
-          <span><span class="swatch sw-orange"></span>expected model</span>
-          <span><span class="swatch sw-blue"></span>observed counts</span>
-          <span><span class="swatch sw-purple"></span>difference vector</span>
-        </div>
-      </div>
-
-      <div class="twocol">
-        <div class="panel">
-          <h2>4. Counts and contributions</h2>
-          <table>
-            <thead><tr><th>Category</th><th>O</th><th>E</th><th>O-E</th><th>Contribution</th></tr></thead>
-            <tbody id="calcTable"></tbody>
-          </table>
-        </div>
-        <div class="panel">
-          <h2>5. Standardized components</h2>
-          <p class="small">These are the coordinates of the standardized difference vector \(z=(O-E)/\sqrt{E}\). The chi-squared statistic is the sum of their squares.</p>
-          <div id="stdComponents"></div>
-        </div>
-      </div>
-      <footer>Tip: in the 4-category case, drag inside the picture to rotate the tetrahedron.</footer>
-    </section>
+<main id="chi-demo">
+<div class="layout">
+<aside class="chi-rail" aria-label="Chi-squared experiment controls">
+  <div class="rail-group"><p class="rail-kicker">Week 8 · Interactive experiment</p><h2>Make your own survey</h2>
+  <p>Our starting example is a survey of <strong>60 students</strong> choosing between pizza, tacos, and salad. We want to know whether their choices fit an equal-preference model. Use the controls below to change the observations and watch the test respond.</p></div>
+  <div class="rail-group">
+    <h3>1. Choose the categories</h3>
+    <p>Start with three lunches. Other categories work in exactly the same way.</p>
+    <div class="rail-selects"><label for="kSelect">Number of categories
+      <select id="kSelect"><option value="2">2 categories</option><option value="3" selected>3 categories</option><option value="4">4 categories</option></select></label>
+      <label for="scenarioSelect">Survey question<select id="scenarioSelect"></select></label>
+    </div>
   </div>
-
-  <section class="panel" aria-labelledby="tail-heading">
-    <h2 id="tail-heading">6. Turn the mismatch into a right-tail probability</h2>
-    <p class="small">Squaring the residuals combines departures in either direction into a nonnegative statistic. The p-value is the area to the right of the observed χ². Pale shading marks the rejection region at the chosen α; dark shading is the current p-value.</p>
-    <div class="sim-actions"><label for="alphaSelect">Significance level α <select id="alphaSelect"><option value="0.10">0.10</option><option value="0.05" selected>0.05</option><option value="0.01">0.01</option></select></label></div>
-    <div id="approx-warning" class="approx-warning" role="status" hidden></div>
-    <div id="chi-tail" class="chi-plot" tabindex="0" role="group" aria-label="Chi-squared null curve and shaded right tail"></div>
-    <p class="small" id="chi-curve-note"></p>
-  </section>
-  <section class="panel" aria-labelledby="simulation-heading">
-    <h2 id="simulation-heading">7. Let repeated tests under H₀ pile up</h2>
-    <p class="small">Each draw generates 60 independent categorical observations using the <em>fixed expected probabilities</em>. The latest sample moves the observed point above and adds a row below. Red points reject this true null model; the dashed cutoff is fixed by df and α.</p>
-    <div class="sim-actions"><button class="primary" id="sample-one">Draw under H₀</button><button class="secondary" id="sample-many">Draw 20 under H₀</button><button class="secondary" id="sample-clear">Clear sampled tests</button></div>
+  <div class="rail-group">
+    <h3>2. Change the observed counts</h3>
+    <p>The model expects equal counts at first. The sliders let you change how the 60 observations are actually distributed. Watch which categories contribute most to the disagreement.</p>
+    <div id="controls"></div>
+    <button class="secondary rail-button" id="newObservedBtn" type="button">Try another allocation</button>
+    <button class="secondary rail-button" id="matchBtn" type="button">Match the predicted counts</button>
+    <button class="secondary rail-button" id="resetBtn" type="button">Reset lunch example</button>
+    <p class="small">All category counts must add to <strong id="nLabel">60</strong>. Changing the first counts automatically changes the last count.</p>
+  </div>
+  <details class="rail-advanced"><summary>More settings: model, significance level, and repetition</summary>
+    <p>These are useful once you understand the basic observed-versus-expected comparison.</p>
+    <button class="secondary rail-button" id="newExpectedBtn" type="button">Try a different expected pattern</button>
+    <label for="alphaSelect">Significance level α
+    <select id="alphaSelect"><option value="0.10">0.10</option><option value="0.05" selected>0.05</option><option value="0.01">0.01</option></select></label>
+    <div class="rail-subsection"><strong>Repeat the study under the null model</strong>
+      <p>Generate entirely new sets of counts from the expected probabilities to see how much chi-squared varies by chance alone.</p>
+      <button class="primary rail-button" id="sample-one" type="button">Draw one random survey</button>
+      <button class="secondary rail-button" id="sample-many" type="button">Draw 20 random surveys</button>
+      <button class="secondary rail-button" id="sample-clear" type="button">Clear simulated surveys</button>
+    </div>
+  </details>
+  <div class="rail-reminder">Remember: <strong>expected</strong> counts come from the claim. <strong>Observed</strong> counts come from the sample. Chi-squared asks how well they match.</div>
+</aside>
+<div class="chi-results">
+<section class="panel intro-panel">
+  <p class="step-kicker">Start with a question</p>
+  <h2>When should we doubt a predicted pattern?</h2>
+  <p>Imagine a cafeteria that believes three lunch choices are equally popular. It surveys 60 students. If the claim is right, it should expect about 20 choices for each lunch, but it would be surprising if every random sample matched that prediction perfectly.</p>
+  <p>We'll take the sample counts seriously without assuming every disagreement proves the cafeteria wrong. We need to measure <em>how much</em> the observations disagree with the model. That's precisely what the chi-squared test is designed to do.</p>
+</section>
+<section class="panel" aria-labelledby="counts-heading">
+  <p class="step-kicker">Step 1 · What does the claim predict?</p>
+  <h2 id="counts-heading">Compare expected counts with observed counts</h2>
+  <p>Start with the claim that the categories are equally likely. With three lunches and 60 students, that predicts 20 responses in each category. The table updates as you move the sliders on the left.</p>
+  <p id="expected-intro" class="lesson-readout">Expected counts are the predictions of the model; observed counts are what we actually recorded.</p>
+  <table><thead><tr><th>Category</th><th>Observed (O)</th><th>Expected (E)</th><th>O − E</th><th>Contribution</th></tr></thead><tbody id="calcTable"></tbody></table>
+  <p id="largest-contribution" class="lesson-readout" aria-live="polite"></p>
+  <p class="small">The sign of O − E tells us whether the sample showed more or fewer observations than the model predicted. Positive and negative gaps can cancel if we merely add them, so the test needs another way to combine those differences.</p>
+</section>
+<section class="panel" aria-labelledby="stat-heading">
+  <p class="step-kicker">Step 2 · Measure the total mismatch</p>
+  <h2 id="stat-heading">Give each category a contribution, then add them</h2>
+  <p>For each category, square the gap between observed and expected counts, then divide by the expected count. Squaring keeps positive and negative gaps from cancelling. Dividing by the expected count makes a gap of five count more when we expected ten than when we expected a hundred.</p>
+  <div class="formula"><strong>Chi-squared: χ² = Σ (O − E)² / E</strong></div>
+  <div class="metrics">
+    <div class="metric"><div class="label">Categories</div><div class="value" id="shapeLabel">Triangle</div></div>
+    <div class="metric"><div class="label">Degrees of freedom</div><div class="value" id="dfLabel">2</div></div>
+    <div class="metric"><div class="label">Total mismatch · χ²</div><div class="value" id="chiLabel">0.00</div></div>
+    <div class="metric"><div class="label">Right-tail p-value</div><div class="value" id="pLabel">1.000</div></div>
+  </div>
+  <p id="mismatch-explanation" class="lesson-readout" aria-live="polite"></p>
+  <details class="explain-details"><summary>Why do we have degrees of freedom?</summary>
+  <p>All the counts together add to 60. Once the counts for the first two lunches are chosen, the third one is fixed. That's why a goodness-of-fit test with three categories has two degrees of freedom. More generally, for a fixed set of <em>k</em> claimed category probabilities, the degrees of freedom are <strong>df = k − 1</strong>.</p></details>
+  <div class="note">A larger χ² means a bigger overall mismatch. Every contribution is nonnegative, so the statistic can never be negative. A perfect match gives χ² = 0.</div>
+</section>
+<section class="panel" aria-labelledby="tail-heading">
+  <p class="step-kicker">Step 3 · Find the p-value</p>
+  <h2 id="tail-heading">How unusual is this mismatch if the claim is true?</h2>
+  <p>Imagine repeating the survey many times under the cafeteria's equal-choice model. Some samples would be close to the prediction; others would be farther away. The chi-squared curve tells us how unusual a given <em>total mismatch</em> would be under the null hypothesis.</p>
+  <p>Because larger χ² values mean more disagreement, we always look in the <strong>right tail</strong> of this curve. The shaded area to the right of our observed statistic is the p-value.</p>
+  <div id="approx-warning" class="approx-warning" role="status" hidden></div>
+  <div id="chi-tail" class="chi-plot" tabindex="0" role="group" aria-label="Chi-squared reference distribution with shaded right-tail probability"></div>
+  <p id="chi-curve-note" class="small"></p>
+  <p id="pvalue-explanation" class="lesson-readout" aria-live="polite"></p>
+</section>
+<section class="panel" aria-labelledby="conclusion-heading">
+  <p class="step-kicker">Step 4 · Conclude in context</p>
+  <h2 id="conclusion-heading">Does the sample make us doubt the model?</h2>
+  <p>Compare the p-value with α, just as in Weeks 6 and 7. A small enough p-value means that this pattern of counts is unusual under the model, so we reject it. Otherwise, we fail to reject. We never prove a model true merely because the sample is compatible with it.</p>
+  <div id="decision" class="decision good" aria-live="polite">Review your data and test result here.</div>
+  <div class="try-next"><h3>Try these experiments</h3>
+  <ol><li>Click <strong>Match the predicted counts</strong> on the left. What happens to χ²? What happens to the p-value?</li>
+  <li>Click <strong>Reset lunch example</strong>. Which lunch contributes the most to χ²? Does a bigger contribution mean that category is a separate hypothesis test?</li>
+  <li>Move one observed-count slider farther from the model prediction. What happens to the overall mismatch?</li></ol></div>
+</section>
+<section class="panel" aria-labelledby="geometry-heading">
+  <details class="explain-details" id="geometry-extension">
+    <summary id="geometry-heading">Optional · The geometry behind categorical models</summary>
+    <p>There is a geometric picture behind the counts, though you do not need it to carry out the test. If the categories have probabilities that add to one, those possible models form a line for two categories, a triangle for three, and a tetrahedron for four. Our predicted model is one point; the observed proportions give another.</p>
+    <p id="shapeText" class="small"></p>
+    <canvas id="geomCanvas" width="900" height="630" role="img" aria-label="Geometric picture of categorical probability models">The counts table above describes the observed and expected values.</canvas>
+    <div class="legend"><span><span class="swatch sw-black"></span>equal model</span><span><span class="swatch sw-orange"></span>expected model</span><span><span class="swatch sw-blue"></span>observed counts</span><span><span class="swatch sw-purple"></span>difference vector</span></div>
+    <p class="small">The χ² statistic is a weighted comparison of the counts, not ordinary screen distance between these points. In the four-category case, drag on the picture to rotate the tetrahedron.</p>
+    <h3>Another view of the contributions</h3>
+    <p>These bars preserve whether each category has more or fewer observations than expected. The squared lengths provide the individual chi-squared contributions.</p>
+    <div id="stdComponents"></div>
+  </details>
+</section>
+<section class="panel" aria-labelledby="simulation-heading">
+  <details class="explain-details" id="simulation-extension">
+    <summary id="simulation-heading">Optional · Repeat the survey under a true null model</summary>
+    <p>In a real investigation, we do not know whether our null model is true. Here we do: the computer generates new surveys from the exact probabilities we have chosen. You can see that even with a correct model, some random samples give substantial mismatches.</p>
+    <p>Use <strong>Draw 20 random surveys</strong> in the left rail to add results here. A red point marks a sample that would reject the model under the chosen significance level, even though the simulation generated the data from that model.</p>
     <p class="sim-status" id="sample-status" aria-live="polite"></p>
-    <div id="null-stack" class="null-stack" tabindex="0" role="group" aria-label="Recent chi-squared statistics from samples generated under the true null model"></div>
-    <p class="small">Compare the rejection fraction with nominal α. Counts are discrete and the chi-squared reference distribution is an approximation, so the long-run fraction need not equal α exactly. This rate is not the probability that a particular null claim is true. Choose α before analyzing real data; changing it here compares thresholds on the same draws without changing their statistics or p-values.</p>
-    <p class="small">Changing the expected model, category labels, or number of categories clears the sampled run. Moving the observed sliders only explores the current table; it does not add simulated tests.</p>
-  </section>
+    <div id="null-stack" class="null-stack" tabindex="0" role="group" aria-label="Chi-squared results from multiple random surveys under the null hypothesis"></div>
+    <p class="small">Changing the model clears these repeated-study results. Moving the sliders for the current observations does not add a simulated survey. The long-run rejection rate approximates α when the assumptions of the reference approximation are met.</p>
+  </details>
+</section>
+</div>
+</div>
 </main>
 <script>
 const N = 60;
@@ -463,7 +530,7 @@ function drawTetra(obsW,expW,eqW){
 
 function updateText(){
   const shapeNames = {2:'Line',3:'Triangle',4:'Tetrahedron'};
-  document.getElementById('shapeLabel').textContent = shapeNames[k];
+  document.getElementById('shapeLabel').textContent = k;
   document.getElementById('dfLabel').textContent = k-1;
   document.getElementById('chiLabel').textContent = chiValue().toFixed(2);
   const p = pChi(chiValue(),k-1);
@@ -544,8 +611,22 @@ function renderNullHistory(){
   box.innerHTML=svgFrame(body,H,`${rejected} false rejections in ${total} simulated multinomial null datasets; latest ${recent.length} shown.`);
 }
 
+function renderLessonExplanation(){
+  const rows=computeRows(),chi=chiValue(),p=pChi(chi,k-1);
+  const expectedText=rows.map(r=>r.cat+': '+r.e.toFixed(1)).join('; ');
+  document.getElementById('expected-intro').textContent='The null model predicts these counts out of '+N+': '+expectedText+'. The observed column shows what this particular survey actually contains.';
+  const ranked=[...rows].sort((a,b)=>b.c-a.c),top=ranked[0];
+  const gapWord=top.diff>0?'more':top.diff<0?'fewer':'exactly as many';
+  document.getElementById('largest-contribution').textContent=
+    'The largest single contribution comes from '+top.cat+': observed '+top.o.toFixed(0)+', expected '+top.e.toFixed(1)+'. That is '+gapWord+' observations than expected, contributing '+top.c.toFixed(2)+' to the total χ². Read the other rows, too: the test combines them all.';
+  document.getElementById('mismatch-explanation').textContent=
+    'Adding the '+rows.length+' weighted squared gaps gives χ² = '+chi.toFixed(3)+'. '+(chi<.001?'The observed counts match the model almost exactly.':chi<chiCritical(alpha,k-1)?'This is a relatively modest total mismatch at the selected significance level.':'This is a substantial total mismatch compared with what the null model typically predicts.')+' With '+k+' categories, df = '+(k-1)+', because the final count is determined by the total.';
+  const ptxt=p<.0001?'less than 0.0001':p.toFixed(4);
+  document.getElementById('pvalue-explanation').textContent=
+    'Under the null model, the right-tail probability of a χ² value this large or larger is '+ptxt+'. '+(p<=alpha?'That is at most α = '+alpha.toFixed(2)+', so the discrepancy is large enough to reject the model.':'That is greater than α = '+alpha.toFixed(2)+', so this sample does not give enough evidence to reject the model.')+' A p-value does not give the probability that the model is true.';
+}
 function update(){
-  syncNullHistory();updateText();updateTable();drawGeometry();renderChiTail();renderNullHistory();
+  syncNullHistory();updateText();updateTable();drawGeometry();renderChiTail();renderNullHistory();renderLessonExplanation();
 }
 
 function resetExample(){
@@ -570,7 +651,7 @@ document.getElementById('resetBtn').addEventListener('click', resetExample);
 
 document.getElementById('alphaSelect').addEventListener('change',e=>{alpha=Number(e.target.value);update();});
 document.getElementById('sample-one').addEventListener('click',()=>sampleNullDatasets(1));
-document.getElementById('sample-many').addEventListener('click',()=>sampleNullDatasets(20));
+document.getElementById('sample-many').addEventListener('click',()=>{sampleNullDatasets(20);document.getElementById('simulation-extension').open=true;});
 document.getElementById('sample-clear').addEventListener('click',()=>{nullHistory.rows=[];renderNullHistory();});
 
 canvas.addEventListener('mousedown', e => { if(k!==4) return; dragging=true; lastX=e.offsetX; lastY=e.offsetY; });

@@ -35,23 +35,24 @@ code{background:var(--soft);padding:.08rem .28rem;border-radius:5px}button{borde
 </style>
 </head>
 <body>
-<header><a href="../index.html">← MATH&amp; 146 course</a><h1>Week 8 Discussion — The Cryptid Hotline Mix</h1><p>Use a chi-squared goodness-of-fit test to decide whether a new report mix matches an old model.</p></header>
+<header><a href="../index.html">← MATH&amp; 146 course</a><h1>Week 8 Discussion — Does the Hotline's Report Pattern Still Fit?</h1><p>Use observed and expected category counts to carry out a familiar hypothesis test with chi-squared.</p></header>
 <main>
 
-<section class="panel"><div class="kicker">How this discussion works</div><h2>Solve, present, then respond</h2>
-<p>Work the problem below before reading classmates’ solutions. In your initial post, show enough statistical work that another student can follow your method, then state the result in the language of the situation. Post your solution in the class discussion board; this page itself does not submit responses.</p>
-<p class="small">A clear table, calculation, labeled graph, calculator output, or photo of neatly organized handwritten work is fine when appropriate. The goal is statistical communication, not extra prose.</p></section>
-<section class="panel"><div class="kicker">Case file</div><h2>The problem</h2>
-<p>Imagine a regional hotline that has collected unusual-animal reports for many years. To make the archive searchable, each incoming report is placed into one of several broad descriptive categories. The categories are based on what the caller describes, not on independent confirmation that the reported creature exists.</p>
-<p>Over a long historical period, the hotline’s reports have settled into a fairly stable pattern: about <strong>50%</strong> are classified as large-footed hominid reports, <strong>30%</strong> as winged-humanoid reports, and <strong>20%</strong> as lake- or river-creature reports. We can treat those percentages as a probability model for the <em>distribution of report categories</em>.</p>
+<section class="panel"><div class="kicker">What we're practicing</div><h2>A hypothesis test about a whole pattern</h2>
+<p>Weeks 6 and 7 taught us to compare sample results with what a null hypothesis predicts. This week you will use that same reasoning when the data are <em>counts in categories</em>. First understand the model; then predict counts, measure the total mismatch with chi-squared, and decide whether the sample gives us evidence against the model.</p>
+<p>In your initial post, explain your reasoning along with the arithmetic. You can show a table, a graph, calculator work, or clearly organized handwritten calculations. Post your work to the class discussion board; this page is a prompt, not a submission form.</p></section>
+<section class="panel"><div class="kicker">Case file</div><h2>A change in the pattern of reports?</h2>
+<p>Imagine a regional hotline that has spent many years collecting reports of unusual animals. The volunteers running the hotline want to organize those reports so they can be searched and compared from year to year. Each report is assigned to a descriptive category based on what the caller says—not on independent evidence that the animal exists.</p>
+<p>Over time, the volunteers notice that the mix of reports is surprisingly steady. Some kinds of descriptions are common, and others come in much less frequently. They begin to wonder whether a new reporting period looks similar to the historical pattern. If the new mix is quite different, perhaps something has changed about where calls are coming from, which stories get attention, or how the hotline reaches people.</p>
+<p>This question is about <strong>the pattern of reports</strong>, not the existence or population sizes of the creatures described. And it is exactly the sort of question a chi-squared goodness-of-fit test can help answer.</p>
+<p>Before the new reporting period begins, suppose the hotline describes the historical mix with three percentages: 50% large-footed hominid reports, 30% winged-humanoid reports, and 20% lake- or river-creature reports. Think of those percentages as the <em>null model</em>: the prediction we will compare the new observations with.</p>
 <div class="data-grid">
-<div><strong>Large-footed hominid</strong><br>50%</div>
-<div><strong>Winged humanoid</strong><br>30%</div>
-<div><strong>Lake or river creature</strong><br>20%</div>
+<div><strong>Large-footed hominid reports</strong><br>Model probability: 50%</div>
+<div><strong>Winged-humanoid reports</strong><br>Model probability: 30%</div>
+<div><strong>Lake- or river-creature reports</strong><br>Model probability: 20%</div>
 </div>
-<p>During a new reporting period, the hotline receives <strong>200 reports</strong>. The observed counts are <strong>120, 50, and 30</strong> in those same categories. If the historical percentages still describe the reporting process well, we would not expect the observed counts to match the expected counts exactly; random variation creates some difference every time.</p>
-<p>A chi-squared goodness-of-fit test asks whether the observed differences are modest enough to be explained by ordinary random variation or large enough to make the historical category model doubtful. The test pays attention not only to the total discrepancy but to how large each discrepancy is relative to its expected count.</p>
-<p><strong>The statistical question:</strong> Does the new mix of report categories fit the historical 50%–30%–20% model reasonably well, and which category is contributing most strongly to any mismatch?</p>
+<p>Now the volunteers count <strong>200 new reports</strong>. Of these, 120 fall in the first category, 50 in the second, and 30 in the third. If the historical model were still correct, these new observations would not necessarily match its predictions perfectly. We need to decide whether the disagreements are substantial enough to doubt that model.</p>
+<p>We will use a chi-squared goodness-of-fit test at <strong>α = 0.05</strong>. Ask yourself what the null predicts before you work with the formula. How many of the 200 new reports would we expect in each category if the percentages remained 50%–30%–20%?</p>
 <figure class="w8-visual" data-visual="w8-discussion-mix"><div class="w8-plot" tabindex="0" role="group" aria-label="Compare the observed allocation with the null model; scroll horizontally on narrow screens"><svg id="w8-discussion-mix" role="img" aria-labelledby="w8-discussion-mix-title w8-discussion-mix-desc" xmlns:xlink="http://www.w3.org/1999/xlink" width="504pt" height="252pt" viewBox="0 0 504 252" xmlns="http://www.w3.org/2000/svg" version="1.1">
 <title id="w8-discussion-mix-title">Compare the observed allocation with the null model</title><desc id="w8-discussion-mix-desc">Large-footed
 hominid: observed 60, expected 50 percent; Winged
@@ -232,7 +233,16 @@ creature: observed 15, expected 20 percent</desc>
  </defs>
 </svg></div><figcaption><b>Compare the observed allocation with the null model</b>Compare the mix on a common percentage scale. For the test, convert the null probabilities to expected <em>counts</em> using n = 200. The bars describe report categories, not independently verified animal populations.</figcaption></figure>
 </section>
-<section class="panel"><div class="kicker">Initial post</div><h2>What to include</h2><ol class="tasks"><li>Compute the expected counts under the historical model.</li><li>Compute each category’s chi-squared contribution (O−E)²/E and add them to obtain χ².</li><li>Find the degrees of freedom.</li><li>Use a chi-squared calculator or table to estimate the p-value and decide whether the new report mix is consistent with the historical model at α = 0.05.</li><li>Identify which category contributes most to χ². Explain why a change in the mix of reports is not automatically evidence that the underlying creatures became more or less common.</li></ol></section>
-<section class="panel"><div class="kicker">Replies</div><h2>Engage with classmates’ statistics</h2><div class="reply">Check one classmate’s expected count and one chi-squared contribution. Then compare which category each of you sees as driving the discrepancy and whether your interpretations stay focused on the report distribution rather than the reality of the reported creatures.</div><p class="small">A useful reply checks a calculation, compares methods or assumptions, or asks a statistically specific question. Avoid replies that only say that you agree.</p></section>
+<section class="panel"><div class="kicker">Initial post</div><h2>Explain the pattern, then carry out the test</h2>
+<p>Organize your initial post around the same steps we have used for hypothesis testing. Answer every step and show the calculations that support your conclusion.</p>
+<ol class="tasks">
+<li><strong>Step 1 — State.</strong> In your own words, what does the null hypothesis say about the percentages of reports in each category? What does the alternative say? Remember that the alternative concerns the <em>overall distribution</em>.</li>
+<li><strong>Step 2 — Expected counts.</strong> If the model is correct, how many of the 200 reports should belong to each of the three categories on average? Show how you translated the percentages into expected counts.</li>
+<li><strong>Step 2 — Chi-squared.</strong> Compute \((O-E)^2/E\) for each category, then add the three contributions to find \(\chi^2\). Which category contributes the most, and is its observed count above or below its expected count?</li>
+<li><strong>Step 3 — p-value.</strong> Find the degrees of freedom and use a chi-squared table or calculator to judge the right-tail probability. For three categories, the 5% critical value is 5.991. Does the observed statistic fall in the rejection region?</li>
+<li><strong>Step 4 — Conclude.</strong> At \(\alpha=0.05\), what do these reports suggest about whether the <em>reporting pattern</em> still fits its historical model? What would be an inappropriate conclusion about the actual creatures?</li>
+</ol></section>
+<section class="panel"><div class="kicker">Replies</div><h2>Help classmates interpret the evidence</h2>
+<div class="reply">Choose a classmate's work and check one expected count and one chi-squared contribution. Then respond to their interpretation: did they describe a change in the <em>mix of reported categories</em>, or claim more than the data establish?</div><p class="small">A useful reply gives a concrete statistical check or explains how one contribution affects the overall statistic.</p></section>
 <section class="panel"><button onclick="window.print()">Print this discussion prompt</button></section>
 </main></body></html>

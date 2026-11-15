@@ -167,18 +167,28 @@ details summary{line-height:1.35;}
 @media(max-width:540px){.w8-visual{padding:10px 8px}.w8-visual figcaption{font-size:14px}.w8-visual .w8-key{font-size:12px}}
 @media print{.w8-visual{box-shadow:none;border:1px solid #aab6bf;break-inside:avoid;padding:8px;margin:12px 0;print-color-adjust:exact;-webkit-print-color-adjust:exact}.w8-visual .w8-plot{overflow:visible}.w8-visual svg{min-width:0;width:100%}.w8-visual figcaption{font-size:10pt}.w8-table-lookup{break-inside:avoid}.w8-table-lookup .w8-selected{print-color-adjust:exact;-webkit-print-color-adjust:exact}}
 </style>
-</head>
+<style id="w8-guided-chi">
+.student-start p{margin:9px 0}.scenario p{margin:0 0 13px}.scenario p:last-child{margin-bottom:0}
+.hypothesis-prep{background:#eff5f8;border-left:3px solid #3c6b87;padding:14px 17px;margin:20px 0;border-radius:0 9px 9px 0}
+.hypothesis-prep p{margin:6px 0 12px}
+.hypothesis-prep label{display:block;margin:9px 0 5px;font-weight:650}
+.hypothesis-prep textarea{width:100%;min-height:84px}
+.work-guide{font-size:.94rem;color:#405666;line-height:1.6;margin:8px 0 15px}
+@media print{.hypothesis-prep{break-inside:avoid}}
+</style></head>
 <body>
 <div class="wrap">
 <header>
-<h1>Week 8 Lab — Chi-Squared Tests</h1>
+<h1>Week 8 Lab — When Counts Don't Match Predictions</h1>
 <div class="sub">Math 146 · Centralia College</div>
 <div class="id-row">
 <label>Student name <input id="w8_name" placeholder="Your full name" type="text"/></label>
 <label>Date <input id="w8_date" placeholder="mm/dd/yyyy" type="text"/></label>
 </div>
 </header>
-<section aria-labelledby="how-title" class="student-start"><h2 id="how-title">Lab instructions</h2><p>Answer the questions below. Your answers save in this browser. Choose <strong>Prepare Submission</strong> when you are ready to save a PDF or HTML copy.</p></section>
+<section aria-labelledby="how-title" class="student-start"><h2 id="how-title">The same hypothesis-testing idea, now with counts</h2>
+<p>You already know how to test a claim: say what you expect under the null hypothesis, calculate a statistic, evaluate the evidence, and write a conclusion. In Week 8, the claim describes <strong>how a set of observations is distributed among categories</strong>. Rather than subtracting one sample mean from a claimed mean, we compare several observed counts with expected counts and measure the total disagreement.</p>
+<p>Begin each problem by understanding the situation and the proposed model. Don't rush to the calculation. Once you know what the expected counts mean, the formula \(\chi^2=\sum (O-E)^2/E\) is a way of putting those differences together. Your answers save in this browser. When finished, choose <strong>Prepare Submission</strong> to save a PDF or HTML copy.</p></section>
 
 
 
@@ -196,20 +206,19 @@ details summary{line-height:1.35;}
 
 <!-- PROBLEM 1 -->
 <div class="problem" id="p1">
-<h2>Problem 1 — Goodness-of-Fit: Campus Event Preferences</h2>
-<div class="scenario">A student-life office surveys 160 students about which evening event they would most like the college to offer. If there were no overall preference, the four options would be equally popular. Use a chi-squared goodness-of-fit test at \(\alpha=0.05\) to compare that equal-preference model with the observed counts.<br><br><table class="data-table"><thead><tr><th>Event</th><th>Movie night</th><th>Game night</th><th>Open mic</th><th>Trivia</th></tr></thead><tbody><tr><td>Observed \(O\)</td><td>54</td><td>50</td><td>34</td><td>22</td></tr></tbody></table></div>
-<div class="warning"><strong>Write first:</strong> \(H_0\): the four choices are equally
-  popular. \(H_a\): the four choices are not equally popular.</div>
-<div class="part">
-<div class="part-stem"><span class="part-label">(a)</span>
-<span class="part-text">Find the expected count for each category.</span></div>
+<h2>Problem 1 — Do Students Prefer Some Campus Events?</h2>
+<div class="scenario"><p>Imagine that the student-life office is planning events for next term. It can offer movie nights, game nights, open-mic performances, or trivia nights, but it would like to know what students actually prefer. A survey asks each student to choose the <em>one</em> event they would most like to attend.</p>
+<p>At the beginning, the office has no strong reason to favor any of the four choices. It proposes a simple starting model: perhaps each event is equally popular among the college's students. Under this model, a random survey would not necessarily contain exactly equal numbers for all four choices, but we could predict the <em>expected</em> count in each category.</p>
+<p>The office surveys 160 students. Their responses are listed below. Read the four observed counts and compare their sizes before calculating anything. The question is whether this overall pattern seems like reasonable sampling variation under an equal-preference model.</p><table class="data-table"><thead><tr><th>Event</th><th>Movie night</th><th>Game night</th><th>Open mic</th><th>Trivia</th></tr></thead><tbody><tr><td>Observed \(O\)</td><td>54</td><td>50</td><td>34</td><td>22</td></tr></tbody></table></div>
+
+<div class="hypothesis-prep"><strong>Step 1 — What are we testing?</strong><p>In your own words, state what the null model expects for the four event choices and what kind of departure would count as evidence against it.</p><label for="w8_1hyp">Your null and alternative hypotheses</label><textarea id="w8_1hyp" placeholder="H₀: The population event preferences …; Hₐ: …"></textarea></div><div class="part">
+<div class="part-stem"><span class="part-label">(a)</span><span class="part-text">Step 2 — Find the expected count for each event.</span></div><p class="work-guide">If the model says all four events are equally popular, how many of the 160 survey responses would go in each group on average?</p>
 <div class="answer-row"><label>\(E=160/4=\)</label><input data-ans="40" data-tol="0.01" id="w8_1a" type="text"/>
 <button class="check-btn" onclick="checkNum(['w8_1a'],'w8_1a_v')">Check</button><span class="verdict" id="w8_1a_v"></span></div>
 
 </div>
 <div class="part">
-<div class="part-stem"><span class="part-label">(b)</span>
-<span class="part-text">Find each category's contribution \((O-E)^2/E\).</span></div>
+<div class="part-stem"><span class="part-label">(b)</span><span class="part-text">Step 2 — Calculate each category's chi-squared contribution.</span></div><p class="work-guide">Subtract the prediction from the observed count in each category, square the difference, then divide by the expected count. Keep each term separate so you can see which event drives the mismatch.</p>
 <table>
 <thead><tr><th>Event</th><th>Movie</th><th>Game</th><th>Open mic</th><th>Trivia</th></tr></thead>
 <tbody><tr><td>\((O-E)^2/E\)</td>
@@ -224,8 +233,7 @@ details summary{line-height:1.35;}
 
 </div>
 <div class="part">
-<div class="part-stem"><span class="part-label">(c)</span>
-<span class="part-text">Find the test statistic, degrees of freedom, and decision.</span></div>
+<div class="part-stem"><span class="part-label">(c)</span><span class="part-text">Steps 2 and 3 — Add the contributions and judge the evidence.</span></div><p class="work-guide">Add the four terms; there are four categories, so df = 4 − 1. At α = 0.05, the critical value for df = 3 is 7.815. Is the observed χ² unusually large under the model? Enter 1 for reject or 0 for fail to reject.</p>
 <div class="answer-row"><label>\(\chi^2=\)</label><input data-ans="16.40" data-tol="0.05" id="w8_1c" type="text"/>
 <label>\(df=\)</label><input data-ans="3" data-tol="0.01" id="w8_1d" type="text"/>
 <label>Reject? 1=yes, 0=no</label><input data-ans="1" data-tol="0.01" id="w8_1e" type="text"/>
@@ -233,8 +241,7 @@ details summary{line-height:1.35;}
 
 </div>
 <div class="part">
-<div class="part-stem"><span class="part-label">(d)</span>
-<span class="part-text">Write the conclusion in context.</span></div>
+<div class="part-stem"><span class="part-label">(d)</span><span class="part-text">Step 4 — Explain your conclusion to the office.</span></div><p class="work-guide">Say whether the sample provides evidence that the population preferences are not all equal. Include the actual category context; don't claim you know the exact preferences from one survey.</p>
 <div class="text-answer"><label>Your answer.</label>
 <textarea id="w8_1con" placeholder="Write the conclusion in context."></textarea></div>
 
@@ -242,11 +249,12 @@ details summary{line-height:1.35;}
 </div>
 <!-- PROBLEM 2 -->
 <div class="problem" id="p2">
-<h2>Problem 2 — Goodness-of-Fit: Snack Mix Pieces</h2>
-<div class="scenario">A snack-mix company claims a fixed recipe: 40% pretzels, 25% cereal squares, 20% peanuts, and 15% raisins. A student counts 150 pieces from one large bag. Treat the advertised recipe as the probability model and use a goodness-of-fit test to ask whether the observed composition is unusually far from that claim.<br><br><table class="data-table"><thead><tr><th>Piece</th><th>Pretzels</th><th>Cereal</th><th>Peanuts</th><th>Raisins</th></tr></thead><tbody><tr><td>Observed \(O\)</td><td>72</td><td>34</td><td>25</td><td>19</td></tr><tr><td>Claim \(p_i\)</td><td>0.40</td><td>0.25</td><td>0.20</td><td>0.15</td></tr></tbody></table></div>
-<div class="part">
-<div class="part-stem"><span class="part-label">(a)</span>
-<span class="part-text">Find the expected counts.</span></div>
+<h2>Problem 2 — Does a Snack Mix Match Its Advertised Recipe?</h2>
+<div class="scenario"><p>Suppose a company advertises its snack mix as having a particular blend of ingredients. A student opens a large bag and wonders whether the mix really follows that recipe. Counting what is in a bag is a natural way to investigate, because each piece belongs to a category—pretzel, cereal square, peanut, or raisin.</p>
+<p>This question differs from the event survey in one way: the four categories are <em>not</em> expected to be equally common. The company says 40% of pieces should be pretzels, 25% cereal squares, 20% peanuts, and 15% raisins. That's the model we're testing. We don't use it because we know it is correct; we use it because we want to check whether the observations disagree with it.</p>
+<p>The student counts 150 pieces. Look at the table below. The observed counts don't have to match the advertised recipe exactly, even if the recipe is correct. Your task is to translate the advertised percentages into expected counts, then measure the total mismatch. Use \(\alpha=0.05\).</p><table class="data-table"><thead><tr><th>Piece</th><th>Pretzels</th><th>Cereal</th><th>Peanuts</th><th>Raisins</th></tr></thead><tbody><tr><td>Observed \(O\)</td><td>72</td><td>34</td><td>25</td><td>19</td></tr><tr><td>Claim \(p_i\)</td><td>0.40</td><td>0.25</td><td>0.20</td><td>0.15</td></tr></tbody></table></div>
+<div class="hypothesis-prep"><strong>Step 1 — What are we testing?</strong><p>State the model the company claims and the alternative in words. The alternative isn't that one particular ingredient must be too high or too low; it's that the <em>overall recipe proportions</em> are not as advertised.</p><label for="w8_2hyp">Your null and alternative hypotheses</label><textarea id="w8_2hyp" placeholder="H₀: …; Hₐ: …"></textarea></div><div class="part">
+<div class="part-stem"><span class="part-label">(a)</span><span class="part-text">Step 2 — Turn the advertised percentages into expected counts.</span></div><p class="work-guide">Multiply 150 by each claimed proportion (0.40, 0.25, 0.20, 0.15). Check that the expected counts add to 150. A decimal expected count is allowed.</p>
 <div class="answer-row"><label>Pretzels</label><input data-ans="60" data-tol="0.01" id="w8_2e1" type="text"/>
 <label>Cereal</label><input data-ans="37.5" data-tol="0.01" id="w8_2e2" type="text"/>
 <label>Peanuts</label><input data-ans="30" data-tol="0.01" id="w8_2e3" type="text"/>
@@ -255,8 +263,7 @@ details summary{line-height:1.35;}
 
 </div>
 <div class="part">
-<div class="part-stem"><span class="part-label">(b)</span>
-<span class="part-text">Find the test statistic and decision.</span></div>
+<div class="part-stem"><span class="part-label">(b)</span><span class="part-text">Steps 2 and 3 — Measure the total mismatch and decide.</span></div><p class="work-guide">Calculate (O − E)²/E for each of the four ingredients, then sum. For df = 3, the 5% cutoff is 7.815. Is your χ² to the right of that cutoff?</p>
 <div class="answer-row"><label>\(\chi^2\approx\)</label><input data-ans="4.10" data-tol="0.08" id="w8_2x" type="text"/>
 <label>\(df=\)</label><input data-ans="3" data-tol="0.01" id="w8_2df" type="text"/>
 <label>Reject? 1=yes, 0=no</label><input data-ans="0" data-tol="0.01" id="w8_2r" type="text"/>
@@ -264,8 +271,7 @@ details summary{line-height:1.35;}
 
 </div>
 <div class="part">
-<div class="part-stem"><span class="part-label">(c)</span>
-<span class="part-text">Write the conclusion in context.</span></div>
+<div class="part-stem"><span class="part-label">(c)</span><span class="part-text">Step 4 — Write a conclusion for the student.</span></div><p class="work-guide">State whether the counts provide enough evidence to reject the advertised composition. A sample that fits the model doesn't prove every bag will have exactly those proportions.</p>
 <div class="text-answer"><label>Your answer.</label>
 <textarea id="w8_2con" placeholder="Write the conclusion in context."></textarea></div>
 
@@ -273,13 +279,13 @@ details summary{line-height:1.35;}
 </div>
 <!-- PROBLEM 3 -->
 <div class="problem" id="p3">
-<h2>Problem 3 — Test of Independence: Tutoring and Course Outcome</h2>
-<div class="scenario">A college records tutoring attendance and course outcome for 170 students. The question is whether those two categorical variables are associated. Test independence at \(\alpha=0.05\), then be careful with the conclusion: an association in observational data does not by itself show that tutoring caused the outcome.<br><br><table class="data-table"><thead><tr><th>Tutoring attendance</th><th>Passed</th><th>Did not pass</th><th>Row total</th></tr></thead><tbody><tr><td>None</td><td>28</td><td>22</td><td>50</td></tr><tr><td>Occasional</td><td>42</td><td>18</td><td>60</td></tr><tr><td>Regular</td><td>54</td><td>6</td><td>60</td></tr><tr><td>Column total</td><td>124</td><td>46</td><td>170</td></tr></tbody></table></div>
-<div class="warning"><strong>Hypotheses:</strong> \(H_0\): tutoring attendance and course
-  outcome are independent. \(H_a\): tutoring attendance and course outcome are associated.</div>
-<div class="part">
-<div class="part-stem"><span class="part-label">(a)</span>
-<span class="part-text">Find the expected counts.</span></div>
+<h2>Problem 3 — Another Application: Tutoring and Course Outcomes</h2>
+<div class="scenario"><p>The college wants to understand whether tutoring attendance and course outcomes are related. It surveys students and records two pieces of information for each person: how often the student attended tutoring, and whether the student passed the course.</p>
+<p>Look first at what the counts might tell us. If course outcomes followed exactly the same pattern among students who never attended tutoring, attended sometimes, or attended regularly, what would you expect to see in the table? If those patterns differ quite a bit, we might have evidence of an <em>association</em> between tutoring attendance and passing.</p>
+<p>Here the null hypothesis is that the two categorical variables are <strong>not associated</strong>. We call this the test of independence. It may sound new, but the same observed-versus-expected chi-squared calculation is used. The difference is how we find expected counts: we use the row and column totals to describe the no-association pattern. The data below come from 170 students; use \(\alpha=0.05\).</p><table class="data-table"><thead><tr><th>Tutoring attendance</th><th>Passed</th><th>Did not pass</th><th>Row total</th></tr></thead><tbody><tr><td>None</td><td>28</td><td>22</td><td>50</td></tr><tr><td>Occasional</td><td>42</td><td>18</td><td>60</td></tr><tr><td>Regular</td><td>54</td><td>6</td><td>60</td></tr><tr><td>Column total</td><td>124</td><td>46</td><td>170</td></tr></tbody></table></div>
+
+<div class="hypothesis-prep"><strong>Step 1 — What are we testing?</strong><p>Explain the null claim in terms of these students: if tutoring attendance and course outcomes were not associated, what would we expect the pattern of passing rates to look like? We are still comparing observed and expected counts.</p><label for="w8_3hyp">Your null and alternative hypotheses</label><textarea id="w8_3hyp" placeholder="H₀: …; Hₐ: …"></textarea></div><div class="part">
+<div class="part-stem"><span class="part-label">(a)</span><span class="part-text">Step 2 — Find what the no-association model predicts.</span></div><p class="work-guide">The expected count in a cell equals (row total × column total) ÷ grand total. Use that rule for the three requested cells. You are estimating how a shared overall pass rate would distribute across tutoring groups.</p>
 <div class="answer-row"><label>None/Passed \(E=\)</label><input data-ans="36.47" data-tol="0.05" id="w8_3e1" type="text"/>
 <label>None/Did not pass \(E=\)</label><input data-ans="13.53" data-tol="0.05" id="w8_3e2" type="text"/>
 <label>Regular/Passed \(E=\)</label><input data-ans="43.76" data-tol="0.05" id="w8_3e3" type="text"/>
@@ -287,8 +293,7 @@ details summary{line-height:1.35;}
 
 </div>
 <div class="part">
-<div class="part-stem"><span class="part-label">(b)</span>
-<span class="part-text">Find the test statistic and decision.</span></div>
+<div class="part-stem"><span class="part-label">(b)</span><span class="part-text">Steps 2 and 3 — Use the same chi-squared formula.</span></div><p class="work-guide">Calculate (O − E)²/E for all six cells and add. A 3 × 2 table has (3 − 1)(2 − 1) = 2 degrees of freedom. The 5% cutoff is 5.991.</p>
 <div class="answer-row"><label>Full \(\chi^2\approx\)</label><input data-ans="16.40" data-tol="0.08" id="w8_3x" type="text"/>
 <label>\(df=\)</label><input data-ans="2" data-tol="0.01" id="w8_3df" type="text"/>
 <label>Reject? 1=yes, 0=no</label><input data-ans="1" data-tol="0.01" id="w8_3r" type="text"/>
@@ -296,8 +301,7 @@ details summary{line-height:1.35;}
 
 </div>
 <div class="part">
-<div class="part-stem"><span class="part-label">(c)</span>
-<span class="part-text">Write the conclusion in context, avoiding causal language.</span></div>
+<div class="part-stem"><span class="part-label">(c)</span><span class="part-text">Step 4 — Interpret the result without claiming causation.</span></div><p class="work-guide">If the sample gives evidence of association, describe the observed pattern. It cannot establish by itself that tutoring <em>caused</em> students to pass.</p>
 <div class="text-answer"><label>Your answer.</label>
 <textarea id="w8_3con" placeholder="Write the conclusion in context, avoiding causal language."></textarea></div>
 
@@ -305,11 +309,13 @@ details summary{line-height:1.35;}
 </div>
 <!-- PROBLEM 4 -->
 <div class="problem" id="p4">
-<h2>Problem 4 — Reading Evidence from a Chi-Squared Table</h2>
-<div class="scenario">A chi-squared calculation does not always produce an exact p-value from a printed table. Instead, the test statistic is located between critical values, which brackets the p-value. For each case below, use the table as an evidence scale: bracket \(p\) as closely as possible, then decide whether the evidence crosses the \(\alpha=0.05\) threshold.</div>
+<h2>Problem 4 — Reading the Strength of Evidence</h2>
+<div class="scenario"><p>A researcher finishes a chi-squared calculation and gets a number such as 8.2. Is that large? Without knowing the degrees of freedom and a reference value, it's difficult to say. The significance of the number depends on how chi-squared values behave when the null model is true.</p>
+<p>We use a chi-squared table much as we used a normal table during hypothesis testing. But unlike the normal curve, the chi-squared reference changes with the number of degrees of freedom. In each case below, find the appropriate row, compare the statistic with the cutoffs, and make a decision at \(\alpha=0.05\). You don't need to find a perfect decimal p-value; a useful bracket is enough.</p>
+<p>Here is a small reference table, with right-tail cutoffs. For example, if \(df=3\) and \(\chi^2\) is greater than 7.815, the right-tail p-value is below 0.05.</p>
+<table class="data-table"><thead><tr><th>df</th><th>10% cutoff</th><th>5% cutoff</th><th>1% cutoff</th></tr></thead><tbody><tr><td>2</td><td>4.605</td><td>5.991</td><td>9.210</td></tr><tr><td>3</td><td>6.251</td><td>7.815</td><td>11.345</td></tr><tr><td>4</td><td>7.779</td><td>9.488</td><td>13.277</td></tr></tbody></table></div>
 <div class="part">
-<div class="part-stem"><span class="part-label">(a-c)</span>
-<span class="part-text">Complete the table below.</span></div>
+<div class="part-stem"><span class="part-label">(a-c)</span><span class="part-text">Compare each χ² statistic with the right-tail cutoffs.</span></div><p class="work-guide">For each case, use the row corresponding to df. If the statistic is greater than the 5% cutoff, reject at α = 0.05. For the p-value bracket, compare it with the 10%, 5%, and 1% columns.</p>
 <table>
 <thead><tr><th>Case</th><th>\(\chi^2\)</th><th>\(df\)</th><th>p-value bracket</th><th>Reject? 1=yes, 0=no</th></tr></thead>
 <tbody>
