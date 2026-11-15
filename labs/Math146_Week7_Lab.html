@@ -160,7 +160,7 @@ details summary{line-height:1.35;}
 @media(max-width:540px){.w7-visual{padding:10px 8px}.w7-visual figcaption{font-size:14px}.w7-visual .w7-key{font-size:12px}}
 @media print{.w7-visual{box-shadow:none;border:1px solid #aab6bf;break-inside:avoid;padding:8px;margin:12px 0;print-color-adjust:exact;-webkit-print-color-adjust:exact}.w7-visual .w7-plot{overflow:visible}.w7-visual svg{min-width:0;width:100%}.w7-visual figcaption{font-size:10pt}.w7-table-lookup{break-inside:avoid}.w7-table-lookup .w7-selected{print-color-adjust:exact;-webkit-print-color-adjust:exact}}
 </style>
-</head>
+<style id="week7-guidance-styles">.work-guide{margin:7px 0 12px 28px;color:#394b59;font-size:.96em;line-height:1.5}@media(max-width:560px){.work-guide{margin-left:0}}@media print{.work-guide{color:#333}}</style></head>
 <body>
 <div class="wrap">
 <header>
@@ -171,7 +171,7 @@ details summary{line-height:1.35;}
 <label>Date <input id="w7_date" placeholder="mm/dd/yyyy" type="text"/></label>
 </div>
 </header>
-<section aria-labelledby="how-title" class="student-start"><h2 id="how-title">Lab instructions</h2><p>Answer the questions below. Your answers save in this browser. Choose <strong>Prepare Submission</strong> when you are ready to save a PDF or HTML copy.</p></section>
+<section aria-labelledby="how-title" class="student-start"><h2 id="how-title">Your Week 7 investigation</h2><p>When we compare two groups, the first question is what the comparison tells us. Here you'll decide how the observations are related, test a difference in mean times, estimate its possible size, and finally compare two percentages.</p><p>Work on one part at a time. Try the arithmetic and use <strong>Check</strong> to catch small errors. When you're asked for an explanation, connect the number to the situation. Your answers save in this browser. Choose <strong>Prepare Submission</strong> when you're ready to save a PDF or HTML copy.</p></section>
 
 
 
@@ -190,11 +190,11 @@ details summary{line-height:1.35;}
 <!-- PROBLEM 1 -->
 <div class="problem" id="p1">
 <h2>Problem 1 — Independent or Paired?</h2>
-<div class="scenario">Before choosing a two-sample method, determine how the data were produced. Separate groups give independent samples; repeated or matched measurements give paired data. This design decision is not bookkeeping—it determines what counts as one independent piece of information.</div>
+<div class="scenario">Think about how the data were collected before choosing a formula. Ask yourself: can one observation be matched naturally to a particular observation in the other set? For each situation, write <strong>paired</strong> or <strong>independent</strong>, and explain your choice in one sentence. Having the same number of observations is not enough to make two samples paired.</div>
 <div class="part">
 <div class="part-stem"><span class="part-label">(a)</span>
 <span class="part-text">The same 30 students take a short quiz before and after a
-      review session. Paired or independent?</span></div>
+      review session. Paired or independent?</span></div><p class="work-guide">Look at who took the quiz both times. Are the two scores linked?</p>
 <div class="text-answer"><label>Your answer.</label>
 <textarea id="w7_1a" placeholder="These data are…"></textarea></div>
 
@@ -202,7 +202,7 @@ details summary{line-height:1.35;}
 <div class="part">
 <div class="part-stem"><span class="part-label">(b)</span>
 <span class="part-text">Two separate class sections use different textbooks and
-      their quiz scores are compared. Paired or independent?</span></div>
+      their quiz scores are compared. Paired or independent?</span></div><p class="work-guide">Are the students in the two sections naturally matched, or are they separate groups?</p>
 <div class="text-answer"><label>Your answer.</label>
 <textarea id="w7_1b" placeholder="These data are…"></textarea></div>
 
@@ -210,7 +210,7 @@ details summary{line-height:1.35;}
 <div class="part">
 <div class="part-stem"><span class="part-label">(c)</span>
 <span class="part-text">Each patient has blood pressure measured before and after
-      taking a medication. Paired or independent?</span></div>
+      taking a medication. Paired or independent?</span></div><p class="work-guide">Think about whose blood pressure is measured twice.</p>
 <div class="text-answer"><label>Your answer.</label>
 <textarea id="w7_1c" placeholder="These data are…"></textarea></div>
 
@@ -218,7 +218,7 @@ details summary{line-height:1.35;}
 <div class="part">
 <div class="part-stem"><span class="part-label">(d)</span>
 <span class="part-text">Ballot measure support is surveyed in two different cities.
-      Paired or independent?</span></div>
+      Paired or independent?</span></div><p class="work-guide">Does a person surveyed in one city have a matching measurement in the other city?</p>
 <div class="text-answer"><label>Your answer.</label>
 <textarea id="w7_1d" placeholder="These data are…"></textarea></div>
 
@@ -227,10 +227,10 @@ details summary{line-height:1.35;}
 <!-- PROBLEM 2 -->
 <div class="problem" id="p2">
 <h2>Problem 2 — Two-Sample z-Test for Means</h2>
-<div class="scenario">A user-experience team compares two page layouts. For Layout 1, \(n_1=40\), \(\bar{x}_1=58.2\) seconds, and \(\sigma_1=8.0\) seconds. For Layout 2, \(n_2=45\), \(\bar{x}_2=54.6\) seconds, and \(\sigma_2=7.5\) seconds. The team asks whether users spend more time on Layout 1. Test \(H_0:\mu_1=\mu_2\) against \(H_a:\mu_1>\mu_2\) at \(\alpha=0.05\), remembering that “more time” is a measured difference, not automatically a better design.</div>
+<div class="scenario">Two independent groups of users try different webpage layouts. For Layout 1, there are \(n_1=40\) users, a sample mean of \(\bar{x}_1=58.2\) seconds, and known population standard deviation \(\sigma_1=8.0\) seconds. For Layout 2, \(n_2=45\), \(\bar{x}_2=54.6\) seconds, and \(\sigma_2=7.5\) seconds. The observed difference is <strong>58.2 − 54.6 = 3.6 seconds</strong>. Is there evidence that people spend longer on Layout 1? Test \(H_0:\mu_1=\mu_2\) against \(H_a:\mu_1>\mu_2\) at \(\alpha=0.05\). More time is a measured difference, not automatically a better design.</div>
 <div class="part">
 <div class="part-stem"><span class="part-label">(a)</span>
-<span class="part-text">Find the standard error.</span></div>
+<span class="part-text">Find the standard error.</span></div><p class="work-guide">Each sample mean varies. Find how much each group contributes to the variability of the difference, then add and take the square root.</p>
 <div class="answer-row"><label>\(\sigma_1^2/n_1=\)</label><input data-ans="1.6" data-tol="0.05" id="w7_2a_t1" type="text"/>
 <label>\(\sigma_2^2/n_2=\)</label><input data-ans="1.25" data-tol="0.05" id="w7_2a_t2" type="text"/>
 <label>SE\(=\sqrt{\text{sum}}=\)</label><input class="wide" data-ans="1.688" data-tol="0.02" id="w7_2a_se" type="text"/>
@@ -239,14 +239,14 @@ details summary{line-height:1.35;}
 </div>
 <div class="part">
 <div class="part-stem"><span class="part-label">(b)</span>
-<span class="part-text">Find the test statistic \(z\).</span></div>
+<span class="part-text">Find the test statistic \(z\).</span></div><p class="work-guide">The null predicts a difference of zero. How many standard errors above zero is the observed difference of 3.6 seconds?</p>
 <div class="answer-row"><label>\(z=(\bar{x}_1-\bar{x}_2)/\text{SE}=\)</label><input class="wide" data-ans="2.13" data-tol="0.04" id="w7_2b" type="text"/>
 <button class="check-btn" onclick="checkNum(['w7_2b'],'w7_2b_v')">Check</button><span class="verdict" id="w7_2b_v"></span></div>
 
 </div>
 <div class="part">
 <div class="part-stem"><span class="part-label">(c)</span>
-<span class="part-text">Find the \(p\)-value (right-tailed).</span></div>
+<span class="part-text">Find the \(p\)-value (right-tailed).</span></div><p class="work-guide">Because we're asking whether Layout 1 takes longer, look at the area to the right of the positive z-score.</p>
 <div class="answer-row"><label>\(1-P(Z\le2.13)=\)</label><input class="wide" data-ans="0.0166" data-tol="0.003" id="w7_2c" type="text"/>
 <button class="check-btn" onclick="checkNum(['w7_2c'],'w7_2c_v')">Check</button><span class="verdict" id="w7_2c_v"></span></div>
 
@@ -254,7 +254,7 @@ details summary{line-height:1.35;}
 <div class="part">
 <div class="part-stem"><span class="part-label">(d)</span>
 <span class="part-text">Compare the \(p\)-value to \(\alpha\) and write a complete
-      conclusion in context.</span></div>
+      conclusion in context.</span></div><p class="work-guide">Make the test decision, then describe the evidence about population mean times in plain language. A statistical result alone doesn't say which design is better.</p>
 <div class="text-answer"><label>Your answer.</label>
 <textarea id="w7_2d" placeholder="Since p-value = … &lt; 0.05, we … There is sufficient evidence to conclude that…"></textarea></div>
 
@@ -263,17 +263,17 @@ details summary{line-height:1.35;}
 <!-- PROBLEM 3 -->
 <div class="problem" id="p3">
 <h2>Problem 3 — Confidence Interval for \(\mu_1-\mu_2\)</h2>
-<div class="scenario">Use the same page-layout data from Problem 2 to construct a 95% confidence interval for \(\mu_1-\mu_2\). The hypothesis test asks whether a difference is detectable; the interval goes further by estimating how large that difference could plausibly be.</div>
+<div class="scenario">The test in Problem 2 asks whether the groups differ. But a designer might also ask <em>how many seconds</em> apart the population means could be. Use the same data to build a 95% confidence interval for \(\mu_1-\mu_2\). Keep the subtraction order as Layout 1 minus Layout 2.</div>
 <div class="part">
 <div class="part-stem"><span class="part-label">(a)</span>
-<span class="part-text">Find the margin of error.</span></div>
+<span class="part-text">Find the margin of error.</span></div><p class="work-guide">At 95% confidence, go 1.96 standard errors to either side of the observed difference.</p>
 <div class="answer-row"><label>ME\(=z^*\times\text{SE}=1.96\times1.688=\)</label><input class="wide" data-ans="3.308" data-tol="0.02" id="w7_3a" type="text"/>
 <button class="check-btn" onclick="checkNum(['w7_3a'],'w7_3a_v')">Check</button><span class="verdict" id="w7_3a_v"></span></div>
 
 </div>
 <div class="part">
 <div class="part-stem"><span class="part-label">(b)</span>
-<span class="part-text">Construct the confidence interval.</span></div>
+<span class="part-text">Construct the confidence interval.</span></div><p class="work-guide">Start at the observed difference of 3.6 seconds. Subtract the margin for the lower endpoint and add it for the upper endpoint.</p>
 <div class="answer-row"><label>\((\bar{x}_1-\bar{x}_2)\pm\text{ME}=3.6\pm\text{ME}\): lower \(=\)</label><input data-ans="0.29" data-tol="0.05" id="w7_3b_lo" type="text"/>
 <label>upper \(=\)</label><input data-ans="6.91" data-tol="0.05" id="w7_3b_hi" type="text"/>
 <button class="check-btn" onclick="checkNum(['w7_3b_lo','w7_3b_hi'],'w7_3b_v')">Check</button><span class="verdict" id="w7_3b_v"></span></div>
@@ -282,7 +282,7 @@ details summary{line-height:1.35;}
 <div class="part">
 <div class="part-stem"><span class="part-label">(c)</span>
 <span class="part-text">Does the interval contain 0? State whether 0 is in the
-      interval and what that implies about \(\mu_1-\mu_2\).</span></div>
+      interval and what that implies about \(\mu_1-\mu_2\).</span></div><p class="work-guide">A difference of zero means equal population mean times. Is zero among the values in your interval? Connect your answer to the test in Problem 2.</p>
 <div class="text-answer"><label>Your answer.</label>
 <textarea id="w7_3c" placeholder="The interval (0.29, 6.91) does / does not contain 0. This tells us…"></textarea></div>
 
@@ -291,10 +291,10 @@ details summary{line-height:1.35;}
 <!-- PROBLEM 4 -->
 <div class="problem" id="p4">
 <h2>Problem 4 — Two-Sample z-Test for Proportions</h2>
-<div class="scenario">A school compares participation in an after-school program across two grade levels. In Grade 11, 84 of 150 students participate; in Grade 12, 63 of 140 participate. Test whether the population participation proportions differ, using \(H_0:p_1=p_2\), \(H_a:p_1\ne p_2\), and \(\alpha=0.05\).</div>
+<div class="scenario">Now the outcome is a <em>yes/no</em> response rather than a measurement. A school compares after-school participation: 84 of 150 Grade 11 students participate, compared with 63 of 140 Grade 12 students. Let Group 1 be Grade 11 and Group 2 be Grade 12. We want to know whether the population participation rates <em>differ</em>, so test \(H_0:p_1=p_2\) against \(H_a:p_1\ne p_2\) at \(\alpha=0.05\). Either grade might have the higher rate.</div>
 <div class="part">
 <div class="part-stem"><span class="part-label">(a)</span>
-<span class="part-text">Find the sample proportions.</span></div>
+<span class="part-text">Find the sample proportions.</span></div><p class="work-guide">Find the proportion of students who participate in each grade. Which group has the larger observed proportion?</p>
 <div class="answer-row"><label>\(\hat{p}_1=84/150=\)</label><input data-ans="0.56" data-tol="0.005" id="w7_4a_p1" type="text"/>
 <label>\(\hat{p}_2=63/140=\)</label><input data-ans="0.45" data-tol="0.005" id="w7_4a_p2" type="text"/>
 <button class="check-btn" onclick="checkNum(['w7_4a_p1','w7_4a_p2'],'w7_4a_v')">Check</button><span class="verdict" id="w7_4a_v"></span></div>
@@ -302,14 +302,14 @@ details summary{line-height:1.35;}
 </div>
 <div class="part">
 <div class="part-stem"><span class="part-label">(b)</span>
-<span class="part-text">Find the pooled proportion.</span></div>
+<span class="part-text">Find the pooled proportion.</span></div><p class="work-guide">Under the null, both grades share a single population participation rate. Combine the counts to estimate that shared rate.</p>
 <div class="answer-row"><label>\(\hat{p}_{\text{pool}}=(84+63)/(150+140)=\)</label><input class="wide" data-ans="0.5069" data-tol="0.003" id="w7_4b" type="text"/>
 <button class="check-btn" onclick="checkNum(['w7_4b'],'w7_4b_v')">Check</button><span class="verdict" id="w7_4b_v"></span></div>
 
 </div>
 <div class="part">
 <div class="part-stem"><span class="part-label">(c)</span>
-<span class="part-text">Find the test statistic \(z\).</span></div>
+<span class="part-text">Find the test statistic \(z\).</span></div><p class="work-guide">Use the pooled proportion to calculate the variation expected if the rates were equal; then standardize the observed difference.</p>
 <div class="answer-row"><label>SE\(=\sqrt{\hat{p}_{\text{pool}}(1-\hat{p}_{\text{pool}})(1/150+1/140)}=\)</label><input class="wide" data-ans="0.05876" data-tol="0.003" id="w7_4c_se" type="text"/>
 <label>\(z=(\hat{p}_1-\hat{p}_2)/\text{SE}=\)</label><input class="wide" data-ans="1.87" data-tol="0.04" id="w7_4c_z" type="text"/>
 <button class="check-btn" onclick="checkNum(['w7_4c_se','w7_4c_z'],'w7_4c_v')">Check</button><span class="verdict" id="w7_4c_v"></span></div>
@@ -318,7 +318,7 @@ details summary{line-height:1.35;}
 <div class="part">
 <div class="part-stem"><span class="part-label">(d)</span>
 <span class="part-text">Find the \(p\)-value, then write the decision and a complete
-      conclusion in context.</span></div>
+      conclusion in context.</span></div><p class="work-guide">Because 'differ' allows either direction, use both tails. What does the result allow you to say about the two grades' population rates?</p>
 <div class="answer-row"><label>\(p\)-value \(=2(1-P(Z\le1.87))=\)</label><input class="wide" data-ans="0.0614" data-tol="0.003" id="w7_4d_pv" type="text"/>
 <button class="check-btn" onclick="checkNum(['w7_4d_pv'],'w7_4d_v')">Check</button><span class="verdict" id="w7_4d_v"></span></div>
 <div class="text-answer"><label>Your answer.</label>
