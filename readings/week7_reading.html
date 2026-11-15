@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="What does a difference between two groups tell us, and how do we decide whether it is larger than ordinary sampling variation?"><title>Week 7 Reading — Two-Sample Inference | MATH&amp; 146</title><link rel="stylesheet" href="readings.css"><script>window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]]},options:{skipHtmlTags:["script","style","textarea","pre","code"]}};</script><script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><style id="week7-visual-styles">
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="What does a difference between two groups tell us, and how do we decide whether it is larger than ordinary sampling variation?"><title>Week 7 Reading — Two-Sample Hypothesis Testing | MATH&amp; 146</title><link rel="stylesheet" href="readings.css"><script>window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]]},options:{skipHtmlTags:["script","style","textarea","pre","code"]}};</script><script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><style id="week7-visual-styles">
 /* Week 7 diagrams are embedded so saved pages retain their graphs. */
 .w7-visual{margin:20px 0;padding:14px 14px 12px;background:#fff;border:1px solid #cdd9df;border-radius:11px;break-inside:avoid;color:#182e40;font:16px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif;min-width:0;max-width:100%}
 .w7-visual .w7-plot{overflow-x:auto;max-width:100%;border-radius:5px}
@@ -14,30 +14,60 @@
 @media(max-width:540px){.w7-visual{padding:10px 8px}.w7-visual figcaption{font-size:14px}.w7-visual .w7-key{font-size:12px}}
 @media print{.w7-visual{box-shadow:none;border:1px solid #aab6bf;break-inside:avoid;padding:8px;margin:12px 0;print-color-adjust:exact;-webkit-print-color-adjust:exact}.w7-visual .w7-plot{overflow:visible}.w7-visual svg{min-width:0;width:100%}.w7-visual figcaption{font-size:10pt}.w7-table-lookup{break-inside:avoid}.w7-table-lookup .w7-selected{print-color-adjust:exact;-webkit-print-color-adjust:exact}}
 </style>
-</head>
-<body><a class="skip" href="#reading">Skip to reading</a><header><a href="../index.html">← MATH&amp; 146: Course Home</a><div class="eyebrow">Week 7 · Online Reading</div><h1>Two-Sample Inference</h1><p>Two groups have different averages. Is that difference meaningful, or could it be ordinary sampling variation? This week we learn how to investigate.</p></header><main>
+<style id="w7-ch6-bridge">
+.w7-opening{padding-bottom:1rem}
+.w7-steps{padding-left:1.5rem}.w7-steps li{margin:.55rem 0}
+.w7-stage{border-left:3px solid #537d9c;padding:5px 0 7px 1.1rem;margin:1.4rem 0 1.7rem}
+.w7-stage h3{margin:.15rem 0 .6rem;color:#234b65;font-size:1.12rem}
+.w7-stage p{margin:.7rem 0}
+.w7-compare{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;margin:1.2rem 0}
+.w7-compare>div{border:1px solid #cad6df;border-radius:10px;padding:1rem;background:#f4f8fa}
+.w7-compare p{margin:.45rem 0}
+.w7-extra{margin:1.1rem 0;padding:.6rem .9rem;border:1px solid #cad6df;border-radius:9px;background:#f7f9fa}
+.w7-extra summary{cursor:pointer;font-weight:650}
+.w7-extra figure{margin:1rem 0}
+@media(max-width:600px){.w7-compare{grid-template-columns:1fr}.w7-stage{padding-left:.7rem}}
+@media print{.w7-stage{break-inside:avoid}.w7-extra{break-inside:avoid}}
+</style></head>
+<body><a class="skip" href="#reading">Skip to reading</a><header><a href="../index.html">← MATH&amp; 146: Course Home</a><div class="eyebrow">Week 7 · Online Reading</div><h1>Two-Sample Hypothesis Testing</h1><p>The same four steps from Week 6, now comparing two groups instead of one.</p></header><main>
 <nav aria-label="On this page"><b>In this reading</b>
-<a href="#s0">1. Are the observations independent or paired?</a>
-<a href="#s1">2. How much do the sample means differ?</a>
-<a href="#s2">3. Is that difference surprising?</a>
-<a href="#s3">4. How large might the difference be?</a>
-<a href="#s4">5. What if we are comparing percentages?</a>
-<a href="#references">What to try next</a></nav>
+<a href="#s0">1. The same question as last week</a>
+<a href="#s1">2. Getting to know our two groups</a>
+<a href="#s2">3. A familiar four-step test for means</a>
+<a href="#s3">4. Try the four steps again</a>
+<a href="#s4">5. A short connection to confidence intervals</a>
+<a href="#s5">6. The same test with percentages</a>
+<a href="#references">Your Week 7 path</a></nav>
 <article id="reading">
-<section>
-<h2>Start with a question</h2>
-<p>Suppose two groups of students try different approaches to learning the same material. The first group scores an average of 81.4 points on an assessment. The second group averages 76.8 points. The first average is higher. But is that enough to tell us that the groups really differ, beyond the particular students who happened to be sampled?</p>
-<p>We already know how a sample mean works. We also know that if we took a new sample, we would probably get a slightly different mean. This week we put those two ideas together: <strong>we compare two estimates, each of which has some uncertainty</strong>.</p>
-<p>We'll ask three questions in order: What exactly are we comparing? How much might the comparison change with new samples? And what can we reasonably conclude? By the end, we'll do this for both numerical measurements (such as scores or times) and percentages (such as the fraction who answered yes).</p>
-<div class="practice"><b>Before you begin</b><p>If one class has an average of 81 points and another has an average of 77, what is the observed difference? Would a difference of 4 points necessarily appear again if we sampled different students?</p><details><summary>Talk it through</summary><p>The observed difference is 4 points. A new sample could give a different difference. Understanding that sample-to-sample change is the reason we need statistical inference.</p></details></div>
-<p>Read one section at a time and try each short question before opening its explanation. The interactive explorer lets you see the same ideas with repeated random samples; the lab gives you a chance to practice them. The PDF chapter is available for further examples.</p>
+<section class="w7-opening">
+<h2>One familiar question, now with two groups</h2>
+<p>Think back to the coffee machine we studied in Week 6. A manufacturer said the machine filled cups with a particular average amount of coffee. We took a sample and asked whether its average was far enough from the manufacturer's claim to make us question that claim.</p>
+<p>The important part wasn't the coffee, or even the arithmetic. We learned a way of reasoning: <em>begin by imagining that a claim is true, then ask how surprising our sample would be if it really were true.</em> That idea is hypothesis testing.</p>
+<p>This week a school is trying to answer a different question. Two groups of students have learned the same material using different teaching methods. At the end of the unit, both groups take the same assessment. One group has a higher average score than the other. Does that mean the teaching methods produce different results, or could that difference have appeared simply because the school happened to test these particular students?</p>
+<p>We don't need a new way of reasoning to answer that. We're going to do what we did last week, only this time our claim is about <strong>two groups having the same population mean</strong> rather than one group having a particular population mean. We'll spend some time understanding the situation before we start substituting numbers.</p>
+<p>Keep the four steps from Chapter 6 in front of you:</p>
+<ol class="w7-steps"><li><strong>State the hypotheses.</strong> What would be true if there were no difference, and what are we looking for evidence of?</li><li><strong>Calculate the test statistic.</strong> How far is our observed result from what the null hypothesis predicts, measured in standard errors?</li><li><strong>Find the p-value.</strong> If the null hypothesis were true, how unusual would our result be?</li><li><strong>Conclude in context.</strong> Compare the p-value with the chosen significance level and say what the evidence tells us about the groups.</li></ol>
+<p>We will use these <em>same four steps</em> throughout the week. In fact, every time a formula appears, you should be able to say which familiar step it helps us complete.</p>
+<div class="practice"><b>Pause and try.</b><p>Before you see any data: if a school wants to know whether two teaching methods lead to different average scores, what would the null hypothesis claim?</p><details><summary>Show a possible answer</summary><p>It would claim that the population mean score is the same for both methods. We have not said anything about either mean being a particular number.</p></details></div>
 </section>
 <section id="s0">
-<h2>1. Are the observations independent or paired?</h2>
-<p>Imagine we want to compare quiz scores from two classes. We could collect one set of scores from each class. There is no particular student in Class 1 who must be matched with a particular student in Class 2. Those are <strong>independent samples</strong>, provided the samples were collected independently.</p>
-<p>Now imagine that one class takes a quiz before tutoring and again afterward. We wouldn't want to lose track of which two scores belong to the same student. For each student, we can calculate <em>after minus before</em>. Those are <strong>paired observations</strong>. The changes, rather than two unrelated sets of scores, are what we analyze.</p>
-<p>Why make this decision before choosing a formula? Because it tells us what counts as an observation. With paired data, the information lives in each person's change. With independent groups, the information lives in the comparison between two separate sample means. Having the same number of people in both groups does <em>not</em> make them paired.</p>
-<div class="table-wrap"><table><thead><tr><th scope="col">Design</th><th scope="col">Structure</th></tr></thead><tbody><tr><td>Separate random samples from two cities</td><td>Independent groups</td></tr><tr><td>Before and after scores for the same students</td><td>Paired observations</td></tr><tr><td>Matched pairs of patients</td><td>Paired observations</td></tr></tbody></table></div>
+<h2>1. The same question as last week</h2>
+<p>In Week 6 we started with a claimed value, such as a mean of 8 ounces. We then compared the observed sample mean to that value. Our test statistic had the form:</p>
+<div class="eq">\[z=\frac{\text{observed mean}-\text{claimed mean}}{\text{standard error}}.\]</div>
+<p>Now we have two sample means. If the two teaching methods work equally well in the populations we're studying, we'd expect their <em>population</em> means to be equal. That means we'd expect the <em>difference</em> between their sample means to be centered at zero.</p>
+<p>So the new comparison has precisely the same form:</p>
+<div class="eq">\[z=\frac{\text{observed difference}-0}{\text{standard error of the difference}}.\]</div>
+<p>Pause here. The zero is not something we measured. It's the difference predicted by our starting claim: <strong>if the population means are equal, their difference is zero</strong>. Just as Week 6 tested a sample mean against a claimed value, Week 7 tests an observed <em>difference</em> against the claimed difference of zero.</p>
+<div class="w7-compare"><div><b>Week 6: one group</b><p>“Is this population mean equal to the claimed value?”</p><p>\(H_0:\mu=\mu_0\)</p></div><div><b>Week 7: two groups</b><p>“Are these two population means equal?”</p><p>\(H_0:\mu_1-\mu_2=0\)</p></div></div>
+<p>Everything after this—choosing a left, right, or two-tailed test, looking up the p-value, and deciding whether to reject—is the procedure you just practiced. The only adjustment is figuring out how much the <em>difference between two sample means</em> varies from sample to sample.</p>
+</section>
+<section id="s1">
+<h2>2. Getting to know our two groups</h2>
+<p>Let's return to the school. Imagine a department trying two ways of teaching a mathematics unit. Some students use Method 1, which includes more worked examples in class. Other students use Method 2, which includes more time solving problems in groups. Everyone takes the same assessment afterward.</p>
+<p>The department isn't asking whether either method is “good” in some general sense. It has a narrower question: <em>Is there evidence that the mean assessment score differs between students taught by the two methods?</em> We can collect data that speak to that question. They won't answer every question about learning or teaching, and they won't by themselves prove that the teaching method caused a difference.</p>
+<p>Before calculating, we also need to know how the observations belong together. Here, different students make up the two groups. The score of a student in Group 1 is not a before-and-after partner of any particular score in Group 2. We will treat the samples as <strong>independent</strong>. That is the type of comparison covered by the calculations in this lesson.</p>
+<p>It would be different if the <em>same</em> students took a test before and after a new lesson. Then each student's two scores would form a pair, and we would study the changes within students rather than pretend the observations were unrelated. For now, all we need to do is recognize the distinction.</p>
+<details class="w7-extra"><summary>See the difference between independent and paired data</summary>
 <figure class="w7-visual" data-visual="w7-reading-design"><div class="w7-plot" tabindex="0" role="group" aria-label="The design determines what counts as an observation; scroll horizontally on narrow screens"><svg id="w7-reading-design" role="img" aria-labelledby="w7-reading-design-title w7-reading-design-desc" xmlns:xlink="http://www.w3.org/1999/xlink" width="504pt" height="273.6pt" viewBox="0 0 504 273.6" xmlns="http://www.w3.org/2000/svg" version="1.1">
 <title id="w7-reading-design-title">The design determines what counts as an observation</title><desc id="w7-reading-design-desc">In the independent design, Group 1 contains units A, B, C and Group 2 contains distinct units D, E, F, without matching links. In the paired design, each unit A, B, C is connected from before to after.</desc>
  <metadata>
@@ -182,15 +212,15 @@
   </clipPath>
  </defs>
 </svg></div><figcaption><b>The design determines what counts as an observation</b>Labels are schematic units, not a dataset. In a paired study, preserve the match and calculate one change per unit. Equal sample sizes in separate groups create no such match.</figcaption></figure>
-<p>For the calculations that follow, we'll work with two independent groups. We'll return to pairing in the lab, where the important first step is simply recognizing it.</p>
-<div class="practice"><b>Try it.</b><p>Two classes each contain 30 students. Are their quiz scores necessarily paired? What would have to be true for the scores to be paired?</p><details><summary>Show explanation</summary><p>No. Equal sample sizes are not enough. We would need a meaningful one-to-one link between scores, such as the same students measured twice or students deliberately matched before the study.</p></details></div>
-</section>
-<section id="s1">
-<h2>2. How much do the sample means differ?</h2>
-<p>Let's call the first group <strong>Group 1</strong> and the second <strong>Group 2</strong>. Our observed difference is the first sample mean minus the second:</p>
-<div class="eq">\[\bar{x}_1-\bar{x}_2=81.4-76.8=4.6\text{ points}.\]</div>
-<p>This tells us what happened in the samples: Group 1 averaged 4.6 points higher. We use the symbol \(\mu_1-\mu_2\) for the corresponding <em>population</em> difference that we don't know. The sample difference \(\bar{x}_1-\bar{x}_2\) is our estimate of it.</p>
-<p>The order matters. If we defined the difference as Group 2 minus Group 1, the estimate would be −4.6 points. Neither choice is wrong, but we must keep the same order when we state our hypotheses and explain our results.</p>
+<p>If a matching relationship exists, don't erase it. The methods below assume two independent groups.</p></details>
+<p>Now that we understand the setting, we can introduce the sample information. The numbers describe the results of the assessment in each group:</p>
+<div class="table-wrap"><table><thead><tr><th scope="col">What we measured</th><th scope="col">Method 1</th><th scope="col">Method 2</th></tr></thead><tbody>
+<tr><td>Number of students</td><td>\(n_1=35\)</td><td>\(n_2=40\)</td></tr>
+<tr><td>Average assessment score</td><td>\(\bar x_1=81.4\)</td><td>\(\bar x_2=76.8\)</td></tr>
+<tr><td>Known population standard deviation (for this teaching example)</td><td>\(\sigma_1=9.2\)</td><td>\(\sigma_2=11.0\)</td></tr>
+</tbody></table></div>
+<p>We use a small bar over \(x\) for a <em>sample mean</em> and the Greek letter \(\mu\) for a <em>population mean</em>, exactly as we did last week. The subscripts simply tell us which group we're talking about. In this example the population standard deviations are given as known, so we can use the same kind of \(z\)-test as in Week 6.</p>
+<p>The first group scored an average of 81.4 points; the second averaged 76.8. That's a sample difference of 4.6 points. Before doing any more arithmetic, ask yourself: could two groups with <em>equal population means</em> still give sample averages 4.6 points apart? Absolutely. Samples naturally vary. The hypothesis test will help us judge whether this difference is larger than we'd ordinarily expect.</p>
 <figure class="w7-visual" data-visual="w7-reading-order"><div class="w7-plot" tabindex="0" role="group" aria-label="Keep the subtraction order visible; scroll horizontally on narrow screens"><svg id="w7-reading-order" role="img" aria-labelledby="w7-reading-order-title w7-reading-order-desc" xmlns:xlink="http://www.w3.org/1999/xlink" width="504pt" height="252pt" viewBox="0 0 504 252" xmlns="http://www.w3.org/2000/svg" version="1.1">
 <title id="w7-reading-order-title">Keep the subtraction order visible</title><desc id="w7-reading-order-desc">Method 1 sample mean is 81.4, Method 2 is 76.8. Method 1 minus Method 2 is positive 4.6; reversing the order gives negative 4.6.</desc>
  <metadata>
@@ -368,11 +398,28 @@
   </clipPath>
  </defs>
 </svg></div><figcaption><b>Keep the subtraction order visible</b>The measurements have not changed when the subtraction order changes. The estimate changes sign; its standard error and two-sided p-value stay the same. Reverse the population parameter and interval endpoints consistently too.</figcaption></figure>
-<p>Now for the deeper issue. Each sample mean can change when we repeat the sampling process. If both averages wiggle from sample to sample, their <em>difference</em> will wiggle too. The standard error measures the typical amount of that wiggle.</p>
-<p>You have already seen that the standard error of one sample mean, when the population standard deviation is known, is \(\sigma/\sqrt{n}\). For two <em>independent</em> sample means, we combine their variances, then take a square root:</p>
-<div class="eq">\[SE(\bar{x}_1-\bar{x}_2)=\sqrt{\frac{\sigma_1^2}{n_1}+\frac{\sigma_2^2}{n_2}}.\]</div>
-<p>It's tempting to think that because we're <em>subtracting</em> means, we should subtract their uncertainties. But even when two estimates happen to move in opposite directions, the result becomes more variable. Mathematically, independence gives \(\operatorname{Var}(\bar X_1-\bar X_2)=\operatorname{Var}(\bar X_1)+\operatorname{Var}(\bar X_2)\). Both sources of sampling variation contribute a positive amount.</p>
-<figure class="w7-visual" data-visual="w7-reading-variance"><div class="w7-plot" tabindex="0" role="group" aria-label="Both independent samples contribute uncertainty; scroll horizontally on narrow screens"><svg id="w7-reading-variance" role="img" aria-labelledby="w7-reading-variance-title w7-reading-variance-desc" xmlns:xlink="http://www.w3.org/1999/xlink" width="504pt" height="208.8pt" viewBox="0 0 504 208.8" xmlns="http://www.w3.org/2000/svg" version="1.1">
+<div class="practice"><b>Pause and try.</b><p>If we switch the order and compute Method 2 minus Method 1, what happens to the observed difference? Does switching the order change the students' scores?</p><details><summary>Show a possible answer</summary><p>The difference becomes −4.6 points instead of +4.6 points. The scores are unchanged; we have only changed which group is subtracted from which.</p></details></div>
+</section>
+<section id="s2">
+<h2>3. A familiar four-step test for means</h2>
+<p>We have a question, two independent samples, and the same four-step testing procedure from Chapter 6. Let's carry it out carefully, one decision at a time.</p>
+<div class="w7-stage"><h3>Step 1 — State the hypotheses</h3>
+<p>Our starting claim is that the two population mean scores are equal. That's our null hypothesis. We want to know whether they <em>differ</em>, without deciding in advance which one would be higher. That word “differ” gives us a <strong>two-tailed test</strong>, just as it did in Week 6.</p>
+<div class="eq">\[H_0:\mu_1=\mu_2\quad\text{or}\quad\mu_1-\mu_2=0,\qquad H_a:\mu_1\ne\mu_2.\]</div>
+<p>Choose \(\alpha=0.05\). The two groups are treated as independent; both sample sizes are at least 30, and the example supplies known population standard deviations. These conditions support the approximate normal \(z\)-procedure we're using here. More generally, we need sampling methods that make independence and a normal approximation reasonable.</p>
+</div>
+<div class="w7-stage"><h3>Step 2 — Calculate the test statistic</h3>
+<p>First, what did we observe? Method 1 averaged 4.6 points higher:</p>
+<div class="eq">\[\bar x_1-\bar x_2=81.4-76.8=4.6.\]</div>
+<p>What would the null hypothesis predict as the center of that difference? <strong>Zero.</strong> We have the numerator. To finish the \(z\)-score, we need a standard error: the typical amount that the difference would change if we repeatedly selected new students for both groups.</p>
+<p>Last week, for one mean, the standard error was \(\sigma/\sqrt n\). With two independent means, both estimates fluctuate. Their variances add, even though we subtract their means. So the standard error of their difference is:</p>
+<div class="eq">\[SE(\bar x_1-\bar x_2)=\sqrt{\frac{\sigma_1^2}{n_1}+\frac{\sigma_2^2}{n_2}}.\]</div>
+<p>The formula looks longer, but it is doing something familiar: measuring the amount of ordinary sampling variability. Each term represents one group's contribution. In our example:</p>
+<div class="eq">\[SE=\sqrt{\frac{9.2^2}{35}+\frac{11.0^2}{40}}=\sqrt{2.418+3.025}\approx2.333\text{ points}.\]</div>
+<p>Now compare the observed difference of 4.6 points with the predicted difference of zero, using that standard error as our scale:</p>
+<div class="eq">\[z=\frac{4.6-0}{2.333}\approx1.97.\]</div>
+<p>This means the observed difference is about <strong>1.97 standard errors above zero</strong>. That's exactly how we interpreted a \(z\)-score last week. We are measuring the size of a departure from the null prediction.</p>
+<details class="w7-extra"><summary>Why do we add the two variance contributions?</summary><figure class="w7-visual" data-visual="w7-reading-variance"><div class="w7-plot" tabindex="0" role="group" aria-label="Both independent samples contribute uncertainty; scroll horizontally on narrow screens"><svg id="w7-reading-variance" role="img" aria-labelledby="w7-reading-variance-title w7-reading-variance-desc" xmlns:xlink="http://www.w3.org/1999/xlink" width="504pt" height="208.8pt" viewBox="0 0 504 208.8" xmlns="http://www.w3.org/2000/svg" version="1.1">
 <title id="w7-reading-variance-title">Both independent samples contribute uncertainty</title><desc id="w7-reading-variance-desc">Group 1 contributes variance 2.41829, Group 2 contributes 3.025. Their sum is 5.44329; the square root gives standard error 2.33309.</desc>
  <metadata>
   <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
@@ -492,24 +539,12 @@
    <rect x="50.4" y="37.584" width="438.48" height="112.752"/>
   </clipPath>
  </defs>
-</svg></div><figcaption><b>Both independent samples contribute uncertainty</b>For the teaching-method example below, add 9.2²/35 and 11²/40, then take the square root. Subtracting the means does <em>not</em> subtract their independent sources of sampling variation.</figcaption></figure>
-<div class="example"><b>Work through the arithmetic.</b>
-<p>Suppose Group 1 has \(n_1=35\) and a <em>known population</em> standard deviation of \(\sigma_1=9.2\). Group 2 has \(n_2=40\) and \(\sigma_2=11.0\). We first find each contribution to the variance of the difference:</p>
-<div class="eq">\[\frac{9.2^2}{35}\approx2.418,\qquad \frac{11.0^2}{40}=3.025.\]</div>
-<p>Add those two contributions and take the square root: \(SE=\sqrt{2.418+3.025}\approx2.333\) points. The observed difference was 4.6 points, while the typical sampling variation in that difference is about 2.33 points.</p>
+</svg></div><figcaption><b>Both independent samples contribute uncertainty</b>For the teaching-method example below, add 9.2²/35 and 11²/40, then take the square root. Subtracting the means does <em>not</em> subtract their independent sources of sampling variation.</figcaption></figure><p>Subtracting two independent random quantities adds their variances: \(\operatorname{Var}(\bar X_1-\bar X_2)=\operatorname{Var}(\bar X_1)+\operatorname{Var}(\bar X_2)\). We still subtract the means; we add the uncertainty.</p></details>
 </div>
-<p>These calculations assume independent sampling within and between the groups, and that the sampling distributions of the means are sufficiently close to normal. The example supplies known population standard deviations so we can use a \(z\)-method. In real studies, those standard deviations are often unknown; we'll distinguish that case shortly.</p>
-<div class="practice"><b>Try it.</b><p>If the two population means really are equal, is the difference of the sample means always zero? Where would its sampling distribution be centered?</p><details><summary>Show explanation</summary><p>No. Individual samples will still differ. But over many repetitions, the differences are centered at zero because the true population difference is zero.</p></details></div>
-</section>
-<section id="s2">
-<h2>3. Is that difference surprising?</h2>
-<p>Last week, we tested whether a <em>single</em> population mean might equal a claimed value. This week the question has the same shape. Instead of asking whether a mean equals a number, we ask whether <em>two</em> population means might be equal.</p>
-<p>For our teaching-method example, we begin with the possibility that there is no population difference. A two-sided test allows the groups to differ in either direction:</p>
-<div class="eq">\[H_0:\mu_1-\mu_2=0,\qquad H_a:\mu_1-\mu_2\ne0.\]</div>
-<p>Under that null hypothesis, differences should be centered at zero. We observed +4.6 points. To judge whether that is unusual, compare it with the standard error of 2.333 points. The \(z\)-statistic counts how many standard errors the observation lies above zero:</p>
-<div class="eq">\[z=\frac{(\bar{x}_1-\bar{x}_2)-0}{\sqrt{\sigma_1^2/n_1+\sigma_2^2/n_2}}=\frac{4.6}{2.333}\approx1.97.\]</div>
-<p>A \(z\)-score of about 1.97 is fairly far from zero, but how far is <em>far enough</em>? The \(p\)-value answers a specific question: <em>If the population means really were equal, how often would a difference at least this extreme occur just from random sampling?</em></p>
-<p>Since we are testing in <em>both</em> directions, we count both tails of the normal curve. The two-sided \(p\)-value is about 0.0487 using full precision, or 0.0488 if \(z\) is rounded to 1.97 for a table lookup.</p>
+<div class="w7-stage"><h3>Step 3 — Find the p-value</h3>
+<p>We now have \(z\approx1.97\). Remember what our question was: do the teaching methods have <em>different</em> population means? We would consider a large positive difference or a large negative difference to be evidence against equality. That is why we use <strong>both tails</strong> of the normal curve.</p>
+<div class="eq">\[p=2P(Z\ge1.97)\approx2(0.0244)=0.0488.\]</div>
+<p>Here's the interpretation: <em>If the population means really were equal and our sampling assumptions held, a difference at least this extreme would occur about 4.88% of the time.</em> The p-value does not tell us the probability that the null hypothesis is true.</p>
 <figure class="w7-visual" data-visual="w7-reading-null"><div class="w7-plot" tabindex="0" role="group" aria-label="Equal population means predict differences centered at zero; scroll horizontally on narrow screens"><svg id="w7-reading-null" role="img" aria-labelledby="w7-reading-null-title w7-reading-null-desc" xmlns:xlink="http://www.w3.org/1999/xlink" width="504pt" height="237.6pt" viewBox="0 0 504 237.6" xmlns="http://www.w3.org/2000/svg" version="1.1">
 <title id="w7-reading-null-title">Equal population means predict differences centered at zero</title><desc id="w7-reading-null-desc">Normal null distribution of a difference, centered at zero with standard error 2.33309; the observed difference is 4.6. The curve describes repeated differences of sample means under H₀. Shade both tails at least 4.6 points from zero. Full precision gives p ≈ 0.0487; rounding z to 1.97 before a table lookup gives 0.0488.</desc>
  <metadata>
@@ -686,21 +721,33 @@
   </clipPath>
  </defs>
 </svg></div><figcaption><b>Equal population means predict differences centered at zero</b>The curve describes repeated differences of sample means under H₀. Shade both tails at least 4.6 points from zero. Full precision gives p ≈ 0.0487; rounding z to 1.97 before a table lookup gives 0.0488.</figcaption></figure>
-<p>At the commonly chosen level \(\alpha=0.05\), this is just below the cutoff, so we reject the hypothesis of equal population means under the assumptions of the test. A useful conclusion is: <em>These samples provide evidence of a difference in mean scores between the two groups.</em> Notice what we haven't said. We haven't proved the means are different with certainty, or that one teaching method <em>caused</em> the difference. The study design matters for causal claims.</p>
-<p>Because the result is so close to 0.05, the size and uncertainty of the estimated difference are especially worth reporting. That's what we'll do next.</p>
-<div class="bridge"><b>What changes if the population standard deviations aren't known?</b>
-<p>That happens often in practice. We replace \(\sigma_1,\sigma_2\) with the sample standard deviations \(s_1,s_2\), giving the estimated standard error \(\sqrt{s_1^2/n_1+s_2^2/n_2}\). The usual independent-means procedure is then <strong>Welch's \(t\)-method</strong>, with appropriate degrees of freedom. A \(z\)-calculation using sample standard deviations is a large-sample approximation, not the exact known-\(\sigma\) method. For now, concentrate on the reasoning: compare an observed difference with the variation expected from sampling.</p></div>
-<div class="practice"><b>Try it.</b><p>If the \(p\)-value had been 0.18 instead of 0.0487, what would we say at \(\alpha=0.05\)? Would that prove the population means are equal?</p><details><summary>Show explanation</summary><p>We would fail to reject the hypothesis of equal means. That does not prove equality; it means the observed evidence isn't strong enough to distinguish the means at this threshold.</p></details></div>
+</div>
+<div class="w7-stage"><h3>Step 4 — Make a decision and write the conclusion</h3>
+<p>We chose \(\alpha=0.05\). Our p-value, 0.0488, is just smaller than 0.05, so we <strong>reject \(H_0\)</strong>. We have evidence that the population mean assessment scores differ between the two methods, at the 5% significance level.</p>
+<p>Notice how close this decision is to the cutoff. The observed sample average is higher for Method 1, but the test by itself doesn't establish a cause or tell us whether the difference is important in practice. Our job is to report what the evidence actually supports.</p>
+</div>
+<div class="practice"><b>Pause and try.</b><p>Suppose we had found a p-value of 0.18 instead. Would we say that the population means must be equal?</p><details><summary>Show a possible answer</summary><p>No. At α = 0.05 we would fail to reject the equality hypothesis. That would mean we lack sufficient evidence of a difference, not that equality has been proved.</p></details></div>
 </section>
 <section id="s3">
-<h2>4. How large might the difference be?</h2>
-<p>A test gives us a decision about a proposed difference of zero. But someone choosing between two teaching methods might ask a more useful question: <em>How much higher could the first group's population mean actually be?</em></p>
-<p>A confidence interval begins with our estimate (4.6 points) and extends in both directions by a margin of error. For a 95% interval with known population standard deviations, the multiplier is \(z^*=1.96\):</p>
-<div class="eq">\[(\bar{x}_1-\bar{x}_2)\pm z^*\sqrt{\frac{\sigma_1^2}{n_1}+\frac{\sigma_2^2}{n_2}}.\]</div>
-<div class="example"><b>Build the interval one step at a time.</b>
-<p>Our standard error is approximately 2.333, so the margin of error is \(1.96(2.333)\approx4.57\) points. Add and subtract this margin from the observed difference:</p>
-<div class="eq">\[4.6\pm4.57\ \approx\ (0.03,\ 9.17)\text{ points}.\]</div>
-<p>In context, this is a 95% confidence interval for the population mean score of Method 1 <em>minus</em> that of Method 2.</p></div>
+<h2>4. Try the same four steps again</h2>
+<p>Let's look at a different comparison. A nutritionist wants to find out whether one brand of frozen meals contains <em>more sodium on average</em> than another. This is worth investigating because someone choosing foods for dietary reasons may want to know whether a difference in the sample reflects a larger pattern.</p>
+<p>The nutritionist examines separate samples of meals from Brand A and Brand B. This time the research question points in a particular direction: <em>Is the population mean sodium content higher for Brand A?</em> Before seeing the numbers, we already know this will be a right-tailed test. That's the same choice we made between one-tailed and two-tailed tests in Week 6.</p>
+<p>Here are the sample summaries. Assume the two samples are independent and the population standard deviations are known for this exercise.</p>
+<div class="table-wrap"><table><thead><tr><th>Information</th><th>Brand A</th><th>Brand B</th></tr></thead><tbody><tr><td>Number of meals</td><td>45</td><td>38</td></tr><tr><td>Sample mean sodium</td><td>890 mg</td><td>840 mg</td></tr><tr><td>Known population SD</td><td>120 mg</td><td>100 mg</td></tr></tbody></table></div>
+<p>We'll use a stricter significance level, \(\alpha=0.01\), so we can see that the significance level is part of the research decision rather than something determined by the data.</p>
+<div class="w7-stage"><h3>Step 1 — State</h3><p>There is no population difference under the null. The alternative expresses the nutritionist's question: Brand A has a higher population mean.</p><div class="eq">\[H_0:\mu_A=\mu_B,\qquad H_a:\mu_A>\mu_B.\]</div><p>It's a right-tailed test. Both sample sizes exceed 30, and our example gives known standard deviations.</p></div>
+<div class="w7-stage"><h3>Step 2 — Test statistic</h3><p>The observed difference is \(890-840=50\) mg. The standard error of that difference is:</p><div class="eq">\[SE=\sqrt{\frac{120^2}{45}+\frac{100^2}{38}}\approx24.15\text{ mg},\qquad z=\frac{50}{24.15}\approx2.07.\]</div><p>Brand A's sample mean is about 2.07 standard errors higher than Brand B's.</p></div>
+<div class="w7-stage"><h3>Step 3 — p-value</h3><p>Because we asked whether Brand A has <em>more</em> sodium, we look only in the right tail:</p><div class="eq">\[p=P(Z\ge2.07)\approx0.0192.\]</div></div>
+<div class="w7-stage"><h3>Step 4 — Conclude</h3><p>At \(\alpha=0.01\), \(0.0192>0.01\). We <strong>fail to reject \(H_0\)</strong>. These samples do not provide sufficient evidence, at the 1% level, that Brand A has a higher population mean sodium content. That does <em>not</em> prove the brands contain the same amount.</p></div>
+<p>Compare this decision with the teaching-method example. The calculations have the same structure. The alternative hypothesis changed which tail counted, and the chosen significance level changed how much evidence was required.</p>
+<div class="practice"><b>Pause and try.</b><p>What would the decision be for the sodium example if the nutritionist had chosen α = 0.05 before collecting the data? Would the p-value change?</p><details><summary>Show a possible answer</summary><p>Because 0.0192 is less than 0.05, we would reject at the 5% level. The p-value itself remains 0.0192; only the threshold for our decision has changed.</p></details></div>
+</section>
+<section id="s4">
+<h2>5. A short connection to confidence intervals</h2>
+<p>Last week we connected hypothesis tests to confidence intervals. We can make the same connection here, because our two-sample test estimates a <em>difference</em> between means. For the teaching methods, the sample difference was 4.6 points and the standard error was about 2.333 points.</p>
+<p>A 95% confidence interval uses the familiar pattern <em>estimate ± margin of error</em>. Only the estimate and its standard error have changed:</p>
+<div class="eq">\[(\bar x_1-\bar x_2)\pm1.96(SE)=4.6\pm1.96(2.333)\approx(0.03,\ 9.17)\text{ points}.\]</div>
+<p>We're estimating the population mean of Method 1 <em>minus</em> that of Method 2. Zero represents no difference. Since zero falls just outside the interval, this agrees with our two-tailed hypothesis test at the 5% level. The interval also reminds us that the possible size of the population difference is quite uncertain: it could be very small or several points.</p>
 <figure class="w7-visual" data-visual="w7-reading-interval"><div class="w7-plot" tabindex="0" role="group" aria-label="The interval shows direction and plausible magnitude; scroll horizontally on narrow screens"><svg id="w7-reading-interval" role="img" aria-labelledby="w7-reading-interval-title w7-reading-interval-desc" xmlns:xlink="http://www.w3.org/1999/xlink" width="504pt" height="252pt" viewBox="0 0 504 252" xmlns="http://www.w3.org/2000/svg" version="1.1">
 <title id="w7-reading-interval-title">The interval shows direction and plausible magnitude</title><desc id="w7-reading-interval-desc">A 95 percent interval for the difference is 0.0271534 to 9.17285, centered at the observed difference 4.6. Zero is outside the interval.</desc>
  <metadata>
@@ -893,20 +940,21 @@
   </clipPath>
  </defs>
 </svg></div><figcaption><b>The interval shows direction and plausible magnitude</b>The lower endpoint is only about +0.027 points. The inset magnifies that small gap above zero. The same interval also includes differences near 9 points, so report this uncertainty alongside the reject/fail-to-reject decision.</figcaption></figure>
-<p>Zero sits just outside the interval, agreeing with our two-sided test at the 5% level. But notice how wide the interval is. The true difference could be quite small or as large as several points. Reporting only “significant” would hide that information.</p>
-<p>The usual meaning of 95% confidence is about the <em>method</em>: if we repeatedly took samples and constructed intervals this way, about 95% of them would contain the fixed population difference. It isn't a statement that the already-fixed parameter changes from sample to sample.</p>
-<div class="practice"><b>Try it.</b><p>Suppose a confidence interval for \(\mu_1-\mu_2\) is (−3.2, 8.6). Can we tell which population has the higher mean?</p><details><summary>Show explanation</summary><p>Not decisively. The interval contains zero, negative differences, and positive differences. The sample estimate is the midpoint, 2.7, but the uncertainty includes either direction.</p></details></div>
+<p>That's enough about intervals for now. The key point is that they answer a related question—<em>how large might the difference be?</em>—using the same observed difference and standard error. The method's 95% coverage refers to what would happen across many repeated samples.</p>
 </section>
-<section id="s4">
-<h2>5. What if we are comparing percentages?</h2>
-<p>So far we've compared numerical measurements such as scores. Now suppose the outcome is simply <em>yes or no</em>: did a person report a side effect? Each group has a proportion instead of a mean. The central question is still the same: is the observed difference more than we might expect from random sampling?</p>
-<p>In Group 1, 18 of 120 people reported a side effect. In Group 2, 31 of 110 did. Let's calculate the two sample proportions:</p>
-<div class="eq">\[\hat p_1=\frac{18}{120}=0.1500,\qquad \hat p_2=\frac{31}{110}\approx0.2818.\]</div>
-<p>The difference is \(\hat p_1-\hat p_2\approx-0.1318\), or about <strong>13.18 percentage points lower</strong> in Group 1. A negative value makes sense because we chose Group 1 minus Group 2.</p>
-<p>Here comes one new idea: <strong>pooling</strong>. If our null hypothesis says \(p_1=p_2\), we are temporarily treating both populations as having one common proportion. The best estimate of that single proportion, under the null, comes from combining the <em>counts</em> across the two samples:</p>
-<div class="eq">\[\hat p_{\mathrm{pool}}=\frac{x_1+x_2}{n_1+n_2}=\frac{18+31}{120+110}=\frac{49}{230}\approx0.2130.\]</div>
-<p>That's 49 reported side effects among 230 people. We <em>don't</em> simply average 15.00% and 28.18%, because the two groups contain different numbers of people. Combining the counts gives each person the same weight.</p>
-<figure class="w7-visual" data-visual="w7-reading-pool"><div class="w7-plot" tabindex="0" role="group" aria-label="Pool counts before dividing; scroll horizontally on narrow screens"><svg id="w7-reading-pool" role="img" aria-labelledby="w7-reading-pool-title w7-reading-pool-desc" xmlns:xlink="http://www.w3.org/1999/xlink" width="504pt" height="252pt" viewBox="0 0 504 252" xmlns="http://www.w3.org/2000/svg" version="1.1">
+<section id="s5">
+<h2>6. The same hypothesis test with percentages</h2>
+<p>We've been comparing averages of numerical measurements: assessment points and milligrams of sodium. Now think back to the Week 6 seed-germination example. There the outcome was yes or no: did a seed germinate? The statistic was a <em>sample proportion</em> rather than a sample mean.</p>
+<p>Suppose researchers want to know whether a treatment reduces the proportion of people who experience a side effect. Some patients receive the treatment and others form a separate control group. Each person either experiences the side effect or does not. The researchers aren't comparing average scores; they're comparing the <strong>fraction of people</strong> in each group who report a side effect.</p>
+<p>What is the null hypothesis? That the population side-effect rate is the same in both groups. What would we be looking for instead? A lower rate in the treatment group. This is again our Week 6 way of choosing hypotheses—before looking at results.</p>
+<p>Now take the data: in the treatment group, 18 of 120 people reported the side effect. In the control group, 31 of 110 did. We'll assume independent samples and use \(\alpha=0.05\).</p>
+<div class="w7-stage"><h3>Step 1 — State</h3><p>Label the treatment group as Group 1 and the control group as Group 2. Our question is whether the treatment group's population rate is lower.</p><div class="eq">\[H_0:p_1=p_2,\qquad H_a:p_1<p_2.\]</div><p>This is left-tailed. Compute the two observed rates:</p><div class="eq">\[\hat p_1=\frac{18}{120}=0.1500,\qquad \hat p_2=\frac{31}{110}\approx0.2818.\]</div></div>
+<div class="w7-stage"><h3>Step 2 — Test statistic</h3>
+<p>The observed difference is about \(0.1500-0.2818=-0.1318\), or 13.18 percentage points lower in the treatment group. To measure how unusual that difference is <em>under the null claim of equal rates</em>, we need the standard error.</p>
+<p>Remember that in Week 6 we used the null proportion \(p_0\) when testing a proportion. Here the null hypothesis also describes a shared proportion, but we don't know its numerical value. Under the equality claim, we estimate that common rate by combining the counts:</p>
+<div class="eq">\[\hat p_{\mathrm{pool}}=\frac{18+31}{120+110}=\frac{49}{230}\approx0.2130.\]</div>
+<p>That's all “pooling” means: count the total number of side effects and divide by the total number of people. We use that common estimate because the <em>null hypothesis</em> says both populations have the same rate.</p>
+<details class="w7-extra"><summary>See the combined counts</summary><figure class="w7-visual" data-visual="w7-reading-pool"><div class="w7-plot" tabindex="0" role="group" aria-label="Pool counts before dividing; scroll horizontally on narrow screens"><svg id="w7-reading-pool" role="img" aria-labelledby="w7-reading-pool-title w7-reading-pool-desc" xmlns:xlink="http://www.w3.org/1999/xlink" width="504pt" height="252pt" viewBox="0 0 504 252" xmlns="http://www.w3.org/2000/svg" version="1.1">
 <title id="w7-reading-pool-title">Pool counts before dividing</title><desc id="w7-reading-pool-desc">Group 1 has 18 successes out of 120; Group 2 has 31 out of 110. Combining gives 49 out of 230, a pooled proportion of 0.2130.</desc>
  <metadata>
   <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
@@ -1091,11 +1139,14 @@
    <rect x="85.68" y="35.28" width="403.2" height="161.28"/>
   </clipPath>
  </defs>
-</svg></div><figcaption><b>Pool counts before dividing</b>Under H₀, both groups share a common success probability. Estimate it from the 49 side-effect cases among all 230 observations. The group sample sizes supply the weights.</figcaption></figure>
-<p>We use this pooled proportion to describe the sampling variability we would expect <em>if the null hypothesis of equal population proportions were true</em>:</p>
-<div class="eq">\[SE_{\mathrm{null}}=\sqrt{\hat p_{\mathrm{pool}}(1-\hat p_{\mathrm{pool}})\left(\frac1{n_1}+\frac1{n_2}\right)}.\]</div>
-<p>Substituting the numbers gives \(SE_{\mathrm{null}}\approx0.05405\). Our test statistic is \(z=(-0.1318)/0.05405\approx-2.44\). If our alternative is that Group 1 has a <em>lower</em> side-effect rate, \(H_a:p_1<p_2\), we look in the <em>left</em> tail. The resulting \(p\)-value is about 0.0074.</p>
-<figure class="w7-visual" data-visual="w7-reading-proportion"><div class="w7-plot" tabindex="0" role="group" aria-label="A lower side-effect rate is a left-tailed comparison; scroll horizontally on narrow screens"><svg id="w7-reading-proportion" role="img" aria-labelledby="w7-reading-proportion-title w7-reading-proportion-desc" xmlns:xlink="http://www.w3.org/1999/xlink" width="504pt" height="237.6pt" viewBox="0 0 504 237.6" xmlns="http://www.w3.org/2000/svg" version="1.1">
+</svg></div><figcaption><b>Pool counts before dividing</b>Under H₀, both groups share a common success probability. Estimate it from the 49 side-effect cases among all 230 observations. The group sample sizes supply the weights.</figcaption></figure></details>
+<p>Use the pooled proportion in the standard error formula for an equality test:</p>
+<div class="eq">\[SE=\sqrt{\hat p_{\mathrm{pool}}(1-\hat p_{\mathrm{pool}})\left(\frac1{n_1}+\frac1{n_2}\right)}\approx0.05405.\]</div>
+<p>Then standardize the observed difference, just as we have done all week:</p>
+<div class="eq">\[z=\frac{\hat p_1-\hat p_2}{SE}\approx\frac{-0.1318}{0.05405}\approx-2.44.\]</div>
+<p>We should also check whether a normal approximation makes sense. Under the pooled rate, the expected side-effect and no-side-effect counts are about 25.6 and 94.4 for Group 1, and 23.4 and 86.6 for Group 2. Each is at least 10, which meets the usual classroom count check.</p>
+</div>
+<div class="w7-stage"><h3>Step 3 — p-value</h3><p>We are looking for a <em>lower</em> rate in Group 1, so we look in the left tail. For \(z\approx-2.44\), the p-value is about 0.0074.</p><figure class="w7-visual" data-visual="w7-reading-proportion"><div class="w7-plot" tabindex="0" role="group" aria-label="A lower side-effect rate is a left-tailed comparison; scroll horizontally on narrow screens"><svg id="w7-reading-proportion" role="img" aria-labelledby="w7-reading-proportion-title w7-reading-proportion-desc" xmlns:xlink="http://www.w3.org/1999/xlink" width="504pt" height="237.6pt" viewBox="0 0 504 237.6" xmlns="http://www.w3.org/2000/svg" version="1.1">
 <title id="w7-reading-proportion-title">A lower side-effect rate is a left-tailed comparison</title><desc id="w7-reading-proportion-desc">Normal null distribution of a difference, centered at zero with standard error 0.0540488; the observed difference is -0.131818. Group 1 − Group 2 is approximately −0.1318, or −13.18 percentage points. Under the pooled equal-rate model, the shaded left tail has probability about 0.0074. Keep the chosen group order in the conclusion.</desc>
  <metadata>
   <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
@@ -1239,21 +1290,18 @@
    <rect x="60.48" y="38.016" width="430.92" height="142.56"/>
   </clipPath>
  </defs>
-</svg></div><figcaption><b>A lower side-effect rate is a left-tailed comparison</b>Group 1 − Group 2 is approximately −0.1318, or −13.18 percentage points. Under the pooled equal-rate model, the shaded left tail has probability about 0.0074. Keep the chosen group order in the conclusion.</figcaption></figure>
-<p>For this model, that is evidence of a lower population side-effect rate in Group 1. It doesn't, by itself, establish that the groups' treatments caused the difference. As always, we have to look at how people were assigned and sampled.</p>
-<p>Before relying on the normal approximation, check that observations are appropriately independent and that the pooled model predicts at least about 10 successes and 10 failures in <em>each</em> group. Here the expected counts under the null are about 25.6 and 94.4 in Group 1, and 23.4 and 86.6 in Group 2, so that count check is satisfied.</p>
-<p>One final distinction: when we build a <em>confidence interval</em> for \(p_1-p_2\), we no longer assume the proportions are equal. That means we use the <em>unpooled</em> standard error, with each group's own observed proportion:</p>
-<div class="eq">\[SE_{\mathrm{interval}}=\sqrt{\frac{\hat p_1(1-\hat p_1)}{n_1}+\frac{\hat p_2(1-\hat p_2)}{n_2}}.\]</div>
-<div class="w7-table-lookup" role="region" tabindex="0" aria-label="Choosing a two-proportion standard error"><table><caption>Different questions require different standard errors</caption><thead><tr><th scope="col">Question</th><th scope="col">Proportions in the SE</th><th scope="col">Reason</th></tr></thead><tbody><tr><th scope="row">Test H₀: p₁ = p₂</th><td>Use the same pooled estimate in both terms</td><td>Build variation under the equality claim</td></tr><tr><th scope="row">Estimate p₁ − p₂ with an interval</th><td>Use each group’s own sample proportion</td><td>Estimate uncertainty without assuming equality</td></tr></tbody></table></div>
-<p>The two standard errors answer two different questions. For the equality <em>test</em>, we calculate the variability expected under equality. For the <em>interval</em>, we estimate how uncertain the difference is without assuming equality.</p>
-<div class="practice"><b>Try it.</b><p>Group 1 has 10 successes out of 20 observations and Group 2 has 90 out of 100. What proportion would you use for an equality test?</p><details><summary>Show explanation</summary><p>Pool the counts: \((10+90)/(20+100)=100/120\approx0.8333\). The unweighted average of 0.50 and 0.90 would incorrectly treat the groups as equally large.</p></details></div>
+</svg></div><figcaption><b>A lower side-effect rate is a left-tailed comparison</b>Group 1 − Group 2 is approximately −0.1318, or −13.18 percentage points. Under the pooled equal-rate model, the shaded left tail has probability about 0.0074. Keep the chosen group order in the conclusion.</figcaption></figure></div>
+<div class="w7-stage"><h3>Step 4 — Conclude</h3><p>Because \(0.0074<0.05\), reject the hypothesis of equal population side-effect rates. The samples provide evidence of a lower side-effect rate in the treatment group under the stated model. Whether the treatment <em>caused</em> that difference depends on the study design.</p></div>
+<p>Notice what happened: we never invented a fifth step or a new definition of hypothesis testing. We used a different standard error because the observations were yes/no outcomes from two groups. <strong>State, calculate, find the p-value, conclude</strong> stayed exactly the same.</p>
+<div class="practice"><b>Pause and try.</b><p>Why did we combine the 18 and 31 side-effect reports before finding the standard error?</p><details><summary>Show a possible answer</summary><p>Because the null hypothesis says the two population rates are equal. Under that claim, we need one estimated common rate to describe the sampling variation expected from the two groups.</p></details></div>
 </section>
-<section id="references"><h2>What to try next</h2>
-<p>You've learned one connected idea in several forms: <strong>compare two groups, estimate how much the comparison can vary, and use that uncertainty to make a careful statement</strong>. The formulas differ depending on whether we measured a number or counted a yes/no outcome, but the question beneath them is the same.</p>
-<p>Start with the interactive explorer and draw two or three pairs of samples. Notice that even with unchanged populations, the difference changes. Then work through the lab in order: identify the design, test the difference in means, build its interval, and compare proportions. The PDF chapter has additional examples and exercises.</p>
-<a class="pdf-link" href="../demos/two_sample_demo.html">Try the Two-Sample Difference Explorer</a>
-<a class="pdf-link" href="../labs/Math146_Week7_Lab.html">Week 7 laboratory</a>
-<a class="pdf-link" href="../textbook/Math146_Ch7.pdf">Original PDF: Chapter 7</a>
-<p class="footer-nav"><a href="week6_reading.html">← Previous reading</a><a href="week8_reading.html">Next reading →</a></p>
+<section id="references">
+<h2>Your Week 7 path</h2>
+<p>The most important result of this week is a way of recognizing the same hypothesis test in a new setting. In Week 6, we tested a sample statistic against a claimed value. In Week 7, we compare <em>two</em> sample statistics against the claim that their population difference is zero. The steps—and the interpretation of the p-value—have not changed.</p>
+<p>Try the interactive two-sample explorer first with equal population means. Then use the guided lab to practice the four steps on your own. The original textbook chapter includes the same worked examples and more exercises, so it's a good place to review the arithmetic after you've followed the reasoning here.</p>
+<a class="pdf-link" href="../demos/two_sample_demo.html">Start with the two-sample explorer</a>
+<a class="pdf-link" href="../labs/Math146_Week7_Lab.html">Week 7 guided lab</a>
+<a class="pdf-link" href="../textbook/Math146_Ch7.pdf">Chapter 7 PDF and additional exercises</a>
+<p class="footer-nav"><a href="week6_reading.html">← Review Week 6</a><a href="week8_reading.html">Next reading →</a></p>
 </section>
 </article></main></body></html>
