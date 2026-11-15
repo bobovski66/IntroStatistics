@@ -351,7 +351,7 @@ function setPreset(name){state.model={...PRESETS[name]};state.activePreset=name;
 Object.keys(state.model).forEach(key=>$(key).addEventListener('input',()=>{state.model[key]=parseFloat($(key).value);state.activePreset=null;clearRun();render();}));
 $('order').addEventListener('change',()=>{state.order=Number($('order').value);render();});
 $('level').addEventListener('change',()=>{state.level=Number($('level').value);render();});
-$('draw-one').addEventListener('click',()=>drawSamples(1));$('draw-many').addEventListener('click',()=>drawSamples(20));$('reset').addEventListener('click',()=>{clearRun();render();});
+$('draw-one').addEventListener('click',()=>drawSamples(1));$('draw-many').addEventListener('click',()=>{drawSamples(20);$('extension').open=true;});$('reset').addEventListener('click',()=>{clearRun();render();});
 document.querySelectorAll('[data-preset]').forEach(button=>button.addEventListener('click',()=>setPreset(button.dataset.preset)));
 render();
 </script>
