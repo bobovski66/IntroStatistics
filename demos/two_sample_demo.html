@@ -2,42 +2,222 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="Draw independent normal samples, combine their sampling uncertainty, and stack confidence intervals for the difference of population means.">
-<title>Two-Sample Difference Explorer | MATH&amp; 146</title>
+<meta name="description" content="A guided two-sample hypothesis testing simulation with a persistent control rail and visual four-step explanations.">
+<title>Two-Sample Hypothesis Test Explorer | MATH&amp; 146</title>
 <style>
 :root{color-scheme:light;--bg:#eef1f3;--paper:#fffdf8;--ink:#182e40;--muted:#536675;--blue:#245a81;--teal:#287d76;--gold:#ad6b15;--red:#9c3b42;--line:#cdd9df}
 *{box-sizing:border-box}body{margin:0;font:16px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--bg);color:var(--ink)}a{color:var(--blue)}header{background:#183149;color:white;padding:24px max(18px,calc((100vw - 1120px)/2))}header a{color:#d4e9f5}header h1{font-size:clamp(1.7rem,4vw,2.5rem);line-height:1.15;margin:12px 0}header p{max-width:85ch;margin:8px 0;color:#dbe7ef}main{max-width:1160px;margin:auto;padding:20px 18px 60px}h2{font-size:1.25rem;margin:0 0 8px}h3{font-size:1.05rem;margin:0 0 8px}.panel{padding:20px;margin:16px 0;background:var(--paper);border:1px solid var(--line);border-radius:12px}.panel>p{margin:8px 0 16px;max-width:95ch}.model-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.model-card{border:1px solid var(--line);border-top:4px solid var(--blue);border-radius:8px;background:white;padding:14px}.model-card.group2{border-top-color:var(--teal)}.input-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}label{display:block;font-size:.9rem}input,select,button{font:inherit}input,select{padding:8px;border:1px solid #90a6b4;border-radius:6px;background:white;color:var(--ink);max-width:100%}input{width:100%;margin-top:4px}button{border:1px solid var(--blue);border-radius:7px;padding:8px 12px;background:white;color:var(--blue);cursor:pointer}button.primary{background:var(--blue);color:white}button:disabled{opacity:.5;cursor:default}button:hover:enabled{filter:brightness(.94)}button:focus-visible,input:focus-visible,select:focus-visible,[tabindex]:focus-visible{outline:3px solid #c18a2f;outline-offset:3px}.controls,.actions,.legend{display:flex;gap:10px 16px;flex-wrap:wrap;align-items:center}.controls{justify-content:space-between;margin-top:16px}.controls label{display:flex;align-items:center;gap:8px}.actions{margin:14px 0}.small,.legend{font-size:.88rem;color:var(--muted)}.legend{margin:8px 0}.legend span:before{content:"";display:inline-block;width:19px;height:4px;vertical-align:middle;margin-right:7px;background:var(--blue)}.legend .miss:before{background:var(--gold)}.legend .zero:before{background:none;height:0;border-top:2px dashed #657987}.legend .truth:before{background:none;height:0;border-top:2px dashed var(--teal)}.readout{padding:13px 15px;background:#edf3f6;border-left:4px solid var(--blue);border-radius:6px;margin:12px 0;font-variant-numeric:tabular-nums}.readout p{margin:5px 0}.warning{border-left:4px solid var(--red);background:#faece9;padding:12px;margin:12px 0}.chart{overflow:auto;max-width:100%}.chart svg{display:block;width:100%;height:auto;min-width:650px}.stack{max-height:580px;overflow:auto;border:1px solid var(--line);border-radius:7px}.stack svg{min-width:850px}.empty{padding:25px;color:var(--muted)}.stats{font-variant-numeric:tabular-nums;color:var(--ink);font-weight:650}.tips li{margin:8px 0}[hidden]{display:none!important}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 @media(max-width:650px){.model-grid{grid-template-columns:1fr}.input-grid{gap:8px}.panel{padding:14px}.controls{align-items:flex-start}.controls label{align-items:flex-start;flex-direction:column}.input-grid label{font-size:.83rem}}
 @media print{body{background:white}header{background:white;color:black;padding:0}header a,.actions,.controls,.model-grid{display:none}header p{color:#333}main{max-width:none;padding:0}.panel{box-shadow:none;border:1px solid #aaa;break-inside:avoid}.chart,.stack{overflow:visible;max-height:none}.chart svg,.stack svg{min-width:0}svg{print-color-adjust:exact;-webkit-print-color-adjust:exact}}
 </style>
-<style id="w7-explorer-less-is-more">.w7-extras{border:1px solid #b7cbd7;border-radius:10px;background:#f6f9fb;padding:12px;margin:18px 0}.w7-extras>summary{cursor:pointer;font-weight:750;color:#214862}.w7-extras[open]>summary{margin-bottom:13px}.readout p{margin:.7rem 0}</style></head>
+<style id="w7-explorer-less-is-more">.w7-extras{border:1px solid #b7cbd7;border-radius:10px;background:#f6f9fb;padding:12px;margin:18px 0}.w7-extras>summary{cursor:pointer;font-weight:750;color:#214862}.w7-extras[open]>summary{margin-bottom:13px}.readout p{margin:.7rem 0}</style><style id="week7-rail-layout">
+header{padding:20px clamp(20px,4vw,64px)}header p{max-width:100ch}
+.explorer-layout{max-width:1480px;display:grid;grid-template-columns:minmax(290px,324px) minmax(0,1fr);gap:22px;align-items:start;margin:0 auto;padding:22px 22px 70px}
+.control-rail{position:sticky;top:14px;max-height:calc(100vh - 28px);max-height:calc(100dvh - 28px);overflow-y:auto;overscroll-behavior:contain;background:#f9fbfc;border:1px solid var(--line);border-radius:13px;box-shadow:0 9px 25px rgba(20,40,54,.07);padding:18px;color:var(--ink)}
+.control-rail:focus-within{scroll-behavior:smooth}
+.rail-overline{font-size:.72rem;font-weight:750;letter-spacing:.09em;text-transform:uppercase;color:var(--blue);margin:0 0 4px}
+.control-rail h2{font-size:1.33rem;margin:0 0 7px}
+.control-rail p{margin:.4rem 0 1rem;font-size:.88rem;line-height:1.5;color:var(--muted)}
+.rail-section{border-top:1px solid var(--line);margin-top:14px;padding-top:16px}
+.rail-section h3{font-size:1rem;margin:0 0 4px}
+.preset-list{display:grid;gap:9px}
+.preset-list button{display:grid;gap:2px;text-align:left;width:100%;background:#fff;border:1px solid var(--line);border-radius:9px;padding:10px 11px;color:var(--ink);line-height:1.38}
+.preset-list button strong{font-size:.88rem;font-weight:750}
+.preset-list button span{font-size:.79rem;color:var(--muted)}
+.preset-list button[aria-pressed="true"]{background:#e7f0f5;border-color:var(--blue);box-shadow:inset 4px 0 var(--blue)}
+.preset-list button[aria-pressed="true"] strong{color:var(--blue)}
+.control-rail .rail-primary,.control-rail .rail-secondary,.control-rail .rail-reset{display:block;width:100%;margin:7px 0;font-weight:650}
+.control-rail .rail-secondary{background:#fff}
+.control-rail .rail-reset{font-size:.85rem;border:0;background:transparent;padding:6px 10px;color:var(--muted);text-decoration:underline}
+.control-rail .rail-status{background:#edf3f6;border-radius:8px;padding:11px;margin:12px 0 0;font-size:.83rem;color:#22465f}
+.control-rail .warning{font-size:.84rem}
+.rail-details{margin-top:16px;border-top:1px solid var(--line);padding-top:15px}
+.rail-details summary{font-weight:700;font-size:.91rem;cursor:pointer;color:var(--blue)}
+.rail-details[open] summary{margin-bottom:12px}
+.rail-details .model-grid{display:grid;grid-template-columns:1fr;gap:10px}
+.rail-details .model-card{padding:11px;border-top-width:3px}
+.rail-details .model-card h3{margin:0 0 9px;font-size:.88rem}
+.rail-details .input-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}
+.rail-details .input-grid label{font-size:.78rem;line-height:1.35}
+.rail-details .input-grid input{font-size:.86rem;padding:7px 6px;min-width:0}
+.rail-extra-controls{display:grid;gap:9px;margin-top:12px}
+.rail-extra-controls label{font-size:.83rem}
+.rail-extra-controls select{display:block;width:100%;margin-top:4px;font-size:.87rem}
+.rail-reminder{font-size:.82rem;line-height:1.55;padding:12px;margin-top:15px;background:#edf3f6;border-radius:9px;color:#28475b}
+.results-column{min-width:0}
+.results-column>.panel{margin:0 0 18px;padding:24px 26px}
+.results-column h2{font-size:clamp(1.17rem,1.9vw,1.42rem);line-height:1.33}
+.results-column .panel>p{max-width:85ch}
+.step-label{font-size:.74rem;color:var(--blue);letter-spacing:.075em;text-transform:uppercase;font-weight:800;margin:0 0 9px!important}
+.intro-panel{background:#f4f8fa!important}
+.hypothesis-pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:17px 0}
+.hypothesis-pair>div{background:#f3f7f9;border:1px solid var(--line);border-radius:10px;padding:13px}
+.hypothesis-caption{display:block;color:var(--muted);font-size:.78rem;margin-bottom:5px}
+.hypothesis-pair strong{font-size:1.16rem;letter-spacing:.01em}
+.hypothesis-pair p{font-size:.88rem;margin:8px 0 0}
+.results-column .chart{overflow-x:auto;max-width:100%;margin:14px 0}
+.results-column .chart svg{display:block;width:100%;height:auto;min-width:620px}
+.results-column .stack{max-height:550px;overflow:auto}
+.results-column .stack svg{min-width:780px}
+.explain-details{margin:18px 0 0;padding:14px 16px;border:1px solid var(--line);border-radius:9px;background:#f7f9fa}
+.explain-details summary{font-weight:720;color:var(--blue);cursor:pointer}
+.explain-details[open] summary{margin-bottom:12px}
+.explain-details p{margin:9px 0;font-size:.93rem}
+.explain-details .chart{background:white;border-radius:7px}
+.formula-line{font-weight:750;font-size:1.1rem!important;text-align:center;margin:14px 0!important}
+.readout{margin:16px 0;background:#edf3f6;padding:15px 18px}
+.readout p{margin:9px 0}
+.readout p:first-child{margin-top:0}.readout p:last-child{margin-bottom:0}
+.result-lead{font-weight:750}
+.decision-readout{border-left-color:var(--teal)}
+.student-next{margin-top:22px;padding-top:12px;border-top:1px solid var(--line)}
+.student-next h3{margin:0 0 8px}
+.student-next li{margin:9px 0}
+.extension-panel{padding:14px 18px!important}
+.extension-panel .explain-details{margin:0;background:transparent;border:0;padding:0}
+@media(max-width:1050px){.explorer-layout{grid-template-columns:1fr;max-width:900px}.control-rail{position:relative;top:auto;max-height:none;overflow:visible}.rail-details .model-grid{grid-template-columns:1fr 1fr}.rail-section{margin-top:12px}.preset-list{grid-template-columns:repeat(3,minmax(0,1fr))}.preset-list button{align-content:start}.control-rail .rail-primary,.control-rail .rail-secondary,.control-rail .rail-reset{max-width:350px}}
+@media(max-width:650px){.explorer-layout{padding:12px 10px 50px;gap:12px}.control-rail{padding:14px}.results-column>.panel{padding:17px 15px;margin-bottom:12px}.preset-list{grid-template-columns:1fr}.rail-details .model-grid,.hypothesis-pair{grid-template-columns:1fr}.rail-details .input-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.results-column .chart svg{min-width:540px}.extension-panel{padding:12px!important}.readout{padding:13px}.results-column .stack svg{min-width:780px}}
+@media print{.explorer-layout{display:block;max-width:none;padding:0}.control-rail{display:none}.results-column>.panel{break-inside:auto}.results-column .chart,.results-column .stack{overflow:visible;max-height:none}.results-column .chart svg,.results-column .stack svg{min-width:0}}
+</style></head>
 <body>
 <a class="sr-only" href="#explorer">Skip to explorer</a>
 <header><a href="../index.html">← MATH&amp; 146 course</a> · <a href="../readings/week7_reading.html">Week 7 reading</a><h1>Two Samples, One Familiar Hypothesis Test</h1><p>Remember the Week 6 coffee-machine test? We began by assuming a claim was true, drew a sample, and asked whether it was surprising. Here the claim is that <strong>two population means are equal</strong>. Try the same reasoning with two samples.</p></header>
-<main id="explorer">
-<section class="panel" aria-labelledby="model-heading"><h2 id="model-heading">Before the numbers: what are we testing?</h2>
-<p>Last week you tested whether <em>one</em> population mean matched a claimed value. This time imagine two groups whose population means might be equal. The null hypothesis is <strong>H₀: μ₁ = μ₂</strong>, which means the population difference is zero. The alternative says the means are different: <strong>Hₐ: μ₁ ≠ μ₂</strong>. This is a <strong>two-tailed test</strong>.</p>
-<p>Even if the populations have equal means, two random samples will usually produce slightly different averages. Our test asks whether an observed difference is unusually large compared with that ordinary variation. Start by selecting <strong>Equal means</strong>, then click <strong>Draw two samples</strong>. Compare the two sample averages and repeat the draw. You don't need to adjust any settings yet.</p>
-<div class="actions"><button type="button" data-preset="equal">Equal means</button><button type="button" data-preset="different">Group 1 has a larger mean</button><button type="button" data-preset="unequal">Unequal sampling precision</button></div>
-<details class="w7-extras"><summary>Optional: change the population means, spread, sample sizes, or confidence level</summary><p class="small">The simulation has default settings so that you can concentrate on the four testing steps. If you explore later, a population mean is the value the simulation is built around, the standard deviation describes individual variation, and the sample size says how many observations are drawn.</p><div class="model-grid">
-<div class="model-card"><h3>Group 1</h3><div class="input-grid"><label for="mu1">Population mean μ₁<input id="mu1" type="number" step="1" value="80"></label><label for="sigma1">Known SD σ₁<input id="sigma1" type="number" min="0.01" step="1" value="10"></label><label for="n1">Sample size n₁<input id="n1" type="number" min="2" max="500" step="1" value="40"></label></div></div>
-<div class="model-card group2"><h3>Group 2</h3><div class="input-grid"><label for="mu2">Population mean μ₂<input id="mu2" type="number" step="1" value="80"></label><label for="sigma2">Known SD σ₂<input id="sigma2" type="number" min="0.01" step="1" value="10"></label><label for="n2">Sample size n₂<input id="n2" type="number" min="2" max="500" step="1" value="40"></label></div></div>
+<main id="explorer" class="explorer-layout">
+<aside class="control-rail" aria-label="Simulation controls">
+  <div class="rail-intro">
+    <p class="rail-overline">Week 7 · Interactive experiment</p>
+    <h2 id="model-heading">Your experiment</h2>
+    <p>You're comparing test scores from two groups of students. Change the conditions here; watch what happens to the hypothesis test on the right.</p>
+  </div>
+  <section class="rail-section" aria-labelledby="presets-heading">
+    <h3 id="presets-heading">1. Choose a comparison</h3>
+    <p>Begin with equal population means. The samples will still be different from one draw to the next.</p>
+    <div class="preset-list" role="group" aria-label="Choose an experiment">
+      <button type="button" data-preset="equal" aria-pressed="true"><strong>Equal means</strong><span>Both populations average 80 points.</span></button>
+      <button type="button" data-preset="different" aria-pressed="false"><strong>Group 1 has a higher mean</strong><span>The population means are 84 and 80.</span></button>
+      <button type="button" data-preset="unequal" aria-pressed="false"><strong>Different amounts of variation</strong><span>See how sample size and spread affect our evidence.</span></button>
+    </div>
+  </section>
+  <section class="rail-section" aria-labelledby="draw-heading">
+    <h3 id="draw-heading">2. Draw samples</h3>
+    <p>Each draw represents a new study with different students, under the conditions you've chosen.</p>
+    <button type="button" class="primary rail-primary" id="draw-one">Draw two new samples</button>
+    <button type="button" class="rail-secondary" id="draw-many">Draw 20 sample pairs</button>
+    <button type="button" class="rail-reset" id="reset">Clear previous draws</button>
+    <p id="rail-status" class="rail-status" aria-live="polite">No samples drawn yet. Begin with “Equal means.”</p>
+    <div id="input-warning" class="warning" role="alert" hidden></div>
+  </section>
+  <details class="rail-details" id="custom-settings">
+    <summary>Adjust the numbers yourself</summary>
+    <p class="small">You can investigate with the presets first. These settings let you explore how a population mean, individual variability, or sample size affects the result.</p>
+    <div class="model-grid">
+      <div class="model-card">
+        <h3>Group 1</h3>
+        <div class="input-grid">
+          <label for="mu1">Mean μ₁<input id="mu1" type="number" step="1" value="80"></label>
+          <label for="sigma1">SD σ₁<input id="sigma1" type="number" min="0.01" step="1" value="10"></label>
+          <label for="n1">Size n₁<input id="n1" type="number" min="2" max="500" step="1" value="40"></label>
+        </div>
+      </div>
+      <div class="model-card group2">
+        <h3>Group 2</h3>
+        <div class="input-grid">
+          <label for="mu2">Mean μ₂<input id="mu2" type="number" step="1" value="80"></label>
+          <label for="sigma2">SD σ₂<input id="sigma2" type="number" min="0.01" step="1" value="10"></label>
+          <label for="n2">Size n₂<input id="n2" type="number" min="2" max="500" step="1" value="40"></label>
+        </div>
+      </div>
+    </div>
+    <div class="rail-extra-controls">
+      <label for="order">Subtract in this order
+        <select id="order"><option value="1">Group 1 − Group 2</option><option value="-1">Group 2 − Group 1</option></select>
+      </label>
+      <label for="level">Confidence level
+        <select id="level"><option value="0.90">90%</option><option value="0.95" selected>95%</option><option value="0.99">99%</option></select>
+      </label>
+    </div>
+    <p id="model-note" class="small" aria-live="polite"></p>
+    <p class="small">Changing the population values or sample sizes starts a fresh study. Reversing the subtraction order or changing the confidence level keeps the samples you've already drawn.</p>
+  </details>
+  <div class="rail-reminder"><strong>Remember Week 6:</strong> State the claim, calculate the test statistic, find the p-value, and conclude. The same steps apply here.</div>
+</aside>
+<div class="results-column">
+  <section class="panel intro-panel" aria-labelledby="intro-title">
+    <p class="step-label">Start here · The question</p>
+    <h2 id="intro-title">Can two groups have the same mean and still produce different samples?</h2>
+    <p>Imagine a school comparing two teaching methods. Two groups of students take the same assessment. Their averages will almost never be exactly equal, even if the methods lead to the same population mean. Different samples contain different students, and students don't all earn the same score.</p>
+    <p>Last week, you tested whether one sample was unusually far from a claimed population mean. This week, we ask whether the <em>difference between two sample means</em> is unusually far from zero. Start with the <strong>Equal means</strong> preset on the left. Then draw a pair of samples. We'll walk through what the result means.</p>
+  </section>
+  <section class="panel" aria-labelledby="hypothesis-heading">
+    <p class="step-label">Step 1 · State the hypotheses</p>
+    <h2 id="hypothesis-heading">What would we expect if the groups were equal?</h2>
+    <p>Our starting claim is that the two <em>population</em> means are equal. That is the null hypothesis. The alternative says the means are different. Since we're interested in differences in either direction, this is a <strong>two-tailed test</strong>.</p>
+    <div class="hypothesis-pair">
+      <div><span class="hypothesis-caption">Null hypothesis</span><strong>H₀: μ₁ − μ₂ = 0</strong><p>In the populations, there is no difference in average scores.</p></div>
+      <div><span class="hypothesis-caption">Alternative hypothesis</span><strong>Hₐ: μ₁ − μ₂ ≠ 0</strong><p>The population mean scores differ in either direction.</p></div>
+    </div>
+    <p class="small">The simulation knows the population means because we chose them. Imagine that we're researchers who don't know the truth: we must make our decision using the sampled students.</p>
+  </section>
+  <section class="panel" aria-labelledby="sample-heading">
+    <p class="step-label">Step 2 · Calculate the test statistic</p>
+    <h2 id="sample-heading">How far apart are the two sample means?</h2>
+    <p>Every dot below is one student's simulated score. The diamond marks the average of the group. When you draw new samples, the dots and diamonds move. Even when both populations average 80 points, the two <em>sample</em> means will usually be different.</p>
+    <p>The observed difference is Group 1's sample mean minus Group 2's. But a difference alone doesn't tell us whether it is unusual. We compare it with the <strong>standard error</strong>, which measures how much we expect the difference to vary across repeated samples.</p>
+    <div class="chart" id="sample-plot" tabindex="0" role="group" aria-label="Individual sample scores and group means"></div>
+    <div id="latest-readout" class="readout" aria-live="polite">Draw two samples to begin.</div>
+    <details class="explain-details">
+      <summary>Why do both groups contribute to the standard error?</summary>
+      <p>Each sample mean varies. Taking their difference combines those two sources of uncertainty. For independent samples, the variances <em>add</em>, even though the means are subtracted:</p>
+      <p class="formula-line">SE = √(σ₁²/n₁ + σ₂²/n₂)</p>
+      <p>This is the only new part of our familiar Week 6 z-statistic. The test still uses <strong>(observed − expected) ÷ standard error</strong>. Under H₀, the expected difference is zero.</p>
+      <div class="chart" id="variance-plot" tabindex="0" role="group" aria-label="Contribution of each sample to the variance of the difference"></div>
+    </details>
+  </section>
+  <section class="panel" aria-labelledby="null-heading">
+    <p class="step-label">Step 3 · Find the p-value</p>
+    <h2 id="null-heading">Would a difference this large be surprising under H₀?</h2>
+    <p>This curve shows the differences we might see across repeated studies <em>if the population means were equal</em>. The center is zero. Differences close to zero are common; differences far from zero are less common.</p>
+    <p>Once you've drawn a sample, the darker shaded areas count differences at least as extreme as yours, <em>in either direction</em>. Those two tail areas make up the p-value. A small p-value tells us the observed difference would be unusual under the equality claim.</p>
+    <div class="chart" id="null-plot" tabindex="0" role="group" aria-label="Normal sampling distribution of the difference when population means are equal"></div>
+    <div id="pvalue-readout" class="readout" aria-live="polite">After drawing samples, you'll see the p-value explained here.</div>
+    <details class="explain-details"><summary>What are the pale regions, and why can they move?</summary>
+      <p>The pale regions mark the rejection cutoffs for our chosen significance level, α. With the default 95% confidence setting, α = 0.05. The p-value is determined by the observed sample; α is the cutoff we chose for making a decision. Changing α changes the cutoff, <em>not</em> the p-value.</p>
+      <p id="test-note" class="small"></p>
+    </details>
+  </section>
+  <section class="panel" aria-labelledby="decision-heading">
+    <p class="step-label">Step 4 · Make a conclusion</p>
+    <h2 id="decision-heading">What can we reasonably say about the groups?</h2>
+    <p>Just as in Week 6, compare the p-value with α. If the p-value is small enough, we reject the claim of equal population means. Otherwise, we fail to reject it. Failing to reject does <em>not</em> establish that the population means are equal.</p>
+    <div id="decision-readout" class="readout decision-readout" aria-live="polite">Your conclusion will appear here after you draw a sample.</div>
+    <div class="student-next">
+      <h3>Try this next</h3>
+      <ol class="tips">
+        <li>Keep <strong>Equal means</strong> selected and draw several times. Does the test always reach the same conclusion? Why might it sometimes reject even though we know the means are equal?</li>
+        <li>Choose <strong>Group 1 has a higher mean</strong> in the rail. Draw several new samples. Are you more likely to find evidence of a difference?</li>
+        <li>When you're ready, open the repeated-studies extension below. Comparing many results will help you see why one test can never guarantee a correct decision.</li>
+      </ol>
+    </div>
+  </section>
+  <section class="panel extension-panel" aria-labelledby="extension-heading">
+    <details class="explain-details" id="extension">
+      <summary id="extension-heading">Optional extension · Repeat many studies and compare confidence intervals</summary>
+      <p>In real research, we usually see one study. Here we can repeat the sampling process many times while keeping the populations fixed. Choose <strong>Draw 20 sample pairs</strong> in the rail. Each line below represents a different study.</p>
+      <p>The dot is that study's observed difference. The horizontal segment is its confidence interval. Because this is a simulation, we know the true population difference and can see which intervals contain it. When the population means are equal, that true difference is zero.</p>
+      <div class="legend"><span>Interval contains the true difference</span><span class="miss">Interval misses the true difference</span><span class="zero">Zero: equal means</span><span class="truth">True population difference</span></div>
+      <p id="stack-stats" class="stats" aria-live="polite"></p>
+      <div class="chart stack" id="stack-plot" tabindex="0" role="group" aria-label="Confidence intervals across repeated samples"></div>
+      <p class="small">Confidence intervals are an extension of the same idea. This simulation uses independent normal populations with known standard deviations. Real studies that estimate these standard deviations typically use Welch's t method for two means.</p>
+    </details>
+  </section>
 </div>
-<div class="controls"><label for="order">Difference order <select id="order"><option value="1">Group 1 − Group 2</option><option value="-1">Group 2 − Group 1</option></select></label><label for="level">Confidence level <select id="level"><option value="0.90">90%</option><option value="0.95" selected>95%</option><option value="0.99">99%</option></select></label></div>
-<p id="model-note" class="small"></p><div id="input-warning" class="warning" role="status" hidden></div><div class="chart" id="variance-plot" tabindex="0" role="group" aria-label="Sampling variance contributions"></div></details>
-<div class="actions"><button type="button" class="primary" id="draw-one">Draw two samples</button><button type="button" id="draw-many">Draw 20 sample pairs</button><button type="button" id="reset">Clear the stack</button></div>
-<p class="small">Changing a population parameter or sample size starts a new run. Changing the subtraction order or confidence level redraws the same stored samples.</p></section>
-<section class="panel" aria-labelledby="sample-heading"><h2 id="sample-heading">Step 2 — How far apart are the sample means?</h2><p>In Week 6 you calculated how many standard errors the observed mean was from the null prediction. Now you do the same with the <em>difference</em> between two sample means. The diamonds below mark each sample average. Their difference changes from one draw to the next, even if you keep the population means equal.</p><p class="small">Each dot is one observation; its vertical position is only to keep the dots from overlapping.</p><div class="chart" id="sample-plot" tabindex="0" role="group" aria-label="Latest independent observations"></div><div id="latest-readout" class="readout" aria-live="polite"></div></section>
-<section class="panel" aria-labelledby="null-heading"><h2 id="null-heading">Step 3 — How unusual is the difference under H₀?</h2><p>Imagine the null hypothesis is true: the population means are equal, so their difference is zero. The curve shows which differences we would expect to see just from sampling variation. This is the same kind of normal curve you used last week.</p><p>Dark shading marks outcomes at least as extreme as the observed difference, in <em>either</em> direction. The total shaded area is the two-tailed p-value. It answers the same question as before: <em>If H₀ were true, how often would we see something this extreme?</em></p><div class="chart" id="null-plot" tabindex="0" role="group" aria-label="Null distribution and two-sided p-value"></div><p id="test-note" class="small"></p></section>
-<section class="panel" aria-labelledby="stack-heading"><details class="w7-extras"><summary id="stack-heading">Optional extension: repeat the study many times and compare confidence intervals</summary><h2>What if we repeated the study?</h2><p>Click <em>Draw 20 sample pairs</em>. Each row now represents another possible study: the dot is that study's observed difference and the bar is its confidence interval. Because this is a simulation, we know the true population difference and can check which intervals capture it. Real researchers don't get to see that true value.</p><div class="legend"><span>Interval contains the true difference</span><span class="miss">Interval misses the true difference</span><span class="zero">Zero: equal means</span><span class="truth">True population difference</span></div><p class="small">The red decision text means that study's test rejected equality. Notice that tests ask about zero while the confidence intervals try to capture the actual population difference. Those are related questions, but they are not identical.</p><p id="stack-stats" class="stats" aria-live="polite"></p><div class="chart stack" id="stack-plot" tabindex="0" role="group" aria-label="Accumulating confidence intervals for the difference"></div></details></section>
-<section class="panel"><h2>Step 4 — What does the test tell us?</h2><p>The conclusion above the curve changes with each sample. When the p-value is below the selected significance level, the test rejects equality; otherwise it fails to reject. Even though you know the true population means in this simulation, you can see why a single real-life sample does not provide certainty.</p><h3>Try three short experiments</h3><ol class="tips"><li>Start with <strong>Equal means</strong> and draw two samples several times. How often do you get exactly equal sample means?</li><li>Now draw <strong>20 sample pairs</strong>. Compare the different intervals. Do all of them contain the true difference?</li><li>Choose <strong>Group 1 has a larger mean</strong>. Do the intervals tend to shift away from zero? What happens to the test decisions?</li></ol><details><summary>More experiments when you're ready</summary><ol class="tips"><li>Choose <strong>Unequal sampling precision</strong> and increase the noisier group's sample size. Watch how its contribution to the standard error and the interval widths change.</li><li>Reverse the subtraction order. The estimates and intervals change sign, but the two-sided p-values stay the same.</li><li>Change the confidence level from 95% to 99%. The intervals widen. The test's cutoff also changes when you compare it at the matching significance level.</li></ol></details><p class="small">This simulation uses normal populations with known standard deviations. When standard deviations must be estimated from samples, Welch's t method is generally more appropriate for independent means. The reading explains why tests of two proportions use a different standard error.</p></section>
 </main>
 <script>
 'use strict';
 const COLORS={blue:'#245a81',teal:'#287d76',gold:'#ad6b15',red:'#9c3b42',muted:'#536675',line:'#cdd9df'};
 const CRIT={'0.90':1.6448536269514722,'0.95':1.959963984540054,'0.99':2.5758293035489004};
 const PRESETS={equal:{mu1:80,mu2:80,sigma1:10,sigma2:10,n1:40,n2:40},different:{mu1:84,mu2:80,sigma1:10,sigma2:10,n1:40,n2:40},unequal:{mu1:84,mu2:80,sigma1:14,sigma2:5,n1:20,n2:80}};
-const state={model:{...PRESETS.equal},level:.95,order:1,trials:[],last:null};
+const state={model:{...PRESETS.equal},level:.95,order:1,trials:[],last:null,activePreset:'equal'};
 const $=id=>document.getElementById(id);
 const fmt=(x,d=3)=>Number.isFinite(x)?x.toFixed(d).replace(/^-0\.000$/,'0.000'):'—';
 const xml=s=>String(s).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;');
@@ -116,17 +296,62 @@ function renderStack(){
   });
   $('stack-plot').innerHTML=svg(body,H,`${total} intervals: ${covered} contain the true population difference ${fmt(truth)}, ${rejected} reject a zero difference; latest ${recent.length} shown`);
 }
-function render(){
-  const error=validation(state.model);$('input-warning').hidden=!error;$('input-warning').textContent=error;['draw-one','draw-many'].forEach(id=>$(id).disabled=Boolean(error));
-  if(error){['variance-plot','sample-plot','null-plot','stack-plot'].forEach(id=>$(id).innerHTML='');$('latest-readout').textContent=error;$('stack-stats').textContent='';return;}
-  $('model-note').textContent=`Known normal populations; true difference in the selected order = ${fmt(trueDifference())}. Confidence ${fmt(100*state.level,0)}%; corresponding two-sided α = ${fmt(1-state.level,2)}.`;
-  renderVariance();renderSample();renderNull();renderStack();
+function renderGuidance(){
+  const difference=$('latest-readout'),pvalue=$('pvalue-readout'),decision=$('decision-readout'),rail=$('rail-status');
+  if(!state.last){
+    difference.innerHTML='<p>Draw two new samples from the rail. You will see their observed difference and how many standard errors it lies from zero.</p>';
+    pvalue.innerHTML='<p>After you draw the samples, the shaded tails will represent the probability of a difference at least this extreme <em>if the population means really were equal</em>.</p>';
+    decision.innerHTML='<p>No decision yet. Draw a pair of samples to complete the four steps.</p>';
+    rail.textContent='No samples yet. Choose a comparison and draw two samples.';
+    return;
+  }
+  const t=state.last,v=viewTrial(t),alpha=1-state.level;
+  const first=state.order===1?t.mean1:t.mean2;
+  const second=state.order===1?t.mean2:t.mean1;
+  const order=state.order===1?'Group 1 − Group 2':'Group 2 − Group 1';
+  const side=v.d>0?'above':v.d<0?'below':'at';
+  difference.innerHTML=
+    '<p><strong>Observed averages:</strong> Group 1 = '+fmt(t.mean1,2)+' points; Group 2 = '+fmt(t.mean2,2)+' points.</p>'+
+    '<p><strong>Difference ('+order+'):</strong> '+fmt(first,2)+' − '+fmt(second,2)+' = <strong>'+fmt(v.d,2)+' points</strong>.</p>'+
+    '<p><strong>Standard error:</strong> '+fmt(t.se,2)+' points. Both samples contribute uncertainty, so this is the typical scale of fluctuations in their difference.</p>'+
+    '<p><strong>z-statistic:</strong> '+fmt(v.d,2)+' ÷ '+fmt(t.se,2)+' ≈ <strong>'+fmt(v.z,2)+'</strong>. Our difference lies about '+fmt(Math.abs(v.z),2)+' standard errors '+side+' zero.</p>';
+  pvalue.innerHTML=
+    '<p>The observed z-statistic is <strong>'+fmt(v.z,2)+'</strong>. Because our alternative is <strong>different means</strong>, we look in both tails of the normal curve.</p>'+
+    '<p><strong>Two-tailed p-value: '+fmt(v.p,4)+'</strong> (about '+fmt(100*v.p,2)+'%). If the population means really were equal, this is how often a difference at least this extreme would arise under the simulation model.</p>'+
+    '<p>The p-value is <em>not</em> the probability that the null hypothesis is true.</p>';
+  const reject=v.p<=alpha;
+  const comparison=reject?'smaller than or equal to':'greater than';
+  const statement=reject
+    ?'We reject H₀. This sample provides statistical evidence that the population mean scores differ.'
+    :'We fail to reject H₀. This sample does not provide sufficient evidence of different population mean scores. It does not prove the means are equal.';
+  decision.innerHTML=
+    '<p><strong>Compare:</strong> p = '+fmt(v.p,4)+' is '+comparison+' α = '+fmt(alpha,2)+'.</p>'+
+    '<p class="result-lead">'+statement+'</p>'+
+    '<p>Remember that each fresh draw gives a different sample. A statistical decision is an inference from data, not a guarantee about the populations.</p>';
+  rail.textContent='Draw #'+t.index+' · '+fmt(v.d,2)+'-point sample difference · p = '+fmt(v.p,4)+'. Draw again to see how the evidence changes.';
 }
-function setPreset(name){state.model={...PRESETS[name]};Object.entries(state.model).forEach(([key,value])=>$(key).value=value);clearRun();render();}
-Object.keys(state.model).forEach(key=>$(key).addEventListener('input',()=>{state.model[key]=parseFloat($(key).value);clearRun();render();}));
+function render(){
+  const error=validation(state.model);
+  $('input-warning').hidden=!error;$('input-warning').textContent=error;
+  ['draw-one','draw-many'].forEach(id=>$(id).disabled=Boolean(error));
+  document.querySelectorAll('[data-preset]').forEach(button=>{
+    button.setAttribute('aria-pressed',String(state.activePreset===button.dataset.preset));
+  });
+  if(error){
+    ['variance-plot','sample-plot','null-plot','stack-plot'].forEach(id=>$(id).innerHTML='');
+    $('latest-readout').textContent=error;$('pvalue-readout').textContent='Correct the settings in the control rail to continue.';
+    $('decision-readout').textContent='No conclusion while the settings are invalid.';
+    $('stack-stats').textContent='';$('rail-status').textContent='Please correct the highlighted settings.';
+    return;
+  }
+  $('model-note').textContent='Simulated true difference ('+(state.order===1?'Group 1 − Group 2':'Group 2 − Group 1')+') = '+fmt(trueDifference())+' points. With '+fmt(100*state.level,0)+'% confidence, α = '+fmt(1-state.level,2)+'.';
+  renderVariance();renderSample();renderNull();renderStack();renderGuidance();
+}
+function setPreset(name){state.model={...PRESETS[name]};state.activePreset=name;Object.entries(state.model).forEach(([key,value])=>$(key).value=value);clearRun();render();}
+Object.keys(state.model).forEach(key=>$(key).addEventListener('input',()=>{state.model[key]=parseFloat($(key).value);state.activePreset=null;clearRun();render();}));
 $('order').addEventListener('change',()=>{state.order=Number($('order').value);render();});
 $('level').addEventListener('change',()=>{state.level=Number($('level').value);render();});
-$('draw-one').addEventListener('click',()=>drawSamples(1));$('draw-many').addEventListener('click',()=>drawSamples(20));$('reset').addEventListener('click',()=>{clearRun();render();});
+$('draw-one').addEventListener('click',()=>drawSamples(1));$('draw-many').addEventListener('click',()=>{drawSamples(20);$('extension').open=true;});$('reset').addEventListener('click',()=>{clearRun();render();});
 document.querySelectorAll('[data-preset]').forEach(button=>button.addEventListener('click',()=>setPreset(button.dataset.preset)));
 render();
 </script>
