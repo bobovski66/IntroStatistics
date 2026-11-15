@@ -21,7 +21,7 @@ Case files:
 3. The Threshold Question
 4. Month-by-Month Evidence
 5. Radiants and Categorical Evidence
-6. Two-Sample Inference (revised Week 9 lab)
+6. Two-Sample Inference (revised Week 10 lab)
 
 All files are static HTML/JavaScript. Student answers are saved to localStorage in the browser.
 
