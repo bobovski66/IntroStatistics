@@ -530,7 +530,7 @@ function drawTetra(obsW,expW,eqW){
 
 function updateText(){
   const shapeNames = {2:'Line',3:'Triangle',4:'Tetrahedron'};
-  document.getElementById('shapeLabel').textContent = shapeNames[k];
+  document.getElementById('shapeLabel').textContent = k;
   document.getElementById('dfLabel').textContent = k-1;
   document.getElementById('chiLabel').textContent = chiValue().toFixed(2);
   const p = pChi(chiValue(),k-1);
