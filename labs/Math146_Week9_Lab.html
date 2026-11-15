@@ -180,10 +180,9 @@ details summary{line-height:1.35;}
 <label>Date <input id="w9_date" placeholder="mm/dd/yyyy" type="text"/></label>
 </div>
 </header>
-<section aria-labelledby="how-title" class="student-start"><h2 id="how-title">One question to guide the entire lab</h2>
-<p>Can we use one numerical measurement to make a better prediction about another? Imagine a teacher asking whether students' preparation hours help predict their assessment scores. The first thing we could do is predict the mean score for everyone. But a scatterplot may suggest that different preparation times call for different predictions.</p>
-<p>We'll find a line that follows the overall pattern and measure how far its predictions miss the actual scores. These misses are called residuals. The <strong>least-squares line</strong> is the one that makes their squared total as small as possible. In each problem, ask what question the calculation answers before doing the arithmetic.</p>
-<p>Take the tasks in order, using the explorer when a formula feels abstract. Your answers are saved in this browser. When you finish, choose <strong>Prepare Submission</strong> to create your completed copy.</p></section>
+<section aria-labelledby="how-title" class="student-start"><h2 id="how-title">Week 9 Lab: Linear Regression</h2>
+<p>The opening investigation uses the eight preparation-hours and score pairs from the reading. You'll compare a single prediction for everyone with a line that changes as preparation time changes. The explorer shows the residuals, and the calculations tell you which line fits best.</p>
+<p>The later problems use regression in therapy, sales, and other examples. Give each slope and prediction its proper units, and check the scatterplot and residuals before deciding how useful the result is. Your answers save in this browser. Choose <strong>Prepare Submission</strong> when you're finished.</p></section>
 
 
 
@@ -197,12 +196,12 @@ details summary{line-height:1.35;}
 <div class="status-row"><span aria-hidden="true" class="save-dot"></span><span>Saved automatically on this device</span><div aria-hidden="true" class="progress-track"><div class="progress-fill" id="studentProgressFill"></div></div><span aria-live="polite" id="studentProgressText"></span></div>
 <nav aria-label="Jump to a problem" class="problem-nav"><a href="#p0">Start with the data</a><a href="#p1">Problem 1</a><a href="#p2">Problem 2</a><a href="#p3">Problem 3</a><a href="#p4">Problem 4</a><a href="#p5">Problem 5</a></nav>
 </div>
-<div class="problem" id="p0"><h2>Start with the data — Is a line better than one average?</h2><p class="lab-chapter-intro">These eight invented pairs record preparation hours and assessment scores. First see the points. Then try predicting the mean score for everyone. Finally, let a line use preparation time to make different predictions, and compare the two approaches.</p><div class="part"><div class="text-answer"><label for="w9_0_predict">Before using a regression formula, predict whether knowing preparation hours will help more than predicting the mean score for every record. What pattern in a scatterplot would support your prediction?</label><textarea id="w9_0_predict"></textarea></div></div><div class="regression-workbench" data-preset="practice"><p>Loading the guided line-fitting investigation.</p></div><div class="part"><h3>Try your own line before fitting the best one</h3><p>Before using a formula, experiment with the slope. A line can miss above and below the data; simply adding signed misses would let those errors cancel. Here we square the residuals and add them. A smaller SSE means the predictions are closer to the observed scores under that rule.</p><ol><li>Start with “Use the response mean only.” Record its SSE.</li><li>Keep the line through the point of means. Move the slope and record one trial slope and its SSE.</li><li>Choose “Fit least squares.” Compare the fitted error with your trial and the horizontal prediction.</li></ol><div class="text-answer"><label for="w9_0_trial">Record your mean-only SSE, trial slope and SSE, and fitted SSE. Explain why a zero sum of signed residuals would not settle which line fits best.</label><textarea id="w9_0_trial"></textarea></div></div><div class="part"><h3>Explain how the fitted line was chosen</h3><p>Now the calculation has a purpose. The two sample means anchor the line at (4.5, 7). The centered sums describe variation in preparation time and how hours and scores vary together. The slope and intercept chosen from them minimize the squared errors.</p><p>For these records, x̄ = 4.5 and ȳ = 7. Use the centered table in the reading or the explorer’s summary. Fractions such as 8/7 are accepted. Keep full precision until the final display.</p><div class="answer-row"><label for="w9_0_sxx">Sxx = sum of (x − x̄)²</label><input id="w9_0_sxx" type="text" data-ans="42" data-tol=".02" /><label for="w9_0_sxy">Sxy = sum of (x − x̄)(y − ȳ)</label><input id="w9_0_sxy" type="text" data-ans="48" data-tol=".02" /><label for="w9_0_b">Slope b = Sxy/Sxx</label><input id="w9_0_b" type="text" data-ans="1.1428571428571428" data-tol=".003" /><label for="w9_0_a">Intercept a = ȳ − bx̄</label><input id="w9_0_a" type="text" data-ans="1.8571428571428572" data-tol=".003" /><label for="w9_0_sse">Fitted SSE</label><input id="w9_0_sse" type="text" data-ans="5.142857142857143" data-tol=".015" /><label for="w9_0_r2">R² = 1 − SSE/60</label><input id="w9_0_r2" type="text" data-ans="0.9142857142857143" data-tol=".001" /></div><button class="check-btn" onclick="checkNum(['w9_0_sxx','w9_0_sxy','w9_0_b','w9_0_a','w9_0_sse','w9_0_r2'],'w9_0_v')">Check the reconstruction</button><span id="w9_0_v" class="verdict"></span><div class="text-answer"><label for="w9_0_explain">Describe why the fitted line passes through the point of means. Compare its total squared error with the mean-only prediction. Explain why minimizing the errors is more useful than merely finding a line that looks plausible.</label><textarea id="w9_0_explain"></textarea></div></div>
+<div class="problem" id="p0"><h2>Start with the data — From a mean to a line</h2><p class="lab-chapter-intro">Each of the eight points represents a student. Look for a relationship between preparation time and score, then compare two prediction rules: the overall mean and a line that uses preparation hours.</p><div class="part"><div class="text-answer"><label for="w9_0_predict">Before using a regression formula, predict whether knowing preparation hours will help more than predicting the mean score for every record. What pattern in a scatterplot would support your prediction?</label><textarea id="w9_0_predict"></textarea></div></div><div class="regression-workbench" data-preset="practice"><p>Loading the guided line-fitting investigation.</p></div><div class="part"><h3>Try fitting the line yourself</h3><p>Move the slope while watching the vertical residuals. SSE adds their squares, so an overprediction cannot cancel an underprediction. Compare a few trial lines before selecting the least-squares fit.</p><ol><li>Start with “Use the response mean only.” Record its SSE.</li><li>Keep the line through the point of means. Move the slope and record one trial slope and its SSE.</li><li>Choose “Fit least squares.” Compare the fitted error with your trial and the horizontal prediction.</li></ol><div class="text-answer"><label for="w9_0_trial">Record your mean-only SSE, trial slope and SSE, and fitted SSE. Explain why a zero sum of signed residuals would not settle which line fits best.</label><textarea id="w9_0_trial"></textarea></div></div><div class="part"><h3>Calculate the fitted line</h3><p>The line passes through the sample means, (4.5, 7). Centered sums measure the variation in preparation time and its relationship with score; they determine the slope that minimizes SSE.</p><p>For these records, x̄ = 4.5 and ȳ = 7. Use the centered table in the reading or the explorer’s summary. Fractions such as 8/7 are accepted. Keep full precision until the final display.</p><div class="answer-row"><label for="w9_0_sxx">Sxx = sum of (x − x̄)²</label><input id="w9_0_sxx" type="text" data-ans="42" data-tol=".02" /><label for="w9_0_sxy">Sxy = sum of (x − x̄)(y − ȳ)</label><input id="w9_0_sxy" type="text" data-ans="48" data-tol=".02" /><label for="w9_0_b">Slope b = Sxy/Sxx</label><input id="w9_0_b" type="text" data-ans="1.1428571428571428" data-tol=".003" /><label for="w9_0_a">Intercept a = ȳ − bx̄</label><input id="w9_0_a" type="text" data-ans="1.8571428571428572" data-tol=".003" /><label for="w9_0_sse">Fitted SSE</label><input id="w9_0_sse" type="text" data-ans="5.142857142857143" data-tol=".015" /><label for="w9_0_r2">R² = 1 − SSE/60</label><input id="w9_0_r2" type="text" data-ans="0.9142857142857143" data-tol=".001" /></div><button class="check-btn" onclick="checkNum(['w9_0_sxx','w9_0_sxy','w9_0_b','w9_0_a','w9_0_sse','w9_0_r2'],'w9_0_v')">Check the reconstruction</button><span id="w9_0_v" class="verdict"></span><div class="text-answer"><label for="w9_0_explain">Describe why the fitted line passes through the point of means. Compare its total squared error with the mean-only prediction. Explain why minimizing the errors is more useful than merely finding a line that looks plausible.</label><textarea id="w9_0_explain"></textarea></div></div>
 
 </div><!-- PROBLEM 1 -->
 <div class="problem" id="p1">
 <h2>Problem 1 — Fit a Line for Therapy Improvement</h2>
-<div class="scenario"><p>A physical therapist records how many weeks patients receive therapy and an improvement score after their treatment. Patients progress differently, so a line will not predict every outcome perfectly. But perhaps it can summarize a pattern and help estimate improvement for a given number of weeks.</p><p>We have summary statistics from ten patients. Treat weeks of therapy as the predictor \(x\) and the improvement score as the response \(y\). The sample means, standard deviations, and correlation are enough to reconstruct the least-squares line. Read the summaries first and think about what a positive slope would mean.</p><table class="data-table"><thead><tr><th>\(\bar{x}\)</th><th>\(s_x\)</th><th>\(\bar{y}\)</th><th>\(s_y\)</th><th>\(r\)</th></tr></thead><tbody><tr><td>6</td><td>2.5</td><td>40</td><td>12</td><td>0.85</td></tr></tbody></table></div>
+<div class="scenario"><p>A physical therapist follows ten patients over several weeks and records both their therapy duration and an improvement score. The therapist wants to estimate how improvement scores tend to differ with the number of weeks in therapy.</p><p>Instead of the ten original pairs, you have their sample means, standard deviations, and correlation. Use those summaries to fit a line, and then explain what the line predicts for a patient who has completed eight weeks.</p><table class="data-table"><thead><tr><th>\(\bar{x}\)</th><th>\(s_x\)</th><th>\(\bar{y}\)</th><th>\(s_y\)</th><th>\(r\)</th></tr></thead><tbody><tr><td>6</td><td>2.5</td><td>40</td><td>12</td><td>0.85</td></tr></tbody></table></div>
 
 
 <div class="part">
@@ -217,7 +216,7 @@ details summary{line-height:1.35;}
 </div>
 <div class="part">
 <div class="part-stem"><span class="part-label">(b)</span>
-<span class="part-text">Predict the improvement score for 8 weeks of therapy.</span></div><p class="work-guide">Use the fitted rule to predict an improvement score for eight weeks of therapy. The result is a prediction, not a guarantee.</p>
+<span class="part-text">Predict the improvement score for 8 weeks of therapy.</span></div><p class="work-guide">Substitute \(x=8\) into the fitted equation and keep the result in improvement-score units.</p>
 <div class="answer-row"><label>\(\hat{y}(8)=a+b(8)=\)</label><input class="wide" data-ans="48.16" data-tol="0.1" id="w9_1b" type="text"/>
 <button class="check-btn" onclick="checkNum(['w9_1b'],'w9_1b_v')">Check</button><span class="verdict" id="w9_1b_v"></span></div>
 
@@ -225,7 +224,7 @@ details summary{line-height:1.35;}
 <div class="part">
 <div class="part-stem"><span class="part-label">(c)</span>
 <span class="part-text">Compute \(r^2\) and interpret it: what percentage of
-      variability is accounted for by this fit, and what can you say about the rest?</span></div><p class="work-guide">R² describes how much of the squared variation is accounted for compared with the mean-only prediction.</p>
+      variability is accounted for by this fit, and what can you say about the rest?</span></div><p class="work-guide">Square the given correlation, then describe the result as a fraction of the sample's squared variation.</p>
 <div class="answer-row"><label>\(r^2=(0.85)^2=\)</label><input class="wide" data-ans="0.7225" data-tol="0.005" id="w9_1c" type="text"/>
 <button class="check-btn" onclick="checkNum(['w9_1c'],'w9_1c_v')">Check</button><span class="verdict" id="w9_1c_v"></span></div>
 <div class="text-answer"><label>Your interpretation.</label>
@@ -244,7 +243,7 @@ details summary{line-height:1.35;}
 <!-- PROBLEM 2 -->
 <div class="problem" id="p2">
 <h2>Problem 2 — What Can a Line Actually Tell Us?</h2>
-<div class="scenario"><p>Imagine comparing annual ice-cream sales across cities. Some cities have warmer summers than others, and a researcher wonders if average summer temperature would help predict sales.</p><p>The fitted line uses temperature in degrees Fahrenheit and sales in dollars per person. It describes the association among the 50 cities observed. Before using it to predict, think about the units, how far the observations extend, and whether a statistical association proves a cause. The model is \(\hat y=-120+4.5x\), with \(R^2=0.61\); the warmest observed city had 95°F average summer temperature.</p></div>
+<div class="scenario"><p>A researcher compares summer temperatures and annual ice-cream sales per person in 50 cities. The resulting regression line describes how sales differ across cities with different average temperatures.</p><p>The predictor is temperature in degrees Fahrenheit and the response is sales in dollars per person. The fitted line is \(\hat y=-120+4.5x\), with \(R^2=0.61\). The warmest city in the sample averaged 95°F. Use these details when interpreting the slope and deciding whether a proposed prediction is reasonable.</p></div>
 <div class="part">
 <div class="part-stem"><span class="part-label">(a)</span>
 <span class="part-text">Interpret the slope in context: what does 4.5 mean for a
@@ -264,7 +263,7 @@ details summary{line-height:1.35;}
 <div class="part">
 <div class="part-stem"><span class="part-label">(c)</span>
 <span class="part-text">Is predicting at \(x=110\)°F appropriate? Use the word
-      extrapolation.</span></div><p class="work-guide">A prediction for 110°F is outside the observed range. Explain the word extrapolation.</p>
+      extrapolation.</span></div><p class="work-guide">Compare 110°F with the largest temperature in the sample. What information is missing for a prediction that far beyond the data?</p>
 <div class="text-answer"><label>Your answer.</label>
 <textarea id="w9_2c" placeholder="No, because x = 110°F lies outside the data range. This is called extrapolation…"></textarea></div>
 
@@ -272,7 +271,7 @@ details summary{line-height:1.35;}
 <div class="part">
 <div class="part-stem"><span class="part-label">(d)</span>
 <span class="part-text">A journalist says "Eating ice cream raises body
-      temperature." What is wrong? Identify the measurements actually collected and the causal evidence that is missing.</span></div><p class="work-guide">The researcher measured sales and temperature across cities, not a mechanism causing individual body temperatures to change.</p>
+      temperature." What is wrong? Identify the measurements actually collected and the causal evidence that is missing.</span></div><p class="work-guide">Name the two variables that were measured. Would an association between cities establish the journalist's claim?</p>
 <div class="text-answer"><label>Your answer.</label>
 <textarea id="w9_2d" placeholder="This confuses correlation with causation…"></textarea></div>
 
@@ -281,11 +280,11 @@ details summary{line-height:1.35;}
 <!-- PROBLEM 3 -->
 <div class="problem" id="p3">
 <h2>Problem 3 — What Does Correlation Measure?</h2>
-<div class="scenario"><p>Picture three different scatterplots: one with a tight downward linear pattern, another with a moderate upward trend, and a third with no clear straight-line trend. Analysts summarize each using a correlation coefficient \(r\).</p><p>The sign of \(r\) tells us the direction of the linear trend. Its magnitude tells us how closely the points follow a line. This summary can be useful, but it may miss a curved relationship. Compare the three reported correlations \(-0.92\), \(0.45\), and \(0.01\) with that picture in mind.</p></div>
+<div class="scenario"><p>Three analysts summarize their scatterplots with correlations \(r=-0.92\), \(r=0.45\), and \(r=0.01\). You have not seen the plots, but these values give clues about the direction and strength of their <em>linear</em> patterns.</p><p>Match each correlation to a description and calculate its square. Then consider why correlation alone might overlook a strong curved relationship.</p></div>
 <div class="part">
 <div class="part-stem"><span class="part-label">(a)</span>
 <span class="part-text">Match each \(r\) to its description: strong negative linear
-      · positive linear association of modest strength · no linear relationship.</span></div><p class="work-guide">Match each correlation with the direction and strength of its linear pattern.</p>
+      · positive linear association of modest strength · no linear relationship.</span></div><p class="work-guide">Use the sign for direction and the absolute value for the strength of the linear association.</p>
 <div class="text-answer"><label>Your answer.</label>
 <textarea id="w9_3a" placeholder="r = −0.92: …   r = 0.45: …   r = 0.01: …"></textarea></div>
 
@@ -302,7 +301,7 @@ details summary{line-height:1.35;}
 <div class="part">
 <div class="part-stem"><span class="part-label">(c)</span>
 <span class="part-text">For \(r=0.01\): could \(x\) and \(y\) still be strongly
-      associated? What does \(r\) measure — and what does it miss?</span></div><p class="work-guide">A relationship can be strongly curved even if the linear correlation is almost zero.</p>
+      associated? What does \(r\) measure — and what does it miss?</span></div><p class="work-guide">Picture a U-shaped arrangement of points. What would a single rising or falling line miss?</p>
 <div class="text-answer"><label>Your answer.</label>
 <textarea id="w9_3c" placeholder="r measures only linear association. A strong curved relationship could still exist…"></textarea></div>
 
@@ -311,7 +310,7 @@ details summary{line-height:1.35;}
 <!-- PROBLEM 4 -->
 <div class="problem" id="p4">
 <h2>Problem 4 — When a Dataset Has No Story</h2>
-<div class="scenario"><p>Someone gives you 19 pairs of numbers, but the columns have no names or units. A computer can still fit a regression line, find its slope, and make a numerical prediction. It has no way to know what those numbers mean.</p><p>This problem separates calculation from interpretation. Fit the line mechanically, examine the scatterplot and the residuals, and make one prediction. Then think about what information you would need before claiming that the slope described something about the real world.</p></div>
+<div class="scenario"><p>A dataset arrives with 19 paired observations but no variable names or units. A regression calculator can still find the best-fitting line and evaluate it at a chosen \(x\)-value. What it cannot supply is a physical interpretation of the slope.</p><p>Fit the line to the pairs below. Then distinguish the numerical result from the claims you could make if you knew what the measurements represented.</p></div>
 <div class="calc-note">Choose “Lab Problem 4: 19 unlabeled pairs” in the explorer, or enter the pairs in the calculator. Inspect both the scatterplot and residual plot, then retain full precision for prediction. These are the original 19 data pairs.</div>
 <div style="display:flex;justify-content:center;">
 <table class="data-table">
@@ -343,7 +342,7 @@ details summary{line-height:1.35;}
 
 <div class="part">
 <div class="part-stem"><span class="part-label">(a)</span>
-<span class="part-text">Find the slope \(b\) and intercept \(a\).</span></div><p class="work-guide">Use the regression calculator or explorer to find the least-squares line.</p>
+<span class="part-text">Find the slope \(b\) and intercept \(a\).</span></div><p class="work-guide">Report the slope and intercept for the whole set of 19 pairs.</p>
 <div class="answer-row"><label>slope \(b=\)</label><input class="wide" data-ans="-2.906" data-tol="0.03" id="w9_4a_b" type="text"/>
 <label>intercept \(a=\)</label><input class="wide" data-ans="238.15" data-tol="0.1" id="w9_4a_a" type="text"/>
 <button class="check-btn" onclick="checkNum(['w9_4a_b','w9_4a_a'],'w9_4a_v')">Check</button><span class="verdict" id="w9_4a_v"></span></div>
@@ -364,10 +363,10 @@ details summary{line-height:1.35;}
 <!-- PROBLEM 5 -->
 <div class="problem" id="p5">
 <h2>Problem 5 — Put the Whole Argument Together</h2>
-<div class="scenario"><p>Return to the question that began the week: does knowing one variable help us predict another? We've seen a mean-only prediction, a fitted line that reduces squared error, and residuals that show what the line misses.</p><p>Now think about sampling. Another group of students could produce another fitted line. In the Regression Explorer, compare repeated fitted slopes for samples of eight and for samples of 32, keeping the underlying model the same. Then write a short report connecting the question, the model, a prediction, the residuals, and the uncertainty in the fit.</p></div>
+<div class="scenario"><p>Return to the eight preparation-hours and score pairs. The fitted line reduced the squared prediction error, but another group of students would probably produce a different line.</p><p>In the explorer's sampling view, compare the slopes from repeated samples of 8 observations with those from samples of 32, using the same population model. Then write a short statistical report: what relationship did you study, what did the line predict, what did the residuals show, and how certain should you be about applying it elsewhere?</p></div>
 <div class="part">
 <div class="part-stem"><span class="part-label"></span>
-<span class="part-text">Include standard deviation, correlation, the regression line, r², sampling variability, and one specific observation from your explorer work.</span></div><p class="work-guide">Explain the model in a natural sequence: what was measured, what prediction you made, what improved, what remained unexplained, and what repeated samples revealed.</p>
+<span class="part-text">Include standard deviation, correlation, the regression line, r², sampling variability, and one specific observation from your explorer work.</span></div><p class="work-guide">Use a concrete result from the explorer to support your conclusion. Explain what changed as the simulated sample size grew.</p>
 <div class="text-answer"><label>Your paragraph.</label>
 <textarea class="tall" id="w9_5" placeholder="This course begins with a single variable…"></textarea></div>
 

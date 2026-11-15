@@ -23,36 +23,30 @@
 .optional-math .eq{overflow-x:auto}
 .w10-table th,.w10-table td{font-size:.89rem;white-space:nowrap}
 @media print{.optional-math{break-inside:auto}.reading-route{break-inside:avoid}}
-</style></head><body><a class="skip" href="#reading">Skip to reading</a><header><a href="../index.html">← MATH&amp; 146: Course Home</a><div class="eyebrow">Week 9 · Online Reading</div><h1>Linear Regression: From Data to Prediction</h1><p>One question, one dataset, and a gradually developing story about predictions, errors, and the line of best fit.</p></header><main><nav aria-label="On this page"><b>Follow the investigation</b>
-<a href="#s0">1. A prediction worth making</a>
-<a href="#s1">2. Begin with the mean</a>
-<a href="#s2">3. What would a line improve?</a>
-<a href="#s3">4. How do we choose a line?</a>
-<a href="#s4">5. Make and interpret a prediction</a>
-<a href="#s5">6. How much did the line help?</a>
-<a href="#s6">7. What can a line miss?</a>
-<a href="#s7">8. What would change with new data?</a>
-<a href="#references">Practice and mathematical extensions</a></nav>
+</style></head><body><a class="skip" href="#reading">Skip to reading</a><header><a href="../index.html">← MATH&amp; 146: Course Home</a><div class="eyebrow">Week 9 · Online Reading</div><h1>Linear Regression: From Data to Prediction</h1><p>Study how a straight line can describe a relationship between two measurements and help predict an outcome.</p></header><main><nav aria-label="On this page"><b>Follow the investigation</b>
+<a href="#s0">1. Plot the data</a>
+<a href="#s1">2. Predict the mean</a>
+<a href="#s2">3. Use a line</a>
+<a href="#s3">4. Fit by least squares</a>
+<a href="#s4">5. Predict a score</a>
+<a href="#s5">6. Measure the fit</a>
+<a href="#s6">7. Read residuals</a>
+<a href="#s7">8. Consider another sample</a>
+<a href="#references">Practice and references</a></nav>
 <article id="reading">
-<section class="regression-opening">
-<h2>One question to carry through the week</h2>
-<p>Imagine you're helping a teacher understand how students prepare for an assessment. Some students spend very little time preparing, others spend several hours, and their assessment scores vary. The teacher wants to know whether knowing a student's preparation time helps us make a useful prediction about their score.</p>
-<p>At first, the teacher has only the assessment scores. They could find the average score and use that average as a prediction for everyone. That would be an honest starting point: it says what a typical score looks like, while admitting we don't know much about any individual student.</p>
-<p>But perhaps there's more information available. What if we also know the number of hours each student prepared? Could we use it to predict different scores for students who prepared for different amounts of time? If so, how would we decide which prediction rule is best?</p>
-<p>That's the problem of <strong>linear regression</strong>. We will fit a straight line to data with two numerical variables. The line will help us make predictions, and we'll check how well those predictions actually work. Along the way, you'll discover why the line takes the form it does and how the ideas of means, variation, and squared deviations from earlier weeks lead naturally to it.</p>
-<p>Don't begin by memorizing the slope formula. The slope will have a purpose once we know what we're trying to predict and what makes one prediction better than another. We'll return to the <em>same eight students</em> throughout the reading, so there is only one main story to keep track of.</p>
-<div class="reading-route"><strong>The plan</strong>
-<ol><li>Look at the relationship in the data.</li><li>Make a prediction without using preparation time.</li><li>Allow a line to use preparation time, and measure its mistakes.</li><li>Find the line that makes those mistakes as small as possible.</li><li>Interpret what the line tells us—and what it cannot tell us.</li></ol>
-</div>
-<div class="practice"><b>Before you continue</b><p>If you had to predict every student's score before knowing anything about their preparation, what single number might make a sensible first prediction?</p><details><summary>Compare your reasoning</summary><p>The average assessment score is a natural starting point. Regression will ask whether using preparation time helps us improve on that baseline.</p></details></div>
+<section class="regression-opening"><h2>Preparation time and assessment scores</h2>
+<p>A teacher has recorded two things for each student: hours spent preparing for an assessment and the score earned. Some students prepared longer than others, and the scores vary as well. The teacher wonders whether preparation time might help predict a student's score.</p>
+<p>Without the preparation times, the simplest prediction would be the average score. Every student would receive the same predicted value, although their actual scores differ. Once preparation time is available, we can ask whether a line through the data would produce better predictions.</p>
+<p>We will begin with eight paired observations, find their average score, and then fit a line. Along the way, we need a way to measure prediction errors. That will lead us to <strong>least squares</strong>, the method used to choose the regression line. The fitted line will provide estimates, while the residuals will show how much individual scores differ from those estimates.</p>
+<div class="practice"><b>A first estimate</b><p>If you had to predict every student's score before knowing anything about their preparation, what single number might make a sensible first prediction?</p><details><summary>See explanation</summary><p>The average assessment score is a natural starting point. Regression will ask whether using preparation time helps us improve on that baseline.</p></details></div>
 </section>
-<section id="s0"><h2>1. A prediction worth making</h2>
-<p>We will use a small, invented dataset for teaching. There are eight records, each pairing one student's preparation time with that same student's assessment score. Preparation time is measured in hours; scores are in points.</p>
+<section id="s0"><h2>1. Plot the paired data</h2>
+<p>Consider eight paired records. For each student, preparation time is measured in hours and assessment performance is measured in score points. The values are illustrative; they do not come from a particular class.</p>
 <div class="w10-table"><table><thead><tr><th>Student</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th></tr></thead><tbody>
 <tr><th>Hours prepared, \(x\)</th><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td></tr>
 <tr><th>Assessment score, \(y\)</th><td>3</td><td>4</td><td>6</td><td>5</td><td>8</td><td>9</td><td>11</td><td>10</td></tr>
 </tbody></table></div>
-<p>Read one column at a time. Student 4, for example, prepared for 4 hours and scored 5 points. We cannot rearrange the \(x\)-values and \(y\)-values independently; each pair describes the same individual. A scatterplot keeps the pairs together by placing preparation time horizontally and the score vertically.</p>
+<p>Each column describes one student. For example, Student 4 prepared for 4 hours and scored 5 points. These values belong together. A scatterplot places preparation hours on the horizontal axis and scores on the vertical axis, preserving that pairing.</p>
 <figure class="w10-visual" data-visual="w10-patterns"><div class="w10-plot" tabindex="0" role="group" aria-label="A coefficient cannot replace the picture; scroll horizontally on narrow screens"><svg id="w10-patterns" role="img" aria-labelledby="w10-patterns-title w10-patterns-desc" xmlns:xlink="http://www.w3.org/1999/xlink" width="532.8pt" height="410.4pt" viewBox="0 0 532.8 410.4" xmlns="http://www.w3.org/2000/svg" version="1.1">
 <title id="w10-patterns-title">A coefficient cannot replace the picture</title><desc id="w10-patterns-desc">The first panel uses the practice records; the other panels are constructed comparisons. Correlation describes linear association. The symmetric U-shaped example has r = 0 while its points follow a precise curve. The distant point changes the summary of the fourth dataset.</desc>
  <metadata>
@@ -654,14 +648,14 @@
   </clipPath>
  </defs>
 </svg></div><figcaption><b>A coefficient cannot replace the picture</b>The first panel uses the practice records; the other panels are constructed comparisons. Correlation describes linear association. The symmetric U-shaped example has r = 0 while its points follow a precise curve. The distant point changes the summary of the fourth dataset.</figcaption></figure>
-<p>The points rise from left to right overall. That suggests students with more preparation hours <em>tend</em> to have higher assessment scores. But the scores don't follow one perfect pattern: the student who prepared for 4 hours scored below the student who prepared for 3 hours, and the last score is lower than the one before it.</p>
-<p>This is why a line can be useful without claiming to predict every score exactly. We want a rule that describes the <em>overall tendency</em>, while allowing individual scores to differ from it.</p>
-<p>It is also important to distinguish prediction from explanation. If these were real observational data, a relationship between preparation time and score would not by itself prove preparation caused the difference. Prior understanding, test difficulty, study methods, and other factors might matter too.</p>
-<div class="practice"><b>Before you continue</b><p>Before calculating a correlation or slope, describe the direction of the relationship in the scatterplot. Is it roughly linear? Does every point follow exactly the same rule?</p><details><summary>Compare your reasoning</summary><p>The scores generally rise as preparation hours increase, so the association looks positive and roughly linear. The points scatter around that pattern; no single line passes through all of them.</p></details></div>
+<p>The scatterplot rises from left to right, suggesting a positive association between preparation time and score. The pattern is not exact. Student 4 scored less than Student 3 despite preparing longer, and Student 8 scored less than Student 7.</p>
+<p>A line through the middle of the points could summarize that upward trend and supply a predicted score at a given preparation time. The distances from the points to the line will tell us how closely it fits.</p>
+<p>These measurements could support a prediction without establishing that preparation time caused the differences in scores. Prior knowledge, study methods, and other factors would matter in a real study.</p>
+<div class="practice"><b>Look at the points</b><p>Before calculating a correlation or slope, describe the direction of the relationship in the scatterplot. Is it roughly linear? Does every point follow exactly the same rule?</p><details><summary>See explanation</summary><p>The scores generally rise as preparation hours increase, so the association looks positive and roughly linear. The points scatter around that pattern; no single line passes through all of them.</p></details></div>
 </section>
-<section id="s1"><h2>2. Start with a prediction we already know: the mean</h2>
-<p>Suppose we decide not to use the preparation hours. We must give every student the same predicted score. What constant should we choose? A natural answer is the <strong>mean</strong> of the eight observed scores.</p>
-<p>The scores sum to 56, so the sample mean is \(\bar y=56/8=7\). Using only that information, we would predict 7 points for every student. The prediction is deliberately simple. It doesn't distinguish students at all.</p>
+<section id="s1"><h2>2. Predicting without preparation time</h2>
+<p>First, ignore the preparation hours. With only the scores, the natural single prediction for all eight students is their mean.</p>
+<p>The scores sum to 56, so their mean is \(\bar y=56/8=7\) points. This gives us a horizontal prediction line at 7. It treats all eight students alike.</p>
 <figure class="w10-visual" data-visual="w10-mean"><div class="w10-plot" tabindex="0" role="group" aria-label="The mean is already a least-squares prediction; scroll horizontally on narrow screens"><svg id="w10-mean" role="img" aria-labelledby="w10-mean-title w10-mean-desc" xmlns:xlink="http://www.w3.org/1999/xlink" width="540pt" height="259.2pt" viewBox="0 0 540 259.2" xmlns="http://www.w3.org/2000/svg" version="1.1">
 <title id="w10-mean-title">The mean is already a least-squares prediction</title><desc id="w10-mean-desc">For the eight practice responses, the mean is 7 and its squared error is 60. Predicting 9 for every record adds 8 × (9 − 7)² = 32 to that error. This is the same centered variation that appeared in variance.</desc>
  <metadata>
@@ -1035,24 +1029,24 @@
   </clipPath>
  </defs>
 </svg></div><figcaption><b>The mean is already a least-squares prediction</b>For the eight practice responses, the mean is 7 and its squared error is 60. Predicting 9 for every record adds 8 × (9 − 7)² = 32 to that error. This is the same centered variation that appeared in variance.</figcaption></figure>
-<p>Now imagine comparing those predictions with the scores that actually occurred. For Student 1, who scored 3, our prediction missed by 4 points. For Student 7, who scored 11, it missed by 4 points in the other direction. We should measure both mistakes; the opposite signs shouldn't cancel just because one prediction was too high and the other too low.</p>
-<p>That's why we'll add <em>squared</em> prediction errors. The mean-only prediction of 7 produces a total squared error of <strong>60 squared score points</strong> for these eight students. For the moment, think of 60 as a baseline: an amount of total error that a more informative prediction rule will try to beat.</p>
+<p>Student 1 scored 3, four points below the predicted 7. Student 7 scored 11, four points above it. Both predictions missed by the same amount, despite the opposite directions.</p>
+<p>Squaring the differences makes every miss contribute a nonnegative amount to the total. Predicting 7 for all eight students produces a <strong>total squared error of 60</strong>, measured in squared score points. This is the baseline against which we will compare a line that uses preparation time.</p>
 <div class="eq">\[SST=\sum (y_i-\bar y)^2=60.\]</div>
-<p>Those squared differences should look familiar. They're the same deviations from the mean that we used when discussing variance. Now they serve a new purpose: judging whether our predictions improve when we use another variable.</p>
+<p>The calculation uses the same squared deviations that appear in variance. Here, those deviations measure the error of a prediction that ignores preparation time.</p>
 <details class="optional-math"><summary>Why does the mean give the smallest squared error among constant predictions?</summary>
 <p>Suppose we predict a constant \(c\) for everyone. Write every error as \((y_i-\bar y)+(\bar y-c)\). When we square these terms and add them, the cross term disappears because the deviations from the mean add to zero:</p>
 <div class="eq">\[\sum(y_i-c)^2=\sum(y_i-\bar y)^2+n(c-\bar y)^2.\]</div>
 <p>The second term is never negative; it becomes zero only when \(c=\bar y\). So the mean is the best constant prediction under the squared-error rule.</p></details>
-<div class="practice"><b>Before you continue</b><p>The mean-only prediction is 7. For a student who scored 11, what is observed minus predicted? Would that student's error cancel the error of a student who scored 3 if we merely added signed errors?</p><details><summary>Compare your reasoning</summary><p>The residual is 11 − 7 = +4. A student who scored 3 has residual −4, so the signed errors would cancel even though both predictions missed by four points. Squaring avoids that cancellation.</p></details></div>
+<div class="practice"><b>Check a prediction</b><p>The mean-only prediction is 7. For a student who scored 11, what is observed minus predicted? Would that student's error cancel the error of a student who scored 3 if we merely added signed errors?</p><details><summary>See explanation</summary><p>The residual is 11 − 7 = +4. A student who scored 3 has residual −4, so the signed errors would cancel even though both predictions missed by four points. Squaring avoids that cancellation.</p></details></div>
 </section>
-<section id="s2"><h2>3. What would a line improve?</h2>
-<p>We've established a baseline prediction, but it's the same for everyone. Now suppose we want the predicted score to increase with preparation hours. We could draw a straight line through the scatterplot. Each value of \(x\) on that line corresponds to a predicted score \(\hat y\).</p>
-<p>A line has an intercept and a slope. The intercept tells us where it crosses the vertical axis, and the slope tells us how much the predicted score changes when preparation time increases by one hour.</p>
+<section id="s2"><h2>3. Predictions from a line</h2>
+<p>The horizontal line predicts 7 points for everyone. A sloped line, by contrast, can give different predicted scores at different preparation times. Each horizontal position \(x\) determines a prediction \(\hat y\) on the line.</p>
+<p>The <strong>intercept</strong> is the predicted value at \(x=0\). The <strong>slope</strong> describes the change in predicted score for each additional hour of preparation.</p>
 <div class="eq">\[\hat y=a+bx.\]</div>
-<p>Here \(a\) is the intercept and \(b\) is the slope. But we don't yet know which values to choose. For a first experiment, try the line \(\hat y=2+x\). It predicts 6 points for a student who prepared for 4 hours. That student's actual score was 5, so the prediction was one point too high.</p>
+<p>To see how predictions work, try \(\hat y=2+x\). At four hours, this line predicts 6 points. Student 4 actually scored 5, so the prediction is one point too high.</p>
 <p>We call the difference between the actual observation and the predicted observation the <strong>residual</strong>:</p>
 <div class="eq">\[\text{residual}=\text{observed}-\text{predicted}=y-\hat y.\]</div>
-<p>For that student, the residual is \(5-6=-1\). A negative residual tells us the actual score lies <em>below</em> the line. A positive residual lies above it.</p>
+<p>Student 4's residual is \(5-6=-1\). Negative residuals are below the line; positive residuals are above it.</p>
 <figure class="w10-visual" data-visual="w10-residuals"><div class="w10-plot" tabindex="0" role="group" aria-label="Prediction errors are vertical, signed, and then squared; scroll horizontally on narrow screens"><svg id="w10-residuals" role="img" aria-labelledby="w10-residuals-title w10-residuals-desc" xmlns:xlink="http://www.w3.org/1999/xlink" width="540pt" height="273.6pt" viewBox="0 0 540 273.6" xmlns="http://www.w3.org/2000/svg" version="1.1">
 <title id="w10-residuals-title">Prediction errors are vertical, signed, and then squared</title><desc id="w10-residuals-desc">For x = 4, the trial line predicts 6 while the observed score is 5. Its residual is −1 and its squared error is 1. Colors retain the residual sign; each bar’s height is nonnegative. The optimized line reduces the total from 8 to about 5.143.</desc>
  <metadata>
@@ -1447,16 +1441,16 @@
   </clipPath>
  </defs>
 </svg></div><figcaption><b>Prediction errors are vertical, signed, and then squared</b>For x = 4, the trial line predicts 6 while the observed score is 5. Its residual is −1 and its squared error is 1. Colors retain the residual sign; each bar’s height is nonnegative. The optimized line reduces the total from 8 to about 5.143.</figcaption></figure>
-<p>Every student has a residual. A reasonable line will have some positive and some negative residuals, but we want the overall mistakes to be small. As with the constant prediction, we square the residuals and add them:</p>
+<p>A line may overpredict some scores and underpredict others. Adding the signed residuals would allow those errors to cancel. Instead, we square them and add the results:</p>
 <div class="eq">\[SSE=\sum_{i=1}^{n}(y_i-\hat y_i)^2.\]</div>
-<p>We call this the <strong>sum of squared errors</strong>. The least-squares regression line is simply the line that makes this total as small as possible for the observed data. The idea is meaningful even before we know how to calculate the winning slope.</p>
-<p>Open the <a href="../demos/Regression_Explorer.html">Regression Explorer</a> alongside this lesson. Start with the horizontal mean-only line, then tilt it. Watch which observations fall above and below the line and what happens to the total squared error. It isn't enough for a line to pass through many points; it has to do well on the <em>whole set</em> of squared prediction errors.</p>
-<div class="practice"><b>Before you continue</b><p>If two lines have equal numbers of points above and below them, does that guarantee they fit equally well?</p><details><summary>Compare your reasoning</summary><p>No. The sizes of the errors matter. A line could be far from several points even when its positive and negative residuals cancel. Least squares compares the sum of their squares.</p></details></div>
+<p>The <strong>sum of squared errors</strong>, or SSE, measures the total size of the vertical misses. Least-squares regression chooses the line with the smallest SSE for the observed data.</p>
+<p>In the <a href="../demos/Regression_Explorer.html">Regression Explorer</a>, try the horizontal mean-only line, then change its slope. Watch the residuals and SSE. Some points move closer to a trial line while others move farther away; the total squared error provides a consistent way to compare the alternatives.</p>
+<div class="practice"><b>Compare two lines</b><p>If two lines have equal numbers of points above and below them, does that guarantee they fit equally well?</p><details><summary>See explanation</summary><p>No. The sizes of the errors matter. A line could be far from several points even when its positive and negative residuals cancel. Least squares compares the sum of their squares.</p></details></div>
 </section>
-<section id="s3"><h2>4. Choosing the line that fits best</h2>
-<p>We've posed a problem: find the line whose predictions have the smallest total squared error. Rather than guessing slopes forever, we can use the data to calculate the best one.</p>
+<section id="s3"><h2>4. Finding the least-squares line</h2>
+<p>The task is to find the line that minimizes SSE. The sample means give us a useful starting point: the average preparation time is \(\bar x=4.5\) hours, and the average score is \(\bar y=7\) points. A least-squares line with an intercept passes through \((\bar x,\bar y)\).</p>
 <p>Start with the center of our eight pairs. The average preparation time is \(\bar x=4.5\) hours, and the average score is \(\bar y=7\) points. There is a useful fact about least-squares lines: <strong>the fitted line always passes through the point of sample means</strong> \((\bar x,\bar y)\), provided we fit an intercept.</p>
-<p>In our example, this means the winning line must pass through \((4.5,7)\). Instead of moving the line up and down as well as tilting it, we can imagine keeping it attached at that point while we choose its slope.</p>
+<p>For these observations, the line passes through \((4.5,7)\). Once it is anchored there, its remaining choice is the slope.</p>
 <figure class="w10-visual" data-visual="w10-anchor"><div class="w10-plot" tabindex="0" role="group" aria-label="For each slope, the best intercept passes through the means; scroll horizontally on narrow screens"><svg id="w10-anchor" role="img" aria-labelledby="w10-anchor-title w10-anchor-desc" xmlns:xlink="http://www.w3.org/1999/xlink" width="525.6pt" height="266.4pt" viewBox="0 0 525.6 266.4" xmlns="http://www.w3.org/2000/svg" version="1.1">
 <title id="w10-anchor-title">For each slope, the best intercept passes through the means</title><desc id="w10-anchor-desc">The lines all have a = 7 − b(4.5). Moving off this anchor adds a common vertical offset and extra squared error. Once the intercept is chosen this way, fitting becomes a one-variable search for the slope.</desc>
  <metadata>
@@ -1750,11 +1744,11 @@
   </clipPath>
  </defs>
 </svg></div><figcaption><b>For each slope, the best intercept passes through the means</b>The lines all have a = 7 − b(4.5). Moving off this anchor adds a common vertical offset and extra squared error. Once the intercept is chosen this way, fitting becomes a one-variable search for the slope.</figcaption></figure>
-<p>The slope asks how the \(x\)-values and \(y\)-values change <em>together</em> relative to their means. Students whose preparation hours lie above average often have scores above average, too; students below average in hours often lie below average in score. We can capture that shared variation by adding the products \((x_i-\bar x)(y_i-\bar y)\).</p>
+<p>To calculate the slope, we look at how hours and scores vary together around their means. When preparation time is above average, scores also tend to be above average in this dataset. The products \((x_i-\bar x)(y_i-\bar y)\) capture that shared variation.</p>
 <p>For these eight records, the centered sums are \(S_{xx}=42\) and \(S_{xy}=48\). The least-squares slope is their ratio:</p>
 <div class="eq">\[b=\frac{S_{xy}}{S_{xx}}=\frac{48}{42}=\frac87\approx1.143.\]</div>
-<p>So the fitted line predicts about <strong>1.14 additional score points for each additional hour of preparation</strong>. This describes the fitted association in our example; it is not a proof that spending one more hour would cause a particular student's score to rise by exactly 1.14 points.</p>
-<p>Since the line passes through \((4.5,7)\), the intercept is the value that makes the predicted score equal to 7 when \(x=4.5\):</p>
+<p>The fitted slope is about <strong>1.14 score points per additional preparation hour</strong>. It describes the average change along the fitted line.</p>
+<p>The intercept follows from the requirement that the line predict 7 points at 4.5 hours:</p>
 <div class="eq">\[a=\bar y-b\bar x=7-\frac87(4.5)=\frac{13}{7}.\]</div>
 <p>That gives our least-squares prediction rule:</p>
 <div class="eq">\[\boxed{\hat y=\frac{13}{7}+\frac87x.}\]</div>
@@ -1999,23 +1993,23 @@
   </clipPath>
  </defs>
 </svg></div><figcaption><b>Completing the square identifies the best slope</b>Here SSE(b) = 36/7 + 42(b − 8/7)². The fixed term is the minimum error. The added square measures the penalty for choosing a different slope. The curve is the algebra behind the explorer’s line-tilting experiment.</figcaption></figure>
-<p>Notice the order of the reasoning. We chose the thing we wanted to minimize first: total squared prediction error. The formulas for \(a\) and \(b\) are the solution to that problem, rather than disconnected rules to memorize.</p>
+<p>The centered sums determine the slope that minimizes squared error; the mean point then determines the intercept. The result is a line fitted to all eight pairs.</p>
 <details class="optional-math"><summary>See why minimizing squared error gives this slope</summary>
 <p>Center the measurements by writing \(u_i=x_i-\bar x\) and \(v_i=y_i-\bar y\). Because the line passes through the sample means, its residuals can be written \(v_i-bu_i\). Therefore</p>
 <div class="eq">\[SSE(b)=\sum(v_i-bu_i)^2=S_{yy}-2bS_{xy}+b^2S_{xx}.\]</div>
 <p>Complete the square:</p>
 <div class="eq">\[SSE(b)=\left(S_{yy}-\frac{S_{xy}^2}{S_{xx}}\right)+S_{xx}\left(b-\frac{S_{xy}}{S_{xx}}\right)^2.\]</div>
 <p>Since \(S_{xx}\) is positive when \(x\) varies, the final squared term is smallest at \(b=S_{xy}/S_{xx}\). This derives the slope without calculus. The <a href="regression_mathematical_companion.html">mathematical companion</a> develops the calculation in full, with the centered data table.</p></details>
-<div class="practice"><b>Before you continue</b><p>If the best-fitting line goes through (4.5, 7) and has slope 8/7, what must the intercept accomplish?</p><details><summary>Compare your reasoning</summary><p>The intercept must make a + b(4.5) equal 7, so a = 13/7. The slope and intercept work together; once the slope is chosen, the mean point determines the intercept.</p></details></div>
+<div class="practice"><b>Find the intercept</b><p>If the best-fitting line goes through (4.5, 7) and has slope 8/7, what must the intercept accomplish?</p><details><summary>See explanation</summary><p>The intercept must make a + b(4.5) equal 7, so a = 13/7. The slope and intercept work together; once the slope is chosen, the mean point determines the intercept.</p></details></div>
 </section>
-<section id="s4"><h2>5. Put the line to work as a prediction</h2>
-<p>Suppose another student prepared for 6 hours, within the range of the eight observed preparation times. Our model predicts</p>
+<section id="s4"><h2>5. Using the fitted line</h2>
+<p>For a preparation time of 6 hours, within the observed range, the line predicts</p>
 <div class="eq">\[\hat y(6)=\frac{13}{7}+\frac87(6)=\frac{61}{7}\approx8.71\text{ points}.\]</div>
-<p>That's a <em>predicted score</em>, not a promise about any student's actual score. The line summarizes the overall trend, and the scatterplot reminds us that individual results vary around it.</p>
-<p>We can check how far the line missed a score we actually observed. Student 4 prepared for 4 hours and scored 5 points. The fitted line predicts \(45/7\approx6.43\), so the residual is</p>
+<p>A student who prepared for 6 hours might score higher or lower than 8.71. The line gives an estimated score based on the pattern in these eight records.</p>
+<p>Consider Student 4 again. At 4 hours, the fitted line predicts \(45/7\approx6.43\) points; the observed score was 5. The residual is</p>
 <div class="eq">\[e=5-\frac{45}{7}=-\frac{10}{7}\approx-1.43.\]</div>
-<p>That student's actual score was about 1.43 points below the prediction. This is what a residual tells us in context. A fitted line doesn't erase the observations; residuals help us see how the real scores differ from its predictions.</p>
-<p>The intercept in our fitted rule is about 1.86. You can calculate a prediction at zero hours by substituting \(x=0\), but our data only include preparation times from 1 to 8 hours. A prediction outside the observed range is an <strong>extrapolation</strong>, and it deserves more caution than a prediction within that range. The line's algebra extends forever; our evidence does not.</p>
+<p>The residual of approximately −1.43 means the observed score lies 1.43 points below the fitted line.</p>
+<p>The fitted intercept is about 1.86, but none of our students prepared for zero hours. Predictions beyond the observed range of 1–8 hours are called <strong>extrapolations</strong>. The straight-line relationship may not continue outside that range, so those predictions require additional evidence.</p>
 <figure class="w10-visual" data-visual="w10-range"><div class="w10-plot" tabindex="0" role="group" aria-label="The formula keeps producing values after the evidence stops; scroll horizontally on narrow screens"><svg id="w10-range" role="img" aria-labelledby="w10-range-title w10-range-desc" xmlns:xlink="http://www.w3.org/1999/xlink" width="525.6pt" height="259.2pt" viewBox="0 0 525.6 259.2" xmlns="http://www.w3.org/2000/svg" version="1.1">
 <title id="w10-range-title">The formula keeps producing values after the evidence stops</title><desc id="w10-range-desc">Green marks the observed x-range. The dashed continuation is extrapolation, not additional observed data. Interpolation at x = 5 still predicts a typical response rather than guaranteeing an individual score. No observations have been invented at x = 12.</desc>
  <metadata>
@@ -2233,14 +2227,14 @@
   </clipPath>
  </defs>
 </svg></div><figcaption><b>The formula keeps producing values after the evidence stops</b>Green marks the observed x-range. The dashed continuation is extrapolation, not additional observed data. Interpolation at x = 5 still predicts a typical response rather than guaranteeing an individual score. No observations have been invented at x = 12.</figcaption></figure>
-<div class="practice"><b>Before you continue</b><p>A friend wants to use this line to predict the score of someone who prepared for 20 hours. Can you put 20 into the equation? Is the result automatically reliable?</p><details><summary>Compare your reasoning</summary><p>You can evaluate the equation algebraically, but 20 hours is far beyond the observed range of 1–8. The relationship may change there, so this would be an unsupported extrapolation without additional data.</p></details></div>
+<div class="practice"><b>Try extrapolation</b><p>A friend wants to use this line to predict the score of someone who prepared for 20 hours. Can you put 20 into the equation? Is the result automatically reliable?</p><details><summary>See explanation</summary><p>You can evaluate the equation algebraically, but 20 hours is far beyond the observed range of 1–8. The relationship may change there, so this would be an unsupported extrapolation without additional data.</p></details></div>
 </section>
-<section id="s5"><h2>6. How much did knowing preparation time help?</h2>
-<p>We began by predicting the average score, 7, for everyone. That simple rule had a total squared error of 60. After using preparation time to fit a line, the sum of squared residuals falls to</p>
+<section id="s5"><h2>6. Measuring the improvement</h2>
+<p>The mean-only prediction produced squared error \(SST=60\). After fitting the line, the remaining squared error is</p>
 <div class="eq">\[SSE=\frac{36}{7}\approx5.14.\]</div>
-<p>That's a much smaller amount of squared prediction error in this dataset. One useful way to describe the improvement is to ask what fraction of the original squared variation was removed by the line.</p>
+<p>To compare the two models, we can calculate what fraction of the original squared variation was removed by fitting the line:</p>
 <div class="eq">\[R^2=1-\frac{SSE}{SST}=1-\frac{36/7}{60}=\frac{32}{35}\approx0.914.\]</div>
-<p>We call this value <strong>R-squared</strong>. Here, about 91.4% of the sample's squared variation in scores around the mean is accounted for by the fitted straight-line relationship with preparation hours. The remaining variation is represented by residuals.</p>
+<p>This proportion is called <strong>R-squared</strong>. Here, about 91.4% of the sample's squared variation in scores around their mean is accounted for by the fitted line using preparation time.</p>
 <figure class="w10-visual" data-visual="w10-variation"><div class="w10-plot" tabindex="0" role="group" aria-label="r² measures improvement over the original mean-only rule; scroll horizontally on narrow screens"><svg id="w10-variation" role="img" aria-labelledby="w10-variation-title w10-variation-desc" xmlns:xlink="http://www.w3.org/1999/xlink" width="540pt" height="316.8pt" viewBox="0 0 540 316.8" xmlns="http://www.w3.org/2000/svg" version="1.1">
 <title id="w10-variation-title">r² measures improvement over the original mean-only rule</title><desc id="w10-variation-desc">The same responses have SST = 60 in both pictures. The fitted line leaves SSE = 36/7 and reduces the squared error by 32/35 ≈ 91.43%. This is a proportion of squared variation, not a percentage of observations correctly predicted and not a causal attribution.</desc>
  <metadata>
@@ -2742,8 +2736,8 @@
   </clipPath>
  </defs>
 </svg></div><figcaption><b>r² measures improvement over the original mean-only rule</b>The same responses have SST = 60 in both pictures. The fitted line leaves SSE = 36/7 and reduces the squared error by 32/35 ≈ 91.43%. This is a proportion of squared variation, not a percentage of observations correctly predicted and not a causal attribution.</figcaption></figure>
-<p>It would be a mistake to say that preparation caused exactly 91.4% of any student's score, or that the line predicts every student's score with 91.4% accuracy. \(R^2\) describes a reduction in squared error <em>for this particular fitted dataset</em>, relative to the mean-only prediction.</p>
-<p>There is another familiar statistic for describing a straight-line association: the <strong>correlation coefficient \(r\)</strong>. Its sign tells us whether the linear relationship is positive or negative; its magnitude tells us how strongly the points follow a linear pattern. In this simple one-predictor regression with an intercept, \(R^2=r^2\). Here \(r\approx0.956\), consistent with the strong positive association visible in the scatterplot.</p>
+<p>This does not mean that individual predictions are 91.4% accurate, or that preparation caused 91.4% of anyone's score. The calculation compares squared errors in this dataset.</p>
+<p>The <strong>correlation coefficient</strong> \(r\) summarizes the direction and strength of a linear association. It is positive for upward trends and negative for downward trends. In simple linear regression with an intercept, \(R^2=r^2\). For these records, \(r\approx0.956\), agreeing with the strong upward pattern in the scatterplot.</p>
 <details class="optional-math"><summary>See how correlation and slope connect to earlier z-scores</summary>
 <p>Correlation can be computed from standardized values. It compares how far \(x\) is from its own mean with how far \(y\) is from its own mean, after dividing by their standard deviations:</p>
 <div class="eq">\[r=\frac1{n-1}\sum \left(\frac{x_i-\bar x}{s_x}\right)\left(\frac{y_i-\bar y}{s_y}\right).\]</div>
@@ -3072,11 +3066,11 @@
  </defs>
 </svg></div><figcaption><b>Correlation is the slope when both variables use SD units</b>A one-SD increase in x predicts an r-SD change in y. Multiplying by sy/sx converts the slope back to score points per hour. The two plots show the same paired observations; only their coordinate scales have changed.</figcaption></figure>
 </details>
-<div class="practice"><b>Before you continue</b><p>If the fitted line had SSE = 20 while the mean-only prediction had SST = 60, what would R² be? Would that tell you the line was correct in every detail?</p><details><summary>Compare your reasoning</summary><p>R² = 1 − 20/60 = 2/3, or about 66.7%. That measures a reduction in squared error. We would still need the scatterplot and residuals to judge what the line might be missing.</p></details></div>
+<div class="practice"><b>Think about R²</b><p>If the fitted line had SSE = 20 while the mean-only prediction had SST = 60, what would R² be? Would that tell you the line was correct in every detail?</p><details><summary>See explanation</summary><p>R² = 1 − 20/60 = 2/3, or about 66.7%. That measures a reduction in squared error. We would still need the scatterplot and residuals to judge what the line might be missing.</p></details></div>
 </section>
-<section id="s6"><h2>7. What does the line miss?</h2>
-<p>A fitted line may provide a useful summary and still miss an important feature of the data. Perhaps the relationship curves, or the points spread out more for some preparation times than for others. A single number such as \(r\) or \(R^2\) will not show these problems by itself.</p>
-<p>That is why we look at a <strong>residual plot</strong>. It puts preparation time on the horizontal axis and the residual—observed minus predicted score—on the vertical axis. If a line captures the overall pattern reasonably well, the residuals may scatter above and below zero without a systematic shape. If they form a curve or funnel, that tells us the line is leaving a pattern unexplained.</p>
+<section id="s6"><h2>7. Looking at residuals</h2>
+<p>A strong fitted relationship can hide important features of the data. The trend might curve, for instance, or the scores might become more variable as preparation time increases. Correlation and R-squared alone cannot reveal those patterns.</p>
+<p>A <strong>residual plot</strong> places preparation time on the horizontal axis and each residual on the vertical axis. An irregular band above and below zero is consistent with a useful linear summary. A clear curve or funnel suggests the fitted line is missing something systematic.</p>
 <figure class="w10-visual" data-visual="w10-diagnostics"><div class="w10-plot" tabindex="0" role="group" aria-label="Residual patterns reveal what r² alone cannot; scroll horizontally on narrow screens"><svg id="w10-diagnostics" role="img" aria-labelledby="w10-diagnostics-title w10-diagnostics-desc" xmlns:xlink="http://www.w3.org/1999/xlink" width="547.2pt" height="259.2pt" viewBox="0 0 547.2 259.2" xmlns="http://www.w3.org/2000/svg" version="1.1">
 <title id="w10-diagnostics-title">Residual patterns reveal what r² alone cannot</title><desc id="w10-diagnostics-desc">The panels use different constructed datasets and each has its own fitted line. A curve indicates a systematic miss in the mean relationship. A fan indicates changing spread. A short, patternless-looking sample does not prove all model assumptions; data collection and independence still matter.</desc>
  <metadata>
@@ -3561,7 +3555,7 @@
   </clipPath>
  </defs>
 </svg></div><figcaption><b>Residual patterns reveal what r² alone cannot</b>The panels use different constructed datasets and each has its own fitted line. A curve indicates a systematic miss in the mean relationship. A fan indicates changing spread. A short, patternless-looking sample does not prove all model assumptions; data collection and independence still matter.</figcaption></figure>
-<p>We should also notice observations far from the rest of the data. An unusually high or low \(x\)-value can sometimes move the fitted line a great deal. This is called <em>influence</em>. A point can strongly influence the line even if its final residual looks small, because the line may have tilted toward it.</p>
+<p>An observation with a preparation time far from the others may shift the fitted line appreciably. Such an observation can have considerable <strong>influence</strong>, even if its final residual is small, because the line may have rotated toward it.</p>
 <details class="optional-math"><summary>Explore an influential observation</summary>
 <figure class="w10-visual" data-visual="w10-influence"><div class="w10-plot" tabindex="0" role="group" aria-label="A distant point can rotate the fitted relationship; scroll horizontally on narrow screens"><svg id="w10-influence" role="img" aria-labelledby="w10-influence-title w10-influence-desc" xmlns:xlink="http://www.w3.org/1999/xlink" width="525.6pt" height="266.4pt" viewBox="0 0 525.6 266.4" xmlns="http://www.w3.org/2000/svg" version="1.1">
 <title id="w10-influence-title">A distant point can rotate the fitted relationship</title><desc id="w10-influence-desc">The orange point is an invented addition to the eight practice records. Compare the two slopes before judging the point by its residual alone. As a sensitivity experiment, the exclusion lets us compare fitted lines; whether the record belongs requires context.</desc>
@@ -3839,13 +3833,13 @@
  </defs>
 </svg></div><figcaption><b>A distant point can rotate the fitted relationship</b>The orange point is an invented addition to the eight practice records. Compare the two slopes before judging the point by its residual alone. As a sensitivity experiment, the exclusion lets us compare fitted lines; whether the record belongs requires context.</figcaption></figure>
 <p>Compare the fitted line with and without an unusual observation as a sensitivity check. That does not mean the record should be deleted. Its context and measurement quality matter before any decision about whether it belongs in the analysis.</p></details>
-<p>These checks help keep our conclusion in perspective. In our eight-student teaching example, a line is a reasonable summary of a positive trend, but eight invented records do not support claims about all students everywhere. Real data collection and the model's limitations remain essential.</p>
-<div class="practice"><b>Before you continue</b><p>Suppose a residual plot shows a clear U-shaped pattern. Is a large R² enough to justify keeping the straight-line model without further examination?</p><details><summary>Compare your reasoning</summary><p>No. A U-shaped residual pattern suggests the straight line is missing curvature. We should examine a model that allows the mean response to bend or change across the predictor range.</p></details></div>
+<p>The eight invented observations illustrate a method. For an actual study, the scatterplot, residuals, sample selection, and measurement process would all affect how confidently we use the fitted line.</p>
+<div class="practice"><b>Inspect the residuals</b><p>Suppose a residual plot shows a clear U-shaped pattern. Is a large R² enough to justify keeping the straight-line model without further examination?</p><details><summary>See explanation</summary><p>No. A U-shaped residual pattern suggests the straight line is missing curvature. We should examine a model that allows the mean response to bend or change across the predictor range.</p></details></div>
 </section>
-<section id="s7"><h2>8. What if we collected a different sample?</h2>
-<p>For our eight students, we found one fitted line. But if a teacher collected data from eight different students, their preparation times and scores would differ, and the fitted line would probably have a different slope and intercept.</p>
-<p>We've already learned to think about statistics as quantities that change from sample to sample. Regression coefficients are statistics too. When we use a sample line to describe a larger population, we need to remember that our estimate has uncertainty.</p>
-<p>The Regression Explorer lets you collect repeated samples from one chosen population model and watch different fitted lines appear. The more data we collect across the same useful range of preparation hours, the less the fitted slopes will usually vary. Greater unexplained variation makes the estimates less stable. This is a continuation of our earlier work with sampling variability.</p>
+<section id="s7"><h2>8. A line from a sample</h2>
+<p>The fitted slope and intercept depend on the students in the sample. A different set of students would generally produce a different line.</p>
+<p>Slope and intercept are sample statistics, just like a mean or a proportion. Their values therefore have sampling variability.</p>
+<p>The Regression Explorer can generate several samples from one population model and fit a line to each. With more observations across a useful range of preparation times, the slopes generally vary less; with more unexplained score variation, they tend to vary more.</p>
 <details class="optional-math"><summary>Optional experiment: collect many fitted lines</summary>
 <figure class="w10-visual" data-visual="w10-sampling"><div class="w10-plot" tabindex="0" role="group" aria-label="The line is an estimate: repeat the sample, repeat the fit; scroll horizontally on narrow screens"><svg id="w10-sampling" role="img" aria-labelledby="w10-sampling-title w10-sampling-desc" xmlns:xlink="http://www.w3.org/1999/xlink" width="540pt" height="410.4pt" viewBox="0 0 540 410.4" xmlns="http://www.w3.org/2000/svg" version="1.1">
 <title id="w10-sampling-title">The line is an estimate: repeat the sample, repeat the fit</title><desc id="w10-sampling-desc">Every simulated sample uses the same mean model, Y = 2 + 1.1x + error, with independent normal errors of SD 2 and the same x-range. Orange marks the fixed population line or slope. The blue distribution concerns fitted slopes across samples, not residuals within one sample. The histograms use common bin boundaries and horizontal ranges.</desc>
@@ -5081,7 +5075,7 @@
  </defs>
 </svg></div><figcaption><b>The line is an estimate: repeat the sample, repeat the fit</b>Every simulated sample uses the same mean model, Y = 2 + 1.1x + error, with independent normal errors of SD 2 and the same x-range. Orange marks the fixed population line or slope. The blue distribution concerns fitted slopes across samples, not residuals within one sample. The histograms use common bin boundaries and horizontal ranges.</figcaption></figure>
 <p>The simulation separates two kinds of variation. A residual describes how an individual observation differs from the fitted line in <em>one sample</em>. Sampling variability describes how the fitted line changes if we collect a <em>new sample</em>. They are related but distinct. Formal inference about regression coefficients needs additional modeling assumptions; we're focusing on understanding the fitted line first.</p></details>
-<p>Our statistical work has brought us from a simple question to a defensible prediction: preparation time may help predict assessment scores, a least-squares line minimizes the total squared prediction error, and residuals tell us what the line misses. The mathematics becomes more meaningful once those ideas are in place.</p>
+<p>Regression supplies a line for predicting scores from preparation hours. Least squares tells us how to fit it, and residuals help us decide how useful it is. Applying it to new students would require data from an appropriate population.</p>
 <figure class="w10-visual" data-visual="w10-groups"><div class="w10-plot" tabindex="0" role="group" aria-label="A two-group comparison is a regression with a 0/1 predictor; scroll horizontally on narrow screens"><svg id="w10-groups" role="img" aria-labelledby="w10-groups-title w10-groups-desc" xmlns:xlink="http://www.w3.org/1999/xlink" width="525.6pt" height="237.6pt" viewBox="0 0 525.6 237.6" xmlns="http://www.w3.org/2000/svg" version="1.1">
 <title id="w10-groups-title">A two-group comparison is a regression with a 0/1 predictor</title><desc id="w10-groups-desc">These invented group values illustrate a connection to Week 7. The line fits the two group means: a = 3, b = 3. Tiny horizontal offsets separate overlapping marks; the actual predictor values are only 0 and 1. Regression with a quantitative predictor extends the prediction beyond two group labels.</desc>
  <metadata>
@@ -5259,9 +5253,9 @@
  </defs>
 </svg></div><figcaption><b>A two-group comparison is a regression with a 0/1 predictor</b>These invented group values illustrate a connection to Week 7. The line fits the two group means: a = 3, b = 3. Tiny horizontal offsets separate overlapping marks; the actual predictor values are only 0 and 1. Regression with a quantitative predictor extends the prediction beyond two group labels.</figcaption></figure>
 </section>
-<section id="references"><h2>Continue the investigation</h2>
-<p>The main task this week is to follow one relationship all the way from a scatterplot to a prediction, then explain the result in ordinary language. The purpose of the formulas is to help answer that question.</p>
-<p>If you want to go farther mathematically, I've kept the complete derivations—centering identities, completing the square, correlation, standardized regression, residual diagnostics, and repeated-sample models—in an optional companion. The textbook chapter is also available as an additional reference.</p>
+<section id="references"><h2>Practice and references</h2>
+<p>The <a href="../demos/Regression_Explorer.html">explorer</a> and guided lab use the same ideas in different ways: move a line, calculate its fit, and interpret the result in the context of the measurements.</p>
+<p>The mathematical companion contains the full derivations of the slope and intercept, the connection with correlation, and a closer study of residuals and sampling variation. The textbook chapter provides additional examples.</p>
 <a class="pdf-link" href="../demos/Regression_Explorer.html">Regression Explorer: experiment with the line and its errors</a>
 <a class="pdf-link" href="../labs/Math146_Week9_Lab.html">Week 9 guided regression lab</a>
 <a class="pdf-link" href="../demos/Regression_Calculator.html">Regression Calculator</a>
